@@ -6534,6 +6534,11 @@ gatsby-plugin-google-analytics@^2.1.20:
     "@babel/runtime" "^7.8.7"
     minimatch "3.0.4"
 
+gatsby-plugin-instagram-embed@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-instagram-embed/-/gatsby-plugin-instagram-embed-2.0.1.tgz#bb619961783631cd9216f4baccab30280d78e8f5"
+  integrity sha512-CdzezDgYz73dLArWEs/eZtIZEMgytBtHqNDYfFSSOn9SM5aQvhsJGwNNg54zlPlOrDqVLc7a4DEDJWFIWk496A==
+
 gatsby-plugin-manifest@^2.2.23:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-manifest/-/gatsby-plugin-manifest-2.3.3.tgz#119b9e648428a0db8979d577d2fdb20a9f3c18b7"
@@ -6653,7 +6658,7 @@ gatsby-plugin-theme-ui@^0.2.26:
   resolved "https://registry.yarnpkg.com/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.2.53.tgz#57a52339e50ede7ef4df0b1b5593d360b56b597d"
   integrity sha512-AlQC+uC9lvrP3LlGsLe0f0azp7B5c49qWl4b3FDj8xbravBoqFmJT7XrNTpYYbxnCnx/K1v0QtwP8qindw0S2g==
 
-gatsby-plugin-twitter@^2.1.14:
+gatsby-plugin-twitter@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-twitter/-/gatsby-plugin-twitter-2.2.1.tgz#7f953f90a12bf9a3430641b213ab4671d5f22d7a"
   integrity sha512-y2HvIt4LuINIX5uGFlLdnqbWoteg+Qt/OV/ub2aS412KJ76ofaTwrll+wzYOUw9n3tXWEP9KwKYZsOf7YU+QQA==

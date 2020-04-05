@@ -55,6 +55,7 @@ module.exports = {
     "gatsby-plugin-theme-ui",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-twitter",
+    "gatsby-plugin-instagram-embed",
     {
       resolve: "gatsby-plugin-google-analytics",
       options: {
