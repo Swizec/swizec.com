@@ -2,8 +2,14 @@ import React from "react"
 import { Helmet } from "react-helmet"
 
 export default (props) => {
-  const title = [props.title, "Swizec.com"].filter(Boolean).join(" | ")
-  const description = props.description
+  const title = [
+    props.pageContext.frontmatter && props.pageContext.frontmatter.title,
+    "Swizec.com",
+  ]
+    .filter(Boolean)
+    .join(" | ")
+  const description =
+    props.pageContext.description && props.pageContext.frontmatter.description
 
   const image = `https://swizec.com${
     props.image || "/serverlessreact-cover.png"
