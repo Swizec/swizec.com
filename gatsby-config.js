@@ -45,19 +45,8 @@ module.exports = {
             },
           },
           {
-            resolve: "@raae/gatsby-remark-oembed",
-            options: {
-              usePrefix: false,
-              providers: {
-                include: [
-                  "YouTube",
-                  "CodeSandbox",
-                  "Codepen",
-                  "Twitter",
-                  "Instagram",
-                ],
-              },
-            },
+            resolve: "gatsby-remark-embedder",
+            options: {},
           },
         ],
       },

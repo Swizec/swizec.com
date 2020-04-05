@@ -37,14 +37,11 @@ const Reactions = ({ page }) => {
   return (
     <Container>
       <JoyButton>
-        <div className="Widget__WidgetLayout-sc-1ityn2x-2 cJHITu">
-          <h2 className="styles__Heading-sc-1lygi1f-1 Widget__Question-sc-1ityn2x-3 haLIoK">
-            Did you enjoy this chapter?
-          </h2>
-          <div className="styles__Flex-sc-1lygi1f-2 biiuQx">
+        <div>
+          <h2>Did you enjoy this article?</h2>
+          <div>
             <a
               href={`https://spark-joy.netlify.com/e9819383-7166-4d69-a091-557bd7f73f22/thumbsdown?instanceOfJoy=${pathname}`}
-              className="Widget__RoundButton-sc-1ityn2x-1 caphDb"
             >
               <span role="img" aria-label="thumbs-down">
                 👎
@@ -52,7 +49,6 @@ const Reactions = ({ page }) => {
             </a>
             <a
               href={`https://spark-joy.netlify.com/e9819383-7166-4d69-a091-557bd7f73f22/thumbsup?instanceOfJoy=${pathname}`}
-              className="Widget__RoundButton-sc-1ityn2x-1 caphDb"
             >
               <span role="img" aria-label="thumbs-up">
                 👍
