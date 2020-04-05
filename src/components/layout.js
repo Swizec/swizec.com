@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react"
 import { Global } from "@emotion/core"
-import { Box, Flex, Button, Link, Heading } from "rebass"
+import { Box, Flex, Text } from "rebass"
 import { Sidenav, Pagination } from "@theme-ui/sidenav"
 
 import Head from "./head"
@@ -8,6 +8,7 @@ import SkipLink from "./skip-link"
 import Header from "./header"
 import Footer from "./footer"
 import Nav from "./nav"
+import { ArticleMetaData } from "./ArticleMetaData"
 import { currentLocation } from "../util"
 import { Title } from "../components/blocks"
 
@@ -67,7 +68,7 @@ const Sidebar = (props) => {
 }
 
 const Content = (props) => (
-  console.log("THESE ARE PROPS", props),
+  console.log(props),
   !props.fullwidth || props.menu ? (
     <Sidebar
       {...props}
@@ -77,9 +78,12 @@ const Content = (props) => (
     >
       <Head {...props} />
       {props.pageContext.frontmatter && (
-        <Title>{props.pageContext.frontmatter.title}</Title>
+        <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title>
       )}
+
       <main id="content">{props.children}</main>
+
+      <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
     </Sidebar>
   ) : (
     <>

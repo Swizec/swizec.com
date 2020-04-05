@@ -145,7 +145,7 @@ export const Title = (props) => {
         id={slug}
       >
         <Link
-          to={`#${slug}`}
+          to={props.uri}
           style={{
             color: "inherit",
             textDecoration: "none",

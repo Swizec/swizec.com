@@ -27,6 +27,7 @@
         "@types/aws-lambda": "^8.10.39",
         "@types/aws-sdk": "^2.7.0",
         "countries-list": "^2.4.3",
+        "date-fns": "^2.11.1",
         "deepmerge": "^4.0.0",
         "gatsby": "^2.13.48",
         "gatsby-plugin-catch-links": "^2.1.2",
