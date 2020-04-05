@@ -18,7 +18,6 @@ module.exports = {
         remarkPlugins,
         plugins: ["gatsby-remark-images"],
         gatsbyRemarkPlugins: [
-          "gatsby-remark-copy-linked-files",
           {
             resolve: "gatsby-remark-giphy",
             options: {
@@ -27,6 +26,7 @@ module.exports = {
               embedWidth: "80%",
             },
           },
+          "gatsby-remark-copy-linked-files",
           {
             resolve: "gatsby-remark-images",
             options: {

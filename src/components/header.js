@@ -1,6 +1,7 @@
 import React from "react"
-import { Flex, Box, Link, Button } from "rebass"
+import { Flex, Box, Link, Button, Image } from "rebass"
 import { useColorMode } from "theme-ui"
+import swizecAvatar from "../images/swizec.png"
 
 const modes = ["themed", "lite", "dark", "gray", "hack", "pink"]
 
@@ -67,6 +68,7 @@ export default ({ nav, menu, setMenu, style, showBanner }) => {
       bg="background"
       style={style}
     >
+      <Image src={swizecAvatar} width={35} />
       {/* <Button
         title="Toggle Menu"
         sx={{
