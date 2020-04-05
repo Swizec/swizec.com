@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react"
 import { Global } from "@emotion/core"
-import { Box, Flex, Button, Link } from "rebass"
+import { Box, Flex, Button, Link, Heading } from "rebass"
 import { Sidenav, Pagination } from "@theme-ui/sidenav"
 
 import Head from "./head"
@@ -9,6 +9,7 @@ import Header from "./header"
 import Footer from "./footer"
 import Nav from "./nav"
 import { currentLocation } from "../util"
+import { Title } from "../components/blocks"
 
 import Reactions from "./reactions"
 
@@ -65,7 +66,8 @@ const Sidebar = (props) => {
   )
 }
 
-const Content = (props) =>
+const Content = (props) => (
+  console.log("THESE ARE PROPS", props),
   !props.fullwidth || props.menu ? (
     <Sidebar
       {...props}
@@ -74,6 +76,9 @@ const Content = (props) =>
       setMenu={props.setMenu}
     >
       <Head {...props} />
+      {props.pageContext.frontmatter && (
+        <Title>{props.pageContext.frontmatter.title}</Title>
+      )}
       <main id="content">{props.children}</main>
     </Sidebar>
   ) : (
@@ -82,6 +87,7 @@ const Content = (props) =>
       <main id="content">{props.children}</main>
     </>
   )
+)
 
 export default (props) => {
   const fullwidth = currentLocation(props) === "/"

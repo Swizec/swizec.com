@@ -50,6 +50,7 @@ export const wrapper = ({ title, description, image, ...props }) => {
           pageName={props["*"]}
         />
       )}
+
       {children}
     </>
   )

@@ -3,7 +3,7 @@ import { Box, Heading, Text, Button } from "rebass"
 import { Link } from "gatsby"
 import slugify from "slugify"
 
-export const Container = props => (
+export const Container = (props) => (
   <Box
     {...props}
     sx={{
@@ -16,7 +16,7 @@ export const Container = props => (
   />
 )
 
-export const Banner = props => (
+export const Banner = (props) => (
   <Box
     {...props}
     sx={{
@@ -50,7 +50,7 @@ export const Banner = props => (
   </Box>
 )
 
-export const LogoGrid = props => (
+export const LogoGrid = (props) => (
   <Box
     {...props}
     sx={{
@@ -81,7 +81,7 @@ export const Grid = ({ width = 256, gap = 4, ...props }) => (
   />
 )
 
-export const NavGrid = props => (
+export const NavGrid = (props) => (
   <Box
     {...props}
     sx={{
@@ -119,8 +119,8 @@ export const NavGrid = props => (
   />
 )
 
-export const Title = props => {
-  let fontSize = [4, 5, 6]
+export const Title = (props) => {
+  let fontSize = [5, 6, 7]
 
   if (props.h2) {
     fontSize = [3, 4, 5]
@@ -135,10 +135,12 @@ export const Title = props => {
     <Text>
       <Heading
         {...props}
-        width={[1, 1, 2 / 3]}
         fontSize={fontSize}
-        mt={[4, 4, 5]}
-        mb={[2, 3, 3.5]}
+        width={["100%", "120%", "130%"]}
+        ml={[0, "-10%", "-15%"]}
+        mr={[0, "-10%", "-15%"]}
+        mt={[3, 4, 5]}
+        mb={[2, 3, 4]}
         sx={{ textAlign: "center", margin: "auto", ...props.sx }}
         id={slug}
       >

@@ -2,14 +2,13 @@ import React from "react"
 import { Helmet } from "react-helmet"
 
 export default (props) => {
-  const title = [props.title, "ServerlessReact.dev"].filter(Boolean).join(" | ")
-  const description =
-    props.description ||
-    "Learn how to build fast modern webapps from idea to launch with ServerlessReact.Dev"
-  const image = `https://serverlessreact.dev${
+  const title = [props.title, "Swizec.com"].filter(Boolean).join(" | ")
+  const description = props.description
+
+  const image = `https://swizec.com${
     props.image || "/serverlessreact-cover.png"
   }`
-  const url = `https://serverlessreact.dev${
+  const url = `https://swizec.com${
     props.pageName !== undefined ? `/${props.pageName}` : ""
   }`
 
