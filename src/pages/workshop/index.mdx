@@ -1,0 +1,122 @@
+import { Box, Flex, Button } from "rebass"
+import { Banner, NavGrid, Container, Grid, Title, JumpToCourse } from "../.."
+import { graphql } from "gatsby"
+import { Video } from "../../components/Video"
+import Pricing from "../../components/pricing"
+
+# Serverless React Workshop
+
+Learn how to **build fast modern webapps** from idea to launch with the Serverless React workshop
+
+![Swizec teaching at Reactathon](../../images/swizec-teaching.jpg)
+
+## Hello friend 👋
+
+Today you're going to learn a bunch of stuff. Some in detail, some just enough to get stuff working. Our goal is to build an app together and leave with enough knowledge to bring your ideas to life from scratch.
+
+We're going to leverage your existing JavaScript skills and show how _you_ can own the whole stack. The age of the full-stack frontend engineer is back, baby!
+
+## Join the Zoom call
+
+We're going to hang out on Zoom for about 7 hours. Join here 👉 https://zoom.us/j/106282602
+
+We'll cover the hyper productive modern stack combining React, Gatsby, Serverless, and design systems that lets you build an entire app from scratch faster than you thought possible. Using the frontend skills you already have. Frontend engineers owning the full stack, that's the best part.
+
+I encourage you to share your camera so we can see your face. Makes it feel livelier and I think we can all do with a little more human interaction these days. Filters and AR shenanigans strongly encouraged. 😉
+
+Can't sit still for 7 hours? No worries, me neither. We'll take breaks.
+
+## Before the workshop
+
+There's a couple things I'd like you to set up before the workshop. Experience has shown they take too much time during.
+
+1. **Serverless/AWS setup.** You'll want to have a working serverless setup and AWS account. They ask for a credit card and I'll make sure we keep everything within the free tier during the workshop. Follow these instructions to setup your local machine: https://serverless.com/framework/docs/providers/aws/guide/credentials/
+
+I use the branch with local environment variables.
+
+2. **Auth0 account.** We'll use Auth0 for authentication. I'll explain what it is and how it works. Go to auth0.com and create an account. It's free to start with. I have several production apps and haven't reached the paid tier yet :)
+
+3. **JavaScript development.** Make sure you can run `create-react-app something`. If that works, your computer has all pre-requisites installed.
+
+4. **Git.** Just in case you don't have it yet, make sure your computer works with git. We've had folks switch from macos to windows just before the workshop before and then nothing worked. No fun.
+
+I'm going to be using a Mac and giving instrutions using the terminal. As long as you can follow NPM install and Git instructions, stick with the tools you're used to.
+
+## Our goal Today
+
+Think of this as our setlist 🤘
+
+🕵️‍♀️ how to set up a static webapp with Gatsby
+
+❓ why that's important for SEO and speed scores
+
+🎨 how to build good-enough looking UIs without design skills
+
+🎓 how to move some functionality to the backend with serverless
+
+📚 how to use serverless to store data
+
+🔧 using GraphQL to query your data
+
+🔧 using GraphQL to update your data
+
+🎣 React Hooks
+
+You’ll leave this full-day workshop knowing some of the most powerful (and fun!) technologies that make web development in 2020 so amazing.
+
+## Swizec Teller
+
+I'm Swizec and I'll be your instructor for the day. You can poke me on twitter as [@swizec](https://twitter.com/swizec) if you wanna say hi or ask questions later. Emailing `hi@swizec.com` works too.
+
+https://www.instagram.com/p/Bd_SGSzlBrb/
+
+You can find out stuff about me via Google. Here's some highlights:
+
+- been coding for over 20 years
+- writing a blog at [swizec.com](https://swizec.com/) for 12+ years
+  (please don't read early entries, I was in high school lol)
+- published [Why Programmers Work at Night](https://nightowlsbook.com), that was fun
+- published [Data Visualization with D3.js](http://nightowlsbook.com/)
+- published 3 editions of [React + D3](https://www.swizec.com/reactd3js/), that's been great
+- created [ReactForDataViz.com](https://reactfordataviz.com/) course
+- made this [interactive ES6+ cheatsheet — es6cheatsheet.com](https://es6cheatsheet.com/)
+- created [ServerlessReact.Dev](https://serverlessreact.dev) video course
+- slowly creating a framework for modern webapp development. Your feedback helps ☺️
+
+## A couple apps I built with the stack you'll learn today
+
+Some of these apps I use every day, some have other users too. Most were experiments that have potential and need some marketing love to take off.
+
+- [TechLetter.App](https://techletter.app) - convert markdown to emails
+- [Shared Grocery List](https://shared-grocery-list.swizec.now.sh/)
+- [ThreadCompiler.com](https://threadcompiler.com/) - blogging engine for twitter experiment
+- [isHotDogTaco](https://ishotdogtaco.com/) - an experiment in fast building on stage
+- [ServerlessReact.Dev](https://serverlessreact.dev) itself
+- [Spark Joy](https://spark-joy.netlify.com/) an app I use to get feedback
+
+# Let's get down to business
+
+This is an interactive workshop. If you have a question, ask. If something doesn't make sense, ask. If something is confusing, ask. If I'm not making sense, ask. If your code doesn't work, ask.
+
+You will write code today. Some code will live on your computer, some in the browser.
+
+We will take breaks.
+
+![](../../images/ask-questions.gif)
+
+Code you'll write today works with **React 16** and uses modern **ES6+**.
+
+## One last thing
+
+Please fill out this form. Your feedback helps me improve :)
+
+<div
+  class="typeform-widget"
+  data-url="https://swizecteller.typeform.com/to/pMeFhQ"
+  data-transparency="50"
+  data-hide-headers="true"
+  data-hide-footer="true"
+  style="width: 100%; height: 600px;"
+></div>
+
+No form? Reload the page.

@@ -1,0 +1,45 @@
+export const title = "Module 2"
+
+export const description = ""
+
+export const image = "/chapter_headers/serverless-elements.png"
+import { Vimeo } from "../../components/Video"
+
+# Part 3: Play around with GraphQL
+
+We're going to use a lot of GraphQL in our app. This is your chance to play around with GraphQL using a schema just like we're going to build in our app.
+
+<iframe src="https://cbvo4h8dge.execute-api.us-east-1.amazonaws.com/dev/graphql" style={{width: '120%', border: 0, height: '600px'}}></iframe>
+
+If the iframe doesn't load, try disabling your browser's 3rd party cookie protection for this site, or [visit the playground directly](https://cbvo4h8dge.execute-api.us-east-1.amazonaws.com/dev/graphql)
+
+## The basics
+
+GraphQL works by defining the shape of what you're looking for.
+
+```graphql
+query {
+    what_you_want {
+        its_property
+    }
+}
+```
+
+You use mutations to save data.
+
+```graphql
+mutation {
+    yourMutation(prop1: "value", prop2: "value") {
+        return_value
+    }
+}
+```
+
+Try using the autocomplete feature and the schema definition in the playground above to complete these 4 exercises.
+
+## Exercises
+
+- fetch a list of all landing pages
+- fetch a specific landing page
+- create a new page
+- update a page

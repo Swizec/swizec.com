@@ -1,0 +1,42 @@
+export const title = "Module 3"
+
+export const description = ""
+
+export const image = "/chapter_headers/serverless-elements.png"
+import { Vimeo } from "../components/Video"
+
+# Create user landing pages
+
+This is the meat of our app. Users creating their beautiful landing pages using nothing but markdown.
+
+We create a simple editor and leverage Gatsby's markdown rendering machinery to create static pages from our DynamoDB database using GraphQL at build time. When the page renders, we refresh its state live from the server just in case.
+
+<Vimeo id="392506029" />
+
+## A simple dashboard component
+
+<Vimeo id="392506275" />
+
+## A create page form
+
+<Vimeo id="392506657" />
+
+## createPage mutation on button click
+
+For better accessibility you should wrap the form in a `<form>` tag and use the `onSubmit` event to run your mutation. But we're hacking a basic MVP so using clicks is fine :)
+
+<Vimeo id="392506932" />
+
+## createPage mutation on the backend
+
+<Vimeo id="392747608" />
+
+## Make the pages table
+
+Also verify that page creation now works :)
+
+<Vimeo id="392748048" />
+
+## Link to page after creating
+
+<Vimeo id="393152465" />
