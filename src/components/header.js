@@ -1,7 +1,6 @@
 import React from "react"
 import { Flex, Box, Link, Button } from "rebass"
 import { useColorMode } from "theme-ui"
-import { useAuth } from "react-use-auth"
 
 const modes = ["themed", "lite", "dark", "gray", "hack", "pink"]
 
@@ -22,7 +21,7 @@ const Burger = ({ size = 24 }) => (
   </Box>
 )
 
-const Dot = props => (
+const Dot = (props) => (
   <svg
     viewBox="0 0 32 32"
     width="24"
@@ -50,29 +49,10 @@ const Dot = props => (
   </svg>
 )
 
-const Login = () => {
-  const { isAuthenticated, login, user } = useAuth()
-
-  return isAuthenticated() ? (
-    <Box mr={2}>
-      Hi <strong>{user.nickname}</strong>
-      <Box sx={{ display: ["none", "inline"] }}>,</Box>
-      <Link href="/module-0" ml={1} sx={{ display: ["none", "inline"] }}>
-        lessons
-      </Link>
-    </Box>
-  ) : (
-    <Link mr={2} variant="nav" href="#" onClick={login}>
-      Student Login
-    </Link>
-  )
-}
-
 export default ({ nav, menu, setMenu, style, showBanner }) => {
   const [mode, setMode] = useColorMode()
-  const { isAuthenticated } = useAuth()
 
-  const cycleMode = e => {
+  const cycleMode = (e) => {
     const i = (modes.indexOf(mode) + 1) % modes.length
     setMode(modes[i])
   }
@@ -87,49 +67,30 @@ export default ({ nav, menu, setMenu, style, showBanner }) => {
       bg="background"
       style={style}
     >
-      {isAuthenticated() && (
-        <Button
-          title="Toggle Menu"
-          sx={{
-            width: 32,
-            height: 32,
-            p: 1,
-          }}
-          variant="transparent"
-          onClick={e => {
-            setMenu(!menu)
-            if (menu || !nav.current) return
-            const navlink = nav.current.querySelector("a")
-            navlink.focus()
-          }}
-        >
-          <Burger />
-        </Button>
-      )}
+      {/* <Button
+        title="Toggle Menu"
+        sx={{
+          width: 32,
+          height: 32,
+          p: 1,
+        }}
+        variant="transparent"
+        onClick={(e) => {
+          setMenu(!menu)
+          if (menu || !nav.current) return
+          const navlink = nav.current.querySelector("a")
+          navlink.focus()
+        }}
+      >
+        <Burger />
+      </Button> */}
+
       <Link variant="nav" variant="nav" href="/">
-        ServerlessReact.dev
+        swizec.com
       </Link>
-      {showBanner ? (
-        <Box
-          mx="auto"
-          color="white"
-          bg="primary"
-          pl={[4, 5, 6]}
-          pr={[4, 5, 6]}
-          fontSize={[1, 3, 4]}
-        >
-          <Link
-            href="/#serverlessreact.dev"
-            color="white"
-            style={{ cursor: "pointer" }}
-          >
-            <strong>❤️ 37% off while The Situation lasts ❤️</strong>
-          </Link>
-        </Box>
-      ) : (
-        <Box mx="auto" />
-      )}
-      <Login />
+
+      <Box mx="auto" />
+
       <Button
         title="Change color mode"
         variant="transparent"

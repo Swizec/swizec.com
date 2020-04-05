@@ -1,36 +1,31 @@
-import React, { useState, useRef, useLayoutEffect } from "react"
+import React, { useState, useRef } from "react"
 import { Global } from "@emotion/core"
 import { Box, Flex, Button, Link } from "rebass"
 import { Sidenav, Pagination } from "@theme-ui/sidenav"
-import { useAuth } from "react-use-auth"
-import { navigate } from "gatsby"
-import { StickyContainer, Sticky } from "react-sticky"
 
 import Head from "./head"
 import SkipLink from "./skip-link"
 import Header from "./header"
 import Footer from "./footer"
 import Nav from "./nav"
-import NavWorkshop from "./nav-workshop"
-import { default as PleaseLoginCopy } from "./please-login"
-import { isAuthorized, isWorkshopPage, currentLocation } from "../util"
+import { currentLocation } from "../util"
 
 import Reactions from "./reactions"
 
-const Sidebar = props => {
+const Sidebar = (props) => {
   return (
     <Flex>
       <Box
         as={Sidenav}
         ref={props.nav}
         open={props.open}
-        onClick={e => {
+        onClick={(e) => {
           props.setMenu(false)
         }}
-        onBlur={e => {
+        onBlur={(e) => {
           props.setMenu(false)
         }}
-        onFocus={e => {
+        onFocus={(e) => {
           props.setMenu(true)
         }}
         sx={{
@@ -44,7 +39,7 @@ const Sidebar = props => {
           },
         }}
       >
-        {isWorkshopPage(props) ? <NavWorkshop /> : <Nav />}
+        <Nav />
       </Box>
       <Box
         sx={{
@@ -70,7 +65,7 @@ const Sidebar = props => {
   )
 }
 
-const Content = props =>
+const Content = (props) =>
   !props.fullwidth || props.menu ? (
     <Sidebar
       {...props}
@@ -88,58 +83,10 @@ const Content = props =>
     </>
   )
 
-const PleaseLogin = props => {
-  const { login } = useAuth()
-  return (
-    <>
-      <Head {...props} />
-      <main
-        id="content"
-        style={{
-          textAlign: "center",
-          margin: "auto auto",
-        }}
-      >
-        Please{" "}
-        <Link href="" onClick={login}>
-          login
-        </Link>{" "}
-        to access this page
-        <PleaseLoginCopy />
-      </main>
-    </>
-  )
-}
-
-const PleasePurchase = props => {
-  return (
-    <>
-      <Head {...props} />
-      <main id="content">
-        Please{" "}
-        <Button onClick={() => navigate("/")}>
-          purchase Serverless React Dev
-        </Button>{" "}
-        to access this page
-      </main>
-    </>
-  )
-}
-
-const UNAUTH_PAGES = [
-  "/",
-  "/auth0_callback",
-  "/thankyou",
-  "/thankyou/", //it's necessary this duplicate because of old node version from ZEIT
-]
-
-export default props => {
-  const allowUnauth =
-    isWorkshopPage(props) || UNAUTH_PAGES.includes(currentLocation(props))
-  const fullwidth = allowUnauth && !isWorkshopPage(props)
-  const [menu, setMenu] = useState(isWorkshopPage(props))
+export default (props) => {
+  const fullwidth = currentLocation(props) === "/"
+  const [menu, setMenu] = useState(false)
   const nav = useRef(null)
-  const { isAuthenticated, user } = useAuth()
 
   return (
     <Box
@@ -147,43 +94,23 @@ export default props => {
         variant: "styles.root",
       }}
     >
-      <StickyContainer>
-        <SkipLink />
-        <Global
-          styles={{
-            body: { margin: 0 },
-          }}
-        />
-        <Sticky>
-          {({ style, ...rest }) => (
-            <div style={{ marginBottom: "20px" }}>
-              <Header
-                fullwidth={fullwidth}
-                menu={menu}
-                setMenu={setMenu}
-                nav={nav}
-                style={style}
-                showBanner={!isAuthenticated() && !isWorkshopPage(props)}
-              />
-            </div>
-          )}
-        </Sticky>
-        {allowUnauth || (isAuthenticated() && isAuthorized(user)) ? (
-          <Content
-            {...props}
-            fullwidth={fullwidth}
-            menu={menu}
-            setMenu={setMenu}
-            nav={nav}
-          />
-        ) : isAuthenticated() ? (
-          <PleasePurchase />
-        ) : (
-          <PleaseLogin />
-        )}
+      <SkipLink />
+      <Global
+        styles={{
+          body: { margin: 0 },
+        }}
+      />
+      <Header fullwidth={fullwidth} menu={menu} setMenu={setMenu} nav={nav} />
 
-        <Footer />
-      </StickyContainer>
+      <Content
+        {...props}
+        fullwidth={fullwidth}
+        menu={menu}
+        setMenu={setMenu}
+        nav={nav}
+      />
+
+      <Footer />
     </Box>
   )
 }
