@@ -1,8 +1,34 @@
 import { Box, Flex, Button } from "rebass"
 import { Banner, NavGrid, Container, Grid, Title, JumpToCourse } from ".."
+import { graphql } from "gatsby"
+import { ArticleListing } from "../../components/ArticleListing"
 
-# A geek with a hat
+export const pageQuery = graphql`
+  query {
+    allSitePage(
+      filter: {
+        path: { regex: "/blog/.+/" }
+        sort: { fields: context___frontmatter___published, order: DESC }
+      }
+    ) {
+      nodes {
+        path
+        context {
+          frontmatter {
+            title
+            description
+            published
+          }
+        }
+      }
+    }
+  }
+`
 
-This is going to be the blog homepage listing all the articles.
+# Swizec Teller
 
-Maybe with a search bar. Some information architecture would be nice too
+<>
+  {props.data.allSitePage.nodes.map((props) => (
+    <ArticleListing {...props} />
+  ))}
+</>

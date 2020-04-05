@@ -67,8 +67,7 @@ const Sidebar = (props) => {
   )
 }
 
-const Content = (props) => (
-  console.log(props),
+const Content = (props) =>
   !props.fullwidth || props.menu ? (
     <Sidebar
       {...props}
@@ -77,7 +76,7 @@ const Content = (props) => (
       setMenu={props.setMenu}
     >
       <Head {...props} />
-      {props.pageContext.frontmatter && (
+      {props.pageContext.frontmatter.title && (
         <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title>
       )}
 
@@ -91,7 +90,6 @@ const Content = (props) => (
       <main id="content">{props.children}</main>
     </>
   )
-)
 
 export default (props) => {
   const fullwidth = currentLocation(props) === "/"
