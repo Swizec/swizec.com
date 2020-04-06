@@ -9,7 +9,7 @@ export const ArticleListing = ({
   },
 }) => {
   return (
-    <Box>
+    <Box mb={4}>
       <Link href={path}>
         <Heading>{title}</Heading>
       </Link>

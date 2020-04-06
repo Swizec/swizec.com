@@ -1,4 +1,5 @@
 const remarkPlugins = [require("remark-slug")]
+const fs = require("fs")
 
 module.exports = {
   plugins: [
@@ -9,6 +10,13 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    ...fs.readdirSync(`${__dirname}/src/pages/blog`).map((path) => ({
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "images",
+        path: `${__dirname}/src/pages/blog/${path}/img`,
+      },
+    })),
     "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",
     {
