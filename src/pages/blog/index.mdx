@@ -6,10 +6,8 @@ import { ArticleListing } from "../../components/ArticleListing"
 export const pageQuery = graphql`
   query {
     allSitePage(
-      filter: {
-        path: { regex: "/blog/.+/" }
-        sort: { fields: context___frontmatter___published, order: DESC }
-      }
+      filter: { path: { regex: "/blog/.+/" } }
+      sort: { fields: context___frontmatter___published, order: DESC }
     ) {
       nodes {
         path

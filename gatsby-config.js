@@ -59,7 +59,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-google-analytics",
       options: {
-        trackingId: "UA-1464315-33",
+        trackingId: "UA-1464315-1",
         anonymize: true,
         respectDNT: true,
       },
@@ -74,10 +74,9 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        name: "ServerlessReact.Dev",
-        short_name: "ServerlessReact.Dev",
-        description:
-          "Learn how to build fast modern webapps from idea to launch with ServerlessReact.Dev",
+        name: "swizec.com",
+        short_name: "swizec.com",
+        description: "",
         start_url: "/",
         background_color: "#fff",
         theme_color: "#FF002B",
