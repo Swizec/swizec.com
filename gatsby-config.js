@@ -11,6 +11,7 @@ module.exports = {
       },
     },
     // add a gatsby-source-filesystem entry for every article's images
+    // have to filter out empty folders for Zeit
     ...fs
       .readdirSync(`${__dirname}/src/pages/blog`)
       .map((path) => `${__dirname}/src/pages/blog/${path}`)
