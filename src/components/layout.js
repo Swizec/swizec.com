@@ -76,7 +76,7 @@ const Content = (props) =>
       setMenu={props.setMenu}
     >
       <Head {...props} />
-      {props.pageContext.frontmatter.title && (
+      {props.pageContext.frontmatter && props.pageContext.frontmatter.title && (
         <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title>
       )}
 
