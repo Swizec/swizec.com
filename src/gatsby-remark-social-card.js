@@ -9,7 +9,12 @@ const fsExtra = require("fs-extra")
 module.exports = async ({ markdownNode, markdownAST, getNode }) => {
   const frontmatter = markdownNode.frontmatter
 
-  if (frontmatter && frontmatter.hero && frontmatter.title) {
+  if (
+    frontmatter &&
+    frontmatter.hero &&
+    frontmatter.title &&
+    !frontmatter.hero.includes("defaultHero")
+  ) {
     const heroPath = path.posix.join(
       getNode(markdownNode.parent).dir,
       frontmatter.hero
