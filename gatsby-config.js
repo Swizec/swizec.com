@@ -64,6 +64,9 @@ module.exports = {
             resolve: "gatsby-remark-embedder",
             options: {},
           },
+          {
+            resolve: `${__dirname}/src/gatsby-remark-social-card`,
+          },
         ],
       },
     },

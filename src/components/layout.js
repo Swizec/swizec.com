@@ -31,6 +31,7 @@ const Sidebar = (props) => {
           props.setMenu(true)
         }}
         sx={{
+          display: "none",
           width: [256, 256, 320],
           flex: "none",
           px: 3,
@@ -55,7 +56,9 @@ const Sidebar = (props) => {
         }}
       >
         {props.children}
+
         <Reactions page={props.uri} />
+
         <Nav
           pathname={props.location.pathname}
           components={{

@@ -29,6 +29,7 @@
         "countries-list": "^2.4.3",
         "date-fns": "^2.11.1",
         "deepmerge": "^4.0.0",
+        "fs-extra": "^9.0.0",
         "gatsby": "^2.20.13",
         "gatsby-plugin-catch-links": "^2.1.2",
         "gatsby-plugin-facebook-pixel": "^1.0.3",
@@ -41,7 +42,7 @@
         "gatsby-plugin-sharp": "^2.5.4",
         "gatsby-plugin-simple-analytics": "^1.0.1",
         "gatsby-plugin-theme-ui": "^0.2.26",
-        "gatsby-plugin-twitter": "^2.2.1",
+        "gatsby-plugin-twitter": "^2.2.2",
         "gatsby-remark-copy-linked-files": "^2.1.28",
         "gatsby-remark-embedder": "^2.0.0",
         "gatsby-remark-giphy": "^1.0.2",
@@ -58,7 +59,7 @@
         "react-sticky": "^6.0.3",
         "rebass": "^4.0.6",
         "remark-slug": "^5.1.2",
-        "slugify": "^1.3.6",
+        "slugify": "^1.4.0",
         "theme-ui": "^0.2.26"
     },
     "engines": {

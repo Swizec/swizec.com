@@ -1,5 +1,13 @@
 import React from "react"
 import { Helmet } from "react-helmet"
+import slugify from "slugify"
+
+function getSocialCard({ title, hero }) {
+  const ext = hero.split(".").pop()
+
+  // URL guaranteed by src/gatsby-remark-social-card
+  return `https://swizec.com/social-cards/${slugify(title)}.${ext}`
+}
 
 export default (props) => {
   const { frontmatter } = props.pageContext
@@ -13,12 +21,8 @@ export default (props) => {
   const description =
     (frontmatter && frontmatter.description) || props.description
 
-  const image = `https://swizec.com${
-    props.image || "/serverlessreact-cover.png"
-  }`
-  const url = `https://swizec.com${
-    props.pageName !== undefined ? `/${props.pageName}` : ""
-  }`
+  const image = props.image || getSocialCard(frontmatter)
+  const url = `https://swizec.com${props.path}`
 
   return (
     <Helmet
