@@ -4,8 +4,7 @@ description: ""
 published: 2012-02-24
 redirect_from: 
             - /blog/the-commonest-javascript-bug/swizec/3740
-categories: 'closures, For loop, JavaScript, JSON, Languages, Programming, Scope (computer science), Uncategorized'
-author: Swizec Teller
+categories: "closures, For loop, JavaScript, JSON, Languages, Programming, Scope (computer science), Uncategorized"
 hero: ./img/blog-wp-content-uploads-2012-02-2921731384_72ed2e98da_m5.jpg
 ---
 \[caption id="" align="alignright" width="240" caption="CAEN 25th Anniversary Celebration (Photo credit: rosefirerising)"][![CAEN 25th Anniversary Celebration](./img/blog-wp-content-uploads-2012-02-2921731384_72ed2e98da_m5.jpg "CAEN 25th Anniversary Celebration")](http://www.flickr.com/photos/69145729@N00/2921731384)\[/caption] Every couple of weeks somebody will come running to me: _"Swizec, Swizec, I did everything right, but this [javascript](http://en.wikipedia.org/wiki/JavaScript "JavaScript") isn't doing what it's supposed to! Whatever I [click](http://en.wikipedia.org/wiki/Event_%28computing%29 "Event (computing)") only the last item works. Halp!"_ Every time it's the same bug - people just don't understand how loops and [closures](http://en.wikipedia.org/wiki/Closure_%28computer_science%29 "Closure (computer science)") play together in javascript. Invariably they [loop](http://en.wikipedia.org/wiki/Control_flow "Control flow") through an array, attach the index to an event, then get frustrated when, upon triggering the event, that particular variable seems to have the wrong value. The code usually looks something like this:

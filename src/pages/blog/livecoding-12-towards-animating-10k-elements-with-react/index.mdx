@@ -4,8 +4,7 @@ description: ""
 published: 2016-06-16
 redirect_from: 
             - /blog/livecoding-12-towards-animating-10k-elements-with-react/swizec/6835
-categories: 'd3js, Front End, react, Technical'
-author: Swizec Teller
+categories: "d3js, Front End, react, Technical"
 hero: ./img/blog-wp-content-uploads-2016-06-livecoding-12-1-1024x551.png
 ---
 _This is a Livecoding Recap - an almost-weekly post about interesting things discovered while livecoding. It is shorter than 500 words. There are pictures. You can follow my channel, [here](https://www.livecoding.tv/swizec/). New stuff shows up almost **every Sunday at 2pm PDT**. There’s live chat ;)_ Welcome to the first Livecoding Recap. This recap is for the 12th live coding. I don’t have an excuse for not recapping before now. It just took me this long to realize _“These are fun, and I learn a lot. I should turn them into short blogposts.”_This Sunday, I started a new quest: To find the definitive answer to _"How do you smoothly animate 10,000 elements in React?”_. Many people have asked me about this recently, and I realized I couldn’t give them a good answer. The best I could come up with was, _“Try to render fewer nodes?”_. The issue is that sometimes you really _do_ need that many nodes because you don’t want to sacrifice fidelity. So I took my old [particle generator experiment](http://swizec.com/blog/animating-with-react-redux-and-d3/swizec/6775) and started playing around. It doesn’t use a lot of d3, but it does rely heavily on React and Redux. It works like this:

@@ -4,8 +4,7 @@ description: ""
 published: 2015-08-07
 redirect_from: 
             - /blog/using-react-in-the-real-world/swizec/6710
-categories: 'Front and back ends, Front End, HTML, JavaScript, jQuery, react, react+d3js, Technical'
-author: Swizec Teller
+categories: "Front and back ends, Front End, HTML, JavaScript, jQuery, react, react+d3js, Technical"
 hero: ./img/p5x14.jpg
 ---
 Did you know, you can use React without rewriting your whole app? A client recently asked me for a shiny graph. They had an [API](http://en.wikipedia.org/wiki/Application_programming_interface "Application programming interface") that spits out a lot of data, and they wanted an interactive visualization that would help users make decisions. Deadline was tight, technology restrictions were _"As long as it works"_, and specs were loose. _"A-ha!"_, I thought, _"This is a job for [React+d3.js](http://swizec.com/reactd3js)!"_. Small, well-contained, perfect. The best kind of project for testing new technologies. ![React evil plot](./img/p5x14.jpg) But their web app was built in Joomla or Wordpress or something. And their front-end stack was [jQuery](http://en.wikipedia.org/wiki/JQuery "JQuery"). When I asked the engineer about integration, he talked about framework plugins that create views in PHP and load [JavaScript](http://en.wikipedia.org/wiki/JavaScript "JavaScript") files and stuff. It sounded a lot like gems for [Ruby on Rails](http://en.wikipedia.org/wiki/Ruby_on_Rails "Ruby on Rails"). Tiny packages that work as self-contained apps designed to be integrated into larger projects. They'd been at it for over a year already. The whole thing built out of these framework plugin component things that put most of the hard work on the server, and use JavaScript sparingly. A team of engineers isn't going to rewrite their whole project into React, just so you can make a small component. I wasn't going to ask, and they wouldn't have done it. _I_ would have to accommodate _them_. But how?

@@ -4,8 +4,7 @@ description: ""
 published: 2013-06-20
 redirect_from: 
             - /blog/force-users-to-add-a-facebook-login-with-devise-omniauth/swizec/6250
-categories: 'devise, Facebook, Login, omniauth, Ruby, Uncategorized'
-author: Swizec Teller
+categories: "devise, Facebook, Login, omniauth, Ruby, Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
 You've set up rails with [devise](https://github.com/plataformatec/devise) and [omniauth](http://www.omniauth.org/). Users are signing up with facebook or twitter or email&password or something completely different. Everything is going great. Now you want to force some users to add a facebook login to their account. Maybe you just want to see if their name and avatar match what they've set up in your service to make sure they really are who they say they are. Whatever. It seems like you might need to add a custom Devise strategy. You start googling. Doesn't seem like a lot of work, you just extend `Authorizable` and override the `authorize!` function and then ... do _something_. Seems you'll have to mostly override how authorization works. Will that play well with `omniauthable`? But that only solves the problem of forcing [Facebook](http://en.wikipedia.org/wiki/Facebook "Facebook") on authorization. Who's going to check the conditions on every page load and sign the user out? You set up a filter. Put it in `application_controller` and it's just a big mess. You're still not sure how to tie everything together and the clusterfuck of code is growing and growing.

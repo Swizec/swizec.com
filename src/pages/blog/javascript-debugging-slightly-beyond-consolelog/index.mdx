@@ -4,8 +4,7 @@ description: ""
 published: 2015-01-14
 redirect_from: 
             - /blog/javascript-debugging-slightly-beyond-console-log/swizec/6633
-categories: 'Apache Hadoop, Cascading Style Sheets, Debugging, HTML, JavaScript, Technical'
-author: Swizec Teller
+categories: "Apache Hadoop, Cascading Style Sheets, Debugging, HTML, JavaScript, Technical"
 hero: ./img/images-25871.png
 ---
 \[caption id="" align="alignnone" width="680"]![debugger;](./img/images-25871.png "debugger;") debugger;\[/caption] My favourite tool for javascript debugging is `console.log`. I mean, I _love_ `console.log`. If I ever get a programming tattoo, it's going to be `console.log` or some variation thereof. Simple to use, works every time, and every programming language I've used since I was 9 has had some variation of it. [Pascal](http://en.wikipedia.org/wiki/Pascal_%28programming_language%29 "Pascal (programming language)") acting up? Not sure what's going on? `writeln` [Python](http://www.python.org/ "Python (programming language)") being silly? `print` C acting funny? `printf` [CSS](http://en.wikipedia.org/wiki/Cascading_Style_Sheets "Cascading Style Sheets") weird? `border: 1px solid red` [HTML](http://en.wikipedia.org/wiki/HTML "HTML") messing with you? Nah, [Chrome](http://www.google.com/chrome "Google Chrome")'s element inspector. But as much as I love `console.log`, sometimes it just does not do. Sure, if you have a proper test suite `console.log` is always enough. But you don't always have a proper test suite. Let me explain. When you want to understand what's going on and where exactly a piece of code goes wrong, you do something like this.

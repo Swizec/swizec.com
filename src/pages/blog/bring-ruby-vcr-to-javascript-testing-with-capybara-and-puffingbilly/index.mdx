@@ -4,8 +4,7 @@ description: ""
 published: 2013-03-14
 redirect_from: 
             - /blog/bring-ruby-vcr-to-javascript-testing-with-capybara-and-puffing-billy/swizec/6067
-categories: 'JavaScript, RSpec, Ruby, testing, Uncategorized'
-author: Swizec Teller
+categories: "JavaScript, RSpec, Ruby, testing, Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
 Let's say you are writing an application in [Ruby](http://www.ruby-lang.org/ "Ruby (programming language)"). You are probably talking to every API under the sun and are happily writing tests to make sure your code isn't failing. Because you don't want to rely on 3rd parties or an internet connection to make your tests pass or fail you mock everything with let's say, [Webmock](https://github.com/bblimke/webmock). This also makes your tests much _much_ faster. After all even the fastest internet is much slower than the processor talking to its memory. If you're too lazy to mock out every API under the sun, you might use [VCR](https://www.relishapp.com/vcr/vcr/docs) to record requests and play them back later. The main advantage being, you don't have to worry about meticulously reimplementing _everything,_and you can nuke the recordings at any time to make sure your code still works against the real API. Life is good.

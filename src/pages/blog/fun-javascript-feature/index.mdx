@@ -4,8 +4,7 @@ description: ""
 published: 2011-12-07
 redirect_from: 
             - /blog/fun-javascript-feature/swizec/3141
-categories: 'Algorithm, JavaScript, Languages, Non-deterministic Turing machine, Programming, Turing machine, Uncategorized'
-author: Swizec Teller
+categories: "Algorithm, JavaScript, Languages, Non-deterministic Turing machine, Programming, Turing machine, Uncategorized"
 hero: ./img/blog-wp-content-uploads-2011-12-14310922_6ed3badf9e_m1.jpg
 ---
 Not only was [my nondeterministic turing machine implementation](http://swizec.com/blog/nondeterministic-turing-machine-simulator-in-23-lines-of-javascript/swizec/3047 "Nondeterministic turing machine simulator in 23 lines of JavaScript")way too long at 20 lines, it was also wrong. Shortly after [@dionyziz](https://twitter.com/#!/dionyziz) reported a bug and it took me until last night to get around to fixing it. \[caption id="" align="alignright" width="240" caption="Image by Henry Work via Flickr"][![class NP](./img/blog-wp-content-uploads-2011-12-14310922_6ed3badf9e_m1.jpg "class NP")](http://www.flickr.com/photos/14427076@N00/14310922)\[/caption] The problem was that when I was passing tapes for each possible step into the next iteration of the algorithm the good old "everything is a reference" javascript feature bit me in the arse. Because of this all the tapes looked exactly like the tape belonging to the last state inspected and so when you moved the instructions around a bit you could make my implementation fail without actually changing the actual turing machine. Fixing it was a simple matter of strategically using underscore's clone function to make sure ever inspected state is acting on its own version of the tape. And since the fix was so simple and I didn't feel like studying the subject that has been the bane of my existence for the past two years, I decided to try codegolfing the algorithm a bit. Doing so I accidentally came upon what is possibly javascript's funnest feature.

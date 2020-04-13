@@ -4,8 +4,7 @@ description: ""
 published: 2011-04-16
 redirect_from: 
             - /blog/discovered-a-cool-javascript-property/swizec/1628
-categories: 'Argument, Callback, Function (mathematics), JavaScript, Languages, Programming, Uncategorized'
-author: Swizec Teller
+categories: "Argument, Callback, Function (mathematics), JavaScript, Languages, Programming, Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
 Yesterday I was playing around with javascript trtying to find the cleanest way to implement [callbacks](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)") in [functions](http://en.wikipedia.org/wiki/Function_%28mathematics%29 "Function (mathematics)"). Primarily I wanted a readable way to make certain the last argument passed is a callback, withut having to rely on knowing how many [arguments](http://en.wikipedia.org/wiki/Argument "Argument") there are and so on. Instead I stumbled upon a pretty cool feature of how javascript handles function arguments. But let's look at some code. This is the usual way people use functions, it's nicely standard and works pretty much the same way in most languages

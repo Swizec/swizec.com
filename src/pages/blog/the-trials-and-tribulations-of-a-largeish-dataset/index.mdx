@@ -4,8 +4,7 @@ description: ""
 published: 2013-01-15
 redirect_from: 
             - /blog/the-trials-and-tribulations-of-a-large-ish-dataset/swizec/5852
-categories: 'Data, Data set, Database, Github, MongoDB, Programming, Redis, Uncategorized'
-author: Swizec Teller
+categories: "Data, Data set, Database, Github, MongoDB, Programming, Redis, Uncategorized"
 hero: ./img/blog-wp-content-uploads-2013-01-commit-histogram.png
 ---
 Last week I wrote a little script in node.js. Its goal? GET ALL THE DATA! [![Commit time histogram](./img/blog-wp-content-uploads-2013-01-commit-histogram.png "Commit time histogram")](http://nightowls.swizec.com/histogram/hours) The plan was to scrape a massive [dataset](http://en.wikipedia.org/wiki/Data_set "Data set") off [Github](http://github.com "GitHub") and do some analysis of programmers' working habits, at least the ones using Github that is. As such, the script was fairly simple - run a search query via the API, get page 1, 2, 3 ... At 100 repositories per page with a round-trip of a few seconds and having to wait for an hour before being allowed to do more requests after every couple of hundred pages, the scraping job took the bigger part of a week. Occasionally the script would hang without getting a _403 error_ so I changed the query. That fixed it. Sometimes it would crash - right after I'd gone to bed of course. On Saturday morning I had a mongo database with a list of _513,900_ repositories on a small EC2 instance. They were not guaranteed to be unique.

@@ -4,8 +4,7 @@ description: ""
 published: 2015-06-04
 redirect_from: 
             - /blog/webpack-lazy-loading-on-rails-with-cdn-support/swizec/6689
-categories: 'CommonJS, ECMAScript, JavaScript, Ruby (programming language), Technical, Web browser'
-author: Swizec Teller
+categories: "CommonJS, ECMAScript, JavaScript, Ruby (programming language), Technical, Web browser"
 hero: ../../../defaultHero.jpg
 ---
 Webpack is the best module bundler I've ever used. Just this week I used it to reduce the JS footprint of an app from 906KB to 87KB for mobile visitors. An 800KB difference! [Webpack](http://webpack.github.io/)'s core premise is that you can `require('./foo')` your [JavaScripts](http://en.wikipedia.org/wiki/JavaScript "JavaScript"). That sea of `<script>` tags or concatenated code and variables injected into the global namespace is gone. In theory we've had that for a while. RequireJS and its AMD have been out for a while, but it's always felt clunky. Don't think I've used it more than once in the wild. Too clunky. [Browserify](http://browserify.org/) was better. Using [CommonJS](http://en.wikipedia.org/wiki/CommonJS "CommonJS") it brought the same syntax we've had in node.js into the browser. Less clunky and easier to reason about. But to my knowledge, not all that popular in the wild. The problem with Browserify is that, at least in my experience, it takes a lot of setup to work well. And it's kind of slow. Compile times run into the many seconds range. Webpack is fast. Like super fast. Compiling a huge codebase rarely takes more than a second. Every time I change something it's already compiled by the time I refresh the browser. Magic.

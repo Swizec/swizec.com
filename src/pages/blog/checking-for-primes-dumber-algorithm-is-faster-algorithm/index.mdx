@@ -4,8 +4,7 @@ description: ""
 published: 2011-03-21
 redirect_from: 
             - /blog/checking-for-primes-dumber-algorithm-is-faster-algorithm/swizec/1580
-categories: 'Clojure, Computer Science, Math, Prime number, Technical'
-author: Swizec Teller
+categories: "Clojure, Computer Science, Math, Prime number, Technical"
 hero: ../../../defaultHero.jpg
 ---
 It's been a busy few weeks since I last posted about my toying around with [project euler](http://projecteuler.net/ "Project Euler"), but never you mind. I did do some progress nontheless! HA! Just so I won't bore you with the details, the most interesting thing I discovered is that the way I was calculating prime numbers was totally wrong. Not in the sense that it didn't work, but in the sense that it was only fast in theory. In practice it turns out that either my implementation was completely and utterly horrible or that I simply don't know enough about performance bottlenecks of clojure and made a boo boo somewhere. Here's my original way of creating prime numbers and checking if a number is prime:

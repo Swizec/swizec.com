@@ -4,8 +4,7 @@ description: ""
 published: 2015-10-16
 redirect_from: 
             - /blog/reactflux-can-do-in-just-137-lines-what-jquery-can-do-in-10/swizec/6740
-categories: 'flux, Front End, HTML, JavaScript, jQuery, react, Technical'
-author: Swizec Teller
+categories: "flux, Front End, HTML, JavaScript, jQuery, react, Technical"
 hero: ./img/comics-automation.png
 ---
 \[caption id="" align="alignnone" width="404"]![XKCD Automation](./img/comics-automation.png) XKCD Automation\[/caption] I waste almost 15 minutes a week on an annoying little task. Every email I send to an email list gets a link that says, _"Click here to share with a friend."_ Clicking the link opens a filled-in email message. Add an address or two, click send, and you're done. You share interesting information with your friends and my emails don't become one of those "Fwd: fwd: re: fwd: kids do the darnedest things!" disasters. Nobody likes a forward, but everyone likes a direct share. It's different. Making a direct share link, is as easy as using `mailto:?subject=some%20subject&body=some%20very%20long%20body`. This type of URL makes a magic email link containing the subject `some subject` and the body `some very long body`. One downside is that the subject and body are URL encoded. Finding an online URL encoder, pasting things in, and copying things out is a long process. Every time you want to change the body or fix a typo in the subject, you have to repeat the process all over again. Another downside is that the body doesn't support HTML. You must strip it out or change it to Markdown. This task was annoying me so much that I decided to build [ShareThisEmail](http://sharethisemail.com), a tiny tool that takes a subject and a body, and returns a mailto&#x3A; link. Simple, right?

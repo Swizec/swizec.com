@@ -4,8 +4,7 @@ description: ""
 published: 2012-03-19
 redirect_from: 
             - /blog/django-and-ie9-dont-play-well-together/swizec/4017
-categories: 'Chrome, Compatibility mode, Data Formats, Firefox, Google Chrome, HTML, Internet Explorer 9, Microsoft, Uncategorized'
-author: Swizec Teller
+categories: "Chrome, Compatibility mode, Data Formats, Firefox, Google Chrome, HTML, Internet Explorer 9, Microsoft, Uncategorized"
 hero: ./img/7054-6935959929_a80f9166c9_m.jpg
 ---
 You know those bugs that take_hours_ to debug? And the fix is ... _moving a single line._ \[caption id="" align="alignright" width="240" caption="filming of the HTML music video (Photo credit: MadLabUK)"][![filming of the HTML music video](./img/7054-6935959929_a80f9166c9_m.jpg "filming of the HTML music video")](http://www.flickr.com/photos/43963088@N03/6935959929)\[/caption] That kind of bug is tripped up when you use django's csrf protection and someone comes to your site using [IE9](http://ie9.com "Internet Explorer 9"). It can easily happen that not only will form stylings not affect the elements, the form might even ignore any values entered! But it works perfectly on older versions of IE. The bug was insanely difficult to pinpoint because I don't have IE9 anywhere - only linux and mac around here, any windows box is so old IE7 is about the extent of its capabilities ... After installing some sort of windows 7 to a [virtual machine](http://en.wikipedia.org/wiki/Virtual_machine "Virtual machine") and getting IE9 working, I set to work.

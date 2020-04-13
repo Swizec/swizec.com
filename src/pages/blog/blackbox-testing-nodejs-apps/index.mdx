@@ -4,8 +4,7 @@ description: ""
 published: 2012-07-23
 redirect_from: 
             - /blog/blackbox-testing-node-js-apps/swizec/4884
-categories: 'Application programming interface, Black-box testing, Hypertext Transfer Protocol, JavaScript, Node.js, Servers, Uncategorized, Unit testing, Web application'
-author: Swizec Teller
+categories: "Application programming interface, Black-box testing, Hypertext Transfer Protocol, JavaScript, Node.js, Servers, Uncategorized, Unit testing, Web application"
 hero: ../../../defaultHero.jpg
 ---
 One of the best features in [Django](http://www.djangoproject.com "Django (Web framework)")is the test client that comes with the test framework -> blackbox testing baby, yeah! \[caption id="" align="alignright" width="240" caption="Black box flight recorder (Photo credit: edvvc)"][![Black box flight recorder](http://farm3.static.flickr.com/2215/1972546648_e63db0846e_m.jpg "Black box flight recorder")](http://www.flickr.com/photos/23739231@N00/1972546648)\[/caption] [Blackbox testing](http://en.wikipedia.org/wiki/Black-box_testing "Black-box testing") is my favourite kind of testing. Much more useful than [unit tests](http://en.wikipedia.org/wiki/Unit_testing "Unit testing") and generally a lot easier to write, maintain and deal with. And that's because rather than making sure all your functions and deep internals are behaving like they should, you only test what really matters in a web app. _Does the right output happen for this specific input?_ Your users don't care that you have full unit test coverage. They will never see the output of all your internal functions and methods and database drivers and whatnot. All they care is that if they put in _X_ they get the correct _Y_ out. The two main benefits of blackbox testing for a developer are:

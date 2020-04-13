@@ -4,8 +4,7 @@ description: ""
 published: 2013-07-31
 redirect_from: 
             - /blog/writing-modular-backbone-with-backbone-subroute/swizec/6297
-categories: 'JavaScript, jQuery, Modules, Programming, Router, Uncategorized, Web application'
-author: Swizec Teller
+categories: "JavaScript, jQuery, Modules, Programming, Router, Uncategorized, Web application"
 hero: ../../../defaultHero.jpg
 ---
 Working on a complicated frontend web app, Backbone soon becomes unwieldy. Routes definitions grow and grow, views steal each other's actions and parts of the code try to become independent modules. This is the problem I faced a few weeks ago while working on the fanciest signup funnel I ever helped create. Visitors would see the splash page, create their cart, revise it, sign up, add billing and shipping info, and finally checkout without ever refreshing the page. A daunting challenge only made worse by the complexity of components involved. We needed a full-blown inventory listing, a full-blown cart editor and we even added some shiny bits to the billing and shipping forms. The funnel changes into an accordion after the first step. Oh and the user can refresh at any point in the funnel without losing their place. To divide work among the team, we took a straight-forward modular approach: a module handles the whole funnel, submodules take care of each step. This way everyone can focus on their own piece of the funnel and the javascript code can be reused when making the standalone versions of each step for signed-in users.

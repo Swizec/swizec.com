@@ -4,8 +4,7 @@ description: ""
 published: 2013-10-15
 redirect_from: 
             - /blog/about-achieving-polymorphism-in-javascript/swizec/6370
-categories: 'Application programming interface, Haskell, JavaScript, Languages, Programming, Toshl, Uncategorized'
-author: Swizec Teller
+categories: "Application programming interface, Haskell, JavaScript, Languages, Programming, Toshl, Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
 Over the weekend I started working on a [node.js client library for Toshl's new API](https://github.com/Swizec/toshl.js). An old side project stopped working recently and I need to fix it because life without [frequent emails about my money](http://swizec.com/blog/a-message-from-your-future-self/swizec/3377) is disorienting as hell. The [Toshl beta API](https://developer.toshl.com/) opened up in July is well thought out, has good documentation and provides everything you could possibly want. I love the well granulated permissions system. But for users of my node.js library I wanted to make life even simpler. Let's look at fetching expenses. After you authenticate - testing [OAuth](http://oauth.net "OAuth") clients sucks, and Toshl invalidates your token _very_ often. Think I had to refresh it four times in a five hour coding spree. - you can talk to `https://api.toshl.com/expenses` to get a list of expenses for the current user. This will return the last 30 entries. But there are a bunch of options. You have pagination, you can set specific `to` and `from` dates, you can filter things by tags and by not-tags. How can a library make this easy to use? One approach is to offer a way of specifying an options hash when calling a function, but can we make it even simpler? The answer lies in polymorphism. Let's say you have a function called `toshl.expenses`, in [Haskell](http://haskell.org "Haskell (programming language)") you could do something like this:

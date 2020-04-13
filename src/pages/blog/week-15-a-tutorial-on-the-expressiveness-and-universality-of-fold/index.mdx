@@ -4,8 +4,7 @@ description: ""
 published: 2014-02-13
 redirect_from: 
             - /blog/week-15-a-tutorial-on-the-expresiveness-and-universality-of-fold/swizec/6514
-categories: '52papers52weeks, Learning, Personal'
-author: Swizec Teller
+categories: "52papers52weeks, Learning, Personal"
 hero: ./img/images-8825.png
 ---
 _\[This post is part of an ongoing challenge to understand 52 papers in 52 weeks. You can read previous entries, [here](http://swizec.com/blog/category/52-papers-in-52-weeks), or subscribe to be notified of new posts by [email](http://swiz.ec/52papers-list)]_ Fold or foldr is a recursion operator with magical properties commonly used in functional programming. Sometimes known as _reduce_, _inject_, or _compress_ it turns a list of values into a single value according to a combining function. Graham Hutton's 1999 [_A tutorial on the expressivenes nad universality of fold_](https://docs.google.com/viewer?url=http%3A%2F%2Fwww.cs.nott.ac.uk%2F%7Egmh%2Ffold.pdf) does a great job of explaining just how magical it is. In a language with first-order tuples and functions any function can be expressed as a _fold_, it lets you prove programs without using induction, and you can even generalise it to work on datatypes other than lists. Great magic indeed. But with great power comes great responsibility. Take heed of the lesser programmer and remember that many functions you rewrite as a _fold_, you will not be able to read in six months.

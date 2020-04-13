@@ -4,8 +4,7 @@ description: ""
 published: 2011-10-17
 redirect_from: 
             - /blog/firefoxs-funny-css3-image-scaling-quirk/swizec/2641
-categories: 'Cascading Style Sheets, CSS, HTML, JavaScript, Mozilla, Uncategorized'
-author: Swizec Teller
+categories: "Cascading Style Sheets, CSS, HTML, JavaScript, Mozilla, Uncategorized"
 hero: ./img/blog-wp-content-uploads-2011-10-Selection_044-300x122.png
 ---
 Last night as I was rewriting the CSS for [postme.me](http://postme.me) from scratch and I was cursing and shouting obscenities under my breath and trying to find a way to punch all of [Mozilla](http://en.wikipedia.org/wiki/Mozilla "Mozilla") in the face over the internet ... I discovered something silly. \[caption id="attachment_2642" align="alignright" width="300" caption="A quirk"][![](./img/blog-wp-content-uploads-2011-10-Selection_044-300x122.png "A quirk")](./img/blog-wp-content-uploads-2011-10-Selection_044.png)\[/caption] Scaling images is something every developer on the web has had to come to grips with. Maybe you were implementing an image gallery and wanted to display thumbnails, maybe you've reimplemented all the scaling algorithms several times. It's surprising how complex something as simple as making sure no dimension is beyond a certain size while maintaining aspect ratio can be. Which is exactly why I wanted to avoid the whole thing this time 'round and let the browser take care of it all.

@@ -4,8 +4,7 @@ description: ""
 published: 2014-06-26
 redirect_from: 
             - /blog/my-new-favourite-javascript-trick/swizec/6585
-categories: 'Callback, Code, JavaScript, Return statement, Server, Uncategorized'
-author: Swizec Teller
+categories: "Callback, Code, JavaScript, Return statement, Server, Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
 Using returns and [callbacks](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)") in the same function. Sounds like crazy talk I know, but hear me out, I have good reason. I think. Let's say you want to make several [TCP](http://en.wikipedia.org/wiki/Transmission_Control_Protocol "Transmission Control Protocol") servers in a node.js application. Have to listen on multiple ports or whatever. Using a factory function is your best bet to avoiding code repetition, right? You end up with something like this:

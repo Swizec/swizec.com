@@ -4,8 +4,7 @@ description: ""
 published: 2012-07-02
 redirect_from: 
             - /blog/haskell-and-randomness/swizec/4763
-categories: 'Algorithm, Haskell, Programming, Pseudorandom number generator, Pseudorandom Numbers, Random number generation, Uncategorized'
-author: Swizec Teller
+categories: "Algorithm, Haskell, Programming, Pseudorandom number generator, Pseudorandom Numbers, Random number generation, Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
 I finally started writing code for my [thesis](http://swizec.github.com/Le-Thesis/). Hooray! \[caption id="" align="alignright" width="300" caption="A row of businesses in downtown Haskell. (Photo credit: Wikipedia)"][![A row of businesses in downtown Haskell.](http://upload.wikimedia.org/wikipedia/en/thumb/8/89/Haskell_wiki.JPG/300px-Haskell_wiki.JPG "A row of businesses in downtown Haskell.")](http://en.wikipedia.org/wiki/File:Haskell_wiki.JPG)\[/caption] To get my feet wet I decided to write a basic framework for [evolutionary algorithms](http://en.wikipedia.org/wiki/Evolutionary_algorithm "Evolutionary algorithm") in [Haskell](http://haskell.org "Haskell (programming language)"). Nothing too major, just a way to easily assemble different evaluation, mutation and selection functions. For starters I'm going to evolve a _"[Hello World!](http://en.wikipedia.org/wiki/Hello_world_program "Hello world program")"_ string. How hard could it be? Took me [an hour to evolve a poem in python](http://swizec.com/blog/evolving-a-poem-with-an-hour-of-python-hacking/swizec/1505) based on character mutations ... Turns out it's a lot more difficult to do in Haskell. Trouble starts as soon as you try generating a random population, because getting random numbers in Haskell is somewhat involved. Or rather, it looks scarily involved at first.
