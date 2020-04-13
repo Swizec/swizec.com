@@ -3,10 +3,14 @@ import { Helmet } from "react-helmet"
 import slugify from "slugify"
 
 function getSocialCard({ title, hero }) {
-  const ext = hero.split(".").pop()
+  if (hero) {
+    const ext = hero.split(".").pop()
 
-  // URL guaranteed by src/gatsby-remark-social-card
-  return `https://swizec.com/social-cards/${slugify(title)}.${ext}`
+    // URL guaranteed by src/gatsby-remark-social-card
+    return `https://swizec.com/social-cards/${slugify(title)}.${ext}`
+  } else {
+    return ""
+  }
 }
 
 export default (props) => {
