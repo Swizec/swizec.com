@@ -23,10 +23,10 @@ We assume events can't happen before themselves because that doesn't make sense 
 
 To elegantly solve the problem Lamport introduces logical clocks, now known as [Lamport timestamps](http://en.wikipedia.org/wiki/Lamport_timestamps "Lamport timestamps"). Simple counters that assign numbers to events. Every process _Pi_ is going to have its own clock function _Ci_ that assigns a number _Ci(a)_ to any event in that process. We assume these clocks aren't tied to the physical concept of time, so all it takes to make this system of clocks correct are a few rules.
 
-1. If _a_ and _b_ are events in _Pi_ and _a_ comes before _b_, then _Ci(a) &lt; Ci(b)_
-2. If _a_ is sending a message from _Pi_ to _b_ in _Pj_, then _Ci(a) &lt; Cj(b)_
+1. If _a_ and _b_ are events in _Pi_ and _a_ comes before _b_, then _Ci(a) < Ci(b)_
+2. If _a_ is sending a message from _Pi_ to _b_ in _Pj_, then _Ci(a) < Cj(b)_
 
-You'll notice these two rules are essentially saying that if _a → b_ (a happened before b), then _C(a) &lt; C(b)_ (its timestamp is lower than b's). This is called the Clock Condition. It doesn't take much to create a system of clocks that satisfies these rules. And that's just what Lamport's timestamp algorithm is, simple.
+You'll notice these two rules are essentially saying that if _a → b_ (a happened before b), then _C(a) < C(b)_ (its timestamp is lower than b's). This is called the Clock Condition. It doesn't take much to create a system of clocks that satisfies these rules. And that's just what Lamport's timestamp algorithm is, simple.
 
 1. A process _Pi_ advances its clock _Ci_ between successive events
 2. Every message must contain a timestamp _Tm_ of when it was sent and when a process receives the message, it advances its clock to be greater than _Tm_
@@ -41,8 +41,8 @@ Despite our best efforts, the system can have anomalies where events are ordered
 
 Adding physical clocks to the mix looks simple. Just replace the logical timestamps from before with readings from a clock that measures physical time. The problem, however, is that you can never have a perfect clock and without synchronization clocks in separate processes are going to drift further and further apart until the system becomes useless. Physical clocks must satisfy two conditions:
 
-1. There exists a constant _k &lt;&lt; 1_ such that for all i: _|dCi(t)/dt -1| &lt; k_
-2. For all i, j: _|Ci(t) - Cj(t)| &lt; ε_
+1. There exists a constant _k << 1_ such that for all i: _|dCi(t)/dt -1| < k_
+2. For all i, j: _|Ci(t) - Cj(t)| < ε_
 
 That is, the derivative of a clock's period must always be smaller than a very small constant (the clock is precise) and the absolute difference between any two clocks must always be smaller than ε (the clocks are synchronised). Because no two clocks will ever run at the same rate on their own, we need an algorithm that synchronises a process' clock with other clocks in the system. We derive it from the logical clocks algorithm, which means that a process never needs to know the state of any clocks other than its own and message timestamps. As always in this paper, we follow two rules:
 

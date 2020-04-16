@@ -61,7 +61,7 @@ instance FromJSON Ticker where
                          v .: "ask"
 ```
 
-If I understand this correctly, those strange symbols are applicatives. The _.:_does ... something ... and the _&lt;$>_and _&lt;\*>_do something else. The whole bit is about defining how to convert a key in the JSON string into a value in the _Ticker_ type. I think. Right, let's make a function that will talk to the server and return a _Ticker_object. Maybe. If all goes well.
+If I understand this correctly, those strange symbols are applicatives. The _.:_does ... something ... and the _<$>_and _<\*>_do something else. The whole bit is about defining how to convert a key in the JSON string into a value in the _Ticker_ type. I think. Right, let's make a function that will talk to the server and return a _Ticker_object. Maybe. If all goes well.
 
 > @[swizec](https://twitter.com/swizec) yes, you actually need to do something like this:ticker = get "ticker" >>= return . decode :: MonadIO m => m (Maybe Ticker) — 蓮 (@k0001) [April 24, 2013](https://twitter.com/k0001/status/326972349196926977)
 

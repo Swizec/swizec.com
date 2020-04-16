@@ -7,7 +7,7 @@ function getSocialCard({ title, hero }) {
     const ext = hero.split(".").pop()
 
     // URL guaranteed by src/gatsby-remark-social-card
-    return `https://swizec.com/social-cards/${slugify(title)}.${ext}`
+    return `/social-cards/${slugify(title)}.${ext}`
   } else {
     return ""
   }
@@ -26,7 +26,7 @@ export default (props) => {
     (frontmatter && frontmatter.description) || props.description
 
   const image = props.image || getSocialCard(frontmatter)
-  const url = `https://swizec.com${props.path}`
+  const url = `${props.path}`
 
   return (
     <Helmet

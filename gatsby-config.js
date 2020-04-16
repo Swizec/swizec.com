@@ -35,6 +35,10 @@ module.exports = {
         plugins: ["gatsby-remark-images"],
         gatsbyRemarkPlugins: [
           {
+            resolve: "gatsby-remark-embedder",
+            options: {},
+          },
+          {
             resolve: "gatsby-remark-giphy",
             options: {
               giphyApiKey: "tvyI1ARG6FOkW9PUzmgubJ3iY5P5rJmO",
@@ -59,10 +63,6 @@ module.exports = {
                 turnPolicy: "TURNPOLICY_MAJORITY",
               },
             },
-          },
-          {
-            resolve: "gatsby-remark-embedder",
-            options: {},
           },
           {
             resolve: `${__dirname}/src/gatsby-remark-social-card`,
