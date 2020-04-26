@@ -7,11 +7,11 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/blog-wp-content-uploads-2018-12-christmas-stockings-1-1024x750.png
 ---
-People often ask: _"Hey can you make a tooltips tutorial? I can't figure this out"_
+People often ask: _&quot;Hey can you make a tooltips tutorial? I can&#x27;t figure this out&quot;_
 
 
 
-Pssh yeah I can make a tooltips tutorial. You kiddin me? It's just a floating square how hard can that be.
+Pssh yeah I can make a tooltips tutorial. You kiddin me? It&#x27;s just a floating square how hard can that be.
 
 
 
@@ -19,7 +19,7 @@ Pssh yeah I can make a tooltips tutorial. You kiddin me? It's just a floating sq
 
 
 
-And then it was an hour later and I still couldn't decide just where to put state and whether we should use context or what.
+And then it was an hour later and I still couldn&#x27;t decide just where to put state and whether we should use context or what.
 
 
 
@@ -57,19 +57,19 @@ You can watch me flounder around trying different solutions in this stream from 
 
 
 
-https://www.youtube.com/watch?v=8IOHiwI74Fc
+https&amp;#x3A;//www.youtube.com/watch?v=8IOHiwI74Fc
 
 
 
-We're using React hooks because hooks are the hot new kid on the block and learning new coding paradigms is fun.
+We&#x27;re using React hooks because hooks are the hot new kid on the block and learning new coding paradigms is fun.
 
 
 
-Oh there's also a codesandbox you can check out:
+Oh there&#x27;s also a codesandbox you can check out:
 
 
 
-https://codesandbox.io/s/7mlxwrjw4x
+https&amp;#x3A;//codesandbox.io/s/7mlxwrjw4x
 
 
 
@@ -77,7 +77,7 @@ Or read this online 👉 <https://reactviz.holiday/gift-stockings/>
 
 
 
-Click here, if you'd like a daily dataviz tutorial/challenge until Christmas 👉 https://reactviz.holiday/
+Click here, if you&#x27;d like a daily dataviz tutorial/challenge until Christmas 👉 https&amp;#x3A;//reactviz.holiday/
 
 
 
@@ -119,11 +119,11 @@ Now any consumer can change values in context. Whoa
 
 
 
-## The <Tooltip> component
+## The &amp;lt;Tooltip&gt; component
 
 
 
-Our `<Tooltip>` component doesn't do much on its own. It's a wrapper that handles positioning, visibility, and supports a nascent orientation API. We can use `orientLeft` to align our tooltip left or right. A fuller API would also have top/bottom and a bunch of similar features.
+Our `<Tooltip>` component doesn&#x27;t do much on its own. It&#x27;s a wrapper that handles positioning, visibility, and supports a nascent orientation API. We can use `orientLeft` to align our tooltip left or right. A fuller API would also have top/bottom and a bunch of similar features.
 
 
 
@@ -151,7 +151,7 @@ Tooltip then renders a `<g>` grouping element with positioning based on the orie
 
 
 
-HTML is better for tooltip content than SVG because HTML supports text automatic layouting. Set a width and the browser will figure out what to do with long strings. Don't get that with SVG.
+HTML is better for tooltip content than SVG because HTML supports text automatic layouting. Set a width and the browser will figure out what to do with long strings. Don&#x27;t get that with SVG.
 
 
 
@@ -225,7 +225,7 @@ That part took me a while to figure out. Yes with React hooks you still need to 
 
 
 
-Render our Tooltip as a sibling to all the other SVG stuff. Any components that want to render a tooltip will share the same one. That's how it usually works.
+Render our Tooltip as a sibling to all the other SVG stuff. Any components that want to render a tooltip will share the same one. That&#x27;s how it usually works.
 
 
 
@@ -306,15 +306,15 @@ const Arc = ({ d, r, color, offsetX, offsetY }) => {
 
 
 
-Here you can see a downside of hooks: They can lead to pretty sizeable functions if you aren't careful.
+Here you can see a downside of hooks: They can lead to pretty sizeable functions if you aren&#x27;t careful.
 
 
 
-We create a `selected` flag and its setter with a `useState` hook and we hook into our tooltip context with `useContext`. We'll be able to use that `setTooltip` method we added to show a tooltip.
+We create a `selected` flag and its setter with a `useState` hook and we hook into our tooltip context with `useContext`. We&#x27;ll be able to use that `setTooltip` method we added to show a tooltip.
 
 
 
-Then we've got that `const arc` stuff. It creates an arc path shape generator. Radius depends on `selected` status.
+Then we&#x27;ve got that `const arc` stuff. It creates an arc path shape generator. Radius depends on `selected` status.
 
 
 
@@ -343,7 +343,7 @@ const mouseOver = () => {
 
 
 
-Technically it triggers a re-render of our whole app because it's tied to `App` state. You could split that out in a bigger app. Or rely on React being smart enough to figure out the smallest possible re-render.
+Technically it triggers a re-render of our whole app because it&#x27;s tied to `App` state. You could split that out in a bigger app. Or rely on React being smart enough to figure out the smallest possible re-render.
 
 
 
@@ -413,7 +413,7 @@ Render a grouping element that centers our donut on `(x, y)` coordiantes, render
 
 
 
-Make sure to pass offsetX and offsetY into each arc. Arcs are positioned relatively to our donut center, which means they don't know their absolute position to pass into the tooltip context. Offsets help with that.
+Make sure to pass offsetX and offsetY into each arc. Arcs are positioned relatively to our donut center, which means they don&#x27;t know their absolute position to pass into the tooltip context. Offsets help with that.
 
 
 
@@ -421,7 +421,7 @@ Make sure to pass offsetX and offsetY into each arc. Arcs are positioned relativ
 
 
 
-And that's how you make tooltips in SVG with React hooks. Same concepts and complications apply if you're using normal React state or even Redux or something.
+And that&#x27;s how you make tooltips in SVG with React hooks. Same concepts and complications apply if you&#x27;re using normal React state or even Redux or something.
 
 
 
@@ -437,11 +437,11 @@ You need a global way to store info about the tooltip and some way to trigger it
 
 
 
-https://twitter.com/Swizec/status/1071461874170945536
+https&amp;#x3A;//twitter.com/Swizec/status/1071461874170945536
 
 
 
-Got tired of the `useState`/`useEffect` dance when loading data with hooks. Built a new hook called `useData`. That's a neat feature of hooks; you can make new ones.
+Got tired of the `useState`/`useEffect` dance when loading data with hooks. Built a new hook called `useData`. That&#x27;s a neat feature of hooks; you can make new ones.
 
 
 

@@ -17,7 +17,7 @@ This Sunday, we built a zoomable pannable map with React and D3. We also added a
 
 
 
-\[caption id="attachment_7454" align="alignnone" width="1291"][![Click on the map to see a live example](./img/blog-wp-content-uploads-2017-02-uk-migrations.gif)](https://swizec.github.io/migrations-map/) Click on the map to see a live example\[/caption]
+\[caption id=&quot;attachment_7454&quot; align=&quot;alignnone&quot; width=&quot;1291&quot;][![Click on the map to see a live example](./img/blog-wp-content-uploads-2017-02-uk-migrations.gif)](https://swizec.github.io/migrations-map/) Click on the map to see a live example\[/caption]
 
 
 
@@ -25,7 +25,7 @@ See? It zooms and it pans and the circles follow their curves. Just like the col
 
 
 
-Here's how it works ?
+Here&#x27;s how it works ?
 
 
 
@@ -33,15 +33,15 @@ Here's how it works ?
 
 
 
-Moving an element along a line is one of those things you think you can figure out on your own but you can't. Then you see how it's done and you think, _"I'm dumb"_.
+Moving an element along a line is one of those things you think you can figure out on your own but you can&#x27;t. Then you see how it&#x27;s done and you think, _&quot;I&#x27;m dumb&quot;_.
 
 
 
-But you're not dumb. It's totally un-obvious.
+But you&#x27;re not dumb. It&#x27;s totally un-obvious.
 
 
 
-We used Bostock's [Point-Along-Line Interpolation](https://bl.ocks.org/mbostock/1705868) example as our model. It creates a custom tween that we apply to each circle as an `attrTween` transition.
+We used Bostock&#x27;s [Point-Along-Line Interpolation](https://bl.ocks.org/mbostock/1705868) example as our model. It creates a custom tween that we apply to each circle as an `attrTween` transition.
 
 
 
@@ -59,15 +59,15 @@ function translateAlong(path) {
 
 
 
-That's the custom tween. I'd love to explain how it works, but… well, we have a `getPointAtLength` function that SVG gives us by default on every `<path>` element. We use it to generate `translate(x, y)` strings that we feed into the `transform` attribute of a `<circle>` element. That part is obvious.
+That&#x27;s the custom tween. I&#x27;d love to explain how it works, but… well, we have a `getPointAtLength` function that SVG gives us by default on every `<path>` element. We use it to generate `translate(x, y)` strings that we feed into the `transform` attribute of a `<circle>` element. That part is obvious.
 
 
 
-The part I don't get is the 3-deep function nesting for currying. The top function returns a tween, I assume. It's a function that takes `d, i, a` as arguments and never uses them. Instead, it returns a time-parametrized function that returns a `translate(x, y)` string for each `t`.
+The part I don&#x27;t get is the 3-deep function nesting for currying. The top function returns a tween, I assume. It&#x27;s a function that takes `d, i, a` as arguments and never uses them. Instead, it returns a time-parametrized function that returns a `translate(x, y)` string for each `t`.
 
 
 
-We know from D3 conventions that `t` runs in the `[0, 1]` interval, so we can assume the tween gives a _"point at t percent of full length of path"_ coordinates.
+We know from D3 conventions that `t` runs in the `[0, 1]` interval, so we can assume the tween gives a _&quot;point at t percent of full length of path&quot;_ coordinates.
 
 
 
@@ -121,7 +121,7 @@ We call `_transform` on every circle in our component. Each gets a different `de
 
 
 
-`delayDither` ensures the circles for each line start with a random offset, which also helps fight the burstiness. Here's what the map looks like without `delayDither` and with a constant delay between circles regardless how many there are.
+`delayDither` ensures the circles for each line start with a random offset, which also helps fight the burstiness. Here&#x27;s what the map looks like without `delayDither` and with a constant delay between circles regardless how many there are.
 
 
 
@@ -149,11 +149,11 @@ You see, D3 comes with something called [d3.zoom](https://github.com/d3/d3-zoom)
 
 
 
-Cool, right? Should be easy to implement. And it is… if you don't fall down a rabbit hole.
+Cool, right? Should be easy to implement. And it is… if you don&#x27;t fall down a rabbit hole.
 
 
 
-In the old days, the standard approach was to `.call()` zoom on an `<svg>` element, listen for `zoom` events, and adjust your scales. Zoom callback would tell you how to change zoominess and where to move, and you'd adjust your scales and re-render the visualization.
+In the old days, the standard approach was to `.call()` zoom on an `<svg>` element, listen for `zoom` events, and adjust your scales. Zoom callback would tell you how to change zoominess and where to move, and you&#x27;d adjust your scales and re-render the visualization.
 
 
 
@@ -212,7 +212,7 @@ Voila, zooming and panning. ?
 
 
 
-\[caption id="attachment_7454" align="alignnone" width="1291"][![Click on the map to see a live example](./img/blog-wp-content-uploads-2017-02-uk-migrations.gif)](https://swizec.github.io/migrations-map/) Click on the map to see a live example\[/caption]
+\[caption id=&quot;attachment_7454&quot; align=&quot;alignnone&quot; width=&quot;1291&quot;][![Click on the map to see a live example](./img/blog-wp-content-uploads-2017-02-uk-migrations.gif)](https://swizec.github.io/migrations-map/) Click on the map to see a live example\[/caption]
 
 
 

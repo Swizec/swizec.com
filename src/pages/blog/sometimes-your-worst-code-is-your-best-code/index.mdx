@@ -21,11 +21,11 @@ You know what they say: Arguing with an engineer is like wrestling with a pig in
 
 
 
-Everyone loves a good fight about their tools. It's fun as heck, scares away all the normal people, and makes you feel smart. win-win-win what's not to love?
+Everyone loves a good fight about their tools. It&#x27;s fun as heck, scares away all the normal people, and makes you feel smart. win-win-win what&#x27;s not to love?
 
 
 
-Wasting time you could spend solving problems. You're paid to _solve problems_ not to "find the best way" to still not solve the problem. 😉
+Wasting time you could spend solving problems. You&#x27;re paid to _solve problems_ not to &quot;find the best way&quot; to still not solve the problem. 😉
 
 
 
@@ -33,7 +33,7 @@ Within reason.
 
 
 
-So I figured I'd share a couple gloriously disgusting hacks that made me take a shower right after. But they solved the problem.
+So I figured I&#x27;d share a couple gloriously disgusting hacks that made me take a shower right after. But they solved the problem.
 
 
 
@@ -57,11 +57,11 @@ You see I had a paid ad spot in a React newsletter from Cooper Press that was go
 
 
 
-But it's not a lead magnet unless it asks for your email.
+But it&#x27;s not a lead magnet unless it asks for your email.
 
 
 
-Page is done – copied from Rebass's wonderful docs page – how hard can it be to add an email form?
+Page is done – copied from Rebass&#x27;s wonderful docs page – how hard can it be to add an email form?
 
 
 
@@ -93,7 +93,7 @@ Ooooooor I could create this glorious hack
 
 
 
-It worked. Free product, opt-in wall, made $1000 in its first week as a "pay what you want" offering.
+It worked. Free product, opt-in wall, made $1000 in its first week as a &quot;pay what you want&quot; offering.
 
 
 
@@ -105,11 +105,11 @@ It worked. Free product, opt-in wall, made $1000 in its first week as a "pay wha
 
 
 
-It really is quite a nasty piece of work. We've got a React component that renders the paywall itself.
+It really is quite a nasty piece of work. We&#x27;ve got a React component that renders the paywall itself.
 
 
 
-Once React is done rendering we use a `useEffectLayout` to run some vanilla JavaScript that manipulates the DOM directly. You're _really_ not supposed to do that with React.
+Once React is done rendering we use a `useEffectLayout` to run some vanilla JavaScript that manipulates the DOM directly. You&#x27;re _really_ not supposed to do that with React.
 
 
 
@@ -141,7 +141,7 @@ Another nasty piece of work happened at the dayjob.
 
 
 
-We use a 3rd party app to manage our fleet of shift workers. Person comes on our platform, creates a account, backend gives them an account on this other service, and there's some integration between us and them.
+We use a 3rd party app to manage our fleet of shift workers. Person comes on our platform, creates a account, backend gives them an account on this other service, and there&#x27;s some integration between us and them.
 
 
 
@@ -149,19 +149,19 @@ The ops team uses that integration to run payroll.
 
 
 
-Guess what happened on October 27th? That's right, the integration suddenly and mysteriously died.
+Guess what happened on October 27th? That&#x27;s right, the integration suddenly and mysteriously died.
 
 
 
-We dug in and found that the API returns data in shift worker's individual timezones. _Not_ in our timezone or UTC like you'd expect. When we built the integration the API used our timezone.
+We dug in and found that the API returns data in shift worker&#x27;s individual timezones. _Not_ in our timezone or UTC like you&#x27;d expect. When we built the integration the API used our timezone.
 
 
 
-Nope, the API doesn't tell you which timezone each timestamp is in. Don't even get me started on API's that expect you to assume timezone from context. 😒
+Nope, the API doesn&#x27;t tell you which timezone each timestamp is in. Don&#x27;t even get me started on API&#x27;s that expect you to assume timezone from context. 😒
 
 
 
-We assume it's a bug, talk to support, and go on our merry way. But November 1st is coming fast.
+We assume it&#x27;s a bug, talk to support, and go on our merry way. But November 1st is coming fast.
 
 
 
@@ -205,7 +205,7 @@ The idea behind this hack really is quite nasty.
 
 
 
-I searched through the app's UI to find a place that gives data in a timezone that we want. The schedule view instead of the payroll view.
+I searched through the app&#x27;s UI to find a place that gives data in a timezone that we want. The schedule view instead of the payroll view.
 
 
 
@@ -213,7 +213,7 @@ Their UI uses the same broken API as our backend, go figure.
 
 
 
-Once you have something in the HTML, you can use JavaScript to scrape it. 💡 And that's exactly what I did: Found some orienting classes and HTML ids ad wrote some vanilla JavaScript to read them.
+Once you have something in the HTML, you can use JavaScript to scrape it. 💡 And that&#x27;s exactly what I did: Found some orienting classes and HTML ids ad wrote some vanilla JavaScript to read them.
 
 
 
@@ -221,7 +221,7 @@ Now what? You can access the data, but how do you get it into your own system?
 
 
 
-Generate 300Kb of Ruby code and dump it straight into Chrome DevTools with a console.log of course. D'oh
+Generate 300Kb of Ruby code and dump it straight into Chrome DevTools with a console.log of course. D&#x27;oh
 
 
 
@@ -233,7 +233,7 @@ Then you copy paste that into production and save the day.
 
 
 
-PS: The 3rd party has since decided that _"different timezone for each row of data without timezone in the timestamp"_ is the correct behavior. I want to murderize them. ❤️
+PS: The 3rd party has since decided that _&quot;different timezone for each row of data without timezone in the timestamp&quot;_ is the correct behavior. I want to murderize them. ❤️
 
 
 

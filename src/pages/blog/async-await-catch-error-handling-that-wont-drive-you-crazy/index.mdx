@@ -13,7 +13,7 @@ Async/await is great. Makes your code easier to read 👌 But the error handling
 
 
 
-Yes try catch is great, it might even make your code easier to read. Combined with JavaScript's modern block scoping it gives rise to the vile side of exception handling.
+Yes try catch is great, it might even make your code easier to read. Combined with JavaScript&#x27;s modern block scoping it gives rise to the vile side of exception handling.
 
 
 
@@ -21,7 +21,7 @@ check this out 👇
 
 
 
-Say you're using [@lukeed05's httpie](https://github.com/lukeed/httpie) to scream at a server.
+Say you&#x27;re using [@lukeed05&#x27;s httpie](https://github.com/lukeed/httpie) to scream at a server.
 
 
 
@@ -41,7 +41,7 @@ What do you do? Add a try catch. Wanna handle those JavaScript errors and show a
 
 
 
-You're talking to a naughty server and handling errors like you're supposed to. 👏
+You&#x27;re talking to a naughty server and handling errors like you&#x27;re supposed to. 👏
 
 
 
@@ -57,7 +57,7 @@ Oh no what just happened!? 😱
 
 
 
-You're getting a "Naughty server said no" error even though _you_ made the mistake. You can't just access properties on undefinedStuff. JavaScript doesn't like that.
+You&#x27;re getting a &quot;Naughty server said no&quot; error even though _you_ made the mistake. You can&#x27;t just access properties on undefinedStuff. JavaScript doesn&#x27;t like that.
 
 
 
@@ -77,11 +77,11 @@ Oh I know! We can move using data to after the catch block, right? That should w
 
 
 
-Nope. Now data isn't defined because `const { data }` only works within that try block. 🤦‍♂️
+Nope. Now data isn&#x27;t defined because `const { data }` only works within that try block. 🤦‍♂️
 
 
 
-You could solve that with a `var`, but that's old school JavaScript and we all agreed we'd stop using it.
+You could solve that with a `var`, but that&#x27;s old school JavaScript and we all agreed we&#x27;d stop using it.
 
 
 
@@ -93,7 +93,7 @@ What about this?
 
 
 
-This works. But pre-declaring your variables like it's 1978? No thanks. That's why [variable hoisting](https://en.wikipedia.org/wiki/JavaScript_syntax#hoisting) was invented in the first place, lol.
+This works. But pre-declaring your variables like it&#x27;s 1978? No thanks. That&#x27;s why [variable hoisting](https://en.wikipedia.org/wiki/JavaScript_syntax#hoisting) was invented in the first place, lol.
 
 
 
@@ -105,15 +105,15 @@ You _could_ wrap your code in another level of try/catch ...
 
 
 
-And that's never ever going to get out of hand is it? 😅
+And that&#x27;s never ever going to get out of hand is it? 😅
 
 
 
-I'm gonna be honest with you: There's no solution. Not a nice one. Not in JavaScript.
+I&#x27;m gonna be honest with you: There&#x27;s no solution. Not a nice one. Not in JavaScript.
 
 
 
-Other languages let you catch specific error types. As far as I know, JavaScript doesn't (can't?) support that :/
+Other languages let you catch specific error types. As far as I know, JavaScript doesn&#x27;t (can&#x27;t?) support that :/
 
 
 
@@ -125,11 +125,11 @@ Other languages let you catch specific error types. As far as I know, JavaScript
 
 
 
-It sucks. It always sucks. Whichever way you do it, it's going to make your head spin.
+It sucks. It always sucks. Whichever way you do it, it&#x27;s going to make your head spin.
 
 
 
-You see there's 2 ways software can approach errors:
+You see there&#x27;s 2 ways software can approach errors:
 
 
 
@@ -174,23 +174,23 @@ Luke proposes function wrappers to give your async/await code error passing supe
 
 
 
-\[https://twitter.com/lukeed05/status/1093226585853841409]
+\[https&amp;#x3A;//twitter.com/lukeed05/status/1093226585853841409]
 
 
 
-\[https://twitter.com/lukeed05/status/1093227112805191681]
+\[https&amp;#x3A;//twitter.com/lukeed05/status/1093227112805191681]
 
 
 
-🤨 I'm not convinced but _I guess_
+🤨 I&#x27;m not convinced but _I guess_
 
 
 
-### Exceptions "improve" error passing
+### Exceptions &quot;improve&quot; error passing
 
 
 
-Many moons ago someone had the bright idea that hey error passing sucks, let's use exceptions instead. [Wikipedia says it was Lisp in the 1960s](https://en.wikipedia.org/wiki/Exception_handling#History).
+Many moons ago someone had the bright idea that hey error passing sucks, let&#x27;s use exceptions instead. [Wikipedia says it was Lisp in the 1960s](https://en.wikipedia.org/wiki/Exception_handling#History).
 
 
 
@@ -216,7 +216,7 @@ That catch block handles your error and execution continues from there. _NOT_ fr
 
 
 
-This is crucial. It means that 90% of the time you're writing happy path code and don't have to worry about errors.
+This is crucial. It means that 90% of the time you&#x27;re writing happy path code and don&#x27;t have to worry about errors.
 
 
 
@@ -224,7 +224,7 @@ And somewhere in your code you make sure to handle all errors.
 
 
 
-For example that's how Ruby on Rails can make sure that no matter what you do, if all goes to shit, RoR itself will serve a beautiful 500 page telling the user what's up.
+For example that&#x27;s how Ruby on Rails can make sure that no matter what you do, if all goes to shit, RoR itself will serve a beautiful 500 page telling the user what&#x27;s up.
 
 
 
@@ -240,11 +240,11 @@ You focus on the good stuff.
 
 
 
-## JavaScript's missing exception piece
+## JavaScript&#x27;s missing exception piece
 
 
 
-JavaScript's missing piece are exception types.
+JavaScript&#x27;s missing piece are exception types.
 
 
 
@@ -268,7 +268,7 @@ This works across function calls, across entire systems, it just works. It works
 
 
 
-If _you_ don't handle the error, it bubbles up the stack. _Someone_ will handle it.
+If _you_ don&#x27;t handle the error, it bubbles up the stack. _Someone_ will handle it.
 
 
 
@@ -280,15 +280,15 @@ When all goes to shit, the Python environment itself runs your code in a try/exc
 
 
 
-Give up. You're already writing code. There's your first mistake 😛
+Give up. You&#x27;re already writing code. There&#x27;s your first mistake 😛
 
 
 
-Error handling is always going to suck. I'm sorry.
+Error handling is always going to suck. I&#x27;m sorry.
 
 
 
-But you can emulate the python/ruby/java/etc approach in JavaScript and make your life a little easier. You'll have to coordinate with your team because there's no language support, but something like this might work:
+But you can emulate the python/ruby/java/etc approach in JavaScript and make your life a little easier. You&#x27;ll have to coordinate with your team because there&#x27;s no language support, but something like this might work:
 
 
 
@@ -296,11 +296,11 @@ But you can emulate the python/ruby/java/etc approach in JavaScript and make you
 
 
 
-Of course then you have to set `myType` on every error you raise and that's tedious too 🤔
+Of course then you have to set `myType` on every error you raise and that&#x27;s tedious too 🤔
 
 
 
-Sorry that's the best we can do. 🙈
+Sorry that&#x27;s the best we can do. 🙈
 
 
 
@@ -308,7 +308,7 @@ Sorry that's the best we can do. 🙈
 
 
 
-As promised last week, here's five cool things
+As promised last week, here&#x27;s five cool things
 
 
 
@@ -320,7 +320,7 @@ React Hooks are out. 🎣
 
 
 
-[Here's a good overview from SebHastian](https://sebhastian.com/react-hooks-introduction)
+[Here&#x27;s a good overview from SebHastian](https://sebhastian.com/react-hooks-introduction)
 
 
 
@@ -328,7 +328,7 @@ You can also read my [twitter thread about hooks](https://twitter.com/Swizec/sta
 
 
 
-This isn't technical but it _is_ amazing. [@shl reflects on his failure to build a billion dollar company](https://medium.com/@shl/reflecting-on-my-failure-to-build-a-billion-dollar-company-b0c31d7db0e7). Instead he built an amazing business that works. (Gumroad)
+This isn&#x27;t technical but it _is_ amazing. [@shl reflects on his failure to build a billion dollar company](https://medium.com/@shl/reflecting-on-my-failure-to-build-a-billion-dollar-company-b0c31d7db0e7). Instead he built an amazing business that works. (Gumroad)
 
 
 

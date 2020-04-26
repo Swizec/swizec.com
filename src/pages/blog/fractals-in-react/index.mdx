@@ -7,7 +7,7 @@ redirect_from:
 categories: "react, Technical"
 hero: ../../../defaultHero.jpg
 ---
-So… this started as an article about why recursion doesn't work in React. [It _looks_ like it works](https://swizec.com/blog/simple-mobx-driven-modals/swizec/7166), then you `npm run build`, and it stops working.
+So… this started as an article about why recursion doesn&#x27;t work in React. [It _looks_ like it works](https://swizec.com/blog/simple-mobx-driven-modals/swizec/7166), then you `npm run build`, and it stops working.
 
 
 
@@ -15,7 +15,7 @@ Curious, right? Worth looking into, eh?
 
 
 
-That's not the article you're getting. It _started_ as that article, then I spent 3 hours building a Pythagoras tree fractal. It's 2:30am, and is my life even real?
+That&#x27;s not the article you&#x27;re getting. It _started_ as that article, then I spent 3 hours building a Pythagoras tree fractal. It&#x27;s 2:30am, and is my life even real?
 
 
 
@@ -27,11 +27,11 @@ Who the hell accidentally spends all night building fractals? Me… I guess.
 
 
 
-Pretty, innit? Built with React, and it's going to stop working when I `npm run build`. Still don't know why. I'll figure _that_ out next week.
+Pretty, innit? Built with React, and it&#x27;s going to stop working when I `npm run build`. Still don&#x27;t know why. I&#x27;ll figure _that_ out next week.
 
 
 
-Here's how the [Pythagoras tree](https://en.wikipedia.org/wiki/Pythagoras_tree_(fractal)) works:
+Here&#x27;s how the [Pythagoras tree](https://en.wikipedia.org/wiki/Pythagoras_tree_(fractal)) works:
 
 
 
@@ -124,7 +124,7 @@ Beautiful. Let me explain.
 
 
 
-If we're in a `left` rectangle, we set up a left rotation; if `right` then a right rotation. `rotate()` is an SVG transformation that rotates the current coordinate system.
+If we&#x27;re in a `left` rectangle, we set up a left rotation; if `right` then a right rotation. `rotate()` is an SVG transformation that rotates the current coordinate system.
 
 
 
@@ -132,7 +132,7 @@ To draw the rectangle, we:
 
 
 
-- `translate` to `(x, y`), that means "move there"
+- `translate` to `(x, y`), that means &quot;move there&quot;
 - add the rotation
 - now our coordinate system is moved and rotate
 - draw a rectangle at `(0, 0)`
@@ -140,7 +140,7 @@ To draw the rectangle, we:
 
 
 
-And that's how you build a fractal in React. It won't work in production, but it sure looks pretty on your localhost.
+And that&#x27;s how you build a fractal in React. It won&#x27;t work in production, but it sure looks pretty on your localhost.
 
 
 
@@ -162,15 +162,15 @@ Start `lvl` at `0` and set the `maxlvl`. Those are \\important. At `maxlvl` past
 
 
 
-Yes, I tried. The naive algorithm isn't good enough. You could optimize by taking calculations out of recursion and preparing them in advance.
+Yes, I tried. The naive algorithm isn&#x27;t good enough. You could optimize by taking calculations out of recursion and preparing them in advance.
 
 
 
-## The part I can't figure out
+## The part I can&#x27;t figure out
 
 
 
-Look at [Andrew Hoyer's](http://andrew-hoyer.com/experiments/fractals/) Pythagoras tree. That thing is beautiful and flexible and dances like tree-shaped worm.
+Look at [Andrew Hoyer&#x27;s](http://andrew-hoyer.com/experiments/fractals/) Pythagoras tree. That thing is beautiful and flexible and dances like tree-shaped worm.
 
 
 
@@ -182,7 +182,7 @@ Look at [Andrew Hoyer's](http://andrew-hoyer.com/experiments/fractals/) Pythagor
 
 
 
-I can't figure out how to calculate those angles and rectangle sizes. I know that using `.5` in the `Factor` is for `45` degree angles.
+I can&#x27;t figure out how to calculate those angles and rectangle sizes. I know that using `.5` in the `Factor` is for `45` degree angles.
 
 
 
@@ -212,7 +212,7 @@ Ok, that was expected. Since you know all the sides, you should be able to apply
 
 
 
-I can't figure it out. I'm pretty sure I'm applying the Law of Sines correctly, but the numbers it throws out are wrong.
+I can&#x27;t figure it out. I&#x27;m pretty sure I&#x27;m applying the Law of Sines correctly, but the numbers it throws out are wrong.
 
 
 
@@ -220,4 +220,4 @@ Halp ?
 
 
 
-PS: Here's a paper that describes [using Pythagoras trees as data structures](https://pdfs.semanticscholar.org/08dd/831514db573cb9fd2b993a5814007888117a.pdf). Sort of.
+PS: Here&#x27;s a paper that describes [using Pythagoras trees as data structures](https://pdfs.semanticscholar.org/08dd/831514db573cb9fd2b993a5814007888117a.pdf). Sort of.

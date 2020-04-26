@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-17 years ago, in 6th grade, I set out to build a 3D spinning cube and failed miserably. You can't do 3D without sine and cosine.
+17 years ago, in 6th grade, I set out to build a 3D spinning cube and failed miserably. You can&#x27;t do 3D without sine and cosine.
 
 
 
@@ -19,11 +19,11 @@ Today, I made it happen! _Two_ 3D spinning cubes. 🤘🏼
 
 
 
-\[caption id="attachment_7671" align="alignnone" width="792"]![Two spinning cubes](./img/blog-wp-content-uploads-2017-06-cubes-1.gif) Two spinning cubes\[/caption]
+\[caption id=&quot;attachment_7671&quot; align=&quot;alignnone&quot; width=&quot;792&quot;]![Two spinning cubes](./img/blog-wp-content-uploads-2017-06-cubes-1.gif) Two spinning cubes\[/caption]
 
 
 
-As promised [poolside on Sunday](https://twitter.com/Swizec/status/876537115760222208), this week's livecoding session happened on Monday. Together, we admired the speed of [my new laptop](https://swizec.com/blog/first-day-new-2017-macbook-pro/swizec/7643), wondered why YouTube still garbles my voice, and built two green spinning 3D cubes. Declaratively 😏
+As promised [poolside on Sunday](https://twitter.com/Swizec/status/876537115760222208), this week&#x27;s livecoding session happened on Monday. Together, we admired the speed of [my new laptop](https://swizec.com/blog/first-day-new-2017-macbook-pro/swizec/7643), wondered why YouTube still garbles my voice, and built two green spinning 3D cubes. Declaratively 😏
 
 
 
@@ -57,15 +57,15 @@ The goal was to come up with a declarative approach to creating 3D scenes. Write
 
 
 
-I'm sure someone's already built a React-to-Three library, but I wanted to give it a shot myself. You can think of this as a proof of concept.
+I&#x27;m sure someone&#x27;s already built a React-to-Three library, but I wanted to give it a shot myself. You can think of this as a proof of concept.
 
 
 
-This is also the first time I've played with Three.js, and I have to say, it's easier than I thought it would be. At least to render two cubes. Other stuff I'm sure is super hard.
+This is also the first time I&#x27;ve played with Three.js, and I have to say, it&#x27;s easier than I thought it would be. At least to render two cubes. Other stuff I&#x27;m sure is super hard.
 
 
 
-Here's how it works. 👇
+Here&#x27;s how it works. 👇
 
 
 
@@ -129,7 +129,7 @@ A `ThreeScene` component defines a new Three.js `Scene` and a `WebGLRenderer`. B
 
 
 
-Context is messy but it gives every child access to the scene and renderer. They'll need the scene for rendering themselves, and the camera component will need access to the renderer.
+Context is messy but it gives every child access to the scene and renderer. They&#x27;ll need the scene for rendering themselves, and the camera component will need access to the renderer.
 
 
 
@@ -145,11 +145,11 @@ In `componentDidMount`, we manually update the DOM and `appendChild` to the rend
 
 
 
-Three.js comes with a bunch of different camera configurations, and I don't know what they all mean. I think one of them, the StereoCamera, is meant for VR.
+Three.js comes with a bunch of different camera configurations, and I don&#x27;t know what they all mean. I think one of them, the StereoCamera, is meant for VR.
 
 
 
-The base example uses `PerspectiveCamera`, so that's what I used, too. This component sets up our camera and renders our scene.
+The base example uses `PerspectiveCamera`, so that&#x27;s what I used, too. This component sets up our camera and renders our scene.
 
 
 
@@ -201,7 +201,7 @@ We call `updateThree` when `<PerspectiveCamera>` is first initialized and whenev
 
 
 
-I'm sure Three.js supports changing field of view, aspect ratio, and other properties of an already instantiated camera, but there was no clear way of doing so. It looks like creating a new camera on every `requestAnimationFrame` doesn't cause issues.
+I&#x27;m sure Three.js supports changing field of view, aspect ratio, and other properties of an already instantiated camera, but there was no clear way of doing so. It looks like creating a new camera on every `requestAnimationFrame` doesn&#x27;t cause issues.
 
 
 
@@ -213,7 +213,7 @@ Every time React updates our component, we call `_render`. It performs the actua
 
 
 
-Finally, our `<Cube>` components know how to render a 3D cube from props, and add themselves to the scene when mounted. They should remove themselves when unmounted, but I didn't implement that part due to _"Eh, it's just an example.”_
+Finally, our `<Cube>` components know how to render a 3D cube from props, and add themselves to the scene when mounted. They should remove themselves when unmounted, but I didn&#x27;t implement that part due to _&quot;Eh, it&#x27;s just an example.”_
 
 
 
@@ -254,7 +254,7 @@ Officially, a `<Cube>` component renders `null`. Unofficially, it adds itself to
 
 
 
-When it's being mounted, it also sets up the object itself with `Geometry`, adds a green `Mesh`, and updates its own `rotation` and `position` on every `componentDidUpdate`. This creates smooth animation if we change props often enough.
+When it&#x27;s being mounted, it also sets up the object itself with `Geometry`, adds a green `Mesh`, and updates its own `rotation` and `position` on every `componentDidUpdate`. This creates smooth animation if we change props often enough.
 
 
 
@@ -266,8 +266,8 @@ Every `requestAnimationFrame` is best.
 
 
 
-And that's how we can render declarative 3D scenes in React. This has been a 2-hour experiment. With some more work, it could become a proper way to use Three.js with a React approach.
+And that&#x27;s how we can render declarative 3D scenes in React. This has been a 2-hour experiment. With some more work, it could become a proper way to use Three.js with a React approach.
 
 
 
-Surely someone's already built that…
+Surely someone&#x27;s already built that…

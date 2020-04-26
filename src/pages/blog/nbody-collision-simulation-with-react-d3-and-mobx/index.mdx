@@ -7,7 +7,7 @@ redirect_from:
 categories: "d3js, Front End, MobX, react, Technical"
 hero: ../../../defaultHero.jpg
 ---
-Collision detection is one of those problems that's easy in theory but hard in practice. Even between ideal circles.
+Collision detection is one of those problems that&#x27;s easy in theory but hard in practice. Even between ideal circles.
 
 
 
@@ -25,7 +25,7 @@ This is called [a posteriori collision detection](https://en.wikipedia.org/wiki/
 
 
 
-Another approach is called a priori collision detection. That predicts collisions _before_ they happen. It's more correct, but it’s hard to implement because predicting when two items will collide is, in theory, an algorithm with infinite steps. Wikipedia says the problem doesn't have a [closed-form solution](https://en.wikipedia.org/wiki/Closed-form_expression).
+Another approach is called a priori collision detection. That predicts collisions _before_ they happen. It&#x27;s more correct, but it’s hard to implement because predicting when two items will collide is, in theory, an algorithm with infinite steps. Wikipedia says the problem doesn&#x27;t have a [closed-form solution](https://en.wikipedia.org/wiki/Closed-form_expression).
 
 
 
@@ -37,7 +37,7 @@ As per this [159 page thesis on collision detection](https://wwwx.cs.unc.edu/~ge
 
 
 
-Indeed. It's also fun to build. You can play with the final solution in this [live example](https://swizec.github.io/declarative-canvas-react-konva/).
+Indeed. It&#x27;s also fun to build. You can play with the final solution in this [live example](https://swizec.github.io/declarative-canvas-react-konva/).
 
 
 
@@ -49,11 +49,11 @@ Here is my first attempt ?
 
 
 
-? Hmmmm… the two marbles do bounce off each other, but that's not quite right. They come too close together before bouncing.
+? Hmmmm… the two marbles do bounce off each other, but that&#x27;s not quite right. They come too close together before bouncing.
 
 
 
-On my second attempt, I used [D3v4's quadtree](https://github.com/d3/d3-quadtree) to detect the collision. Quadtrees subdivide a space based on a list of coordinates. In my case, it’s a list of marbles. You can then perform fast lookups for _"Which items are within radius R of coordinates (x, y)?”_.
+On my second attempt, I used [D3v4&#x27;s quadtree](https://github.com/d3/d3-quadtree) to detect the collision. Quadtrees subdivide a space based on a list of coordinates. In my case, it’s a list of marbles. You can then perform fast lookups for _&quot;Which items are within radius R of coordinates (x, y)?”_.
 
 
 
@@ -77,7 +77,7 @@ But a collision should deflect marbles, not just bounce them. So I used a [dot p
 
 
 
-Marvelous! Direction vectors get deflected, marbles bounce off each other, and something is still wrong. My collision correction algorithm doesn't account for mass.
+Marvelous! Direction vectors get deflected, marbles bounce off each other, and something is still wrong. My collision correction algorithm doesn&#x27;t account for mass.
 
 
 
@@ -89,7 +89,7 @@ Real marbles have mass. To make life easier, I decided all marbles should have t
 
 
 
-?… hmmm… I don't think marbles are that sticky.
+?… hmmm… I don&#x27;t think marbles are that sticky.
 
 
 
@@ -97,11 +97,11 @@ I started tweaking parameters, changing coefficients, and tweaking multipliers. 
 
 
 
-https://twitter.com/Swizec/status/841529688002449409
+https&amp;#x3A;//twitter.com/Swizec/status/841529688002449409
 
 
 
-Click play. A gif wouldn't do it justice.
+Click play. A gif wouldn&#x27;t do it justice.
 
 
 
@@ -117,7 +117,7 @@ After some more tweaking, I think I got it:
 
 
 
-_In general_, marbles bounce off each other, have their vectors deflected, slow down due to friction, and share mass in a collision. I don't know if it's a physically correct simulation, but it looks good enough to me.
+_In general_, marbles bounce off each other, have their vectors deflected, slow down due to friction, and share mass in a collision. I don&#x27;t know if it&#x27;s a physically correct simulation, but it looks good enough to me.
 
 
 
@@ -135,7 +135,7 @@ Marbles sticking together can happen due to one of three reasons:
 
 1. User overlaid marbles manually
 2. A marble _actually_ collides with multiple marbles within the same 16ms frame. Only one of the collisions is detected
-3. A fast marble hits a small marble in such a way that their cumulative speed doesn't produce escape velocity
+3. A fast marble hits a small marble in such a way that their cumulative speed doesn&#x27;t produce escape velocity
 
 
 
@@ -155,7 +155,7 @@ The 3rd case can be solved by applying the collision step until all collisions a
 
 
 
-Well… there's no stickiness… but no.
+Well… there&#x27;s no stickiness… but no.
 
 
 
@@ -163,7 +163,7 @@ Well… there's no stickiness… but no.
 
 
 
-## Here's how it works
+## Here&#x27;s how it works
 
 
 
@@ -256,7 +256,7 @@ The [`Physics.js`](https://github.com/Swizec/declarative-canvas-react-konva/blob
 
 
 
-That's a lot of code ?. Let's break it down.
+That&#x27;s a lot of code ?. Let&#x27;s break it down.
 
 
 
@@ -314,7 +314,7 @@ Nested ternary expressions are kinda messy, but they’re good enough. If a marb
 
 
 
-**Finding collisions** with the next closest marble happens via a quadtree. Since we don't have too many marbles, we can afford to build a new quadtree from scratch every time.
+**Finding collisions** with the next closest marble happens via a quadtree. Since we don&#x27;t have too many marbles, we can afford to build a new quadtree from scratch every time.
 
 
 
@@ -331,7 +331,7 @@ const subdividedSpace = quadtree().extent([[-1, -1],
 
 
 
-We're using [`d3-quadtree`](https://github.com/d3/d3-quadtree) for the quadtree implementation. It takes an `extent`, which tells it how big our space is. It uses `x` and `y` accessors to get coordinates out of our marble objects, and we use `addAll` to fill it with marbles.
+We&#x27;re using [`d3-quadtree`](https://github.com/d3/d3-quadtree) for the quadtree implementation. It takes an `extent`, which tells it how big our space is. It uses `x` and `y` accessors to get coordinates out of our marble objects, and we use `addAll` to fill it with marbles.
 
 
 
@@ -339,11 +339,11 @@ To avoid detecting each marble as colliding with itself, we take each marble out
 
 
 
-Once we have a quadtree built out, we use `.find` to look for the nearest marble within `MarbleR*2` of the current marble. Which is exactly the one we're colliding with! :)
+Once we have a quadtree built out, we use `.find` to look for the nearest marble within `MarbleR*2` of the current marble. Which is exactly the one we&#x27;re colliding with! :)
 
 
 
-**Handling collisions with marbles** involves math. It’s the sort of thing you think you remember from high school and then suddenly realize you don't when the time comes to use it.
+**Handling collisions with marbles** involves math. It’s the sort of thing you think you remember from high school and then suddenly realize you don&#x27;t when the time comes to use it.
 
 
 
@@ -382,11 +382,11 @@ return {
 
 
 
-Ok, the `return` statement isn't about handling collisions. It updates the current marble.
+Ok, the `return` statement isn&#x27;t about handling collisions. It updates the current marble.
 
 
 
-The rest kind of looks like magic. I implemented it and it looks like magic and I feel like I don't _really_ understand it.
+The rest kind of looks like magic. I implemented it and it looks like magic and I feel like I don&#x27;t _really_ understand it.
 
 
 
@@ -394,7 +394,7 @@ You can think of `[normx, normy]` as a vector that points from current marble to
 
 
 
-Then we calculate the [dot product](https://en.wikipedia.org/wiki/Dot_product) between our marble's speed vector and the collision direction vector. We normalize it by distance. Multiplying distance by `2` accounts for there being two marbles in the collision. That extra `.3` made the simulation look better.
+Then we calculate the [dot product](https://en.wikipedia.org/wiki/Dot_product) between our marble&#x27;s speed vector and the collision direction vector. We normalize it by distance. Multiplying distance by `2` accounts for there being two marbles in the collision. That extra `.3` made the simulation look better.
 
 
 
@@ -402,15 +402,15 @@ I fiddled with it :)
 
 
 
-Then we use the dot product scalar to adjust the marble's speed vector. Dividing by `2` takes into account that half the energy goes to the other marble. This is only true because we assume their masses are equal.
+Then we use the dot product scalar to adjust the marble&#x27;s speed vector. Dividing by `2` takes into account that half the energy goes to the other marble. This is only true because we assume their masses are equal.
 
 
 
-Finally, we update the `candidate` marble and make sure it bounces off as well. We do it additively because that's how it happens in real life.
+Finally, we update the `candidate` marble and make sure it bounces off as well. We do it additively because that&#x27;s how it happens in real life.
 
 
 
-Two marbles traveling towards each other in exactly opposite directions with exactly the same speed will stop dead and stay there. As soon as there's any misalignment, deflection happens. If one is stationary, it starts moving. If it's moving in the same direction, it speeds up… etc.
+Two marbles traveling towards each other in exactly opposite directions with exactly the same speed will stop dead and stay there. As soon as there&#x27;s any misalignment, deflection happens. If one is stationary, it starts moving. If it&#x27;s moving in the same direction, it speeds up… etc.
 
 
 

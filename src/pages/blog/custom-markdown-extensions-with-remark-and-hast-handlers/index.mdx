@@ -23,11 +23,11 @@ Easy to build the layout, easy to write the content. Perfect 👌
 
 
 
-Markdown for content-heavy apps is what I wanna talk about today. Because I discovered how you can make markdown do anything you want. Anything. It's amazing.
+Markdown for content-heavy apps is what I wanna talk about today. Because I discovered how you can make markdown do anything you want. Anything. It&#x27;s amazing.
 
 
 
-https://www.youtube.com/watch?v=QtSSNLh_PBs
+https&amp;#x3A;//www.youtube.com/watch?v=QtSSNLh_PBs
 
 
 
@@ -59,7 +59,7 @@ Maybe my regex-based extensions broke it.
 
 
 
-Or the fact that it used Regex to render Markdown, which is not a regular language. Same problem as using Regex to parse HTML. [You can't](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags)
+Or the fact that it used Regex to render Markdown, which is not a regular language. Same problem as using Regex to parse HTML. [You can&#x27;t](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags)
 
 
 
@@ -67,7 +67,7 @@ Either way, the solution was a rewrite to [Remark](https://github.com/remarkjs/r
 
 
 
-https://twitter.com/Swizec/status/1114672906607325184
+https&amp;#x3A;//twitter.com/Swizec/status/1114672906607325184
 
 
 
@@ -97,7 +97,7 @@ I built a Markdown extension that understands YouTube and Twitter links as a spe
 
 
 
-We'll use that to talk about how to build a Markdown extension. You could use the same approach to create completely new Markdown syntax.
+We&#x27;ll use that to talk about how to build a Markdown extension. You could use the same approach to create completely new Markdown syntax.
 
 
 
@@ -109,7 +109,7 @@ Remark is a Markdown parser/compiler that uses plugins to do its thing.
 
 
 
-I've written about [How to build a Remark plugin to supercharge your static site](https://swizec.com/blog/buildremark-plugin-supercharge-static-site/swizec/8860) before. Here's the process in a nutshell:
+I&#x27;ve written about [How to build a Remark plugin to supercharge your static site](https://swizec.com/blog/buildremark-plugin-supercharge-static-site/swizec/8860) before. Here&#x27;s the process in a nutshell:
 
 
 
@@ -119,7 +119,7 @@ I've written about [How to build a Remark plugin to supercharge your static site
 
 
 
-That 3rd part is what we're building 👉 a method that takes a `node` object and transforms it to a different `node` object.
+That 3rd part is what we&#x27;re building 👉 a method that takes a `node` object and transforms it to a different `node` object.
 
 
 
@@ -181,11 +181,11 @@ We use the `visit` util from unist utils to help us visit specific nodes. Easier
 
 
 
-That's the stuff of whiteboard interviews and I never want to do it myself in real life. Too hard.
+That&#x27;s the stuff of whiteboard interviews and I never want to do it myself in real life. Too hard.
 
 
 
-We use `Url` to parse URLs. You could write a regex for it and that's fraught with dangers. Let someone else deal with the edge cases :)
+We use `Url` to parse URLs. You could write a regex for it and that&#x27;s fraught with dangers. Let someone else deal with the edge cases :)
 
 
 
@@ -243,7 +243,7 @@ First it finds all the candidate nodes. Then it changes them.
 
 
 
-We `visit()` every `link` node, those are URLs, and check if they fit a list of domains that we want to thumbnailify. List comes from config, I'll show you in a bit.
+We `visit()` every `link` node, those are URLs, and check if they fit a list of domains that we want to thumbnailify. List comes from config, I&#x27;ll show you in a bit.
 
 
 
@@ -275,7 +275,7 @@ HAST takes a Markdown AST and turns it into an HTML AST. Goes from `link` and `b
 
 
 
-But it won't know what to do with `screenshot`. It's not a node type that HAST recognizes.
+But it won&#x27;t know what to do with `screenshot`. It&#x27;s not a node type that HAST recognizes.
 
 
 
@@ -297,7 +297,7 @@ const screenshotHandler = (h, node) => {
 
 
 
-No I don't know why `h`, but everyone from React, to Preact, and Vue uses it. They all have their own implementation. The particular implementation you get depends on which Remark renderer you're using.
+No I don&#x27;t know why `h`, but everyone from React, to Preact, and Vue uses it. They all have their own implementation. The particular implementation you get depends on which Remark renderer you&#x27;re using.
 
 
 
@@ -305,7 +305,7 @@ This is your chance to create elements with the correct `props`, types and child
 
 
 
-Because I'm using `remark-react`, I kept my node type as `screenshot` and gave it the `node` itself as props. You might want to use this opportunity to construct a more proper HTML tree.
+Because I&#x27;m using `remark-react`, I kept my node type as `screenshot` and gave it the `node` itself as props. You might want to use this opportunity to construct a more proper HTML tree.
 
 
 
@@ -313,7 +313,7 @@ Because I'm using `remark-react`, I kept my node type as `screenshot` and gave i
 
 
 
-I'm using `remark-react`. It takes a markdown AST and transforms it to a tree of React components for easy rendering in React apps. No `dangerouslySetInnerHTML` mess here. ✌️
+I&#x27;m using `remark-react`. It takes a markdown AST and transforms it to a tree of React components for easy rendering in React apps. No `dangerouslySetInnerHTML` mess here. ✌️
 
 
 
@@ -370,7 +370,7 @@ Takes an AST `node` as its prop and returns a linked image. At first the image i
 
 
 
-The final step in the puzzle is putting all this together. You'll need some way to intake markdown and somewhere to put the output.
+The final step in the puzzle is putting all this together. You&#x27;ll need some way to intake markdown and somewhere to put the output.
 
 
 
@@ -430,7 +430,7 @@ You can put as many plugins as you want in between.
 
 
 
-Second argument you pass into `use()` goes into your plugin as a function argument. That's how we pass a list of domains to `urlThumbnail` and a bunch of config to `remark2react`.
+Second argument you pass into `use()` goes into your plugin as a function argument. That&#x27;s how we pass a list of domains to `urlThumbnail` and a bunch of config to `remark2react`.
 
 
 
@@ -450,11 +450,11 @@ Second argument you pass into `use()` goes into your plugin as a function argume
 
 
 
-We have to tell `remark2react` to avoid sanitizing our HAST because we're using custom nodes. The `screenshot` node.
+We have to tell `remark2react` to avoid sanitizing our HAST because we&#x27;re using custom nodes. The `screenshot` node.
 
 
 
-`remarkReactComponents` lets us define mappings from HAST nodes to React components. This is where you'd render links or images or whatever with a custom component. It's also where we say that screenshots render as `<Screenshot>`.
+`remarkReactComponents` lets us define mappings from HAST nodes to React components. This is where you&#x27;d render links or images or whatever with a custom component. It&#x27;s also where we say that screenshots render as `<Screenshot>`.
 
 
 
@@ -462,7 +462,7 @@ We have to tell `remark2react` to avoid sanitizing our HAST because we're using 
 
 
 
-And that's how you build a custom Markdown extension for your webapp. In a nutshell.
+And that&#x27;s how you build a custom Markdown extension for your webapp. In a nutshell.
 
 
 

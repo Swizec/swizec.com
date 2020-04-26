@@ -7,11 +7,11 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/blog-wp-content-uploads-2018-02-barchartcode.png
 ---
-The other day somebody asked me how to learn D3.js from scratch. I quipped that it took me writing a book to really learn it. It's one hell ofa library.
+The other day somebody asked me how to learn D3.js from scratch. I quipped that it took me writing a book to really learn it. It&#x27;s one hell ofa library.
 
 
 
-Most people don't go that far. They don't have to. Most people start with a problem, find similar examples, do some copy pasta, tweak until it works and end up with a working visualization they don't understand. You'd be surprised how few people actually understand how their D3 dataviz works.
+Most people don&#x27;t go that far. They don&#x27;t have to. Most people start with a problem, find similar examples, do some copy pasta, tweak until it works and end up with a working visualization they don&#x27;t understand. You&#x27;d be surprised how few people actually understand how their D3 dataviz works.
 
 
 
@@ -33,11 +33,11 @@ Most people don't go that far. They don't have to. Most people start with a prob
 
 
 
-That was a funny tweet. It delighted 3 people, that's my bar for success.
+That was a funny tweet. It delighted 3 people, that&#x27;s my bar for success.
 
 
 
-But the idea that there's only 1 or 2, maybe 3, key concepts you have to grok to understand every D3 example out there ... it kept me up at night. What _are_ those 3 key insights into D3?
+But the idea that there&#x27;s only 1 or 2, maybe 3, key concepts you have to grok to understand every D3 example out there ... it kept me up at night. What _are_ those 3 key insights into D3?
 
 
 
@@ -49,11 +49,11 @@ All D3 examples are split into two parts: Data manipulation and DOM manipulation
 
 
 
-You have to go through many examples to notice what's going on. Inference learning is hard. Most beginners miss this pattern and it makes D3 look more confusing than it is.
+You have to go through many examples to notice what&#x27;s going on. Inference learning is hard. Most beginners miss this pattern and it makes D3 look more confusing than it is.
 
 
 
-Let's take an example from [D3's docs](https://github.com/d3/d3/wiki/Gallery), a bar chart with a hover effect.
+Let&#x27;s take an example from [D3&#x27;s docs](https://github.com/d3/d3/wiki/Gallery), a bar chart with a hover effect.
 
 
 
@@ -81,7 +81,7 @@ Bostock here first prepares his data:
 
 - some sizing variables (margin, width, height)
 - two scales to help with data-to-coordinates conversion (x, y)
-- loads his dataset (d3.tsv) and updates his scales' domains
+- loads his dataset (d3.tsv) and updates his scales&#x27; domains
 - uses scales to calculate attributes during DOM manipulation
 
 
@@ -94,7 +94,7 @@ In the DOM manipulation part, he puts shapes and objects into an SVG. This is th
 
 
 
-DOM manipulation in D3 happens via D3 selections. They're a lot like jQuery `$(something)`. Personally I like to do this part with React as described in my book, [React+D3v4](https://swizec.com/reactd3js).
+DOM manipulation in D3 happens via D3 selections. They&#x27;re a lot like jQuery `$(something)`. Personally I like to do this part with React as described in my book, [React+D3v4](https://swizec.com/reactd3js).
 
 
 
@@ -106,20 +106,20 @@ Here Bostock does a few things
 - appends a grouping `<g>` node (.append) with an SVG positioning attribute (translate)
 - adds a bottom axis by appending a `<g>`, moving it, then calling `d3.axisBottom` on it. D3 has built-in axis generators
 - adds a left axis using the same approach but rotating the ticks
-- appends a text label "Frequency" to the left axis
+- appends a text label &quot;Frequency&quot; to the left axis
 - uses `selectAll.data` to make a virtual selection of `.bar` nodes and attach some data, then for every new data value (.enter), appends a `<rect>` node and gives it attributes
 
 
 
-That last part is where people get lost. It looks like magic. I've been using D3 for years and it still looks like magic.
+That last part is where people get lost. It looks like magic. I&#x27;ve been using D3 for years and it still looks like magic.
 
 
 
-It's a declarative approach to rendering data. Works great, hard to understand. That's why I do it in React instead :)
+It&#x27;s a declarative approach to rendering data. Works great, hard to understand. That&#x27;s why I do it in React instead :)
 
 
 
-You can think of `.enter` as a loop over your data and everything chained after `.enter` is your loop's body. Sort of like doing `data.map(d => append(rect).setManyAttributes())`
+You can think of `.enter` as a loop over your data and everything chained after `.enter` is your loop&#x27;s body. Sort of like doing `data.map(d => append(rect).setManyAttributes())`
 
 
 
@@ -131,11 +131,11 @@ Savvy?
 
 
 
-Scales are D3's most versatile concept. They help you translate between two different spaces. Like, mathematical spaces.
+Scales are D3&#x27;s most versatile concept. They help you translate between two different spaces. Like, mathematical spaces.
 
 
 
-They're like the mathematical functions you learned about in school. A domain maps to a range using some sort of formula.
+They&#x27;re like the mathematical functions you learned about in school. A domain maps to a range using some sort of formula.
 
 
 
@@ -163,7 +163,7 @@ Many different types of scales exist. Linear, logarithmic, quantize, etc. Any ba
 
 
 
-You're most often going to use scales to turn your data values into coordinates. But other usecases exist.
+You&#x27;re most often going to use scales to turn your data values into coordinates. But other usecases exist.
 
 
 
@@ -187,11 +187,11 @@ Or a circle packing layout that neatly packs circles.
 
 
 
-I don't know how these work internally. I've yet to try building one for others to use.
+I don&#x27;t know how these work internally. I&#x27;ve yet to try building one for others to use.
 
 
 
-But here's a key insight about the magic of layouts: They're the data part.
+But here&#x27;s a key insight about the magic of layouts: They&#x27;re the data part.
 
 
 
@@ -212,7 +212,7 @@ This `simulation` now handles everything about rendering nodes. Changes their po
 
 
 
-But it is up to you to render them. A layout handles your dataviz in the abstract. You're still the one in control of rendering.
+But it is up to you to render them. A layout handles your dataviz in the abstract. You&#x27;re still the one in control of rendering.
 
 
 
@@ -234,4 +234,4 @@ To summarize, you need to grok 3 key insights for D3 to make sense. Once they cl
 
 1. Code is split into data and DOM manipulation
 2. Scales are great and used a lot
-3. You're always in control of rendering
+3. You&#x27;re always in control of rendering

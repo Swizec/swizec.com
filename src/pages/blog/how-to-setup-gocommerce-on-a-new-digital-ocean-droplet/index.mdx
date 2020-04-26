@@ -11,7 +11,7 @@ hero: ./img/blog-wp-content-uploads-2018-01-Screen-Shot-on-2018-01-23-at-141356-
 
 
 
-[GoCommerce](https://github.com/netlify/gocommerce) is Netlify's headless e-commerce for JAMstack sites. Whatever that means.
+[GoCommerce](https://github.com/netlify/gocommerce) is Netlify&#x27;s headless e-commerce for JAMstack sites. Whatever that means.
 
 
 
@@ -19,11 +19,11 @@ It acts as your database when you have a single page app (possibly in React) tha
 
 
 
-I hear Netlify is working on a fully hosted solution. It's not ready yet.
+I hear Netlify is working on a fully hosted solution. It&#x27;s not ready yet.
 
 
 
-[Digital Ocean](https://www.digitalocean.com/) droplets are a glorified VPS, virtual private server. I'm told it's actually an IaaS (infrastructure as a service) and competes with Amazon's AWS…
+[Digital Ocean](https://www.digitalocean.com/) droplets are a glorified VPS, virtual private server. I&#x27;m told it&#x27;s actually an IaaS (infrastructure as a service) and competes with Amazon&#x27;s AWS…
 
 
 
@@ -31,11 +31,11 @@ Sure felt a lot like ssh-ing into a VPS and mucking about. 🤷‍♀️
 
 
 
-Recently, I had to make these two work together. I looked for a guide, but none could be found. So here's a collection of my notes with some explanation.
+Recently, I had to make these two work together. I looked for a guide, but none could be found. So here&#x27;s a collection of my notes with some explanation.
 
 
 
-The whole process takes about 10 minutes, if you know what you're doing. Writing this will help me know what I'm doing next time :)
+The whole process takes about 10 minutes, if you know what you&#x27;re doing. Writing this will help me know what I&#x27;m doing next time :)
 
 
 
@@ -43,7 +43,7 @@ The whole process takes about 10 minutes, if you know what you're doing. Writing
 
 
 
-I was given an existing droplet. This assumes you have a Digital Ocean Droplet running Ubuntu. Just the initial _"Here's your VPS"_ setup that comes out of the box.
+I was given an existing droplet. This assumes you have a Digital Ocean Droplet running Ubuntu. Just the initial _&quot;Here&#x27;s your VPS&quot;_ setup that comes out of the box.
 
 
 
@@ -51,7 +51,7 @@ I was given an existing droplet. This assumes you have a Digital Ocean Droplet r
 
 
 
-Next we have to set up a user because running things as `root` is bad. I won't go into why it's bad right now because it's just something I remember from my Linux-using days many years ago. It's bad. Don't do it.
+Next we have to set up a user because running things as `root` is bad. I won&#x27;t go into why it&#x27;s bad right now because it&#x27;s just something I remember from my Linux-using days many years ago. It&#x27;s bad. Don&#x27;t do it.
 
 
 
@@ -66,7 +66,7 @@ The instructions boil down to:
 1. Login as root
 2. Create new user (I used `gocommerce`)
 3. Give it `sudo` privileges
-4. Add your personal public ssh key to the server's authorized keys
+4. Add your personal public ssh key to the server&#x27;s authorized keys
 5. Login as new user
 
 
@@ -75,7 +75,7 @@ The instructions boil down to:
 
 
 
-Once you have a new user, it's time to login and set up Gocommerce. This involves installing `golang`, `sqlite3`, and a few knickknacks.
+Once you have a new user, it&#x27;s time to login and set up Gocommerce. This involves installing `golang`, `sqlite3`, and a few knickknacks.
 
 
 
@@ -89,7 +89,7 @@ $ ssh gocommerce@<YOUR_IP>
 
 
 
-Then install `sqlite3`. [SQLite](https://sqlite.org/) is a simple database that's easy to setup. If you want to use this for real production, I suggest opting for Postgres.
+Then install `sqlite3`. [SQLite](https://sqlite.org/) is a simple database that&#x27;s easy to setup. If you want to use this for real production, I suggest opting for Postgres.
 
 
 
@@ -104,11 +104,11 @@ $ sudo apt-get install sqlite3 sqlite3-dev
 
 
 
-`apt` is Ubuntu's package management system. Much like `npm` for JavaScript. `update` updates the local listing of software packages, `install` installs them. I used to know why this was `apt-get` and not just `apt`.
+`apt` is Ubuntu&#x27;s package management system. Much like `npm` for JavaScript. `update` updates the local listing of software packages, `install` installs them. I used to know why this was `apt-get` and not just `apt`.
 
 
 
-I also used to know why you need to install `sqlite3-dev`, but I have since forgotten. Doesn't matter.
+I also used to know why you need to install `sqlite3-dev`, but I have since forgotten. Doesn&#x27;t matter.
 
 
 
@@ -120,11 +120,11 @@ You now have SQLite and can create local database. Single file, SQL interface. W
 
 
 
-Installing [Golang](https://golang.org/) is a little harder. You can't use the default package because Gocommerce needs at least Go version 1.7.
+Installing [Golang](https://golang.org/) is a little harder. You can&#x27;t use the default package because Gocommerce needs at least Go version 1.7.
 
 
 
-As I painfully discovered, the official version in Ubuntu packages is 1.6, and that's not good enough.
+As I painfully discovered, the official version in Ubuntu packages is 1.6, and that&#x27;s not good enough.
 
 
 
@@ -136,7 +136,7 @@ As I painfully discovered, the official version in Ubuntu packages is 1.6, and t
 
 
 
-Here's what it boils down to.
+Here&#x27;s what it boils down to.
 
 
 
@@ -152,7 +152,7 @@ $ sudo apt-get install golang-1.9-go
 
 
 
-I installed the incorrect version of Go at first, so I also had to overwrite its executable with a link to the new one. You might not have to do this, and it's probably a bad way of doing it, but 👇
+I installed the incorrect version of Go at first, so I also had to overwrite its executable with a link to the new one. You might not have to do this, and it&#x27;s probably a bad way of doing it, but 👇
 
 
 
@@ -213,11 +213,11 @@ This puts a directory called `go` in your home dir and a `src` dir inside that. 
 
 
 
-Now that you have Go running, it's time to set up Gocommerce.
+Now that you have Go running, it&#x27;s time to set up Gocommerce.
 
 
 
-First, create the directory it's going to live in.
+First, create the directory it&#x27;s going to live in.
 
 
 
@@ -227,7 +227,7 @@ $ mkdir ~/go/src/github.com/netlify
 
 
 
-Next go there and clone the repo from Github. Ubuntu comes with git preinstalled, so there's no need to worry about that.
+Next go there and clone the repo from Github. Ubuntu comes with git preinstalled, so there&#x27;s no need to worry about that.
 
 
 
@@ -239,11 +239,11 @@ $ make build_linux
 
 
 
-`make deps` installs Go dependencies that Gocommerce uses and `make build_linux` builds Gocommerce itself. You have to build it for Linux because we're running Ubuntu.
+`make deps` installs Go dependencies that Gocommerce uses and `make build_linux` builds Gocommerce itself. You have to build it for Linux because we&#x27;re running Ubuntu.
 
 
 
-On your dev machine, if it's a Mac, you'd use `make build` to compile for a Mac. You can see what Netlify considers the default :)
+On your dev machine, if it&#x27;s a Mac, you&#x27;d use `make build` to compile for a Mac. You can see what Netlify considers the default :)
 
 
 
@@ -283,7 +283,7 @@ The tricky one to find was that `GOCOMMERCE_DB_AUTOMIGRATE`. That keeps your dat
 
 
 
-You'll need Stripe (or Paypal) and some sort of SMTP service. I'm using sendgrid here.
+You&#x27;ll need Stripe (or Paypal) and some sort of SMTP service. I&#x27;m using sendgrid here.
 
 
 
@@ -291,11 +291,11 @@ You'll need Stripe (or Paypal) and some sort of SMTP service. I'm using sendgrid
 
 
 
-You can run Gocommerce using `./gocommerce`. This runs the service directly, and you can check that it's running at `http://<your ip>:9111`.
+You can run Gocommerce using `./gocommerce`. This runs the service directly, and you can check that it&#x27;s running at `http://<your ip>:9111`.
 
 
 
-But it's going to stop running once your ssh session times out. Not good.
+But it&#x27;s going to stop running once your ssh session times out. Not good.
 
 
 
@@ -333,7 +333,7 @@ WantedBy=multi-user.targer
 
 
 
-This assumes the user you created earlier is called `gocommerce` and that you haven't moved the `gocommerce` executable.
+This assumes the user you created earlier is called `gocommerce` and that you haven&#x27;t moved the `gocommerce` executable.
 
 
 

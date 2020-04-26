@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https://www.youtube.com/watch?v=I7ibjBQtcQE
+https&amp;#x3A;//www.youtube.com/watch?v=I7ibjBQtcQE
 
 
 
@@ -19,11 +19,11 @@ One of my most pointless timesucks is [imgur.com](https://imgur.com).
 
 
 
-Maybe you don't know what that is, or think it's an image host for Reddit and never realized it's got a homepage. [Imgur is bigger than Reddit](https://www.buzzfeed.com/jwherrman/imgur-is-now-bigger-than-reddit), actually.
+Maybe you don&#x27;t know what that is, or think it&#x27;s an image host for Reddit and never realized it&#x27;s got a homepage. [Imgur is bigger than Reddit](https://www.buzzfeed.com/jwherrman/imgur-is-now-bigger-than-reddit), actually.
 
 
 
-That's news from 5 years ago. 🤔 Am I not hip with the kids anymore?
+That&#x27;s news from 5 years ago. 🤔 Am I not hip with the kids anymore?
 
 
 
@@ -31,11 +31,11 @@ That's news from 5 years ago. 🤔 Am I not hip with the kids anymore?
 
 
 
-Either way, Imgur is great. Full of fun images, crap comments, and there's always the next gif to see. Sometimes world news.
+Either way, Imgur is great. Full of fun images, crap comments, and there&#x27;s always the next gif to see. Sometimes world news.
 
 
 
-You open it up, it greets you with enticing thumbnails and before you know it, it's 20 minutes later and you're waaaaay past your break time.
+You open it up, it greets you with enticing thumbnails and before you know it, it&#x27;s 20 minutes later and you&#x27;re waaaaay past your break time.
 
 
 
@@ -43,7 +43,7 @@ You open it up, it greets you with enticing thumbnails and before you know it, i
 
 
 
-I built [hideimgur.com](#) to fix that. It’s a Chrome extension that replaces Imgur's homepage with tips for taking a healthy break. Sometimes it tells you to do push ups, sometimes to go chat with a human being. It's great.
+I built [hideimgur.com](#) to fix that. It’s a Chrome extension that replaces Imgur&#x27;s homepage with tips for taking a healthy break. Sometimes it tells you to do push ups, sometimes to go chat with a human being. It&#x27;s great.
 
 
 
@@ -51,15 +51,15 @@ And no more imgur addiction. Fixed me in 2 days! 👌
 
 
 
-[\[caption id="attachment_8274" align="alignnone" width="2178"\]![HideImgur replaces the homepage with useful tips](./img/blog-wp-content-uploads-2018-03-hide-imgur-homepage-1.png) HideImgur replaces the homepage with useful tips\[/caption\]](http://hideimgur.com)
+[\[caption id=&quot;attachment_8274&quot; align=&quot;alignnone&quot; width=&quot;2178&quot;\]![HideImgur replaces the homepage with useful tips](./img/blog-wp-content-uploads-2018-03-hide-imgur-homepage-1.png) HideImgur replaces the homepage with useful tips\[/caption\]](http://hideimgur.com)
 
 
 
-You can see [the code on GitHub](https://github.com/Swizec/hide-imgur-homepage) and watch the [livecoding video 👆](#) to see how it's built.
+You can see [the code on GitHub](https://github.com/Swizec/hide-imgur-homepage) and watch the [livecoding video 👆](#) to see how it&#x27;s built.
 
 
 
-Here's the process for building and launching your Chrome extension in a nutshell. 👇
+Here&#x27;s the process for building and launching your Chrome extension in a nutshell. 👇
 
 
 
@@ -67,11 +67,11 @@ Here's the process for building and launching your Chrome extension in a nutshel
 
 
 
-[Google's official getting started tutorial](https://developer.chrome.com/extensions/getstarted) is great. You should skim it whenever you get stuck.
+[Google&#x27;s official getting started tutorial](https://developer.chrome.com/extensions/getstarted) is great. You should skim it whenever you get stuck.
 
 
 
-First, you'll need to create a directory and a `manifest.json` file.
+First, you&#x27;ll need to create a directory and a `manifest.json` file.
 
 
 
@@ -101,17 +101,17 @@ First, you'll need to create a directory and a `manifest.json` file.
 
 
 
-It's a JSON config file that tells Chrome how your extension is supposed to work. The \\important parts are 👇
+It&#x27;s a JSON config file that tells Chrome how your extension is supposed to work. The \\important parts are 👇
 
 
 
 1. `manifest_version`, `name`, and `version` are all required. You need those for your extension to work at all.
-2. `description` is useful but not crazy \\important. I'm not even sure where it shows up for the user.
+2. `description` is useful but not crazy \\important. I&#x27;m not even sure where it shows up for the user.
 3. You need 3 `icons` for various places Chrome puts them. You should make a simple image and resize it to 16x16, 48x48, and 128x128 pixels.
 
 
 
-You've created a Chrome extension! Congratz 🖐
+You&#x27;ve created a Chrome extension! Congratz 🖐
 
 
 
@@ -119,7 +119,7 @@ Not very useful yet. I wanted mine to get permissions for `imgur.com` and run `c
 
 
 
-That's defined in `content_scripts` and `permissions`. The first tells Chrome which files to load when the URL matches `imgur.com` and when it should run.
+That&#x27;s defined in `content_scripts` and `permissions`. The first tells Chrome which files to load when the URL matches `imgur.com` and when it should run.
 
 
 
@@ -131,15 +131,15 @@ That's defined in `content_scripts` and `permissions`. The first tells Chrome wh
 
 
 
-Nobody likes to see that "X asks for permission to access all your sites" notifications. Are you a keylogger?
+Nobody likes to see that &quot;X asks for permission to access all your sites&quot; notifications. Are you a keylogger?
 
 
 
-PS: You could totally build a keylogger like this. Please don't.
+PS: You could totally build a keylogger like this. Please don&#x27;t.
 
 
 
-\[caption id="attachment_8275" align="alignnone" width="964"]![Hideimgur.com asks for permissions to imgur](./img/blog-wp-content-uploads-2018-03-permissions-screenshot-3.png) Hideimgur.com asks for permissions to imgur\[/caption]
+\[caption id=&quot;attachment_8275&quot; align=&quot;alignnone&quot; width=&quot;964&quot;]![Hideimgur.com asks for permissions to imgur](./img/blog-wp-content-uploads-2018-03-permissions-screenshot-3.png) Hideimgur.com asks for permissions to imgur\[/caption]
 
 
 
@@ -159,7 +159,7 @@ The fun part is avoiding frameworks.
 
 
 
-The [DOM is fast these days](https://swizec.com/blog/building-interactive-dom-benchmark-preliminary-results/swizec/8219) and pretty easy to use. Here's a function that hides an element on the page whether it's loaded yet or not. Remember, we're running _before_ the DOM is done loading.
+The [DOM is fast these days](https://swizec.com/blog/building-interactive-dom-benchmark-preliminary-results/swizec/8219) and pretty easy to use. Here&#x27;s a function that hides an element on the page whether it&#x27;s loaded yet or not. Remember, we&#x27;re running _before_ the DOM is done loading.
 
 
 
@@ -190,11 +190,11 @@ function hideAsync(query) {
 
 
 
-In `hideElement`, we look for a DOM node. If it's found, we set its `visibility` to `hidden` and return `true`. Otherwise, we say nothing happened.
+In `hideElement`, we look for a DOM node. If it&#x27;s found, we set its `visibility` to `hidden` and return `true`. Otherwise, we say nothing happened.
 
 
 
-It's \\important to toggle visibility instead of the usual `display: none` because it avoids removing the node, just hides it. We want to avoid removing the node because if we collapse the page to zero height, Imgur's infinite scroll falls into an infinite loop and eats all our CPU.
+It&#x27;s \\important to toggle visibility instead of the usual `display: none` because it avoids removing the node, just hides it. We want to avoid removing the node because if we collapse the page to zero height, Imgur&#x27;s infinite scroll falls into an infinite loop and eats all our CPU.
 
 
 
@@ -230,11 +230,11 @@ Finally, we loop through all distracting elements of Imgur and hide them in a lo
 
 
 
-You can find those elements with the Elements tab of your Chrome dev tools. The key is to find the topmost node that wraps all the content, but doesn't wrap too much of the content.
+You can find those elements with the Elements tab of your Chrome dev tools. The key is to find the topmost node that wraps all the content, but doesn&#x27;t wrap too much of the content.
 
 
 
-Bit of an art. And it's gonna break when Imgur redesigns.
+Bit of an art. And it&#x27;s gonna break when Imgur redesigns.
 
 
 
@@ -250,7 +250,7 @@ The definition of fragile code 😛
 
 
 
-Launching your extension takes you to one of the worst designed websites I have ever seen: The [Chrome Web Store Developers Dashboard](https://chrome.google.com/webstore/developer/dashboard?pli=1&authuser=1)
+Launching your extension takes you to one of the worst designed websites I have ever seen: The [Chrome Web Store Developers Dashboard](https://chrome.google.com/webstore/developer/dashboard?pli=1&amp;authuser=1)
 
 
 
@@ -258,11 +258,11 @@ Launching your extension takes you to one of the worst designed websites I have 
 
 
 
-[Detailed instructions in Google's devguide](https://developer.chrome.com/webstore/publish)
+[Detailed instructions in Google&#x27;s devguide](https://developer.chrome.com/webstore/publish)
 
 
 
-You pay a $5 fee the first time you publish, upload a zip file of your directory, add some descriptions and screenshots, and you're off to the races.
+You pay a $5 fee the first time you publish, upload a zip file of your directory, add some descriptions and screenshots, and you&#x27;re off to the races.
 
 
 

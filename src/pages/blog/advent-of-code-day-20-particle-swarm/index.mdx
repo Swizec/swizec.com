@@ -7,7 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/blog-wp-content-uploads-2017-12-advent-of-code-day20-particles-1024x575.jpg
 ---
-https://www.youtube.com/watch?v=ekm7m9CDnBQ
+https&amp;#x3A;//www.youtube.com/watch?v=ekm7m9CDnBQ
 
 
 
@@ -15,15 +15,15 @@ Day 20 smells like one of those problems that you have to math.
 
 
 
-https://twitter.com/Swizec/status/943380787528835072
+https&amp;#x3A;//twitter.com/Swizec/status/943380787528835072
 
 
 
-You're given a large list of particles that each have a velocity vector and an acceleration vector. Velocity tells you where they move and how fast. Acceleration tells you how velocity changes.
+You&#x27;re given a large list of particles that each have a velocity vector and an acceleration vector. Velocity tells you where they move and how fast. Acceleration tells you how velocity changes.
 
 
 
-You then have to figure out which particle will stay closest to the center – `<0,0,0>` – in the "long term".
+You then have to figure out which particle will stay closest to the center – `<0,0,0>` – in the &quot;long term&quot;.
 
 
 
@@ -43,7 +43,7 @@ This makes sense when you think about it. No matter the initial position or velo
 
 
 
-Say a particle starts at `p = <3,0,0>` and is moving away from center at `v = <3,0,0>`, but its acceleration is towards center – `a = <-1,0,0>`. If we iterate through each tick of the simulation, you'll see what I mean 👇
+Say a particle starts at `p = <3,0,0>` and is moving away from center at `v = <3,0,0>`, but its acceleration is towards center – `a = <-1,0,0>`. If we iterate through each tick of the simulation, you&#x27;ll see what I mean 👇
 
 
 
@@ -68,7 +68,7 @@ After 4 ticks, it reaches center and keeps flying away ever faster.
 
 
 
-That's what I mean when by "accelerating away from center". With enough time **all** particles are accelerating away from center because if they were ever going to cross it, they already have.
+That&#x27;s what I mean when by &quot;accelerating away from center&quot;. With enough time **all** particles are accelerating away from center because if they were ever going to cross it, they already have.
 
 
 
@@ -103,11 +103,11 @@ function tick(particles) {
 
 
 
-That returns a new copy of the `particles` array with changed positions, `p`, and velocities, `v`. Acceleration doesn't change.
+That returns a new copy of the `particles` array with changed positions, `p`, and velocities, `v`. Acceleration doesn&#x27;t change.
 
 
 
-We then also need a way to find the particle closest to center. That's these two functions.
+We then also need a way to find the particle closest to center. That&#x27;s these two functions.
 
 
 
@@ -133,15 +133,15 @@ function closest(particles) {
 
 
 
-Then we just run the simulation until the closest particle doesn't change for a while. I got good results with `"hasn't changed in 2000 ticks"`. Some fiddling required.
+Then we just run the simulation until the closest particle doesn&#x27;t change for a while. I got good results with `"hasn't changed in 2000 ticks"`. Some fiddling required.
 
 
 
-Generally the larger that number, the more accurate your result. If you describe the problem in terms of search algorithms (you're searching for a stable state), then any sequence of stable states when the `min` distance doesn't change for a while is a local maximum. You're looking for the global maximum.
+Generally the larger that number, the more accurate your result. If you describe the problem in terms of search algorithms (you&#x27;re searching for a stable state), then any sequence of stable states when the `min` distance doesn&#x27;t change for a while is a local maximum. You&#x27;re looking for the global maximum.
 
 
 
-The longer you keep looking, the likelier that you're at the best possible result.
+The longer you keep looking, the likelier that you&#x27;re at the best possible result.
 
 
 
@@ -175,7 +175,7 @@ function star1(input) {
 
 
 
-Keep track of the result and how long it's remained unchanged. Repeat until desired accuracy.
+Keep track of the result and how long it&#x27;s remained unchanged. Repeat until desired accuracy.
 
 
 
@@ -191,11 +191,11 @@ Star 2 really stretched what I thought was possible with JavaScript: Finding col
 
 
 
-When particles overlap, they are removed from the pool. Your goal is to find how many particles are left standing after "long enough".
+When particles overlap, they are removed from the pool. Your goal is to find how many particles are left standing after &quot;long enough&quot;.
 
 
 
-The question can once gain be translated into "What's the steady state?".
+The question can once gain be translated into &quot;What&#x27;s the steady state?&quot;.
 
 
 
@@ -203,7 +203,7 @@ But how do you find colliding particles?
 
 
 
-The simplest approach is to compare every particle with every particle. Surprisingly, that's good enough. Modern computers are _fast_.
+The simplest approach is to compare every particle with every particle. Surprisingly, that&#x27;s good enough. Modern computers are _fast_.
 
 
 
@@ -264,7 +264,7 @@ function star2(input) {
 
 
 
-Keep track of stable state and how long it's been stable for. Run the `tick` simulation, detection `collision`, and `filter` dead particles.
+Keep track of stable state and how long it&#x27;s been stable for. Run the `tick` simulation, detection `collision`, and `filter` dead particles.
 
 
 

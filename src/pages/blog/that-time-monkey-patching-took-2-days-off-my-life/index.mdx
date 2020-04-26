@@ -17,15 +17,15 @@ Monkey patching is a programming technique popular in the Ruby world and nipped-
 
 
 
-Remember the [smoosh controversy](https://developers.google.com/web/updates/2018/03/smooshgate)? JavaScript couldn't adopt `Array.flatten` because [MooTools](https://en.wikipedia.org/wiki/MooTools) used it in the 2010's and making a new one might break the web. That was due to monkey patching.
+Remember the [smoosh controversy](https://developers.google.com/web/updates/2018/03/smooshgate)? JavaScript couldn&#x27;t adopt `Array.flatten` because [MooTools](https://en.wikipedia.org/wiki/MooTools) used it in the 2010&#x27;s and making a new one might break the web. That was due to monkey patching.
 
 
 
-So what's monkey patching anyway?
+So what&#x27;s monkey patching anyway?
 
 
 
-I'm glad you asked
+I&#x27;m glad you asked
 
 
 
@@ -41,23 +41,23 @@ You can think of monkey patching as a magic trick. Run a function and it changes
 
 
 
-Let's take `.flat` for example. It recursively flattens an array.
+Let&#x27;s take `.flat` for example. It recursively flattens an array.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1571068942459.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%3E%20%5B1%2C%20%5B2%2C%203%2C%20%5B4%2C%205%5D%5D%5D.flat()%0A%2F%2F%20(4)%C2%A0%5B1%2C%202%2C%203%2C%20Array(2)%5D%0A%0A%3E%20%5B1%2C%20%5B2%2C%203%2C%20%5B4%2C%205%5D%5D%5D.flat(2)%0A%2F%2F%20(5)%C2%A0%5B1%2C%202%2C%203%2C%204%2C%205%5D)
+[![Click through for source](./img/techletter.app-screenshot-1571068942459.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%3E%20%5B1%2C%20%5B2%2C%203%2C%20%5B4%2C%205%5D%5D%5D.flat()%0A%2F%2F%20(4)%C2%A0%5B1%2C%202%2C%203%2C%20Array(2)%5D%0A%0A%3E%20%5B1%2C%20%5B2%2C%203%2C%20%5B4%2C%205%5D%5D%5D.flat(2)%0A%2F%2F%20(5)%C2%A0%5B1%2C%202%2C%203%2C%204%2C%205%5D)
 
 
 
-Now let's say you disagree with the levels of recursion argument. You want `.flat` to always completely flatten an array.
+Now let&#x27;s say you disagree with the levels of recursion argument. You want `.flat` to always completely flatten an array.
 
 
 
-You can overwrite JavaScript's native `.flat` implementation. Run this somewhere, anywhere, in your codebase.
+You can overwrite JavaScript&#x27;s native `.flat` implementation. Run this somewhere, anywhere, in your codebase.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1571068942189.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=Array.prototype.flat%20%3D%20function()%20%7B%0A%20%20return%20this.reduce((arr%2C%20cur)%20%3D%3E%20%7B%0A%20%20%20%20if%20(Array.isArray(cur))%20%7B%0A%20%20%20%20%20%20return%20%5B...arr%2C%20...cur.flat()%5D%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20return%20%5B...arr%2C%20cur%5D%3B%0A%20%20%20%20%7D%0A%20%20%7D%2C%20%5B%5D)%3B%0A%7D%3B)
+[![Click through for source](./img/techletter.app-screenshot-1571068942189.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=Array.prototype.flat%20%3D%20function()%20%7B%0A%20%20return%20this.reduce((arr%2C%20cur)%20%3D%3E%20%7B%0A%20%20%20%20if%20(Array.isArray(cur))%20%7B%0A%20%20%20%20%20%20return%20%5B...arr%2C%20...cur.flat()%5D%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20return%20%5B...arr%2C%20cur%5D%3B%0A%20%20%20%20%7D%0A%20%20%7D%2C%20%5B%5D)%3B%0A%7D%3B)
 
 
 
@@ -73,7 +73,7 @@ Every array in your codebase now has this function. 🧙‍♂️
 
 
 
-Here's a CodeSandbox to prove it works
+Here&#x27;s a CodeSandbox to prove it works
 
 
 
@@ -89,11 +89,11 @@ Here's a CodeSandbox to prove it works
 
 
 
-Monkey patching on its own ain't bad at all. It's a great tool when used responsibly. You can make non-standard methods easy to use, add to your language's standard library, and even fix bugs.
+Monkey patching on its own ain&#x27;t bad at all. It&#x27;s a great tool when used responsibly. You can make non-standard methods easy to use, add to your language&#x27;s standard library, and even fix bugs.
 
 
 
-[Polyfills](https://en.wikipedia.org/wiki/Polyfill_(programming)) are \[sort of] an example of successful monkey patching in the JavaScript world. Adding features to browsers that otherwise don't have them.
+[Polyfills](https://en.wikipedia.org/wiki/Polyfill_(programming)) are \[sort of] an example of successful monkey patching in the JavaScript world. Adding features to browsers that otherwise don&#x27;t have them.
 
 
 
@@ -101,11 +101,11 @@ But we can take that `.flat` example from before and make it sinister.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1571068942441.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=console.log(%5B1%2C%20%5B2%2C%203%5D%5D.flat())%3B%0A%2F%2F%20%5B1%2C%202%2C%203%5D%0A%0Aconsole.log(%5B1%2C%20%5B2%2C%203%2C%20%5B4%2C%205%5D%5D%5D.flat())%3B%0A%2F%2F%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A%0Aconsole.log(%5B1%2C%20%5B2%2C%203%2C%20%5B4%2C%205%5D%2C%20%5B6%2C%207%2C%20%5B8%2C%209%2C%20%5B10%2C%2011%5D%5D%5D%5D%5D.flat())%3B%0A%2F%2F%20%5B1%2C%202%2C%203%2C%204%2C%205%2C%20%22%F0%9F%A7%99%E2%80%8D%E2%99%82%EF%B8%8F%22%2C%206%2C%207%2C%208%2C%209%2C%20%22%F0%9F%A7%99%E2%80%8D%E2%99%82%EF%B8%8F%22%2C%2010%2C%2011%5D)
+[![Click through for source](./img/techletter.app-screenshot-1571068942441.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=console.log(%5B1%2C%20%5B2%2C%203%5D%5D.flat())%3B%0A%2F%2F%20%5B1%2C%202%2C%203%5D%0A%0Aconsole.log(%5B1%2C%20%5B2%2C%203%2C%20%5B4%2C%205%5D%5D%5D.flat())%3B%0A%2F%2F%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A%0Aconsole.log(%5B1%2C%20%5B2%2C%203%2C%20%5B4%2C%205%5D%2C%20%5B6%2C%207%2C%20%5B8%2C%209%2C%20%5B10%2C%2011%5D%5D%5D%5D%5D.flat())%3B%0A%2F%2F%20%5B1%2C%202%2C%203%2C%204%2C%205%2C%20%22%F0%9F%A7%99%E2%80%8D%E2%99%82%EF%B8%8F%22%2C%206%2C%207%2C%208%2C%209%2C%20%22%F0%9F%A7%99%E2%80%8D%E2%99%82%EF%B8%8F%22%2C%2010%2C%2011%5D)
 
 
 
-Whoa where'd that wizard come from?
+Whoa where&#x27;d that wizard come from?
 
 
 
@@ -125,7 +125,7 @@ Some unscrupulous programmer monkey patched our `.flat` method to add a wizard a
 
 
 
-That's what happened to me one fateful day when a feature finally shipped to production after a million rounds of testing. We got it to work, product was happy, QA was happy, PR was happy. Ship it.
+That&#x27;s what happened to me one fateful day when a feature finally shipped to production after a million rounds of testing. We got it to work, product was happy, QA was happy, PR was happy. Ship it.
 
 
 
@@ -153,11 +153,11 @@ Our [Sentry](https://sentry.io/welcome/) slack channel started blowing up with `
 
 
 
-That's a bad error because it means your server couldn't establish a connection to your database. When that happens, nothing works. The request fails and the user cries.
+That&#x27;s a bad error because it means your server couldn&#x27;t establish a connection to your database. When that happens, nothing works. The request fails and the user cries.
 
 
 
-Luckily most errors happened in background processes and users didn't notice. Think we got 1 actual user complaint?
+Luckily most errors happened in background processes and users didn&#x27;t notice. Think we got 1 actual user complaint?
 
 
 
@@ -181,11 +181,11 @@ So what happened?
 
 
 
-We couldn't figure it out for the life of us. The database wasn't out of memory, there were plenty of connections left in the connection pool. Both common causes of connection timeouts.
+We couldn&#x27;t figure it out for the life of us. The database wasn&#x27;t out of memory, there were plenty of connections left in the connection pool. Both common causes of connection timeouts.
 
 
 
-What's worse, our memory and connection usage _went down_ because of the issue. With 3% less load the database was absolutely thriving. She was loving it!
+What&#x27;s worse, our memory and connection usage _went down_ because of the issue. With 3% less load the database was absolutely thriving. She was loving it!
 
 
 
@@ -201,7 +201,7 @@ Nothing.
 
 
 
-We didn't change how we talk to the database. We didn't add a bunch of background processes competing for resources. We didn't even change any configuration. One of our queries just happened to start taking 10x longer.
+We didn&#x27;t change how we talk to the database. We didn&#x27;t add a bunch of background processes competing for resources. We didn&#x27;t even change any configuration. One of our queries just happened to start taking 10x longer.
 
 
 
@@ -213,15 +213,15 @@ _it was a coincidence_
 
 
 
-Graphs don't just change color like that at the exact same timestamp your deploy went through because of a coincidence.
+Graphs don&#x27;t just change color like that at the exact same timestamp your deploy went through because of a coincidence.
 
 
 
-At wit's end we tried a thing.
+At wit&#x27;s end we tried a thing.
 
 
 
-What if we remove that gem we added? That's the only thing left. Could that library that enables CSV data \\imports have something to do with this?
+What if we remove that gem we added? That&#x27;s the only thing left. Could that library that enables CSV data \\imports have something to do with this?
 
 
 
@@ -233,11 +233,11 @@ It worked. We lost a feature and gained a working system.
 
 
 
-Digging through the gem's codebase we found this in a dependency.
+Digging through the gem&#x27;s codebase we found this in a dependency.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1571068942366.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=ruby&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=ActiveSupport.on_load(%3Aactive_record)%20do%0A%20%20require%20%22activerecord-\import%2Fbase%22%0Aend)
+[![Click through for source](./img/techletter.app-screenshot-1571068942366.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=ruby&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=ActiveSupport.on_load(%3Aactive_record)%20do%0A%20%20require%20%22activerecord-\import%2Fbase%22%0Aend)
 
 
 
@@ -245,7 +245,7 @@ and this ...
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1571068942460.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=ruby&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=class%20ActiveRecord%3A%3AConnectionAdapters%3A%3APostgreSQLAdapter%0A%20%20include%20ActiveRecord%3A%3AImport%3A%3APostgreSQLAdapter%0Aend)
+[![Click through for source](./img/techletter.app-screenshot-1571068942460.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=ruby&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=class%20ActiveRecord%3A%3AConnectionAdapters%3A%3APostgreSQLAdapter%0A%20%20include%20ActiveRecord%3A%3AImport%3A%3APostgreSQLAdapter%0Aend)
 
 
 
@@ -261,7 +261,7 @@ Every single one of them. They go through this gem whether you like it or not.
 
 
 
-And that's how I lost 2 days of my life that I'm never getting back. A gem monkey patching my database connection.
+And that&#x27;s how I lost 2 days of my life that I&#x27;m never getting back. A gem monkey patching my database connection.
 
 
 

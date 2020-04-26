@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https://www.youtube.com/watch?v=o_sXQ4fWHac
+https&amp;#x3A;//www.youtube.com/watch?v=o_sXQ4fWHac
 
 
 
@@ -23,7 +23,7 @@ The magic trick Gatsby uses to make sites so fast is binding data build time. Mo
 
 
 
-https://twitter.com/kylemathews/status/988484209697210368
+https&amp;#x3A;//twitter.com/kylemathews/status/988484209697210368
 
 
 
@@ -39,11 +39,11 @@ At a high level, Gatsby uses various source plugins to read data and make it ava
 
 
 
-Gatsby handles the rest. I'm not really sure how, but smart people assure me it works, and I've never seen it not work. 🤷‍♀️
+Gatsby handles the rest. I&#x27;m not really sure how, but smart people assure me it works, and I&#x27;ve never seen it not work. 🤷‍♀️
 
 
 
-Let's say you want to build pages with markdown files. I do that for my workshop materials. I use a bunch of markdown files published as a website, and it works great.
+Let&#x27;s say you want to build pages with markdown files. I do that for my workshop materials. I use a bunch of markdown files published as a website, and it works great.
 
 
 
@@ -51,7 +51,7 @@ You have to enable the `gatsby-source-filesystem` plugin. It lets you read local
 
 
 
-When that's set up, you can get a list of page titles with a query like this:
+When that&#x27;s set up, you can get a list of page titles with a query like this:
 
 
 
@@ -75,11 +75,11 @@ export const query = graphql`
 
 
 
-You're looking for all nodes of the `markdownRemark` type, collecting their `edges` and `nodes`, and plucking the `title` and `slug` value of each.
+You&#x27;re looking for all nodes of the `markdownRemark` type, collecting their `edges` and `nodes`, and plucking the `title` and `slug` value of each.
 
 
 
-This shows up in your page component as a `data` prop. So to list all those page titles, you'd do something like this 👇
+This shows up in your page component as a `data` prop. So to list all those page titles, you&#x27;d do something like this 👇
 
 
 
@@ -95,7 +95,7 @@ const allPages = _.sortBy(
 
 
 
-There's a lot of looping and destructuring because our data comes in the shape of a graph, and I'm bad at writing GraphQL queries. I'm sure this looks terrible to someone who knows what they're doing.
+There&#x27;s a lot of looping and destructuring because our data comes in the shape of a graph, and I&#x27;m bad at writing GraphQL queries. I&#x27;m sure this looks terrible to someone who knows what they&#x27;re doing.
 
 
 
@@ -103,7 +103,7 @@ There's a lot of looping and destructuring because our data comes in the shape o
 
 
 
-The fun part is building your own data sources, which you can do, and it's easier than I thought.
+The fun part is building your own data sources, which you can do, and it&#x27;s easier than I thought.
 
 
 
@@ -112,9 +112,9 @@ Your basic approach goes like this:
 
 
 1. Search far and wide for an existing plugin
-2. Give up and realize you'll have to build it yourself
+2. Give up and realize you&#x27;ll have to build it yourself
 3. Strongly consider building a releasable plugin
-4. Decide you're better off building a one-off integration
+4. Decide you&#x27;re better off building a one-off integration
 5. Spend the next hour fiddling inside `gatsby-node.js`
 
 
@@ -143,7 +143,7 @@ You can see [my full code on GitHub](https://github.com/Swizec/learnwhileyoupoop
 
 
 
-My goal was a list of videos from a YouTube playlist. I used [youtube-playlist-info](https://github.com/benkaiser/youtube-playlist-info) to fetch a list of videos from a public playlist. Google's official node.js library is too hard to use.
+My goal was a list of videos from a YouTube playlist. I used [youtube-playlist-info](https://github.com/benkaiser/youtube-playlist-info) to fetch a list of videos from a public playlist. Google&#x27;s official node.js library is too hard to use.
 
 
 
@@ -171,7 +171,7 @@ When Gatsby builds my site, it goes into `gatsby-nodes` and calls my node builde
 
 
 
-Yes, that means building the site is now slow. It has to talk to YouTube's API every time, but it’s worth it.
+Yes, that means building the site is now slow. It has to talk to YouTube&#x27;s API every time, but it’s worth it.
 
 
 
@@ -179,7 +179,7 @@ Your next step is to build Gatsby nodes for each video in the playlist.
 
 
 
-Nodes require a `contentDigest` so Gatsby can tell whether they've changed. To make that easier, I built a helper function 👇
+Nodes require a `contentDigest` so Gatsby can tell whether they&#x27;ve changed. To make that easier, I built a helper function 👇
 
 
 
@@ -198,7 +198,7 @@ Nodes require a `contentDigest` so Gatsby can tell whether they've changed. To m
 
 
 
-`makeNode` is a thin wrapper on Gatsby's built-in `createNode` function that automatically generates an `md5` hash of the whole node and saves it in `contentDigest`. Not sure why this isn't default behavior.
+`makeNode` is a thin wrapper on Gatsby&#x27;s built-in `createNode` function that automatically generates an `md5` hash of the whole node and saves it in `contentDigest`. Not sure why this isn&#x27;t default behavior.
 
 
 
@@ -247,7 +247,7 @@ Set up an empty node for the `lwypPlaylist` of type `ytPlaylist`. Fill its child
 
 
 
-When all those nodes are created, _then_ create the main `lwypNode`. This reverse order is \\important. You have to build your data graph from the bottom up otherwise you'll get strange errors.
+When all those nodes are created, _then_ create the main `lwypNode`. This reverse order is \\important. You have to build your data graph from the bottom up otherwise you&#x27;ll get strange errors.
 
 
 

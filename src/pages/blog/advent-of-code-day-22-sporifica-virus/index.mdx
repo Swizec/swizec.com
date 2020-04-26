@@ -7,7 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/blog-wp-content-uploads-2017-12-image.png
 ---
-https://www.youtube.com/watch?v=prdKoJ5B5z8
+https&amp;#x3A;//www.youtube.com/watch?v=prdKoJ5B5z8
 
 
 
@@ -19,8 +19,8 @@ For Day 22, we built a virus and found that Safari is much faster than Chrome.
 
 
 
-1. Turn left if current cell is infected, turn right if it isn't.
-2. Flip the cell (clean –> infected, infected –> clean)
+1. Turn left if current cell is infected, turn right if it isn&#x27;t.
+2. Flip the cell (clean –&gt; infected, infected –&gt; clean)
 3. Move forward
 
 
@@ -29,7 +29,7 @@ For Day 22, we built a virus and found that Safari is much faster than Chrome.
 
 
 
-Naturally, I decided to solve this puzzle in React. Because it sounds like it might draw something interesting. And who doesn't want to see a visualization of the spread of a deadly virus?
+Naturally, I decided to solve this puzzle in React. Because it sounds like it might draw something interesting. And who doesn&#x27;t want to see a visualization of the spread of a deadly virus?
 
 
 
@@ -37,7 +37,7 @@ It draws a dick. 😑
 
 
 
-https://twitter.com/Swizec/status/944147668535730176
+https&amp;#x3A;//twitter.com/Swizec/status/944147668535730176
 
 
 
@@ -49,7 +49,7 @@ And takes 5 minutes to run. And gets the wrong result.
 
 
 
-There must be an off-by-one error somewhere in the code that I can't find. The animation looks correct.
+There must be an off-by-one error somewhere in the code that I can&#x27;t find. The animation looks correct.
 
 
 
@@ -69,7 +69,7 @@ You can [see the code on GitHub](https://github.com/Swizec/advent-of-code-2017/b
 
 
 
-It's built from 3 React components: `GridRow`, which renders a single row of the grid, `Grid`, which renders the grid, and `Day22`, which drives the whole thing.
+It&#x27;s built from 3 React components: `GridRow`, which renders a single row of the grid, `Grid`, which renders the grid, and `Day22`, which drives the whole thing.
 
 
 
@@ -77,7 +77,7 @@ It's built from 3 React components: `GridRow`, which renders a single row of the
 
 
 
-If you guessed _"Oh, that should be simple"_, you were right.
+If you guessed _&quot;Oh, that should be simple&quot;_, you were right.
 
 
 
@@ -98,7 +98,7 @@ Loop through a row, which is an array, and render a `<div>` for each `cell`. Cel
 
 
 
-Red if the virus carrier is currently on that cell, black if the cell is infected, white if it's not.
+Red if the virus carrier is currently on that cell, black if the cell is infected, white if it&#x27;s not.
 
 
 
@@ -204,11 +204,11 @@ class Day22 extends Component {
 
 
 
-That `state` calculation looks hairy. We're taking an array of `Width`, filling it with healthy cells, `.`, then walking through it to build `row`s. If the current index is past a certain point, we replace the middle part of the `row` with a row from our input array. We do that with a `splice`.
+That `state` calculation looks hairy. We&#x27;re taking an array of `Width`, filling it with healthy cells, `.`, then walking through it to build `row`s. If the current index is past a certain point, we replace the middle part of the `row` with a row from our input array. We do that with a `splice`.
 
 
 
-The result is a 180x180 grid of cells. Some of them are infected, but most aren't.
+The result is a 180x180 grid of cells. Some of them are infected, but most aren&#x27;t.
 
 
 
@@ -269,11 +269,11 @@ The virus carrier logic comes in 3 functions. `burstActivity`, `turnLeft` and `t
 
 
 
-`burstActivity` is our main logic driver. It looks at the current virus carrier position, turns left if it's infected, or turns right if it isn't. In both cases, it also flips the cell.
+`burstActivity` is our main logic driver. It looks at the current virus carrier position, turns left if it&#x27;s infected, or turns right if it isn&#x27;t. In both cases, it also flips the cell.
 
 
 
-If the cell was flipped to infected, we increment our solution counter of how many cells we've infected.
+If the cell was flipped to infected, we increment our solution counter of how many cells we&#x27;ve infected.
 
 
 
@@ -294,26 +294,26 @@ I learned a couple of lessons with this build.
 
 
 1. React is SO MUCH FASTER after you turn off streaming
-2. If you render 250,000 DOM nodes, you're gonna have a bad time
+2. If you render 250,000 DOM nodes, you&#x27;re gonna have a bad time
 3. Pegging your algorithm at `requestAnimationFrame` makes it slow
-4. Safari is _a lot faster_ than Chrome at re-rendering a few ten thousand DOM nodes with React. I don't know why
+4. Safari is _a lot faster_ than Chrome at re-rendering a few ten thousand DOM nodes with React. I don&#x27;t know why
 
 
 
-https://twitter.com/Swizec/status/944241764029816832
+https&amp;#x3A;//twitter.com/Swizec/status/944241764029816832
 
 
 
 1. When your code runs slow, development is slow, and getting the wrong result after 2+ hours of tinkering kinda sucks
-2. `array.splice(5, undefined, 1,2,3,4,5)` doesn't even bat an eye, turns that `undefined` into `0` and proceeds like nothing happened
+2. `array.splice(5, undefined, 1,2,3,4,5)` doesn&#x27;t even bat an eye, turns that `undefined` into `0` and proceeds like nothing happened
 
 
 
-https://twitter.com/Swizec/status/944122955876900866
+https&amp;#x3A;//twitter.com/Swizec/status/944122955876900866
 
 
 
-Thanks to stream watchers for pointing out that I can't spell `row.length`. You da real MVPs.
+Thanks to stream watchers for pointing out that I can&#x27;t spell `row.length`. You da real MVPs.
 
 
 

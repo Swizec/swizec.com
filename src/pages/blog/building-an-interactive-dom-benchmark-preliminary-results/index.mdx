@@ -11,19 +11,19 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https://www.youtube.com/watch?v=Ukm3mRWZtCk
+https&amp;#x3A;//www.youtube.com/watch?v=Ukm3mRWZtCk
 
 
 
-After that [chatroom windowing feature](https://swizec.com/blog/build-list-virtualization/swizec/8167) I built a few weeks ago, I've been thinking a lot about how fast native DOM manipulation has gotten.
+After that [chatroom windowing feature](https://swizec.com/blog/build-list-virtualization/swizec/8167) I built a few weeks ago, I&#x27;ve been thinking a lot about how fast native DOM manipulation has gotten.
 
 
 
-I've been listening to the [_"DOM is slow"_](https://www.google.com/search?q=dom+is+slow&oq=dom+is+slow&aqs=chrome..69i57j0l5.1249j0j1&sourceid=chrome&ie=UTF-8) mantra my whole life. But with that feature, I discovered that the DOM is pretty fast, actually.
+I&#x27;ve been listening to the [_&quot;DOM is slow&quot;_](https://www.google.com/search?q=dom+is+slow&amp;oq=dom+is+slow&amp;aqs=chrome..69i57j0l5.1249j0j1&amp;sourceid=chrome&amp;ie=UTF-8) mantra my whole life. But with that feature, I discovered that the DOM is pretty fast, actually.
 
 
 
-Did you know it's faster and easier to throw out your DOM nodes and render from scratch? That surprised me.
+Did you know it&#x27;s faster and easier to throw out your DOM nodes and render from scratch? That surprised me.
 
 
 
@@ -31,7 +31,7 @@ So I started working on [this DOM manipulation benchmark](https://dom-benchmark.
 
 
 
-It's not complete yet. You can already test React using local state, a naive vanilla JS implementation, and a smart vanilla JS implementation. I'm adding Vue, Preact, Angular, and maybe some others.
+It&#x27;s not complete yet. You can already test React using local state, a naive vanilla JS implementation, and a smart vanilla JS implementation. I&#x27;m adding Vue, Preact, Angular, and maybe some others.
 
 
 
@@ -39,7 +39,7 @@ The test focuses on long flat lists. Those are the most common source of having 
 
 
 
-We're testing how fast it is to
+We&#x27;re testing how fast it is to
 
 
 
@@ -71,7 +71,7 @@ We manipulate a list in `this.state` and measure times between `componentWillUpd
 
 
 
-What surprised me is the stark difference between dev-mode React and production-built React. React in dev mode is not only slow, but also gets increasingly slower the more nodes you're rendering. In production mode performance is constant.
+What surprised me is the stark difference between dev-mode React and production-built React. React in dev mode is not only slow, but also gets increasingly slower the more nodes you&#x27;re rendering. In production mode performance is constant.
 
 
 
@@ -87,7 +87,7 @@ Neat. 👌
 
 
 
-The naive approach is slow. Faster than you'd expect, good for small lists, but not a scalable solution. The more nodes you render, the slower it gets.
+The naive approach is slow. Faster than you&#x27;d expect, good for small lists, but not a scalable solution. The more nodes you render, the slower it gets.
 
 
 
@@ -149,11 +149,11 @@ A slightly smart vanilla JS approach is _blazing fast_. Constant performance aro
 
 
 
-I used the new `prepend()` and `append()` DOM methods. Nothing super clever, just a basic implementation of what we're testing.
+I used the new `prepend()` and `append()` DOM methods. Nothing super clever, just a basic implementation of what we&#x27;re testing.
 
 
 
-You can see the whole [benchmark on GitHub](https://github.com/Swizec/dom-benchmark/blob/master/src/benchmarks/SmartVanillaBenchmark.js), but here's the `prepend` code for example.
+You can see the whole [benchmark on GitHub](https://github.com/Swizec/dom-benchmark/blob/master/src/benchmarks/SmartVanillaBenchmark.js), but here&#x27;s the `prepend` code for example.
 
 
 
@@ -178,7 +178,7 @@ You can see the whole [benchmark on GitHub](https://github.com/Swizec/dom-benchm
 
 
 
-We're still manipulating the `this.nodes` array. Keeps "data" and DOM in sync, stays consistent to the other implementations.
+We&#x27;re still manipulating the `this.nodes` array. Keeps &quot;data&quot; and DOM in sync, stays consistent to the other implementations.
 
 
 
@@ -195,7 +195,7 @@ Then we walk through the list of new nodes, create `div` elements for each of th
 
 
 
-Inserting is slowest because there's no magic method for it. You have to `insertBefore` each DOM node individually. The browser then has to shove the entire list around to make room.
+Inserting is slowest because there&#x27;s no magic method for it. You have to `insertBefore` each DOM node individually. The browser then has to shove the entire list around to make room.
 
 
 
@@ -207,23 +207,23 @@ Even dropping all nodes is crazy fast despite dropping 1-by-1 👉 around `2ms` 
 
 
 
-In conclusion, vanilla JavaScript is fast if you know what you're doing. Faster probably than anything else I can add to this benchmark.
+In conclusion, vanilla JavaScript is fast if you know what you&#x27;re doing. Faster probably than anything else I can add to this benchmark.
 
 
 
-**But** it's not as powerful as React or a similar framework. It takes more time to build, it's hyper optimized for this example, and it wouldn't scale in a real world environment.
+**But** it&#x27;s not as powerful as React or a similar framework. It takes more time to build, it&#x27;s hyper optimized for this example, and it wouldn&#x27;t scale in a real world environment.
 
 
 
-Code is hard to maintain. You waste time thinking about rendering instead of what you're building, and you will cry as soon as nodes stop being stable. Just imagine figuring out by hand which nodes' contents changed and which didn't.
+Code is hard to maintain. You waste time thinking about rendering instead of what you&#x27;re building, and you will cry as soon as nodes stop being stable. Just imagine figuring out by hand which nodes&#x27; contents changed and which didn&#x27;t.
 
 
 
-That's what React is doing for you 👉 Spending a little runtime to save a lot of dev time.
+That&#x27;s what React is doing for you 👉 Spending a little runtime to save a lot of dev time.
 
 
 
-Can't wait to add Vue and Preact to the mix.
+Can&#x27;t wait to add Vue and Preact to the mix.
 
 
 

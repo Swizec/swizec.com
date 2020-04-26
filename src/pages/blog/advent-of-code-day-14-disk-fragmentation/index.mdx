@@ -7,11 +7,11 @@ redirect_from:
 categories: "Front End, python, Technical"
 hero: ./img/blog-wp-content-uploads-2017-12-carbon-day14-star1-1024x602.png
 ---
-\[caption id="" align="" width="600"]![Day 14 was trivial after I solved Day 10](./img/blog-wp-content-uploads-2017-12-carbon-day14-star1-1024x602.png) Day 14 was trivial after I solved Day 10\[/caption]
+\[caption id=&quot;&quot; align=&quot;&quot; width=&quot;600&quot;]![Day 14 was trivial after I solved Day 10](./img/blog-wp-content-uploads-2017-12-carbon-day14-star1-1024x602.png) Day 14 was trivial after I solved Day 10\[/caption]
 
 
 
-https://www.youtube.com/watch?v=e9duNOVdHFk
+https&amp;#x3A;//www.youtube.com/watch?v=e9duNOVdHFk
 
 
 
@@ -23,7 +23,7 @@ What the hell is a knot hash? O.o
 
 
 
-Turns out it's from Advent of Code Day 10. Conveniently called "knot hash". On Day 10, you build a general hashing function following this schema 👇
+Turns out it&#x27;s from Advent of Code Day 10. Conveniently called &quot;knot hash&quot;. On Day 10, you build a general hashing function following this schema 👇
 
 
 
@@ -31,11 +31,11 @@ Turns out it's from Advent of Code Day 10. Conveniently called "knot hash". On D
 
 
 
-Don't worry, that image didn't tell me anything either.
+Don&#x27;t worry, that image didn&#x27;t tell me anything either.
 
 
 
-AoC's description of the process makes more sense
+AoC&#x27;s description of the process makes more sense
 
 
 
@@ -59,7 +59,7 @@ AoC's description of the process makes more sense
 
 
 
-Okay. So that's difficult to follow, and it's kind of annoying to build, but Day 10 boils down to what we do best in our day-to-day programming: Follow instructions to implement a random piece of business logic.
+Okay. So that&#x27;s difficult to follow, and it&#x27;s kind of annoying to build, but Day 10 boils down to what we do best in our day-to-day programming: Follow instructions to implement a random piece of business logic.
 
 
 
@@ -95,15 +95,15 @@ def knot_1round(pos, skip, lengths, input):
 
 
 
-Boring, predictable, nothing special. Go through the list of \[0 .. 255] numbers, use input lengths, do the knot hashing. The neat part of this code is Python's spectacular support for list slicing and dicing.
+Boring, predictable, nothing special. Go through the list of \[0 .. 255] numbers, use input lengths, do the knot hashing. The neat part of this code is Python&#x27;s spectacular support for list slicing and dicing.
 
 
 
-You can use the `:` operator to get different parts of a list. Left side means "up to" and right side means "after". You can use negative numbers.
+You can use the `:` operator to get different parts of a list. Left side means &quot;up to&quot; and right side means &quot;after&quot;. You can use negative numbers.
 
 
 
-Dealing with the circular wraparound part was mindbendy and a bit tedious. You can't just cut the list and put it together. You have to use a bunch of different bits and sections.
+Dealing with the circular wraparound part was mindbendy and a bit tedious. You can&#x27;t just cut the list and put it together. You have to use a bunch of different bits and sections.
 
 
 
@@ -167,7 +167,7 @@ But Day 14, the first part at least, was trivial now that the hashing made sense
 
 
 
-The goal is to figure out how many blocks of a disk space are occupied. You are given an input string, and you compute it into 128 knot hashes, then you transform those knot hashes into binary, and count how many 1's there are.
+The goal is to figure out how many blocks of a disk space are occupied. You are given an input string, and you compute it into 128 knot hashes, then you transform those knot hashes into binary, and count how many 1&#x27;s there are.
 
 
 
@@ -190,7 +190,7 @@ def star1(inputs):
 
 
 
-Make a list of 128 inputs, walk through it, calculate hashes, transform them into binary, count the 1's and sum it up. Done.
+Make a list of 128 inputs, walk through it, calculate hashes, transform them into binary, count the 1&#x27;s and sum it up. Done.
 
 
 
@@ -198,8 +198,8 @@ That was easy.
 
 
 
-Then **Star 2** came along, and it asked to count _regions_. That is adjacent 1's that are touching.
+Then **Star 2** came along, and it asked to count _regions_. That is adjacent 1&#x27;s that are touching.
 
 
 
-So I said, “Screw this, I'm tired,” and went to bed. 😴
+So I said, “Screw this, I&#x27;m tired,” and went to bed. 😴

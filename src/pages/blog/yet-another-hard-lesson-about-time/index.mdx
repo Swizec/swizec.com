@@ -11,7 +11,7 @@ hero: ./img/blog-wp-content-uploads-2017-01-time-diagram-1.jpg
 
 
 
-> Hm… that's weird ?
+> Hm… that&#x27;s weird ?
 
 
 
@@ -19,7 +19,7 @@ So began my two day hunt for a bug.
 
 
 
-To become a [Yup tutor](https://www.yup.com/become-tutor), you have to pass a subject exam: 25 questions about math, chemistry, or physics in 45 minutes. It's hard as hell; I tried.
+To become a [Yup tutor](https://www.yup.com/become-tutor), you have to pass a subject exam: 25 questions about math, chemistry, or physics in 45 minutes. It&#x27;s hard as hell; I tried.
 
 
 
@@ -27,7 +27,7 @@ To become a [Yup tutor](https://www.yup.com/become-tutor), you have to pass a su
 
 
 
-There's a timer in the corner ticking down. 45 minutes, and then you're done. A dialog shows up telling you time’s up. Easy peasy to build, right? Get a start time, add 45 minutes, count down. When timer hits zero, stop. 90% of the time, it works every time.
+There&#x27;s a timer in the corner ticking down. 45 minutes, and then you&#x27;re done. A dialog shows up telling you time’s up. Easy peasy to build, right? Get a start time, add 45 minutes, count down. When timer hits zero, stop. 90% of the time, it works every time.
 
 
 
@@ -39,7 +39,7 @@ o.O
 
 
 
-I looked through the code. No race conditions. You click Start, the server creates an exam, makes a `started_at` timestamp, adds 45 minutes, and tells the frontend when your exam should end. On every [Clock tick](https://swizec.com/blog/modeling-time-react/swizec/7200), the counter updates ,and a MobX observer checks if you're out of time.
+I looked through the code. No race conditions. You click Start, the server creates an exam, makes a `started_at` timestamp, adds 45 minutes, and tells the frontend when your exam should end. On every [Clock tick](https://swizec.com/blog/modeling-time-react/swizec/7200), the counter updates ,and a MobX observer checks if you&#x27;re out of time.
 
 
 
@@ -51,11 +51,11 @@ Very straightforward.
 
 
 
-We're using React and MobX, so the frontend behaves like a state machine. There's no way we're rendering stale views, no way for poorly garbage collected views to cause problems, and the more I played with the frontend state machine, the sturdier it looked.
+We&#x27;re using React and MobX, so the frontend behaves like a state machine. There&#x27;s no way we&#x27;re rendering stale views, no way for poorly garbage collected views to cause problems, and the more I played with the frontend state machine, the sturdier it looked.
 
 
 
-Here's an excerpt:
+Here&#x27;s an excerpt:
 
 
 
@@ -87,11 +87,11 @@ class SubjectExam {
 
 
 
-MobX's `when` creates an autorun that checks the condition function, `() => this.isOutOfTime`, every time its value changes. When it evaluates to `true`, it runs the given function. In this case, that’s an action that finishes the subject exam.
+MobX&#x27;s `when` creates an autorun that checks the condition function, `() => this.isOutOfTime`, every time its value changes. When it evaluates to `true`, it runs the given function. In this case, that’s an action that finishes the subject exam.
 
 
 
-The reason this works is hidden in `@computed timeLeft()`. It depends on `Clock.time`, which is a global MobX store that updates every second. It’s based on my [Modeling time in React & MobX](https://swizec.com/blog/modeling-time-react/swizec/7200) approach.
+The reason this works is hidden in `@computed timeLeft()`. It depends on `Clock.time`, which is a global MobX store that updates every second. It’s based on my [Modeling time in React &amp; MobX](https://swizec.com/blog/modeling-time-react/swizec/7200) approach.
 
 
 
@@ -99,7 +99,7 @@ Diffing the server-provided `should_end_by` timestamp and `Clock.time` tells us 
 
 
 
-The nice feature of this approach is that the timer is stable. You can refresh and navigate the page as much as you want. The server calculates the time, so it doesn't care.
+The nice feature of this approach is that the timer is stable. You can refresh and navigate the page as much as you want. The server calculates the time, so it doesn&#x27;t care.
 
 
 
@@ -107,7 +107,7 @@ But… those 7 people… why was the time up after 1 second? Can you guess?
 
 
 
-I found no pattern in who the applicants were, when they took the exam, what timezone they were in, or which browser they used. It's not a bug in MomentJS. None of the cases happened around a DST, day, month, or year boundary.
+I found no pattern in who the applicants were, when they took the exam, what timezone they were in, or which browser they used. It&#x27;s not a bug in MomentJS. None of the cases happened around a DST, day, month, or year boundary.
 
 
 
@@ -119,7 +119,7 @@ _It should work._
 
 
 
-The only remaining explanation is that their system time was waaaaaayyy in the future. More than 45 minutes. I don't know why their computers thought they were in the future, but it's the only explanation that works.
+The only remaining explanation is that their system time was waaaaaayyy in the future. More than 45 minutes. I don&#x27;t know why their computers thought they were in the future, but it&#x27;s the only explanation that works.
 
 
 
@@ -127,7 +127,7 @@ How do you fix it?
 
 
 
-You don't rely on user time. Instead of calculating a `should_end_by` timestamp on the server, calculate the delta. Look only at the delta when doing a countdown.
+You don&#x27;t rely on user time. Instead of calculating a `should_end_by` timestamp on the server, calculate the delta. Look only at the delta when doing a countdown.
 
 
 
@@ -147,7 +147,7 @@ On the frontend, you create a local `shouldEndAt` timestamp when you load the ex
 
 
 
-Lesson learned. Time is so hard that you can't even rely on people's clocks being accurate to within 1 hour. Add it to the [Falsehoods Programmers Believe About Time](http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time) pile.
+Lesson learned. Time is so hard that you can&#x27;t even rely on people&#x27;s clocks being accurate to within 1 hour. Add it to the [Falsehoods Programmers Believe About Time](http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time) pile.
 
 
 

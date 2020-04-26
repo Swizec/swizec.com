@@ -7,11 +7,11 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/images-M-MV5BNjE5YzBhYTYtNzYxMy00ZGJmLWFhZmQtMDQ1YmRiNmVhYjdmXkEyXkFqcGdeQXVyOTM5Nzc0Mw@@._V1_UY1200_CR82,0,630,1200_AL_.jpg
 ---
-Last night I built something so cool it's still blowing my mind. And I got the idea from the flat earth society. Wat
+Last night I built something so cool it&#x27;s still blowing my mind. And I got the idea from the flat earth society. Wat
 
 ![](./img/hzKOMXi.gif)
 
-It's a donut chart that transitions to a bar chart. Same component, same React code, different radius. 29,905px instead of 728px. 🤯
+It&#x27;s a donut chart that transitions to a bar chart. Same component, same React code, different radius. 29,905px instead of 728px. 🤯
 
 
 
@@ -19,7 +19,7 @@ I _actually_ got the idea from that flat earth documentary on Netflix. Behind th
 
 
 
-Sure, I haven't watched it yet but the twitter buzz put flatearthers on my mind. Apparently there's a scene where they confidently disprove their own theory and it's pure gold.
+Sure, I haven&#x27;t watched it yet but the twitter buzz put flatearthers on my mind. Apparently there&#x27;s a scene where they confidently disprove their own theory and it&#x27;s pure gold.
 
 ![](./img/images-M-MV5BNjE5YzBhYTYtNzYxMy00ZGJmLWFhZmQtMDQ1YmRiNmVhYjdmXkEyXkFqcGdeQXVyOTM5Nzc0Mw@@._V1_UY1200_CR82,0,630,1200_AL_.jpg)
 
@@ -31,15 +31,15 @@ Why do flat earth people believe the earth is flat?
 
 
 
-It's because the curve is soooooooo big that it looks flat.
+It&#x27;s because the curve is soooooooo big that it looks flat.
 
 
 
-That gave me an idea for a client project I've been working on. They asked me to build a smooth transition from a donut-shaped visualization to a bar chart shape.
+That gave me an idea for a client project I&#x27;ve been working on. They asked me to build a smooth transition from a donut-shaped visualization to a bar chart shape.
 
 
 
-No idea how to pull that off so I built eeeeverything else first. Sometimes that's just how it be. You put the hardest things off as long as you can get away with 😇
+No idea how to pull that off so I built eeeeverything else first. Sometimes that&#x27;s just how it be. You put the hardest things off as long as you can get away with 😇
 
 
 
@@ -49,7 +49,7 @@ And then I made a break through.
 
 > I just discovered a new approach to React + D3 transitions 🤯 Of course this happens juuuust when I think React for Data Visualization is complete
 >
-> Check this out, it combines the "game loop via state changes" with the "D3 runs transitions" approach [pic.twitter.com/mMglR4hDwp](https://t.co/mMglR4hDwp)
+> Check this out, it combines the &quot;game loop via state changes&quot; with the &quot;D3 runs transitions&quot; approach [pic.twitter.com/mMglR4hDwp](https://t.co/mMglR4hDwp)
 >
 >
 >
@@ -77,25 +77,25 @@ React for Data Visualization and my workshop teach you about two ways to animate
 
 
 
-Now there's a 3rd approach. Something I never thought of before and it works beautifully. Adding it to [React for Data Visualization](https://reactfordataviz.com/) this weekend ✌️
+Now there&#x27;s a 3rd approach. Something I never thought of before and it works beautifully. Adding it to [React for Data Visualization](https://reactfordataviz.com/) this weekend ✌️
 
 
 
-Let's look at the transition again
+Let&#x27;s look at the transition again
 
 ![](./img/hzKOMXi.gif)
 
-Here's what happens behind the scenes to make that work:
+Here&#x27;s what happens behind the scenes to make that work:
 
 
 
 1. A `<Donut>` component renders a bunch of `<Arc>`s
 2. Each `<Arc>` takes care of its complex shape. Built from 3 different D3 arc generators
-3. The whole thing is driven by D3's pie generator. It calculates start and end angles for individual arcs
+3. The whole thing is driven by D3&#x27;s pie generator. It calculates start and end angles for individual arcs
 4. Donut size is a function of radius. The bigger the radius, the bigger the donut.
 5. As the radius increases from 728 to 29,905 the donut grows
-6. And it moves down as fast as it grows. Without moving it would fly off the screen and you'd never see it again
-7. To keep the pie exactly 728px wide even though it's rendered on a 29,905px donut ... well you gotta calculate [the arc segment](https://planetcalc.com/1421/) and derive start and end angles from that
+6. And it moves down as fast as it grows. Without moving it would fly off the screen and you&#x27;d never see it again
+7. To keep the pie exactly 728px wide even though it&#x27;s rendered on a 29,905px donut ... well you gotta calculate [the arc segment](https://planetcalc.com/1421/) and derive start and end angles from that
 
 
 
@@ -103,11 +103,11 @@ Here's what happens behind the scenes to make that work:
 
 
 
-That's a lot of stuff.
+That&#x27;s a lot of stuff.
 
 
 
-And it's all driven by this code. The transition 👇
+And it&#x27;s all driven by this code. The transition 👇
 
 ![](./img/media-D03-2wtU8AASbl-.jpg)
 
@@ -115,11 +115,11 @@ I call this on component mount. Could be on a click event or whatever. Starts a 
 
 
 
-That lets D3 control the timing, the easing functions, keeping it smooth, all of that. You don't have to think about any of it.
+That lets D3 control the timing, the easing functions, keeping it smooth, all of that. You don&#x27;t have to think about any of it.
 
 
 
-But instead of changing a DOM attribute, my tween calls `this.setState` on the React component. Meaning it's _changing React state_ instead.
+But instead of changing a DOM attribute, my tween calls `this.setState` on the React component. Meaning it&#x27;s _changing React state_ instead.
 
 ![](./img/media-26ufdipQqU2lhNA4g-giphy.gif)
 
@@ -127,11 +127,11 @@ Since the donut bar chart knows how to render itself based on a radius ... well 
 
 
 
-Smooth transition by re-rendering the whole visualization 60 times per second. Even though it's a super complex component. Lots of moving parts and subcomponents.
+Smooth transition by re-rendering the whole visualization 60 times per second. Even though it&#x27;s a super complex component. Lots of moving parts and subcomponents.
 
 
 
-Knowing everything that's going on behind the scenes I am _blown away_ by how well it works.
+Knowing everything that&#x27;s going on behind the scenes I am _blown away_ by how well it works.
 
 
 

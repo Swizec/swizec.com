@@ -25,7 +25,7 @@ Looks pretty good, right? It calculates the timestamp for yesterday and a timest
 
 
 
-But wait … Does it smell bad to you? I'll give you a minute.
+But wait … Does it smell bad to you? I&#x27;ll give you a minute.
 
 
 
@@ -37,13 +37,13 @@ How about now? Are your nose hairs sizzling yet?
 
 
 
-Maybe not. I mean, we've all written code like this. Maybe not recently, but for sure when we were starting out. Even the internet didn't smell anything.
+Maybe not. I mean, we&#x27;ve all written code like this. Maybe not recently, but for sure when we were starting out. Even the internet didn&#x27;t smell anything.
 
 
 
-> Pop quiz: Why is this code wrong?&#10;&#10;var day = 1000\*60\*60\*24
+> Pop quiz: Why is this code wrong?&amp;amp;#10;&amp;amp;#10;var day = 1000\*60\*60\*24
 >
-> &mdash; Swizec (@Swizec) [November 3, 2015](https://twitter.com/Swizec/status/661675783199453184)
+> &amp;amp;mdash; Swizec (@Swizec) [November 3, 2015](https://twitter.com/Swizec/status/661675783199453184)
 
 
 
@@ -55,9 +55,9 @@ Answers ranged from the slightly missing the point:
 
 
 
-> [@Swizec](https://twitter.com/Swizec)because there aren&#39;t 60,000 seconds in a minute. context would be helpful
+> [@Swizec](https://twitter.com/Swizec)because there aren&amp;amp;#39;t 60,000 seconds in a minute. context would be helpful
 >
-> &mdash; Aron (@MrAronD) [November 3, 2015](https://twitter.com/MrAronD/status/661677631360888832)
+> &amp;amp;mdash; Aron (@MrAronD) [November 3, 2015](https://twitter.com/MrAronD/status/661677631360888832)
 
 
 
@@ -65,13 +65,13 @@ To the snarky:
 
 
 
-> [@swizec](https://twitter.com/Swizec) You should use ES6&#39;s const instead of var...
+> [@swizec](https://twitter.com/Swizec) You should use ES6&amp;amp;#39;s const instead of var...
 >
-> &mdash; Anže Pečar (@Smotko) [November 3, 2015](https://twitter.com/Smotko/status/661676777534857217)
+> &amp;amp;mdash; Anže Pečar (@Smotko) [November 3, 2015](https://twitter.com/Smotko/status/661676777534857217)
 
 
 
-And even some that tried to do a linter's job.
+And even some that tried to do a linter&#x27;s job.
 
 
 
@@ -79,19 +79,19 @@ They all have **a** point, but none of them got **the** point.
 
 
 
-Days aren't `60*60*24` seconds long. They are `1 day` long, which on most days maps to `60*60*24 = 86400` seconds. But not on all days.
+Days aren&#x27;t `60*60*24` seconds long. They are `1 day` long, which on most days maps to `60*60*24 = 86400` seconds. But not on all days.
 
 
 
-Thanks to the wonder that is daylight savings time (DST), we have a day that's only 23 hours long. We also have a day that's 25 hours long. Then, every few years, we have a day that's 86,401 seconds long. In theory, we could even have a day that's 86,399 seconds long. It’s unlikely, but it’s possible.
+Thanks to the wonder that is daylight savings time (DST), we have a day that&#x27;s only 23 hours long. We also have a day that&#x27;s 25 hours long. Then, every few years, we have a day that&#x27;s 86,401 seconds long. In theory, we could even have a day that&#x27;s 86,399 seconds long. It’s unlikely, but it’s possible.
 
 
 
-But, I mean, who cares, right? It's just an hour here, an hour there, and maybe a second when no one’s paying attention. Nobody's going to notice. _24 hours ago_ should still mean _yesterday_.
+But, I mean, who cares, right? It&#x27;s just an hour here, an hour there, and maybe a second when no one’s paying attention. Nobody&#x27;s going to notice. _24 hours ago_ should still mean _yesterday_.
 
 
 
-Here's the thing, though. Just because it’s _yesterday_ doesn’t mean it’s also _1 day ago_.
+Here&#x27;s the thing, though. Just because it’s _yesterday_ doesn’t mean it’s also _1 day ago_.
 
 
 
@@ -112,7 +112,7 @@ new Date((new Date("2015-11-01 02:59 pdt").getTime()-1000*60*60*24))
 
 
 
-Subtracting 24 hours from PST (Pacific Standard Time) gives you the day before, but an hour later. Subtracting 24 hours from PDT (Pacific Daylight Time) gives you the day before at the same time. This timezone name-change is how you know which side of DST you're on.
+Subtracting 24 hours from PST (Pacific Standard Time) gives you the day before, but an hour later. Subtracting 24 hours from PDT (Pacific Daylight Time) gives you the day before at the same time. This timezone name-change is how you know which side of DST you&#x27;re on.
 
 
 
@@ -127,7 +127,7 @@ new Date((new Date("2015-11-01 02:59").getTime()-1000*60*60*24))
 
 
 
-Now let's see what happens in March, when daylight savings time goes back into effect:
+Now let&#x27;s see what happens in March, when daylight savings time goes back into effect:
 
 
 
@@ -140,7 +140,7 @@ new Date((new Date("2015-03-08 02:30 pst").getTime()-1000*60*60*24))
 
 
 
-We didn't get the wrong date because JavaScript is awesome and automatically covers up the mess with timezone changes. It knows that on these key days, PST becomes PDT and vice-versa.
+We didn&#x27;t get the wrong date because JavaScript is awesome and automatically covers up the mess with timezone changes. It knows that on these key days, PST becomes PDT and vice-versa.
 
 
 
@@ -169,7 +169,7 @@ Now, this wasn’t too bad because JavaScript is amazing and knows when to autom
 
 
 
-You might not care about any of this, but if your job is to capture _all of X from yesterday_, then you're in for a ride when your boss or client says, "Errrr, there seems to be a whole hour of events missing. That's 10,000 datapoints. Where did they go?"
+You might not care about any of this, but if your job is to capture _all of X from yesterday_, then you&#x27;re in for a ride when your boss or client says, &quot;Errrr, there seems to be a whole hour of events missing. That&#x27;s 10,000 datapoints. Where did they go?&quot;
 
 
 
@@ -177,11 +177,11 @@ Then there are leap seconds.
 
 
 
-In a way, leap seconds are less of a problem because you can only get it wrong by a second; but, when you're calculating with Unix epoch times (which is what `getTime()` does, by the way), you don't have the luxury of timezones. Not that timezones would help for leap seconds.
+In a way, leap seconds are less of a problem because you can only get it wrong by a second; but, when you&#x27;re calculating with Unix epoch times (which is what `getTime()` does, by the way), you don&#x27;t have the luxury of timezones. Not that timezones would help for leap seconds.
 
 
 
-You'd think a system that counts seconds since January 1st, 1970, wouldn't have this problem. Unfortunately, you’d be wrong.
+You&#x27;d think a system that counts seconds since January 1st, 1970, wouldn&#x27;t have this problem. Unfortunately, you’d be wrong.
 
 
 
@@ -189,11 +189,11 @@ You'd think a system that counts seconds since January 1st, 1970, wouldn't have 
 >
 >
 >
-> &embdash; Wikipedia (<https://en.wikipedia.org/wiki/Unix_time>)
+> &amp;embdash; Wikipedia (<https://en.wikipedia.org/wiki/Unix_time>)
 
 
 
-Let's see what JavaScript will do in this situation:
+Let&#x27;s see what JavaScript will do in this situation:
 
 
 
@@ -204,7 +204,7 @@ new Date(new Date("1999-01-01T00:00:00.00").getTime()-1000*60*60*24)
 
 
 
-Ok. That’s bad. We've lost an entire day. I’m pretty sure that’s going to be a problem. If your boss or client was unhappy about the 10,000 datapoints you missed when you got it wrong by an hour, how will they feel about losing 240,000 datapoints?
+Ok. That’s bad. We&#x27;ve lost an entire day. I’m pretty sure that’s going to be a problem. If your boss or client was unhappy about the 10,000 datapoints you missed when you got it wrong by an hour, how will they feel about losing 240,000 datapoints?
 
 
 
@@ -216,15 +216,15 @@ All that said, there were two or three people that put garlic around their necks
 
 
 
-> [@Swizec](https://twitter.com/Swizec) because it doesn&#39;t account for leap seconds? something to do with floating point rounding since that appears to be javascript? idk
+> [@Swizec](https://twitter.com/Swizec) because it doesn&amp;amp;#39;t account for leap seconds? something to do with floating point rounding since that appears to be javascript? idk
 >
-> &mdash; Aron (@MrAronD) [November 3, 2015](https://twitter.com/MrAronD/status/661676799022276608)
+> &amp;amp;mdash; Aron (@MrAronD) [November 3, 2015](https://twitter.com/MrAronD/status/661676799022276608)
 
 
 
 > [@Swizec](https://twitter.com/Swizec) This is a minefield, especially for distributed systems. See falsehoods programmers believe about time: <https://t.co/C3CCMMhIib>
 >
-> &mdash; galar (@galar) [November 4, 2015](https://twitter.com/galar/status/661701633030647809)
+> &amp;amp;mdash; galar (@galar) [November 4, 2015](https://twitter.com/galar/status/661701633030647809)
 
 
 
@@ -232,7 +232,7 @@ You should read the falsehoods article. Dealing with time _is_ a minefield.
 
 
 
-Oh, one more thing. Relativistic effects come into play for rocket guidance systems, things running on space stations, and anything moving quickly. That's when a second is no longer a second.
+Oh, one more thing. Relativistic effects come into play for rocket guidance systems, things running on space stations, and anything moving quickly. That&#x27;s when a second is no longer a second.
 
 
 
@@ -240,4 +240,4 @@ Let’s hope neither the military nor any astronauts ever use your real-time sma
 
 
 
-P.S.: There's internet on the International Space Station. ;)
+P.S.: There&#x27;s internet on the International Space Station. ;)

@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https://www.youtube.com/watch?v=Ff5NiCzP0ek
+https&amp;#x3A;//www.youtube.com/watch?v=Ff5NiCzP0ek
 
 
 
@@ -23,11 +23,11 @@ I understand why people like Vue, and those people are wrong.
 
 
 
-But this isn't a rant about Vue. If you like the ease of porting your 2012-era code to a modern framework, Vue is for you. If you're into Mustache templates, Angular directives, and love to split your code into templates, scripts, and styles just like ye olden times, Vue is perfect. Hell, if you love nothing more than to use cumbersome workarounds to avoid JavaScript classes 👉 Vue.
+But this isn&#x27;t a rant about Vue. If you like the ease of porting your 2012-era code to a modern framework, Vue is for you. If you&#x27;re into Mustache templates, Angular directives, and love to split your code into templates, scripts, and styles just like ye olden times, Vue is perfect. Hell, if you love nothing more than to use cumbersome workarounds to avoid JavaScript classes 👉 Vue.
 
 
 
-You do you. I built a Vue component and hated every minute of it. But it's \\important to try new things.
+You do you. I built a Vue component and hated every minute of it. But it&#x27;s \\important to try new things.
 
 
 
@@ -39,7 +39,7 @@ Oh, and it took an hour just to get it compiling.
 
 
 
-https://twitter.com/Swizec/status/970435615450849280
+https&amp;#x3A;//twitter.com/Swizec/status/970435615450849280
 
 
 
@@ -55,7 +55,7 @@ A wonderful experience all over 👌
 
 
 
-\[caption id="attachment_8239" align="alignnone" width="800"]![The Vue benchmark component](./img/blog-wp-content-uploads-2018-03-component-screenshot.png) The Vue benchmark component\[/caption]
+\[caption id=&quot;attachment_8239&quot; align=&quot;alignnone&quot; width=&quot;800&quot;]![The Vue benchmark component](./img/blog-wp-content-uploads-2018-03-component-screenshot.png) The Vue benchmark component\[/caption]
 
 
 
@@ -81,7 +81,7 @@ That `v-for="k in nodes"` syntax is one of my least favorite parts of Vue. Bring
 
 
 
-Click events call instance methods via `v-on:click="func"`. They manipulate the `nodes` array and that triggers a re-render. These methods look a lot like to their React counterparts, but cleaner because there's no `setState` in Vue. I liked that 🤫
+Click events call instance methods via `v-on:click="func"`. They manipulate the `nodes` array and that triggers a re-render. These methods look a lot like to their React counterparts, but cleaner because there&#x27;s no `setState` in Vue. I liked that 🤫
 
 
 
@@ -101,7 +101,7 @@ I think that looks more readable and makes more sense than going through `setSta
 
 
 
-_However_, you have to define instance attributes in a `data:` key and instance methods in a `methods:` key. But you override Vue's internal instance methods in the normal namespace. 🤨
+_However_, you have to define instance attributes in a `data:` key and instance methods in a `methods:` key. But you override Vue&#x27;s internal instance methods in the normal namespace. 🤨
 
 
 
@@ -133,15 +133,15 @@ Wat 🤨
 
 
 
-That's kind of how we used to write code in the old days before JavaScript got better. Did I fall into a time machine?
+That&#x27;s kind of how we used to write code in the old days before JavaScript got better. Did I fall into a time machine?
 
 
 
-I've heard you can install plugins and tweak configs to get a better approach going, but if it's not the default in the official docs, it doesn't exist. Ask anyone.
+I&#x27;ve heard you can install plugins and tweak configs to get a better approach going, but if it&#x27;s not the default in the official docs, it doesn&#x27;t exist. Ask anyone.
 
 
 
-Some people like this, so here we are. It was a fun experiment, I don't like it at all. ¯\\\_(ツ)\_/¯
+Some people like this, so here we are. It was a fun experiment, I don&#x27;t like it at all. ¯\\\_(ツ)\_/¯
 
 
 
@@ -153,7 +153,7 @@ Some people like this, so here we are. It was a fun experiment, I don't like it 
 
 
 
-Getting Vue to compile at all was fun, too. I started the project using [nwb-cli](https://github.com/insin/nwb), which is not The Official Way™. You're supposed to use `vue-cli`, but I didn't want to start a new project.
+Getting Vue to compile at all was fun, too. I started the project using [nwb-cli](https://github.com/insin/nwb), which is not The Official Way™. You&#x27;re supposed to use `vue-cli`, but I didn&#x27;t want to start a new project.
 
 
 
@@ -176,11 +176,11 @@ yarn add vue vue-loader vue-template-compiler
 
 
 
-You need both `vue-loader` and `vue-template-compiler` because vue-loader actually installs `vue-template-es2015-compiler` then complains that it can't find `vue-template-compiler`. This is confusing.
+You need both `vue-loader` and `vue-template-compiler` because vue-loader actually installs `vue-template-es2015-compiler` then complains that it can&#x27;t find `vue-template-compiler`. This is confusing.
 
 
 
-I installed [vuera](https://github.com/akxcv/vuera) as well. It gives you a wrapper component so you can render Vue inside your React project. [Vue is kept internally autonomous](https://github.com/akxcv/vuera/blob/master/src/wrappers/Vue.js%60) so it shouldn't affect the benchmark, but it makes it easier to put all benchmarks in the same project.
+I installed [vuera](https://github.com/akxcv/vuera) as well. It gives you a wrapper component so you can render Vue inside your React project. [Vue is kept internally autonomous](https://github.com/akxcv/vuera/blob/master/src/wrappers/Vue.js%60) so it shouldn&#x27;t affect the benchmark, but it makes it easier to put all benchmarks in the same project.
 
 
 
@@ -243,11 +243,11 @@ Remember my [blockchain-redux](https://swizec.com/blog/blockchain-redux-experime
 
 
 
-Every time you click a button, it adds to the benchmark blockchain, distributes it to everyone, updates graphs on everyone's page. We're going to see how these benchmarks behave in the real world on real people's computers.
+Every time you click a button, it adds to the benchmark blockchain, distributes it to everyone, updates graphs on everyone&#x27;s page. We&#x27;re going to see how these benchmarks behave in the real world on real people&#x27;s computers.
 
 
 
-That's gonna be fun 🤘
+That&#x27;s gonna be fun 🤘
 
 
 

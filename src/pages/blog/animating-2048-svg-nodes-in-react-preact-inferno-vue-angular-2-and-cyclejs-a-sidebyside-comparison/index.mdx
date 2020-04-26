@@ -19,35 +19,35 @@ Same [dancing pythagorean tree fractal](https://swizec.com/blog/dancing-tree-fra
 
 
 
-People have been asking _why_ this test is \\important, _why_ should they care, _what's the point_. It's fun and the demo looks pretty. Fundamentally, it's a showcase of "jank" – how much jankiness is there between what you see on the screen and what you do with the mouse.
+People have been asking _why_ this test is \\important, _why_ should they care, _what&#x27;s the point_. It&#x27;s fun and the demo looks pretty. Fundamentally, it&#x27;s a showcase of &quot;jank&quot; – how much jankiness is there between what you see on the screen and what you do with the mouse.
 
 
 
-Many of the gifs have live versions linked from their github. Play with them. Maybe even clone the repo and run it locally. It's fun.
+Many of the gifs have live versions linked from their github. Play with them. Maybe even clone the repo and run it locally. It&#x27;s fun.
 
 
 
-\[caption id="attachment_7315" align="aligncenter" width="852"][![Implementation: mine](./img/blog-wp-content-uploads-2016-12-react-tree-small.gif)](https://github.com/Swizec/react-fractals) Implementation: mine\[/caption]
+\[caption id=&quot;attachment_7315&quot; align=&quot;aligncenter&quot; width=&quot;852&quot;][![Implementation: mine](./img/blog-wp-content-uploads-2016-12-react-tree-small.gif)](https://github.com/Swizec/react-fractals) Implementation: mine\[/caption]
 
 
 
-\[caption id="attachment_7313" align="aligncenter" width="852"][![preact-tree-small](./img/blog-wp-content-uploads-2016-12-preact-tree-small.gif)](https://github.com/developit/preact-fractals) Implementation: Jason Miller, creator of Preact\[/caption]
+\[caption id=&quot;attachment_7313&quot; align=&quot;aligncenter&quot; width=&quot;852&quot;][![preact-tree-small](./img/blog-wp-content-uploads-2016-12-preact-tree-small.gif)](https://github.com/developit/preact-fractals) Implementation: Jason Miller, creator of Preact\[/caption]
 
 
 
-\[caption id="attachment_7312" align="aligncenter" width="852"][![Implementation: Dominic Gannaway, creator of Inferno](./img/blog-wp-content-uploads-2016-12-inferno-tree-small.gif)](https://github.com/trueadm/inferno-fractals) Implementation: Dominic Gannaway, creator of Inferno\[/caption]
+\[caption id=&quot;attachment_7312&quot; align=&quot;aligncenter&quot; width=&quot;852&quot;][![Implementation: Dominic Gannaway, creator of Inferno](./img/blog-wp-content-uploads-2016-12-inferno-tree-small.gif)](https://github.com/trueadm/inferno-fractals) Implementation: Dominic Gannaway, creator of Inferno\[/caption]
 
 
 
-\[caption id="attachment_7314" align="aligncenter" width="852"][![Implementation: Evan You, creator of Vue](./img/blog-wp-content-uploads-2016-12-vue-tree-small.gif)](https://github.com/yyx990803/vue-fractal) Implementation: Evan You, creator of Vue\[/caption]
+\[caption id=&quot;attachment_7314&quot; align=&quot;aligncenter&quot; width=&quot;852&quot;][![Implementation: Evan You, creator of Vue](./img/blog-wp-content-uploads-2016-12-vue-tree-small.gif)](https://github.com/yyx990803/vue-fractal) Implementation: Evan You, creator of Vue\[/caption]
 
 
 
-\[caption id="attachment_7324" align="aligncenter" width="852"][![Implementation: Tero Parviainen, JavaScript consultant](./img/blog-wp-content-uploads-2016-12-ng2-tree-small.gif)](https://github.com/teropa/ng-fractals) Implementation: Tero Parviainen, JavaScript consultant\[/caption]
+\[caption id=&quot;attachment_7324&quot; align=&quot;aligncenter&quot; width=&quot;852&quot;][![Implementation: Tero Parviainen, JavaScript consultant](./img/blog-wp-content-uploads-2016-12-ng2-tree-small.gif)](https://github.com/teropa/ng-fractals) Implementation: Tero Parviainen, JavaScript consultant\[/caption]
 
 
 
-\[caption id="attachment_7325" align="aligncenter" width="852"][![Implementation: Wayne Maurer, founder of Lambda IT](./img/blog-wp-content-uploads-2016-12-cyclejs-tree-small-1.gif)](https://github.com/wmaurer/cyclejs-fractals) Implementation: Wayne Maurer, founder of Lambda IT\[/caption]
+\[caption id=&quot;attachment_7325&quot; align=&quot;aligncenter&quot; width=&quot;852&quot;][![Implementation: Wayne Maurer, founder of Lambda IT](./img/blog-wp-content-uploads-2016-12-cyclejs-tree-small-1.gif)](https://github.com/wmaurer/cyclejs-fractals) Implementation: Wayne Maurer, founder of Lambda IT\[/caption]
 
 
 
@@ -59,7 +59,7 @@ And thanks to Tero and Wayne for adding their own versions! So exciting! I hope 
 
 
 
-Let's look at the code. For an in-depth explanation of how it works, go [here](https://swizec.com/blog/dancing-tree-fractal-react/swizec/7288).
+Let&#x27;s look at the code. For an in-depth explanation of how it works, go [here](https://swizec.com/blog/dancing-tree-fractal-react/swizec/7288).
 
 
 
@@ -71,11 +71,11 @@ Let's look at the code. For an in-depth explanation of how it works, go [here](h
 
 
 
-Based on Jason's and Evan's tips, I added mouse event throttling to my demo to make it faster. Turns out my original tree wasn't so slow because React is slow. It was slow because I was slamming the rendering engine with so many requests per refresh cycle.
+Based on Jason&#x27;s and Evan&#x27;s tips, I added mouse event throttling to my demo to make it faster. Turns out my original tree wasn&#x27;t so slow because React is slow. It was slow because I was slamming the rendering engine with so many requests per refresh cycle.
 
 
 
-I tried throttling to `requestAnimationFrame`, but that didn't work so good. Throttling to React's redraw cycle was easy and works well.
+I tried throttling to `requestAnimationFrame`, but that didn&#x27;t work so good. Throttling to React&#x27;s redraw cycle was easy and works well.
 
 
 
@@ -96,7 +96,7 @@ onMouseMove(event) {
 
 
 
-Check if update is running, do update if not. This works because React's engine is synchronous.
+Check if update is running, do update if not. This works because React&#x27;s engine is synchronous.
 
 
 
@@ -112,7 +112,7 @@ It might stop working when React Fiber is out. I think. ¯\\_(ツ)_/¯
 
 
 
-Jason used the `preact-compat` layer to make Preact pretend that it's React. This might impact performance.
+Jason used the `preact-compat` layer to make Preact pretend that it&#x27;s React. This might impact performance.
 
 
 
@@ -124,11 +124,11 @@ I like it.
 
 
 
-Here's how he did it: [diff on github](https://github.com/Swizec/react-fractals/compare/master...developit:master)
+Here&#x27;s how he did it: [diff on github](https://github.com/Swizec/react-fractals/compare/master...developit:master)
 
 
 
-In `package.json`, he added `preact`, `preact-compat`, and preact -compat clones for React libraries. I guess you need the latter so you don't have to change your \\imports.
+In `package.json`, he added `preact`, `preact-compat`, and preact -compat clones for React libraries. I guess you need the latter so you don&#x27;t have to change your \\imports.
 
 
 
@@ -183,15 +183,15 @@ You _can_ use Inferno as a drop-in replacement for React, and at first I did. Do
 
 
 
-Dominic changed all `react-scripts` references to `inferno-scripts`, and it's a good sign that such a thing exists. He also changed `react` to `inferno-beta36`, which means my CTO definitely won't let me use it in production yet.
+Dominic changed all `react-scripts` references to `inferno-scripts`, and it&#x27;s a good sign that such a thing exists. He also changed `react` to `inferno-beta36`, which means my CTO definitely won&#x27;t let me use it in production yet.
 
 
 
-From there, the main changes are to the \\imports – React becomes Inferno – and he changed some class methods to bound fat arrow functions. I don't know if that's a stylistic choice or an Inferno requirement.
+From there, the main changes are to the \\imports – React becomes Inferno – and he changed some class methods to bound fat arrow functions. I don&#x27;t know if that&#x27;s a stylistic choice or an Inferno requirement.
 
 
 
-He also had to change a string-based ref into a callback ref. Inferno doesn't do string-based refs for performance reasons, and we need them so we can use D3 to detect mouse position on SVG. It's easier than doing it ourselves.
+He also had to change a string-based ref into a callback ref. Inferno doesn&#x27;t do string-based refs for performance reasons, and we need them so we can use D3 to detect mouse position on SVG. It&#x27;s easier than doing it ourselves.
 
 
 
@@ -216,7 +216,7 @@ In the core `Pythagoras` component, he added two Inferno-specific props: `noNorm
 
 
 
-According to [this issue](https://github.com/trueadm/inferno/issues/565) from 8 days ago, `noNormalize` is a benchmark-focused flag that improves performance, and I can't figure out what `hasNonKeyedChildren` does. I assume both are performance optimizations for the Virtual DOM diffing algorithm.
+According to [this issue](https://github.com/trueadm/inferno/issues/565) from 8 days ago, `noNormalize` is a benchmark-focused flag that improves performance, and I can&#x27;t figure out what `hasNonKeyedChildren` does. I assume both are performance optimizations for the Virtual DOM diffing algorithm.
 
 
 
@@ -232,27 +232,27 @@ This… this took a lot of work. Kudos to Evan and the original forker Phan An!
 
 
 
-Vue doesn't aim to mimic React's API, so this is an almost complete rewrite. I'd show you the diff on Github, but it won't let me do that. You can [see the code though](https://github.com/yyx990803/vue-fractal).
+Vue doesn&#x27;t aim to mimic React&#x27;s API, so this is an almost complete rewrite. I&#x27;d show you the diff on Github, but it won&#x27;t let me do that. You can [see the code though](https://github.com/yyx990803/vue-fractal).
 
 
 
-You can still recognize the [core `Pythagoras` component](https://github.com/yyx990803/vue-fractal/blob/master/src/components/Pythagoras.js). Evan used `transform-vue-jsx` to enable JSX inside Vue. So we know that's something you can do.
+You can still recognize the [core `Pythagoras` component](https://github.com/yyx990803/vue-fractal/blob/master/src/components/Pythagoras.js). Evan used `transform-vue-jsx` to enable JSX inside Vue. So we know that&#x27;s something you can do.
 
 
 
-The [main `App.vue` file](https://github.com/yyx990803/vue-fractal/blob/master/src/App.vue) though… I'm not used to reading that, so I can't really explain the code. _But it looks so familiar._
+The [main `App.vue` file](https://github.com/yyx990803/vue-fractal/blob/master/src/App.vue) though… I&#x27;m not used to reading that, so I can&#x27;t really explain the code. _But it looks so familiar._
 
 
 
-Let's try.
+Let&#x27;s try.
 
 
 
-It's split into a `<template>`, `<script>` and `<style>` section. Looks a bit like JSX or HTML, but template props are prefixed with a colon.
+It&#x27;s split into a `<template>`, `<script>` and `<style>` section. Looks a bit like JSX or HTML, but template props are prefixed with a colon.
 
 
 
-Looks like Vue took the put-it-all-together componentization cue from React but decided to split by language anyway. I don't know if that's good or bad. It _looks_ cleaner, but in my experience, splitting those eventually becomes burdensome.
+Looks like Vue took the put-it-all-together componentization cue from React but decided to split by language anyway. I don&#x27;t know if that&#x27;s good or bad. It _looks_ cleaner, but in my experience, splitting those eventually becomes burdensome.
 
 
 
@@ -272,15 +272,15 @@ Curious ?
 
 
 
-I've never been a fan of Angular, but this looks pretty good. Although it did feel extremely janky on my machine.
+I&#x27;ve never been a fan of Angular, but this looks pretty good. Although it did feel extremely janky on my machine.
 
 
 
-I don't know why. Maybe all that type checking from TypeScript adds runtime overhead after transpiling?
+I don&#x27;t know why. Maybe all that type checking from TypeScript adds runtime overhead after transpiling?
 
 
 
-The code is a major rewrite, obviously. Tero had to port it all into TypeScript and I find that impressive. I sure wouldn't ?
+The code is a major rewrite, obviously. Tero had to port it all into TypeScript and I find that impressive. I sure wouldn&#x27;t ?
 
 
 
@@ -313,15 +313,15 @@ This is a dancing Pythagoras tree
 
 
 
-That's some funny looking HTML.
+That&#x27;s some funny looking HTML.
 
 
 
-I'm also not sure I understand the difference between a module and a component. It looks like the module declares certain \\imports, children components, and stuff. But each component still declares its own CSS and template \\imports.
+I&#x27;m also not sure I understand the difference between a module and a component. It looks like the module declares certain \\imports, children components, and stuff. But each component still declares its own CSS and template \\imports.
 
 
 
-Smells like a framework optimized for very large teams. I've never been a part of one of those, so I can't say how good it is for the use-case it was designed for.
+Smells like a framework optimized for very large teams. I&#x27;ve never been a part of one of those, so I can&#x27;t say how good it is for the use-case it was designed for.
 
 
 
@@ -337,11 +337,11 @@ Now this… this was smooth on my machine. Maybe it just feels smooth because I 
 
 
 
-Wayne translated everything into TypeScript, but it doesn't look like CycleJS _requires_ that. Despite that, he was able to keep the same simple file structure as the original. I like that.
+Wayne translated everything into TypeScript, but it doesn&#x27;t look like CycleJS _requires_ that. Despite that, he was able to keep the same simple file structure as the original. I like that.
 
 
 
-It's hard for me to tell what he changed because of TypeScript and what's different because of CycleJS. Looks like he's not using classes to define CycleJS components. The structure looks more like the old school closure approach.
+It&#x27;s hard for me to tell what he changed because of TypeScript and what&#x27;s different because of CycleJS. Looks like he&#x27;s not using classes to define CycleJS components. The structure looks more like the old school closure approach.
 
 
 
@@ -386,7 +386,7 @@ The part I really dislike is how Wayne specifies the DOM in CycleJS. The main Ap
 
 
 
-Looks a lot like using the `React.createElement` approach and I find that hard to read. CycleJS does support JSX however, so I'm not sure why he's not using it.
+Looks a lot like using the `React.createElement` approach and I find that hard to read. CycleJS does support JSX however, so I&#x27;m not sure why he&#x27;s not using it.
 
 
 
@@ -398,13 +398,13 @@ Edit on Dec 24th: as @spion pointed out, it turns out the CycleJS example only r
 
 
 
-> [@spion](https://twitter.com/spion) [@dan_abramov](https://twitter.com/dan_abramov) [@waynemaurer](https://twitter.com/waynemaurer) [@andrestaltz](https://twitter.com/andrestaltz) just checked, document.getElementsByTagName('rect').length does indeed return just 1024 :)
+> [@spion](https://twitter.com/spion) [@dan_abramov](https://twitter.com/dan_abramov) [@waynemaurer](https://twitter.com/waynemaurer) [@andrestaltz](https://twitter.com/andrestaltz) just checked, document.getElementsByTagName(&#x27;rect&#x27;).length does indeed return just 1024 :)
 >
 > — Swizec (@Swizec) [December 24, 2016](https://twitter.com/Swizec/status/812724325392318464)
 
 
 
-Edit 2: fixed the code in a local copy, updated the gif, still smooth as hell. I'm impressed.
+Edit 2: fixed the code in a local copy, updated the gif, still smooth as hell. I&#x27;m impressed.
 
 
 
@@ -412,7 +412,7 @@ Edit 2: fixed the code in a local copy, updated the gif, still smooth as hell. I
 
 
 
-I have no idea which is fastest. They all look smooth to me. Maaaybe Vue is the smoothest. Or maybe Inferno. I like that Preact enables asynchronous rendering. That was cool to see.I'm biased against Angular, and found CycleJS hella impressive.
+I have no idea which is fastest. They all look smooth to me. Maaaybe Vue is the smoothest. Or maybe Inferno. I like that Preact enables asynchronous rendering. That was cool to see.I&#x27;m biased against Angular, and found CycleJS hella impressive.
 
 
 
@@ -420,7 +420,7 @@ React is king in the “Good Enough And I Already Know How To Use It” departme
 
 
 
-I don't foresee migrating my code to Vue, Angular, or CycleJS any time soon. Too much work. Preact or Inferno as drop-ins? Waiting to see what React Fiber does.
+I don&#x27;t foresee migrating my code to Vue, Angular, or CycleJS any time soon. Too much work. Preact or Inferno as drop-ins? Waiting to see what React Fiber does.
 
 
 
@@ -428,4 +428,4 @@ My biggest takeaway from this experiment though: Buy a new computer. When others
 
 
 
-If you want to **learn** more about **drawing interactive pictures**, building **animations**, and creating **declarative data vizualisations**, you should pre-order my new [React+D3v4 book](https://gumroad.com/l/mTWg). It's coming out soon, and there will be a chapter on leveraging Preact and Inferno for speed optimization.
+If you want to **learn** more about **drawing interactive pictures**, building **animations**, and creating **declarative data vizualisations**, you should pre-order my new [React+D3v4 book](https://gumroad.com/l/mTWg). It&#x27;s coming out soon, and there will be a chapter on leveraging Preact and Inferno for speed optimization.

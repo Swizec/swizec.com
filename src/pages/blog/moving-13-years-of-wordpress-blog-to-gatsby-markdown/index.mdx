@@ -7,7 +7,7 @@ redirect_from:
 categories: "Technical"
 hero: ./img/techletter.app-screenshot-1569254657692.png
 ---
-Did you know most websites go offline within 2 years of publishing? Don't let your writing join the graveyard.
+Did you know most websites go offline within 2 years of publishing? Don&#x27;t let your writing join the graveyard.
 
 
 
@@ -21,11 +21,11 @@ Did you know most websites go offline within 2 years of publishing? Don't let yo
 
 
 
-More and more people are creating blogs with Gatsby and that's exciting as heck! I miss the internet days when everyone had a place to call their own.
+More and more people are creating blogs with Gatsby and that&#x27;s exciting as heck! I miss the internet days when everyone had a place to call their own.
 
 
 
-It's pretty easy, too.
+It&#x27;s pretty easy, too.
 
 
 
@@ -33,19 +33,19 @@ You initiate a repo, follow a quick tutorial, write your first article, press bu
 
 
 
-And you get some amazing benefits we didn't get when I built my first site on Geocities.
+And you get some amazing benefits we didn&#x27;t get when I built my first site on Geocities.
 
 
 
-Great lighthouse scores, fast load times, easy build&publish process with Zeit or Netlify, and image optimization unlike anything I've ever seen. Plop a 40MB photo from a DSLR into your blog and Gatsby plugins convert it to a tiny fast loading 900Kb version.
+Great lighthouse scores, fast load times, easy build&amp;publish process with Zeit or Netlify, and image optimization unlike anything I&#x27;ve ever seen. Plop a 40MB photo from a DSLR into your blog and Gatsby plugins convert it to a tiny fast loading 900Kb version.
 
 
 
-Done that before, didn't even notice. On Wordpress it breaks your site. Tried that too 😇
+Done that before, didn&#x27;t even notice. On Wordpress it breaks your site. Tried that too 😇
 
 
 
-But what if you already have a blog? That's where it gets tricky.
+But what if you already have a blog? That&#x27;s where it gets tricky.
 
 
 
@@ -75,11 +75,11 @@ Now, your old stuff may not be great but you should keep it anyway. For the memo
 
 
 
-Did you know most websites go offline within 2 years of publishing? Don't let your writing join the graveyard.
+Did you know most websites go offline within 2 years of publishing? Don&#x27;t let your writing join the graveyard.
 
 
 
-There's 2 parts to this and both are hard:
+There&#x27;s 2 parts to this and both are hard:
 
 
 
@@ -88,7 +88,7 @@ There's 2 parts to this and both are hard:
 
 
 
-I haven't solved #2 yet. I imagine there's going to be a redirect page on Gatsby that takes a URL from the old format and pushes you to the correct article.
+I haven&#x27;t solved #2 yet. I imagine there&#x27;s going to be a redirect page on Gatsby that takes a URL from the old format and pushes you to the correct article.
 
 
 
@@ -100,7 +100,7 @@ No. 1 proved harder than I thought.
 
 
 
-Gatsby has a plugin to source data directly from Wordpress's API. This is great, if you want to continue using Wordpress as your CMS and use Gatsby as the frontend.
+Gatsby has a plugin to source data directly from Wordpress&#x27;s API. This is great, if you want to continue using Wordpress as your CMS and use Gatsby as the frontend.
 
 
 
@@ -129,11 +129,11 @@ Then you 👇
 
 
 
-Yes it's a little hacky right now. Might productize later :)
+Yes it&#x27;s a little hacky right now. Might productize later :)
 
 
 
-`convert.js` started life as [ytechie](https://github.com/ytechie)'s hack some 6 years ago. A couple forks later I found a version that mostly works in 2019.
+`convert.js` started life as [ytechie](https://github.com/ytechie)&#x27;s hack some 6 years ago. A couple forks later I found a version that mostly works in 2019.
 
 
 
@@ -141,7 +141,7 @@ Making it work for Gatsby took some tinkering.
 
 
 
-The generated Markdown wasn't valid [MDX](https://github.com/mdx-js/mdx), which I prefer for blogs since it lets you run JavaScript, downloading images was wonky, and I needed more self-contained posts with better headers. Gatsby likes it when each article comes in its own folder with its own images.
+The generated Markdown wasn&#x27;t valid [MDX](https://github.com/mdx-js/mdx), which I prefer for blogs since it lets you run JavaScript, downloading images was wonky, and I needed more self-contained posts with better headers. Gatsby likes it when each article comes in its own folder with its own images.
 
 
 
@@ -161,15 +161,15 @@ Using [xml2js](https://github.com/Leonidas-from-XIV/node-xml2js) to parse XML, [
 
 
 
-You can see the [full code on GitHub](https://github.com/Swizec/wordpress-to-markdown) altho it's not the prettiest.
+You can see the [full code on GitHub](https://github.com/Swizec/wordpress-to-markdown) altho it&#x27;s not the prettiest.
 
 
 
-Here's the fun part that takes HTML and spits out Markdown 😛
+Here&#x27;s the fun part that takes HTML and spits out Markdown 😛
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1569254611375.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20markdown%20%3D%20await%20new%20Promise((resolve%2C%20reject)%20%3D%3E%20%7B%0A%20%20%20%20unified()%0A%20%20%20%20%20%20%20%20.use(parseHTML%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20emitParseErrors%3A%20true%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20duplicateAttribute%3A%20false%0A%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20%20%20.use(rehype2remark)%0A%20%20%20%20%20%20%20%20.use(stringify)%0A%20%20%20%20%20%20%20%20.process(postData%2C%20(err%2C%20markdown)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(err)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20reject(err)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20resolve(markdown.contents)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%7D)%3B)
+[![Click through for source](./img/techletter.app-screenshot-1569254611375.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=const%20markdown%20%3D%20await%20new%20Promise((resolve%2C%20reject)%20%3D%3E%20%7B%0A%20%20%20%20unified()%0A%20%20%20%20%20%20%20%20.use(parseHTML%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20emitParseErrors%3A%20true%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20duplicateAttribute%3A%20false%0A%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20%20%20.use(rehype2remark)%0A%20%20%20%20%20%20%20%20.use(stringify)%0A%20%20%20%20%20%20%20%20.process(postData%2C%20(err%2C%20markdown)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(err)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20reject(err)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20resolve(markdown.contents)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%7D)%3B)
 
 
 
@@ -196,7 +196,7 @@ My surrounding code adds some headers and other meta data. Makes it easier to pl
 
 
 
-Most images on my old posts are dead. 404, 500, 301, you name the error, it's in there somewhere.
+Most images on my old posts are dead. 404, 500, 301, you name the error, it&#x27;s in there somewhere.
 
 
 
@@ -212,11 +212,11 @@ I created this `processImage` method and tried a few different ways to download 
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1569254611336.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=async%20function%20processImage(%7B%20url%2C%20postData%2C%20images%2C%20directory%20%7D)%20%7B%0A%20%20%20%20var%20urlParts%20%3D%20url.split(%22%2F%22)%3B%0A%20%20%20%20var%20imageName%20%3D%20urlParts%5BurlParts.length%20-%201%5D%3B%0A%0A%20%20%20%20var%20filePath%20%3D%20%60out%2F%24%7Bdirectory%7D%2Fimg%2F%24%7BimageName%7D%60%3B%0A%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20await%20downloadFile(url%2C%20filePath)%3B%0A%20%20%20%20%20%20%20%20%2F%2FMake%20the%20image%20name%20local%20relative%20in%20the%20markdown%0A%20%20%20%20%20%20%20%20postData%20%3D%20postData.replace(url%2C%20%60.%2Fimg%2F%24%7BimageName%7D%60)%3B%0A%20%20%20%20%20%20%20%20images%20%3D%20%5B...images%2C%20%60.%2Fimg%2F%24%7BimageName%7D%60%5D%3B%0A%20%20%20%20%7D%20catch%20(e)%20%7B%0A%20%20%20%20%20%20%20%20console.log(%60Keeping%20ref%20to%20%24%7Burl%7D%60)%3B%0A%20%20%20%20%20%20%20%20console.log(e)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20return%20%5BpostData%2C%20images%5D%3B%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1569254611336.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=async%20function%20processImage(%7B%20url%2C%20postData%2C%20images%2C%20directory%20%7D)%20%7B%0A%20%20%20%20var%20urlParts%20%3D%20url.split(%22%2F%22)%3B%0A%20%20%20%20var%20imageName%20%3D%20urlParts%5BurlParts.length%20-%201%5D%3B%0A%0A%20%20%20%20var%20filePath%20%3D%20%60out%2F%24%7Bdirectory%7D%2Fimg%2F%24%7BimageName%7D%60%3B%0A%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20await%20downloadFile(url%2C%20filePath)%3B%0A%20%20%20%20%20%20%20%20%2F%2FMake%20the%20image%20name%20local%20relative%20in%20the%20markdown%0A%20%20%20%20%20%20%20%20postData%20%3D%20postData.replace(url%2C%20%60.%2Fimg%2F%24%7BimageName%7D%60)%3B%0A%20%20%20%20%20%20%20%20images%20%3D%20%5B...images%2C%20%60.%2Fimg%2F%24%7BimageName%7D%60%5D%3B%0A%20%20%20%20%7D%20catch%20(e)%20%7B%0A%20%20%20%20%20%20%20%20console.log(%60Keeping%20ref%20to%20%24%7Burl%7D%60)%3B%0A%20%20%20%20%20%20%20%20console.log(e)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20return%20%5BpostData%2C%20images%5D%3B%0A%7D)
 
 
 
-Ignore the ancient `var` syntax, I didn't want to rewrite everything 😇
+Ignore the ancient `var` syntax, I didn&#x27;t want to rewrite everything 😇
 
 
 
@@ -232,7 +232,7 @@ Tried a bunch of ways to download files, this is the one that worked best in the
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1569254611427.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=async%20function%20downloadFile(url%2C%20path)%20%7B%0A%20%20%20%20if%20(%0A%20%20%20%20%20%20%20%20url.indexOf(%22.jpg%22)%20%3E%3D%200%20%7C%7C%0A%20%20%20%20%20%20%20%20url.indexOf(%22.jpeg%22)%20%3E%3D%200%20%7C%7C%0A%20%20%20%20%20%20%20%20url.indexOf(%22.png%22)%20%3E%3D%200%20%7C%7C%0A%20%20%20%20%20%20%20%20url.indexOf(%22.gif%22)%20%3E%3D%200%20%7C%7C%0A%20%20%20%20%20%20%20%20url.indexOf(%22.svg%22)%20%3E%3D%200%0A%20%20%20%20)%20%7B%0A%20%20%20%20%20%20%20%20const%20response%20%3D%20await%20fetch(url)%3B%0A%20%20%20%20%20%20%20%20if%20(response.status%20%3E%3D%20400)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20throw%20new%20Error(%22Bad%20response%20from%20server%22)%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20const%20type%20%3D%20response.headers.get(%22Content-Type%22)%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(type.includes(%22image%22)%20%7C%7C%20type.includes(%22octet-stream%22))%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20const%20buffer%20%3D%20await%20response.arrayBuffer()%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20fs.writeFileSync(path%2C%20new%20Buffer(buffer))%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20throw%20new%20Error(%22Not%20an%20image%22%2C%20url)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20console.log(%22passing%202%22)%3B%0A%20%20%20%20%20%20%20%20console.log(%22passing%20on%3A%20%22%20%2B%20url%20%2B%20%22%20%22%20%2B%20url.indexOf(%22https%3A%22))%3B%0A%20%20%20%20%7D%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1569254611427.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=async%20function%20downloadFile(url%2C%20path)%20%7B%0A%20%20%20%20if%20(%0A%20%20%20%20%20%20%20%20url.indexOf(%22.jpg%22)%20%3E%3D%200%20%7C%7C%0A%20%20%20%20%20%20%20%20url.indexOf(%22.jpeg%22)%20%3E%3D%200%20%7C%7C%0A%20%20%20%20%20%20%20%20url.indexOf(%22.png%22)%20%3E%3D%200%20%7C%7C%0A%20%20%20%20%20%20%20%20url.indexOf(%22.gif%22)%20%3E%3D%200%20%7C%7C%0A%20%20%20%20%20%20%20%20url.indexOf(%22.svg%22)%20%3E%3D%200%0A%20%20%20%20)%20%7B%0A%20%20%20%20%20%20%20%20const%20response%20%3D%20await%20fetch(url)%3B%0A%20%20%20%20%20%20%20%20if%20(response.status%20%3E%3D%20400)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20throw%20new%20Error(%22Bad%20response%20from%20server%22)%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20const%20type%20%3D%20response.headers.get(%22Content-Type%22)%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(type.includes(%22image%22)%20%7C%7C%20type.includes(%22octet-stream%22))%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20const%20buffer%20%3D%20await%20response.arrayBuffer()%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20fs.writeFileSync(path%2C%20new%20Buffer(buffer))%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20throw%20new%20Error(%22Not%20an%20image%22%2C%20url)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20console.log(%22passing%202%22)%3B%0A%20%20%20%20%20%20%20%20console.log(%22passing%20on%3A%20%22%20%2B%20url%20%2B%20%22%20%22%20%2B%20url.indexOf(%22https%3A%22))%3B%0A%20%20%20%20%7D%0A%7D)
 
 
 
@@ -240,7 +240,7 @@ Check the URL is an image, use `fetch()`, make sure the response is an image (so
 
 
 
-You'd think this was the easiest part, but it isn't. Most libraries you find are meant to work with APIs, not file downloads. Handling all sorts of errors gets tricky, and when you have thousands of files to download you gotta be really careful with your async code.
+You&#x27;d think this was the easiest part, but it isn&#x27;t. Most libraries you find are meant to work with APIs, not file downloads. Handling all sorts of errors gets tricky, and when you have thousands of files to download you gotta be really careful with your async code.
 
 
 
@@ -272,7 +272,7 @@ The way I setup my new Gatsby blog, it expects every article to have a hero imag
 
 
 
-That's next on my list to fix. What do we do with missing images? Do I create a 404 graphic? Do I remove them from the post? What about the hero image? 🤔
+That&#x27;s next on my list to fix. What do we do with missing images? Do I create a 404 graphic? Do I remove them from the post? What about the hero image? 🤔
 
 
 

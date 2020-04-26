@@ -7,15 +7,15 @@ redirect_from:
 categories: "Haskell, Technical"
 hero: ./img/blog-wp-content-uploads-2017-12-Screen-Shot-2017-12-13-at-08.14.34-inline.png
 ---
-https://www.youtube.com/watch?v=3abrq1N5ITU
+https&amp;#x3A;//www.youtube.com/watch?v=3abrq1N5ITU
 
 
 
-[Advent of Code](https://adventofcode.com/) is an advent calendar for coders. A daily puzzle that exercises that algorithmic part of coding that you don't usually get to use in day to day programming.
+[Advent of Code](https://adventofcode.com/) is an advent calendar for coders. A daily puzzle that exercises that algorithmic part of coding that you don&#x27;t usually get to use in day to day programming.
 
 
 
-Here's what mine looks like right now 👇
+Here&#x27;s what mine looks like right now 👇
 
 
 
@@ -27,7 +27,7 @@ The game works like this: Every day at midnight, a new puzzle opens up. It follo
 
 
 
-[I've been playing with it](https://www.youtube.com/playlist?list=PLF8WgaD4xmjWaUkBRoQiYGCV3WSKRH0pU) in Haskell and Python. Python because it's perfect for algorithmic puzzles like this, Haskell because I wanted to brush up. Been years since I did Haskell. I miss Haskell.
+[I&#x27;ve been playing with it](https://www.youtube.com/playlist?list=PLF8WgaD4xmjWaUkBRoQiYGCV3WSKRH0pU) in Haskell and Python. Python because it&#x27;s perfect for algorithmic puzzles like this, Haskell because I wanted to brush up. Been years since I did Haskell. I miss Haskell.
 
 
 
@@ -148,11 +148,11 @@ star1 input = sum $ map severity $ prepInput input
 
 
 
-`star` takes a list of strings and returns an integer. First, it parses the list of strings into a list of `(depth, range)` tuples. That's `prepInput`, and it's [not very interesting](https://github.com/Swizec/advent-of-code-2017/blob/master/13.hs#L50).
+`star` takes a list of strings and returns an integer. First, it parses the list of strings into a list of `(depth, range)` tuples. That&#x27;s `prepInput`, and it&#x27;s [not very interesting](https://github.com/Swizec/advent-of-code-2017/blob/master/13.hs#L50).
 
 
 
-After the input is parsed, we `map` through with the `severity` function to get a list of costs for every layer, and `sum` them up. That's our result.
+After the input is parsed, we `map` through with the `severity` function to get a list of costs for every layer, and `sum` them up. That&#x27;s our result.
 
 
 
@@ -168,7 +168,7 @@ Star 2 adds an interesting twist to the story. We have to avoid getting caught.
 
 
 
-> You can't control the speed of the packet, but you can delay it any number of picoseconds. For each picosecond you delay the packet before beginning your trip, all security scanners move one step. You're not in the firewall during this time; you don't enter layer 0 until you stop delaying the packet.
+> You can&#x27;t control the speed of the packet, but you can delay it any number of picoseconds. For each picosecond you delay the packet before beginning your trip, all security scanners move one step. You&#x27;re not in the firewall during this time; you don&#x27;t enter layer 0 until you stop delaying the packet.
 
 
 
@@ -180,7 +180,7 @@ Uncaught is the same as cost of the trip being 0. That means we can use the `sev
 
 
 
-Since we think of each layer's depth as the picosecond when we reach that layer, we can fake the delay by making the entire firewall deeper. That means adding `+1` to every layer until the cost of our trip becomes zero.
+Since we think of each layer&#x27;s depth as the picosecond when we reach that layer, we can fake the delay by making the entire firewall deeper. That means adding `+1` to every layer until the cost of our trip becomes zero.
 
 
 
@@ -199,11 +199,11 @@ smallestDelay input
 
 
 
-Each time we do this, we use `map severity input` to get a list of costs and take the `head` of our input firewall to see the delay. Since we're shifting the whole firewall, the "depth" of the first layer represents our delay.
+Each time we do this, we use `map severity input` to get a list of costs and take the `head` of our input firewall to see the delay. Since we&#x27;re shifting the whole firewall, the &quot;depth&quot; of the first layer represents our delay.
 
 
 
-And that's the solution in Haskell 🤓
+And that&#x27;s the solution in Haskell 🤓
 
 
 
@@ -211,4 +211,4 @@ Happy hacking.
 
 
 
-PS: in [the video](https://www.youtube.com/watch?v=3abrq1N5ITU), you can see me trying to solve Day 12 as well. That's because I'm behind and playing catchup.
+PS: in [the video](https://www.youtube.com/watch?v=3abrq1N5ITU), you can see me trying to solve Day 12 as well. That&#x27;s because I&#x27;m behind and playing catchup.

@@ -7,11 +7,11 @@ redirect_from:
 categories: "Haskell, Technical"
 hero: ./img/blog-wp-content-uploads-2017-12-carbon-spinlock.png
 ---
-https://www.youtube.com/watch?v=3Eee0va5t0A
+https&amp;#x3A;//www.youtube.com/watch?v=3Eee0va5t0A
 
 
 
-Days 17 and 18 both defeated me. Star 1 was easy, Star 2 was not. Both were pretty quick to solve for the first star, though, so let's look at that.
+Days 17 and 18 both defeated me. Star 1 was easy, Star 2 was not. Both were pretty quick to solve for the first star, though, so let&#x27;s look at that.
 
 
 
@@ -23,15 +23,15 @@ For Advent of Code Day 17, we had to implement a [spinlock](https://en.wikipedia
 
 
 
-> In software engineering, a spinlock is a lock which causes a thread trying to acquire it to simply wait in a loop ("spin") while repeatedly checking if the lock is available. Since the thread remains active but is not performing a useful task, the use of such a lock is a kind of busy waiting.
+> In software engineering, a spinlock is a lock which causes a thread trying to acquire it to simply wait in a loop (&quot;spin&quot;) while repeatedly checking if the lock is available. Since the thread remains active but is not performing a useful task, the use of such a lock is a kind of busy waiting.
 
 
 
-\[caption id="attachment_7975" align="alignnone" width="1528"]![A naive spinlock implementation in Haskell](./img/blog-wp-content-uploads-2017-12-carbon-spinlock.png) A naive spinlock implementation in Haskell\[/caption]
+\[caption id=&quot;attachment_7975&quot; align=&quot;alignnone&quot; width=&quot;1528&quot;]![A naive spinlock implementation in Haskell](./img/blog-wp-content-uploads-2017-12-carbon-spinlock.png) A naive spinlock implementation in Haskell\[/caption]
 
 
 
-There's no video for Day 17 because I was doing it in bed and yes, I did fall asleep while waiting for Star 2 to finish computing. It never did; my algorithm was too slow.
+There&#x27;s no video for Day 17 because I was doing it in bed and yes, I did fall asleep while waiting for Star 2 to finish computing. It never did; my algorithm was too slow.
 
 
 
@@ -59,7 +59,7 @@ Unlike a real spinlock, the puzzle spinlock is trying to eat up infinite memory 
 
 
 
-The question was _"What is the value right after 2017 gets inserted into the buffer?"_.
+The question was _&quot;What is the value right after 2017 gets inserted into the buffer?&quot;_.
 
 
 
@@ -79,7 +79,7 @@ spinlock buffer steps pos i iterations
 
 
 
-The `spinlock` method takes 5 arguments, which I'm sure is sacrilege in Haskell, and returns a tuple: An integer and a list of integers.
+The `spinlock` method takes 5 arguments, which I&#x27;m sure is sacrilege in Haskell, and returns a tuple: An integer and a list of integers.
 
 
 
@@ -90,7 +90,7 @@ Arguments look like this:
 - `buffer` is the current state of our circular buffer
 - `steps` tells us how many steps we do on each spin
 - `pos` gives us the current position in our buffer
-- `i` says how many times we've iterated
+- `i` says how many times we&#x27;ve iterated
 - `iterations` tells us how many times to iterate in total
 
 
@@ -140,11 +140,11 @@ The idea is simple: Iterate 50 million times, look for the `0`, return the value
 
 
 
-But the spinlock never finishes. Haskell's [lazy evaluation](https://en.wikipedia.org/wiki/Lazy_evaluation) gets in the way, and I couldn't figure out how to make it stop.
+But the spinlock never finishes. Haskell&#x27;s [lazy evaluation](https://en.wikipedia.org/wiki/Lazy_evaluation) gets in the way, and I couldn&#x27;t figure out how to make it stop.
 
 
 
-With lazy evaluation, we keep all iterations of the spinlock in memory until we print the final result. That's a problem.
+With lazy evaluation, we keep all iterations of the spinlock in memory until we print the final result. That&#x27;s a problem.
 
 
 
@@ -156,7 +156,7 @@ _shrug_
 
 
 
-\[caption id="attachment_7976" align="alignnone" width="1356"]![The gist of a simple interpreter built in JavaScript](./img/blog-wp-content-uploads-2017-12-carbon-interpreter.png) The gist of a simple interpreter built in JavaScript\[/caption]
+\[caption id=&quot;attachment_7976&quot; align=&quot;alignnone&quot; width=&quot;1356&quot;]![The gist of a simple interpreter built in JavaScript](./img/blog-wp-content-uploads-2017-12-carbon-interpreter.png) The gist of a simple interpreter built in JavaScript\[/caption]
 
 
 
@@ -218,11 +218,11 @@ function initRegisters() {
 
 
 
-This creates a register for each letter of the alphabet plus a `sound` register and a `pointer`. `sound` will be where `snd` puts its values and `rcv` reads them from, `pointer` is going to point to the current line of code we're executing.
+This creates a register for each letter of the alphabet plus a `sound` register and a `pointer`. `sound` will be where `snd` puts its values and `rcv` reads them from, `pointer` is going to point to the current line of code we&#x27;re executing.
 
 
 
-The interpreter itself comes as just 39 lines of code. It's a simple language after all. Although I do think it's got enough instructions to be [Turing-complete](https://en.wikipedia.org/wiki/Turing_completeness), but it lacks the memory. 25 registers won't cut it for Turing completeness.
+The interpreter itself comes as just 39 lines of code. It&#x27;s a simple language after all. Although I do think it&#x27;s got enough instructions to be [Turing-complete](https://en.wikipedia.org/wiki/Turing_completeness), but it lacks the memory. 25 registers won&#x27;t cut it for Turing completeness.
 
 
 
@@ -295,11 +295,11 @@ A dictionary mapping all possible commands to a function that executes them help
 
 
 
-When the current line of code is executed, we advance our `pointer` by `+1` if we didn't jump. The interpreter returns the `kill` flag and the new `registers`.
+When the current line of code is executed, we advance our `pointer` by `+1` if we didn&#x27;t jump. The interpreter returns the `kill` flag and the new `registers`.
 
 
 
-The registers are actually changed in place, and there's no need to return, but I think this approach makes our implementation clearer.
+The registers are actually changed in place, and there&#x27;s no need to return, but I think this approach makes our implementation clearer.
 
 
 
@@ -337,7 +337,7 @@ Works like a charm 👌
 
 
 
-**Star 2** is where it gets tricky. Those `snd` and `rcv` commands weren't actually about sound; they were `send` and `receive` commands, and you're meant to run two copies of this code in parallel.
+**Star 2** is where it gets tricky. Those `snd` and `rcv` commands weren&#x27;t actually about sound; they were `send` and `receive` commands, and you&#x27;re meant to run two copies of this code in parallel.
 
 
 
@@ -345,7 +345,7 @@ They communicate with `snd` and `rcv`.
 
 
 
-We have to expand our `sound` register into a message queue and add some logic for how it's shared between the two programs. Additionally, the puzzle wants us to pause execution of each program while it waits for the queue to get values.
+We have to expand our `sound` register into a message queue and add some logic for how it&#x27;s shared between the two programs. Additionally, the puzzle wants us to pause execution of each program while it waits for the queue to get values.
 
 
 

@@ -11,15 +11,15 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https://www.youtube.com/watch?v=fG_SnnGnSXo
+https&amp;#x3A;//www.youtube.com/watch?v=fG_SnnGnSXo
 
 
 
-You'd think upgrading Gatsby sites to [Gatsby 2.0](https://github.com/gatsbyjs/gatsby) would be easy. The [update guide](https://next.gatsbyjs.org/docs/migrating-from-v1-to-v2/#update-layout-component) is only 20 steps long.
+You&#x27;d think upgrading Gatsby sites to [Gatsby 2.0](https://github.com/gatsbyjs/gatsby) would be easy. The [update guide](https://next.gatsbyjs.org/docs/migrating-from-v1-to-v2/#update-layout-component) is only 20 steps long.
 
 
 
-Change some package versions. Drop some old packages. Install some new. Tweak some code and you're off to the races.
+Change some package versions. Drop some old packages. Install some new. Tweak some code and you&#x27;re off to the races.
 
 
 
@@ -27,7 +27,7 @@ And then you get stuck.
 
 
 
-https://twitter.com/Swizec/status/1011018745349791744
+https&amp;#x3A;//twitter.com/Swizec/status/1011018745349791744
 
 
 
@@ -39,11 +39,11 @@ Beta software, amirite?
 
 
 
-BUT! The internet hivemind comes to the rescue. The beauty of open source software. You do things out in the open, you help when you can, and you ask for help when you can't.
+BUT! The internet hivemind comes to the rescue. The beauty of open source software. You do things out in the open, you help when you can, and you ask for help when you can&#x27;t.
 
 
 
-[@swyx](https://twitter.com/swyx) did an amazing thing and hunted down the source of my woes. It's a [GraphQL query compiler bug](https://github.com/gatsbyjs/gatsby/issues/6032).
+[@swyx](https://twitter.com/swyx) did an amazing thing and hunted down the source of my woes. It&#x27;s a [GraphQL query compiler bug](https://github.com/gatsbyjs/gatsby/issues/6032).
 
 
 
@@ -55,15 +55,15 @@ BUT! The internet hivemind comes to the rescue. The beauty of open source softwa
 
 
 
-Gatsby v2 has a new `StaticQuery` system, and it's got a bug.
+Gatsby v2 has a new `StaticQuery` system, and it&#x27;s got a bug.
 
 
 
-I'm not sure what `StaticQuery` is supposed to do, or how, but [the migration guide](https://next.gatsbyjs.org/docs/migrating-from-v1-to-v2/#update-layout-component) says you should use it to get info about your site. Title, description, stuff like that.
+I&#x27;m not sure what `StaticQuery` is supposed to do, or how, but [the migration guide](https://next.gatsbyjs.org/docs/migrating-from-v1-to-v2/#update-layout-component) says you should use it to get info about your site. Title, description, stuff like that.
 
 
 
-I suspect you're meant to change all those `export const query = graphql` queries into a `StaticQuery`. Will have to experiment some more, read a doc or two 😇
+I suspect you&#x27;re meant to change all those `export const query = graphql` queries into a `StaticQuery`. Will have to experiment some more, read a doc or two 😇
 
 
 
@@ -90,7 +90,7 @@ StaticQuery takes a `query` prop, which needs your graphql query. The stuff you 
 
 
 
-When Gatsby fixes the bug, you'll be able to make that code more readable like this:
+When Gatsby fixes the bug, you&#x27;ll be able to make that code more readable like this:
 
 
 
@@ -115,7 +115,7 @@ Another gotcha with the upgrade is the manual process to upgrade all your packag
 
 
 
-You have to go into `package.json`, find everything that starts with `gatsby-`, and change its version to `next`. Then you have to hunt through the new [Gatsby Plugins Library](https://next.gatsbyjs.org/plugins/) and see if anything you're using has new peer dependencies.
+You have to go into `package.json`, find everything that starts with `gatsby-`, and change its version to `next`. Then you have to hunt through the new [Gatsby Plugins Library](https://next.gatsbyjs.org/plugins/) and see if anything you&#x27;re using has new peer dependencies.
 
 
 
@@ -123,15 +123,15 @@ You have to install peer dependencies yourself. I always forget that one.
 
 
 
-For example, Gatsby used to come with React packaged in. Now you have to install it yourself because it's a peer dependency.
+For example, Gatsby used to come with React packaged in. Now you have to install it yourself because it&#x27;s a peer dependency.
 
 
 
-There's no telling which of the plugins you're using decided to pull similar tricks moving to Gatsby v2. Alas.
+There&#x27;s no telling which of the plugins you&#x27;re using decided to pull similar tricks moving to Gatsby v2. Alas.
 
 
 
-I wish there was a code mod for that, but most people aren't running enough Gatsby sites to make the time savings worth it.
+I wish there was a code mod for that, but most people aren&#x27;t running enough Gatsby sites to make the time savings worth it.
 
 
 
@@ -143,7 +143,7 @@ Beta software, amirite?
 
 
 
-If you're running Gatsby v1, you should upgrade. Everything seems stable enough. [My site, Learn While You Poop](https://learnwhileyoupoop.com), is up and running. Ludicrously faster than it was before.
+If you&#x27;re running Gatsby v1, you should upgrade. Everything seems stable enough. [My site, Learn While You Poop](https://learnwhileyoupoop.com), is up and running. Ludicrously faster than it was before.
 
 
 

@@ -11,7 +11,7 @@ The Flash of Doom is one of the most annoying issues with D3 charts. You load th
 
 
 
-Everyone's staring at a blank screen while the data loads.
+Everyone&#x27;s staring at a blank screen while the data loads.
 
 
 
@@ -27,11 +27,11 @@ Pay close attention to that gif. The flashing red shows repaints.
 
 
 
-When I reload the page, the whole thing re-renders and shows a line chart. Axes show up after a little while, and they're the only part of the page that re-renders.
+When I reload the page, the whole thing re-renders and shows a line chart. Axes show up after a little while, and they&#x27;re the only part of the page that re-renders.
 
 
 
-Here's a slower version without the flashing.
+Here&#x27;s a slower version without the flashing.
 
 
 
@@ -39,7 +39,7 @@ Here's a slower version without the flashing.
 
 
 
-Here's what you're seeing 👇
+Here&#x27;s what you&#x27;re seeing 👇
 
 
 
@@ -59,7 +59,7 @@ Some parts of this are efficient.
 
 
 
-`ReactDOM.hydrate` avoids re-rendering parts of the DOM that were already rendered by your server. In our case, that's everything except the axes.
+`ReactDOM.hydrate` avoids re-rendering parts of the DOM that were already rendered by your server. In our case, that&#x27;s everything except the axes.
 
 
 
@@ -67,11 +67,11 @@ Some parts of this are inefficient.
 
 
 
-The server shouldn't need to read the CSV and HTML files on every request. You could do that on startup and save the strings in a variable. They're static.
+The server shouldn&#x27;t need to read the CSV and HTML files on every request. You could do that on startup and save the strings in a variable. They&#x27;re static.
 
 
 
-We're also rendering `<App />` and running all of our React code twice. But this doesn't need to happen every time on the server. Cache that stuff!
+We&#x27;re also rendering `<App />` and running all of our React code twice. But this doesn&#x27;t need to happen every time on the server. Cache that stuff!
 
 
 
@@ -83,11 +83,11 @@ You can try it out for yourself [on Github](https://github.com/Swizec/server-sid
 
 
 
-The hardest part was adding a small Express server to `create-react-app` that supports `\import` and React syntax. I couldn't figure it out on my own, so I used [Ben Lu's](https://medium.com/@benlu/ssr-with-create-react-app-v2-1b8b520681d9) amazing [SSR with create-react-app](https://medium.com/@benlu/ssr-with-create-react-app-v2-1b8b520681d9) guide.
+The hardest part was adding a small Express server to `create-react-app` that supports `\import` and React syntax. I couldn&#x27;t figure it out on my own, so I used [Ben Lu&#x27;s](https://medium.com/@benlu/ssr-with-create-react-app-v2-1b8b520681d9) amazing [SSR with create-react-app](https://medium.com/@benlu/ssr-with-create-react-app-v2-1b8b520681d9) guide.
 
 
 
-The main trick seems to be installing `ignore-styles` so your server doesn't error out when `require`-ing CSS files (no webpack), and figuring out just the right incantation of Express setup to get the server working. I tried simplifying his setup, but it didn't work.
+The main trick seems to be installing `ignore-styles` so your server doesn&#x27;t error out when `require`-ing CSS files (no webpack), and figuring out just the right incantation of Express setup to get the server working. I tried simplifying his setup, but it didn&#x27;t work.
 
 
 
@@ -115,7 +115,7 @@ This makes apps easy to build and avoids issues with undefined data when renderi
 
 
 
-But it throws away all benefits of server-side rendering. With the `componentWillMount` approach, you're loading the fully rendered chart, replacing it with an empty component, then re-rendering it once data loads on the client.
+But it throws away all benefits of server-side rendering. With the `componentWillMount` approach, you&#x27;re loading the fully rendered chart, replacing it with an empty component, then re-rendering it once data loads on the client.
 
 
 
@@ -123,7 +123,7 @@ But it throws away all benefits of server-side rendering. With the `componentWil
 
 
 
-Here's what you do instead: Accept data as props. Only load in `componentWillMount` if no data was given.
+Here&#x27;s what you do instead: Accept data as props. Only load in `componentWillMount` if no data was given.
 
 
 
@@ -166,7 +166,7 @@ class App extends Component {
 
 
 
-In the `constructor`, we copy data from props into `state`. That's because components that load their own data usually keep it in state and putting it there means fewer changes to the rest of your code.
+In the `constructor`, we copy data from props into `state`. That&#x27;s because components that load their own data usually keep it in state and putting it there means fewer changes to the rest of your code.
 
 
 
@@ -174,7 +174,7 @@ In the `constructor`, we copy data from props into `state`. That's because compo
 
 
 
-In `componentWillMount`, we now check if data is already present. If it isn't, we load it and everything works the same as it always has.
+In `componentWillMount`, we now check if data is already present. If it isn&#x27;t, we load it and everything works the same as it always has.
 
 
 
@@ -182,15 +182,15 @@ In `componentWillMount`, we now check if data is already present. If it isn't, w
 
 
 
-The final piece of the puzzle is hydrating your app _after_ your data is done loading. You're already showing a chart, so there's no need to be hasty and `ReactDOM.hydrate` as soon as your JavaScript loads.
+The final piece of the puzzle is hydrating your app _after_ your data is done loading. You&#x27;re already showing a chart, so there&#x27;s no need to be hasty and `ReactDOM.hydrate` as soon as your JavaScript loads.
 
 
 
-https://twitter.com/dan_abramov/status/913353504856723458
+https&amp;#x3A;//twitter.com/dan_abramov/status/913353504856723458
 
 
 
-You can't detect that your component already had children and avoid replacing them until you're ready. Instead, you can wait to hydrate in the first place.
+You can&#x27;t detect that your component already had children and avoid replacing them until you&#x27;re ready. Instead, you can wait to hydrate in the first place.
 
 
 
@@ -220,12 +220,12 @@ Now you need a server. No more static page serverless webapp for your beautiful 
 
 
 
-You _could_ use now.sh, and that's nice, but I don't know how to make it run my server. See 👉 <https://server-side-d3-poc-mamdozxwze.now.sh>
+You _could_ use now.sh, and that&#x27;s nice, but I don&#x27;t know how to make it run my server. See 👉 <https://server-side-d3-poc-mamdozxwze.now.sh>
 
 
 
-The panacea is to figure out how to tweak the create-react-app build process to insert your server-side rendered `<App>` right into its `index.html`. That's what I really want.
+The panacea is to figure out how to tweak the create-react-app build process to insert your server-side rendered `<App>` right into its `index.html`. That&#x27;s what I really want.
 
 
 
-I wonder if they'd accept a PR for that 🤔
+I wonder if they&#x27;d accept a PR for that 🤔

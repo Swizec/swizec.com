@@ -7,7 +7,7 @@ redirect_from:
 categories: "Technical"
 hero: ./img/blog-wp-content-uploads-2017-11-Screen-Shot-2017-11-16-at-09.37.29.png
 ---
-You've probably seen web notifications before. YouTube shows them when it goes to a new song, Facebook pings them when a new message comes in, scammy websites ask for permissions and you say no. The usual.
+You&#x27;ve probably seen web notifications before. YouTube shows them when it goes to a new song, Facebook pings them when a new message comes in, scammy websites ask for permissions and you say no. The usual.
 
 
 
@@ -24,7 +24,7 @@ const notification = new Notification(title, {
 
 
 
-That creates a new browser notification and shows it to the user. Since Chrome 60-something on a Mac, they're integrated with native notifications. It's great.
+That creates a new browser notification and shows it to the user. Since Chrome 60-something on a Mac, they&#x27;re integrated with native notifications. It&#x27;s great.
 
 
 
@@ -32,11 +32,11 @@ That creates a new browser notification and shows it to the user. Since Chrome 6
 
 
 
-You can close the browser notification with `notification.close`, and you can listen for click events with `notification.onclick = () => ...`. Most often you'd want to use that click event to focus on your browser tab.
+You can close the browser notification with `notification.close`, and you can listen for click events with `notification.onclick = () => ...`. Most often you&#x27;d want to use that click event to focus on your browser tab.
 
 
 
-To make this work however, the user must keep your webapp open and you must keep your fingers crossed the browser hasn't throttled your JavaScript too much for inactivity. Browsers do that, you know.
+To make this work however, the user must keep your webapp open and you must keep your fingers crossed the browser hasn&#x27;t throttled your JavaScript too much for inactivity. Browsers do that, you know.
 
 
 
@@ -52,7 +52,7 @@ It is not a part of the JavaScript standard yet. [MDN lists web push notificatio
 
 
 
-Here's what you'll need to make it work 👇
+Here&#x27;s what you&#x27;ll need to make it work 👇
 
 
 
@@ -68,31 +68,31 @@ Here's what you'll need to make it work 👇
 
 
 
-You can think of service workers as a piece of JavaScript that lives in your user's browser and does stuff. They can do stuff even when your site isn't loaded, or even open.
+You can think of service workers as a piece of JavaScript that lives in your user&#x27;s browser and does stuff. They can do stuff even when your site isn&#x27;t loaded, or even open.
 
 
 
-Most commonly they're used for caching in what's called progressive web apps – PWA. They intercept requests and serve code from a local cache. Even if the browser is offline.
+Most commonly they&#x27;re used for caching in what&#x27;s called progressive web apps – PWA. They intercept requests and serve code from a local cache. Even if the browser is offline.
 
 
 
-But none of that right now. We're using them for push notifications.
+But none of that right now. We&#x27;re using them for push notifications.
 
 
 
-A service worker will live in our user's browser and listen for `push` events. The browser gets these events from a so-called push service, triggers the service worker, and our service worker does whatever.
+A service worker will live in our user&#x27;s browser and listen for `push` events. The browser gets these events from a so-called push service, triggers the service worker, and our service worker does whatever.
 
 
 
-For security reasons, we can't control _which_ push service the browser uses. The browser tells us instead. You'll see how in the section about subscribing.
+For security reasons, we can&#x27;t control _which_ push service the browser uses. The browser tells us instead. You&#x27;ll see how in the section about subscribing.
 
 
 
-For privacy reasons, we also have to accept a sort of gentleman's agreement with the browser where we promise to always show a notification when a push event comes in.
+For privacy reasons, we also have to accept a sort of gentleman&#x27;s agreement with the browser where we promise to always show a notification when a push event comes in.
 
 
 
-So… a service worker is just a JavaScript file. Nothing fancy going on. You use `self` to refer to the global scope because there's no `window` and no `document`.
+So… a service worker is just a JavaScript file. Nothing fancy going on. You use `self` to refer to the global scope because there&#x27;s no `window` and no `document`.
 
 
 
@@ -129,11 +129,11 @@ self.addEventListener("notificationclick", event => {
 
 
 
-That's all the code that goes into our service worker.
+That&#x27;s all the code that goes into our service worker.
 
 
 
-In `showNotification`, we return a `Promise` that resolves once we're done showing our notification.
+In `showNotification`, we return a `Promise` that resolves once we&#x27;re done showing our notification.
 
 
 
@@ -145,7 +145,7 @@ Before showing our push notification with `self.registration.showNotification`, 
 
 
 
-I've noticed (at least on a Mac) that subsequent notifications with the same `tag` sometimes don't show up unless you close the previous ones.
+I&#x27;ve noticed (at least on a Mac) that subsequent notifications with the same `tag` sometimes don&#x27;t show up unless you close the previous ones.
 
 
 
@@ -153,7 +153,7 @@ We use `self.addEventListener` to listen for both `push` and `onclick` events. I
 
 
 
-That's the service worker 😄
+That&#x27;s the service worker 😄
 
 
 
@@ -189,11 +189,11 @@ We call `navigator.serviceWorker.registe` with the URL of our service worker and
 
 
 
-This is not a piece of code you'll have to write often. Once per project at most. Many just find it online and copypasta when they need it, I think.
+This is not a piece of code you&#x27;ll have to write often. Once per project at most. Many just find it online and copypasta when they need it, I think.
 
 
 
-One caveat to keep in mind is that service workers are limited to the scope they're served from. You can't serve that file from a CDN, or from a `static.domain.com`, or even `domain.com/static/`.
+One caveat to keep in mind is that service workers are limited to the scope they&#x27;re served from. You can&#x27;t serve that file from a CDN, or from a `static.domain.com`, or even `domain.com/static/`.
 
 
 
@@ -205,7 +205,7 @@ My solution was to use the Webpack [`sw-loader`](https://github.com/idiotWu/sw-l
 
 
 
-That part was tricky, but it's very specific to every webapp, so it’s not a good candidate for this article :)
+That part was tricky, but it&#x27;s very specific to every webapp, so it’s not a good candidate for this article :)
 
 
 
@@ -213,11 +213,11 @@ That part was tricky, but it's very specific to every webapp, so it’s not a go
 
 
 
-If you've ever used web notifications before, you already know this part: You have to ask the user for permission.
+If you&#x27;ve ever used web notifications before, you already know this part: You have to ask the user for permission.
 
 
 
-Here's how that goes
+Here&#x27;s how that goes
 
 
 
@@ -233,7 +233,7 @@ if (permission !== 'granted') {
 
 
 
-Yep, that's it.
+Yep, that&#x27;s it.
 
 
 
@@ -249,7 +249,7 @@ You can check permission status at any time with `Notification.permission`.
 
 
 
-Here comes the interesting part: subscribing to web push notifications. This is where we ask the browser _"Hey, which push service do you wanna use?"_
+Here comes the interesting part: subscribing to web push notifications. This is where we ask the browser _&quot;Hey, which push service do you wanna use?&quot;_
 
 
 
@@ -263,11 +263,11 @@ The process has 2 to 3 steps depending on how you count 👇
 
 
 
-[VAPID keys](https://blog.mozilla.org/services/2016/04/04/using-vapid-with-webpush/) are a way for our server to identify itself with the push service. That way our user's browser can be sure that push notifications are coming from us and not from some random spammer who got in the way.
+[VAPID keys](https://blog.mozilla.org/services/2016/04/04/using-vapid-with-webpush/) are a way for our server to identify itself with the push service. That way our user&#x27;s browser can be sure that push notifications are coming from us and not from some random spammer who got in the way.
 
 
 
-I used the [`Webpush`](https://github.com/zaru/webpush) gem to generate these keys, there's a [`web-push`](https://github.com/web-push-libs/web-push) package for node as well.
+I used the [`Webpush`](https://github.com/zaru/webpush) gem to generate these keys, there&#x27;s a [`web-push`](https://github.com/web-push-libs/web-push) package for node as well.
 
 
 
@@ -282,7 +282,7 @@ vapid_key.private_key
 
 
 
-You will have to send the `public_key` to your frontend somehow because you'll need it to subscribe to web push notifications. The subscription itself happens like this:
+You will have to send the `public_key` to your frontend somehow because you&#x27;ll need it to subscribe to web push notifications. The subscription itself happens like this:
 
 
 
@@ -305,7 +305,7 @@ function subscribeToPushNotifications(registration) {
 
 
 
-We call `registration.pushManager.subscribe` to subscribe with our `applicationServerKey`. That's the `vapid.public_key`. And as I mentioned earlier, we promise to always show a notification with `userVisibleOnly: true`.
+We call `registration.pushManager.subscribe` to subscribe with our `applicationServerKey`. That&#x27;s the `vapid.public_key`. And as I mentioned earlier, we promise to always show a notification with `userVisibleOnly: true`.
 
 
 
@@ -321,11 +321,11 @@ The browser is in full control.
 
 
 
-You should save that info on the backend and associate it with your user. As far as I can tell, it's unique for every subscription request and definitely for every browser.
+You should save that info on the backend and associate it with your user. As far as I can tell, it&#x27;s unique for every subscription request and definitely for every browser.
 
 
 
-The tricky part here is when the same user is using multiple browsers and devices. If you want to send push notifications to all of them, you're going to have to keep multiple copies of this info.
+The tricky part here is when the same user is using multiple browsers and devices. If you want to send push notifications to all of them, you&#x27;re going to have to keep multiple copies of this info.
 
 
 
@@ -333,11 +333,11 @@ The tricky part here is when the same user is using multiple browsers and device
 
 
 
-To trigger a web push notification from your server, I suggest using a library. Something like [Webpush for Ruby](https://github.com/zaru/webpush) or [web-push for node](https://github.com/web-push-libs/web-push). I'm sure libraries exist for other languages as well.
+To trigger a web push notification from your server, I suggest using a library. Something like [Webpush for Ruby](https://github.com/zaru/webpush) or [web-push for node](https://github.com/web-push-libs/web-push). I&#x27;m sure libraries exist for other languages as well.
 
 
 
-Here's how you'd send a notification in Ruby/Rails:
+Here&#x27;s how you&#x27;d send a notification in Ruby/Rails:
 
 
 
@@ -390,4 +390,4 @@ If you do decide to add push notifications to your webapp, please use them respo
 
 
 
-Wouldn't want to train users to automatically deny notification permissions now would we :)
+Wouldn&#x27;t want to train users to automatically deny notification permissions now would we :)

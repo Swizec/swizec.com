@@ -7,7 +7,7 @@ redirect_from:
 categories: "Back End, Front End, Technical"
 hero: ./img/techletter.app-screenshot-1545070245704.png
 ---
-https://twitter.com/Swizec/status/1049786180483477504
+https&amp;#x3A;//twitter.com/Swizec/status/1049786180483477504
 
 
 
@@ -38,7 +38,7 @@ Early NoSQL days, nascent serverless. Forget bare metal machines and servers in 
 
 
 
-After months, _months_, of engineering, the system was ready. It would scale beautifully and turn everybody's RSS feeds into algorithmic timelines based on each user's individual behavior. I was so proud.
+After months, _months_, of engineering, the system was ready. It would scale beautifully and turn everybody&#x27;s RSS feeds into algorithmic timelines based on each user&#x27;s individual behavior. I was so proud.
 
 
 
@@ -110,11 +110,11 @@ The startup never recovered.
 
 
 
-## You're scaling too early
+## You&#x27;re scaling too early
 
 
 
-Fast forward a few years and I'm working at a startup that's actually successful. Not internet scale successful. Making real money from real users kind of successful. You know, a business.
+Fast forward a few years and I&#x27;m working at a startup that&#x27;s actually successful. Not internet scale successful. Making real money from real users kind of successful. You know, a business.
 
 
 
@@ -141,7 +141,7 @@ We serve around 10 requests per second, store a few million rows in Postgres eve
 
 
 
-That runs on 6 Heroku web instances, 2 worker instances, and 1 medium-ish tier database server. The web dynos run at a chill 50% utilization, the workers sweat a bit. Postgres sometimes struggles with too many connections. Large queries might run out of memory if you aren't careful.
+That runs on 6 Heroku web instances, 2 worker instances, and 1 medium-ish tier database server. The web dynos run at a chill 50% utilization, the workers sweat a bit. Postgres sometimes struggles with too many connections. Large queries might run out of memory if you aren&#x27;t careful.
 
 
 
@@ -172,7 +172,7 @@ So how is it that this absolutely boring stack can outperform my engineering mar
 
 
 
-> You don't know where it hurts until the system tells you.
+> You don&#x27;t know where it hurts until the system tells you.
 >
 >
 >
@@ -181,23 +181,14 @@ So how is it that this absolutely boring stack can outperform my engineering mar
 
 
 
-That's my big lesson from the past 10 years of engineering. You don't know where something's gonna break until you push it and see what happens.
+That&#x27;s my big lesson from the past 10 years of engineering. You don&#x27;t know where something&#x27;s gonna break until you push it and see what happens.
 
   
 
 
 
 
-You just can't know. You can guess the basics.
-
-
-
-  
-
-
-
-
-Like, don't use triple nested loops to process 10,000,000 rows of data. Use database indexes for common queries. Use caching to avoid computation when possible. Push expensive stuff into background jobs to maintain a fast user experience. Stuff like that.
+You just can&#x27;t know. You can guess the basics.
 
 
 
@@ -206,7 +197,16 @@ Like, don't use triple nested loops to process 10,000,000 rows of data. Use data
 
 
 
-But I only know about those because I've seen them break before.
+Like, don&#x27;t use triple nested loops to process 10,000,000 rows of data. Use database indexes for common queries. Use caching to avoid computation when possible. Push expensive stuff into background jobs to maintain a fast user experience. Stuff like that.
+
+
+
+  
+
+
+
+
+But I only know about those because I&#x27;ve seen them break before.
 
 
 
@@ -233,7 +233,7 @@ Build it so it works. Let it break. Fix what breaks.
 
 
 
-Otherwise you might spend weeks and months optimizing code that isn't even a bottleneck. There's always going to be _a_ bottleneck. Some part of your system that's the slowest.
+Otherwise you might spend weeks and months optimizing code that isn&#x27;t even a bottleneck. There&#x27;s always going to be _a_ bottleneck. Some part of your system that&#x27;s the slowest.
 
 
 
@@ -242,7 +242,7 @@ Otherwise you might spend weeks and months optimizing code that isn't even a bot
 
 
 
-Remember Amdahl's law: A system can never be faster than its slowest part.
+Remember Amdahl&#x27;s law: A system can never be faster than its slowest part.
 
 
 
@@ -251,7 +251,7 @@ Remember Amdahl's law: A system can never be faster than its slowest part.
 
 
 
-Here's the algorithm I use to optimize systems these days:
+Here&#x27;s the algorithm I use to optimize systems these days:
 
 
 
@@ -272,7 +272,7 @@ Here's the algorithm I use to optimize systems these days:
 
 
 
-First, I got plenty of help from the other [Yup](https://www.yup.com) engineers. I lead the project and it's my baby that grew over some 18 months, but when push came to shove and production ground to a halt everyone pitched in.
+First, I got plenty of help from the other [Yup](https://www.yup.com) engineers. I lead the project and it&#x27;s my baby that grew over some 18 months, but when push came to shove and production ground to a halt everyone pitched in.
 
 
 
@@ -281,7 +281,7 @@ First, I got plenty of help from the other [Yup](https://www.yup.com) engineers.
 
 
 
-And before you scream _"Just use a pre-made solution there are literally hundreds of startups betting their entire lives on solving this problem wtf is wrong with you Swiz"_ at your monitor, let me tell you **why we built our own logging system**.
+And before you scream _&quot;Just use a pre-made solution there are literally hundreds of startups betting their entire lives on solving this problem wtf is wrong with you Swiz&quot;_ at your monitor, let me tell you **why we built our own logging system**.
 
 
 
@@ -312,7 +312,7 @@ We wanted a logging system that fulfills these requirements:
 
 
 
-Using a logging SaaS of some sort gives you the first 4. Often gives you 8 and 9 as well. Sometimes gives you 7. But it never gives you 10, 6, and 5. You also can't know, if you're losing events between your system and theirs.
+Using a logging SaaS of some sort gives you the first 4. Often gives you 8 and 9 as well. Sometimes gives you 7. But it never gives you 10, 6, and 5. You also can&#x27;t know, if you&#x27;re losing events between your system and theirs.
 
 
 
@@ -321,7 +321,7 @@ Using a logging SaaS of some sort gives you the first 4. Often gives you 8 and 9
 
 
 
-I've never seen a monitoring or logging company that lets you see the exact list of events, even ones you thought you sent but actually didn't. And a company that lets you seamlessly integrate with and migrate to other providers? Ha!
+I&#x27;ve never seen a monitoring or logging company that lets you see the exact list of events, even ones you thought you sent but actually didn&#x27;t. And a company that lets you seamlessly integrate with and migrate to other providers? Ha!
 
 
 
@@ -383,7 +383,7 @@ The design that lasted another year looks like this 👇
 
 
 
-Saving events in local storage ensures we don't lose events. If the user disconnects, we can always send them later.
+Saving events in local storage ensures we don&#x27;t lose events. If the user disconnects, we can always send them later.
 
 
 
@@ -401,7 +401,7 @@ Payloads are designed to accept arrays of events. Sending each one right away is
 
 
 
-On the frontend we used a [Fast Mutex Lamport lock implementation](https://swizec.com/blog/fast-mutex-lamport-lock-javascript-promises/swizec/7532) to ensure multiple tabs can't overwrite each other's queues. LocalStorage is a single shared resource.
+On the frontend we used a [Fast Mutex Lamport lock implementation](https://swizec.com/blog/fast-mutex-lamport-lock-javascript-promises/swizec/7532) to ensure multiple tabs can&#x27;t overwrite each other&#x27;s queues. LocalStorage is a single shared resource.
 
 
 
@@ -410,7 +410,7 @@ On the frontend we used a [Fast Mutex Lamport lock implementation](https://swize
 
 
 
-Don't need that on mobile clients.
+Don&#x27;t need that on mobile clients.
 
 
 
@@ -428,7 +428,7 @@ The frontend queue is always cleared in full. As soon as you can. Normally this 
 
 
 
-#### First backend "queue"
+#### First backend &quot;queue&quot;
 
 
 
@@ -441,7 +441,7 @@ To make these requests fast, we save the raw payload in the database. No process
 
 
 
-No index, no relations, no nothing on this table. Just an `id`, a `created_at`, and a JSON payload. Postgres is great for JSON, you'd be surprised.
+No index, no relations, no nothing on this table. Just an `id`, a `created_at`, and a JSON payload. Postgres is great for JSON, you&#x27;d be surprised.
 
 
 
@@ -477,7 +477,7 @@ During processing, events become enriched with default data based on user profil
 
 
 
-There's some logic keeping track of errors and such, making sure rows aren't marked as processed until all the events they contain make it into our logs table. That way we can always replay processing of a row and it won't lead to double logs.
+There&#x27;s some logic keeping track of errors and such, making sure rows aren&#x27;t marked as processed until all the events they contain make it into our logs table. That way we can always replay processing of a row and it won&#x27;t lead to double logs.
 
 
 
@@ -495,7 +495,7 @@ Exactly how that works is another article.
 
 
 
-The processing worker drops `processed=true` rows after they're a few weeks old. Only reason we keep them around that long is debugging and so we can recover events in case of errors.
+The processing worker drops `processed=true` rows after they&#x27;re a few weeks old. Only reason we keep them around that long is debugging and so we can recover events in case of errors.
 
 
 
@@ -504,7 +504,7 @@ The processing worker drops `processed=true` rows after they're a few weeks old.
 
 
 
-#### Second backend "queue"
+#### Second backend &quot;queue&quot;
 
 
 
@@ -517,7 +517,7 @@ Another worker runs every few minutes and sends events from the database to Mixp
 
 
 
-Eventually everything makes it into Mixpanel with all the properties and the right timestamps. Product people can track their metrics, engineers can see what's up if anything looks fishy.
+Eventually everything makes it into Mixpanel with all the properties and the right timestamps. Product people can track their metrics, engineers can see what&#x27;s up if anything looks fishy.
 
 
 
@@ -526,7 +526,7 @@ Eventually everything makes it into Mixpanel with all the properties and the rig
 
 
 
-At any point in the evolution of an event you can see which queue it's in, which errors occurred in processing, and you know what properties it's got. Push comes to shove you can run your own queries to perform deeper analysis than Mixpanel's UI allows.
+At any point in the evolution of an event you can see which queue it&#x27;s in, which errors occurred in processing, and you know what properties it&#x27;s got. Push comes to shove you can run your own queries to perform deeper analysis than Mixpanel&#x27;s UI allows.
 
 
 
@@ -639,7 +639,7 @@ On the backend these events become part of the first raw payloads queue. When pr
 
 
 
-The `logs` table becomes two queues rolled into one. It used to be a staging area for events going into Mixpanel, now it's a store of 3 different things:
+The `logs` table becomes two queues rolled into one. It used to be a staging area for events going into Mixpanel, now it&#x27;s a store of 3 different things:
 
 
 
@@ -663,7 +663,7 @@ The original Mixpanel worker keeps doing its thing. Except now it focuses on row
 
 
 
-A new worker goes through `:datadog` events and sends them to Datadog. Uses their `statsd` integration, which I believe is another queue+processor layer. No retry logic with this one because Datadog can't handle custom timestamps and we don't want to mess up our graphs. Would rather drop events.
+A new worker goes through `:datadog` events and sends them to Datadog. Uses their `statsd` integration, which I believe is another queue+processor layer. No retry logic with this one because Datadog can&#x27;t handle custom timestamps and we don&#x27;t want to mess up our graphs. Would rather drop events.
 
 
 
@@ -681,7 +681,7 @@ We went from processing about 300,000 events, to 900,000+ every day.
 
 
 
-And that's when shit started hitting the fan.
+And that&#x27;s when shit started hitting the fan.
 
 
 
@@ -722,7 +722,7 @@ Yep, I brought down our whole system.
 
 
 
-Worst part was we didn't even know the system broke until our PM said _"Hey guys something looks weird in our Mixpanel data. Are you sure it's all coming through?"_
+Worst part was we didn&#x27;t even know the system broke until our PM said _&quot;Hey guys something looks weird in our Mixpanel data. Are you sure it&#x27;s all coming through?&quot;_
 
 
 
@@ -772,7 +772,7 @@ My first fix cut the number of outstanding events down to a few thousand. Sped u
 
 
 
-I changed the definition of "processable event".
+I changed the definition of &quot;processable event&quot;.
 
 
 
@@ -781,7 +781,7 @@ I changed the definition of "processable event".
 
 
 
-If we know it isn't going to Mixpanel, we don't have to let the Mixpanel worker process it. If we know it isn't going into Datadog, why would that worker touch it?
+If we know it isn&#x27;t going to Mixpanel, we don&#x27;t have to let the Mixpanel worker process it. If we know it isn&#x27;t going into Datadog, why would that worker touch it?
 
 
 
@@ -858,7 +858,7 @@ This definition-changing solution worked okay, but our processing was still fall
 
 
 
-When you have a Postgres table with 300,000,000 rows that you query with a table scan every minute … shit's bad, yo.
+When you have a Postgres table with 300,000,000 rows that you query with a table scan every minute … shit&#x27;s bad, yo.
 
 
 
@@ -886,7 +886,7 @@ Started showing up in our Mixpanel batch process times too.
 
 
 
-No wonder shit's on fire if it takes up to _6000 seconds_ to process a single batch of events.
+No wonder shit&#x27;s on fire if it takes up to _6000 seconds_ to process a single batch of events.
 
 
 
@@ -913,7 +913,7 @@ With a combination of metrics, hard thinking, inspecting database long running q
 
 
 
-I mean it worked great until the DB started locking up and workers started waiting for each other to finish. And the lock expiration was quicker than average worker run time. And ugh, so much broke I can't even remember.
+I mean it worked great until the DB started locking up and workers started waiting for each other to finish. And the lock expiration was quicker than average worker run time. And ugh, so much broke I can&#x27;t even remember.
 
 
 
@@ -931,7 +931,7 @@ My hair was on fire for weeks.
 
 
 
-Oh and we were still going through like 500 events per minute and pushing 2000/minute at peak loads. This was a problem for Datadog especially since it doesn't support custom timestamps and needs to be processed in real-time.
+Oh and we were still going through like 500 events per minute and pushing 2000/minute at peak loads. This was a problem for Datadog especially since it doesn&#x27;t support custom timestamps and needs to be processed in real-time.
 
 
 
@@ -962,7 +962,7 @@ Instead of going through 500 events 1-by-1, we could go 4-by-4. Plus we could no
 
 
 
-But how do you ensure independent workers don't step on each other's toes? The modulus operator!
+But how do you ensure independent workers don&#x27;t step on each other&#x27;s toes? The modulus operator!
 
 
 
@@ -971,12 +971,12 @@ But how do you ensure independent workers don't step on each other's toes? The m
 
 
 
-A master worker runs every minute and schedules 4 sub workers for the 0th and 30th second of the minute. Sidekiq doesn't allow sub-minute crons.
+A master worker runs every minute and schedules 4 sub workers for the 0th and 30th second of the minute. Sidekiq doesn&#x27;t allow sub-minute crons.
 
 
 
   
-[![](./img/techletter.app-screenshot-1545070249232.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=ruby&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%20(0..3).each%20do%20%7Cid%7C%0A%20%20Rails.application.config.log_entries%5B%3Abatch_seconds%5D.each%20do%20%7Cn%7C%0A%20%20%20%20%22LogEntriesBatchWorker%23%7Bid%7D%22.constantize.perform_in(n.seconds)%0A%20%20end%0Aend%0A)
+[![](./img/techletter.app-screenshot-1545070249232.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=ruby&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%20(0..3).each%20do%20%7Cid%7C%0A%20%20Rails.application.config.log_entries%5B%3Abatch_seconds%5D.each%20do%20%7Cn%7C%0A%20%20%20%20%22LogEntriesBatchWorker%23%7Bid%7D%22.constantize.perform_in(n.seconds)%0A%20%20end%0Aend%0A)
 
 
 
@@ -985,7 +985,7 @@ Each worker has an ID, that helps it pick events based on a modulus.
 
 
   
-[![](./img/techletter.app-screenshot-1545070329469.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=ruby&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=def%20self.process_batch(index%2C%20batch_size%3D500%2C%20type%3A%20%3Adefault)%0A%20%20ids%20%3D%20LogEntryStaging.not_processed%0A%20%20%20%20%20%20.where(staging_type%3A%20type)%0A%20%20%20%20%20%20.limit(batch_size*4)%0A%20%20%20%20%20%20.select(%3Aid)%0A%20%20%20%20%20%20.select%20%7B%20%7Centry%7C%20entry.id%254%20%3D%3D%20index%20%7D%0A%0ALogEntryStaging.where(id%3A%20ids).each%20do%20%7Crow%7C%0A)
+[![](./img/techletter.app-screenshot-1545070329469.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=ruby&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=def%20self.process_batch(index%2C%20batch_size%3D500%2C%20type%3A%20%3Adefault)%0A%20%20ids%20%3D%20LogEntryStaging.not_processed%0A%20%20%20%20%20%20.where(staging_type%3A%20type)%0A%20%20%20%20%20%20.limit(batch_size*4)%0A%20%20%20%20%20%20.select(%3Aid)%0A%20%20%20%20%20%20.select%20%7B%20%7Centry%7C%20entry.id%254%20%3D%3D%20index%20%7D%0A%0ALogEntryStaging.where(id%3A%20ids).each%20do%20%7Crow%7C%0A)
 
 
 
@@ -1008,7 +1008,7 @@ Take unprocessed staged logs, limit to 4x of batch size, gets their ids, keep ev
 
 
 
-You now have 4-way parallelism and queues are draining faster than they're filling 👌
+You now have 4-way parallelism and queues are draining faster than they&#x27;re filling 👌
 
 
 
@@ -1027,7 +1027,7 @@ You now have 4-way parallelism and queues are draining faster than they're filli
 
 
 
-To keep load on our database down, we tuned mixpanel processing to run only once per hour. We don't need those events to be real time, and we can always set their timestamp.
+To keep load on our database down, we tuned mixpanel processing to run only once per hour. We don&#x27;t need those events to be real time, and we can always set their timestamp.
 
 
 
@@ -1049,7 +1049,7 @@ This worked so well that we started logging everything. And that caused problems
 
 
 
-Each API request triggered a logging request. Gotta jot down that you made a request. It then triggered another logging request saying that it was successful. Or wasn't. And one more that the client code that relies on the request worked too.
+Each API request triggered a logging request. Gotta jot down that you made a request. It then triggered another logging request saying that it was successful. Or wasn&#x27;t. And one more that the client code that relies on the request worked too.
 
 
 
@@ -1058,7 +1058,7 @@ Each API request triggered a logging request. Gotta jot down that you made a req
 
 
 
-That's 4 hits on the API each time anything happens. No good.
+That&#x27;s 4 hits on the API each time anything happens. No good.
 
 
 
@@ -1081,11 +1081,11 @@ I introduced batching on the web client.
 
 
   
-[![](./img/techletter.app-screenshot-1545070347803.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20MAX_BATCH_SIZE%20%3D%20100%3B%0Aconst%20RETRY_AFTER_SECONDS%20%3D%2060%20*%201000%3B%0Aconst%20queue%20%3D%20new%20Queue(%22logging_queue%22)%3B%0Aconst%20BATCH_TIME%20%3D%20500%3B%0A%0Aqueue.observe(%0A%20%20%20%20(last_sent_at%20%3D%3E%0A%20%20%20%20%20%20%20%20function%20processQueue(queue%2C%20safeguard%20%3D%20true)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(shouldWaitToProcess(queue))%20return%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(shouldSendEvents(last_sent_at%2C%20queue))%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20last_sent_at%20%3D%20dequeueAndStoreEvents(queue)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20if%20(safeguard)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%20force%20process%20in%20BATCH_TIME%20milliseconds%2C%20if%20not%20processed%20before%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20setTimeout(%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(function(old_last_sent_at)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20(old_last_sent_at%20%3D%3D%3D%20last_sent_at)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20processQueue(queue%2C%20false)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D)(last_sent_at)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20BATCH_TIME%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D)(new%20Date())%0A)%3B%0A%0Afunction%20shouldWaitToProcess(queue)%20%7B%0A%20%20%20%20if%20(queue.length%20%3C%201)%20%7B%0A%20%20%20%20%20%20%20%20return%20true%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%2F%2F%20When%20API%20throws%20errors%2C%20we%20try%20to%20back%20off%0A%20%20%20%20const%20%7B%20last_tried_at%20%7D%20%3D%20queue.peek()%3B%0A%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%20%20last_tried_at%20%26%26%0A%20%20%20%20%20%20%20%20new%20Date().getTime()%20-%20last_tried_at%20%3C%20RETRY_AFTER_SECONDS%0A%20%20%20%20)%3B%0A%7D%0A%0Afunction%20shouldSendEvents(last_sent_at%2C%20queue)%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%20%20new%20Date()%20-%20last_sent_at%20%3E%20BATCH_TIME%20%7C%7C%20queue.length%20%3E%20MAX_BATCH_SIZE%0A%20%20%20%20)%3B%0A%7D%0A%0Afunction%20dequeueAndStoreEvents(queue)%20%7B%0A%20%20%20%20queue.dequeue(MAX_BATCH_SIZE).then(events%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20if%20(events)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20events%20%3D%20events.map(e%20%3D%3E%20e.payload)%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20storeEvents(events)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D)%3B%0A%20%20%20%20return%20new%20Date()%3B%0A%7D%0A%0Afunction%20storeEvents(events)%20%7B%0A%20%20%20%20return%20BaseAPIManager.makeAPICall(%7B%0A%20%20%20%20%20%20%20%20endPoint%3A%20%22%2Fapi%2Flog_entries%22%2C%0A%20%20%20%20%20%20%20%20method%3A%20%22POST%22%2C%0A%20%20%20%20%20%20%20%20parameters%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20events%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D).catch(err%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20if%20(LocalStorageHelper.isLocalStorageNameSupported())%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20events.forEach(event%20%3D%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20queue.enqueue(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20last_tried_at%3A%20new%20Date().getTime()%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20payload%3A%20event%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20%20%20%20%20%20%20)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D)%3B%0A%7D%0A)
+[![](./img/techletter.app-screenshot-1545070347803.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=const%20MAX_BATCH_SIZE%20%3D%20100%3B%0Aconst%20RETRY_AFTER_SECONDS%20%3D%2060%20*%201000%3B%0Aconst%20queue%20%3D%20new%20Queue(%22logging_queue%22)%3B%0Aconst%20BATCH_TIME%20%3D%20500%3B%0A%0Aqueue.observe(%0A%20%20%20%20(last_sent_at%20%3D%3E%0A%20%20%20%20%20%20%20%20function%20processQueue(queue%2C%20safeguard%20%3D%20true)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(shouldWaitToProcess(queue))%20return%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(shouldSendEvents(last_sent_at%2C%20queue))%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20last_sent_at%20%3D%20dequeueAndStoreEvents(queue)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20if%20(safeguard)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%20force%20process%20in%20BATCH_TIME%20milliseconds%2C%20if%20not%20processed%20before%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20setTimeout(%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(function(old_last_sent_at)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20(old_last_sent_at%20%3D%3D%3D%20last_sent_at)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20processQueue(queue%2C%20false)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D)(last_sent_at)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20BATCH_TIME%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D)(new%20Date())%0A)%3B%0A%0Afunction%20shouldWaitToProcess(queue)%20%7B%0A%20%20%20%20if%20(queue.length%20%3C%201)%20%7B%0A%20%20%20%20%20%20%20%20return%20true%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%2F%2F%20When%20API%20throws%20errors%2C%20we%20try%20to%20back%20off%0A%20%20%20%20const%20%7B%20last_tried_at%20%7D%20%3D%20queue.peek()%3B%0A%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%20%20last_tried_at%20%26%26%0A%20%20%20%20%20%20%20%20new%20Date().getTime()%20-%20last_tried_at%20%3C%20RETRY_AFTER_SECONDS%0A%20%20%20%20)%3B%0A%7D%0A%0Afunction%20shouldSendEvents(last_sent_at%2C%20queue)%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%20%20new%20Date()%20-%20last_sent_at%20%3E%20BATCH_TIME%20%7C%7C%20queue.length%20%3E%20MAX_BATCH_SIZE%0A%20%20%20%20)%3B%0A%7D%0A%0Afunction%20dequeueAndStoreEvents(queue)%20%7B%0A%20%20%20%20queue.dequeue(MAX_BATCH_SIZE).then(events%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20if%20(events)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20events%20%3D%20events.map(e%20%3D%3E%20e.payload)%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20storeEvents(events)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D)%3B%0A%20%20%20%20return%20new%20Date()%3B%0A%7D%0A%0Afunction%20storeEvents(events)%20%7B%0A%20%20%20%20return%20BaseAPIManager.makeAPICall(%7B%0A%20%20%20%20%20%20%20%20endPoint%3A%20%22%2Fapi%2Flog_entries%22%2C%0A%20%20%20%20%20%20%20%20method%3A%20%22POST%22%2C%0A%20%20%20%20%20%20%20%20parameters%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20events%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D).catch(err%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20if%20(LocalStorageHelper.isLocalStorageNameSupported())%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20events.forEach(event%20%3D%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20queue.enqueue(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20last_tried_at%3A%20new%20Date().getTime()%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20payload%3A%20event%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20%20%20%20%20%20%20)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D)%3B%0A%7D%0A)
 
 
 
-That's a lot of code and it isn't the easiest to understand. The code review was a struggle 😅
+That&#x27;s a lot of code and it isn&#x27;t the easiest to understand. The code review was a struggle 😅
 
 
 
@@ -1104,18 +1104,18 @@ The algorithm is rather simple tho:
 
 
 1. An event shows up on the queue
-2. If queue is actually empty, don't process
+2. If queue is actually empty, don&#x27;t process
 3. If API has been errorring out, back off
-4. If it's been more than `BATCH_TIME` (500ms) since last send, send
+4. If it&#x27;s been more than `BATCH_TIME` (500ms) since last send, send
 5. If queue is longer than `MAX_BATCH_SIZE` (100), send
 6. Get as many events from queue as can
 7. Send to API
 8. If error, put back on queue and wait
-9. If 4 or 5 didn't happen, wait for `BATCH_TIME` and try again
+9. If 4 or 5 didn&#x27;t happen, wait for `BATCH_TIME` and try again
 
 
 
-This ensures that events are only sent to the API every 500 milliseconds. We set a timer on every event in case a new event doesn't come along to trigger the process again. This ensures that no events stay lingering on the client.
+This ensures that events are only sent to the API every 500 milliseconds. We set a timer on every event in case a new event doesn&#x27;t come along to trigger the process again. This ensures that no events stay lingering on the client.
 
 
 
@@ -1146,7 +1146,7 @@ But 5 and 6 work only in theory. Yes, we have all the events stored in our datab
 
 
 
-But if you've ever tried querying a Postgres table with 500,000,000 rows that's growing by a million or two every day … well, a query can take an hour to execute if you aren't careful.
+But if you&#x27;ve ever tried querying a Postgres table with 500,000,000 rows that&#x27;s growing by a million or two every day … well, a query can take an hour to execute if you aren&#x27;t careful.
 
 
 
@@ -1173,7 +1173,7 @@ We have indexes for all \\important queries, carefully tuned so those queries ne
 
 
 
-For us that's the `created_day` index. It returns specific day's worth of entries.
+For us that&#x27;s the `created_day` index. It returns specific day&#x27;s worth of entries.
 
 
 
@@ -1191,7 +1191,7 @@ We ever so carefully made sure all our queries use sensible settings for that pa
 
 
 
-All those indexes started having an impact on our insert performance too. And in some cases they still weren't fast enough.
+All those indexes started having an impact on our insert performance too. And in some cases they still weren&#x27;t fast enough.
 
 
 
@@ -1200,7 +1200,7 @@ All those indexes started having an impact on our insert performance too. And in
 
 
 
-We introduced [table partitioning](https://www.postgresql.org/docs/10/ddl-partitioning.html). I don't know or understand the specifics, but I believe it's similar to sharding in NoSQL approaches.
+We introduced [table partitioning](https://www.postgresql.org/docs/10/ddl-partitioning.html). I don&#x27;t know or understand the specifics, but I believe it&#x27;s similar to sharding in NoSQL approaches.
 
 
 
@@ -1209,7 +1209,7 @@ We introduced [table partitioning](https://www.postgresql.org/docs/10/ddl-partit
 
 
 
-Postgres, behind the scenes, transparent to us, splits the table into week-long tables. That way each file on the hard drive holds no more than a week's worth of data, which makes it faster to read and easier to work with.
+Postgres, behind the scenes, transparent to us, splits the table into week-long tables. That way each file on the hard drive holds no more than a week&#x27;s worth of data, which makes it faster to read and easier to work with.
 
 
 
@@ -1227,7 +1227,7 @@ Our `logs` table is now a sort of view table. A process runs every week to creat
 
 
 
-Now our reads are fast too. A few seconds. Despite having hundreds of millions of rows. Just don't query across a week boundary or else.
+Now our reads are fast too. A few seconds. Despite having hundreds of millions of rows. Just don&#x27;t query across a week boundary or else.
 
 
 
@@ -1249,7 +1249,7 @@ Our logging system can handle all demands now.
 
 
 
-Client and backend engineers can log as many events as they want. They can log debugging info, monitor \\important systems, and it's easy to add or remove events.
+Client and backend engineers can log as many events as they want. They can log debugging info, monitor \\important systems, and it&#x27;s easy to add or remove events.
 
 
 
@@ -1276,7 +1276,7 @@ The API is fast. Events never get lost. And if doubts arise, systems fall down, 
 
 
 
-With more growth we'll have to spin off the logging service into its own service running on its own servers with its own database. It's already decoupled from the rest of the system. We are ready.
+With more growth we&#x27;ll have to spin off the logging service into its own service running on its own servers with its own database. It&#x27;s already decoupled from the rest of the system. We are ready.
 
 
 

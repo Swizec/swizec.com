@@ -19,7 +19,7 @@ Using strict comparisons is a great rule to follow. `===` instead of `==`, `!==`
 
 
 
-You're ensuring not only that your _values_ are equal or unequal, you ensure their _types_ match as well. Because [JavaScript has funny types](https://www.destroyallsoftware.com/talks/wat), strict comparison lets you avoid painful pain.
+You&#x27;re ensuring not only that your _values_ are equal or unequal, you ensure their _types_ match as well. Because [JavaScript has funny types](https://www.destroyallsoftware.com/talks/wat), strict comparison lets you avoid painful pain.
 
 
 
@@ -60,7 +60,7 @@ true
 
 
 
-Run a linter on those examples, and it will sagely say _"Dude, use strict comparison. ALWAYS use strict comparison.”_
+Run a linter on those examples, and it will sagely say _&quot;Dude, use strict comparison. ALWAYS use strict comparison.”_
 
 
 
@@ -87,7 +87,7 @@ false
 
 
 
-But here's one situation where it gets tricky. Checking undefinedness:
+But here&#x27;s one situation where it gets tricky. Checking undefinedness:
 
 
 
@@ -100,7 +100,7 @@ false
 
 
 
-Under loose comparison, `null` and `undefined` are equal. Under strict, they're not.
+Under loose comparison, `null` and `undefined` are equal. Under strict, they&#x27;re not.
 
 
 
@@ -108,7 +108,7 @@ This can cause all sorts of issues.
 
 
 
-Here are some examples I found in my coworker's PR. 👇
+Here are some examples I found in my coworker&#x27;s PR. 👇
 
 
 
@@ -121,7 +121,7 @@ if (url !== null) {
 
 
 
-But if your `elem` doesn't have a `data-url="..."` attribute, jQuery returns `undefined`, not `null`. Strict comparison fails.
+But if your `elem` doesn&#x27;t have a `data-url="..."` attribute, jQuery returns `undefined`, not `null`. Strict comparison fails.
 
 
 
@@ -137,7 +137,7 @@ function scroll({ elem, offset, duration }) {
 
 
 
-But if you call `scroll()` without duration, it's `undefined`, and your code breaks. No default duration for you. A better approach is to use destructuring defaults, like this: `function scroll({ elem, offset, duration = 2000 })`.
+But if you call `scroll()` without duration, it&#x27;s `undefined`, and your code breaks. No default duration for you. A better approach is to use destructuring defaults, like this: `function scroll({ elem, offset, duration = 2000 })`.
 
 
 
@@ -152,7 +152,7 @@ function get_id(widget) {
 
 
 
-But reading an inexistent object property returns `undefined`, not `null`, and this code breaks. Once more, you're better of relying on inherent falsiness 👉 `if (id)`.
+But reading an inexistent object property returns `undefined`, not `null`, and this code breaks. Once more, you&#x27;re better of relying on inherent falsiness 👉 `if (id)`.
 
 
 
@@ -168,7 +168,7 @@ function createWidget(defaultText, onClick, markBusy) {
 
 
 
-This one is tricky. It's trying to pass `markBusy` into the `Widget` constructor, but only if it's defined. You can't use default param values because there's no destructuring so hmm… 🤔
+This one is tricky. It&#x27;s trying to pass `markBusy` into the `Widget` constructor, but only if it&#x27;s defined. You can&#x27;t use default param values because there&#x27;s no destructuring so hmm… 🤔
 
 
 
@@ -176,7 +176,7 @@ Then again, the whole exercise is futile. You can achieve the same effect if you
 
 
 
-I guess my point is that you have to be careful. Don't blindly trust your linter when it says change `this code` to `that code`.
+I guess my point is that you have to be careful. Don&#x27;t blindly trust your linter when it says change `this code` to `that code`.
 
 
 

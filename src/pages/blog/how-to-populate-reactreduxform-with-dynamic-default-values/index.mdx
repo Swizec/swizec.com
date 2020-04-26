@@ -7,27 +7,27 @@ redirect_from:
 categories: "Front End, JavaScript, react, redux, Technical"
 hero: ../../../defaultHero.jpg
 ---
-https://youtu.be/O0P7YIiQm4Y?t=3579
+https&amp;#x3A;//youtu.be/O0P7YIiQm4Y?t=3579
 
 
 
-Here's a problem that took me embarrassingly long to solve: How do you populate dynamic values into a [react-redux-form](https://github.com/davidkpiano/react-redux-form)?
+Here&#x27;s a problem that took me embarrassingly long to solve: How do you populate dynamic values into a [react-redux-form](https://github.com/davidkpiano/react-redux-form)?
 
 
 
-First of all, react-redux-form is not the same as [redux-form](https://github.com/erikras/redux-form). They're similar but not the same. The internet is confused about this issue, and that makes googling hard.
+First of all, react-redux-form is not the same as [redux-form](https://github.com/erikras/redux-form). They&#x27;re similar but not the same. The internet is confused about this issue, and that makes googling hard.
 
 
 
-Second of all, we're talking about a form driven by Redux. Pre-filling it with default values should be as easy as filling out its Redux state. Right?
+Second of all, we&#x27;re talking about a form driven by Redux. Pre-filling it with default values should be as easy as filling out its Redux state. Right?
 
 
 
-Well, forms live in their own reducers that you don't have direct access to. They use a bunch of internal state to mark inputs as dirty and focused and whatnot. It's a mess.
+Well, forms live in their own reducers that you don&#x27;t have direct access to. They use a bunch of internal state to mark inputs as dirty and focused and whatnot. It&#x27;s a mess.
 
 
 
-Let's start at the beginning.
+Let&#x27;s start at the beginning.
 
 
 
@@ -35,15 +35,15 @@ Let's start at the beginning.
 
 
 
-Here's a simple form built using react-redux-form. It has two input fields. When you Submit, it outputs your values to the console.
+Here&#x27;s a simple form built using react-redux-form. It has two input fields. When you Submit, it outputs your values to the console.
 
 
 
-\[codepen_embed height="265" theme_id="0" slug_hash="Wdqgrp" default_tab="js,result" user="swizec"]See the Pen [ReactReduxForm - Quick Start](https://codepen.io/swizec/pen/Wdqgrp/) by Swizec Teller ([@swizec](https://codepen.io/swizec)) on [CodePen](https://codepen.io).\[/codepen_embed]
+\[codepen_embed height=&quot;265&quot; theme_id=&quot;0&quot; slug_hash=&quot;Wdqgrp&quot; default_tab=&quot;js,result&quot; user=&quot;swizec&quot;]See the Pen [ReactReduxForm - Quick Start](https://codepen.io/swizec/pen/Wdqgrp/) by Swizec Teller ([@swizec](https://codepen.io/swizec)) on [CodePen](https://codepen.io).\[/codepen_embed]
 
 
 
-Borrowed the code straight from [@davidkpiano's](https://twitter.com/davidkpiano) official Quick Start example.
+Borrowed the code straight from [@davidkpiano&#x27;s](https://twitter.com/davidkpiano) official Quick Start example.
 
 
 
@@ -68,7 +68,7 @@ const store = createStore(combineForms({
 
 
 
-You'd think you could add default values to `initialUserState`, and you can. Hold that thought… let's make sure we understand react-redux-form first :)
+You&#x27;d think you could add default values to `initialUserState`, and you can. Hold that thought… let&#x27;s make sure we understand react-redux-form first :)
 
 
 
@@ -112,15 +112,15 @@ class UserForm extends Component {
 
 
 
-The `render` method uses a `<Form>` component from react-redux-form. It comes with all the necessary Redux wiring so we don't have to worry about that.
+The `render` method uses a `<Form>` component from react-redux-form. It comes with all the necessary Redux wiring so we don&#x27;t have to worry about that.
 
 
 
-We use the children of that component to define how it renders. In our case, that's two `div`s, some labels, a submit button, and two `<Control.text>` components.
+We use the children of that component to define how it renders. In our case, that&#x27;s two `div`s, some labels, a submit button, and two `<Control.text>` components.
 
 
 
-`<Control.X>` components come with all the necessary wiring for our form to work. They'll handle focus, blur, default values, matching to correct parts of our model and so on. Everything we don't want to worry about manually.
+`<Control.X>` components come with all the necessary wiring for our form to work. They&#x27;ll handle focus, blur, default values, matching to correct parts of our model and so on. Everything we don&#x27;t want to worry about manually.
 
 
 
@@ -132,7 +132,7 @@ Wonderful 👌
 
 
 
-Back to that obvious thought. Why can't you just use `initialUserState` to define default values?
+Back to that obvious thought. Why can&#x27;t you just use `initialUserState` to define default values?
 
 
 
@@ -144,15 +144,15 @@ Let me explain.
 
 
 
-Your default form values are static, if you know them in advance. Like when you're writing your code. This is pretty rare.
+Your default form values are static, if you know them in advance. Like when you&#x27;re writing your code. This is pretty rare.
 
 
 
-What if you're building an edit form? You can't know values for your form until the user chooses what they're editing.
+What if you&#x27;re building an edit form? You can&#x27;t know values for your form until the user chooses what they&#x27;re editing.
 
 
 
-And that's when trouble begins.
+And that&#x27;s when trouble begins.
 
 
 
@@ -164,7 +164,7 @@ And that's when trouble begins.
 
 
 
-Here's how you do it:
+Here&#x27;s how you do it:
 
 
 
@@ -172,11 +172,11 @@ Here's how you do it:
 
 
 
-\[codepen_embed height="320" theme_id="0" slug_hash="wpLEEq" default_tab="js,result" user="swizec"]See the Pen [ReactReduxForm - Dynamic Default Values](https://codepen.io/swizec/pen/wpLEEq/) by Swizec Teller ([@swizec](https://codepen.io/swizec)) on [CodePen](https://codepen.io).\[/codepen_embed]
+\[codepen_embed height=&quot;320&quot; theme_id=&quot;0&quot; slug_hash=&quot;wpLEEq&quot; default_tab=&quot;js,result&quot; user=&quot;swizec&quot;]See the Pen [ReactReduxForm - Dynamic Default Values](https://codepen.io/swizec/pen/wpLEEq/) by Swizec Teller ([@swizec](https://codepen.io/swizec)) on [CodePen](https://codepen.io).\[/codepen_embed]
 
 
 
-Tap the "Change Defaults" button to pick a new random user. Its name will populate the form, and you can edit to your heart's content.
+Tap the &quot;Change Defaults&quot; button to pick a new random user. Its name will populate the form, and you can edit to your heart&#x27;s content.
 
 
 
@@ -197,7 +197,7 @@ const ConnectedForm = connect(null, mapDispatchToProps)(UserForm);
 
 
 
-The usual stuff. Use `connect` to connect to Redux, there's no props we need from state, and we use `mapDispatchToProps` to add a dispatch function called `setDefaultUser`.
+The usual stuff. Use `connect` to connect to Redux, there&#x27;s no props we need from state, and we use `mapDispatchToProps` to add a dispatch function called `setDefaultUser`.
 
 
 

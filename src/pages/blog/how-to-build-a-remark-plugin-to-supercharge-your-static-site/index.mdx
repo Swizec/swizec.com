@@ -11,11 +11,11 @@ Remark plugins are a little esoteric, and with the rise of Gatsby, they’re bec
 
 
 
-[Remark](https://github.com/remarkjs/remark) is a markdown parser built in JavaScript. "Parser" doesn't do Remark justice. Remark is a whole compiler ecosystem built on plugins.
+[Remark](https://github.com/remarkjs/remark) is a markdown parser built in JavaScript. &quot;Parser&quot; doesn&#x27;t do Remark justice. Remark is a whole compiler ecosystem built on plugins.
 
 
 
-It's the backbone of all Gatsby magic that involves converting markdown into HTML.
+It&#x27;s the backbone of all Gatsby magic that involves converting markdown into HTML.
 
 
 
@@ -27,11 +27,11 @@ There are [many Remark plugins](https://github.com/remarkjs/remark/blob/master/d
 
 
 
-https://www.youtube.com/watch?v=LWvaOGVHLfE
+https&amp;#x3A;//www.youtube.com/watch?v=LWvaOGVHLfE
 
 
 
-Because you want a feature you can't find yet. Simple as that.
+Because you want a feature you can&#x27;t find yet. Simple as that.
 
 
 
@@ -39,11 +39,11 @@ For me, it was two features, so I built 2 plugins. But I packaged them both in t
 
 
 
-Here's an early preview 👇
+Here&#x27;s an early preview 👇
 
 
 
-https://twitter.com/Swizec/status/1082086702926024705
+https&amp;#x3A;//twitter.com/Swizec/status/1082086702926024705
 
 
 
@@ -53,7 +53,7 @@ My `markdown-to-tweet` does 4 things:
 
 1. It converts `**bold**` text into utf8 bolds: 𝗯𝗼𝗹𝗱
 2. `_italic_` text into utf8 italics: 𝘪𝘵𝘢𝘭𝘪𝘤
-3. `\`code\`\` text into monospace: 𝚌𝚘𝚍𝚎
+3. `\`code\&#x60;\&#x60; text into monospace: 𝚌𝚘𝚍𝚎
 4. Code blocks into carbon.now.sh screenshots
 
 
@@ -66,7 +66,7 @@ Screenshots work through an AWS lambda I built for [techletter.app](https://tech
 
 
 
-Anyway, I couldn't find a remark plugin that does that, so I built my own. That was my excuse. [Kent C. Dodds](https://www.youtube.com/watch?v=NmXw8yMTjys) built one to turn YouTube and Twitter links into embeds on his blog.
+Anyway, I couldn&#x27;t find a remark plugin that does that, so I built my own. That was my excuse. [Kent C. Dodds](https://www.youtube.com/watch?v=NmXw8yMTjys) built one to turn YouTube and Twitter links into embeds on his blog.
 
 
 
@@ -84,7 +84,7 @@ Maybe I should release the underlying Remark plugins separately 🤔
 
 
 
-https://www.youtube.com/watch?v=X7mZAsfwYng
+https&amp;#x3A;//www.youtube.com/watch?v=X7mZAsfwYng
 
 
 
@@ -96,7 +96,7 @@ Like I said, you can think of Remark as a compiler ecosystem. If you look at the
 
 
 
-…your plugin sits squarely in that _"middle code generation"_ part.
+…your plugin sits squarely in that _&quot;middle code generation&quot;_ part.
 
 
 
@@ -125,7 +125,7 @@ You \\import `remark` and `remark-html`, instantiate remark, and tell it to use 
 
 
 
-Remark itself doesn't do much. It uses [unified](https://github.com/unifiedjs/unified) under the hood to parse Markdown into a MDAST – markdown abstract syntax tree.
+Remark itself doesn&#x27;t do much. It uses [unified](https://github.com/unifiedjs/unified) under the hood to parse Markdown into a MDAST – markdown abstract syntax tree.
 
 
 
@@ -137,11 +137,11 @@ Plugins take this syntax tree and perform transformations. The html plugin, for 
 
 
 
-Thinking in abstract syntax trees is hard. Lots of recursion and strange patterns if you want to do it yourself. Just think of the last time you tried manipulating the DOM directly. It's a mess.
+Thinking in abstract syntax trees is hard. Lots of recursion and strange patterns if you want to do it yourself. Just think of the last time you tried manipulating the DOM directly. It&#x27;s a mess.
 
 
 
-Lucky for you, the Remark/Unified ecosystem comes with helper methods. It's like having jQuery for abstract syntax trees.
+Lucky for you, the Remark/Unified ecosystem comes with helper methods. It&#x27;s like having jQuery for abstract syntax trees.
 
 
 
@@ -179,7 +179,7 @@ Simple as that. Let me explain.
 
 
 
-You \\import the `visit` helper from Unified utilities, prefixed always with `unist-util` for some reason. There's also a `map` and a `reduce` and all the other methods you commonly use to work with data.
+You \\import the `visit` helper from Unified utilities, prefixed always with `unist-util` for some reason. There&#x27;s also a `map` and a `reduce` and all the other methods you commonly use to work with data.
 
 
 
@@ -187,7 +187,7 @@ The `visit` method deals with the mess and recursion of navigating around an abs
 
 
 
-Your `transformer` function gets the current `tree` and a reference to the `file` that's being compiled.
+Your `transformer` function gets the current `tree` and a reference to the `file` that&#x27;s being compiled.
 
 
 
@@ -224,15 +224,15 @@ function bold(node) {
 
 
 
-You can do whatever you want. In this case, we're changing node type to `text` so future plugins know not to mess with it. Then we take all its children, which are `text` nodes, transform their text, and set the resulting string as the `value` of the current node.
+You can do whatever you want. In this case, we&#x27;re changing node type to `text` so future plugins know not to mess with it. Then we take all its children, which are `text` nodes, transform their text, and set the resulting string as the `value` of the current node.
 
 
 
-Text nodes with values are the lowest level in MDAST. They're strings that (usually) don't get changed further and eventually flatten into your output.
+Text nodes with values are the lowest level in MDAST. They&#x27;re strings that (usually) don&#x27;t get changed further and eventually flatten into your output.
 
 
 
-Changing node type is very \\important if you don't want other plugins to mess with your changes. Or if you _do_ and want to tell them how.
+Changing node type is very \\important if you don&#x27;t want other plugins to mess with your changes. Or if you _do_ and want to tell them how.
 
 
 
@@ -244,7 +244,7 @@ This is called [the visitor pattern](https://en.wikipedia.org/wiki/Visitor_patte
 
 
 
-https://www.youtube.com/watch?v=uzzvwnjtaPs
+https&amp;#x3A;//www.youtube.com/watch?v=uzzvwnjtaPs
 
 
 
@@ -252,7 +252,7 @@ Asynchronous Remark plugins is where it gets tricky. Remark _does_ support async
 
 
 
-Thanks to [Huy Nguyen's post](https://www.huynguyen.io/2018-05-remark-gatsby-plugin-part-3/) for helping me figure it out.
+Thanks to [Huy Nguyen&#x27;s post](https://www.huynguyen.io/2018-05-remark-gatsby-plugin-part-3/) for helping me figure it out.
 
 
 
@@ -265,7 +265,7 @@ Async plugins work in two phases:
 
 
 
-Around that, your transformer has to return a Promise and resolve it after you're done changing nodes. Like this 👇
+Around that, your transformer has to return a Promise and resolve it after you&#x27;re done changing nodes. Like this 👇
 
 
 
@@ -319,11 +319,11 @@ visit(tree, "code", node => {
 
 
 
-The first step collects nodes we want to change. We're still using the visitor pattern with the `visit` helper.
+The first step collects nodes we want to change. We&#x27;re still using the visitor pattern with the `visit` helper.
 
 
 
-But instead of changing the nodes, we push them into a `nodesToChange` array. That's because the `visit` function can't deal with asynchronous code.
+But instead of changing the nodes, we push them into a `nodesToChange` array. That&#x27;s because the `visit` function can&#x27;t deal with asynchronous code.
 
 
 
@@ -359,7 +359,7 @@ We `await` that url, then change the node. This is where I should change the nod
 
 
 
-Thanks to how `await` magic works, we know our loop finishes only once all the URls have been fetched from the internet. We call `resolve()` to tell Remark we're done transforming nodes.
+Thanks to how `await` magic works, we know our loop finishes only once all the URls have been fetched from the internet. We call `resolve()` to tell Remark we&#x27;re done transforming nodes.
 
 
 
@@ -377,7 +377,7 @@ Remark handles the rest.
 
 
 
-That's how you build a Remark plugin. You have a new superpower 💪
+That&#x27;s how you build a Remark plugin. You have a new superpower 💪
 
 
 
@@ -385,4 +385,4 @@ Please use it to add wonderful magnificent things to the Remark and Gatsby ecosy
 
 
 
-Everyone's moving their blogs to Gatsby right now. It's hot. **You** can make them hotter!
+Everyone&#x27;s moving their blogs to Gatsby right now. It&#x27;s hot. **You** can make them hotter!

@@ -7,7 +7,7 @@ redirect_from:
 categories: "Front End, preact, react, Technical"
 hero: ./img/blog-wp-content-uploads-2018-02-react-wrap-preact.png
 ---
-https://www.youtube.com/watch?v=sdxz_1A8zFk
+https&amp;#x3A;//www.youtube.com/watch?v=sdxz_1A8zFk
 
 
 
@@ -15,7 +15,7 @@ Have you ever wanted to render a [Preact](https://preactjs.com/) component insid
 
 
 
-It's hard, right? First of all, why? [Because](https://swizec.com/blog/building-interactive-dom-benchmark-preliminary-results/swizec/8219). Second of all, how do you reconcile the two different implementations of JSX?
+It&#x27;s hard, right? First of all, why? [Because](https://swizec.com/blog/building-interactive-dom-benchmark-preliminary-results/swizec/8219). Second of all, how do you reconcile the two different implementations of JSX?
 
 
 
@@ -41,11 +41,11 @@ I am a header
 
 
 
-Where they differ greatly is what that `<h1>I am a header</h1>` compiles to. For React, it's a `createElement()` call. For Preact ,it's a `h()` call.
+Where they differ greatly is what that `<h1>I am a header</h1>` compiles to. For React, it&#x27;s a `createElement()` call. For Preact ,it&#x27;s a `h()` call.
 
 
 
-And that's where the trouble begins.
+And that&#x27;s where the trouble begins.
 
 
 
@@ -57,26 +57,26 @@ I got this idea from Jason himself.
 
 
 
-> Set your pragma to \`h\` and conditionally assign h within the scope you want:  
+> Set your pragma to \&#x60;h\&#x60; and conditionally assign h within the scope you want:  
 >   
 > /\*\* [@jsx](https://twitter.com/jsx?ref_src=twsrc%5Etfw) h \*/  
-> \\import React from 'react'  
-> \\import { h } from 'preact'  
+> \\import React from &#x27;react&#x27;  
+> \\import { h } from &#x27;preact&#x27;  
 >   
-> const WithReact = () => {  
+> const WithReact = () =&gt; {  
 > let h = React.createElement;  
-> return <div>react</div>  
+> return &amp;lt;div&gt;react&amp;lt;/div&gt;  
 > }  
 >   
-> const WithPreact = () => (  
-> <div>preact</div>  
+> const WithPreact = () =&gt; (  
+> &amp;lt;div&gt;preact&amp;lt;/div&gt;  
 > )
 >
 > — Jason Miller 🦊⚛ (@\_developit) [February 26, 2018](https://twitter.com/_developit/status/968143181694033921?ref_src=twsrc%5Etfw)
 
 
 
-Here's how it looks in code 👇
+Here&#x27;s how it looks in code 👇
 
 
 
@@ -88,9 +88,9 @@ There are 4 parts to this:
 
 
 
-1. Tell Babel to use `h` for the JSX function. That's the `/** @jsx h */` magic comment at the top.
-2. Import both React and Preact. You'll need both.
-3. Make a Preact component. Or take one from somewhere else. It doesn't matter. Whatever you want :)
+1. Tell Babel to use `h` for the JSX function. That&#x27;s the `/** @jsx h */` magic comment at the top.
+2. Import both React and Preact. You&#x27;ll need both.
+3. Make a Preact component. Or take one from somewhere else. It doesn&#x27;t matter. Whatever you want :)
 4. Create a `<Wrapper />` React component
 
 
@@ -99,7 +99,7 @@ That `<Wrapper />` component is where the magic happens.
 
 
 
-The `render()` method sets `h` to `React.createElement` and outputs an anchor div. Setting `h` ensures that this part of JSX compiles into React's `createElement` calls. This makes the component integrate seamlessly with the rest of your project.
+The `render()` method sets `h` to `React.createElement` and outputs an anchor div. Setting `h` ensures that this part of JSX compiles into React&#x27;s `createElement` calls. This makes the component integrate seamlessly with the rest of your project.
 
 
 
@@ -111,11 +111,11 @@ Same as my [React D3 blackbox](https://swizec.com/blog/translate-random-d3-examp
 
 
 
-In `renderPreact`, we then use Preact's `render()` function to render the Preact component into our anchor div. This works the same way as Preact's normal DOM rendering where you call `render(<App />, document.getElementById('root'))` to put your app into a root div.
+In `renderPreact`, we then use Preact&#x27;s `render()` function to render the Preact component into our anchor div. This works the same way as Preact&#x27;s normal DOM rendering where you call `render(<App />, document.getElementById('root'))` to put your app into a root div.
 
 
 
-The JSX compiles into Preact's `h()` calls because we didn't mess with the setting, and React refs give us a direct reference to the anchor DOM node.
+The JSX compiles into Preact&#x27;s `h()` calls because we didn&#x27;t mess with the setting, and React refs give us a direct reference to the anchor DOM node.
 
 
 
@@ -131,7 +131,7 @@ The JSX compiles into Preact's `h()` calls because we didn't mess with the setti
 
 
 
-You can now compare React and Preact side-by-side in my [interactive DOM benchmark](https://dom-benchmark.now.sh/). I think it's a fair comparison because Preact handles its own internals.
+You can now compare React and Preact side-by-side in my [interactive DOM benchmark](https://dom-benchmark.now.sh/). I think it&#x27;s a fair comparison because Preact handles its own internals.
 
 
 
@@ -139,4 +139,4 @@ You can now compare React and Preact side-by-side in my [interactive DOM benchma
 
 
 
-Numbers are kinda high though. Preact is supposed to be faster than React because it's closer to the metal. I wonder if it's running in dev mode 🤔
+Numbers are kinda high though. Preact is supposed to be faster than React because it&#x27;s closer to the metal. I wonder if it&#x27;s running in dev mode 🤔

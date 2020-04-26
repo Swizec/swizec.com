@@ -11,7 +11,7 @@ hero: ./img/blog-wp-content-uploads-2016-10-react-eject.png
 
 
 
-`create-react-app` is the best thing that's happened to the React ecosystem since React 14 gave us functional components. No more messing around with random boilerplates or manual headaches around setting up your project from scratch.
+`create-react-app` is the best thing that&#x27;s happened to the React ecosystem since React 14 gave us functional components. No more messing around with random boilerplates or manual headaches around setting up your project from scratch.
 
 
 
@@ -19,11 +19,11 @@ Instead, you run `create-react-app MyThing`, and it sets everything up.
 
 
 
-If you like MobX, there's a crucial piece missing: decorators. You don't have to use decorators with MobX, but that's like saying you don't _have to_ use JSX with React. You don't "have to”; you "want to". Because that's what the library was designed for.
+If you like MobX, there&#x27;s a crucial piece missing: decorators. You don&#x27;t have to use decorators with MobX, but that&#x27;s like saying you don&#x27;t _have to_ use JSX with React. You don&#x27;t &quot;have to”; you &quot;want to&quot;. Because that&#x27;s what the library was designed for.
 
 
 
-MobX is a state management competitor to Redux, by the way. I like it because there's almost no boilerplate. We've been using at The Day Job™ and it's been amaze so far.
+MobX is a state management competitor to Redux, by the way. I like it because there&#x27;s almost no boilerplate. We&#x27;ve been using at The Day Job™ and it&#x27;s been amaze so far.
 
 
 
@@ -50,19 +50,19 @@ You can think of decorators as function wrappers. A sort of functional compositi
 
 
 
-The observer decorator automatically runs a component’s `render` method when MobX detects a change in a store value that `render` references. Yes, MobX circumvents React's own prop and state change detection.
+The observer decorator automatically runs a component’s `render` method when MobX detects a change in a store value that `render` references. Yes, MobX circumvents React&#x27;s own prop and state change detection.
 
 
 
-I'm not sure yet how I feel about that, but so far, so good. Can't complain.
+I&#x27;m not sure yet how I feel about that, but so far, so good. Can&#x27;t complain.
 
 
 
-It's those decorators that make working with MobX powerful and concise. But `create-react-app` doesn't enable them because of some interesting history. They used to be in Babel 5, then Babel 6 removed them because the official spec got pushed back.
+It&#x27;s those decorators that make working with MobX powerful and concise. But `create-react-app` doesn&#x27;t enable them because of some interesting history. They used to be in Babel 5, then Babel 6 removed them because the official spec got pushed back.
 
 
 
-There's a Babel plugin you can use, but `create-react-app` maintainers have decided not to include it.
+There&#x27;s a Babel plugin you can use, but `create-react-app` maintainers have decided not to include it.
 
 
 
@@ -70,7 +70,7 @@ There's a Babel plugin you can use, but `create-react-app` maintainers have deci
 
 
 
-Ok, so here's what you do when setting up a new React app:
+Ok, so here&#x27;s what you do when setting up a new React app:
 
 
 
@@ -78,11 +78,11 @@ Ok, so here's what you do when setting up a new React app:
 
 
 
-**2)** Run `npm run eject`. This moves files around and makes your app's configuration accessible.
+**2)** Run `npm run eject`. This moves files around and makes your app&#x27;s configuration accessible.
 
 
 
-**3)** Run `npm install --saveDev babel-plugin-transform-decorators-legacy`. This installs the Babel plugin for decorators. It's called `legacy` even though it's a feature from the far future.
+**3)** Run `npm install --saveDev babel-plugin-transform-decorators-legacy`. This installs the Babel plugin for decorators. It&#x27;s called `legacy` even though it&#x27;s a feature from the far future.
 
 
 
@@ -107,4 +107,4 @@ Ok, so here's what you do when setting up a new React app:
 
 
 
-You're ready to go. Happy hacking! ?
+You&#x27;re ready to go. Happy hacking! ?

@@ -7,7 +7,7 @@ redirect_from:
 categories: "blockchain, Front End, Livecoding, react, redux"
 hero: ./img/blog-wp-content-uploads-2018-04-firebase-blockchain-init.png
 ---
-https://www.youtube.com/watch?v=N9YIInvZZEU
+https&amp;#x3A;//www.youtube.com/watch?v=N9YIInvZZEU
 
 
 
@@ -15,7 +15,7 @@ Sunday was fun. We built a thing! 🎉
 
 
 
-Well… we added a thing to the You Can Use Blockchain To Store And Share UI State proof of concept I've been livecoding on. I'd share a live link with you, but… err… the app broke.
+Well… we added a thing to the You Can Use Blockchain To Store And Share UI State proof of concept I&#x27;ve been livecoding on. I&#x27;d share a live link with you, but… err… the app broke.
 
 
 
@@ -23,7 +23,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-It was working, you see. Then it wasn't. Infinite loop on page load.
+It was working, you see. Then it wasn&#x27;t. Infinite loop on page load.
 
 
 
@@ -35,11 +35,11 @@ Next time! I promise.
 
 
 
-We did get _something_ working, however. When you `dispatch` an action on `blockchain-redux`, the generated block is shared live with all other clients. That sharing still happens via Firebase, so it's not thaaaat impressive, but it's a step in the right direction.
+We did get _something_ working, however. When you `dispatch` an action on `blockchain-redux`, the generated block is shared live with all other clients. That sharing still happens via Firebase, so it&#x27;s not thaaaat impressive, but it&#x27;s a step in the right direction.
 
 
 
-https://twitter.com/Swizec/status/983112275526496256
+https&amp;#x3A;//twitter.com/Swizec/status/983112275526496256
 
 
 
@@ -47,7 +47,7 @@ See, you create new benchmark measurements in one browser window, and the other 
 
 
 
-Here's how it works 👇
+Here&#x27;s how it works 👇
 
 
 
@@ -59,7 +59,7 @@ Long validation times got you down? Blockchain-redux is all real-time with the `
 
 
 
-In part that's because there's no _real_ consensus algorithm. Any valid block is accepted to the chain. Longest chain wins by default.
+In part that&#x27;s because there&#x27;s no _real_ consensus algorithm. Any valid block is accepted to the chain. Longest chain wins by default.
 
 
 
@@ -67,7 +67,7 @@ You may have seen [how blockchain initialization works](https://swizec.com/blog/
 
 
 
-\[caption id="attachment_8319" align="alignnone" width="1564"]![Initializing the blockchain from Firebase](./img/blog-wp-content-uploads-2018-04-firebase-blockchain-init.png) Initializing the blockchain from Firebase\[/caption]
+\[caption id=&quot;attachment_8319&quot; align=&quot;alignnone&quot; width=&quot;1564&quot;]![Initializing the blockchain from Firebase](./img/blog-wp-content-uploads-2018-04-firebase-blockchain-init.png) Initializing the blockchain from Firebase\[/caption]
 
 
 
@@ -75,11 +75,11 @@ You can read more [details about this code in a previous blogpost](https://swize
 
 
 
-The part that's new is calling `listenForNextBlock` after replacing the local chain.
+The part that&#x27;s new is calling `listenForNextBlock` after replacing the local chain.
 
 
 
-\[caption id="attachment_8318" align="alignnone" width="1498"]![Listen for the next block](./img/blog-wp-content-uploads-2018-04-wait-for-next-block.png) Listen for the next block\[/caption]
+\[caption id=&quot;attachment_8318&quot; align=&quot;alignnone&quot; width=&quot;1498&quot;]![Listen for the next block](./img/blog-wp-content-uploads-2018-04-wait-for-next-block.png) Listen for the next block\[/caption]
 
 
 
@@ -103,7 +103,7 @@ All this real-time sharing is completely invisible to your app. You build your c
 
 
 
-To initialize the blockchain and render a live count of nodes, you'd do something like this 👇
+To initialize the blockchain and render a live count of nodes, you&#x27;d do something like this 👇
 
 
 
@@ -212,15 +212,15 @@ And to add a new block? Just call `dispatch` and have a reducer. Blockchain-redu
 
 
 
-Still have to resolve a few TODO comments around block conflicts. What happens if your network is slow and you add blocks locally that other clients haven't seen and you get blocks from the outside world that conflict? Which do you pick?
+Still have to resolve a few TODO comments around block conflicts. What happens if your network is slow and you add blocks locally that other clients haven&#x27;t seen and you get blocks from the outside world that conflict? Which do you pick?
 
 
 
-I'm not sure yet.
+I&#x27;m not sure yet.
 
 
 
-Plus I really want to move away from Firebase. That's gonna be fun.
+Plus I really want to move away from Firebase. That&#x27;s gonna be fun.
 
 
 

@@ -7,7 +7,7 @@ redirect_from:
 categories: "Front End, react, Technical"
 hero: ./img/blog-wp-content-uploads-2016-12-Screen-Shot-2016-12-02-at-07.59.53.png
 ---
-Let's take an example from [my day job](https://www.yup.com). An onboarding step for new tutors is a subject exam. It starts with this page:
+Let&#x27;s take an example from [my day job](https://www.yup.com). An onboarding step for new tutors is a subject exam. It starts with this page:
 
 
 
@@ -15,7 +15,7 @@ Let's take an example from [my day job](https://www.yup.com). An onboarding step
 
 
 
-In this case, the applicant has already flunked chemistry, we're not accepting physics, and they can still take a math exam. To build this, we need data about the current user, about the subjects, and how they relate to each other.
+In this case, the applicant has already flunked chemistry, we&#x27;re not accepting physics, and they can still take a math exam. To build this, we need data about the current user, about the subjects, and how they relate to each other.
 
 
 
@@ -23,7 +23,7 @@ In this case, the applicant has already flunked chemistry, we're not accepting p
 
 
 
-Building a basic model with MobX is straightforward once you discover `extendObservable`. It's a store that gets its properties from the API.
+Building a basic model with MobX is straightforward once you discover `extendObservable`. It&#x27;s a store that gets its properties from the API.
 
 
 
@@ -64,7 +64,7 @@ We call `fetchFromAPI` to fetch the user data, use a `url` computed value for th
 
 
 
-This approach embraces [duck typing](https://en.wikipedia.org/wiki/Duck_typing). There's no advance declaration of what a user model looks like. No description of properties, nothing you can rely on just by looking at the code. You're just gonna have to try to access a property and hope it works.
+This approach embraces [duck typing](https://en.wikipedia.org/wiki/Duck_typing). There&#x27;s no advance declaration of what a user model looks like. No description of properties, nothing you can rely on just by looking at the code. You&#x27;re just gonna have to try to access a property and hope it works.
 
 
 
@@ -76,7 +76,7 @@ But when your model looks like this:
 
 
 
-Do you really want to type all of that out? No, you don't.
+Do you really want to type all of that out? No, you don&#x27;t.
 
 
 
@@ -111,7 +111,7 @@ when(() => user.subject_statuses,
 
 
 
-Let's have a `mainStore` that looks a lot like the `User` model above. It may look like the `User` model, but it fetches a bunch of things about the environment, one of which is the current user's id, another of which is a list of subjects.
+Let&#x27;s have a `mainStore` that looks a lot like the `User` model above. It may look like the `User` model, but it fetches a bunch of things about the environment, one of which is the current user&#x27;s id, another of which is a list of subjects.
 
 
 
@@ -140,7 +140,7 @@ Whoa, did you see that? We fetched data, took the `currentUser.id`, then deleted
 
 
 
-The API returns an object with many properties. In our example, let's assume it looks like this:
+The API returns an object with many properties. In our example, let&#x27;s assume it looks like this:
 
 
 
@@ -160,7 +160,7 @@ The API returns an object with many properties. In our example, let's assume it 
 
 
 
-We want to avoid writing a bunch of boilerplate, so we use the `extendObservable` trick to set everything. But we don't want to overwrite our custom `currentUser`, which is a proper MobX model, not just an observable.
+We want to avoid writing a bunch of boilerplate, so we use the `extendObservable` trick to set everything. But we don&#x27;t want to overwrite our custom `currentUser`, which is a proper MobX model, not just an observable.
 
 
 
@@ -168,7 +168,7 @@ So we have to delete that part of the data before extending. Awkward.
 
 
 
-And _why_ do we want `User` to be more than just an observable? Because it's going to need `@computed` values. We might re-fetch the model at random points or perform many actions that save stuff to the backend, change frontend state, and so on.
+And _why_ do we want `User` to be more than just an observable? Because it&#x27;s going to need `@computed` values. We might re-fetch the model at random points or perform many actions that save stuff to the backend, change frontend state, and so on.
 
 
 
@@ -176,7 +176,7 @@ Dealing with all of that in `MainStore` would get hairy fast.
 
 
 
-You're right. From the perspective of this example, that's a total [YAGNI](https://en.wikipedia.org/wiki/You_aren't_gonna_need_it) - ya ain't gonna need it. But bear with me.
+You&#x27;re right. From the perspective of this example, that&#x27;s a total [YAGNI](https://en.wikipedia.org/wiki/You_aren&#x27;t_gonna_need_it) - ya ain&#x27;t gonna need it. But bear with me.
 
 
 
@@ -235,7 +235,7 @@ const Subject = observer(({ subject }) => (
 
 
 
-Not as pretty as the screenshot, but all that HTML and styling is irrelevant right now, so I took it out. Ours renders the subject name in an `h3` tag, and a string `Go for it` if you can take this exam or `LoL Nope` if you can't.
+Not as pretty as the screenshot, but all that HTML and styling is irrelevant right now, so I took it out. Ours renders the subject name in an `h3` tag, and a string `Go for it` if you can take this exam or `LoL Nope` if you can&#x27;t.
 
 
 
@@ -243,23 +243,23 @@ Now, the trouble; can you see it?
 
 
 
-It's that `subject.userStatus.can_start_exam` bit. You see, we've found ourselves staring at a piece of data that lies _between_ concepts.
+It&#x27;s that `subject.userStatus.can_start_exam` bit. You see, we&#x27;ve found ourselves staring at a piece of data that lies _between_ concepts.
 
 
 
-Ask a subject if it's startable and it needs to know who you're asking about. Ask a user and it needs to know which subject you're asking about. It _smells_ like a computable value, but where?
+Ask a subject if it&#x27;s startable and it needs to know who you&#x27;re asking about. Ask a user and it needs to know which subject you&#x27;re asking about. It _smells_ like a computable value, but where?
 
 
 
-Computables can't take arguments.
+Computables can&#x27;t take arguments.
 
 
 
-So even though the `User` model has this data – stored in `subject_statuses` – we can't put the computed there. It can't go in `MainStore` either because that too would require arguments.
+So even though the `User` model has this data – stored in `subject_statuses` – we can&#x27;t put the computed there. It can&#x27;t go in `MainStore` either because that too would require arguments.
 
 
 
-_"Dude, it's called a method. Just use a method"_, right?
+_&quot;Dude, it&#x27;s called a method. Just use a method&quot;_, right?
 
 
 
@@ -289,7 +289,7 @@ class Subject {
 
 
 
-It takes a reference to `currentUser` and raw data about itself then uses `extendObservable` to set it all up. We've added a computed `userStatus` method that goes to `currentUser` and finds the correct data.
+It takes a reference to `currentUser` and raw data about itself then uses `extendObservable` to set it all up. We&#x27;ve added a computed `userStatus` method that goes to `currentUser` and finds the correct data.
 
 
 
@@ -297,7 +297,7 @@ This part is awkward, too. A model that returns information from a different mod
 
 
 
-I'm not sure. Maybe it's dumb. Maybe I'm dumb. I think it makes sense.
+I&#x27;m not sure. Maybe it&#x27;s dumb. Maybe I&#x27;m dumb. I think it makes sense.
 
 
 
@@ -335,8 +335,8 @@ Not very elegant, is it? And I think the `subjects` array stopped being observab
 
 
 
-It would be nice if `extendObservable` could do this for us. I'm sure it's possible as long as model constructors are forced to follow a common pattern.
+It would be nice if `extendObservable` could do this for us. I&#x27;m sure it&#x27;s possible as long as model constructors are forced to follow a common pattern.
 
 
 
-But maybe that exists already and I don't know about it? Would def be a fun opensource project. ?
+But maybe that exists already and I don&#x27;t know about it? Would def be a fun opensource project. ?

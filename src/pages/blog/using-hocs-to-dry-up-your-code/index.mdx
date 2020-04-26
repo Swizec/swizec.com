@@ -7,7 +7,7 @@ redirect_from:
 categories: "Front End, react, Technical"
 hero: ../../../defaultHero.jpg
 ---
-Higher order components – HOCs – are one of the best ways to improve your React code. When you see a lot of components sharing similar code, it's time for a HOC.
+Higher order components – HOCs – are one of the best ways to improve your React code. When you see a lot of components sharing similar code, it&#x27;s time for a HOC.
 
 
 
@@ -86,7 +86,7 @@ This is a Backbone integration HOC based on [my approach to integrating React, M
 
 
 
-The same approach _should_ work with any component-based library like Preact, Inferno, and Vue, but I haven't tried yet.
+The same approach _should_ work with any component-based library like Preact, Inferno, and Vue, but I haven&#x27;t tried yet.
 
 
 
@@ -102,7 +102,7 @@ The first step is to take everything generic out of your component and put it in
 
 
 
-If you can't tell what's generic, wait until you have two components that look similar. Any boilerplate they share is a good candidate for a HOC.
+If you can&#x27;t tell what&#x27;s generic, wait until you have two components that look similar. Any boilerplate they share is a good candidate for a HOC.
 
 
 
@@ -121,7 +121,7 @@ Soooo… everything. ?
 
 
 
-We're leaving React's `render()` method out of the HOC to give consumers better flexibility, and we're adding the ability to set Backbone params. Those are \\important.
+We&#x27;re leaving React&#x27;s `render()` method out of the HOC to give consumers better flexibility, and we&#x27;re adding the ability to set Backbone params. Those are \\important.
 
 
 
@@ -193,15 +193,15 @@ Looks almost the same as [our original implementation](https://swizec.com/blog/b
 
 
 
-`constructor` sets up `autorun` so our component can react to MobX store changes. This automatically turns our Backbone'd components into observers, but I like to include the `@observer` call when using them anyway. Helps with readability :)
+`constructor` sets up `autorun` so our component can react to MobX store changes. This automatically turns our Backbone&#x27;d components into observers, but I like to include the `@observer` call when using them anyway. Helps with readability :)
 
 
 
-The `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` methods ensure our Backbone View gets rendered, re-rendered, and cleaned up when appropriate. Each method includes a hook for users of our HOC to add their own lifecycle logic. I haven't really had a use for this yet, but I think it's a good idea to have.
+The `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` methods ensure our Backbone View gets rendered, re-rendered, and cleaned up when appropriate. Each method includes a hook for users of our HOC to add their own lifecycle logic. I haven&#x27;t really had a use for this yet, but I think it&#x27;s a good idea to have.
 
 
 
-`_init`, `_render`, and `_cleanup` handle the actual Backbone stuff. They're helper methods that make it easier to reuse bits in different React lifecycle methods.
+`_init`, `_render`, and `_cleanup` handle the actual Backbone stuff. They&#x27;re helper methods that make it easier to reuse bits in different React lifecycle methods.
 
 
 
@@ -213,7 +213,7 @@ The `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` method
 
 
 
-To turn this component into a real HOC, we have to wrap it in a function. You could call this function an [class factory](https://en.wikipedia.org/wiki/Factory_method_pattern) because that's what it is. It creates classes.
+To turn this component into a real HOC, we have to wrap it in a function. You could call this function an [class factory](https://en.wikipedia.org/wiki/Factory_method_pattern) because that&#x27;s what it is. It creates classes.
 
 
 
@@ -241,11 +241,11 @@ Congratulations, you have made a HOC.
 
 
 
-Now here's a tricky part. Adding more arguments – like which Backbone View to wrap with – requires currying. At least it does if you want to use your HOC as a decorator like I did.
+Now here&#x27;s a tricky part. Adding more arguments – like which Backbone View to wrap with – requires currying. At least it does if you want to use your HOC as a decorator like I did.
 
 
 
-[Currying](https://en.wikipedia.org/wiki/Currying) means that instead of having functions with multiple arguments, we create a composition of single-argument functions. I'm not entirely certain _why_ currying is all the rage, but it makes many approaches to functional programming easier to use.
+[Currying](https://en.wikipedia.org/wiki/Currying) means that instead of having functions with multiple arguments, we create a composition of single-argument functions. I&#x27;m not entirely certain _why_ currying is all the rage, but it makes many approaches to functional programming easier to use.
 
 
 
@@ -265,7 +265,7 @@ function backbone(BackboneView) {
 
 
 
-Now the logic inside your HOC can use `BackboneView` to decide which component to use. This means that you don't need a new HOC for every Backbone View you want to make available in React. Wonderful.
+Now the logic inside your HOC can use `BackboneView` to decide which component to use. This means that you don&#x27;t need a new HOC for every Backbone View you want to make available in React. Wonderful.
 
 
 
@@ -301,7 +301,7 @@ class Toolbox extends Component {
 
 
 
-Inside `render()`, we use `this.anchor` anywhere we want to place the anchor point for our Backbone View. In this case we're rendering just that, but in others we might want to wrap it with useful markup that makes it look better in its new context.
+Inside `render()`, we use `this.anchor` anywhere we want to place the anchor point for our Backbone View. In this case we&#x27;re rendering just that, but in others we might want to wrap it with useful markup that makes it look better in its new context.
 
 
 
@@ -309,11 +309,11 @@ Inside `render()`, we use `this.anchor` anywhere we want to place the anchor poi
 
 
 
-HOCs are great, and I wish I started using them earlier. There's definitely going to be a chapter about HOCses in the [new version of React+D3](http://swizec.com/reactd3js/). Some prime targets for this stuff in there.
+HOCs are great, and I wish I started using them earlier. There&#x27;s definitely going to be a chapter about HOCses in the [new version of React+D3](http://swizec.com/reactd3js/). Some prime targets for this stuff in there.
 
 
 
-And yes, you _can_ use them without decorators. It's just not as pretty. Something like this:
+And yes, you _can_ use them without decorators. It&#x27;s just not as pretty. Something like this:
 
 
 

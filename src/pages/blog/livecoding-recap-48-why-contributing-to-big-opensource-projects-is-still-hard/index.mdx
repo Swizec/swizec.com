@@ -11,11 +11,11 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https://www.youtube.com/watch?v=1eoa259yPBk
+https&amp;#x3A;//www.youtube.com/watch?v=1eoa259yPBk
 
 
 
-[GatsbyJS](https://www.gatsbyjs.org/) has a bugfeature that I don't like and I'm gonna fix it! Biggest opensource project since I poked around phpBB back in high school.
+[GatsbyJS](https://www.gatsbyjs.org/) has a bugfeature that I don&#x27;t like and I&#x27;m gonna fix it! Biggest opensource project since I poked around phpBB back in high school.
 
 
 
@@ -25,7 +25,7 @@ I can do this!
 
 ![](./img/image-photos-8500000-Single-Ladies-single-ladies-8586971-424-550.jpg)
 
-GatsbyJS is a React-based static site generator. The reason I'm so invested is because almost everything I build with React is a static site. Landing pages, single data visualizations, stuff like that. All static.
+GatsbyJS is a React-based static site generator. The reason I&#x27;m so invested is because almost everything I build with React is a static site. Landing pages, single data visualizations, stuff like that. All static.
 
 
 
@@ -41,15 +41,15 @@ This remark transformer comes with a feature I love: `tableOfContents`. Looks at
 
 
 
-But there's a problem.
+But there&#x27;s a problem.
 
 
 
-Table of contents uses only hash links like `#this-is-a-subheading`. This works great when it's on the same page as your content, but it’s not so great when you put it on an index page.
+Table of contents uses only hash links like `#this-is-a-subheading`. This works great when it&#x27;s on the same page as your content, but it’s not so great when you put it on an index page.
 
 
 
-Index pages are often at different URLs than their content pages. So when you try to link with just a hash, it doesn't go anywhere.
+Index pages are often at different URLs than their content pages. So when you try to link with just a hash, it doesn&#x27;t go anywhere.
 
 
 
@@ -57,7 +57,7 @@ I decided to fix that and use absolute links.
 
 
 
-So we looked at the `CONTRIBUTING.md` doc in Gatsby's repository, and it was wonderful. Tells you everything you need to set up a development environment so you can work on Gatsby and your test site immediately picks up on it.
+So we looked at the `CONTRIBUTING.md` doc in Gatsby&#x27;s repository, and it was wonderful. Tells you everything you need to set up a development environment so you can work on Gatsby and your test site immediately picks up on it.
 
 
 
@@ -66,11 +66,11 @@ So we looked at the `CONTRIBUTING.md` doc in Gatsby's repository, and it was won
 
 
 
-Wait… no… that didn't work. Step 2 and we're already blocked. 😭
+Wait… no… that didn&#x27;t work. Step 2 and we&#x27;re already blocked. 😭
 
 
 
-We filed a [helpful issue](https://github.com/gatsbyjs/gatsby/issues/2395) complaining that nothing works and everything is broken. The command didn't run through, dependencies were missing, and everything blew up in our face.
+We filed a [helpful issue](https://github.com/gatsbyjs/gatsby/issues/2395) complaining that nothing works and everything is broken. The command didn&#x27;t run through, dependencies were missing, and everything blew up in our face.
 
 
 
@@ -78,7 +78,7 @@ We filed a [helpful issue](https://github.com/gatsbyjs/gatsby/issues/2395) compl
 
 
 
-A very helpful person named `m-allanson` saved our asses. They found a commit from Gatsby's head maintaner that changed something in a config – removed `yarn workspaces` whatever the hell that is – and was just 23 hours old.
+A very helpful person named `m-allanson` saved our asses. They found a commit from Gatsby&#x27;s head maintaner that changed something in a config – removed `yarn workspaces` whatever the hell that is – and was just 23 hours old.
 
 
 
@@ -94,7 +94,7 @@ So… yay? We helped?
 
 
 
-Once we got up and running, it was almost time to stop livecoding for the day. We had just enough time to figure out where in the code we're going to have to fix those links.
+Once we got up and running, it was almost time to stop livecoding for the day. We had just enough time to figure out where in the code we&#x27;re going to have to fix those links.
 
 
 
@@ -130,7 +130,7 @@ async function getTableOfContents(markdownNode) {
 
 
 
-Note the `console.log`. That's where we have to hook into the toc abstract syntax tree and change the links.
+Note the `console.log`. That&#x27;s where we have to hook into the toc abstract syntax tree and change the links.
 
 
 

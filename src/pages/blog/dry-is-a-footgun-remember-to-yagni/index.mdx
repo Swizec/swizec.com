@@ -11,11 +11,11 @@ DRY is the first of the big rules engineers learn. Do not Repeat Yourself.
 
 
 
-It's a good rule. You'll figure it out on your own even if nobody teaches you.
+It&#x27;s a good rule. You&#x27;ll figure it out on your own even if nobody teaches you.
 
 
 
-_"Make a button"_
+_&quot;Make a button&quot;_
 
 
 
@@ -31,7 +31,7 @@ const Button = () => (
 
 
 
-_"I want to have a button that says Button and a button that says Click Me"_
+_&quot;I want to have a button that says Button and a button that says Click Me&quot;_
 
 
 
@@ -51,7 +51,7 @@ const ClickMe = () => (
 
 
 
-_"Now I want Button to open the shopping cart and I want ClickMe to close the page."_
+_&quot;Now I want Button to open the shopping cart and I want ClickMe to close the page.&quot;_
 
 
 
@@ -71,7 +71,7 @@ const ClickMe = () => (
 
 
 
-_"Wonderful. Beautiful buttons. I want a third button, and this one should close the currently open modal."_
+_&quot;Wonderful. Beautiful buttons. I want a third button, and this one should close the currently open modal.&quot;_
 
 
 
@@ -79,7 +79,7 @@ Ah, this is getting tedious. Are you going to want many more buttons?
 
 
 
-_"Yeah, maybe?"_
+_&quot;Yeah, maybe?&quot;_
 
 
 
@@ -107,7 +107,7 @@ const CloseModal = () => (
 
 
 
-_"Wonderful. Can we make all those buttons 20px font?"_
+_&quot;Wonderful. Can we make all those buttons 20px font?&quot;_
 
 
 
@@ -115,7 +115,7 @@ Yes, of course!
 
 
 
-You've just DRY'd up your code, and here's your first victory. Buttons use a common underlying component. Giving them all a big font is easy. You got dis.
+You&#x27;ve just DRY&#x27;d up your code, and here&#x27;s your first victory. Buttons use a common underlying component. Giving them all a big font is easy. You got dis.
 
 
 
@@ -145,11 +145,11 @@ A true victory for engineering. You pat yourself on the back for an architecture
 
 
 
-Next week, your PM comes back and says, _"Button must be green, ClickMe should be blue, and CloseModal is red"_
+Next week, your PM comes back and says, _&quot;Button must be green, ClickMe should be blue, and CloseModal is red&quot;_
 
 
 
-Okay, that's annoying, why 3 different buttons, but you can extend `GenericButton` to accept styling. You've still got dis.
+Okay, that&#x27;s annoying, why 3 different buttons, but you can extend `GenericButton` to accept styling. You&#x27;ve still got dis.
 
 
 
@@ -175,15 +175,15 @@ const CloseModal = () => (
 
 
 
-You had to add styles to every call of `GenericButton`, but that's okay. At least you have components so you didn't have to find every single invocation of any button and change them.
+You had to add styles to every call of `GenericButton`, but that&#x27;s okay. At least you have components so you didn&#x27;t have to find every single invocation of any button and change them.
 
 
 
-That's the power of DRY. Change once, fix everywhere.
+That&#x27;s the power of DRY. Change once, fix everywhere.
 
 
 
-Then your PM says _"The font on CloseModal is too big"_
+Then your PM says _&quot;The font on CloseModal is too big&quot;_
 
 
 
@@ -199,7 +199,7 @@ A-ha! You were smart. You wrote `GenericButton` so styles provided through props
 
 
 
-_"CloseModal and Button should be disabled when they're inactive"_
+_&quot;CloseModal and Button should be disabled when they&#x27;re inactive&quot;_
 
 
 
@@ -222,11 +222,11 @@ You change `Button` and `ClickMe` to set the `active` prop based on some state.
 
 
 
-And `ClickMe` became disabled too? That's weird.
+And `ClickMe` became disabled too? That&#x27;s weird.
 
 
 
-Guess you have to change that one so it's always passing `active=true`. That's weird.
+Guess you have to change that one so it&#x27;s always passing `active=true`. That&#x27;s weird.
 
 
 
@@ -261,15 +261,15 @@ Now `active` is `true` when undefined, and whatever you set otherwise.
 
 
 
-Your `GenericButton` is starting to swell with edge cases. As time passes, it's going to get worse and worse.
+Your `GenericButton` is starting to swell with edge cases. As time passes, it&#x27;s going to get worse and worse.
 
 
 
-You'll add a loading state. But only some buttons will use it. You'll add hover/unhover behavior. But not all buttons want that.
+You&#x27;ll add a loading state. But only some buttons will use it. You&#x27;ll add hover/unhover behavior. But not all buttons want that.
 
 
 
-Eventually, you'll have a button with so many features it's impossible to use. Every render requires so many props that you might as well write a whole button from scratch.
+Eventually, you&#x27;ll have a button with so many features it&#x27;s impossible to use. Every render requires so many props that you might as well write a whole button from scratch.
 
 
 
@@ -277,7 +277,7 @@ Happens a lot.
 
 
 
-https://twitter.com/Swizec/status/1081328297634459649
+https&amp;#x3A;//twitter.com/Swizec/status/1081328297634459649
 
 
 
@@ -285,11 +285,11 @@ https://twitter.com/Swizec/status/1081328297634459649
 
 
 
-[YAGNI](https://en.wikipedia.org/wiki/You_aren't_gonna_need_it), ya ain't gonna need it, is a programming philosophy that engineers learn a little later in life.
+[YAGNI](https://en.wikipedia.org/wiki/You_aren&#x27;t_gonna_need_it), ya ain&#x27;t gonna need it, is a programming philosophy that engineers learn a little later in life.
 
 
 
-Because it takes a while for those DRY footguns to appear, perhaps. Or because many projects don't live long enough to see it. Maybe it's just a matter of thinking about why your code is suffering.
+Because it takes a while for those DRY footguns to appear, perhaps. Or because many projects don&#x27;t live long enough to see it. Maybe it&#x27;s just a matter of thinking about why your code is suffering.
 
 
 
@@ -301,19 +301,19 @@ YAGNI often comes in 2 shapes 👇
 
 
 
-The more use-cases you have, the easier to know what to generalize. I mean, how can you know which functionality your components share if you don't even have those components yet?
+The more use-cases you have, the easier to know what to generalize. I mean, how can you know which functionality your components share if you don&#x27;t even have those components yet?
 
 
 
-You can't.
+You can&#x27;t.
 
 
 
-And that brings us to **the other YAGNI**: Building stuff you think you'll need before you need it.
+And that brings us to **the other YAGNI**: Building stuff you think you&#x27;ll need before you need it.
 
 
 
-You think of a wonderful abstraction. A wonderful little feature that's gonna help oh so much in the future.
+You think of a wonderful abstraction. A wonderful little feature that&#x27;s gonna help oh so much in the future.
 
 
 
@@ -321,11 +321,11 @@ You build it.
 
 
 
-Months pass. You tweak the code here and there. Nobody's using it, but you have to maintain otherwise it's gonna break. Whenever you implement a feature, you have to think about how it impacts this code you've got.
+Months pass. You tweak the code here and there. Nobody&#x27;s using it, but you have to maintain otherwise it&#x27;s gonna break. Whenever you implement a feature, you have to think about how it impacts this code you&#x27;ve got.
 
 
 
-It's slowing you down. Making you think. And you aren't even using it.
+It&#x27;s slowing you down. Making you think. And you aren&#x27;t even using it.
 
 
 
@@ -341,4 +341,4 @@ You are a god of prediction! You knew it all along!
 
 
 
-You delete your code and start from scratch. The feature is so different that you can't use any of it.
+You delete your code and start from scratch. The feature is so different that you can&#x27;t use any of it.

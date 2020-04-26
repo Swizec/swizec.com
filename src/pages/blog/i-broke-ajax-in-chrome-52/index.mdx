@@ -77,7 +77,7 @@ Outside the wrapper, we defer to `sync` to actually talk to the server.
 
 If I copy this method to my own model definition, we can inspect where it fails.
 
-![Success wrapper doesn't fire](./img/blog-wp-content-uploads-2016-08-success-wrapper.gif)
+![Success wrapper doesn&#x27;t fire](./img/blog-wp-content-uploads-2016-08-success-wrapper.gif)
 
 The success wrapper doesn’t fire. ?
 
@@ -127,7 +127,7 @@ request.get('bla.json')
 
 Yeeeeep.
 
-Now you might think: _“A-ha! Every even Ajax call to the same URL fails.”_ I tried that, too -> it doesn’t. If you make requests in a loop, they all work.
+Now you might think: _“A-ha! Every even Ajax call to the same URL fails.”_ I tried that, too -&gt; it doesn’t. If you make requests in a loop, they all work.
 
 The bug only happens, if you make the same AJAX request in the callback. You can extend a chain like this forever:
 

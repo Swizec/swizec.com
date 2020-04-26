@@ -411,7 +411,7 @@ Building this particle generator in React and Redux, I made three \\important di
 2. **Adding to JavaScript arrays is slow**. Once we hit about 300 particles, adding new ones becomes visibly slow. Stop adding particles and you get smooth animation. This indicates that something about creating particles is slow: either adding to the array, or creating React component instances, or creating SVG DOM nodes.
 3. **SVG is also slow**. To test the above hypothesis, I made the generator create 3000 particles on first click. The animation speed is _terrible_ at first and becomes okayish at around 1000 particles. This suggests that shallow copying big arrays and moving existing SVG nodes around is faster than adding new stuff. Here’s a gif:
 
-\[caption id="" align="alignnone" width="832"]![](./img/ug478Me.gif) 3000 particles is too many\[/caption]
+\[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;832&quot;]![](./img/ug478Me.gif) 3000 particles is too many\[/caption]
 
 # Fin
 

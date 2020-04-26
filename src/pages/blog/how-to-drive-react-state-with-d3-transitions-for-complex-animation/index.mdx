@@ -7,7 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/techletter.app-screenshot-1561996966775.png
 ---
-Here's part 2 of [Kiran B's challenge](https://swizec.com/blog/a-drilldown-piechart-with-react-and-d3/swizec/9140) from last week 👉 animating our drilldown piechart.
+Here&#x27;s part 2 of [Kiran B&#x27;s challenge](https://swizec.com/blog/a-drilldown-piechart-with-react-and-d3/swizec/9140) from last week 👉 animating our drilldown piechart.
 
 
 
@@ -15,7 +15,7 @@ Here's part 2 of [Kiran B's challenge](https://swizec.com/blog/a-drilldown-piech
 
 
 
-You can watch the whole stream or keep reading. This was fun to figure out. I'm loving the flexibility of this hybrid approach to animation.
+You can watch the whole stream or keep reading. This was fun to figure out. I&#x27;m loving the flexibility of this hybrid approach to animation.
 
 
 
@@ -27,7 +27,7 @@ Yelling at my computer when it got too slow to run CodeSandbox was A+ 👌
 
 
 
-And if you prefer to jump straight into messing around with code, here's the CodeSandbox
+And if you prefer to jump straight into messing around with code, here&#x27;s the CodeSandbox
 
 
 
@@ -52,11 +52,11 @@ Both those approaches work great.
 
 
 
-You get heaps of control with the state-based approach, it's fast, the animations look sick, and you spend a lot of brain cycles thinking about details.
+You get heaps of control with the state-based approach, it&#x27;s fast, the animations look sick, and you spend a lot of brain cycles thinking about details.
 
 
 
-Transitions are easier, look great, and you mess with the DOM just a little. React doesn't like that but will tolerate your shenanigans if you're nice about it.
+Transitions are easier, look great, and you mess with the DOM just a little. React doesn&#x27;t like that but will tolerate your shenanigans if you&#x27;re nice about it.
 
 
 
@@ -68,7 +68,7 @@ But transitions fail when you have complex scenarios with animations spanning mu
 
 
 
-And that's where hybrid animation comes in 👉 ease of transitions, full render control.
+And that&#x27;s where hybrid animation comes in 👉 ease of transitions, full render control.
 
 
 
@@ -76,7 +76,7 @@ And that's where hybrid animation comes in 👉 ease of transitions, full render
 
 
 
-We're working off of the [drilldown piechart from last week](https://swizec.com/blog/a-drilldown-piechart-with-react-and-d3/swizec/9140). So we've got the basics
+We&#x27;re working off of the [drilldown piechart from last week](https://swizec.com/blog/a-drilldown-piechart-with-react-and-d3/swizec/9140). So we&#x27;ve got the basics
 
 
 
@@ -90,7 +90,7 @@ We cleaned up state management and added the drill-up feature.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1561996984642.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=function%20useDrillableData(data)%20%7B%0A%20%20const%20initialState%20%3D%20%7B%0A%20%20%20%20renderData%3A%20data%2C%0A%20%20%20%20stack%3A%20%5B%5D%2C%0A%20%20%20%20startAngle%3A%200%0A%20%20%7D%3B%0A%0A%20%20return%20useReducer((state%2C%20action)%20%3D%3E%20%7B%0A%20%20%20%20switch%20(action.type)%20%7B%0A%20%20%20%20%20%20case%20%22drilldown%22%3A%0A%20%20%20%20%20%20%20%20return%20%7B%0A%20%20%20%20%20%20%20%20%20%20renderData%3A%20state.renderData%5Baction.index%5D.children%2C%0A%20%20%20%20%20%20%20%20%20%20stack%3A%20%5B...state.stack%2C%20state.renderData%5D%2C%0A%20%20%20%20%20%20%20%20%20%20startAngle%3A%20action.startAngle%0A%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%20%20case%20%22drillup%22%3A%0A%20%20%20%20%20%20%20%20if%20(state.stack.length%20%3E%200)%20%7B%0A%20%20%20%20%20%20%20%20%20%20return%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20renderData%3A%20state.stack.slice(-1)%5B0%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20stack%3A%20state.stack.slice(0%2C%20-1)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20startAngle%3A%20state.startAngle%0A%20%20%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20return%20state%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20default%3A%0A%20%20%20%20%20%20%20%20return%20state%3B%0A%20%20%20%20%7D%0A%20%20%7D%2C%20initialState)%3B%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1561996984642.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=function%20useDrillableData(data)%20%7B%0A%20%20const%20initialState%20%3D%20%7B%0A%20%20%20%20renderData%3A%20data%2C%0A%20%20%20%20stack%3A%20%5B%5D%2C%0A%20%20%20%20startAngle%3A%200%0A%20%20%7D%3B%0A%0A%20%20return%20useReducer((state%2C%20action)%20%3D%3E%20%7B%0A%20%20%20%20switch%20(action.type)%20%7B%0A%20%20%20%20%20%20case%20%22drilldown%22%3A%0A%20%20%20%20%20%20%20%20return%20%7B%0A%20%20%20%20%20%20%20%20%20%20renderData%3A%20state.renderData%5Baction.index%5D.children%2C%0A%20%20%20%20%20%20%20%20%20%20stack%3A%20%5B...state.stack%2C%20state.renderData%5D%2C%0A%20%20%20%20%20%20%20%20%20%20startAngle%3A%20action.startAngle%0A%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%20%20case%20%22drillup%22%3A%0A%20%20%20%20%20%20%20%20if%20(state.stack.length%20%3E%200)%20%7B%0A%20%20%20%20%20%20%20%20%20%20return%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20renderData%3A%20state.stack.slice(-1)%5B0%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20stack%3A%20state.stack.slice(0%2C%20-1)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20startAngle%3A%20state.startAngle%0A%20%20%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20return%20state%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20default%3A%0A%20%20%20%20%20%20%20%20return%20state%3B%0A%20%20%20%20%7D%0A%20%20%7D%2C%20initialState)%3B%0A%7D)
 
 
 
@@ -118,7 +118,7 @@ When you `drilldown` we
 
 
 
-If you're at the highest level already, we do nothing.
+If you&#x27;re at the highest level already, we do nothing.
 
 
 
@@ -126,7 +126,7 @@ To use this new state management mechanism we replaced the previous `useState` c
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1561996964164.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20DrilldownPie%20%3D%20(%7B%20data%2C%20x%2C%20y%20%7D)%20%3D%3E%20%7B%0A%20%20const%20%5B%7B%20renderData%2C%20startAngle%20%7D%2C%20dispatch%5D%20%3D%20useDrillableData(data)%3B%0A%20%20%0A%20%20%2F%2F%20...%0A%20%20%0A%20%20function%20drilldown(%7B%20startAngle%2C%20index%20%7D)%20%7B%0A%20%20%20%20dispatch(%7B%20type%3A%20%22drilldown%22%2C%20index%2C%20startAngle%20%7D)%3B%0A%20%20%7D%0A%0A%20%20function%20drillup()%20%7B%0A%20%20%20%20dispatch(%7B%20type%3A%20%22drillup%22%20%7D)%3B%0A%20%20%7D)
+[![Click through for source](./img/techletter.app-screenshot-1561996964164.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=const%20DrilldownPie%20%3D%20(%7B%20data%2C%20x%2C%20y%20%7D)%20%3D%3E%20%7B%0A%20%20const%20%5B%7B%20renderData%2C%20startAngle%20%7D%2C%20dispatch%5D%20%3D%20useDrillableData(data)%3B%0A%20%20%0A%20%20%2F%2F%20...%0A%20%20%0A%20%20function%20drilldown(%7B%20startAngle%2C%20index%20%7D)%20%7B%0A%20%20%20%20dispatch(%7B%20type%3A%20%22drilldown%22%2C%20index%2C%20startAngle%20%7D)%3B%0A%20%20%7D%0A%0A%20%20function%20drillup()%20%7B%0A%20%20%20%20dispatch(%7B%20type%3A%20%22drillup%22%20%7D)%3B%0A%20%20%7D)
 
 
 
@@ -142,7 +142,7 @@ Hybrid animation is all about leveraging both React and D3 for what they do best
 
 
 
-Here's the recipe:
+Here&#x27;s the recipe:
 
 
 
@@ -153,11 +153,11 @@ Here's the recipe:
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1561996963872.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%20%20useEffect(()%20%3D%3E%20%7B%0A%20%20%20%20d3.selection()%0A%20%20%20%20%20%20.transition(%22pie-reveal%22)%0A%20%20%20%20%20%20.duration(3000)%0A%20%20%20%20%20%20.ease(d3.easeSinInOut)%0A%20%20%20%20%20%20.tween(%22percentVisible%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20const%20percentInterpolate%20%3D%20d3.interpolate(0%2C%20100)%3B%0A%20%20%20%20%20%20%20%20return%20t%20%3D%3E%20setPercentVisible(percentInterpolate(t))%3B%0A%20%20%20%20%20%20%7D)%3B%0A%20%20%7D%2C%20%5BrenderData%5D)%3B)
+[![Click through for source](./img/techletter.app-screenshot-1561996963872.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%20%20useEffect(()%20%3D%3E%20%7B%0A%20%20%20%20d3.selection()%0A%20%20%20%20%20%20.transition(%22pie-reveal%22)%0A%20%20%20%20%20%20.duration(3000)%0A%20%20%20%20%20%20.ease(d3.easeSinInOut)%0A%20%20%20%20%20%20.tween(%22percentVisible%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20const%20percentInterpolate%20%3D%20d3.interpolate(0%2C%20100)%3B%0A%20%20%20%20%20%20%20%20return%20t%20%3D%3E%20setPercentVisible(percentInterpolate(t))%3B%0A%20%20%20%20%20%20%7D)%3B%0A%20%20%7D%2C%20%5BrenderData%5D)%3B)
 
 
 
-`useEffect` runs its method when `renderData` changes. That's every time you drilldown or drillup.
+`useEffect` runs its method when `renderData` changes. That&#x27;s every time you drilldown or drillup.
 
 
 
@@ -165,11 +165,11 @@ The effect runs a D3 transition on an empty selection. Sets duration to 3 second
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1561996963200.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=()%20%3D%3E%20%7B%0A%09const%20percentInterpolate%20%3D%20d3.interpolate(0%2C%20100)%3B%0A%09return%20t%20%3D%3E%20setPercentVisible(percentInterpolate(t))%3B%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1561996963200.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=()%20%3D%3E%20%7B%0A%09const%20percentInterpolate%20%3D%20d3.interpolate(0%2C%20100)%3B%0A%09return%20t%20%3D%3E%20setPercentVisible(percentInterpolate(t))%3B%0A%7D)
 
 
 
-Tweens are meant to manipulate DOM attributes, but when you think about it, they're just functions that run on every step of the transition. They can do whatever you want to do on every keyframe. 🤔
+Tweens are meant to manipulate DOM attributes, but when you think about it, they&#x27;re just functions that run on every step of the transition. They can do whatever you want to do on every keyframe. 🤔
 
 
 
@@ -189,7 +189,7 @@ Using that state change to animate our piechart looks like this:
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1561996980269.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%20%20const%20%5BpercentVisible%2C%20setPercentVisible%5D%20%3D%20useState(0)%3B%0A%0A%20%20const%20pie%20%3D%20d3%0A%20%20%20%20.pie()%0A%20%20%20%20.startAngle(startAngle)%0A%20%20%20%20.endAngle(startAngle%20%2B%20percentVisible%20*%20Math.PI%20*%202)%0A%20%20%20%20.value(d%20%3D%3E%20d.value)%3B)
+[![Click through for source](./img/techletter.app-screenshot-1561996980269.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%20%20const%20%5BpercentVisible%2C%20setPercentVisible%5D%20%3D%20useState(0)%3B%0A%0A%20%20const%20pie%20%3D%20d3%0A%20%20%20%20.pie()%0A%20%20%20%20.startAngle(startAngle)%0A%20%20%20%20.endAngle(startAngle%20%2B%20percentVisible%20*%20Math.PI%20*%202)%0A%20%20%20%20.value(d%20%3D%3E%20d.value)%3B)
 
 
 
@@ -229,7 +229,7 @@ The updated angle creates a bigger piechart. The arc components adjust and make 
 
 
 
-Crucially, React doesn't re-run the effect. Nothing that our effect relies on changed, so it keeps running uninterrupted.
+Crucially, React doesn&#x27;t re-run the effect. Nothing that our effect relies on changed, so it keeps running uninterrupted.
 
 
 

@@ -11,11 +11,11 @@ This was a fun little build, but I wish I remembered to turn on my stream. It wa
 
 
 
-`<LogViewer>` takes a stream of server logs, or process logs, or any flat text file (let's be honest) and turns it into a searchable, filterable little thing. Type in the input box, find what you're looking for. Matched strings are highlighted so you know what you're doing.
+`<LogViewer>` takes a stream of server logs, or process logs, or any flat text file (let&#x27;s be honest) and turns it into a searchable, filterable little thing. Type in the input box, find what you&#x27;re looking for. Matched strings are highlighted so you know what you&#x27;re doing.
 
 
 
-https://twitter.com/Swizec/status/1019501310197030912
+https&amp;#x3A;//twitter.com/Swizec/status/1019501310197030912
 
 
 
@@ -23,13 +23,13 @@ The whole thing fits into 69 lines of beautifully rendered code and 1071 node_mo
 
 
 
-[Try <LogViewer>](https://dist-thnnqblnuk.now.sh/)
+[Try &amp;lt;LogViewer&gt;](https://dist-thnnqblnuk.now.sh/)
 
 
 
 
 
-## Here's how it works 👇
+## Here&#x27;s how it works 👇
 
 
 
@@ -48,7 +48,7 @@ The whole thing fits into 69 lines of beautifully rendered code and 1071 node_mo
 
 
 
-We're using `getDerivedStateFromProps` to take our `logs`, which is a flat string, and turn it into an array of entries. Right now, that's just splitting by newlines, but we could perform contextual parsing and understand that a single log can span multiple lines.
+We&#x27;re using `getDerivedStateFromProps` to take our `logs`, which is a flat string, and turn it into an array of entries. Right now, that&#x27;s just splitting by newlines, but we could perform contextual parsing and understand that a single log can span multiple lines.
 
 
 
@@ -60,7 +60,7 @@ The `render` method takes `logs` from state and returns a `<Downshift>` componen
 
 
 
-Inside Downshift's render prop, we use `matchSorter` to filter logs based on user input. I don't know what string matching algorithm matchSorter uses, but it's really fast.
+Inside Downshift&#x27;s render prop, we use `matchSorter` to filter logs based on user input. I don&#x27;t know what string matching algorithm matchSorter uses, but it&#x27;s really fast.
 
 
 
@@ -103,7 +103,7 @@ chunks --> ['my ', 'cat', ' is grumpy']
 
 
 
-When you split on regex and wrap your split point in parenthesis, `()`, it's preserved in your output. Perfect 👌 for our purposes and pretty fast too.
+When you split on regex and wrap your split point in parenthesis, `()`, it&#x27;s preserved in your output. Perfect 👌 for our purposes and pretty fast too.
 
 
 
@@ -111,7 +111,7 @@ Rendering is a matter of looping through our `chunks` array and returning either
 
 
 
-The `<Highlighted>` component is simplistic because I'm no designer.
+The `<Highlighted>` component is simplistic because I&#x27;m no designer.
 
 
 
@@ -136,4 +136,4 @@ That was an MVP. Should I make it better? Should I open source it?
 
 
 
-Anyone out there who'd use it? 🤨 [Ping me on Twitter](http://twitter.com/swizec).
+Anyone out there who&#x27;d use it? 🤨 [Ping me on Twitter](http://twitter.com/swizec).

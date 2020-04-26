@@ -7,7 +7,7 @@ redirect_from:
 categories: "Front End, Livecoding, Technical"
 hero: ./img/techletter.app-screenshot-1573060452637.png
 ---
-I've been playing around with React's new [Concurrent Mode](https://reactjs.org/docs/concurrent-mode-intro.html) and it is amazing. A little mind-bendy, a dash mad, and a whole lot of wonderful.
+I&#x27;ve been playing around with React&#x27;s new [Concurrent Mode](https://reactjs.org/docs/concurrent-mode-intro.html) and it is amazing. A little mind-bendy, a dash mad, and a whole lot of wonderful.
 
 
 
@@ -17,11 +17,11 @@ I've been playing around with React's new [Concurrent Mode](https://reactjs.org/
 
 
 
-Your app might get faster even if you don't change anything. 👌
+Your app might get faster even if you don&#x27;t change anything. 👌
 
 
 
-That's because concurrent mode is backwards compatible. Your code works the same ... if you've been following React best practices. If you haven't, god help you.
+That&#x27;s because concurrent mode is backwards compatible. Your code works the same ... if you&#x27;ve been following React best practices. If you haven&#x27;t, god help you.
 
 
 
@@ -37,7 +37,7 @@ That's because concurrent mode is backwards compatible. Your code works the same
 
 
 
-It's a change in how React schedules updates to your UI.
+It&#x27;s a change in how React schedules updates to your UI.
 
 
 
@@ -49,7 +49,7 @@ What this means is that you can start new UI updates _before the old ones finish
 
 
 
-Say you're building a dataviz with streaming data. You're 5,000 elements in so adding another 1,000 takes a while. You start rendering and a new batch shows up before you're done.
+Say you&#x27;re building a dataviz with streaming data. You&#x27;re 5,000 elements in so adding another 1,000 takes a while. You start rendering and a new batch shows up before you&#x27;re done.
 
 
 
@@ -65,7 +65,7 @@ With concurrent mode you stop the current render and schedule a new one. 👌
 
 
 
-It's similar to how D3 transitions always let you schedule a new transition without worry. Each new transition first stops whatever's going on, then starts the new transition from current state.
+It&#x27;s similar to how D3 transitions always let you schedule a new transition without worry. Each new transition first stops whatever&#x27;s going on, then starts the new transition from current state.
 
 
 
@@ -89,11 +89,11 @@ Not quite concurrent mode but a similar idea.
 
 
 
-So what!? This is amazing. This is what we've been waiting for for 2 years my friend.
+So what!? This is amazing. This is what we&#x27;ve been waiting for for 2 years my friend.
 
 
 
-Not only is concurrent mode a big step forward for React itself, it also gives us some new abilities. The community is still figuring out the details, but what I've seen buzzing on twitter looks exciting.
+Not only is concurrent mode a big step forward for React itself, it also gives us some new abilities. The community is still figuring out the details, but what I&#x27;ve seen buzzing on twitter looks exciting.
 
 
 
@@ -113,23 +113,23 @@ My favorite new ability is [React Suspense](https://reactjs.org/docs/concurrent-
 
 
 
-Various react routes will have to implement this to work properly. You can't quite do it unless you know what data you'll need _before_ your components render.
+Various react routes will have to implement this to work properly. You can&#x27;t quite do it unless you know what data you&#x27;ll need _before_ your components render.
 
 
 
-That's the biggest shift in mindset: Fetch data before/while rendering. Not _after_ initial render like we used to:
+That&#x27;s the biggest shift in mindset: Fetch data before/while rendering. Not _after_ initial render like we used to:
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573060439503.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20this%20is%20the%20old%20fetch-on-render%20pattern%0Afunction%20MyComponent()%20%7B%0A%09const%20%5Bloading%2C%20setLoading%5D%20%3D%20useState(true)%3B%0A%09const%20%5Bdata%2C%20setData%5D%20%3D%20useState(null)%0A%09%0A%09useEffect(()%20%3D%3E%20%7B%0A%09%09%2F%2F%20run%20effect%20to%20load%20data%20when%20component%20first%20renders%0A%09%09fetchData().then(data%20%3D%3E%20%7B%0A%09%09%09setData(data)%0A%09%09%09setLoading(false)%0A%09%09%7D)%0A%09%7D%2C%20%5B%5D)%0A%09%0A%09if%20(loading)%20%7B%0A%09%09return%20%3CSpinner%20%2F%3E%0A%09%7Delse%7B%0A%09%09return%20%3CShowData%20data%3D%7Bdata%7D%20%2F%3E%0A%09%7D%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1573060439503.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20this%20is%20the%20old%20fetch-on-render%20pattern%0Afunction%20MyComponent()%20%7B%0A%09const%20%5Bloading%2C%20setLoading%5D%20%3D%20useState(true)%3B%0A%09const%20%5Bdata%2C%20setData%5D%20%3D%20useState(null)%0A%09%0A%09useEffect(()%20%3D%3E%20%7B%0A%09%09%2F%2F%20run%20effect%20to%20load%20data%20when%20component%20first%20renders%0A%09%09fetchData().then(data%20%3D%3E%20%7B%0A%09%09%09setData(data)%0A%09%09%09setLoading(false)%0A%09%09%7D)%0A%09%7D%2C%20%5B%5D)%0A%09%0A%09if%20(loading)%20%7B%0A%09%09return%20%3CSpinner%20%2F%3E%0A%09%7Delse%7B%0A%09%09return%20%3CShowData%20data%3D%7Bdata%7D%20%2F%3E%0A%09%7D%0A%7D)
 
 
 
-Dunno about you, but I'm tired of writing that code. Fingers crossed we get some amazing new libraries around Suspense. 🤞
+Dunno about you, but I&#x27;m tired of writing that code. Fingers crossed we get some amazing new libraries around Suspense. 🤞
 
 
 
-While we wait, here's some concurrent mode stuff you _can_ do right now.
+While we wait, here&#x27;s some concurrent mode stuff you _can_ do right now.
 
 
 
@@ -137,7 +137,7 @@ While we wait, here's some concurrent mode stuff you _can_ do right now.
 
 
 
-The easiest way to try concurrent mode is to fire up a CodeSandbox and choose React's experimental channel.
+The easiest way to try concurrent mode is to fire up a CodeSandbox and choose React&#x27;s experimental channel.
 
 
 
@@ -145,11 +145,11 @@ The easiest way to try concurrent mode is to fire up a CodeSandbox and choose Re
 
 
 
-Same thing works in your `package.json`. Please don't use it in production yet. Experiment and play only. There's bugs to fix and features to come :)
+Same thing works in your `package.json`. Please don&#x27;t use it in production yet. Experiment and play only. There&#x27;s bugs to fix and features to come :)
 
 
 
-We played around on a recent livestream and created a couple tiny examples using React Suspense's new fetch-as-you-render ability.
+We played around on a recent livestream and created a couple tiny examples using React Suspense&#x27;s new fetch-as-you-render ability.
 
 
 
@@ -165,7 +165,7 @@ Our context is a D3 scatterplot because a) it looks pretty and b) [reactfordatav
 
 
 
-Don't worry, if you're not into dataviz. The same core concepts apply.
+Don&#x27;t worry, if you&#x27;re not into dataviz. The same core concepts apply.
 
 
 
@@ -206,7 +206,7 @@ For simplicity and stress testing, we fetch each item individually. Timeouts sim
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573060439854.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20Pretennds%20to%20fetch%20meta%20data%2C%20our%20total%20count%0Afunction%20fetchCount()%20%7B%0A%20%20console.log(%22fetching%20count%20...%22)%3B%0A%20%20return%20new%20Promise(resolve%20%3D%3E%20%7B%0A%09%20%20%2F%2F%20this%20would%20be%20a%20fetch()%20in%20nreal%20life%0A%20%20%20%20setTimeout(()%20%3D%3E%20%7B%0A%20%20%20%20%20%20console.log(%22fetched%20count%22)%3B%0A%20%20%20%20%20%20resolve(10000)%3B%0A%20%20%20%20%7D%2C%201000)%3B%0A%20%20%7D)%3B%0A%7D%0A%0A%2F%2F%20Here%20we%20have%20a%20set%20of%20requests%20that%20depend%0A%2F%2F%20on%20data%20from%20initial%20request%0A%2F%2F%20which%20is%20kinda%20messy%20but%20realistic%0A%0A%2F%2F%20fetchItems%20sets%20out%20to%20fetch%20every%20item%0Afunction%20fetchItems(countPromise)%20%7B%0A%20%20console.log(%22fetching%20items%20...%22)%3B%0A%20%20return%20new%20Promise(resolve%20%3D%3E%20%7B%0A%09%20%20%2F%2F%20start%20by%20waiting%20for%20meta%20data%0A%20%20%20%20countPromise.then(count%20%3D%3E%20%7B%0A%20%20%20%20%20%20resolve(%0A%09%20%20%20%20%20%20%2F%2F%20map%20through%20a%20count-sized%20empty%20array%20%0A%09%20%20%20%20%20%20%2F%2F%20create%20promises%0A%20%20%20%20%20%20%20%20new%20Array(count).fill(null).map((_%2C%20i)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%2F%2F%20create%20a%20promise%20for%20each%20individual%20item%20request%0A%20%20%20%20%20%20%20%20%20%20return%20wrapPromise(fetchItem(i))%3B%0A%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20)%3B%0A%20%20%20%20%7D)%3B%0A%20%20%7D)%3B%0A%7D%0A%0A%2F%2F%20fetches%20an%20individual%20item%20at%20%60index%60%0Afunction%20fetchItem(index)%20%7B%0A%20%20return%20new%20Promise(resolve%20%3D%3E%20%7B%0A%09%20%20%2F%2F%20this%20would%20be%20a%20fetch()%20in%20real%20life%0A%20%20%20%20setTimeout(()%20%3D%3E%20%7B%0A%09%20%20%20%20%2F%2F%20each%20datapoint%20is%20a%20random%20%7B%20x%2C%20y%20%7D%20object%0A%09%20%20%20%20%2F%2F%20could%20be%20anything%20in%20real%20life%0A%20%20%20%20%20%20resolve(%7B%0A%20%20%20%20%20%20%20%20x%3A%20Math.random()%2C%0A%20%20%20%20%20%20%20%20y%3A%20Math.random()%0A%20%20%20%20%20%20%7D)%3B%0A%09%09%20%20%2F%2F%20promise%20resolves%20at%20a%20random%20timeout%0A%09%09%20%20%2F%2F%20this%20creates%20a%20nicer%20effect%20and%20better%20tests%20Suspense%20%3A)%0A%20%20%20%20%7D%2C%20Math.random()%20*%201000)%3B%0A%20%20%7D)%3B%0A%7D>)
+[![Click through for source](./img/techletter.app-screenshot-1573060439854.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20Pretennds%20to%20fetch%20meta%20data%2C%20our%20total%20count%0Afunction%20fetchCount()%20%7B%0A%20%20console.log(%22fetching%20count%20...%22)%3B%0A%20%20return%20new%20Promise(resolve%20%3D%3E%20%7B%0A%09%20%20%2F%2F%20this%20would%20be%20a%20fetch()%20in%20nreal%20life%0A%20%20%20%20setTimeout(()%20%3D%3E%20%7B%0A%20%20%20%20%20%20console.log(%22fetched%20count%22)%3B%0A%20%20%20%20%20%20resolve(10000)%3B%0A%20%20%20%20%7D%2C%201000)%3B%0A%20%20%7D)%3B%0A%7D%0A%0A%2F%2F%20Here%20we%20have%20a%20set%20of%20requests%20that%20depend%0A%2F%2F%20on%20data%20from%20initial%20request%0A%2F%2F%20which%20is%20kinda%20messy%20but%20realistic%0A%0A%2F%2F%20fetchItems%20sets%20out%20to%20fetch%20every%20item%0Afunction%20fetchItems(countPromise)%20%7B%0A%20%20console.log(%22fetching%20items%20...%22)%3B%0A%20%20return%20new%20Promise(resolve%20%3D%3E%20%7B%0A%09%20%20%2F%2F%20start%20by%20waiting%20for%20meta%20data%0A%20%20%20%20countPromise.then(count%20%3D%3E%20%7B%0A%20%20%20%20%20%20resolve(%0A%09%20%20%20%20%20%20%2F%2F%20map%20through%20a%20count-sized%20empty%20array%20%0A%09%20%20%20%20%20%20%2F%2F%20create%20promises%0A%20%20%20%20%20%20%20%20new%20Array(count).fill(null).map((_%2C%20i)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%2F%2F%20create%20a%20promise%20for%20each%20individual%20item%20request%0A%20%20%20%20%20%20%20%20%20%20return%20wrapPromise(fetchItem(i))%3B%0A%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20)%3B%0A%20%20%20%20%7D)%3B%0A%20%20%7D)%3B%0A%7D%0A%0A%2F%2F%20fetches%20an%20individual%20item%20at%20%60index%60%0Afunction%20fetchItem(index)%20%7B%0A%20%20return%20new%20Promise(resolve%20%3D%3E%20%7B%0A%09%20%20%2F%2F%20this%20would%20be%20a%20fetch()%20in%20real%20life%0A%20%20%20%20setTimeout(()%20%3D%3E%20%7B%0A%09%20%20%20%20%2F%2F%20each%20datapoint%20is%20a%20random%20%7B%20x%2C%20y%20%7D%20object%0A%09%20%20%20%20%2F%2F%20could%20be%20anything%20in%20real%20life%0A%20%20%20%20%20%20resolve(%7B%0A%20%20%20%20%20%20%20%20x%3A%20Math.random()%2C%0A%20%20%20%20%20%20%20%20y%3A%20Math.random()%0A%20%20%20%20%20%20%7D)%3B%0A%09%09%20%20%2F%2F%20promise%20resolves%20at%20a%20random%20timeout%0A%09%09%20%20%2F%2F%20this%20creates%20a%20nicer%20effect%20and%20better%20tests%20Suspense%20%3A)%0A%20%20%20%20%7D%2C%20Math.random()%20*%201000)%3B%0A%20%20%7D)%3B%0A%7D>)
 
 
 
@@ -218,19 +218,19 @@ Those function calls simulate API requests. We have to wrap them in a way that `
 
 
 
-I borrowed the promise wrapper that Dan Abramov uses in [official docs on Suspense](https://reactjs.org/docs/concurrent-mode-suspense.html). You'd build something more robust for real life use. Or, if you're like me, wait for libraries to show up. 😇
+I borrowed the promise wrapper that Dan Abramov uses in [official docs on Suspense](https://reactjs.org/docs/concurrent-mode-suspense.html). You&#x27;d build something more robust for real life use. Or, if you&#x27;re like me, wait for libraries to show up. 😇
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573060439294.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20This%20is%20our%20top%20level%20function%20for%20data%20fetching%0A%2F%2F%20We'll%20use%20this%20to%20fetch%20data%20as%20we%20render%20the%20page%0Aexport%20function%20fetchData()%20%7B%0A%20%20let%20countPromise%20%3D%20fetchCount()%3B%0A%20%20let%20itemsPromise%20%3D%20fetchItems(countPromise)%3B%0A%0A%20%20return%20%7B%0A%20%20%20%20count%3A%20wrapPromise(countPromise)%2C%0A%20%20%20%20items%3A%20wrapPromise(itemsPromise)%0A%20%20%7D%3B%0A%7D%0A%0A%2F%2F%20Suspense%20integrations%20like%20Relay%20implement%0A%2F%2F%20a%20contract%20like%20this%20to%20integrate%20with%20React.%0A%2F%2F%20Real%20implementations%20can%20be%20significantly%20more%20complex.%0A%2F%2F%20Don't%20copy-paste%20this%20into%20your%20project!%0Afunction%20wrapPromise(promise)%20%7B%0A%20%20let%20status%20%3D%20%22pending%22%3B%0A%20%20let%20result%3B%0A%20%20let%20suspender%20%3D%20promise.then(%0A%20%20%20%20r%20%3D%3E%20%7B%0A%20%20%20%20%20%20status%20%3D%20%22success%22%3B%0A%20%20%20%20%20%20result%20%3D%20r%3B%0A%20%20%20%20%7D%2C%0A%20%20%20%20e%20%3D%3E%20%7B%0A%20%20%20%20%20%20status%20%3D%20%22error%22%3B%0A%20%20%20%20%20%20result%20%3D%20e%3B%0A%20%20%20%20%7D%0A%20%20)%3B%0A%20%20return%20%7B%0A%20%20%20%20read()%20%7B%0A%20%20%20%20%20%20if%20(status%20%3D%3D%3D%20%22pending%22)%20%7B%0A%20%20%20%20%20%20%20%20throw%20suspender%3B%0A%20%20%20%20%20%20%7D%20else%20if%20(status%20%3D%3D%3D%20%22error%22)%20%7B%0A%20%20%20%20%20%20%20%20throw%20result%3B%0A%20%20%20%20%20%20%7D%20else%20if%20(status%20%3D%3D%3D%20%22success%22)%20%7B%0A%20%20%20%20%20%20%20%20return%20result%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%3B%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1573060439294.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20This%20is%20our%20top%20level%20function%20for%20data%20fetching%0A%2F%2F%20We&#x27;ll%20use%20this%20to%20fetch%20data%20as%20we%20render%20the%20page%0Aexport%20function%20fetchData()%20%7B%0A%20%20let%20countPromise%20%3D%20fetchCount()%3B%0A%20%20let%20itemsPromise%20%3D%20fetchItems(countPromise)%3B%0A%0A%20%20return%20%7B%0A%20%20%20%20count%3A%20wrapPromise(countPromise)%2C%0A%20%20%20%20items%3A%20wrapPromise(itemsPromise)%0A%20%20%7D%3B%0A%7D%0A%0A%2F%2F%20Suspense%20integrations%20like%20Relay%20implement%0A%2F%2F%20a%20contract%20like%20this%20to%20integrate%20with%20React.%0A%2F%2F%20Real%20implementations%20can%20be%20significantly%20more%20complex.%0A%2F%2F%20Don&#x27;t%20copy-paste%20this%20into%20your%20project!%0Afunction%20wrapPromise(promise)%20%7B%0A%20%20let%20status%20%3D%20%22pending%22%3B%0A%20%20let%20result%3B%0A%20%20let%20suspender%20%3D%20promise.then(%0A%20%20%20%20r%20%3D%3E%20%7B%0A%20%20%20%20%20%20status%20%3D%20%22success%22%3B%0A%20%20%20%20%20%20result%20%3D%20r%3B%0A%20%20%20%20%7D%2C%0A%20%20%20%20e%20%3D%3E%20%7B%0A%20%20%20%20%20%20status%20%3D%20%22error%22%3B%0A%20%20%20%20%20%20result%20%3D%20e%3B%0A%20%20%20%20%7D%0A%20%20)%3B%0A%20%20return%20%7B%0A%20%20%20%20read()%20%7B%0A%20%20%20%20%20%20if%20(status%20%3D%3D%3D%20%22pending%22)%20%7B%0A%20%20%20%20%20%20%20%20throw%20suspender%3B%0A%20%20%20%20%20%20%7D%20else%20if%20(status%20%3D%3D%3D%20%22error%22)%20%7B%0A%20%20%20%20%20%20%20%20throw%20result%3B%0A%20%20%20%20%20%20%7D%20else%20if%20(status%20%3D%3D%3D%20%22success%22)%20%7B%0A%20%20%20%20%20%20%20%20return%20result%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%3B%0A%7D)
 
 
 
-The idea behind `wrapPromise` is to create a uniform interface for Suspense to hook into your promise. This way it can tell whether it's still waiting, there was an error, or you're ready to render.
+The idea behind `wrapPromise` is to create a uniform interface for Suspense to hook into your promise. This way it can tell whether it&#x27;s still waiting, there was an error, or you&#x27;re ready to render.
 
 
 
-I imagine this makes it easier to integrate with a variety of data fetching mechanisms. Wrapper makes them conform to Suspense's API.
+I imagine this makes it easier to integrate with a variety of data fetching mechanisms. Wrapper makes them conform to Suspense&#x27;s API.
 
 
 
@@ -242,11 +242,11 @@ I imagine this makes it easier to integrate with a variety of data fetching mech
 
 
 
-Once we've got the API wrappers set up, we can render our React app in parallel with fetching the data. In some cases even in parallel with fetching the code itself. (code splitting)
+Once we&#x27;ve got the API wrappers set up, we can render our React app in parallel with fetching the data. In some cases even in parallel with fetching the code itself. (code splitting)
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573060439160.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=\import%20%7B%20fetchData%20%7D%20from%20%22.%2FfakeApi%22%3B%0A%0Aconst%20resource%20%3D%20fetchData()%3B)
+[![Click through for source](./img/techletter.app-screenshot-1573060439160.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=\import%20%7B%20fetchData%20%7D%20from%20%22.%2FfakeApi%22%3B%0A%0Aconst%20resource%20%3D%20fetchData()%3B)
 
 
 
@@ -254,7 +254,7 @@ We start the request at top level, _not_ inside an effect. This way it starts as
 
 
 
-Presumably that's just before you're ready to render. The approach won't work if you're loading 500 pages all in a single bundle and only 1 of them is visible.
+Presumably that&#x27;s just before you&#x27;re ready to render. The approach won&#x27;t work if you&#x27;re loading 500 pages all in a single bundle and only 1 of them is visible.
 
 
 
@@ -266,7 +266,7 @@ To render our data without UI glitching, we use the `<Suspense>` component ✌�
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573060439786.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=function%20App()%20%7B%0A%20%20return%20(%0A%20%20%20%20%3Cdiv%20className%3D%22App%22%3E%0A%20%20%20%20%20%20%2F%2F%20...%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20%2F%2F%20show%20a%20Loading%20...%20state%20while%20the%20first%20request%20finishes%0A%20%20%20%20%20%20%3CSuspense%20fallback%3D%7B%3Ch2%3ELoading%20...%3C%2Fh2%3E%7D%3E%0A%20%20%20%20%20%20%20%20%3CDataList%20%2F%3E%0A%20%20%20%20%20%20%3C%2FSuspense%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20)%3B%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1573060439786.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=function%20App()%20%7B%0A%20%20return%20(%0A%20%20%20%20%3Cdiv%20className%3D%22App%22%3E%0A%20%20%20%20%20%20%2F%2F%20...%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20%2F%2F%20show%20a%20Loading%20...%20state%20while%20the%20first%20request%20finishes%0A%20%20%20%20%20%20%3CSuspense%20fallback%3D%7B%3Ch2%3ELoading%20...%3C%2Fh2%3E%7D%3E%0A%20%20%20%20%20%20%20%20%3CDataList%20%2F%3E%0A%20%20%20%20%20%20%3C%2FSuspense%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20)%3B%0A%7D)
 
 
 
@@ -278,11 +278,11 @@ The `<DataList>` component itself tries to read from our API and render what it 
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573060438531.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20DataList%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20count%20%3D%20resource.count.read()%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3Csvg%20width%3D%22300%22%20height%3D%22300%22%3E%0A%20%20%20%20%20%20%7Bnew%20Array(count).fill(null).map((d%2C%20i)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CSuspense%20fallback%3D%7Bnull%7D%20key%3D%7Bi%7D%3E%0A%20%20%20%20%20%20%20%20%20%20%3CDataItem%20index%3D%7Bi%7D%20%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FSuspense%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20)%3B%0A%7D%3B)
+[![Click through for source](./img/techletter.app-screenshot-1573060438531.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=const%20DataList%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20count%20%3D%20resource.count.read()%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3Csvg%20width%3D%22300%22%20height%3D%22300%22%3E%0A%20%20%20%20%20%20%7Bnew%20Array(count).fill(null).map((d%2C%20i)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CSuspense%20fallback%3D%7Bnull%7D%20key%3D%7Bi%7D%3E%0A%20%20%20%20%20%20%20%20%20%20%3CDataItem%20index%3D%7Bi%7D%20%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FSuspense%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2Fsvg%3E%0A%20%20)%3B%0A%7D%3B)
 
 
 
-This is \\important and very easy to get wrong. _Suspense goes **around** the component that's reading data_.
+This is \\important and very easy to get wrong. _Suspense goes **around** the component that&#x27;s reading data_.
 
 
 
@@ -294,23 +294,23 @@ This is \\important and very easy to get wrong. _Suspense goes **around** the co
 
 
 
-Yeah, happened the very first time I tried to build with React Suspense without following the docs. You get that experiment in your inbox next week, it's super neat.
+Yeah, happened the very first time I tried to build with React Suspense without following the docs. You get that experiment in your inbox next week, it&#x27;s super neat.
 
 
 
-Now here's where it gets real fun: You can nest suspended components.
+Now here&#x27;s where it gets real fun: You can nest suspended components.
 
 
 
-Notice how we're wrapping each `<DataItem>` in its own suspense?
+Notice how we&#x27;re wrapping each `<DataItem>` in its own suspense?
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573060439225.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%20%20%20%20%20%20%7Bnew%20Array(count).fill(null).map((d%2C%20i)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CSuspense%20fallback%3D%7Bnull%7D%20key%3D%7Bi%7D%3E%0A%20%20%20%20%20%20%20%20%20%20%3CDataItem%20index%3D%7Bi%7D%20%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FSuspense%3E%0A%20%20%20%20%20%20))%7D)
+[![Click through for source](./img/techletter.app-screenshot-1573060439225.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%20%20%20%20%20%20%7Bnew%20Array(count).fill(null).map((d%2C%20i)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CSuspense%20fallback%3D%7Bnull%7D%20key%3D%7Bi%7D%3E%0A%20%20%20%20%20%20%20%20%20%20%3CDataItem%20index%3D%7Bi%7D%20%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FSuspense%3E%0A%20%20%20%20%20%20))%7D)
 
 
 
-That's because each item is in charge of its own API fetching. Seems kinda bonkers, but this new approach (also popular in GraphQL circles) is really powerful.
+That&#x27;s because each item is in charge of its own API fetching. Seems kinda bonkers, but this new approach (also popular in GraphQL circles) is really powerful.
 
 
 
@@ -318,11 +318,11 @@ Each React component should take care of its own data fetching. The times when y
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573060439084.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20DataItem%20%3D%20(%7B%20index%20%7D)%20%3D%3E%20%7B%0A%20%20const%20item%20%3D%20resource.items.read()%5Bindex%5D.read()%3B%0A%20%20%2F%2F%20We%20know%20Math.random()%20generates%20in%20%5B0%2C%201%5D%0A%20%20const%20xScale%20%3D%20d3%0A%20%20%20%20.scaleLinear()%0A%20%20%20%20.domain(%5B0%2C%201%5D)%0A%20%20%20%20.range(%5B0%2C%20300%5D)%3B%0A%20%20const%20yScale%20%3D%20d3%0A%20%20%20%20.scaleLinear()%0A%20%20%20%20.domain(%5B0%2C%201%5D)%0A%20%20%20%20.range(%5B0%2C%20300%5D)%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3Ccircle%0A%20%20%20%20%20%20cx%3D%7BxScale(item.x)%7D%0A%20%20%20%20%20%20cy%3D%7ByScale(item.y)%7D%0A%20%20%20%20%20%20r%3D%7B4%7D%0A%20%20%20%20%20%20fill%3D%22%23f87%22%0A%20%20%20%20%20%20fillOpacity%3D%220.3%22%0A%20%20%20%20%2F%3E%0A%20%20)%3B%0A%7D%3B)
+[![Click through for source](./img/techletter.app-screenshot-1573060439084.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=const%20DataItem%20%3D%20(%7B%20index%20%7D)%20%3D%3E%20%7B%0A%20%20const%20item%20%3D%20resource.items.read()%5Bindex%5D.read()%3B%0A%20%20%2F%2F%20We%20know%20Math.random()%20generates%20in%20%5B0%2C%201%5D%0A%20%20const%20xScale%20%3D%20d3%0A%20%20%20%20.scaleLinear()%0A%20%20%20%20.domain(%5B0%2C%201%5D)%0A%20%20%20%20.range(%5B0%2C%20300%5D)%3B%0A%20%20const%20yScale%20%3D%20d3%0A%20%20%20%20.scaleLinear()%0A%20%20%20%20.domain(%5B0%2C%201%5D)%0A%20%20%20%20.range(%5B0%2C%20300%5D)%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3Ccircle%0A%20%20%20%20%20%20cx%3D%7BxScale(item.x)%7D%0A%20%20%20%20%20%20cy%3D%7ByScale(item.y)%7D%0A%20%20%20%20%20%20r%3D%7B4%7D%0A%20%20%20%20%20%20fill%3D%22%23f87%22%0A%20%20%20%20%20%20fillOpacity%3D%220.3%22%0A%20%20%20%20%2F%3E%0A%20%20)%3B%0A%7D%3B)
 
 
 
-Each item hooks into its own `index`'d API promise that we created in `fetchItem` earlier.
+Each item hooks into its own `index`&#x27;d API promise that we created in `fetchItem` earlier.
 
 
 
@@ -358,7 +358,7 @@ Rendering code looks the same, just gets an extra loop.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573060439371.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20DataItem%20%3D%20(%7B%20index%20%7D)%20%3D%3E%20%7B%0A%20%20const%20batch%20%3D%20resource.items.read()%5Bindex%5D.read()%3B%0A%20%20%2F%2F%20...%0A%0A%20%20return%20batch.map(item%20%3D%3E%20(%0A%20%20%20%20%2F%2F%20render%20circle%0A%20%20))%3B%0A%7D%3B)
+[![Click through for source](./img/techletter.app-screenshot-1573060439371.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=const%20DataItem%20%3D%20(%7B%20index%20%7D)%20%3D%3E%20%7B%0A%20%20const%20batch%20%3D%20resource.items.read()%5Bindex%5D.read()%3B%0A%20%20%2F%2F%20...%0A%0A%20%20return%20batch.map(item%20%3D%3E%20(%0A%20%20%20%20%2F%2F%20render%20circle%0A%20%20))%3B%0A%7D%3B)
 
 
 
@@ -366,7 +366,7 @@ And we changed the fake API to return multiple datapoints per batch.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573060439443.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=function%20fetchItems(countPromise)%20%7B%0A%20%20console.log(%22fetching%20items%20...%22)%3B%0A%20%20return%20new%20Promise(resolve%20%3D%3E%20%7B%0A%20%20%20%20countPromise.then(count%20%3D%3E%20%7B%0A%20%20%20%20%20%20resolve(%0A%09%20%20%20%20%20%20%2F%2F%20a%20promise%20for%20every%20100th%20element%20of%20%22count%22%0A%20%20%20%20%20%20%20%20new%20Array(count%20%2F%20100).fill(null).map((_%2C%20i)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%2F%2F%20create%20a%20promise%20for%20each%20individual%20batch%20request%0A%20%20%20%20%20%20%20%20%20%20return%20wrapPromise(fetchBatch(i))%3B%0A%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20)%3B%0A%20%20%20%20%7D)%3B%0A%20%20%7D)%3B%0A%7D%0A%0Afunction%20fetchBatch(index)%20%7B%0A%20%20return%20new%20Promise(resolve%20%3D%3E%20%7B%0A%20%20%20%20%2F%2F%20IRL%20this%20setTimeout%20would%20be%20a%20fetch()%0A%20%20%20%20setTimeout(()%20%3D%3E%20%7B%0A%20%20%20%20%20%20resolve(%0A%09%20%20%20%20%20%20%2F%2F%20return%20100%20datapoints%20per%20fetch%0A%20%20%20%20%20%20%20%20new%20Array(100).fill(null).map(i%20%3D%3E%20(%7B%0A%20%20%20%20%20%20%20%20%20%20x%3A%20Math.random()%2C%0A%20%20%20%20%20%20%20%20%20%20y%3A%20Math.random()%0A%20%20%20%20%20%20%20%20%7D))%0A%20%20%20%20%20%20)%3B%0A%20%20%20%20%7D%2C%20Math.random()%20*%201000)%3B%0A%20%20%7D)%3B%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1573060439443.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=function%20fetchItems(countPromise)%20%7B%0A%20%20console.log(%22fetching%20items%20...%22)%3B%0A%20%20return%20new%20Promise(resolve%20%3D%3E%20%7B%0A%20%20%20%20countPromise.then(count%20%3D%3E%20%7B%0A%20%20%20%20%20%20resolve(%0A%09%20%20%20%20%20%20%2F%2F%20a%20promise%20for%20every%20100th%20element%20of%20%22count%22%0A%20%20%20%20%20%20%20%20new%20Array(count%20%2F%20100).fill(null).map((_%2C%20i)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%2F%2F%20create%20a%20promise%20for%20each%20individual%20batch%20request%0A%20%20%20%20%20%20%20%20%20%20return%20wrapPromise(fetchBatch(i))%3B%0A%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20)%3B%0A%20%20%20%20%7D)%3B%0A%20%20%7D)%3B%0A%7D%0A%0Afunction%20fetchBatch(index)%20%7B%0A%20%20return%20new%20Promise(resolve%20%3D%3E%20%7B%0A%20%20%20%20%2F%2F%20IRL%20this%20setTimeout%20would%20be%20a%20fetch()%0A%20%20%20%20setTimeout(()%20%3D%3E%20%7B%0A%20%20%20%20%20%20resolve(%0A%09%20%20%20%20%20%20%2F%2F%20return%20100%20datapoints%20per%20fetch%0A%20%20%20%20%20%20%20%20new%20Array(100).fill(null).map(i%20%3D%3E%20(%7B%0A%20%20%20%20%20%20%20%20%20%20x%3A%20Math.random()%2C%0A%20%20%20%20%20%20%20%20%20%20y%3A%20Math.random()%0A%20%20%20%20%20%20%20%20%7D))%0A%20%20%20%20%20%20)%3B%0A%20%20%20%20%7D%2C%20Math.random()%20*%201000)%3B%0A%20%20%7D)%3B%0A%7D)
 
 
 
@@ -374,11 +374,11 @@ And we changed the fake API to return multiple datapoints per batch.
 
 
 
-I encourage you to give React Suspense and concurrent mode in general a try. It's pretty great, almost ready for the real world, and it might make you rethink how you structure your apps.
+I encourage you to give React Suspense and concurrent mode in general a try. It&#x27;s pretty great, almost ready for the real world, and it might make you rethink how you structure your apps.
 
 
 
-Encouraging you to push data loading into the edges of your component tree seems like a particularly powerful pattern. **Load data as close to where you're using it as possible.**
+Encouraging you to push data loading into the edges of your component tree seems like a particularly powerful pattern. **Load data as close to where you&#x27;re using it as possible.**
 
 
 

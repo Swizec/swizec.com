@@ -7,23 +7,23 @@ redirect_from:
 categories: "Front End, Livecoding, Technical"
 hero: ../../../defaultHero.jpg
 ---
-_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should [subscribe to ￼My Youtube￼ channel](http://youtube.com/user/theswizec)(https://www.youtube.com/user/theswizec) to catch me live._
+_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should [subscribe to ￼My Youtube￼ channel](http://youtube.com/user/theswizec)(https&amp;#x3A;//www.youtube.com/user/theswizec) to catch me live._
 
 
 
-https://www.youtube.com/watch?v=eOenovuDHxE
+https&amp;#x3A;//www.youtube.com/watch?v=eOenovuDHxE
 
 
 
-[Flamegraphs](http://brendangregg.com/flamegraphs.html) are great. They show you when you've been bad and made the CPU cry.
+[Flamegraphs](http://brendangregg.com/flamegraphs.html) are great. They show you when you&#x27;ve been bad and made the CPU cry.
 
 
 
-Here is a flamegraph built with React & D3. It shows some stack data I stole from [the internet](https://github.com/spiermar/d3-flame-graph/blob/master/examples/stacks.json):
+Here is a flamegraph built with React &amp; D3. It shows some stack data I stole from [the internet](https://github.com/spiermar/d3-flame-graph/blob/master/examples/stacks.json):
 
 
 
-https://twitter.com/Swizec/status/1003402982552002560
+https&amp;#x3A;//twitter.com/Swizec/status/1003402982552002560
 
 
 
@@ -33,7 +33,7 @@ You can try it out [here](https://dist-wnnnpntytb.now.sh/), and see the [code on
 
 
 
-## Here's how it works 👇
+## Here&#x27;s how it works 👇
 
 
 
@@ -97,7 +97,7 @@ Inside that element, we loop through the `data`, and for each entry, we create a
 
 
 
-We decide each element's `x` position based on the sum of all node values up to the current one. And we make sure the child `<Flamegraph>` uses the same width as the current node. This creates the neat stacking effect.
+We decide each element&#x27;s `x` position based on the sum of all node values up to the current one. And we make sure the child `<Flamegraph>` uses the same width as the current node. This creates the neat stacking effect.
 
 
 
@@ -109,7 +109,7 @@ We decide each element's `x` position based on the sum of all node values up to 
 
 
 
-The `<FlameRect>` component takes care of choosing a random color on initial render, highlighting when clicked, and displaying a label if there's enough space.
+The `<FlameRect>` component takes care of choosing a random color on initial render, highlighting when clicked, and displaying a label if there&#x27;s enough space.
 
 
 
@@ -177,7 +177,7 @@ We use the ref callback to dynamically detect the size of our label and hide it 
 
 
 
-And well, that's it. You can think of this component as a basic toggle component. Uses all the same logic, just renders as a colorful rectangle instead of a button.
+And well, that&#x27;s it. You can think of this component as a basic toggle component. Uses all the same logic, just renders as a colorful rectangle instead of a button.
 
 
 
@@ -185,7 +185,7 @@ And well, that's it. You can think of this component as a basic toggle component
 
 
 
-That's the basic `<Flamegraph>` component. Uses recursion to render a tree data structure and lets you highlight individual elements.
+That&#x27;s the basic `<Flamegraph>` component. Uses recursion to render a tree data structure and lets you highlight individual elements.
 
 
 
@@ -193,11 +193,11 @@ Where it gets tricky is adding animation that lets users explore their data. Tur
 
 
 
-https://twitter.com/Swizec/status/1003904212755857408
+https&amp;#x3A;//twitter.com/Swizec/status/1003904212755857408
 
 
 
-The worst part is how long it takes before React even propagates `prop` updates through the tree before the animation even starts. Once the animation is running, it's smooth as silk.
+The worst part is how long it takes before React even propagates `prop` updates through the tree before the animation even starts. Once the animation is running, it&#x27;s smooth as silk.
 
 
 
@@ -205,11 +205,11 @@ But getting it started, ho boy.
 
 
 
-This warrants further research. I'll be back :)
+This warrants further research. I&#x27;ll be back :)
 
 
 
-https://www.youtube.com/watch?v=MLchhOfiOwM
+https&amp;#x3A;//www.youtube.com/watch?v=MLchhOfiOwM
 
 
 

@@ -11,11 +11,11 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https://www.youtube.com/watch?v=a4g81widnGM
+https&amp;#x3A;//www.youtube.com/watch?v=a4g81widnGM
 
 
 
-This Sunday, I created an excuse to learn JavaScript async/await: [Morty's Mindblowers](http://mortysmindblowers.fun).
+This Sunday, I created an excuse to learn JavaScript async/await: [Morty&#x27;s Mindblowers](http://mortysmindblowers.fun).
 
 
 
@@ -27,11 +27,11 @@ Async/await is meant to be the bestest way to deal with asynchronous code in Jav
 
 
 
-No… [just like Promises](https://swizec.com/blog/javascript-promises-monads/swizec/7814), it's nothing but a monad. A nice syntax sugarified monad, but still a monad. You can learn how to use async/await in 10 seconds.
+No… [just like Promises](https://swizec.com/blog/javascript-promises-monads/swizec/7814), it&#x27;s nothing but a monad. A nice syntax sugarified monad, but still a monad. You can learn how to use async/await in 10 seconds.
 
 
 
-https://twitter.com/Swizec/status/914613801785319425
+https&amp;#x3A;//twitter.com/Swizec/status/914613801785319425
 
 
 
@@ -43,7 +43,7 @@ If you know Promises, you know async/await. Congratz! 👏
 
 
 
-Let's say you want to fetch a list of images from Imgur and narrow it down to videos. With Promises, it looks like this:
+Let&#x27;s say you want to fetch a list of images from Imgur and narrow it down to videos. With Promises, it looks like this:
 
 
 
@@ -73,7 +73,7 @@ We have a static `gifs()` method that uses `fetch` to talk to Imgur and return a
 
 
 
-Using `static` lets us call this API without instantiating an object. `Imgur.gifs()` for instance. Great for when you're using classes to group stuff and don't need objects.
+Using `static` lets us call this API without instantiating an object. `Imgur.gifs()` for instance. Great for when you&#x27;re using classes to group stuff and don&#x27;t need objects.
 
 
 
@@ -106,7 +106,7 @@ class Imgur {
 
 
 
-I don't know if that's more readable, but I can see the appeal. Your code looks just like any other code. No need to think about async stuff at all.
+I don&#x27;t know if that&#x27;s more readable, but I can see the appeal. Your code looks just like any other code. No need to think about async stuff at all.
 
 
 
@@ -114,11 +114,11 @@ You have to put `async` in front of your function name. That wraps it in a Promi
 
 
 
-You peek into that monad using the `await` keyword. It's like wrapping your code in a `.then` callback.
+You peek into that monad using the `await` keyword. It&#x27;s like wrapping your code in a `.then` callback.
 
 
 
-That's really all there is to it. Once you say `json = await res.json()`, anything that uses that `json` variable gets wrapped in a `.then()` call.
+That&#x27;s really all there is to it. Once you say `json = await res.json()`, anything that uses that `json` variable gets wrapped in a `.then()` call.
 
 
 
@@ -130,15 +130,15 @@ Any time you use the `Imgur.gifs()` method, you have to say `await` and your fun
 
 
 
-Oh, and you can wrap built-in React lifecycle hooks in `async` and it works as expected. That part is neat. However, you can't have async getters. That would be cool.
+Oh, and you can wrap built-in React lifecycle hooks in `async` and it works as expected. That part is neat. However, you can&#x27;t have async getters. That would be cool.
 
 
 
-So yeah, we got the JavaScript async/await stuff working in a couple minutes, then we spent some half an hour figuring out how Imgur's API works, and an hour or two trying to use flexbox to make the `<video>` tag shrink and grow.
+So yeah, we got the JavaScript async/await stuff working in a couple minutes, then we spent some half an hour figuring out how Imgur&#x27;s API works, and an hour or two trying to use flexbox to make the `<video>` tag shrink and grow.
 
 
 
-And in the end, we got [Morty's Mindblowers](http://mortysmindblowers.fun). It uses cut scenes from an episode of Rick & Morty to show you random gifs from Imgur's frontpage.
+And in the end, we got [Morty&#x27;s Mindblowers](http://mortysmindblowers.fun). It uses cut scenes from an episode of Rick &amp; Morty to show you random gifs from Imgur&#x27;s frontpage.
 
 
 

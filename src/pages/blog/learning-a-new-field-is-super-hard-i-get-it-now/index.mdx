@@ -11,27 +11,27 @@ I could never understand why people keep asking me this one stupid question. A q
 
 
 
-_"Hey Swiz, how do I structure my project?"_
+_&quot;Hey Swiz, how do I structure my project?&quot;_
 
 
 
-_"Hey Swiz, where do I put this code?"_
+_&quot;Hey Swiz, where do I put this code?&quot;_
 
 
 
-_"Hey Swiz, do I use folders or not?"_
+_&quot;Hey Swiz, do I use folders or not?&quot;_
 
 
 
-_"Hey Swiz, how many components in a file?"_
+_&quot;Hey Swiz, how many components in a file?&quot;_
 
 
 
-_"Hey Swiz, where do I put my styled components?"_
+_&quot;Hey Swiz, where do I put my styled components?&quot;_
 
 ![](./img/media-10o3Um2U3wa4DK-giphy.gif)
 
-_It. Doesn't. Matter. Put your stuff wherever! When it feels untidy, tidy it up._
+_It. Doesn&#x27;t. Matter. Put your stuff wherever! When it feels untidy, tidy it up._
 
 
 
@@ -47,19 +47,19 @@ But I get it now. I understand why everyone asks this.
 
 
 
-Last week I inherited a [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) project at dayjob.exe. I knew it was coming, I just didn't prepare :P
+Last week I inherited a [Kotlin](https://en.wikipedia.org/wiki/Kotlin_(programming_language)) project at dayjob.exe. I knew it was coming, I just didn&#x27;t prepare :P
 
 
 
-Kotlin, by the way, is a programming language that compiles to Java bytecode. Runs on the [JVM](https://en.wikipedia.org/wiki/Java_virtual_machine). Often used for Android development, we're trying it for AWS Lambdas.
+Kotlin, by the way, is a programming language that compiles to Java bytecode. Runs on the [JVM](https://en.wikipedia.org/wiki/Java_virtual_machine). Often used for Android development, we&#x27;re trying it for AWS Lambdas.
 
 
 
-Got tired of Ruby and its loose approach to types, don't want to write raw Java because it's meh, consider Scala to be too much of a mess. That leaves Kotlin.
+Got tired of Ruby and its loose approach to types, don&#x27;t want to write raw Java because it&#x27;s meh, consider Scala to be too much of a mess. That leaves Kotlin.
 
 
 
-NodeJS with JavaScript or TypeScript got disqualified I'm not sure why. Python too.
+NodeJS with JavaScript or TypeScript got disqualified I&#x27;m not sure why. Python too.
 
 
 
@@ -73,7 +73,7 @@ NodeJS with JavaScript or TypeScript got disqualified I'm not sure why. Python t
 >
 >
 >
-> node_modules ain't got nothing on this
+> node_modules ain&#x27;t got nothing on this
 >
 >
 >
@@ -85,19 +85,19 @@ NodeJS with JavaScript or TypeScript got disqualified I'm not sure why. Python t
 
 
 
-So here I am trying to learn Kotlin and ... ho boy it's been rough. Took me two days just to get my code to run locally.
+So here I am trying to learn Kotlin and ... ho boy it&#x27;s been rough. Took me two days just to get my code to run locally.
 
 
 
-Being in a Lambda environment doesn't help.
+Being in a Lambda environment doesn&#x27;t help.
 
 
 
-You [install Kotlin and set up VSCode](https://medium.com/@agavatar/programming-with-kotlin-in-visual-studio-code-1d745d6b4ad1) with Kotlin support. I tried IntelliJ's IDEA environment. Hated how it looks, hated how clunky it felt, didn't wanna use it.
+You [install Kotlin and set up VSCode](https://medium.com/@agavatar/programming-with-kotlin-in-visual-studio-code-1d745d6b4ad1) with Kotlin support. I tried IntelliJ&#x27;s IDEA environment. Hated how it looks, hated how clunky it felt, didn&#x27;t wanna use it.
 
 
 
-I'm told using VSCode will punish me in the future. It's already missing the jump-to-definition stuff it can do in JavaScript and even Ruby.
+I&#x27;m told using VSCode will punish me in the future. It&#x27;s already missing the jump-to-definition stuff it can do in JavaScript and even Ruby.
 
 
 
@@ -105,7 +105,7 @@ Statically typed languages like Kotlin and Java are supposed to make that featur
 
 
 
-Syntax highlighting doesn't work great either. Oh well.
+Syntax highlighting doesn&#x27;t work great either. Oh well.
 
 
 
@@ -119,7 +119,7 @@ Ok so I get that set up and after a painful run at installing Java I can run sma
 
 
 
-> Ah yes. The popup modal links you to the wrong thing, you need JDK, not JRE, whatever that is. How absolutely obvious why didn't I think of that
+> Ah yes. The popup modal links you to the wrong thing, you need JDK, not JRE, whatever that is. How absolutely obvious why didn&#x27;t I think of that
 >
 > Thanks StackOverflow<https://t.co/yZ4Q1XSP2m>
 >
@@ -133,7 +133,7 @@ How was I supposed to know the popup gives you the wrong thing?
 
 
 
-Blogs and articles about Kotlin don't tell you this because they all assume you're coming from a Java background and have everything running. Not me :D
+Blogs and articles about Kotlin don&#x27;t tell you this because they all assume you&#x27;re coming from a Java background and have everything running. Not me :D
 
 
 
@@ -145,19 +145,19 @@ Then my instructions, from the lady who started this project, say that I have to
 
 
 
-Gradle itself also isn't good enough so everyone uses gradle wrapper called `gradlew`.
+Gradle itself also isn&#x27;t good enough so everyone uses gradle wrapper called `gradlew`.
 
 
 
-It's a bit like having `npm`. You specify dependencies and stuff in a `build.gradle`, which is written in [Groovy](https://en.wikipedia.org/wiki/Apache_Groovy), and when you run `./gradlew` it installs dependencies then compiles your code.
+It&#x27;s a bit like having `npm`. You specify dependencies and stuff in a `build.gradle`, which is written in [Groovy](https://en.wikipedia.org/wiki/Apache_Groovy), and when you run `./gradlew` it installs dependencies then compiles your code.
 
 
 
-Oh except running `gradlew` doesn't work because it needs a `.jar` file that is supposed to be part of your repository. But `.jar` files are in `.gitignore` because obviously you don't want compiled files in your git.
+Oh except running `gradlew` doesn&#x27;t work because it needs a `.jar` file that is supposed to be part of your repository. But `.jar` files are in `.gitignore` because obviously you don&#x27;t want compiled files in your git.
 
 
 
-Jar files are the compiled result of Java programs. It's like a package with compiled code and some other stuff.
+Jar files are the compiled result of Java programs. It&#x27;s like a package with compiled code and some other stuff.
 
 
 
@@ -165,15 +165,15 @@ I forget what I had to run, but I had to compile my compile tool before I could 
 
 ![](./img/media-3oz8xIiQkjAhhtorGU-giphy.gif)
 
-And then I learned about something called [SAM – Serverless Application Model](https://aws.amazon.com/serverless/sam/). It's an Amazon tool that lets you run cloud functions locally.
+And then I learned about something called [SAM – Serverless Application Model](https://aws.amazon.com/serverless/sam/). It&#x27;s an Amazon tool that lets you run cloud functions locally.
 
 
 
-Except it didn't work.
+Except it didn&#x27;t work.
 
 
 
-Complained about Docker. Don't need to set up Docker, just have it on my computer. SAM uses that to simulate lambdas ... I think.
+Complained about Docker. Don&#x27;t need to set up Docker, just have it on my computer. SAM uses that to simulate lambdas ... I think.
 
 
 
@@ -181,7 +181,7 @@ Then SAM complained about my AWS configuration. Not that it told me this, Twitte
 
 
 
-AWS uses local config files in `~/.aws` to get your AWS credentials and stuff. I set those up as per my predecessor's instructions. Didn't work.
+AWS uses local config files in `~/.aws` to get your AWS credentials and stuff. I set those up as per my predecessor&#x27;s instructions. Didn&#x27;t work.
 
 
 
@@ -195,7 +195,7 @@ Googled around and I needed some sort of `awscli` that has a `configure` command
 >
 >
 >
-> Both succeed. Neither installs aws-cli. It's literally not in the only Python path I have on my computer [pic.twitter.com/m7QC2vrLON](https://t.co/m7QC2vrLON)
+> Both succeed. Neither installs aws-cli. It&#x27;s literally not in the only Python path I have on my computer [pic.twitter.com/m7QC2vrLON](https://t.co/m7QC2vrLON)
 >
 >
 >
@@ -207,7 +207,7 @@ Rebooting my computer made it work. No idea why. Yes I tried restarting terminal
 
 
 
-By now it's been two days and learning Kotlin feels a lot like running through a brick wall.
+By now it&#x27;s been two days and learning Kotlin feels a lot like running through a brick wall.
 
 ![](./img/media-mIvrv5Qe0kHlu-giphy.gif)
 
@@ -221,19 +221,19 @@ But I could run my code locally 💪
 
 
 
-## And then ... I didn't know where to put my code 🙈
+## And then ... I didn&#x27;t know where to put my code 🙈
 
 
 
-I could run my code, I could deploy my code, I couldn't run my code in production because some Lambda wasn't giving permissions to another Lambda and it breaks.
+I could run my code, I could deploy my code, I couldn&#x27;t run my code in production because some Lambda wasn&#x27;t giving permissions to another Lambda and it breaks.
 
 
 
-So I figured I'd start with unit tests.
+So I figured I&#x27;d start with unit tests.
 
 
 
-My predecessor didn't set that up and you want your backend code thoroughly tested. Manual QA only goes so far.
+My predecessor didn&#x27;t set that up and you want your backend code thoroughly tested. Manual QA only goes so far.
 
 
 
@@ -251,7 +251,7 @@ Training Google to give good results is a big part of learning a new language or
 >
 >
 >
-> But I don't know where to put files or how to run them.
+> But I don&#x27;t know where to put files or how to run them.
 >
 >
 >
@@ -259,11 +259,11 @@ Training Google to give good results is a big part of learning a new language or
 
 
 
-After much reading and investigating I learned of a thing called [KotlinTest](https://github.com/kotlintest/kotlintest). It's a powerful framework for testing Kotlin that supports many different styles.
+After much reading and investigating I learned of a thing called [KotlinTest](https://github.com/kotlintest/kotlintest). It&#x27;s a powerful framework for testing Kotlin that supports many different styles.
 
 
 
-One of them looks like Ruby RSpec tests I'm used to. 👌
+One of them looks like Ruby RSpec tests I&#x27;m used to. 👌
 
 
 
@@ -275,7 +275,7 @@ Okay ... where do I put these files? How do I run them?
 
 
 
-Every guide and blog assumed I already know this. Oh you're trying to test your Kotlin code? _Obviously_ you know how to write a valid Kotlin file, where to put it, which \\imports to use, and how to run it.
+Every guide and blog assumed I already know this. Oh you&#x27;re trying to test your Kotlin code? _Obviously_ you know how to write a valid Kotlin file, where to put it, which \\imports to use, and how to run it.
 
 
 
@@ -326,11 +326,11 @@ Banged my head against that wall for an hour. Such a small thing, so hard to fig
 
 
 
-Like, I resorted to reading KotlinTest source files to figure this out that's how bad all the guides are.
+Like, I resorted to reading KotlinTest source files to figure this out that&#x27;s how bad all the guides are.
 
 
 
-And I still didn't know where to put it or how to run it.
+And I still didn&#x27;t know where to put it or how to run it.
 
 
 
@@ -350,11 +350,11 @@ At least the guides told me how to configure Gradle ...
 
 
 
-So yeah I get it now, I understand why video courses are so popular (you can see what's happening and where things go), I see why people ask seemingly obvious questions.
+So yeah I get it now, I understand why video courses are so popular (you can see what&#x27;s happening and where things go), I see why people ask seemingly obvious questions.
 
 
 
-Learning very new stuff is hard. Everyone assumes you have background knowledge that you don't have. _sigh_
+Learning very new stuff is hard. Everyone assumes you have background knowledge that you don&#x27;t have. _sigh_
 
 
 
@@ -366,4 +366,4 @@ Cheers, ~Swizec
 
 
 
-PS: yes it's a balance. Otherwise you might as well explain how 1+1 works in every article ... 🤔
+PS: yes it&#x27;s a balance. Otherwise you might as well explain how 1+1 works in every article ... 🤔

@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https://www.youtube.com/watch?v=cwNlRu5Dy-Y
+https&amp;#x3A;//www.youtube.com/watch?v=cwNlRu5Dy-Y
 
 
 
@@ -23,11 +23,11 @@ Here it is in action on my day job project 👇
 
 
 
-https://twitter.com/Swizec/status/909565004642316288
+https&amp;#x3A;//twitter.com/Swizec/status/909565004642316288
 
 
 
-## Here's how you set it up
+## Here&#x27;s how you set it up
 
 
 
@@ -36,7 +36,7 @@ You can start using it right now. All you need is an expensive laptop, my [Touch
 
 
 - [Download the app](https://github.com/Swizec/touchbar_webpack_progress), run it. Set it up to run at startup, if you want to be fancy.
-- Add my nyan-progress-webpack-plugin to your `package.json`. I'll try to convince @alexkuz to merge it into his published package. When that happens, this step will be easier.
+- Add my nyan-progress-webpack-plugin to your `package.json`. I&#x27;ll try to convince @alexkuz to merge it into his published package. When that happens, this step will be easier.
 
 
 
@@ -81,7 +81,7 @@ plugins: [
 
 
 
-This enables a Nyan Cat webpack progress indicator in your terminal and tells it to send progress to the touchbar as well. It's behind a feature flag so @alexkuz doesn't get too upset when I make a pull request. Kind of a silly feature :)
+This enables a Nyan Cat webpack progress indicator in your terminal and tells it to send progress to the touchbar as well. It&#x27;s behind a feature flag so @alexkuz doesn&#x27;t get too upset when I make a pull request. Kind of a silly feature :)
 
 
 
@@ -89,7 +89,7 @@ This enables a Nyan Cat webpack progress indicator in your terminal and tells it
 
 
 
-## Here's how it works
+## Here&#x27;s how it works
 
 
 
@@ -97,16 +97,16 @@ This joyful hack stands on the shoulders of giants. We used two pieces of open s
 
 
 
-1. Alexkuz's [nyan-webpack-progress-indicator](https://github.com/alexkuz/nyan-progress-webpack-plugin) provided all the logic to take Webpack's build progress and do something
-2. Avatsaev's [touchbar nyancat](https://github.com/avatsaev/touchbar_nyancat) provided the Touchbar integration because I don't know much about native development.
+1. Alexkuz&#x27;s [nyan-webpack-progress-indicator](https://github.com/alexkuz/nyan-progress-webpack-plugin) provided all the logic to take Webpack&#x27;s build progress and do something
+2. Avatsaev&#x27;s [touchbar nyancat](https://github.com/avatsaev/touchbar_nyancat) provided the Touchbar integration because I don&#x27;t know much about native development.
 
 
 
-We took those two Nyan Cat… things… and added an HTTP server. That's right. They talk to each other via HTTP because that was the easiest to implement. 😇
+We took those two Nyan Cat… things… and added an HTTP server. That&#x27;s right. They talk to each other via HTTP because that was the easiest to implement. 😇
 
 
 
-The native app runs a web server built with [Swifter](https://github.com/httpswift/swifter). This part was hard because documentation is scarce and because I've never done Swift code before.
+The native app runs a web server built with [Swifter](https://github.com/httpswift/swifter). This part was hard because documentation is scarce and because I&#x27;ve never done Swift code before.
 
 
 
@@ -145,7 +145,7 @@ func updateProgress() -> ((HttpRequest) -> HttpResponse) {
 
 
 
-We start the server listening on port `12345` with `server.start(12345)` and add a route for `/progress/:progress`. We're listening to GET request on `localhost:12345/progress/<number>`. Those call `updateProgress()`.
+We start the server listening on port `12345` with `server.start(12345)` and add a route for `/progress/:progress`. We&#x27;re listening to GET request on `localhost:12345/progress/<number>`. Those call `updateProgress()`.
 
 
 
@@ -157,7 +157,7 @@ Updating `xPosition` automatically triggers a redraw… somehow. _shrug_
 
 
 
-That's all the machinery we need to update our Touchbar from anywhere. Next step is to add an HTTP call to the Webpack progress plugin.
+That&#x27;s all the machinery we need to update our Touchbar from anywhere. Next step is to add an HTTP call to the Webpack progress plugin.
 
 
 
@@ -191,23 +191,23 @@ function sendProgressToTouchbar(progress, options) {
 
 
 
-`nyan-progress-webpack-plugin` already has a function hooked into `onProgress` updates from Webpack's machinery. We added an HTTP call to our Touchbar app via `sendProgressToTouchbar`.
+`nyan-progress-webpack-plugin` already has a function hooked into `onProgress` updates from Webpack&#x27;s machinery. We added an HTTP call to our Touchbar app via `sendProgressToTouchbar`.
 
 
 
-`sendProgressToTouchbar` uses node's built-in HTTP client to make a GET request and update the touchbar. There is no error handling because we're lazy and don't care enough.
+`sendProgressToTouchbar` uses node&#x27;s built-in HTTP client to make a GET request and update the touchbar. There is no error handling because we&#x27;re lazy and don&#x27;t care enough.
 
 
 
-That's all the code it took. Thank you, open source community, for making hacks like this easy to build 😁
+That&#x27;s all the code it took. Thank you, open source community, for making hacks like this easy to build 😁
 
 
 
-## Here's why this is impractical
+## Here&#x27;s why this is impractical
 
 
 
-Apple has decided that the Touchbar should only be controlled by the application that's currently in focus. That means you can only use your Touchbar to see Webpack progress when you're actively focusing on [touchbar_webpack_progress](https://github.com/Swizec/touchbar_webpack_progress).
+Apple has decided that the Touchbar should only be controlled by the application that&#x27;s currently in focus. That means you can only use your Touchbar to see Webpack progress when you&#x27;re actively focusing on [touchbar_webpack_progress](https://github.com/Swizec/touchbar_webpack_progress).
 
 
 
@@ -215,7 +215,7 @@ This makes it useless. ☹️
 
 
 
-Here's where I hope the open source community will step in. Take your favorite editor and add this as a plugin. If your editor is running this sort of code, it can show Webpack progress while you continue to write code.
+Here&#x27;s where I hope the open source community will step in. Take your favorite editor and add this as a plugin. If your editor is running this sort of code, it can show Webpack progress while you continue to write code.
 
 
 
@@ -235,7 +235,7 @@ Can you help make that? Please make it.
 
 
 
-Here's all the code: [the macOS app](https://github.com/Swizec/touchbar_webpack_progress) and [the Webpack plugin](https://github.com/Swizec/nyan-progress-webpack-plugin/tree/send-progress-to-touchbar)
+Here&#x27;s all the code: [the macOS app](https://github.com/Swizec/touchbar_webpack_progress) and [the Webpack plugin](https://github.com/Swizec/nyan-progress-webpack-plugin/tree/send-progress-to-touchbar)
 
 
 

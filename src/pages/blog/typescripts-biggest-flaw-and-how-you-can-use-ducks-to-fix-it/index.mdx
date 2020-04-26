@@ -13,7 +13,7 @@ TypeScript is wonderful. Been using it more and more and I love it. 🥰
 
 
 
-There's something magical about useful autocomplete suggestions, object blobs with property hints, and auto \\imports. That's right, auto \\imports.
+There&#x27;s something magical about useful autocomplete suggestions, object blobs with property hints, and auto \\imports. That&#x27;s right, auto \\imports.
 
 
 
@@ -25,7 +25,7 @@ Press enter and VSCode adds `\import { FieldTypes } from './types'` at the top.
 
 
 
-And check this out: I got a form builder that takes JavaScript blobs as configuration. VSCode is smart enough to tell me when they're wrong. 👌
+And check this out: I got a form builder that takes JavaScript blobs as configuration. VSCode is smart enough to tell me when they&#x27;re wrong. 👌
 
 
 
@@ -45,7 +45,7 @@ Got a field with a `name` and a `placeholder`. Remove one and o-oh.
 
 
 
-The error is cryptic type vomit. You get used to that. Means that one of your blobs doesn't match any known field type.
+The error is cryptic type vomit. You get used to that. Means that one of your blobs doesn&#x27;t match any known field type.
 
 
 
@@ -65,7 +65,7 @@ Whoa
 
 
 
-So what's going on here? What's TypeScript doing to support this? And why do we need a `type` property if we're using a typed language?
+So what&#x27;s going on here? What&#x27;s TypeScript doing to support this? And why do we need a `type` property if we&#x27;re using a typed language?
 
 
 
@@ -93,7 +93,7 @@ TypeScript with VSCode brings all that to JavaScript.
 
 
 
-You get a better coding experience most of the time. Sometimes you fight the type system, but it's got your back ... mostly. Great for large teams and large codebases.
+You get a better coding experience most of the time. Sometimes you fight the type system, but it&#x27;s got your back ... mostly. Great for large teams and large codebases.
 
 
 
@@ -105,7 +105,7 @@ Know your code has at least a remote chance of being correct without running eve
 
 
 
-In contrast to static analysis you have [dynamic analysis](https://en.wikipedia.org/wiki/Dynamic_program_analysis). That's JavaScript's normal mode.
+In contrast to static analysis you have [dynamic analysis](https://en.wikipedia.org/wiki/Dynamic_program_analysis). That&#x27;s JavaScript&#x27;s normal mode.
 
 
 
@@ -113,15 +113,15 @@ In contrast to static analysis you have [dynamic analysis](https://en.wikipedia.
 
 
 
-To analyze a dynamic language, you gotta run it. That's where test driven development comes in.
+To analyze a dynamic language, you gotta run it. That&#x27;s where test driven development comes in.
 
 
 
-You don't have a static type system saving your butt for some classes of errors. You gotta run the thing and see if it works. And you better make sure you run every line of code.
+You don&#x27;t have a static type system saving your butt for some classes of errors. You gotta run the thing and see if it works. And you better make sure you run every line of code.
 
 
 
-If you don't, I promise your users will 😉
+If you don&#x27;t, I promise your users will 😉
 
 
 
@@ -145,7 +145,7 @@ The duck test 🦆
 
 
 
-You're duck typing every time you write code like `if (object.property && object.property.value === 'something')`
+You&#x27;re duck typing every time you write code like `if (object.property && object.property.value === 'something')`
 
 
 
@@ -157,7 +157,7 @@ Verify the object is a duck, has a `property`, then use it like a duck.
 
 
 
-That brings us to TypeScript's biggest flaw.
+That brings us to TypeScript&#x27;s biggest flaw.
 
 
 
@@ -177,11 +177,11 @@ Great for program size and understandability. Not great for useful type system.
 
 
 
-Say you've got a form builder with two field types like I mentioned before.
+Say you&#x27;ve got a form builder with two field types like I mentioned before.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1560790608889.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20A%20union%20type%20for%20field%20types%0Aexport%20type%20FieldTypes%20%3D%20TextFieldProps%20%7C%20EmailFieldProps%3B%0A%0A%2F%2F%20All%20fields%20share%20some%20properties%0Aexport%20interface%20CoreFieldProps%20%7B%0A%20%20%20%20name%3A%20string%3B%0A%20%20%20%20initialValue%3F%3A%20string%3B%0A%7D%0A%0A%2F%2F%20Text%20fields%20require%20a%20placeholder%0A%2F%2F%20type%20is%20%60text%60%20by%20default%0Aexport%20interface%20TextFieldProps%20extends%20CoreFieldProps%20%7B%0A%20%20%20%20type%3F%3A%20%22text%22%3B%0A%20%20%20%20placeholder%3A%20string%3B%0A%7D%0A%0A%2F%2F%20Email%20fields%20don't%20require%20a%20placeholder%0Aexport%20interface%20EmailFieldProps%20extends%20CoreFieldProps%20%7B%0A%20%20%20%20type%3A%20%22email%22%3B%0A%20%20%20%20placeholder%3F%3A%20string%3B%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1560790608889.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20A%20union%20type%20for%20field%20types%0Aexport%20type%20FieldTypes%20%3D%20TextFieldProps%20%7C%20EmailFieldProps%3B%0A%0A%2F%2F%20All%20fields%20share%20some%20properties%0Aexport%20interface%20CoreFieldProps%20%7B%0A%20%20%20%20name%3A%20string%3B%0A%20%20%20%20initialValue%3F%3A%20string%3B%0A%7D%0A%0A%2F%2F%20Text%20fields%20require%20a%20placeholder%0A%2F%2F%20type%20is%20%60text%60%20by%20default%0Aexport%20interface%20TextFieldProps%20extends%20CoreFieldProps%20%7B%0A%20%20%20%20type%3F%3A%20%22text%22%3B%0A%20%20%20%20placeholder%3A%20string%3B%0A%7D%0A%0A%2F%2F%20Email%20fields%20don&#x27;t%20require%20a%20placeholder%0Aexport%20interface%20EmailFieldProps%20extends%20CoreFieldProps%20%7B%0A%20%20%20%20type%3A%20%22email%22%3B%0A%20%20%20%20placeholder%3F%3A%20string%3B%0A%7D)
 
 
 
@@ -197,19 +197,19 @@ Specific field types extend the core props and add their own. Most \\importantly
 
 
 
-That's how TypeScript knows what you mean when you write
+That&#x27;s how TypeScript knows what you mean when you write
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1560790608727.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%3CForm%0A%20%20%20%20onSubmit%3D%7Bvalues%20%3D%3E%20alert(JSON.stringify(values%2C%20null%2C%202))%7D%0A%20%20%20%20fields%3D%7B%5B%0A%20%20%20%20%20%20%20%20%7B%20name%3A%20%22firstName%22%2C%20placeholder%3A%20%22First%20Name%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%20name%3A%20%22lastName%22%2C%20placeholder%3A%20%22Last%20Name%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%20name%3A%20%22email%22%2C%20type%3A%20%22email%22%20%7D%0A%20%20%20%20%5D%7D%20%2F%3E)
+[![Click through for source](./img/techletter.app-screenshot-1560790608727.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%3CForm%0A%20%20%20%20onSubmit%3D%7Bvalues%20%3D%3E%20alert(JSON.stringify(values%2C%20null%2C%202))%7D%0A%20%20%20%20fields%3D%7B%5B%0A%20%20%20%20%20%20%20%20%7B%20name%3A%20%22firstName%22%2C%20placeholder%3A%20%22First%20Name%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%20name%3A%20%22lastName%22%2C%20placeholder%3A%20%22Last%20Name%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%20name%3A%20%22email%22%2C%20type%3A%20%22email%22%20%7D%0A%20%20%20%20%5D%7D%20%2F%3E)
 
 
 
-Looks at the first two blobs, sees they match `TextFieldProps`. They've got a name and a placeholder, no type.
+Looks at the first two blobs, sees they match `TextFieldProps`. They&#x27;ve got a name and a placeholder, no type.
 
 
 
-The last blob uses `type: "email"` so TypeScript knows it's okay that there's no placeholder. Optional in emails.
+The last blob uses `type: "email"` so TypeScript knows it&#x27;s okay that there&#x27;s no placeholder. Optional in emails.
 
 
 
@@ -221,11 +221,11 @@ Static analysis worked great in the editor. What about when you want to render d
 
 
 
-You're using a typed language right, how hard can it be.
+You&#x27;re using a typed language right, how hard can it be.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1560797141465.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20RenderField%20%3D%20(props%3A%20FieldTypes)%20%3D%3E%20%7B%0A%09if%20(typeof%20props%20%3D%3D%20TextFieldProps)%20%7B%0A%09%09%2F%2F%20render%20a%20text%20field%0A%09%7Delse%20if%20(typeof%20props%20%3D%3D%20EmailFieldProps)%20%7B%0A%09%09%2F%2F%20render%20an%20email%20field%0A%09%7D%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1560797141465.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=const%20RenderField%20%3D%20(props%3A%20FieldTypes)%20%3D%3E%20%7B%0A%09if%20(typeof%20props%20%3D%3D%20TextFieldProps)%20%7B%0A%09%09%2F%2F%20render%20a%20text%20field%0A%09%7Delse%20if%20(typeof%20props%20%3D%3D%20EmailFieldProps)%20%7B%0A%09%09%2F%2F%20render%20an%20email%20field%0A%09%7D%0A%7D)
 
 
 
@@ -233,11 +233,11 @@ Not so fast buster.
 
 
 
-JavaScript has no idea about your types. `typeof props` evaluates to `object`. That's not gonna match your artisanally crafted types you worked so hard to build 😉
+JavaScript has no idea about your types. `typeof props` evaluates to `object`. That&#x27;s not gonna match your artisanally crafted types you worked so hard to build 😉
 
 
 
-Instead, you'll have to use [TypeScript Type Guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types)
+Instead, you&#x27;ll have to use [TypeScript Type Guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types)
 
 
 
@@ -258,7 +258,7 @@ A duck typed type guard uses the duck test. If property exists on object, do the
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1560797140706.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=function%20isDuck(animal%3A%20Duck%20%7C%20Elephant%20%7C%20Donkey)%20%7B%0A%09return%20%22swim%22%20in%20animal%20%26%26%20%22fly%22%20in%20animal%3B%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1560797140706.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=function%20isDuck(animal%3A%20Duck%20%7C%20Elephant%20%7C%20Donkey)%20%7B%0A%09return%20%22swim%22%20in%20animal%20%26%26%20%22fly%22%20in%20animal%3B%0A%7D)
 
 
 
@@ -270,7 +270,7 @@ An animal is a duck if it can both swim and fly. The `in` operator checks for th
 
 
 
-The other approach works best in an object blob situation. You provide a `type` attribute, define types with hardcoded values, then make sure they're defined.
+The other approach works best in an object blob situation. You provide a `type` attribute, define types with hardcoded values, then make sure they&#x27;re defined.
 
 
 
@@ -278,7 +278,7 @@ Use those values at runtime to decide what to do
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1560797142337.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20RenderField%20%3D%20(props%3A%20FieldTypes)%20%3D%3E%20%7B%0A%20%20%20%20switch%20(props.type)%20%7B%0A%20%20%20%20%20%20%20%20case%20%22email%22%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%20render%20email%20field%0A%20%20%20%20%20%20%20%20case%20%22text%22%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%20render%20text%20field%0A%20%20%20%20%7D%0A%7D%3B)
+[![Click through for source](./img/techletter.app-screenshot-1560797142337.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=const%20RenderField%20%3D%20(props%3A%20FieldTypes)%20%3D%3E%20%7B%0A%20%20%20%20switch%20(props.type)%20%7B%0A%20%20%20%20%20%20%20%20case%20%22email%22%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%20render%20email%20field%0A%20%20%20%20%20%20%20%20case%20%22text%22%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%20render%20text%20field%0A%20%20%20%20%7D%0A%7D%3B)
 
 
 
@@ -298,7 +298,7 @@ But I prefer blobs for passing data and use duck typing when dealing with actual
 
 
 
-And that's how you can use ducks to solve TypeScript's biggest flaw – lack of type support at runtime.
+And that&#x27;s how you can use ducks to solve TypeScript&#x27;s biggest flaw – lack of type support at runtime.
 
 
 

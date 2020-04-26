@@ -7,7 +7,7 @@ redirect_from:
 categories: "Front End, react, Technical"
 hero: ./img/blog-wp-content-uploads-2016-12-corners-match-up.png
 ---
-That damn [Pythagorean fractal](https://swizec.com/blog/fractals-react/swizec/7233) from last month wouldn't leave me alone, so I fixed it. Timing may or may not coincide with a commenter giving a solution to the wonky triangle problem.
+That damn [Pythagorean fractal](https://swizec.com/blog/fractals-react/swizec/7233) from last month wouldn&#x27;t leave me alone, so I fixed it. Timing may or may not coincide with a commenter giving a solution to the wonky triangle problem.
 
 
 
@@ -19,15 +19,15 @@ That damn [Pythagorean fractal](https://swizec.com/blog/fractals-react/swizec/72
 
 
 
-It took _somebody doing the math instead of me_ to kick my arse into gear. Here's Vinicius Ribeiro schooling me on high school trigonometry:
+It took _somebody doing the math instead of me_ to kick my arse into gear. Here&#x27;s Vinicius Ribeiro schooling me on high school trigonometry:
 
 
 
-> You are not applying the Law of Sines correctly. The variable 'd' is the diameter of the triangle's circumcircle, not its perimeter.
+> You are not applying the Law of Sines correctly. The variable &#x27;d&#x27; is the diameter of the triangle&#x27;s circumcircle, not its perimeter.
 >
 >
 >
-> Tinkering with your code on github, I've managed to accomplish what you were trying to do by doing the following calculations:
+> Tinkering with your code on github, I&#x27;ve managed to accomplish what you were trying to do by doing the following calculations:
 
 
 
@@ -41,7 +41,7 @@ B = Math.deg(Math.atan(currentH / (0.7*w)));
 
 
 
-> The height of the inner triangle is a fraction of the current 'w'. By doing that, we can infer nextLeft and nextRight using the Pythagorean theorem. The angles can then be calculated using the inverse tangent (atan) and the triangle height.
+> The height of the inner triangle is a fraction of the current &#x27;w&#x27;. By doing that, we can infer nextLeft and nextRight using the Pythagorean theorem. The angles can then be calculated using the inverse tangent (atan) and the triangle height.
 >
 >
 >
@@ -67,7 +67,7 @@ Equipped with basic trigonometry, you need 3 ingredients to build a dancing tree
 
 
 
-We'll use the `<Pythagoras>` component from November, add a D3 mouse listener, and put Vinicus's math with some tweaks into a memoized function. We need D3 because its mouse listeners automatically calculate mouse position relative to SVG coordinates, and [memoization](https://en.wikipedia.org/wiki/Memoization) helps us keep our code faster.
+We&#x27;ll use the `<Pythagoras>` component from November, add a D3 mouse listener, and put Vinicus&#x27;s math with some tweaks into a memoized function. We need D3 because its mouse listeners automatically calculate mouse position relative to SVG coordinates, and [memoization](https://en.wikipedia.org/wiki/Memoization) helps us keep our code faster.
 
 
 
@@ -132,7 +132,7 @@ Most of this code deals with passing arguments onwards to children. It’s not t
 
 
 
-I don't _really_ understand this math, but I sort of know where it's coming from. It's the [sine law](https://en.wikipedia.org/wiki/Law_of_sines) applied correctly. You know, the part I failed at miserably last time ?
+I don&#x27;t _really_ understand this math, but I sort of know where it&#x27;s coming from. It&#x27;s the [sine law](https://en.wikipedia.org/wiki/Law_of_sines) applied correctly. You know, the part I failed at miserably last time ?
 
 
 
@@ -168,7 +168,7 @@ const memoizedCalc = function () {
 
 
 
-We added to Vinicius's maths a dynamic `heightFactor` and `lean` adjustment. We'll control those with mouse movement.
+We added to Vinicius&#x27;s maths a dynamic `heightFactor` and `lean` adjustment. We&#x27;ll control those with mouse movement.
 
 
 
@@ -176,15 +176,15 @@ To improve performance, maybe, our `memoizedCalc` function has an internal data 
 
 
 
-At 11 levels of depth, `memoizedCalc` gets called 2,048 times and only returns 11 different results. You can't find a better candidate for memoization.
+At 11 levels of depth, `memoizedCalc` gets called 2,048 times and only returns 11 different results. You can&#x27;t find a better candidate for memoization.
 
 
 
-Of course, a benchmark would be great here. Maybe `sqrt`, `atan`, and `**` aren't _that_ slow, and our real bottleneck is redrawing all those nodes on every mouse move. _Hint: it totally is._
+Of course, a benchmark would be great here. Maybe `sqrt`, `atan`, and `**` aren&#x27;t _that_ slow, and our real bottleneck is redrawing all those nodes on every mouse move. _Hint: it totally is._
 
 
 
-Now that I spell it out… what the hell was I thinking? I'm impressed it works as well as it does.
+Now that I spell it out… what the hell was I thinking? I&#x27;m impressed it works as well as it does.
 
 
 
@@ -192,7 +192,7 @@ Now that I spell it out… what the hell was I thinking? I'm impressed it works 
 
 
 
-Inside `App.js`, we add a mouse event listener. We use D3's because it gives us the SVG-relative position calculation out of the box. With React’s, we'd have to do the hard work ourselves.
+Inside `App.js`, we add a mouse event listener. We use D3&#x27;s because it gives us the SVG-relative position calculation out of the box. With React’s, we&#x27;d have to do the hard work ourselves.
 
 
 
@@ -278,7 +278,7 @@ onMouseMove(event) {
 
 
 
-If you're not used to D3 scales, this reads as:
+If you&#x27;re not used to D3 scales, this reads as:
 
 
 
@@ -299,4 +299,4 @@ Beautious. ?
 
 
 
-PS: last time, I mentioned that recursion stops working when you make a React build optimized for production. That doesn't happen. I don't know what was wrong with the specific case where I saw that behavior. ¯\\_(ツ)_/¯
+PS: last time, I mentioned that recursion stops working when you make a React build optimized for production. That doesn&#x27;t happen. I don&#x27;t know what was wrong with the specific case where I saw that behavior. ¯\\_(ツ)_/¯

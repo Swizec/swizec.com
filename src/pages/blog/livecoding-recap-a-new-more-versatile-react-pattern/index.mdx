@@ -11,11 +11,11 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https://www.youtube.com/watch?v=OnLho6re1aI
+https&amp;#x3A;//www.youtube.com/watch?v=OnLho6re1aI
 
 
 
-I'm working on a React & D3 library that I've been thinking about for two years. My goal is to build [simple-react-d3](https://github.com/Swizec/simple-react-d3), a React and D3 library that never gets in your way.
+I&#x27;m working on a React &amp; D3 library that I&#x27;ve been thinking about for two years. My goal is to build [simple-react-d3](https://github.com/Swizec/simple-react-d3), a React and D3 library that never gets in your way.
 
 
 
@@ -27,7 +27,7 @@ But more often than not, the more custom you want your dataviz to be, the more c
 
 
 
-[VX](https://vx-demo.now.sh/) comes closest to the ideal get-out-of-your-way library, and even VX when I recommended it to a friend it took all of 10 minutes for him to hit the wall. _"Wtf how do I do this? The library is fighting me"_
+[VX](https://vx-demo.now.sh/) comes closest to the ideal get-out-of-your-way library, and even VX when I recommended it to a friend it took all of 10 minutes for him to hit the wall. _&quot;Wtf how do I do this? The library is fighting me&quot;_
 
 
 
@@ -35,21 +35,21 @@ But more often than not, the more custom you want your dataviz to be, the more c
 
 
 
-The best way to get started was to generalize the `D3Blackbox` pattern I developed for [React+D3](https://swizec.com/reactd3js). It's the easiest and quickest way to render a random piece of D3 code in your React project.
+The best way to get started was to generalize the `D3Blackbox` pattern I developed for [React+D3](https://swizec.com/reactd3js). It&#x27;s the easiest and quickest way to render a random piece of D3 code in your React project.
 
 
 
-Here's an example
+Here&#x27;s an example
 
 
 
 
 
-Take some D3 code, wrap it in a function, pass it to a HOC (higher order component), and you're done. The HOC renders an anchor element, and your render function uses D3 to take over and manipulate the DOM.
+Take some D3 code, wrap it in a function, pass it to a HOC (higher order component), and you&#x27;re done. The HOC renders an anchor element, and your render function uses D3 to take over and manipulate the DOM.
 
 
 
-This approach doesn't give you all the benefits of React, and it doesn't scale very well. It's meant for simple components, quick hack jobs, or when you have a lot of existing D3 code you want to use. It is the easiest and quickest way to [translate any random D3 example to React](https://swizec.com/blog/translate-random-d3-example-react/swizec/7765).
+This approach doesn&#x27;t give you all the benefits of React, and it doesn&#x27;t scale very well. It&#x27;s meant for simple components, quick hack jobs, or when you have a lot of existing D3 code you want to use. It is the easiest and quickest way to [translate any random D3 example to React](https://swizec.com/blog/translate-random-d3-example-react/swizec/7765).
 
 
 
@@ -68,7 +68,7 @@ Boom. Library.
 
 
 
-But what if you're the kind of person who doesn't like HOCs? Maybe you prefer render props or function-as-children?
+But what if you&#x27;re the kind of person who doesn&#x27;t like HOCs? Maybe you prefer render props or function-as-children?
 
 
 
@@ -80,7 +80,7 @@ But what if you're the kind of person who doesn't like HOCs? Maybe you prefer re
 
 
 
-_"Can we make this HOC work as not a HOC too? What if it supported it all popular React patterns for reuse"_
+_&quot;Can we make this HOC work as not a HOC too? What if it supported it all popular React patterns for reuse&quot;_
 
 
 
@@ -88,11 +88,11 @@ I came up with this
 
 
 
-https://twitter.com/Swizec/status/978078833076142080
+https&amp;#x3A;//twitter.com/Swizec/status/978078833076142080
 
 
 
-It's a function, `SVGBlackbox`, that takes a function as argument and acts like a HOC. Pass in a func, get a component back. Just like the `D3Blackbox` example above.
+It&#x27;s a function, `SVGBlackbox`, that takes a function as argument and acts like a HOC. Pass in a func, get a component back. Just like the `D3Blackbox` example above.
 
 
 
@@ -158,7 +158,7 @@ Neat.
 
 
 
-Unfortunately, the internet told me this is a terrible pattern, and I should feel bad. The `window.requestAnimationFrame` part can lead to all sorts of problems and likely clashes with the future we're getting in React 16.3.
+Unfortunately, the internet told me this is a terrible pattern, and I should feel bad. The `window.requestAnimationFrame` part can lead to all sorts of problems and likely clashes with the future we&#x27;re getting in React 16.3.
 
 
 
@@ -166,15 +166,15 @@ However, Sophie Alpert had some good suggestions 👇
 
 
 
-https://twitter.com/sophiebits/status/978096124824137728
+https&amp;#x3A;//twitter.com/sophiebits/status/978096124824137728
 
 
 
-https://twitter.com/sophiebits/status/978123160947122180
+https&amp;#x3A;//twitter.com/sophiebits/status/978123160947122180
 
 
 
-The idea of shoving render prop stuff into the `ref` callback smells like black magic. It's so crazy that it might just work.
+The idea of shoving render prop stuff into the `ref` callback smells like black magic. It&#x27;s so crazy that it might just work.
 
 
 
@@ -182,7 +182,7 @@ The idea of shoving render prop stuff into the `ref` callback smells like black 
 
 
 
-https://www.youtube.com/watch?v=EWVT1Cp8F4o
+https&amp;#x3A;//www.youtube.com/watch?v=EWVT1Cp8F4o
 
 
 
@@ -210,11 +210,11 @@ It took 5 minutes because we had to update code from D3v4 to D3v5 and add some p
 
 
 
-You can see [full SVGBlackbox code on GitHub](https://github.com/Swizec/simple-react-d3/blob/master/src/SVGBlackbox.js). Here's how the interesting part works:
+You can see [full SVGBlackbox code on GitHub](https://github.com/Swizec/simple-react-d3/blob/master/src/SVGBlackbox.js). Here&#x27;s how the interesting part works:
 
 
 
-\[caption id="attachment_8299" align="alignnone" width="1328"]![SVGBlackbox](./img/blog-wp-content-uploads-2018-03-finished-svgblackbox.png) SVGBlackbox\[/caption]
+\[caption id=&quot;attachment_8299&quot; align=&quot;alignnone&quot; width=&quot;1328&quot;]![SVGBlackbox](./img/blog-wp-content-uploads-2018-03-finished-svgblackbox.png) SVGBlackbox\[/caption]
 
 
 
@@ -230,11 +230,11 @@ Then return a `<g>` element moved into `(x, y)` position and given all the other
 
 
 
-Now the tricky part: A `ref` callback that invokes your render function. That's right, you can hand over control of the anchor element in the `ref` callback.
+Now the tricky part: A `ref` callback that invokes your render function. That&#x27;s right, you can hand over control of the anchor element in the `ref` callback.
 
 
 
-This works, but trips up on [React's caveat about ref callbacks](https://reactjs.org/docs/refs-and-the-dom.html) sometimes.
+This works, but trips up on [React&#x27;s caveat about ref callbacks](https://reactjs.org/docs/refs-and-the-dom.html) sometimes.
 
 
 
@@ -246,7 +246,7 @@ Hence the callback is wrapped in a conditional to check that `anchor` is defined
 
 
 
-Still feels a little dirty, but much better than the `requestAnimationFrame` approach. Shouldn't mess with async stuff in React 16.3 either, I think.
+Still feels a little dirty, but much better than the `requestAnimationFrame` approach. Shouldn&#x27;t mess with async stuff in React 16.3 either, I think.
 
 
 
@@ -258,4 +258,4 @@ Something similar for the full feature integration where D3 calculates your prop
 
 
 
-It's all coming together :)
+It&#x27;s all coming together :)

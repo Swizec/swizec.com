@@ -21,11 +21,11 @@ You can watch the livestream here 👇
 
 
 
-https://www.youtube.com/watch?v=Wf6JeMPvM9Y
+https&amp;#x3A;//www.youtube.com/watch?v=Wf6JeMPvM9Y
 
 
 
-Created by @rich_harris, Svelte's unique idea is that there's no runtime. The framework compiles itself away to become vanilla JavaScript and create the smallest bundles you ever did see.
+Created by @rich_harris, Svelte&#x27;s unique idea is that there&#x27;s no runtime. The framework compiles itself away to become vanilla JavaScript and create the smallest bundles you ever did see.
 
 
 
@@ -64,7 +64,7 @@ Click 👆 to try it in action. Total JavaScript size just 17.2KB, or 7.2KB when
 
 
 
-That still sounds like a lot for this app, but it's less than React where you some 40KB goes just to React itself. The CSS compiled into a 1KB file with random classes for scoping. There's nothing else.
+That still sounds like a lot for this app, but it&#x27;s less than React where you some 40KB goes just to React itself. The CSS compiled into a 1KB file with random classes for scoping. There&#x27;s nothing else.
 
 
 
@@ -72,7 +72,7 @@ App loads fast and works fast 👌
 
 
 
-You can [see the full code on GitHub](https://github.com/Swizec/svelte-marvel-movie-timeline). Importing the repo into CodeSandbox didn't quite work and I'm not sure why.
+You can [see the full code on GitHub](https://github.com/Swizec/svelte-marvel-movie-timeline). Importing the repo into CodeSandbox didn&#x27;t quite work and I&#x27;m not sure why.
 
 
 
@@ -89,11 +89,11 @@ $ yarn dev
 
 
 
-That creates a new `Hello World` project in `my-svelte-project` and runs the dev server. Go to `localhost:5000` and start hacking. Every change triggers a page reload so you can see what you're doing.
+That creates a new `Hello World` project in `my-svelte-project` and runs the dev server. Go to `localhost:5000` and start hacking. Every change triggers a page reload so you can see what you&#x27;re doing.
 
 
 
-I didn't have to install anything new to make the above commands work 🤷‍♂️
+I didn&#x27;t have to install anything new to make the above commands work 🤷‍♂️
 
 
 
@@ -181,14 +181,14 @@ A few interesting things to note about `App.svelte`:
 - You can \\import `.svelte` components just like normal JavaScript
 - Every `let` variable becomes reactive by default
 - Assigning new values in functions triggers re-renders. No need to think about any of that
-- Your CSS is scoped to your component so there's no bleed-over
+- Your CSS is scoped to your component so there&#x27;s no bleed-over
 - Your HTML free-floats at the bottom
 - Just like in JSX, Svelte components become HTML-like elements
 - Dynamic values go in curly braces, `{}`, same as JSX
 
 
 
-My favorite way to use custom components and add dynamic values to HTML. Vue's approach never quite made sense to me 😇
+My favorite way to use custom components and add dynamic values to HTML. Vue&#x27;s approach never quite made sense to me 😇
 
 
 
@@ -258,7 +258,7 @@ Where I think Svelte really shines is building components for re-use. Like the `
 
 
 
-Yep it's mostly CSS.
+Yep it&#x27;s mostly CSS.
 
 
 
@@ -274,11 +274,11 @@ Notice that my CSS is very sloppy.
 
 
 
-I'm redefining `h2`, `img`, and `p` tags and yet it's totally fine. Svelte scopes it all to the `<Movie>` component.
+I&#x27;m redefining `h2`, `img`, and `p` tags and yet it&#x27;s totally fine. Svelte scopes it all to the `<Movie>` component.
 
 
 
-Whatever CSS you write here affects this file/component only and that's neat.
+Whatever CSS you write here affects this file/component only and that&#x27;s neat.
 
 
 
@@ -336,11 +336,11 @@ const Movie = ({ title, description, image, yearOut }) => (
 
 
 
-Which isn't so bad either 🤔
+Which isn&#x27;t so bad either 🤔
 
 
 
-## Svelte's reactivity
+## Svelte&#x27;s reactivity
 
 
 
@@ -375,11 +375,11 @@ Define a variable, `index`, change it inside methods. When its value changes, th
 
 
 
-As far as I understand, Svelte is smart enough to re-render only the HTML nodes that rely on the `index` variable. Sort of like what you can achieve with MobX and React if you're super careful.
+As far as I understand, Svelte is smart enough to re-render only the HTML nodes that rely on the `index` variable. Sort of like what you can achieve with MobX and React if you&#x27;re super careful.
 
 
 
-This does seem easier than React's `setState`. Less to think about.
+This does seem easier than React&#x27;s `setState`. Less to think about.
 
 
 
@@ -391,11 +391,11 @@ Imagine if instead of changing `index`, each button click changed `title`, `imag
 
 
 
-For that, Svelte comes with a built-in [dispatcher](https://svelte.dev/docs#createEventDispatcher). I haven't used it, but looks like it gives you functionality similar to Redux.
+For that, Svelte comes with a built-in [dispatcher](https://svelte.dev/docs#createEventDispatcher). I haven&#x27;t used it, but looks like it gives you functionality similar to Redux.
 
 
 
-## Svelte's event handling
+## Svelte&#x27;s event handling
 
 
 
@@ -403,7 +403,7 @@ Another neat Svelte feature is the event handling.
 
 
 
-Svelte uses what I believe are called directives. `thing:something` syntax added to the HTML. Remember when I said there's no such thing as plain HTML in modern JS? 😛
+Svelte uses what I believe are called directives. `thing:something` syntax added to the HTML. Remember when I said there&#x27;s no such thing as plain HTML in modern JS? 😛
 
 
 
@@ -421,15 +421,15 @@ Call the `prevMovie` function when the button is clicked.
 
 
 
-That's it. No binding. No passing params. No nothing. Svelte figures it all out on its own.
+That&#x27;s it. No binding. No passing params. No nothing. Svelte figures it all out on its own.
 
 
 
-## Svelte's template logic
+## Svelte&#x27;s template logic
 
 
 
-This is where I think Svelte fumbles. [Svelte's template logic](https://svelte.dev/examples#else-blocks) is easy to use, but reminiscent of old Mustache or Handlebars syntax.
+This is where I think Svelte fumbles. [Svelte&#x27;s template logic](https://svelte.dev/examples#else-blocks) is easy to use, but reminiscent of old Mustache or Handlebars syntax.
 
 
 
@@ -451,11 +451,11 @@ Not sure how I feel about that 🤔
 
 
 
-Easy to read, yes, easier to write than React's nested ternary expressions, definitely, but means you have to learn another syntax beyond JavaScript, CSS, and HTML. Which can be good or bad.
+Easy to read, yes, easier to write than React&#x27;s nested ternary expressions, definitely, but means you have to learn another syntax beyond JavaScript, CSS, and HTML. Which can be good or bad.
 
 
 
-Depends what you're doing I guess. For simple stuff this is great.
+Depends what you&#x27;re doing I guess. For simple stuff this is great.
 
 
 
@@ -463,15 +463,15 @@ Depends what you're doing I guess. For simple stuff this is great.
 
 
 
-Svelte is great. Quick to get started, easy to use, good ergonomics, not too complex. Like other frameworks, I'd have to build some bigger projects to see how it feels in the real world.
+Svelte is great. Quick to get started, easy to use, good ergonomics, not too complex. Like other frameworks, I&#x27;d have to build some bigger projects to see how it feels in the real world.
 
 
 
-That's where I've found in the past that React shines. With bigger more complex projects. Whereas Vue, in my experience, is quick to get started but breaks down with complexity.
+That&#x27;s where I&#x27;ve found in the past that React shines. With bigger more complex projects. Whereas Vue, in my experience, is quick to get started but breaks down with complexity.
 
 
 
-Svelte? I don't know yet.
+Svelte? I don&#x27;t know yet.
 
 
 
@@ -479,7 +479,7 @@ But it feels like Svelte takes the best of React and the best of Vue to make som
 
 
 
-I recommend you [dig through the examples](https://svelte.dev/examples). They're great and show off Svelte's best features.
+I recommend you [dig through the examples](https://svelte.dev/examples). They&#x27;re great and show off Svelte&#x27;s best features.
 
 
 

@@ -11,7 +11,7 @@ In my quest never to set up a server ever again, I discovered Auth0 – a server
 
 
 
-You don't even have to store anything. 👌
+You don&#x27;t even have to store anything. 👌
 
 
 
@@ -19,7 +19,7 @@ Since Gatsby is my favorite way to build new React apps with server-side renderi
 
 
 
-Took me 3 livecoding sessions to figure out. [Luke Oliff's article on Gatsby v1 + Auth0](https://auth0.com/blog/building-a-blog-with-gatsby-react-and-webtask/) article helped a lot, as did [Auth0's React SPA setup guide](https://auth0.com/docs/quickstart/spa/react/01-login).
+Took me 3 livecoding sessions to figure out. [Luke Oliff&#x27;s article on Gatsby v1 + Auth0](https://auth0.com/blog/building-a-blog-with-gatsby-react-and-webtask/) article helped a lot, as did [Auth0&#x27;s React SPA setup guide](https://auth0.com/docs/quickstart/spa/react/01-login).
 
 
 
@@ -27,15 +27,15 @@ You can think of this article as a distillation of those guides and these 3 hour
 
 
 
-https://www.youtube.com/watch?v=xwyOQqi7Xm8
+https&amp;#x3A;//www.youtube.com/watch?v=xwyOQqi7Xm8
 
 
 
-https://www.youtube.com/watch?v=jF0AIV8EtJk
+https&amp;#x3A;//www.youtube.com/watch?v=jF0AIV8EtJk
 
 
 
-https://www.youtube.com/watch?v=eWPpTIb98YM
+https&amp;#x3A;//www.youtube.com/watch?v=eWPpTIb98YM
 
 
 
@@ -43,19 +43,19 @@ https://www.youtube.com/watch?v=eWPpTIb98YM
 
 
 
-This one's easy. Go to [Auth0](https://www.auth0.com) sign up for a free account. They even have a "Just playing around" option, and you're set.
+This one&#x27;s easy. Go to [Auth0](https://www.auth0.com) sign up for a free account. They even have a &quot;Just playing around&quot; option, and you&#x27;re set.
 
 
 
-Right now, a free account will hold you over up to 7,000 active users. I don't know about you, but none of _my_ side projects ever hit 7000 DAU (daily active users).
+Right now, a free account will hold you over up to 7,000 active users. I don&#x27;t know about you, but none of _my_ side projects ever hit 7000 DAU (daily active users).
 
 
 
-See, it's just me on this one
+See, it&#x27;s just me on this one
 
 
 
-\[caption id="attachment_8894" align="alignnone" width="1882"]![Auth0 dashboard screenshot](./img/blog-wp-content-uploads-2019-01-dashboard-screenshot.png) Auth0 dashboard screenshot\[/caption]
+\[caption id=&quot;attachment_8894&quot; align=&quot;alignnone&quot; width=&quot;1882&quot;]![Auth0 dashboard screenshot](./img/blog-wp-content-uploads-2019-01-dashboard-screenshot.png) Auth0 dashboard screenshot\[/caption]
 
 
 
@@ -63,19 +63,19 @@ See, it's just me on this one
 
 
 
-Click the big fat New Application button, fill out the form, and get your application's domain and client id. You'll need these to configure your Auth0 client.
+Click the big fat New Application button, fill out the form, and get your application&#x27;s domain and client id. You&#x27;ll need these to configure your Auth0 client.
 
 
 
-The domain is where your login form will live. Your app is going to redirect people there. They'll see a login screen, do the things, and come back to your site with a redirect and a bunch of params.
+The domain is where your login form will live. Your app is going to redirect people there. They&#x27;ll see a login screen, do the things, and come back to your site with a redirect and a bunch of params.
 
 
 
-Client ID tells the Auth0 machinery which site it's working with.
+Client ID tells the Auth0 machinery which site it&#x27;s working with.
 
 
 
-Strangely, you never have to set up a client secret. They generate one for you, but I haven't needed to use it yet. Maybe when you're doing server-to-server authentication?
+Strangely, you never have to set up a client secret. They generate one for you, but I haven&#x27;t needed to use it yet. Maybe when you&#x27;re doing server-to-server authentication?
 
 
 
@@ -83,19 +83,19 @@ Strangely, you never have to set up a client secret. They generate one for you, 
 
 
 
-Like I said, Auth0 redirects users back to your site after login. You give it a URL, and that's where they end up.
+Like I said, Auth0 redirects users back to your site after login. You give it a URL, and that&#x27;s where they end up.
 
 
 
-For your safety, callback URLs must be whitelisted. There's an `Allowed Callback URLs` field in your app settings.
+For your safety, callback URLs must be whitelisted. There&#x27;s an `Allowed Callback URLs` field in your app settings.
 
 
 
-Add `http://localhost:8000/auth0_callback`. I like to prefix callbacks with a service name because you never know how many you'll need.
+Add `http://localhost:8000/auth0_callback`. I like to prefix callbacks with a service name because you never know how many you&#x27;ll need.
 
 
 
-\[caption id="attachment_8893" align="alignnone" width="1222"]![Callback config](./img/blog-wp-content-uploads-2019-01-callback-screenshot-1.png) Callback config\[/caption]
+\[caption id=&quot;attachment_8893&quot; align=&quot;alignnone&quot; width=&quot;1222&quot;]![Callback config](./img/blog-wp-content-uploads-2019-01-callback-screenshot-1.png) Callback config\[/caption]
 
 
 
@@ -113,7 +113,7 @@ $ gatsby new gatsby-auth0-playground
 
 
 
-Creates a new [Gatsby](https://gatsbyjs.org) site with the basic setup. You're welcome to use a starter. This guide should work with all of them.
+Creates a new [Gatsby](https://gatsbyjs.org) site with the basic setup. You&#x27;re welcome to use a starter. This guide should work with all of them.
 
 
 
@@ -121,15 +121,15 @@ Creates a new [Gatsby](https://gatsbyjs.org) site with the basic setup. You're w
 
 
 
-All your Auth0 stuff lives in `/utils/auth.js`. It's like a library on top of Auth0's library that makes your life a little easier.
+All your Auth0 stuff lives in `/utils/auth.js`. It&#x27;s like a library on top of Auth0&#x27;s library that makes your life a little easier.
 
 
 
-You're best off copy-pasting this whole file verbatim into your project. Make sure to configure `AUTH0_DOMAIN` and `AUTH0_CLIENT_ID`. If I was a particularly good human, I'd put this on NPM and make it configurable through package.json, but we're not there yet :P
+You&#x27;re best off copy-pasting this whole file verbatim into your project. Make sure to configure `AUTH0_DOMAIN` and `AUTH0_CLIENT_ID`. If I was a particularly good human, I&#x27;d put this on NPM and make it configurable through package.json, but we&#x27;re not there yet :P
 
 
 
-https://twitter.com/Swizec/status/1087224394257031168
+https&amp;#x3A;//twitter.com/Swizec/status/1087224394257031168
 
 
 
@@ -213,23 +213,23 @@ export default class Auth {
 
 
 
-You don't have to understand how all this works, which is the beauty of using a service like Auth0, so here's a nutshell explanation:
+You don&#x27;t have to understand how all this works, which is the beauty of using a service like Auth0, so here&#x27;s a nutshell explanation:
 
 
 
 1. You set up an `auth0` client with config, put it in `this.auth0`
 2. When you call `auth.login()`, the client takes over
 3. Redirects to `AUTH0_DOMAIN` with some params
-4. Users login through Auth0's beautiful UI
+4. Users login through Auth0&#x27;s beautiful UI
 5. Auth0 redirects back to `redirectUri`
 6. Your callback page calls `auth.handleAuthentication`
-7. Your `auth0` client parses URL params and decides all's good
+7. Your `auth0` client parses URL params and decides all&#x27;s good
 8. `setSession` takes auth result and updates info in LocalStorage
 9. Gatsby navigates back to your home page with `navigate('/')`
 
 
 
-We also have a couple convenience methods like `isAuthenticated`, `getUser`, and `getUserName`. You might want to make these into proper ES6 getters. I haven't decided yet if that's better or not but it sure looks neater.
+We also have a couple convenience methods like `isAuthenticated`, `getUser`, and `getUserName`. You might want to make these into proper ES6 getters. I haven&#x27;t decided yet if that&#x27;s better or not but it sure looks neater.
 
 
 
@@ -237,7 +237,7 @@ We also have a couple convenience methods like `isAuthenticated`, `getUser`, and
 
 
 
-I mentioned a "callback page". You might think that's complicated, but with Gatsby, it's not. You just need a React component that loads on `/auth0_callback` and calls `handleAuthentication` on mount.
+I mentioned a &quot;callback page&quot;. You might think that&#x27;s complicated, but with Gatsby, it&#x27;s not. You just need a React component that loads on `/auth0_callback` and calls `handleAuthentication` on mount.
 
 
 
@@ -278,7 +278,7 @@ export default Auth0CallbackPage
 
 
 
-I'm using React hooks, but don't let that distract you.
+I&#x27;m using React hooks, but don&#x27;t let that distract you.
 
 
 
@@ -286,7 +286,7 @@ Gatsby turns every file in the `/src/pages` directory into a static page. So you
 
 
 
-When the component mounts, that's only in browsers, we create a new `Auth()` object and call `auth.handleAuthentication()`. Our auth service takes care of the rest.
+When the component mounts, that&#x27;s only in browsers, we create a new `Auth()` object and call `auth.handleAuthentication()`. Our auth service takes care of the rest.
 
 
 
@@ -310,7 +310,7 @@ export default function useComponentDidMount(onMounted) {
 
 
 
-It's a combination of `useState` and `useEffect` that ensures a function runs once and only once – on component mount. My understanding is that `useEffect` runs any time React touches our component and I wanted to make certain the auth code runs once.
+It&#x27;s a combination of `useState` and `useEffect` that ensures a function runs once and only once – on component mount. My understanding is that `useEffect` runs any time React touches our component and I wanted to make certain the auth code runs once.
 
 
 
@@ -350,7 +350,7 @@ export default Login
 
 
 
-Since Auth0 handles all our user state, we don't need any sort of props or state management. Just a component that instantiates an Auth0 object and renders a button.
+Since Auth0 handles all our user state, we don&#x27;t need any sort of props or state management. Just a component that instantiates an Auth0 object and renders a button.
 
 
 
@@ -358,8 +358,8 @@ Use the `isAuthenticated` helper to decide whether to say `Login` or `Logout` an
 
 
 
-That's it.
+That&#x27;s it.
 
 
 
-https://twitter.com/Swizec/status/1088117007138975744
+https&amp;#x3A;//twitter.com/Swizec/status/1088117007138975744

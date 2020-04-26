@@ -7,7 +7,7 @@ redirect_from:
 categories: "blockchain, Livecoding, redux, Technical"
 hero: ./img/max-1600-1*pbyFH4U5sO27UE1EjnImoA.png
 ---
-https://www.youtube.com/watch?v=kVLrT92US4U
+https&amp;#x3A;//www.youtube.com/watch?v=kVLrT92US4U
 
 
 
@@ -19,7 +19,7 @@ With that out of the way, let us begin.
 
 
 
-https://twitter.com/Swizec/status/938983218975449088
+https&amp;#x3A;//twitter.com/Swizec/status/938983218975449088
 
 
 
@@ -27,7 +27,7 @@ Redux is great because it keeps a chain of immutable data forever. What if we ba
 
 
 
-\[caption id="attachment_7979" align="alignnone" width="1404"]![Blockchain in a nutshell](./img/blog-wp-content-uploads-2017-12-carbon-blockchain.png) Blockchain in a nutshell\[/caption]
+\[caption id=&quot;attachment_7979&quot; align=&quot;alignnone&quot; width=&quot;1404&quot;]![Blockchain in a nutshell](./img/blog-wp-content-uploads-2017-12-carbon-blockchain.png) Blockchain in a nutshell\[/caption]
 
 
 
@@ -39,11 +39,11 @@ Mine is just 105 lines tho 😛
 
 
 
-You can see the [code on Github](https://github.com/Swizec/blockchain-redux). It's not quite useful yet. The blockchain doesn't get shared between nodes, and there's no proof-of-stake or proof-of-work algorithm.
+You can see the [code on Github](https://github.com/Swizec/blockchain-redux). It&#x27;s not quite useful yet. The blockchain doesn&#x27;t get shared between nodes, and there&#x27;s no proof-of-stake or proof-of-work algorithm.
 
 
 
-That's all coming soon. First, I wanted to make sure I understood both [blockchains](https://en.wikipedia.org/wiki/Blockchain) and Redux enough to make this work.
+That&#x27;s all coming soon. First, I wanted to make sure I understood both [blockchains](https://en.wikipedia.org/wiki/Blockchain) and Redux enough to make this work.
 
 
 
@@ -51,11 +51,11 @@ That's all coming soon. First, I wanted to make sure I understood both [blockcha
 
 
 
-Turns out blockchains are pretty simple. It's just a reversed linked list where every node holds some data, a hash, and points to the previous node.
+Turns out blockchains are pretty simple. It&#x27;s just a reversed linked list where every node holds some data, a hash, and points to the previous node.
 
 
 
-![Image borrowed from Lauri Hartikka's post](./img/max-1600-1*pbyFH4U5sO27UE1EjnImoA.png)
+![Image borrowed from Lauri Hartikka&#x27;s post](./img/max-1600-1*pbyFH4U5sO27UE1EjnImoA.png)
 
 
 
@@ -105,15 +105,15 @@ A `data` setter and getter help us JSONify data transparently. Users can pass si
 
 
 
-The `calculateHash` function right now just uses SHA256, but I think this is where a [proof of work](https://en.wikipedia.org/wiki/Proof-of-work_system) or a [proof of stake](https://en.wikipedia.org/wiki/Proof-of-stake) algorithm would come into play in a real blockchain. Haven't figured that part out yet :)
+The `calculateHash` function right now just uses SHA256, but I think this is where a [proof of work](https://en.wikipedia.org/wiki/Proof-of-work_system) or a [proof of stake](https://en.wikipedia.org/wiki/Proof-of-stake) algorithm would come into play in a real blockchain. Haven&#x27;t figured that part out yet :)
 
 
 
-Kind of surprisingly, that's all we need to build a blockchain. You could build it like this `new Block({ previousBlock: new Block({ previousBlock: genesisBlock, data: {hai: "world"}}), data: {hai2: "world2"}})`
+Kind of surprisingly, that&#x27;s all we need to build a blockchain. You could build it like this `new Block({ previousBlock: new Block({ previousBlock: genesisBlock, data: {hai: "world"}}), data: {hai2: "world2"}})`
 
 
 
-But that's cumbersome, so let's add a Redux.
+But that&#x27;s cumbersome, so let&#x27;s add a Redux.
 
 
 
@@ -121,7 +121,7 @@ But that's cumbersome, so let's add a Redux.
 
 
 
-Redux, if you don't know, is a state management approach based on the functional concept of a `reducer`. At each change, we take the current state and a change descriptor, and produce the next state.
+Redux, if you don&#x27;t know, is a state management approach based on the functional concept of a `reducer`. At each change, we take the current state and a change descriptor, and produce the next state.
 
 
 
@@ -150,7 +150,7 @@ function createStore(initialState, reducer) {
 
 
 
-👆 That's Redux in a nutshell. Unlike the real Redux, this one maintains history. We'll expand that into a blockchain.
+👆 That&#x27;s Redux in a nutshell. Unlike the real Redux, this one maintains history. We&#x27;ll expand that into a blockchain.
 
 
 
@@ -289,7 +289,7 @@ function createStore(initialState, reducer) {
 
 
 
-Okay that's plenty of code to spring on you. Let's go through it function by function.
+Okay that&#x27;s plenty of code to spring on you. Let&#x27;s go through it function by function.
 
 
 
@@ -305,7 +305,7 @@ Okay that's plenty of code to spring on you. Let's go through it function by fun
 
 
 
-Takes last block from the blockchain and returns it. That's our current state. We export a helper `getState` that does `getLastBlock().data` to avoid changing external APIs.
+Takes last block from the blockchain and returns it. That&#x27;s our current state. We export a helper `getState` that does `getLastBlock().data` to avoid changing external APIs.
 
 
 
@@ -398,7 +398,7 @@ This will be used later on in conflict resolution. It goes through an entire pro
 
 
 
-Another part of conflict resolution and node communication is replacing the whole chain. If a new valid chain comes in that's longer than what we already have, we replace our internal state with the new chain.
+Another part of conflict resolution and node communication is replacing the whole chain. If a new valid chain comes in that&#x27;s longer than what we already have, we replace our internal state with the new chain.
 
 
 
@@ -410,11 +410,11 @@ This will be particularly useful when we boot up a new client and it needs to ge
 
 
 
-That's pretty much it. A naive blockchain implementation that gives you a Redux-like API to store and manipulate data.
+That&#x27;s pretty much it. A naive blockchain implementation that gives you a Redux-like API to store and manipulate data.
 
 
 
-Next I'm going to add communication between nodes, probably through Firebase, and a proof-of-stake algorithm. Then we can start building something interesting.
+Next I&#x27;m going to add communication between nodes, probably through Firebase, and a proof-of-stake algorithm. Then we can start building something interesting.
 
 
 

@@ -7,7 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/24R4Mll.png
 ---
-Yesterday we talked about how data visualization helps you understand the world. Today I wanted to tell you about JavaScript's most popular data visualization library 👉 D3.
+Yesterday we talked about how data visualization helps you understand the world. Today I wanted to tell you about JavaScript&#x27;s most popular data visualization library 👉 D3.
 
 
 
@@ -71,7 +71,7 @@ Want to build a chart? You can; D3 might be too powerful.
 
 
 
-Want a map? D3 has 'em.
+Want a map? D3 has &#x27;em.
 
 
 
@@ -87,7 +87,7 @@ Want users to dig into their own data? D3.
 
 
 
-D3 is where it's at for custom interactive data visualization on the web. ✌️
+D3 is where it&#x27;s at for custom interactive data visualization on the web. ✌️
 
 
 
@@ -95,15 +95,15 @@ D3 is where it's at for custom interactive data visualization on the web. ✌️
 
 
 
-Here's how it went when I first tried to learn D3.
+Here&#x27;s how it went when I first tried to learn D3.
 
 
 
-_"A-ha! I have an idea"_
+_&quot;A-ha! I have an idea&quot;_
 
 ![](./img/media-dgKrQw280pFGsAa1ld-giphy.gif)
 
-I took my idea and looked for a dataset. Some people have the dataset first. That's probably smart.
+I took my idea and looked for a dataset. Some people have the dataset first. That&#x27;s probably smart.
 
 
 
@@ -129,11 +129,11 @@ And then you tweak and tinker and move stuff around until the project looks righ
 
 ![](./img/media-a0h7sAqON67nO-giphy.gif)
 
-Sure you don't quite understand how it works and you'd struggle to change anything ... but hey who understands their D3 code anyway? Almost no-one.
+Sure you don&#x27;t quite understand how it works and you&#x27;d struggle to change anything ... but hey who understands their D3 code anyway? Almost no-one.
 
 
 
-It's like D3 was designed by someone with a PhD in data visualization. (it was)
+It&#x27;s like D3 was designed by someone with a PhD in data visualization. (it was)
 
 
 
@@ -145,15 +145,15 @@ Good news!
 
 
 
-Turns out D3 ain't so bad. 3 little concepts help you understand any example out there.
+Turns out D3 ain&#x27;t so bad. 3 little concepts help you understand any example out there.
 
 
 
-It's a trick I teach in my workshops. The usual response goes something like _"That's it!? That's what's going on?"_
+It&#x27;s a trick I teach in my workshops. The usual response goes something like _&quot;That&#x27;s it!? That&#x27;s what&#x27;s going on?&quot;_
 
 
 
-Yep. Now I'm about to tell you :)
+Yep. Now I&#x27;m about to tell you :)
 
 
 
@@ -174,11 +174,11 @@ First you prep your values, then you render.
 
 
 
-I had to go through many examples to notice what's going on. Inference learning is hard. Most people miss this pattern and it makes D3 look more confusing than it is.
+I had to go through many examples to notice what&#x27;s going on. Inference learning is hard. Most people miss this pattern and it makes D3 look more confusing than it is.
 
 
 
-The code above is part of a bar chart. Straight from D3's documentation.
+The code above is part of a bar chart. Straight from D3&#x27;s documentation.
 
 
 
@@ -186,11 +186,11 @@ Here it is again
 
 ![](./img/static-barchartcode-6fbc274eed4cba9b32493cab9607ff61-d9514.png)
 
-Doesn't make a lot of sense does it? How does that 👆 create this 👇
+Doesn&#x27;t make a lot of sense does it? How does that 👆 create this 👇
 
 ![](./img/9echESi.png)
 
-Here's how.
+Here&#x27;s how.
 
 
 
@@ -207,11 +207,11 @@ First you have Data Manipulation.
 
 
 
-And here's the part that paints stuff on your screen
+And here&#x27;s the part that paints stuff on your screen
 
 ![](./img/static-barchart-dom-0d48cb4e05c4cbfcf2201b136ba2e6e3-d9514.png)
 
-DOM manipulation in D3 happens via D3 selections. They're a lot like jQuery `$(something)`. Personally I like to do this part with React.
+DOM manipulation in D3 happens via D3 selections. They&#x27;re a lot like jQuery `$(something)`. Personally I like to do this part with React.
 
 
 
@@ -223,20 +223,20 @@ Our example does a few things here
 - appends a grouping `<g>` node (.append) with an SVG positioning attribute (translate)
 - adds a bottom axis by appending a `<g>`, moving it, then calling `d3.axisBottom` . D3 has built-in axis generators
 - adds a left axis using the same approach but rotating the ticks
-- appends a text label "Frequency" to the left axis
+- appends a text label &quot;Frequency&quot; to the left axis
 - uses `selectAll.data` to make a virtual selection of `.bar` nodes and attach some data, then for every new data value (.enter), appends a `<rect>` node and gives it attributes
 
 
 
-That last part is people always get lost. It looks like magic. I published my first D3 book in 2013 and I still think that's magic. 🧙‍♂️
+That last part is people always get lost. It looks like magic. I published my first D3 book in 2013 and I still think that&#x27;s magic. 🧙‍♂️
 
 
 
-It's a declarative approach to rendering data. Works great, hard to understand.
+It&#x27;s a declarative approach to rendering data. Works great, hard to understand.
 
 
 
-You can think of `.enter` as a loop over your data and everything chained after `.enter` is your loop's body. Sort of like doing `data.map(d => append(rect).setManyAttributes())`
+You can think of `.enter` as a loop over your data and everything chained after `.enter` is your loop&#x27;s body. Sort of like doing `data.map(d => append(rect).setManyAttributes())`
 
 
 
@@ -244,7 +244,7 @@ You can think of `.enter` as a loop over your data and everything chained after 
 
 
 
-Scales are D3's most versatile concept. They help you translate between two different spaces. Like, mathematical spaces. I told you this thing was invented by someone with a PhD.
+Scales are D3&#x27;s most versatile concept. They help you translate between two different spaces. Like, mathematical spaces. I told you this thing was invented by someone with a PhD.
 
 
 
@@ -277,7 +277,7 @@ Linear, logarithmic, quantize, etc. Any basic transformation you can think of ex
 
 
 
-You're most often going to use scales to turn data values into coordinates.
+You&#x27;re most often going to use scales to turn data values into coordinates.
 
 
 
@@ -293,11 +293,11 @@ For example, a force layout using forces between nodes to place them on the scre
 
 ![](./img/Dwk9P9c.gif)
 
-I don't know how that works and that's the point. You don't have to. The layout does it for you.
+I don&#x27;t know how that works and that&#x27;s the point. You don&#x27;t have to. The layout does it for you.
 
 
 
-Here's a key insight about layouts: _Layouts are the data part._
+Here&#x27;s a key insight about layouts: _Layouts are the data part._
 
 
 
@@ -322,7 +322,7 @@ But it is up to you to render them.
 
 
 
-A layout handles your data visualization in the abstract. You're still in control of rendering. For a force layout, you have to update the DOM on every tick of the animation.
+A layout handles your data visualization in the abstract. You&#x27;re still in control of rendering. For a force layout, you have to update the DOM on every tick of the animation.
 
 
 
@@ -330,7 +330,7 @@ Once I figured this out, all fancy visualizations out there started making sense
 
 ![](./img/media-65HMb0y6hAxiyezDbC-giphy.gif)
 
-What's something surprising you learned recently? Have you tried D3? tweet me
+What&#x27;s something surprising you learned recently? Have you tried D3? tweet me
 
 
 

@@ -7,7 +7,7 @@ redirect_from:
 categories: "Front End, Technical, Webpack"
 hero: ./img/1hh3ii.jpg
 ---
-https://twitter.com/erikthedev/status/818990904929349632
+https&amp;#x3A;//twitter.com/erikthedev/status/818990904929349632
 
 
 
@@ -15,7 +15,7 @@ Webpack 2.2 has reached [release candidate 4](https://github.com/webpack/webpack
 
 
 
-My motivation was _"Ugh, I'm tired of these 3min+ local compile times. The amount of waiting is too damn high!"_ The new features are a nice bonus too.
+My motivation was _&quot;Ugh, I&#x27;m tired of these 3min+ local compile times. The amount of waiting is too damn high!&quot;_ The new features are a nice bonus too.
 
 
 
@@ -27,7 +27,7 @@ After many days of fiddling, my Webpack is ready. Production compiles take 219 s
 
 
 
-I love the new feature that highlights big files and tells you initial load sizes for different apps. I’ve been using it to eyeball different options, and I'm sure it has bigger use cases, too. Fine-tuning code splitting perhaps?
+I love the new feature that highlights big files and tells you initial load sizes for different apps. I’ve been using it to eyeball different options, and I&#x27;m sure it has bigger use cases, too. Fine-tuning code splitting perhaps?
 
 
 
@@ -39,19 +39,19 @@ I love the new feature that highlights big files and tells you initial load size
 
 
 
-Then again, `rc4` just disabled these features by default "because they're annoying". I liked it.
+Then again, `rc4` just disabled these features by default &quot;because they&#x27;re annoying&quot;. I liked it.
 
 
 
-Webpack recommends keeping files under 250kB, which sounds like a lot, but it looks damn small compared to my code. Did you know 196kB of source ES6 compiles into about 920kB of browser-ready JavaScript? _With_ minification, tree shaking, and dead code elimination! Without that, it's 2.3 megs. ?
+Webpack recommends keeping files under 250kB, which sounds like a lot, but it looks damn small compared to my code. Did you know 196kB of source ES6 compiles into about 920kB of browser-ready JavaScript? _With_ minification, tree shaking, and dead code elimination! Without that, it&#x27;s 2.3 megs. ?
 
 
 
-The day when we ship raw ES6 code can't come soon enough.
+The day when we ship raw ES6 code can&#x27;t come soon enough.
 
 
 
-_BTW: Tree shaking removes unused dependencies (like when you \\import a whole library but just use a function or two), and dead code elimination removes code that's unreachable, like functions you never call._
+_BTW: Tree shaking removes unused dependencies (like when you \\import a whole library but just use a function or two), and dead code elimination removes code that&#x27;s unreachable, like functions you never call._
 
 
 
@@ -67,31 +67,31 @@ Here are some gotchas I discovered while upgrading.
 
 
 
-## It's not quiiiiite ready yet (dependency hellish)
+## It&#x27;s not quiiiiite ready yet (dependency hellish)
 
 
 
-You can use Webpack 2 in production. I'm about to start.
+You can use Webpack 2 in production. I&#x27;m about to start.
 
 
 
-https://twitter.com/Swizec/status/819004362231943168
+https&amp;#x3A;//twitter.com/Swizec/status/819004362231943168
 
 
 
-Although now that they’ve promised to release the final version in < 10 days, I might wait. Or gently delay the code review and QA process until their release. We'll see :)
+Although now that they’ve promised to release the final version in &amp;lt; 10 days, I might wait. Or gently delay the code review and QA process until their release. We&#x27;ll see :)
 
 
 
-But here's one thing that's really awkward right now.
+But here&#x27;s one thing that&#x27;s really awkward right now.
 
 
 
-When you upgrade to Webpack 2.2.rc.x, you fall into a small dependency hell with `extract-text-webpack-plugin`. The released version depends on Webpack 2.1, which is silly. If you're going bleeding edge, you might as well go all the way, ya know?
+When you upgrade to Webpack 2.2.rc.x, you fall into a small dependency hell with `extract-text-webpack-plugin`. The released version depends on Webpack 2.1, which is silly. If you&#x27;re going bleeding edge, you might as well go all the way, ya know?
 
 
 
-So here's what you have to do:
+So here&#x27;s what you have to do:
 
 
 
@@ -105,7 +105,7 @@ So here's what you have to do:
 
 
 
-I'd show you the `npm install` command, but I don't know how to point at specific commits. See that `#cbd4690` hash? That's the exact commit that says `Add webpack 2 RC compatibility`.
+I&#x27;d show you the `npm install` command, but I don&#x27;t know how to point at specific commits. See that `#cbd4690` hash? That&#x27;s the exact commit that says `Add webpack 2 RC compatibility`.
 
 
 
@@ -113,15 +113,15 @@ This is fragile and a terrible idea. You _will_ forget to update this dependency
 
 
 
-_But_ the published version on npm doesn't work. ? I assume they'll fix it for final release.
+_But_ the published version on npm doesn&#x27;t work. ? I assume they&#x27;ll fix it for final release.
 
 
 
-Why extract-text-webpack-plugin? It makes stylesheet \\imports better, I'm told.
+Why extract-text-webpack-plugin? It makes stylesheet \\imports better, I&#x27;m told.
 
 
 
-> It moves every require("style.css") in entry chunks into a separate css output file. So your styles are no longer inlined into the javascript, but separate in a CSS bundle file (styles.css). If your total stylesheet volume is big, it will be faster because the stylesheet bundle is loaded in parallel to the javascript bundle.
+> It moves every require(&quot;style.css&quot;) in entry chunks into a separate css output file. So your styles are no longer inlined into the javascript, but separate in a CSS bundle file (styles.css). If your total stylesheet volume is big, it will be faster because the stylesheet bundle is loaded in parallel to the javascript bundle.
 
 
 
@@ -129,7 +129,7 @@ See? Useful.
 
 
 
-You also have to update `babel-loader` to at least `6.2.10`. That's when they added support for Webpack 2 rc. Not too bad.
+You also have to update `babel-loader` to at least `6.2.10`. That&#x27;s when they added support for Webpack 2 rc. Not too bad.
 
 
 
@@ -137,11 +137,11 @@ You also have to update `babel-loader` to at least `6.2.10`. That's when they ad
 
 
 
-The new Webpack 2 docs are _so much better_. Check out this wonderful [Migrating from v1 to v2](https://webpack.js.org/guides/migrating/) official guide. You basically have to do a find & replace, and you're done.
+The new Webpack 2 docs are _so much better_. Check out this wonderful [Migrating from v1 to v2](https://webpack.js.org/guides/migrating/) official guide. You basically have to do a find &amp; replace, and you&#x27;re done.
 
 
 
-Just don't forget to take `''` out of `resolve.extensions`. I don't remember why everyone needed that in the past, but I know that the new Webpack throws an error.
+Just don&#x27;t forget to take `''` out of `resolve.extensions`. I don&#x27;t remember why everyone needed that in the past, but I know that the new Webpack throws an error.
 
 
 
@@ -153,7 +153,7 @@ Error reports for bad configuration are also better now. That was fun to see. Lo
 
 
 
-If you're not using Webpack to load CSS and compile Less or Sass, you should. It's made my life a lot easier. Especially the [PostCSS](https://github.com/postcss/postcss) plugin makes your CSS easier to write.
+If you&#x27;re not using Webpack to load CSS and compile Less or Sass, you should. It&#x27;s made my life a lot easier. Especially the [PostCSS](https://github.com/postcss/postcss) plugin makes your CSS easier to write.
 
 
 
@@ -198,7 +198,7 @@ postcss: function () {
 
 
 
-Which is probably too much config, but it worked. With Webpack v2 that's become more manageable and looks like this:
+Which is probably too much config, but it worked. With Webpack v2 that&#x27;s become more manageable and looks like this:
 
 
 
@@ -234,7 +234,7 @@ So much less code ?
 
 
 
-That's because a lot of it is now in a different file called `postcss.config.js`. That one is a copypaste of the detailed config for postcss itself:
+That&#x27;s because a lot of it is now in a different file called `postcss.config.js`. That one is a copypaste of the detailed config for postcss itself:
 
 
 
@@ -258,11 +258,11 @@ module.exports = {
 
 
 
-I don't know if the `UglifyJS` bug we're working around still exists, so I left the config as I found it. Just to be safe.
+I don&#x27;t know if the `UglifyJS` bug we&#x27;re working around still exists, so I left the config as I found it. Just to be safe.
 
 
 
-Looking at code blobs is hard, so here's what happened:
+Looking at code blobs is hard, so here&#x27;s what happened:
 
 
 
@@ -282,7 +282,7 @@ All of this used to be encoded in the loader bang syntax before: `css?sourceMap!
 
 
 
-Whomever came up with the `use: []` syntax, you're the best. I love the new approach.
+Whomever came up with the `use: []` syntax, you&#x27;re the best. I love the new approach.
 
 
 
@@ -290,23 +290,23 @@ Whomever came up with the `use: []` syntax, you're the best. I love the new appr
 
 
 
-Now for the reason we're all here: tree shaking.
+Now for the reason we&#x27;re all here: tree shaking.
 
 
 
-Webpack 2 understands native ES6 \\imports and uses them as split points. That means it can organize your code into different chunks so you're only loading the JavaScript that you're using.
+Webpack 2 understands native ES6 \\imports and uses them as split points. That means it can organize your code into different chunks so you&#x27;re only loading the JavaScript that you&#x27;re using.
 
 
 
-What it _also_ means is that it understands when you're \\importing more than you need. Combined with the [UglifyJsPlugin](https://www.npmjs.com/package/webpack-uglify-js-plugin), it can eliminate that extra code.
+What it _also_ means is that it understands when you&#x27;re \\importing more than you need. Combined with the [UglifyJsPlugin](https://www.npmjs.com/package/webpack-uglify-js-plugin), it can eliminate that extra code.
 
 
 
-I spent a lot of time looking for what exactly turns this feature on. Turns Out™, it's on by default. Just Works™.
+I spent a lot of time looking for what exactly turns this feature on. Turns Out™, it&#x27;s on by default. Just Works™.
 
 
 
-Here's what you have to do:
+Here&#x27;s what you have to do:
 
 
 
@@ -361,7 +361,7 @@ plugins: [
 
 
 
-See that `{modules: false}` in the `babel-loader` config? That's new. You can specify options when defining Babel plugins and presets.
+See that `{modules: false}` in the `babel-loader` config? That&#x27;s new. You can specify options when defining Babel plugins and presets.
 
 
 
@@ -369,7 +369,7 @@ See that `{modules: false}` in the `babel-loader` config? That's new. You can sp
 
 
 
-UglifyJsPlugin without extra config will do what we need, but I wanted to show you the options. It's `unused` and `dead_code` that enable tree shaking.
+UglifyJsPlugin without extra config will do what we need, but I wanted to show you the options. It&#x27;s `unused` and `dead_code` that enable tree shaking.
 
 
 
@@ -377,11 +377,11 @@ UglifyJsPlugin without extra config will do what we need, but I wanted to show y
 
 
 
-With Webpack 2 around the corner, this is sure to improve. Can't wait!
+With Webpack 2 around the corner, this is sure to improve. Can&#x27;t wait!
 
 
 
-You should also split your code into Your Code and Everybody Else's code. Webpack docs have a great guide on [Code Splitting for Libraries](https://webpack.js.org/guides/code-splitting-libraries/).
+You should also split your code into Your Code and Everybody Else&#x27;s code. Webpack docs have a great guide on [Code Splitting for Libraries](https://webpack.js.org/guides/code-splitting-libraries/).
 
 
 

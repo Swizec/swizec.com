@@ -33,7 +33,7 @@ Microsoft Edge did not disappoint.
 
 
 
-`Array.flat()` doesn't work on Edge. On _every other browser_ it flattens nested arrays. On Edge it blows up and says the method doesn't exist.
+`Array.flat()` doesn&#x27;t work on Edge. On _every other browser_ it flattens nested arrays. On Edge it blows up and says the method doesn&#x27;t exist.
 
 
 
@@ -55,7 +55,7 @@ You can solve that with a polyfill right? An npm package that loads itself up an
 
 
 
-Yep, makes the error go away. Doesn't behave the way it does on other browsers. 🤦‍♂️
+Yep, makes the error go away. Doesn&#x27;t behave the way it does on other browsers. 🤦‍♂️
 
 
 
@@ -83,9 +83,9 @@ You thought that was bad? It gets even better!
 
 
 
-> Oh also on Edge node.getBoundingClientRect() doesn't return a DOMRect. Oh no, it returns a ClientRect.  
+> Oh also on Edge node.getBoundingClientRect() doesn&#x27;t return a DOMRect. Oh no, it returns a ClientRect.  
 >   
-> Unlike DOMRect, ClientRect (which exists only on Edge) doesn't have x and y coordinates. Only top and left  
+> Unlike DOMRect, ClientRect (which exists only on Edge) doesn&#x27;t have x and y coordinates. Only top and left  
 >   
 > 🤨
 >
@@ -93,7 +93,7 @@ You thought that was bad? It gets even better!
 
 
 
-`.getBoundingClientRect()` doesn't work on Edge. Well it does but it returns a `ClientRect` instead of a `DOMRect`. They work the same except when they don't.
+`.getBoundingClientRect()` doesn&#x27;t work on Edge. Well it does but it returns a `ClientRect` instead of a `DOMRect`. They work the same except when they don&#x27;t.
 
 
 
@@ -105,7 +105,7 @@ This meant I had to fix my [`useDimensions`](https://github.com/Swizec/useDimens
 
 
 
-Oh and flexbox doesn't work correctly. Instead of spacing evenly it bunches everything on the left. Of course.
+Oh and flexbox doesn&#x27;t work correctly. Instead of spacing evenly it bunches everything on the left. Of course.
 
 
 
@@ -125,11 +125,11 @@ Well the testing itself was painful and the results made me cry but _I could tes
 
 
 
-I'm a Mac kind of guy you see. I don't have Edge. I don't have a Windows machine. I have zero interest in VirtualBox and futzing around with images and installing Windows on a partition and whatever else it used to take to test on weird browsers.
+I&#x27;m a Mac kind of guy you see. I don&#x27;t have Edge. I don&#x27;t have a Windows machine. I have zero interest in VirtualBox and futzing around with images and installing Windows on a partition and whatever else it used to take to test on weird browsers.
 
 
 
-With BrowserStack I was able to run Edge in a Chrome tab. That's right. A Chrome tab emulated an entire operating system running a full screen browser.
+With BrowserStack I was able to run Edge in a Chrome tab. That&#x27;s right. A Chrome tab emulated an entire operating system running a full screen browser.
 
 
 
@@ -163,11 +163,11 @@ You can even run things from localhost. No idea how they made that work. Type `h
 
 
 
-Just don't type `localhost:3000` because Edge doesn't know how to deal with that and says it can't reach the URL. 🤦‍♂️
+Just don&#x27;t type `localhost:3000` because Edge doesn&#x27;t know how to deal with that and says it can&#x27;t reach the URL. 🤦‍♂️
 
 
 
-And here's proof. Edge running inside Chrome showing my homepage.
+And here&#x27;s proof. Edge running inside Chrome showing my homepage.
 
 
 
@@ -179,7 +179,7 @@ Amazing.
 
 
 
-Lucky for us Microsoft is replacing the Edge browser engine with Chrome some time soon. Maybe then we won't need this anymore 🤞
+Lucky for us Microsoft is replacing the Edge browser engine with Chrome some time soon. Maybe then we won&#x27;t need this anymore 🤞
 
 
 

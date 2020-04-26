@@ -11,19 +11,19 @@ hero: ../../../defaultHero.jpg
 
 
 
-Ever wanted to build a timer in React? It's a tricky thing.
+Ever wanted to build a timer in React? It&#x27;s a tricky thing.
 
 
 
-Ideally, React components rely only on their inputs – the props – so that they're testable, reusable, and easier to understand. Time is the ultimate state, that global dependency that just won't sit still.
+Ideally, React components rely only on their inputs – the props – so that they&#x27;re testable, reusable, and easier to understand. Time is the ultimate state, that global dependency that just won&#x27;t sit still.
 
 
 
-Calling `new Date()` or `moment()` to get the current time in your component makes it dirty. You can't test because it throws unpredictable results depending on system context. You can't reuse and re-render either. Damn thing keeps changing!
+Calling `new Date()` or `moment()` to get the current time in your component makes it dirty. You can&#x27;t test because it throws unpredictable results depending on system context. You can&#x27;t reuse and re-render either. Damn thing keeps changing!
 
 
 
-_And_ you need some mechanism to keep refreshing that time state if you want your component to show something live. You can add a `setInterval` that runs `this.setState(moment())` every second, and that's going to work. But if you show multiple timers on screen, they're eventually going to diverge and look weird.
+_And_ you need some mechanism to keep refreshing that time state if you want your component to show something live. You can add a `setInterval` that runs `this.setState(moment())` every second, and that&#x27;s going to work. But if you show multiple timers on screen, they&#x27;re eventually going to diverge and look weird.
 
 
 
@@ -45,7 +45,7 @@ The idea is this:
 
 
 
-With this approach, time becomes just another prop passed or injected into components that need it. Components themselves can treat it like an immutable value, which makes them easy to test, and because all components rely on the same `setInterval`, they're never going to fall out of sync.
+With this approach, time becomes just another prop passed or injected into components that need it. Components themselves can treat it like an immutable value, which makes them easy to test, and because all components rely on the same `setInterval`, they&#x27;re never going to fall out of sync.
 
 
 
@@ -57,7 +57,7 @@ Let me show you.
 
 
 
-I'm going to use MobX, but the same approach should work with Redux and even the classical state-from-main-component-callbacks-up-components approach.
+I&#x27;m going to use MobX, but the same approach should work with Redux and even the classical state-from-main-component-callbacks-up-components approach.
 
 
 
@@ -101,11 +101,11 @@ We have an `@observable` `time` property, which means MobX is going to communica
 
 
 
-We store the interval in `this.interval` so that we can stop it. This implementation doesn't allow the clock to be stopped or reset, but it would be easy to add an action for that.
+We store the interval in `this.interval` so that we can stop it. This implementation doesn&#x27;t allow the clock to be stopped or reset, but it would be easy to add an action for that.
 
 
 
-Each tick of the clock triggers an `@action` called `clockTick`, which updates the `time` property to the current time. MobX is smart enough to let us naively replace it with a new instance of `moment()`, and I'm sure Redux would be too.
+Each tick of the clock triggers an `@action` called `clockTick`, which updates the `time` property to the current time. MobX is smart enough to let us naively replace it with a new instance of `moment()`, and I&#x27;m sure Redux would be too.
 
 
 
@@ -125,11 +125,11 @@ We export _an instance of Clock_, not the class. This ensures that anywhere we u
 
 
 
-_"But inject()! You can inject() and that will make a singleton!”_ I hear you thinking.
+_&quot;But inject()! You can inject() and that will make a singleton!”_ I hear you thinking.
 
 
 
-Yes, but you can only `inject()` into React components. Sometimes `MobX` stores need access to The Clock as well. You can't inject into those, but you _can_ \\import stuff.
+Yes, but you can only `inject()` into React components. Sometimes `MobX` stores need access to The Clock as well. You can&#x27;t inject into those, but you _can_ \\import stuff.
 
 
 
@@ -137,7 +137,7 @@ Yes, but you can only `inject()` into React components. Sometimes `MobX` stores 
 
 
 
-`Clock` was the fun part. Let me show you that it's easy to use :)
+`Clock` was the fun part. Let me show you that it&#x27;s easy to use :)
 
 
 
@@ -183,11 +183,11 @@ Take `hours`/`minutes`/`seconds` from the object, and prefix with a `0` when eac
 
 
 
-But that shouldn't be hard to fix ?
+But that shouldn&#x27;t be hard to fix ?
 
 
 
-In [the full code](https://github.com/Swizec/mobx-clock-example), I built a generalized `Time` displays that defers to `TimeSince`, `TimeUntil`, and `CurrentTime` as necessary. Their code is almost identical, so I didn't want to explain it all here.
+In [the full code](https://github.com/Swizec/mobx-clock-example), I built a generalized `Time` displays that defers to `TimeSince`, `TimeUntil`, and `CurrentTime` as necessary. Their code is almost identical, so I didn&#x27;t want to explain it all here.
 
 
 
@@ -228,7 +228,7 @@ class App extends Component {
 
 
 
-Cool, isn't it?
+Cool, isn&#x27;t it?
 
 
 
@@ -240,11 +240,11 @@ Check this out from my Day Job code.
 
 
 
-https://twitter.com/Swizec/status/795798444094853121
+https&amp;#x3A;//twitter.com/Swizec/status/795798444094853121
 
 
 
-It's in a store, `isOutOfTime` is a `@computed` property that compares `Clock.time` to some pre-defined deadline. `when()` the deadline passes, an `@action` is called.
+It&#x27;s in a store, `isOutOfTime` is a `@computed` property that compares `Clock.time` to some pre-defined deadline. `when()` the deadline passes, an `@action` is called.
 
 
 
@@ -267,8 +267,8 @@ It's in a store, `isOutOfTime` is a `@computed` property that compares `Clock.ti
 
 
 
-Isn't that cool? I think it's cool. The code is easy to understand, easy to test, no messing around with intervals and relying on slippery system properties. Things just work™.
+Isn&#x27;t that cool? I think it&#x27;s cool. The code is easy to understand, easy to test, no messing around with intervals and relying on slippery system properties. Things just work™.
 
 
 
-It's almost like your codebase is in a time monad ?
+It&#x27;s almost like your codebase is in a time monad ?

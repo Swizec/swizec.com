@@ -25,7 +25,7 @@ On the server, you write small resolver methods and GraphQL stitches them togeth
 
 
 
-But in the real world, you're still dealing with REST APIs aren't you?
+But in the real world, you&#x27;re still dealing with REST APIs aren&#x27;t you?
 
 
 
@@ -33,7 +33,7 @@ At work we recently integrated a 3rd party tool with a REST API that returned ti
 
 
 
-Our own API is a cobbled together mess following the design principle of _"Oh I need that field on the frontend, okay we'll toss it in that request you're already making anyway"_.
+Our own API is a cobbled together mess following the design principle of _&quot;Oh I need that field on the frontend, okay we&#x27;ll toss it in that request you&#x27;re already making anyway&quot;_.
 
 
 
@@ -49,11 +49,11 @@ Had to change something the other day and it took us a week to realize I was cha
 
 
 
-We throw the word RESTful API around a lot and I don't think many of us really know what it means. We have some vague idea, wave our arms a little and voila, RESTful API.
+We throw the word RESTful API around a lot and I don&#x27;t think many of us really know what it means. We have some vague idea, wave our arms a little and voila, RESTful API.
 
 
 
-[Representational state transfer (REST)](https://en.wikipedia.org/wiki/Representational_state_transfer) was defined in Roy Fielding's PhD dissertation in 2000. It defined how the web should work on top of HTTP.
+[Representational state transfer (REST)](https://en.wikipedia.org/wiki/Representational_state_transfer) was defined in Roy Fielding&#x27;s PhD dissertation in 2000. It defined how the web should work on top of HTTP.
 
 
 
@@ -64,11 +64,11 @@ The architecture should be:
 - **client-server**, servers deal with data and processing, clients deal with the UI. You can evolve them separately in different directions.
 - **stateless**, each request you make knows nothing of the previous requests, unless you include that additional info in your request params.
 - **cacheable**, every request should announce itself as cacheable or not. That way we can reduce the number of requests
-- **layered**, clients shouldn't need to know whether they're talking to the end server or something in between. Think proxies and load balancers.
+- **layered**, clients shouldn&#x27;t need to know whether they&#x27;re talking to the end server or something in between. Think proxies and load balancers.
 
 
 
-The Web _does_ work this way. Your browser loads an HTML document or image and decides how to render it. The server thinks of them as "just a file".
+The Web _does_ work this way. Your browser loads an HTML document or image and decides how to render it. The server thinks of them as &quot;just a file&quot;.
 
 
 
@@ -76,11 +76,11 @@ Headers tell the browser how long the image can be cached for and unless you cle
 
 
 
-Because it's just a file, there's no state. You might get different files based on headers sent with your request.
+Because it&#x27;s just a file, there&#x27;s no state. You might get different files based on headers sent with your request.
 
 
 
-And you definitely don't know whether you're talking to a proxy, a VPN, a CDN, or the server with that image on its hard drive.
+And you definitely don&#x27;t know whether you&#x27;re talking to a proxy, a VPN, a CDN, or the server with that image on its hard drive.
 
 
 
@@ -92,11 +92,11 @@ A RESTful API is any API that follows those principles.
 
 
 
-You make requests via HTTP from a client to a server. Each request is stateless, layers are transparent, caching is set to "please don't", and each request deals with a single resource.
+You make requests via HTTP from a client to a server. Each request is stateless, layers are transparent, caching is set to &quot;please don&#x27;t&quot;, and each request deals with a single resource.
 
 
 
-That's where it gets tricky. What is a resource?
+That&#x27;s where it gets tricky. What is a resource?
 
 
 
@@ -108,11 +108,11 @@ With traditional Rails you create an endpoint for each model in your database. T
 
 
 
-Say you're building a blog and you have users with articles.
+Say you&#x27;re building a blog and you have users with articles.
 
 
 
-You'd create 4 endpoints:
+You&#x27;d create 4 endpoints:
 
 
 
@@ -131,11 +131,11 @@ That makes your client easier to code. Think of `user` as a type that never chan
 
 
 
-So what if you want all of a user's articles? You create an endpoint like this: `/user/:id/articles`.
+So what if you want all of a user&#x27;s articles? You create an endpoint like this: `/user/:id/articles`.
 
 
 
-This approach works great until it doesn't. Your API grows with the number of models in your database (2N) _and_ with the number of relations between models.
+This approach works great until it doesn&#x27;t. Your API grows with the number of models in your database (2N) _and_ with the number of relations between models.
 
 
 
@@ -167,7 +167,7 @@ Do we ever want an article, but not its user? 🤔
 
 
 
-When was the last time we fetched an article and didn't immediately fetch the comments as well? 🤔
+When was the last time we fetched an article and didn&#x27;t immediately fetch the comments as well? 🤔
 
 
 
@@ -175,11 +175,11 @@ You start merging APIs.
 
 
 
-It's convenient for an article to embed the user payload. You'll need it anyway so might as well.
+It&#x27;s convenient for an article to embed the user payload. You&#x27;ll need it anyway so might as well.
 
 
 
-It's convenient for a user to embed their profile too. And what's better than an article that also includes comments?
+It&#x27;s convenient for a user to embed their profile too. And what&#x27;s better than an article that also includes comments?
 
 
 
@@ -195,7 +195,7 @@ The biggest issue is payload size. Imagine an endpoint that returns 50 articles 
 
 
 
-Oh but each of them also embeds the user. Because you're using the same backend JSON for a single article _and_ a list of articles. It's easier that way.
+Oh but each of them also embeds the user. Because you&#x27;re using the same backend JSON for a single article _and_ a list of articles. It&#x27;s easier that way.
 
 
 
@@ -211,11 +211,11 @@ Now you have an API that returns 50 articles, 50 users, 50 user profiles, and 25
 
 
 
-That's a lot of JSON to parse just because you wanted a list of articles on the homepage.
+That&#x27;s a lot of JSON to parse just because you wanted a list of articles on the homepage.
 
 
 
-Your solution becomes some combination of gut decisions, parameters saying _"no don't include that this time"_, and a direct reflection of the historical evolution of your application.
+Your solution becomes some combination of gut decisions, parameters saying _&quot;no don&#x27;t include that this time&quot;_, and a direct reflection of the historical evolution of your application.
 
 
 
@@ -223,7 +223,7 @@ Congratz, your API is a mess.
 
 
 
-Inconsistent and hard to understand unless you've been with the company for all its history. 👏
+Inconsistent and hard to understand unless you&#x27;ve been with the company for all its history. 👏
 
 
 
@@ -235,7 +235,7 @@ Another sticking point in RESTful API design is error handling.
 
 
 
-Traditionally you're meant to use HTTP error codes. That's how Rails does it, that's how most PHP frameworks do it.
+Traditionally you&#x27;re meant to use HTTP error codes. That&#x27;s how Rails does it, that&#x27;s how most PHP frameworks do it.
 
 
 
@@ -243,27 +243,27 @@ Traditionally you're meant to use HTTP error codes. That's how Rails does it, th
 
 
 
-I saw a 429 for _"Your account ran out of quota"_ once. Thanks Sentry.
+I saw a 429 for _&quot;Your account ran out of quota&quot;_ once. Thanks Sentry.
 
 
 
-Using HTTP codes is great in theory. They're right there, built into the browser, the protocol, and everything in between.
+Using HTTP codes is great in theory. They&#x27;re right there, built into the browser, the protocol, and everything in between.
 
 
 
-That's the problem.
+That&#x27;s the problem.
 
 
 
-How do you tell the difference between a protocol layer error and an application layer error? Does 500 mean that an intermediary proxy server failed, or that your application is broken? Does 404 mean you couldn't find that user, or that you're trying to access `/uesr/:id`?
+How do you tell the difference between a protocol layer error and an application layer error? Does 500 mean that an intermediary proxy server failed, or that your application is broken? Does 404 mean you couldn&#x27;t find that user, or that you&#x27;re trying to access `/uesr/:id`?
 
 
 
-You can't know.
+You can&#x27;t know.
 
 
 
-To make it worse, client libraries often make handling these errors a total pain. `fetch()` throws an error for "no network connection" and succeeds for a 500 response.
+To make it worse, client libraries often make handling these errors a total pain. `fetch()` throws an error for &quot;no network connection&quot; and succeeds for a 500 response.
 
 
 
@@ -283,7 +283,7 @@ So you get a successful `200` response, but it contains an error. A known applic
 
 
 
-We know we couldn't find that user and that's expected when you send a shitty ID, so we return success not found. We know you missed a parameter, so we return success bad request. Etc.
+We know we couldn&#x27;t find that user and that&#x27;s expected when you send a shitty ID, so we return success not found. We know you missed a parameter, so we return success bad request. Etc.
 
 
 
@@ -295,15 +295,15 @@ The request succeeded and it was bad. You often get a JSON with more details.
 
 
 
-Works great as long as it's consistent throughout your API.
+Works great as long as it&#x27;s consistent throughout your API.
 
 
 
-Less great because there doesn't seem to be a standard. Some folks return just an error string, some return an array of errors, others have an error code.
+Less great because there doesn&#x27;t seem to be a standard. Some folks return just an error string, some return an array of errors, others have an error code.
 
 
 
-Error codes are best because they're reliable.
+Error codes are best because they&#x27;re reliable.
 
 
 
@@ -327,7 +327,7 @@ How do you tell the server you want to fetch a user, not create a new one? What 
 
 
 
-Traditional RESTful design says to use HTTP verbs. Because they're already there in the protocol and they work great.
+Traditional RESTful design says to use HTTP verbs. Because they&#x27;re already there in the protocol and they work great.
 
 
 
@@ -343,11 +343,11 @@ Simple, right?
 
 
 
-Send a `POST /user` request with a bunch of data and you create a user. Send `GET /user/1` to read it later. With a `PUT /user/1` you "replace" the user and with `PATCH /user/1` you "update" the user ... what's the difference?
+Send a `POST /user` request with a bunch of data and you create a user. Send `GET /user/1` to read it later. With a `PUT /user/1` you &quot;replace&quot; the user and with `PATCH /user/1` you &quot;update&quot; the user ... what&#x27;s the difference?
 
 
 
-Eh ... most APIs pick PUT or PATCH for updates based on someone's gut feel.
+Eh ... most APIs pick PUT or PATCH for updates based on someone&#x27;s gut feel.
 
 
 
@@ -355,11 +355,11 @@ Send `DELETE /user/1` and the user goes poof.
 
 
 
-But when was the last time you used anything other than GET or POST? I bet it's been a while.
+But when was the last time you used anything other than GET or POST? I bet it&#x27;s been a while.
 
 
 
-PUT, PATCH, and DELETE are obscure and most people avoid them. They can be cumbersome to use with popular libraries, require extra parameters, or just aren't on anyone's radar.
+PUT, PATCH, and DELETE are obscure and most people avoid them. They can be cumbersome to use with popular libraries, require extra parameters, or just aren&#x27;t on anyone&#x27;s radar.
 
 
 
@@ -371,7 +371,7 @@ GET is wonderful and we always use it for getting. Do not use GET for updating. 
 
 
 
-Imagine deleting a user just by visiting a page. Wouldn't that be fun? It happens with GET.
+Imagine deleting a user just by visiting a page. Wouldn&#x27;t that be fun? It happens with GET.
 
 
 
@@ -379,19 +379,19 @@ POST is the usual workhorse. People use it for everything.
 
 
 
-It's useful to think in upserts instead of inserts and updates. Make a POST request to create a user. If the user exists, update them instead.
+It&#x27;s useful to think in upserts instead of inserts and updates. Make a POST request to create a user. If the user exists, update them instead.
 
 
 
-Now your client code has fewer concerns and it's easier to figure out on the server anyway. Why should a client make 2+ requests to create a user? First to see if they exist, then to create or update?
+Now your client code has fewer concerns and it&#x27;s easier to figure out on the server anyway. Why should a client make 2+ requests to create a user? First to see if they exist, then to create or update?
 
 
 
-Send the data and let the server deal with it. Server has to make sure you aren't creating duplicates by accident anyway.
+Send the data and let the server deal with it. Server has to make sure you aren&#x27;t creating duplicates by accident anyway.
 
 
 
-And while you're at it, why not make the API more explicit?
+And while you&#x27;re at it, why not make the API more explicit?
 
 
 
@@ -399,7 +399,7 @@ A wild `POST /user/create` shows up.
 
 
 
-Don't be silly, there's no `POST /user/update/:id`. It's an upsert, remember? And it gets the ID in its payload, not the URL.
+Don&#x27;t be silly, there&#x27;s no `POST /user/update/:id`. It&#x27;s an upsert, remember? And it gets the ID in its payload, not the URL.
 
 
 
@@ -427,7 +427,7 @@ So a POST upsert will do. Mark as deleted. Done.
 
 
 
-Honestly, I think it's consistency.
+Honestly, I think it&#x27;s consistency.
 
 
 
@@ -439,7 +439,7 @@ Avoid duplication, too.
 
 
 
-Problems arise when you have an intuitive convenient API that leads engineers to fetching data wherever they find it first. Someone gets it here, someone gets it there, you'll never know.
+Problems arise when you have an intuitive convenient API that leads engineers to fetching data wherever they find it first. Someone gets it here, someone gets it there, you&#x27;ll never know.
 
 
 
@@ -459,7 +459,7 @@ Yes even on an airplane. _Especially_ on an airplane. Or LTE.
 
 
 
-You can stream a movie on Netflix but you can't read the New York Times. 1 big request, many small requests.
+You can stream a movie on Netflix but you can&#x27;t read the New York Times. 1 big request, many small requests.
 
 
 
@@ -479,7 +479,7 @@ You write queries that span many objects _and specify exactly what you need_. Wa
 
 
 
-Your payload is never too small or too big and it's never more than 1 request. You're in full control.
+Your payload is never too small or too big and it&#x27;s never more than 1 request. You&#x27;re in full control.
 
 
 
@@ -495,7 +495,7 @@ GraphQL is self-documenting. Send a very specific query to that same API endpoin
 
 
 
-And how do you adopt GraphQL in an existing project? I don't know yet.
+And how do you adopt GraphQL in an existing project? I don&#x27;t know yet.
 
 
 
@@ -503,7 +503,7 @@ You can hook up a GraphQL service in front of your existing RESTful API. Make th
 
 
 
-At least that's what I've heard others have done and want to try myself :)
+At least that&#x27;s what I&#x27;ve heard others have done and want to try myself :)
 
 
 

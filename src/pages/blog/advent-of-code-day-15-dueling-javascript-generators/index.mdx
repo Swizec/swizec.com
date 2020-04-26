@@ -7,27 +7,27 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/blog-wp-content-uploads-2017-12-carbon-generator.png
 ---
-https://youtu.be/mM5iTlp-Pe4
+https&amp;#x3A;//youtu.be/mM5iTlp-Pe4
 
 
 
-\[caption id="attachment_7972" align="alignnone" width="1172"]![JavaScript generators are 👌](./img/blog-wp-content-uploads-2017-12-carbon-generator.png) JavaScript generators are 👌\[/caption]
+\[caption id=&quot;attachment_7972&quot; align=&quot;alignnone&quot; width=&quot;1172&quot;]![JavaScript generators are 👌](./img/blog-wp-content-uploads-2017-12-carbon-generator.png) JavaScript generators are 👌\[/caption]
 
 
 
-Advent of Code Day 15 was basically all about finding the right programming language. It needs built-in support for generators. You don't want to build that from scratch.
+Advent of Code Day 15 was basically all about finding the right programming language. It needs built-in support for generators. You don&#x27;t want to build that from scratch.
 
 
 
-But what's a generator anyway?
+But what&#x27;s a generator anyway?
 
 
 
-Well, a generator is like an infinite loop that doesn't cause problems. The computer holds it paused in memory and only advances to the next iteration when you say, _"Hey, what's the next value?"_
+Well, a generator is like an infinite loop that doesn&#x27;t cause problems. The computer holds it paused in memory and only advances to the next iteration when you say, _&quot;Hey, what&#x27;s the next value?&quot;_
 
 
 
-I don't know how it's implemented internally. If I had to guess, I'd say the engine holds the entire state on a stack of some sort and advances values when you ask for the next step. A lot like recursion.
+I don&#x27;t know how it&#x27;s implemented internally. If I had to guess, I&#x27;d say the engine holds the entire state on a stack of some sort and advances values when you ask for the next step. A lot like recursion.
 
 
 
@@ -53,7 +53,7 @@ This starts from a `startingValue` and multiplies `val` with `factor` and mods t
 
 
 
-But it won't crash your node runtime or your browser. Because `function*` and `yield` turn it into a generator that follows the "only execute when called" logic.
+But it won&#x27;t crash your node runtime or your browser. Because `function*` and `yield` turn it into a generator that follows the &quot;only execute when called&quot; logic.
 
 
 
@@ -69,11 +69,11 @@ A.next().value // next number
 
 
 
-The full generator only returns values that are divisible by a `denominator`. That's from part 2 of Day 15. The first part returned every value.
+The full generator only returns values that are divisible by a `denominator`. That&#x27;s from part 2 of Day 15. The first part returned every value.
 
 
 
-If that `2147483647` number looks familiar, it's because that's the highest number you can represent in 32 bits. This is significant because we're going to be doing some bitwise operations and JavaScript can only do those up to 32 bits.
+If that `2147483647` number looks familiar, it&#x27;s because that&#x27;s the highest number you can represent in 32 bits. This is significant because we&#x27;re going to be doing some bitwise operations and JavaScript can only do those up to 32 bits.
 
 
 
@@ -85,7 +85,7 @@ Numbers are generally represented as 64 bits in JavaScript.
 
 
 
-Right, so that's how generators work. The reason we need generators is that the puzzle for Advent of Code Day 15 goes like this
+Right, so that&#x27;s how generators work. The reason we need generators is that the puzzle for Advent of Code Day 15 goes like this
 
 
 
@@ -135,7 +135,7 @@ The same function can do both Star 1 and Star 2 of the puzzle depending on input
 
 
 
-Here's how it works:
+Here&#x27;s how it works:
 
 
 
@@ -145,7 +145,7 @@ Here's how it works:
 4. Loop until `sampleSize`
 5. Take `next()` values from the generators, bitwise `AND` them with the mask[1](#fn1), compare values
 6. If numbers match, increment `judge`
-7. When it's done looping, `judge` is our result
+7. When it&#x27;s done looping, `judge` is our result
 
 
 
@@ -171,8 +171,8 @@ Boom 💥 puzzle solved in about 20 minutes. 🤙
 
 
 
-And now you know how generators work. Although I still don't know where you'd use them in a web app.
+And now you know how generators work. Although I still don&#x27;t know where you&#x27;d use them in a web app.
 
 
 
-1. If you're not used to bitwise operations, they're rare in JavaScript, the idea is that bits follow a truth table. 0 & 0 == 0, 0 & 1 == 0, 1 & 0 == 0, 1 & 1 == 1. You can use this to cut away parts of numbers with a `mask`. For example 0b1010 & 0b0011 == 0b0010. 🤓 [↩](#ffn1)
+1. If you&#x27;re not used to bitwise operations, they&#x27;re rare in JavaScript, the idea is that bits follow a truth table. 0 &amp; 0 == 0, 0 &amp; 1 == 0, 1 &amp; 0 == 0, 1 &amp; 1 == 1. You can use this to cut away parts of numbers with a `mask`. For example 0b1010 &amp; 0b0011 == 0b0010. 🤓 [↩](#ffn1)

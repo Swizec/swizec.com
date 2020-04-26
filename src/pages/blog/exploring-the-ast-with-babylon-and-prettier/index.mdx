@@ -7,7 +7,7 @@ redirect_from:
 categories: "Technical"
 hero: ./img/blog-wp-content-uploads-2017-06-fileprogram1.jpg
 ---
-At [this week's livecoding session](https://swizec.com/blog/livecoding-39-towards-ai-writes-javascript/swizec/7621), I mentioned mutating ASTs to improve the performance of our [faux AI that writes JavaScript](https://github.com/Swizec/faux-js-ai) algorithm. It would help us converge on a solution faster.
+At [this week&#x27;s livecoding session](https://swizec.com/blog/livecoding-39-towards-ai-writes-javascript/swizec/7621), I mentioned mutating ASTs to improve the performance of our [faux AI that writes JavaScript](https://github.com/Swizec/faux-js-ai) algorithm. It would help us converge on a solution faster.
 
 
 
@@ -15,15 +15,15 @@ But what is an AST?
 
 
 
-Well, it's an abstract syntax tree. It's that thing computers use to understand your code. Let me explain how they work. I think every programmer can benefit from knowing this stuff.
+Well, it&#x27;s an abstract syntax tree. It&#x27;s that thing computers use to understand your code. Let me explain how they work. I think every programmer can benefit from knowing this stuff.
 
 
 
-It took my compilers professor in college a few hours. Let's see if I can show you the gist of it in a few hundred words. With a picture or two.
+It took my compilers professor in college a few hours. Let&#x27;s see if I can show you the gist of it in a few hundred words. With a picture or two.
 
 
 
-We're going to use [Babylon](https://github.com/babel/babylon) to parse code into an AST and [Prettier](https://github.com/prettier/prettier) to print it back out into code. Coincidentally, that's how Prettier approaches making your code pretty. You'll see that too.
+We&#x27;re going to use [Babylon](https://github.com/babel/babylon) to parse code into an AST and [Prettier](https://github.com/prettier/prettier) to print it back out into code. Coincidentally, that&#x27;s how Prettier approaches making your code pretty. You&#x27;ll see that too.
 
 
 
@@ -48,7 +48,7 @@ console.log(util.inspect(
 
 
 
-We're going to put the code we're testing into `code`. The rest is there to parse it and print the resulting AST. `babylon.parse` is where the magic happens.
+We&#x27;re going to put the code we&#x27;re testing into `code`. The rest is there to parse it and print the resulting AST. `babylon.parse` is where the magic happens.
 
 
 
@@ -104,11 +104,11 @@ Node {
 
 
 
-That doesn't tell you much, does it? It doesn't tell me anything. Most of it is for Babylon to know what's going on.
+That doesn&#x27;t tell you much, does it? It doesn&#x27;t tell me anything. Most of it is for Babylon to know what&#x27;s going on.
 
 
 
-Here's the part we care about:
+Here&#x27;s the part we care about:
 
 
 
@@ -129,7 +129,7 @@ Here's the part we care about:
 
 
 
-You can read this as _"There is a program that starts at 0:1 and ends at 0:2 and has an empty body. It is a script."_. That means our code isn't as empty as we thought; it's got a whole empty line!
+You can read this as _&quot;There is a program that starts at 0:1 and ends at 0:2 and has an empty body. It is a script.&quot;_. That means our code isn&#x27;t as empty as we thought; it&#x27;s got a whole empty line!
 
 
 
@@ -145,7 +145,7 @@ Root `file` node, child `program` node.
 
 
 
-Now let's try a variable assignment.
+Now let&#x27;s try a variable assignment.
 
 
 
@@ -157,7 +157,7 @@ let a = 5;
 
 
 
-That outputs a bigger AST. I'm going to snip out some of the details to make this readable.
+That outputs a bigger AST. I&#x27;m going to snip out some of the details to make this readable.
 
 
 
@@ -219,7 +219,7 @@ In a picture, that looks something like this:
 
 
 
-You'll notice the AST doesn't talk much about what our code says. There's no lets and equal signs or any of that. Sure, the identifier has a `name` and the init has a `value`, but the rest is an abstraction level higher.
+You&#x27;ll notice the AST doesn&#x27;t talk much about what our code says. There&#x27;s no lets and equal signs or any of that. Sure, the identifier has a `name` and the init has a `value`, but the rest is an abstraction level higher.
 
 
 
@@ -227,7 +227,7 @@ An AST talks about what the code does, not what it is.
 
 
 
-There's a list of tokens if you want to know what the code says:
+There&#x27;s a list of tokens if you want to know what the code says:
 
 
 
@@ -355,7 +355,7 @@ The list of tokens is a lot more interesting to Babylon than it is to you or I. 
 
 
 
-For example, let's say our parser encounters the `a` token. Just like you, it recognizes that this is not a JavaScript reserved word. That must mean it's a name for something and it starts a new expression.
+For example, let&#x27;s say our parser encounters the `a` token. Just like you, it recognizes that this is not a JavaScript reserved word. That must mean it&#x27;s a name for something and it starts a new expression.
 
 
 
@@ -382,7 +382,7 @@ Token {
 
 
 
-The parser keeps going. It doesn't know yet what this new expression is going to be, but its name is `a`.
+The parser keeps going. It doesn&#x27;t know yet what this new expression is going to be, but its name is `a`.
 
 
 
@@ -409,11 +409,11 @@ value: '=',
 
 
 
-Ah, so we're doing assignment, `isAssign`, and we're expecting an expression afterwards. At least that's what I think `beforeExpr` means. It's hard to know for sure because `;` also gets the `beforeExpr` flag 🤔
+Ah, so we&#x27;re doing assignment, `isAssign`, and we&#x27;re expecting an expression afterwards. At least that&#x27;s what I think `beforeExpr` means. It&#x27;s hard to know for sure because `;` also gets the `beforeExpr` flag 🤔
 
 
 
-Either way, Babylon then encounters a `num` token, which also starts a new expression. In this case, an expression that's the length of a single token, but still a new expression.
+Either way, Babylon then encounters a `num` token, which also starts a new expression. In this case, an expression that&#x27;s the length of a single token, but still a new expression.
 
 
 
@@ -421,11 +421,11 @@ As the parser goes through these tokens, it builds a syntax tree. Some tokens bu
 
 
 
-Making this work is tricky. I remember building a compiler at school, and it nearly broke my brain. The hard part is that you're reading a flat stream of tokens and converting it into a rich tree.
+Making this work is tricky. I remember building a compiler at school, and it nearly broke my brain. The hard part is that you&#x27;re reading a flat stream of tokens and converting it into a rich tree.
 
 
 
-And yet, you do it every day when reading other people's code! Quite impressive.
+And yet, you do it every day when reading other people&#x27;s code! Quite impressive.
 
 
 
@@ -450,11 +450,11 @@ console.log(prettier.format(code));
 
 
 
-I couldn't find the internal Prettier function that takes an AST and outputs it, but that's what `.format` does internally. Parses your code, prints it back out with less cruft.
+I couldn&#x27;t find the internal Prettier function that takes an AST and outputs it, but that&#x27;s what `.format` does internally. Parses your code, prints it back out with less cruft.
 
 
 
-When I have some time, I'll figure out how to manipulate those ASTs to create different code.
+When I have some time, I&#x27;ll figure out how to manipulate those ASTs to create different code.
 
 
 

@@ -11,15 +11,15 @@ A coaching client showed me this design and asked: _Ok, how do I build this?_
 
 
 
-\[caption id="attachment_8541" align="alignnone" width="1426"]![Tree structure with rounded edges](./img/blog-wp-content-uploads-2018-07-tree-with-rounded-edges.png) Tree structure with rounded edges\[/caption]
+\[caption id=&quot;attachment_8541&quot; align=&quot;alignnone&quot; width=&quot;1426&quot;]![Tree structure with rounded edges](./img/blog-wp-content-uploads-2018-07-tree-with-rounded-edges.png) Tree structure with rounded edges\[/caption]
 
 
 
-Well hmm… it's a tree of some sort. Each icon is a node, and each line is an edge. Nodes can have multiple children. I think 🤔
+Well hmm… it&#x27;s a tree of some sort. Each icon is a node, and each line is an edge. Nodes can have multiple children. I think 🤔
 
 
 
-You can build this with D3. Calculate each node's position, then iterate and render. An image \\imported as an SVG component will do. Webpack can handle that for you.
+You can build this with D3. Calculate each node&#x27;s position, then iterate and render. An image \\imported as an SVG component will do. Webpack can handle that for you.
 
 
 
@@ -54,7 +54,7 @@ That draws a line from point `(0, 0)` to point `(100, 100)`.
 
 
 
-But we don't want straight lines. Straight lines don't look good.
+But we don&#x27;t want straight lines. Straight lines don&#x27;t look good.
 
 
 
@@ -73,7 +73,7 @@ const line2 = d3.line().curve(d3.curveCardinal);
 
 
 
-If you try that, you'll see that nothing happens. Curves need multiple points in your line data to work well.
+If you try that, you&#x27;ll see that nothing happens. Curves need multiple points in your line data to work well.
 
 
 
@@ -83,7 +83,7 @@ Like this 👇
 
 
 
-That's a nice curve and all, but not quite what we're looking for. And if you look at the [curve examples in D3 docs](https://github.com/d3/d3-shape/blob/master/README.md#curves), you'll see that nothing quite fits.
+That&#x27;s a nice curve and all, but not quite what we&#x27;re looking for. And if you look at the [curve examples in D3 docs](https://github.com/d3/d3-shape/blob/master/README.md#curves), you&#x27;ll see that nothing quite fits.
 
 
 
@@ -99,7 +99,7 @@ After some experimentation, I found a solution.
 
 
 
-https://www.youtube.com/watch?v=VyCP-3gL72k
+https&amp;#x3A;//www.youtube.com/watch?v=VyCP-3gL72k
 
 
 
@@ -109,7 +109,7 @@ https://www.youtube.com/watch?v=VyCP-3gL72k
 
 
 
-The poorly named `<RoundedCorner>` component is just 15 lines of Prettier'd code. All values discovered experimentally.
+The poorly named `<RoundedCorner>` component is just 15 lines of Prettier&#x27;d code. All values discovered experimentally.
 
 
 
@@ -146,12 +146,12 @@ Experimentally, I discovered that for best results, you have to place 2 points b
 
 
 
-Then you have to use the `curveBundle` generator with the `beta` factor set to `1`. I honestly don't know what that means but it works.
+Then you have to use the `curveBundle` generator with the `beta` factor set to `1`. I honestly don&#x27;t know what that means but it works.
 
 
 
-You can see I tried a few different configurations in the example CodeSandbox. That's because some curves produced weird edges when turned around like that.
+You can see I tried a few different configurations in the example CodeSandbox. That&#x27;s because some curves produced weird edges when turned around like that.
 
 
 
-But not good ol' curveBundle.
+But not good ol&#x27; curveBundle.

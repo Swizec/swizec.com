@@ -11,7 +11,7 @@ Modern React Context has been with us for a while but I still see a lot of confu
 
 
 
-https://twitter.com/pugson/status/1079241306487091200
+https&amp;#x3A;//twitter.com/pugson/status/1079241306487091200
 
 
 
@@ -23,15 +23,15 @@ Yes, sort of. But not in the way you think.
 
 
 
-[Redux](https://redux.js.org/) and [MobX](https://github.com/mobxjs/mobx) have always used context behind the scenes. They're familiar, you can use them right away, and your workflow doesn't have to change. Congratz, you're using React Context effectively.
+[Redux](https://redux.js.org/) and [MobX](https://github.com/mobxjs/mobx) have always used context behind the scenes. They&#x27;re familiar, you can use them right away, and your workflow doesn&#x27;t have to change. Congratz, you&#x27;re using React Context effectively.
 
 
 
-Maybe you don't like or need the complexity of Redux and MobX. Overhead, bundle sizes, indirection and separation of concerns way beyond what your tiny app needs. Lots of reasons.
+Maybe you don&#x27;t like or need the complexity of Redux and MobX. Overhead, bundle sizes, indirection and separation of concerns way beyond what your tiny app needs. Lots of reasons.
 
 
 
-That's where modern React Context comes in.
+That&#x27;s where modern React Context comes in.
 
 
 
@@ -39,11 +39,11 @@ That's where modern React Context comes in.
 
 
 
-Here's a video of mine explaining React Context in 2 minutes 👇
+Here&#x27;s a video of mine explaining React Context in 2 minutes 👇
 
 
 
-https://www.youtube.com/watch?v=2WXUyMJmF2Q
+https&amp;#x3A;//www.youtube.com/watch?v=2WXUyMJmF2Q
 
 
 
@@ -77,7 +77,7 @@ JavaScript uses shallow object comparisons, so relying on component state is bes
 
 
 
-Here's a bug you can run into if you're not careful:
+Here&#x27;s a bug you can run into if you&#x27;re not careful:
 
 
 
@@ -100,7 +100,7 @@ Even though we made a copy of `obj`, their internal properties remained equal. T
 
 
 
-So if you're passing deep properties into your context or your props, your app is going to break.
+So if you&#x27;re passing deep properties into your context or your props, your app is going to break.
 
 
 
@@ -108,17 +108,17 @@ So if you're passing deep properties into your context or your props, your app i
 
 
 
-Okay, so you're gonna need some state, a way to change it, and a way to communicate changes. Here's what that would look like in code 👇
+Okay, so you&#x27;re gonna need some state, a way to change it, and a way to communicate changes. Here&#x27;s what that would look like in code 👇
 
 
 
 
 
-You can say hi to Pugson. Type into the input box and see what you're typing right away.
+You can say hi to Pugson. Type into the input box and see what you&#x27;re typing right away.
 
 
 
-It's a little contrived, but that makes it easier to explain. There are a few moving pieces.
+It&#x27;s a little contrived, but that makes it easier to explain. There are a few moving pieces.
 
 
 
@@ -181,11 +181,11 @@ class App extends React.Component {
 
 
 
-The `state` object has both values and setters. `greeting` is the string you're typing with a default value of `""`, and `setGreeting` is the setter any component can use to change the greeting.
+The `state` object has both values and setters. `greeting` is the string you&#x27;re typing with a default value of `""`, and `setGreeting` is the setter any component can use to change the greeting.
 
 
 
-Since we're using component state, the setter can call `setState` and let React figure out the rest.
+Since we&#x27;re using component state, the setter can call `setState` and let React figure out the rest.
 
 
 
@@ -265,7 +265,7 @@ Changing our `greeting` value works in a similar way. We render a consumer, take
 
 
 
-This also lets you solve the problem that you can't access context value outside of the render method. It's true, you cannot, and that's why you pass them into child components and use it there.
+This also lets you solve the problem that you can&#x27;t access context value outside of the render method. It&#x27;s true, you cannot, and that&#x27;s why you pass them into child components and use it there.
 
 
 
@@ -304,11 +304,11 @@ Once more, we \\import that same shared context `Consumer`, render, and use a fu
 
 
 
-We pass those into the `Input` component as `value` and the `onChange` callback. This allows `Input` to be as complex or as simple as it wants, makes it a fully controlled component, and most \\importantly, _it doesn't rely on context._
+We pass those into the `Input` component as `value` and the `onChange` callback. This allows `Input` to be as complex or as simple as it wants, makes it a fully controlled component, and most \\importantly, _it doesn&#x27;t rely on context._
 
 
 
-A common foot-gun is to make your components so tied to context or state management that you can't reuse them. Always a good idea to make your basic components rely on props alone.
+A common foot-gun is to make your components so tied to context or state management that you can&#x27;t reuse them. Always a good idea to make your basic components rely on props alone.
 
 
 
@@ -316,11 +316,11 @@ A common foot-gun is to make your components so tied to context or state managem
 
 
 
-_"But that's an awful lot like re-inventing your own state management"_, I hear you say.
+_&quot;But that&#x27;s an awful lot like re-inventing your own state management&quot;_, I hear you say.
 
 
 
-Kind of? You're using out-of-the-box React tools. No wheel reinventing required.
+Kind of? You&#x27;re using out-of-the-box React tools. No wheel reinventing required.
 
 
 
@@ -340,15 +340,15 @@ You can also make some of this stuff easier with modern state management librari
 
 
 
-I won't go into detail on those, so here's two videos:
+I won&#x27;t go into detail on those, so here&#x27;s two videos:
 
 
 
-https://www.youtube.com/watch?v=63UI2nTz1qA
+https&amp;#x3A;//www.youtube.com/watch?v=63UI2nTz1qA
 
 
 
-https://www.youtube.com/watch?v=MhmhfaJn0_U
+https&amp;#x3A;//www.youtube.com/watch?v=MhmhfaJn0_U
 
 
 

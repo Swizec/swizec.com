@@ -7,7 +7,7 @@ redirect_from:
 categories: "Technical"
 hero: ./img/blog-wp-content-uploads-2018-08-CleanShot-2018-08-28-at-09.27.06@2x-772x1024.png
 ---
-\[caption id="attachment_8595" align="aligncenter" width="177"]![](./img/blog-wp-content-uploads-2018-08-email-debugging.gif) 57 debugging iterations\[/caption]
+\[caption id=&quot;attachment_8595&quot; align=&quot;aligncenter&quot; width=&quot;177&quot;]![](./img/blog-wp-content-uploads-2018-08-email-debugging.gif) 57 debugging iterations\[/caption]
 
 
 
@@ -15,11 +15,11 @@ Building emails sucks.
 
 
 
-Last week I was tasked with a project. _"We're rebranding, our emails were built 3 years ago and they look janky. Let's rebuild!"_
+Last week I was tasked with a project. _&quot;We&#x27;re rebranding, our emails were built 3 years ago and they look janky. Let&#x27;s rebuild!&quot;_
 
 
 
-_"OK I can do that. But emails suck so I'm def not building that shit from scratch"_
+_&quot;OK I can do that. But emails suck so I&#x27;m def not building that shit from scratch&quot;_
 
 
 
@@ -31,11 +31,11 @@ Wonderful. Look at us being a responsible team and avoiding all the hard finicky
 
 
 
-I look at the template and think _"Ok, central body area, some optional pre_body stuff, some optional post_body stuff. Body made out of a few basic widgets."_
+I look at the template and think _&quot;Ok, central body area, some optional pre_body stuff, some optional post_body stuff. Body made out of a few basic widgets.&quot;_
 
 
 
-\[caption id="attachment_8589" align="aligncenter" width="580"]![](./img/blog-wp-content-uploads-2018-08-CleanShot-2018-08-28-at-09.27.06@2x-772x1024.png) What we built in BeePro\[/caption]
+\[caption id=&quot;attachment_8589&quot; align=&quot;aligncenter&quot; width=&quot;580&quot;]![](./img/blog-wp-content-uploads-2018-08-CleanShot-2018-08-28-at-09.27.06@2x-772x1024.png) What we built in BeePro\[/caption]
 
 
 
@@ -47,21 +47,21 @@ All my partials were built through careful copy and paste. Inspect the exported 
 
 
 
-Here's what the emails looked like in my test environment. Opening as a browser tab instead of sending via SMTP. 👇
+Here&#x27;s what the emails looked like in my test environment. Opening as a browser tab instead of sending via SMTP. 👇
 
 
 
-\[caption id="attachment_8590" align="aligncenter" width="1920"]![](./img/blog-wp-content-uploads-2018-08-kapture_2018-08-24_at_14.37.34.gif) How the email looked in test\[/caption]
+\[caption id=&quot;attachment_8590&quot; align=&quot;aligncenter&quot; width=&quot;1920&quot;]![](./img/blog-wp-content-uploads-2018-08-kapture_2018-08-24_at_14.37.34.gif) How the email looked in test\[/caption]
 
 
 
 
 
-And here's what that same email looked like in GMail when my QA team tried it out.
+And here&#x27;s what that same email looked like in GMail when my QA team tried it out.
 
 
 
-\[caption id="attachment_8592" align="aligncenter" width="1920"]![](./img/blog-wp-content-uploads-2018-08-kapture_2018-08-24_at_14.34.37.gif) Same code, but in GMail\[/caption]
+\[caption id=&quot;attachment_8592&quot; align=&quot;aligncenter&quot; width=&quot;1920&quot;]![](./img/blog-wp-content-uploads-2018-08-kapture_2018-08-24_at_14.34.37.gif) Same code, but in GMail\[/caption]
 
 
 
@@ -77,11 +77,11 @@ The problem is that BeePro builds weird HTML that I had to tweak a little and th
 
 
 
-You see BeePro doesn't think in boxes like you and I do. It thinks in full width divs and fakes containers.
+You see BeePro doesn&#x27;t think in boxes like you and I do. It thinks in full width divs and fakes containers.
 
 
 
-\[caption id="attachment_8593" align="aligncenter" width="580"]![BeePro fakes containers](./img/blog-wp-content-uploads-2018-08-CleanShot-2018-08-28-at-09.33.17@2x-994x1024.png) BeePro fakes containers\[/caption]
+\[caption id=&quot;attachment_8593&quot; align=&quot;aligncenter&quot; width=&quot;580&quot;]![BeePro fakes containers](./img/blog-wp-content-uploads-2018-08-CleanShot-2018-08-28-at-09.33.17@2x-994x1024.png) BeePro fakes containers\[/caption]
 
 
 
@@ -89,19 +89,19 @@ Tweaked a few things, moved some CSS around, copy pastad some more HTML. Fixed t
 
 
 
-Looks great in GMail on the desktop. Surely it's fine everywhere.
+Looks great in GMail on the desktop. Surely it&#x27;s fine everywhere.
 
 
 
-\[caption id="attachment_8594" align="aligncenter" width="576"]![](./img/blog-wp-content-uploads-2018-08-image_from_ios-576x1024.png) My fix for containers broke mobile layout\[/caption]
+\[caption id=&quot;attachment_8594&quot; align=&quot;aligncenter&quot; width=&quot;576&quot;]![](./img/blog-wp-content-uploads-2018-08-image_from_ios-576x1024.png) My fix for containers broke mobile layout\[/caption]
 
 ![](./img/media-IYIlvuWc21U4g-giphy.gif)
 
-Now here's the thing, you can't inspect elements in the GMail app on your phone. You can't even tell what's rendering, why things are doing what they're doing, or where any of the elements are.
+Now here&#x27;s the thing, you can&#x27;t inspect elements in the GMail app on your phone. You can&#x27;t even tell what&#x27;s rendering, why things are doing what they&#x27;re doing, or where any of the elements are.
 
 
 
-A-ha! I'll open GMail on my computer, set my viewport to iPhone size, and debug that way! Modern web development tools to the rescue. Huzzah 💪
+A-ha! I&#x27;ll open GMail on my computer, set my viewport to iPhone size, and debug that way! Modern web development tools to the rescue. Huzzah 💪
 
 ![GMail is too smart](<>)
 
@@ -111,15 +111,15 @@ GMail is too smart
 
 
 
-Nope. GMail sees it's running in web mode and scales down your email instead of forcing it to reflow. I don't know how, but it does. Email looks like the desktop version, just smaller.
+Nope. GMail sees it&#x27;s running in web mode and scales down your email instead of forcing it to reflow. I don&#x27;t know how, but it does. Email looks like the desktop version, just smaller.
 
 
 
-Luckily I'm an old skool web developer. We didn't have tools when I started. I know how it goes!
+Luckily I&#x27;m an old skool web developer. We didn&#x27;t have tools when I started. I know how it goes!
 
 
 
-Back when PHP scripts returned a blank screen, if you had an error. Because showing errors on the web leads to security issues, you see. Back when browsers didn't come with developer tools until someone built FireBug for FireFox.
+Back when PHP scripts returned a blank screen, if you had an error. Because showing errors on the web leads to security issues, you see. Back when browsers didn&#x27;t come with developer tools until someone built FireBug for FireFox.
 
 
 
@@ -147,19 +147,19 @@ In a nutshell 👇
 
 
 
-When you're inspecting paddings and margins, you opt for pink and blue and white backgrounds. Background for the big div, background for the small div, hey presto margins and paddings show up. yay
+When you&#x27;re inspecting paddings and margins, you opt for pink and blue and white backgrounds. Background for the big div, background for the small div, hey presto margins and paddings show up. yay
 
 
 
-Sometimes you take things out to see if they're pushing stuff around. Binary search through the HTML tree to see which line is causing problems.
+Sometimes you take things out to see if they&#x27;re pushing stuff around. Binary search through the HTML tree to see which line is causing problems.
 
 
 
-It took me 57 iterations. Here's a gif. Enjoy 👇
+It took me 57 iterations. Here&#x27;s a gif. Enjoy 👇
 
 
 
-\[caption id="attachment_8595" align="aligncenter" width="355"]![](./img/blog-wp-content-uploads-2018-08-email-debugging.gif) 57 debugging iterations\[/caption]
+\[caption id=&quot;attachment_8595&quot; align=&quot;aligncenter&quot; width=&quot;355&quot;]![](./img/blog-wp-content-uploads-2018-08-email-debugging.gif) 57 debugging iterations\[/caption]
 
 
 
@@ -167,4 +167,4 @@ I may have lost my sanity, I may have begged on twitter for a bullet to the head
 
 
 
-Now watch as I walk into work this morning and QA says it doesn't work.
+Now watch as I walk into work this morning and QA says it doesn&#x27;t work.

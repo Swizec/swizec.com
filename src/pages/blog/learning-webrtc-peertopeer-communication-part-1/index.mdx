@@ -7,19 +7,19 @@ redirect_from:
 categories: "blockchain, Front End, Livecoding, Technical, WebRTC"
 hero: ../../../defaultHero.jpg
 ---
-https://www.youtube.com/watch?v=pjoem5laCYQ
+https&amp;#x3A;//www.youtube.com/watch?v=pjoem5laCYQ
 
 
 
-Remember [blockchain-redux](https://github.com/Swizec/blockchain-redux)? Yeah, I'm still working on it. Last time, we got it to [share blocks between clients in real-time](https://swizec.com/blog/blockchain-redux-shares-blocks-between-clients-real-time/swizec/8320).
+Remember [blockchain-redux](https://github.com/Swizec/blockchain-redux)? Yeah, I&#x27;m still working on it. Last time, we got it to [share blocks between clients in real-time](https://swizec.com/blog/blockchain-redux-shares-blocks-between-clients-real-time/swizec/8320).
 
 
 
-But that still used Firebase as the communication channel. Our blockchain isn't really distributed. ☹️
+But that still used Firebase as the communication channel. Our blockchain isn&#x27;t really distributed. ☹️
 
 
 
-I have to fix that before my talk at [WeAreDevelopers Congress](https://www.wearedevelopers.com/congress/) in Vienna. Otherwise, what's the point?
+I have to fix that before my talk at [WeAreDevelopers Congress](https://www.wearedevelopers.com/congress/) in Vienna. Otherwise, what&#x27;s the point?
 
 
 
@@ -31,7 +31,7 @@ I built [a demo app](https://swizec.github.io/webrtc-sample/) that uses `RTCPeer
 
 
 
-https://twitter.com/Swizec/status/993269639235842051
+https&amp;#x3A;//twitter.com/Swizec/status/993269639235842051
 
 
 
@@ -39,7 +39,7 @@ Since iOS 11, WebRTC now works in all browsers people use. You can use it for re
 
 
 
-[Try my demo here](https://swizec.github.io/webrtc-sample/). I'd embed an iframe, but browser security rules say no.
+[Try my demo here](https://swizec.github.io/webrtc-sample/). I&#x27;d embed an iframe, but browser security rules say no.
 
 
 
@@ -53,7 +53,7 @@ WebRTC offers 3 APIs:
 
 
 
-In this article, we'll use 2 of them. Media and peer connection.
+In this article, we&#x27;ll use 2 of them. Media and peer connection.
 
 
 
@@ -61,7 +61,7 @@ In this article, we'll use 2 of them. Media and peer connection.
 
 
 
-\[caption id="attachment_8358" align="alignnone" width="1629"]![RTCPeerConnection process sketch](./img/blog-wp-content-uploads-2018-05-RTCPeerConnection-process-sketch.png) RTCPeerConnection process sketch\[/caption]
+\[caption id=&quot;attachment_8358&quot; align=&quot;alignnone&quot; width=&quot;1629&quot;]![RTCPeerConnection process sketch](./img/blog-wp-content-uploads-2018-05-RTCPeerConnection-process-sketch.png) RTCPeerConnection process sketch\[/caption]
 
 
 
@@ -72,18 +72,18 @@ You establish a connection between 2 clients on the same page like this 👇
 1. Instantiate two `RTCPeerConnection` objects
 2. Add each other as ICE candidates
 3. `createOffer` on the 1st object
-4. set local/remote "description" on both
+4. set local/remote &quot;description&quot; on both
 5. `createAnswer` on the 2nd object
-6. set remote/local "description" on both
+6. set remote/local &quot;description&quot; on both
 7. Enjoy your direct communication
 
 
 
-Here's how that goes [in code](https://github.com/Swizec/webrtc-sample/blob/master/src/WebRTCPeerConnection.js).
+Here&#x27;s how that goes [in code](https://github.com/Swizec/webrtc-sample/blob/master/src/WebRTCPeerConnection.js).
 
 
 
-We start with a React component that renders 2 videos and 3 buttons. It has a bunch of default state that we'll use to drive everything.
+We start with a React component that renders 2 videos and 3 buttons. It has a bunch of default state that we&#x27;ll use to drive everything.
 
 
 
@@ -145,7 +145,7 @@ class WebRTCPeerConnection extends React.Component {
 
 
 
-We have 3 booleans that enable/disable our buttons, `null` peer connections `pc1` and `pc2`, I don't know what `servers` are for, and we render videos and buttons.
+We have 3 booleans that enable/disable our buttons, `null` peer connections `pc1` and `pc2`, I don&#x27;t know what `servers` are for, and we render videos and buttons.
 
 
 
@@ -263,7 +263,7 @@ Then we take all tracks from `localStream` (audio and video) and add them to the
 
 
 
-When all that's done, we update component state.
+When all that&#x27;s done, we update component state.
 
 
 
@@ -271,7 +271,7 @@ When all that's done, we update component state.
 
 
 
-After `pc1` successfully creates an offer to be received, we update local and remote descriptions in our clients. I'm not sure what these "descriptions" are, but it's where the \\important stuff happens.
+After `pc1` successfully creates an offer to be received, we update local and remote descriptions in our clients. I&#x27;m not sure what these &quot;descriptions&quot; are, but it&#x27;s where the \\important stuff happens.
 
 
 
@@ -314,7 +314,7 @@ After `pc1` successfully creates an offer to be received, we update local and re
 
 
 
-`pc1` updates its local description, and `pc2` updates its remote description. `pc2` also creates an answer, which I think is akin to saying _"Okay, I accepted your offer, let's do this"_.
+`pc1` updates its local description, and `pc2` updates its remote description. `pc2` also creates an answer, which I think is akin to saying _&quot;Okay, I accepted your offer, let&#x27;s do this&quot;_.
 
 
 
@@ -362,7 +362,7 @@ When `pc2` successfully creates an answer, we do another round of description se
 
 
 
-`pc1` sets its remote description and `pc2` sets its local description. I think this acknowledges that, from `pc1`'s perspective, it is local to itself and `pc2` is remote, and vice-versa for `pc2`.
+`pc1` sets its remote description and `pc2` sets its local description. I think this acknowledges that, from `pc1`&#x27;s perspective, it is local to itself and `pc2` is remote, and vice-versa for `pc2`.
 
 
 
@@ -374,7 +374,7 @@ At this point, we have two video streams talking to each other on the same page.
 
 
 
-https://twitter.com/Swizec/status/993269639235842051
+https&amp;#x3A;//twitter.com/Swizec/status/993269639235842051
 
 
 
@@ -382,7 +382,7 @@ https://twitter.com/Swizec/status/993269639235842051
 
 
 
-At some point during all this, both `pc*`s say that they've got an ICE candidate. Don't know when exactly that happens, but it gives us a chance to tell each client who they're talking to.
+At some point during all this, both `pc*`s say that they&#x27;ve got an ICE candidate. Don&#x27;t know when exactly that happens, but it gives us a chance to tell each client who they&#x27;re talking to.
 
 
 
@@ -441,27 +441,27 @@ Hanging up is easy. You close both clients.
 
 
 
-This works great as a tech demo. And that's when your dreams are shattered.
+This works great as a tech demo. And that&#x27;s when your dreams are shattered.
 
 
 
-The first part of your connection, where two clients find each other, is called signaling. The WebRTC spec doesn't say anything about signaling.
+The first part of your connection, where two clients find each other, is called signaling. The WebRTC spec doesn&#x27;t say anything about signaling.
 
 
 
-It's easy in a single page, two client demo. Both clients are right there, in memory. And there's only two clients to boot.
+It&#x27;s easy in a single page, two client demo. Both clients are right there, in memory. And there&#x27;s only two clients to boot.
 
 
 
-But in the real world, you want those clients to run in different browsers, on different machines, far apart in the world. How do you make them find each other? What if there's thousands?
+But in the real world, you want those clients to run in different browsers, on different machines, far apart in the world. How do you make them find each other? What if there&#x27;s thousands?
 
 
 
-Well, you need some sort of communication channel that knows where all the clients are and can say _"Yo, connect here. You, over there!"_. A central server of some sort…
+Well, you need some sort of communication channel that knows where all the clients are and can say _&quot;Yo, connect here. You, over there!&quot;_. A central server of some sort…
 
 
 
-That won't do for a distributed decentralized blockchain ☹️
+That won&#x27;t do for a distributed decentralized blockchain ☹️
 
 
 
@@ -470,4 +470,4 @@ Next step: Serverless WebRTC signaling. Stay tuned.
 
 
 
-<strong_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should subscribe to [My Youtube](https://www.youtube.com/TheSwizec) channel to catch me live._
+&amp;lt;strong_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should subscribe to [My Youtube](https://www.youtube.com/TheSwizec) channel to catch me live._

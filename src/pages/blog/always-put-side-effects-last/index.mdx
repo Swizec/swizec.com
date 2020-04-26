@@ -11,15 +11,15 @@ hero: ./img/wp-content-uploads-2016-10-salesforce-tower-panorama-1024x358.jpg
 
 
 
-You know how some lessons you can only learn from experience? This is such a lesson. I'm sharing it with you so that I may remember it better.
+You know how some lessons you can only learn from experience? This is such a lesson. I&#x27;m sharing it with you so that I may remember it better.
 
 
 
-https://twitter.com/Swizec/status/950152073819009024
+https&amp;#x3A;//twitter.com/Swizec/status/950152073819009024
 
 
 
-Let's say you're building a system for drip campaigns. Because that's how I learned this lesson.
+Let&#x27;s say you&#x27;re building a system for drip campaigns. Because that&#x27;s how I learned this lesson.
 
 
 
@@ -27,7 +27,7 @@ Your system is given a set of leads. You have to send them a series of messages,
 
 
 
-Hundreds of these systems have been developed by thousands of developers. You're building your own because startups.
+Hundreds of these systems have been developed by thousands of developers. You&#x27;re building your own because startups.
 
 
 
@@ -72,7 +72,7 @@ You go through active leads, pick their campaign, and spawn a new background wor
 
 
 
-If anything goes wrong, each campaign is isolated in its own worker. Errors don't affect other campaigns. 👌
+If anything goes wrong, each campaign is isolated in its own worker. Errors don&#x27;t affect other campaigns. 👌
 
 
 
@@ -80,11 +80,11 @@ Even better, if something goes wrong while sending the campaign, you can retry t
 
 
 
-## And you've just spammed your leads and made them angry
+## And you&#x27;ve just spammed your leads and made them angry
 
 
 
-Let's review our `send_next_message` code.
+Let&#x27;s review our `send_next_message` code.
 
 
 
@@ -119,7 +119,7 @@ Worker terminates on 3rd instruction.
 
 
 
-Now you're in trouble. You've already sent a message to your user, but you weren't able to save that info. Your system doesn't know sending happened, and your CRM doesn't know either.
+Now you&#x27;re in trouble. You&#x27;ve already sent a message to your user, but you weren&#x27;t able to save that info. Your system doesn&#x27;t know sending happened, and your CRM doesn&#x27;t know either.
 
 
 
@@ -135,11 +135,11 @@ And again. And again. Until the whole worker succeeds.
 
 
 
-Your lead just got a bazillion messages, and they're upset.
+Your lead just got a bazillion messages, and they&#x27;re upset.
 
 
 
-Here's what you should do instead 👇
+Here&#x27;s what you should do instead 👇
 
 
 
@@ -171,7 +171,7 @@ Break fast and move things, right? :)
 
 
 
-At the end, when you're absolutely certain all your data is updated, you send the message to your lead. This is least likely to fail, and if it does, screw it.
+At the end, when you&#x27;re absolutely certain all your data is updated, you send the message to your lead. This is least likely to fail, and if it does, screw it.
 
 
 
@@ -179,7 +179,7 @@ With this approach, you are guaranteed never to spam your leads. The worst that 
 
 
 
-That's okay 🙏🏻 Your copy is robust, and annoying people is bad.
+That&#x27;s okay 🙏🏻 Your copy is robust, and annoying people is bad.
 
 
 

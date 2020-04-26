@@ -7,15 +7,15 @@ redirect_from:
 categories: "Learning, Technical"
 hero: ../../../defaultHero.jpg
 ---
-https://youtu.be/KVYm0qC4b1Y
+https&amp;#x3A;//youtu.be/KVYm0qC4b1Y
 
 
 
-There's a joke in functional programming that once you understand monads, it becomes impossible to explain them to others. The [amount of monad tutorials on the internet](https://wiki.haskell.org/Monad_tutorials_timeline) is growing almost exponentially 😁
+There&#x27;s a joke in functional programming that once you understand monads, it becomes impossible to explain them to others. The [amount of monad tutorials on the internet](https://wiki.haskell.org/Monad_tutorials_timeline) is growing almost exponentially 😁
 
 
 
-[Monads](https://en.wikipedia.org/wiki/Monad_(functional_programming)) are a funky concept that's nearly impossible to understand in all of its nuance. Maybe I'm just not smart enough. That's why I'm not going to explain any of that.
+[Monads](https://en.wikipedia.org/wiki/Monad_(functional_programming)) are a funky concept that&#x27;s nearly impossible to understand in all of its nuance. Maybe I&#x27;m just not smart enough. That&#x27;s why I&#x27;m not going to explain any of that.
 
 
 
@@ -31,7 +31,7 @@ o.O wat O.o
 
 
 
-Here's a handwavy explanation instead: Monads are like a bubble. They wrap your dirty values and protect the rest of your code from weird effects.
+Here&#x27;s a handwavy explanation instead: Monads are like a bubble. They wrap your dirty values and protect the rest of your code from weird effects.
 
 
 
@@ -39,11 +39,11 @@ I used the continuation monad as an example because it is similar to JavaScript 
 
 
 
-Let's pretend you're a [mouse looking for the ultimate question to life, the universe, and everything](http://hitchhikers.wikia.com/wiki/Mice). You build a super computer that will calculate the answer, and you call it Earth.
+Let&#x27;s pretend you&#x27;re a [mouse looking for the ultimate question to life, the universe, and everything](http://hitchhikers.wikia.com/wiki/Mice). You build a super computer that will calculate the answer, and you call it Earth.
 
 
 
-You know Earth will take around 4.54 billion years to calculate the question. But you're writing the code right now. You can't wait 4.54 billion years to finish your project.
+You know Earth will take around 4.54 billion years to calculate the question. But you&#x27;re writing the code right now. You can&#x27;t wait 4.54 billion years to finish your project.
 
 
 
@@ -65,7 +65,7 @@ return Earth()
 
 
 
-In [The HitchHiker's Guide to The Galaxy](http://hitchhikers.wikia.com/wiki/Ultimate_Question), Arthur Dent was the final result of a 4.54 billion year calculation. He mindlessly picked letters out of a pile of Scrabble™ tiles, and the result produced the ultimate question.
+In [The HitchHiker&#x27;s Guide to The Galaxy](http://hitchhikers.wikia.com/wiki/Ultimate_Question), Arthur Dent was the final result of a 4.54 billion year calculation. He mindlessly picked letters out of a pile of Scrabble™ tiles, and the result produced the ultimate question.
 
 
 
@@ -73,11 +73,11 @@ That means our `getQuestion` function first constructs an Earth, then gets `Arth
 
 
 
-## Here's what that looks like in practice:
+## Here&#x27;s what that looks like in practice:
 
 
 
-Let's compare promises to callbacks. You're likely to have met with callbacks before, JavaScript is full of them.
+Let&#x27;s compare promises to callbacks. You&#x27;re likely to have met with callbacks before, JavaScript is full of them.
 
 
 
@@ -101,11 +101,11 @@ With a promise, we can pass `theFuture` around and do all sorts of stuff. But if
 
 
 
-When I first saw this, I thought _"So what's the big deal? This is the same as callbacks.”_
+When I first saw this, I thought _&quot;So what&#x27;s the big deal? This is the same as callbacks.”_
 
 
 
-So here's the big deal: Once you're in a promise, you're always in a promise. Because promises are like monads 😁
+So here&#x27;s the big deal: Once you&#x27;re in a promise, you&#x27;re always in a promise. Because promises are like monads 😁
 
 
 
@@ -153,23 +153,23 @@ finishPurchase( paymentInfo ) {
 
 
 
-Don't worry about the behind-the-scenes details of that code. Here's what you should focus on:
+Don&#x27;t worry about the behind-the-scenes details of that code. Here&#x27;s what you should focus on:
 
 
 
-1. The main `makePurchase` function does everything through Promise access. The `.then` and `.catch` methods are like peeking into the Promise time bubble. You're saying: Once this time bubble resolves, I want to do so and so with the result.
+1. The main `makePurchase` function does everything through Promise access. The `.then` and `.catch` methods are like peeking into the Promise time bubble. You&#x27;re saying: Once this time bubble resolves, I want to do so and so with the result.
 2. The `fetchPaymentInfo` is the first method in our chain that creates a Promise. From then onwards, we can access returned values only through `.then` and `.catch`. It uses `getPaypalPaymentInfo` and `getCCPaymentInfo` to talk to Braintree, which is an operation that takes some time.
-3. `braintreeClient.tokenizePaypal()` returns a promise. There's no need to wrap this in another Promise inside `fetchPaymentMethod`. You can return it like any normal value.
-4. `getPaypalPaymentInfo` uses `.then` to look into the Braintree response. Since you're in a Promise, you can `return` flat values without worry. They're already wrapped in a Promise.
-5. As a result, we can chain multiple `.then` calls in `makePurchase`. Some methods return a regular value, some return a Promise. JavaScript don't care, it's all the same _because everything returned from a Promise is a Promise_.
+3. `braintreeClient.tokenizePaypal()` returns a promise. There&#x27;s no need to wrap this in another Promise inside `fetchPaymentMethod`. You can return it like any normal value.
+4. `getPaypalPaymentInfo` uses `.then` to look into the Braintree response. Since you&#x27;re in a Promise, you can `return` flat values without worry. They&#x27;re already wrapped in a Promise.
+5. As a result, we can chain multiple `.then` calls in `makePurchase`. Some methods return a regular value, some return a Promise. JavaScript don&#x27;t care, it&#x27;s all the same _because everything returned from a Promise is a Promise_.
 
 
 
-And that's why Promises are just like monads.
+And that&#x27;s why Promises are just like monads.
 
 
 
-Oh, and error handling. Don't worry about that either. As long as there's a `.catch` call somewhere in the chain, you're good. Errors bubble up through the chain of Promise look-into-s until they encounter a `.catch`.
+Oh, and error handling. Don&#x27;t worry about that either. As long as there&#x27;s a `.catch` call somewhere in the chain, you&#x27;re good. Errors bubble up through the chain of Promise look-into-s until they encounter a `.catch`.
 
 
 

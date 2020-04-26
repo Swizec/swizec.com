@@ -43,13 +43,13 @@ Until Flexbox!
 
 Want 3-columns that stretch proportionally to your spec? Say no more.
 
-\[codepen_embed height="265" theme_id="0" slug_hash="vXONdj" default_tab="css,result" user="swizec"]See the Pen [3-column flexbox](http://codepen.io/swizec/pen/vXONdj/) by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).\[/codepen_embed]
+\[codepen_embed height=&quot;265&quot; theme_id=&quot;0&quot; slug_hash=&quot;vXONdj&quot; default_tab=&quot;css,result&quot; user=&quot;swizec&quot;]See the Pen [3-column flexbox](http://codepen.io/swizec/pen/vXONdj/) by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).\[/codepen_embed]
 
 Simple, isn’t it? Set the container up as a flexbox, then tell each child `div` to take up an equal amount of space. Open it on Codepen, and play around with screen size. It all works.
 
 You can even turn it into rows without changing HTML. Like this:
 
-\[codepen_embed height="265" theme_id="0" slug_hash="gwpazQ" default_tab="css,result" user="swizec"]See the Pen [3-row flexbox](http://codepen.io/swizec/pen/gwpazQ/) by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).\[/codepen_embed]
+\[codepen_embed height=&quot;265&quot; theme_id=&quot;0&quot; slug_hash=&quot;gwpazQ&quot; default_tab=&quot;css,result&quot; user=&quot;swizec&quot;]See the Pen [3-row flexbox](http://codepen.io/swizec/pen/gwpazQ/) by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).\[/codepen_embed]
 
 ## Row span in flexbox
 
@@ -65,7 +65,7 @@ Those buttons are data. You get an array of labels, and you have to render them 
 
 `flex-flow: row wrap` is your friend. It breaks elements into lines and looks like this:
 
-\[codepen_embed height="265" theme_id="0" slug_hash="XjbrLP" default_tab="html,result" user="swizec"]See the Pen [6-grid flexbox](http://codepen.io/swizec/pen/XjbrLP/) by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).\[/codepen_embed]
+\[codepen_embed height=&quot;265&quot; theme_id=&quot;0&quot; slug_hash=&quot;XjbrLP&quot; default_tab=&quot;html,result&quot; user=&quot;swizec&quot;]See the Pen [6-grid flexbox](http://codepen.io/swizec/pen/XjbrLP/) by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).\[/codepen_embed]
 
 That’s a grid – wasn’t hard at all. But your designer wants that first cell to span two rows.
 
@@ -79,7 +79,7 @@ Maybe they won’t notice?
 
 Seriously, though, you can’t do this. There’s no such thing as a flexbox rowspan. You’ll have to suck it up and put your things into column elements.
 
-\[codepen_embed height="265" theme_id="0" slug_hash="NRqGLQ" default_tab="css,result" user="swizec"]See the Pen [6-grid flexbox](http://codepen.io/swizec/pen/NRqGLQ/) by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).\[/codepen_embed]
+\[codepen_embed height=&quot;265&quot; theme_id=&quot;0&quot; slug_hash=&quot;NRqGLQ&quot; default_tab=&quot;css,result&quot; user=&quot;swizec&quot;]See the Pen [6-grid flexbox](http://codepen.io/swizec/pen/NRqGLQ/) by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).\[/codepen_embed]
 
 Wrap each group of elements into another `div`, set that div to `display: flex`, tell it to `flex-direction: column`, and make sure one of the elements contains only two elements. Give those elements different flex weights.
 
