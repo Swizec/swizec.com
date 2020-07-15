@@ -12,19 +12,19 @@ module.exports = {
     },
     // add a gatsby-source-filesystem entry for every article's images
     // have to filter out empty folders for Zeit
-    ...fs
-      .readdirSync(`${__dirname}/src/pages/blog`)
-      .map((path) => `${__dirname}/src/pages/blog/${path}`)
-      .filter((path) => fs.lstatSync(path).isDirectory())
-      .map((path) => `${path}/img`)
-      .filter((path) => fs.existsSync(path) && fs.readdirSync(path).length > 0)
-      .map((path) => ({
-        resolve: "gatsby-source-filesystem",
-        options: {
-          name: "images",
-          path,
-        },
-      })),
+    // ...fs
+    //   .readdirSync(`${__dirname}/src/pages/blog`)
+    //   .map((path) => `${__dirname}/src/pages/blog/${path}`)
+    //   .filter((path) => fs.lstatSync(path).isDirectory())
+    //   .map((path) => `${path}/img`)
+    //   .filter((path) => fs.existsSync(path) && fs.readdirSync(path).length > 0)
+    //   .map((path) => ({
+    //     resolve: "gatsby-source-filesystem",
+    //     options: {
+    //       name: "images",
+    //       path,
+    //     },
+    //   })),
     "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",
     {

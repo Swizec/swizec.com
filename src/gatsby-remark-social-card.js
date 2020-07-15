@@ -20,7 +20,8 @@ module.exports = async ({ markdownNode, markdownAST, getNode }) => {
       frontmatter.hero
     )
     const ext = heroPath.split(".").pop()
-    const filename = `${slugify(frontmatter.title)}.${ext}`
+    const slugTitle = slugify(frontmatter.title, {remove: /[*+~.()'"!:@]/g});
+    const filename = `${slugTitle}.${ext}`
 
     const newPath = path.join(process.cwd(), "public", "social-cards", filename)
 
