@@ -14,41 +14,24 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "posts",
-        path: `${__dirname}/src/pages/blog`,
-      },
-    },
-    // add a gatsby-source-filesystem entry for every article's images
-    // have to filter out empty folders for Zeit
-    // ...fs
-    //   .readdirSync(`${__dirname}/src/pages/blog`)
-    //   .map((path) => `${__dirname}/src/pages/blog/${path}`)
-    //   .filter((path) => fs.lstatSync(path).isDirectory())
-    //   .map((path) => `${path}/img`)
-    //   .filter((path) => fs.existsSync(path) && fs.readdirSync(path).length > 0)
-    //   .map((path) => ({
-    //     resolve: "gatsby-source-filesystem",
-    //     options: {
-    //       name: "images",
-    //       path,
-    //     },
-    //   })),
+    // {
+    //   resolve: "gatsby-source-filesystem",
+    //   options: {
+    //     name: "posts",
+    //     path: `${__dirname}/src/pages/blog`,
+    //   },
+    // },
+    
     "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",
+    "gatsby-remark-images",
     {
       resolve: "gatsby-plugin-mdx",
       options: {
         extensions: [".mdx", ".md"],
         remarkPlugins,
-        plugins: ["gatsby-remark-images"],
         gatsbyRemarkPlugins: [
-          {
-            resolve: "gatsby-remark-embedder",
-            options: {},
-          },
+          "gatsby-remark-copy-linked-files",
           {
             resolve: "gatsby-remark-giphy",
             options: {
@@ -57,7 +40,6 @@ module.exports = {
               embedWidth: "80%",
             },
           },
-          "gatsby-remark-copy-linked-files",
           {
             resolve: "gatsby-remark-images",
             options: {
@@ -78,9 +60,28 @@ module.exports = {
           {
             resolve: `${__dirname}/src/gatsby-remark-social-card`,
           },
+          {
+            resolve: "gatsby-remark-embedder",
+            options: {},
+          },
         ],
+        plugins: [{ resolve: "gatsby-remark-images"}],
       },
     },
+    // add a gatsby-source-filesystem entry for every article's images
+    // have to filter out empty folders for Zeit
+    ...fs
+      .readdirSync(`${__dirname}/src/pages/blog`)
+      .map((path) => `${__dirname}/src/pages/blog/${path}`)
+      .filter((path) => fs.lstatSync(path).isDirectory())
+      .map((path) => `${path}/img`)
+      .filter((path) => fs.existsSync(path) && fs.readdirSync(path).length > 0)
+      .map((path) => ({
+        resolve: "gatsby-source-filesystem",
+        options: {
+          path,
+        },
+      })),
     "gatsby-plugin-catch-links",
     "gatsby-plugin-theme-ui",
     "gatsby-plugin-react-helmet",
