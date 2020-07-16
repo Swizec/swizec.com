@@ -67,6 +67,7 @@
         "node": "12.x"
     },
     "devDependencies": {
+        "@gumlet/gif-resize": "^1.1.1",
         "gulp": "^4.0.2",
         "gulp-imagemin": "^7.1.0"
     }
