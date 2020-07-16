@@ -1,6 +1,10 @@
 const remarkPlugins = [require("remark-slug")]
 const fs = require("fs")
 
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   plugins: [
     {
@@ -8,6 +12,13 @@ module.exports = {
       options: {
         name: "images",
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "posts",
+        path: `${__dirname}/src/pages/blog`,
       },
     },
     // add a gatsby-source-filesystem entry for every article's images
