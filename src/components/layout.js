@@ -8,6 +8,7 @@ import SkipLink from "./skip-link"
 import Header from "./header"
 import Footer from "./footer"
 import Nav from "./nav"
+import BlogFooter from './blogFooter';
 import { ArticleMetaData } from "./ArticleMetaData"
 import { currentLocation } from "../util"
 import { Title } from "../components/blocks"
@@ -83,9 +84,11 @@ const Content = (props) =>
         <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title>
       )}
 
-      <main id="content">{props.children}</main>
-
-      <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
+      <main id="content">
+        {props.children}
+        <BlogFooter />
+        <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
+      </main>
     </Sidebar>
   ) : (
     <>
