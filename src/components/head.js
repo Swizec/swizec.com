@@ -4,7 +4,7 @@ import slugify from "slugify"
 import defaultHero from "../images/swizec.png"
 
 function getSocialCard({ title, hero }) {
-  if (hero) {
+  if (hero && !hero.includes("defaultHero")) {
     const ext = hero.split(".").pop()
 
     // URL guaranteed by src/gatsby-remark-social-card
@@ -26,7 +26,8 @@ export default (props) => {
   const description =
     (frontmatter && frontmatter.description) || props.description || "Swizec helps you become a better frontend engineer with books, articles, talks, and workshops";
 
-  const image = `https://esapemanuele-swizec.netlify.app${getSocialCard(frontmatter) || defaultHero}`;
+  const socialImage = getSocialCard(frontmatter);
+  const image = `https://esapemanuele-swizec.netlify.app${socialImage || defaultHero}`;
   // const url = `${props.path}`
   const url = `https://esapemanuele-swizec.netlify.app${
     props.pageName !== undefined ? `/${props.pageName}` : ""
