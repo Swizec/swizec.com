@@ -1,13 +1,14 @@
 import React from "react"
 import { Helmet } from "react-helmet"
 import slugify from "slugify"
+import defaultHero from "../images/swizec.png"
 
 function getSocialCard({ title, hero }) {
   if (hero) {
     const ext = hero.split(".").pop()
 
     // URL guaranteed by src/gatsby-remark-social-card
-    return `/social-cards/${slugify(title, {remove: /[*+~.()'"!?:@]/g})}.${ext}`
+    return `/social-cards/${slugify(title, {remove: /[*+~.()'"!?:@,]/g})}.${ext}`
   } else {
     return ""
   }
@@ -23,10 +24,13 @@ export default (props) => {
     .filter(Boolean)
     .join(" | ")
   const description =
-    (frontmatter && frontmatter.description) || props.description
+    (frontmatter && frontmatter.description) || props.description || "Swizec helps you become a better frontend engineer with books, articles, talks, and workshops";
 
-  const image = props.image || getSocialCard(frontmatter)
-  const url = `${props.path}`
+  const image = `https://esapemanuele-swizec.netlify.app${getSocialCard(frontmatter) || defaultHero}`;
+  // const url = `${props.path}`
+  const url = `https://esapemanuele-swizec.netlify.app${
+    props.pageName !== undefined ? `/${props.pageName}` : ""
+  }`
 
   return (
     <Helmet
