@@ -51,7 +51,6 @@
         "gatsby-source-filesystem": "^2.1.33",
         "gatsby-transformer-remark": "^2.6.37",
         "gatsby-transformer-sharp": "^2.2.23",
-        "gifsicle": "^5.1.0",
         "isomorphic-fetch": "^2.2.1",
         "node": "^12.16.3",
         "react": "^16.8.6",
@@ -67,9 +66,5 @@
     "engines": {
         "node": "12.x"
     },
-    "devDependencies": {
-        "@gumlet/gif-resize": "^1.1.1",
-        "gulp": "^4.0.2",
-        "gulp-imagemin": "^7.1.0"
-    }
+    "devDependencies": {}
 }
