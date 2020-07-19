@@ -73,3 +73,5 @@ yarn-error.log
 .serverless
 
 .now
+
+src/blog_vault

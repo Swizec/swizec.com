@@ -8,6 +8,7 @@ import SkipLink from "./skip-link"
 import Header from "./header"
 import Footer from "./footer"
 import Nav from "./nav"
+import BlogFooter from './blogFooter';
 import { ArticleMetaData } from "./ArticleMetaData"
 import { currentLocation } from "../util"
 import { Title } from "../components/blocks"
@@ -70,29 +71,34 @@ const Sidebar = (props) => {
   )
 }
 
-const Content = (props) =>
-  !props.fullwidth || props.menu ? (
-    <Sidebar
-      {...props}
-      nav={props.nav}
-      open={props.menu}
-      setMenu={props.setMenu}
-    >
-      <Head {...props} />
-      {props.pageContext.frontmatter && props.pageContext.frontmatter.title && (
-        <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title>
-      )}
+const Content = (props) => {
 
-      <main id="content">{props.children}</main>
+  const isArticle = props.pageContext.frontmatter && props.pageContext.frontmatter.title;
 
-      <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
-    </Sidebar>
-  ) : (
-    <>
-      <Head {...props} />
-      <main id="content">{props.children}</main>
-    </>
-  )
+  return (
+    !props.fullwidth || props.menu ? (
+      <Sidebar
+        {...props}
+        nav={props.nav}
+        open={props.menu}
+        setMenu={props.setMenu}
+      >
+        <Head {...props} />
+        {isArticle && <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title> }
+
+        <main id="content">
+          {props.children}
+          {isArticle && <BlogFooter /> }
+          <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
+        </main>
+      </Sidebar>
+    ) : (
+      <>
+        <Head {...props} />
+        <main id="content">{props.children}</main>
+      </>
+    )
+)}
 
 export default (props) => {
   const fullwidth = currentLocation(props) === "/"

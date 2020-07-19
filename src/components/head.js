@@ -7,7 +7,7 @@ function getSocialCard({ title, hero }) {
     const ext = hero.split(".").pop()
 
     // URL guaranteed by src/gatsby-remark-social-card
-    return `/social-cards/${slugify(title)}.${ext}`
+    return `/social-cards/${slugify(title, {remove: /[*+~.()'"!?:@]/g})}.${ext}`
   } else {
     return ""
   }
