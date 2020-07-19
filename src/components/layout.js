@@ -105,8 +105,6 @@ export default (props) => {
   const [menu, setMenu] = useState(false)
   const nav = useRef(null)
 
-  console.log("FRONTMATTER", props.pageContext.frontmatter)
-
   return (
     <Box
       sx={{
