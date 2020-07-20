@@ -58,8 +58,6 @@ const Sidebar = (props) => {
       >
         {props.children}
 
-        <Reactions page={props.uri} />
-
         <Nav
           pathname={props.location.pathname}
           components={{
@@ -84,12 +82,21 @@ const Content = (props) => {
         setMenu={props.setMenu}
       >
         <Head {...props} />
-        {isArticle && <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title> }
+        {isArticle && (
+          <>
+            <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title>
+            <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
+          </>
+        )}
 
         <main id="content">
           {props.children}
-          {isArticle && <BlogFooter /> }
-          <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
+          {isArticle && (
+            <>
+              <Reactions page={props.uri} />
+              <BlogFooter /> 
+            </>
+          )}
         </main>
       </Sidebar>
     ) : (
