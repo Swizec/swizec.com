@@ -58,8 +58,11 @@ module.exports = {
             },
           },
           {
-            resolve: `${__dirname}/src/gatsby-remark-social-card`,
+            resolve: `${__dirname}/src/gatsby-remark-download-images`,
           },
+          // {
+          //   resolve: `${__dirname}/src/gatsby-remark-social-card`,
+          // },
           {
             resolve: "gatsby-remark-embedder",
             options: {},
