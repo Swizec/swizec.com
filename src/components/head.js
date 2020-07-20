@@ -27,9 +27,9 @@ export default (props) => {
     (frontmatter && frontmatter.description) || props.description || "Swizec helps you become a better frontend engineer with books, articles, talks, and workshops";
 
   const socialImage = getSocialCard(frontmatter);
-  const image = `https://esapemanuele-swizec.netlify.app${socialImage || defaultHero}`;
+  const image = `https://escapemanuele-swizec-social.netlify.app${socialImage || defaultHero}`;
   // const url = `${props.path}`
-  const url = `https://esapemanuele-swizec.netlify.app${
+  const url = `https://escapemanuele-swizec-social.netlify.app${
     props.pageName !== undefined ? `/${props.pageName}` : ""
   }`
 
