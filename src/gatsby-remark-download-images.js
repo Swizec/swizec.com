@@ -4,6 +4,8 @@ const url = require('url');
 const https = require('https');
 const http = require('http');
 var fs = require('fs');
+const { default: slugify } = require('slugify');
+var mime = require('mime-types');
 
 module.exports = async ({ markdownNode, markdownAST, getNode }) => {
     
@@ -22,24 +24,54 @@ module.exports = async ({ markdownNode, markdownAST, getNode }) => {
             visit(markdownAST, "paragraph", async (node) => {
                 //Check if node type is link
                 if (node.children.some( x => x.type === 'image')) {
-                    
-                    const destinationFolder = path.join(dir, 'img', 'prova.jpg');
+                  
+                  const imageNode = node.children.find(x => x.type === 'image');
+                  const title = imageNode.title || imageNode.alt;
+                  const slugTitle = slugify(title, {remove: /[*+~.()'"!?:@,]/g});
+                  const destinationFolder = path.join(dir, 'img', slugTitle);
 
+                  console.log("imageNode", imageNode)
+                  console.log("url", imageNode.url)
 
-                    const imageNode = node.children.find(x => x.type === 'image');
-                    console.log("imageNode", imageNode)
-                    console.log("url", imageNode.url)
+                  downloadFile(imageNode.url, destinationFolder)
+                    .then(res => {
+                      console.log("RES", res);
 
-                    await download(imageNode.url, destinationFolder);
-                    node.type = 'html';
+                      node.url = `![](./img/${title}.jpeg`;
+                      node.type = 'html';
+                    })
                 }
             })
 
             console.log(`==========================/${frontmatter.title}====================`);
 
+
     }
     return markdownAST;
 }
+
+async function downloadFile (url, filePath) {
+  const proto = !url.charAt(4).localeCompare('s') ? https : http;
+
+  return new Promise(function(resolve, reject) {
+      try {
+        
+        return proto.get(url, function (response) {
+          const ext = mime.extension(response.headers['content-type'])
+          console.log("EXTENSION", ext)
+          const stream = fs.createWriteStream(`${filePath}.${ext}`);
+          stream.on('finish', function() {
+            console.log('pipe finish');
+            return resolve(true);
+          });
+          const message = response.pipe(stream);
+          console.log("Message", message)
+      })
+      } catch (e) {
+          return reject(e);
+      }
+  });
+};
 
 async function download(url, filePath) {
     const proto = !url.charAt(4).localeCompare('s') ? https : http;

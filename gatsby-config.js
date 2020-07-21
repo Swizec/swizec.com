@@ -31,6 +31,9 @@ module.exports = {
         extensions: [".mdx", ".md"],
         remarkPlugins,
         gatsbyRemarkPlugins: [
+          {
+            resolve: `${__dirname}/src/gatsby-remark-download-images`,
+          },
           "gatsby-remark-copy-linked-files",
           {
             resolve: "gatsby-remark-giphy",
@@ -57,9 +60,7 @@ module.exports = {
               },
             },
           },
-          {
-            resolve: `${__dirname}/src/gatsby-remark-download-images`,
-          },
+          
           // {
           //   resolve: `${__dirname}/src/gatsby-remark-social-card`,
           // },
