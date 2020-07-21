@@ -18,20 +18,18 @@ export default (props) => {
   const { frontmatter } = props.pageContext
 
   const title = [
-    (frontmatter && frontmatter.title) || props.title,
+    frontmatter?.title || props.title,
     "Swizec.com",
   ]
     .filter(Boolean)
     .join(" | ")
   const description =
-    (frontmatter && frontmatter.description) || props.description || "Swizec helps you become a better frontend engineer with books, articles, talks, and workshops";
+    frontmatter?.description || props.description || "Swizec helps you become a better frontend engineer with books, articles, talks, and workshops";
+    // (frontmatter && frontmatter.description) || props.description || "Swizec helps you become a better frontend engineer with books, articles, talks, and workshops";
 
   const socialImage = getSocialCard(frontmatter);
   const image = `https://swizec.com${socialImage || defaultHero}`;
-  // const url = `${props.path}`
-  const url = `https://swizec.com${
-    props.pageName !== undefined ? `/${props.pageName}` : ""
-  }`
+  const url = `https://swizec.com${props.path}`;
 
   return (
     <Helmet
