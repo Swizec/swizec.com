@@ -1,9 +1,10 @@
 const visit = require('unist-util-visit')
+const visitWithParents = require(`unist-util-visit-parents`)
 const path = require("path");
 const url = require('url');
 const https = require('https');
 const http = require('http');
-var fs = require('fs');
+const fsExtra = require("fs-extra")
 const { default: slugify } = require('slugify');
 var mime = require('mime-types');
 
@@ -17,55 +18,104 @@ module.exports = async ({ markdownNode, markdownAST, getNode }) => {
         frontmatter.title.includes("aaAAaa"))
     {
             console.log(`==========================${frontmatter.title}====================`);
-
             // console.log("markdownAST", markdownAST);
             const dir = getNode(markdownNode.parent).dir;
             
-            visit(markdownAST, "paragraph", async (node) => {
-                //Check if node type is link
-                if (node.children.some( x => x.type === 'image')) {
+          //  visit(markdownAST, [`paragraph`], async (node) => {
+          //     console.log("PARAGRAPH", node)
+            //     //Check if node type is link
+            //     if (node.children.some( x => x.type === 'image')) {
                   
-                  const imageNode = node.children.find(x => x.type === 'image');
-                  const title = imageNode.title || imageNode.alt;
-                  const slugTitle = slugify(title, {remove: /[*+~.()'"!?:@,]/g});
-                  const destinationFolder = path.join(dir, 'img', slugTitle);
+            //       const imageNode = node.children.find(x => x.type === 'image');
+            //       const title = imageNode.title || imageNode.alt || "test";
+            //       console.log("Title", title);
+            //       const slugTitle = slugify(title, {remove: /[*+~.()'"!?:@,]/g});
+            //       const destinationFolder = path.join(dir, 'img', slugTitle);
 
-                  console.log("imageNode", imageNode)
-                  console.log("url", imageNode.url)
+            //       console.log("imageNode", imageNode)
+            //       console.log("url", imageNode.url)
 
-                  downloadFile(imageNode.url, destinationFolder)
-                    .then(res => {
-                      console.log("RES", res);
+            // //       // downloadFile(imageNode.url, destinationFolder)
+            // //       //   .then(res => {
+            // //       //     console.log("RES", res);
 
-                      node.url = `![](./img/${title}.jpeg`;
-                      node.type = 'html';
-                    })
-                }
+            // //       //     node.url = `![](./img/${title}.jpeg`;
+            // //       //     node.type = 'html';
+            // //       //   })
+            //     }
+            // })
+
+            let remoteImages = [];
+
+            visit(markdownAST, [`image`], (node) => {
+              // console.log("Node to change", node)
+              // I search for all the remote images in the mdx
+              if (node.url.startsWith('http')) {
+                remoteImages.push(node);
+              }
+            })
+            console.log("NUMERO NODI", remoteImages.length);
+
+            return Promise.all(
+
+              remoteImages.map(( node ) => 
+                  new Promise(async (resolve, reject) => {
+                    console.log("Node to change", node)
+                    const title = node.title || node.alt || "test";
+                    const slugTitle = slugify(title, {remove: /[*+~.()'"!?:@,]/g});
+                    const destinationFolder = path.join(dir, 'img', slugTitle);
+                    console.log("Title", title);
+
+                    downloadFile(node.url, destinationFolder)
+                      .then(fileInfo => {
+                        console.log("FILEINFO", fileInfo);
+                        node.url = `./img/${slugTitle}.${fileInfo.extension}`;
+                        return resolve(node);
+                      })
+                      .catch((e) => reject(e))
+                  })
+              )
+            ).then(() => {
+              console.log("RETURNNNNNNNNNNNN MARKDOWNAST")
+              visit(markdownAST, [`image`], (node) => {
+                // console.log("Node to change", node)
+                // I search for all the remote images in the mdx
+                  console.log("NODEAFTER", node)
+              })
+              return markdownAST; 
             })
 
             console.log(`==========================/${frontmatter.title}====================`);
 
 
     }
+
+    console.log(`FINISH==============${frontmatter.title}=======`)
     return markdownAST;
 }
 
-async function downloadFile (url, filePath) {
+function downloadFile (url, filePath) {
   const proto = !url.charAt(4).localeCompare('s') ? https : http;
 
   return new Promise(function(resolve, reject) {
       try {
         
         return proto.get(url, function (response) {
+          if (response.statusCode !== 200) reject(new Error('HTTP error ' + response.statusCode));
           const ext = mime.extension(response.headers['content-type'])
+          const fileInfo = {
+            mime: response.headers['content-type'],
+            extension: ext,
+            size: parseInt(response.headers['content-length'], 10),
+          };
           console.log("EXTENSION", ext)
-          const stream = fs.createWriteStream(`${filePath}.${ext}`);
+          const stream = fsExtra.createWriteStream(`${filePath}.${ext}`);
+          response.pipe(stream);
           stream.on('finish', function() {
             console.log('pipe finish');
-            return resolve(true);
+            stream.end();
+            resolve(fileInfo);
           });
-          const message = response.pipe(stream);
-          console.log("Message", message)
       })
       } catch (e) {
           return reject(e);
