@@ -9,7 +9,7 @@
         "clean": "gatsby clean",
         "build": "npm run clean && gatsby build",
         "serve": "gatsby serve",
-        "fix-images": "node src/download-images.js",
+        "fix-images": "node src/scripts/download-images.js",
         "icon": "npx repng src/components/icon.js -d static -f icon.png -w 512 -h 512",
         "card": "npx repng src/components/twitter-card.js -d static -f card.png -w 1024 -h 512"
     },
