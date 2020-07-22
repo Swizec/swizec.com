@@ -38,7 +38,7 @@ module.exports = async ({ markdownNode, markdownAST, getNode }) => {
                   const image = files.find(x => x.includes(slugTitle));
                   if (!image) {
                     console.error(`Cannot find local image for ${node.url} in file ${dir}`);
-                    reject();
+                    return reject();
                   } else {
                     node.url = `./img/${slugTitle}${path.extname(image)}`;
                     resolve();
