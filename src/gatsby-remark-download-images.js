@@ -12,9 +12,7 @@ module.exports = async ({ markdownNode, markdownAST, getNode }) => {
     const frontmatter = markdownNode.frontmatter;
     if (
         frontmatter &&
-        frontmatter.hero &&
-        frontmatter.title &&
-        frontmatter.title.includes("aaAAaa"))
+        frontmatter.title)
     {
             const dir = getNode(markdownNode.parent).dir;
             const imagePath = path.join(dir, 'img');

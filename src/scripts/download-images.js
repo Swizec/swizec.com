@@ -12,6 +12,9 @@ const glob = require('glob');
 
 
 const articlesPath = './src/pages/blog';
+// const articlesPath = './src/blog_vault';
+
+const ACCEPTED_FILES = ['jpg', 'jpeg', 'png', 'svg'];
 
 glob(articlesPath + '/*/*.mdx', {}, (err, files) => {
     files.forEach( async (file) => {
@@ -37,7 +40,7 @@ glob(articlesPath + '/*/*.mdx', {}, (err, files) => {
                             await fsExtra.ensureDir(imagesPath);
                             downloadFile(node.url, destFileWithoutExtension)
                                 .then(fileInfo => console.log(`Image ${slugTitle}.${fileInfo.extension} downloaded in ${imagesPath}`))
-                                .catch(err => console.error(`Error downloading image in ${imagesPath} from ${node.url}`, err));
+                                .catch(err => console.error(`Error downloading image in ${imagesPath} from ${node.url}: `, err));
 
                           } catch (e) {
                             console.error(e)
@@ -62,6 +65,10 @@ function downloadFile (url, filePath) {
                 if (response.statusCode !== 200) reject(new Error('HTTP error ' + response.statusCode));
                
                 const ext = mime.extension(response.headers['content-type'])
+                if (!ACCEPTED_FILES.includes(ext)) {
+                    return reject (new Error(`Format ${ext} not allowed`));
+                }
+
                 const fileInfo = {
                     mime: response.headers['content-type'],
                     extension: ext,
@@ -70,15 +77,13 @@ function downloadFile (url, filePath) {
                 const stream = fsExtra.createWriteStream(`${filePath}.${ext}`);
                 response.pipe(stream);
                 stream.on('finish', function() {
-                stream.end();
-                resolve(fileInfo);
+                    stream.end();
+                    resolve(fileInfo);
                 });
             }).on('error', function(e) {
-                reject(e);
-                // console.error(`Error downloading image from ${url}`);
+                return reject(e);
             })
         } catch (e) {
-            console.log("EXCFETPION???", url)
             return reject(e);
         }
     });
