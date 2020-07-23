@@ -5,9 +5,9 @@
  */
 const chalk = require('chalk');
 
-// const sharp = require("sharp")
-// sharp.cache(false)
-// sharp.simd(false)
+const sharp = require("sharp")
+sharp.cache(false)
+sharp.simd(false)
 
 
 exports.createPages = ({ graphql, actions }) => {
