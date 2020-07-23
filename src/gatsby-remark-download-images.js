@@ -43,11 +43,11 @@ module.exports = async ({ markdownNode, markdownAST, getNode }) => {
                       return reject();
                     } else {
                       node.url = `./img/${slugTitle}${path.extname(image)}`;
+                      return resolve();
                     }
                   } else {
                     return reject();
                   }
-
                 })
               }) 
             ).then(() =>{ return markdownAST });
