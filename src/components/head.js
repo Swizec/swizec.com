@@ -1,13 +1,14 @@
 import React from "react"
 import { Helmet } from "react-helmet"
 import slugify from "slugify"
+import defaultHero from "../images/swizec.png"
 
 function getSocialCard({ title, hero }) {
-  if (hero) {
+  if (hero && !hero.includes("defaultHero")) {
     const ext = hero.split(".").pop()
 
     // URL guaranteed by src/gatsby-remark-social-card
-    return `/social-cards/${slugify(title, {remove: /[*+~.()'"!?:@]/g})}.${ext}`
+    return `/social-cards/${slugify(title, {remove: /[*+~.()'"!?:@,]/g})}.${ext}`
   } else {
     return ""
   }
@@ -17,16 +18,18 @@ export default (props) => {
   const { frontmatter } = props.pageContext
 
   const title = [
-    (frontmatter && frontmatter.title) || props.title,
+    frontmatter?.title || props.title,
     "Swizec.com",
   ]
     .filter(Boolean)
     .join(" | ")
   const description =
-    (frontmatter && frontmatter.description) || props.description
+    frontmatter?.description || props.description || "Swizec helps you become a better frontend engineer with books, articles, talks, and workshops";
+    // (frontmatter && frontmatter.description) || props.description || "Swizec helps you become a better frontend engineer with books, articles, talks, and workshops";
 
-  const image = props.image || getSocialCard(frontmatter)
-  const url = `${props.path}`
+  const socialImage = getSocialCard(frontmatter);
+  const image = `https://swizec.com${socialImage || defaultHero}`;
+  const url = `https://swizec.com${props.path}`;
 
   return (
     <Helmet
@@ -43,6 +46,8 @@ export default (props) => {
       <meta name="twitter:description" content={description} />{" "}
       <meta name="twitter:image" content={image} />
       <meta property="og:title" content={title} />{" "}
+      <meta property="og:description" content={description} />{" "}
+      <meta property="og:type" content="article" />{" "}
       <meta property="og:url" content={url} />{" "}
       <meta property="og:image" content={image} />
     </Helmet>
