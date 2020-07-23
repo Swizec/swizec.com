@@ -35,7 +35,7 @@ module.exports = async ({ markdownNode, markdownAST, getNode }) => {
                   const slugTitle = slugify(title, {remove: /[*+~.()'"!?:@,]/g});
 
                   //I search img folder with slugtitle to find the file extension
-                  if (await fsExtra.pathExists((imagePath)) {
+                  if (await fsExtra.pathExists(imagePath)) {
                     const files = await fsExtra.readdir(imagePath);
                     const image = files.find(x => x.includes(slugTitle));
                     if (!image) {
