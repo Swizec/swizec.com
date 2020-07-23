@@ -6,6 +6,7 @@ const fs = require('fs');
 const fsExtra = require("fs-extra")
 const slugify = require('slugify')
 var mime = require('mime-types');
+const chalk = require('chalk');
 
 module.exports = async ({ markdownNode, markdownAST, getNode }) => {
     
@@ -37,7 +38,7 @@ module.exports = async ({ markdownNode, markdownAST, getNode }) => {
                   const files = await fsExtra.readdir(imagePath);
                   const image = files.find(x => x.includes(slugTitle));
                   if (!image) {
-                    console.error(`Cannot find local image for ${node.url} in file ${dir}`);
+                    console.log(`${chalk.red('Cannot find local image')} for ${node.url} in file ${dir}`);
                     return reject();
                   } else {
                     node.url = `./img/${slugTitle}${path.extname(image)}`;
