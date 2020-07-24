@@ -1,6 +1,7 @@
 const fsExtra = require('fs-extra');
 const path = require('path');
-const { read } = require('to-vfile')
+const chalk = require('chalk');
+const { read, write } = require('to-vfile')
 const remark = require('remark');
 const mdx = require('remark-mdx');
 const visit = require('unist-util-visit')
@@ -12,45 +13,56 @@ const glob = require('glob');
 
 
 const articlesPath = './src/pages/blog';
-// const articlesPath = './src/blog_vault';
 
-const ACCEPTED_FILES = ['jpg', 'jpeg', 'png', 'svg'];
+const ACCEPTED_FILES = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
 
 glob(articlesPath + '/*/*.mdx', {}, (err, files) => {
     files.forEach( async (file) => {
-
         const parentDirectory = path.dirname(file);
-
+        
         const mdxFile = await read(file)
+        
         //I process the file to get the AST
-        await remark()
+        const contents = await remark()
             .use(mdx)
-            .use(() => tree => {
-                 //I visit the AST to find images, searching for remote images
-                visit(tree, ['image'], async (node) => {
-                    // I check if it starts with either http or https
-                    if (node.url && node.url.startsWith('http')) {
-                        const title = node.title || node.alt || node.url.slice(node.url.length - 10);
-                        const slugTitle = slugify(title, {remove: /[*+~.()'"!?:@,]/g});
+            .use(() => async tree => {
+                
+                let nodes = [];
 
-                        const imagesPath = path.join(parentDirectory, 'img');
-                        const destFileWithoutExtension = path.join(imagesPath, slugTitle);
+                    visit(tree, ['image'], async (node) => {
+                        if (node.url && node.url.startsWith('http')) {
+                            nodes.push(node);
+                        }
+                    })
 
-                        try {
-                            await fsExtra.ensureDir(imagesPath);
-                            downloadFile(node.url, destFileWithoutExtension)
-                                .then(fileInfo => console.log(`Image ${slugTitle}.${fileInfo.extension} downloaded in ${imagesPath}`))
-                                .catch(err => console.error(`Error downloading image in ${imagesPath} from ${node.url}: `, err));
-
-                          } catch (e) {
-                            console.error(e)
-                          }
-
-
-                    }
+                    await Promise.all(
+                        nodes.map(async function (node) {
+                            const title = node.title || node.alt || node.url.slice(node.url.length - 10);
+                            const slugTitle = slugify(title, {remove: /[*+~.()'"!?/:@,]/g});
+        
+                            const imagesPath = path.join(parentDirectory, 'img');
+                            const destFileWithoutExtension = path.join(imagesPath, slugTitle);
+        
+                            try {
+                                await fsExtra.ensureDir(imagesPath);
+                                await downloadFile(node.url, destFileWithoutExtension)
+                                .then(fileInfo => {
+                                        console.log(`Image ${slugTitle}.${fileInfo.extension} downloaded in ${imagesPath}`);
+                                        node.url = `./img/${slugTitle}.${fileInfo.extension}`;
+                                    }) 
+                                    .catch(err => console.log(`${chalk.red('Error downloading image')} in ${imagesPath} from ${node.url}: `, err));
+                            } catch (e) {
+                                console.log(`${chalk.red('Error downloading image')} in ${imagesPath} from ${node.url}: `, e);
+                            }
+                        })
+                    )
                 })
-            })
-            .process(mdxFile)
+            .process(mdxFile);
+
+        await write({
+            path: file,
+            contents
+        })
     });
 })
 
@@ -62,11 +74,11 @@ function downloadFile (url, filePath) {
         try {
             
             proto.get(url, function (response) {
-                if (response.statusCode !== 200) reject(new Error('HTTP error ' + response.statusCode));
+                if (response.statusCode !== 200) return reject(new Error('HTTP error ' + response.statusCode));
                
                 const ext = mime.extension(response.headers['content-type'])
                 if (!ACCEPTED_FILES.includes(ext)) {
-                    return reject (new Error(`Format ${ext} not allowed`));
+                    return new Error(`Format ${ext} not allowed`);
                 }
 
                 const fileInfo = {
@@ -78,13 +90,14 @@ function downloadFile (url, filePath) {
                 response.pipe(stream);
                 stream.on('finish', function() {
                     stream.end();
-                    resolve(fileInfo);
+                    return resolve(fileInfo);
                 });
+
             }).on('error', function(e) {
-                return reject(e);
+                return reject(new Error(e));
             })
         } catch (e) {
-            return reject(e);
+            return reject(new Error(e));
         }
     });
   };
