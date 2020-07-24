@@ -1,14 +1,8 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
 const chalk = require('chalk');
 
 const sharp = require("sharp")
 sharp.cache(false)
 sharp.simd(false)
-
 
 exports.createPages = ({ graphql, actions }) => {
     const { createRedirect } = actions
@@ -69,7 +63,7 @@ exports.createPages = ({ graphql, actions }) => {
           })
   
           resolve(
-            console.log(`${chalk.green('Success')} create redirects`) // eslint-disable-line no-console
+            console.log(`${chalk.green('success')} create redirects`) // eslint-disable-line no-console
           )
         })
       )

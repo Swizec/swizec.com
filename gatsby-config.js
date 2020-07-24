@@ -8,12 +8,6 @@ require("dotenv").config({
 module.exports = {
   plugins: [
     "gatsby-plugin-slug",
-    // {
-    //   resolve: "gatsby-redirect-from",
-    //   options: {
-    //     query: 'allMdx'
-    //   }
-    // },
     "gatsby-plugin-zeit-now",
     {
       resolve: "gatsby-source-filesystem",
