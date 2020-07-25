@@ -4,13 +4,14 @@ const chalk = require('chalk');
 const { read, write } = require('to-vfile')
 const remark = require('remark');
 const mdx = require('remark-mdx');
+var frontmatter = require('remark-frontmatter')
 const visit = require('unist-util-visit')
-const https = require('https');
-const http = require('http');
 var mime = require('mime-types');
 const slugify = require('slugify');
 const glob = require('glob');
-
+const fetch = require('node-fetch');
+const util = require('util');
+const streamPipeline = util.promisify(require('stream').pipeline);
 
 const articlesPath = './src/pages/blog';
 
@@ -22,11 +23,12 @@ glob(articlesPath + '/*/*.mdx', {}, (err, files) => {
         
         const mdxFile = await read(file)
         
+        if (file.includes('4-years')) {
         //I process the file to get the AST
         const contents = await remark()
             .use(mdx)
+            .use(frontmatter)
             .use(() => async tree => {
-                
                 let nodes = [];
 
                     visit(tree, ['image'], async (node) => {
@@ -63,39 +65,38 @@ glob(articlesPath + '/*/*.mdx', {}, (err, files) => {
             path: file,
             contents
         })
+
+        }
     });
 })
 
 
 function downloadFile (url, filePath) {
-    const proto = !url.charAt(4).localeCompare('s') ? https : http;
+    // const proto = !url.charAt(4).localeCompare('s') ? https : http;
   
-    return new Promise(function(resolve, reject) {
+    return new Promise(async function(resolve, reject) {
         try {
-            
-            proto.get(url, function (response) {
-                if (response.statusCode !== 200) return reject(new Error('HTTP error ' + response.statusCode));
-               
-                const ext = mime.extension(response.headers['content-type'])
+            const response = await fetch(url);
+	
+            if (response.ok) {
+                if (response.status !== 200) return reject(new Error('HTTP error ' + response.status));
+                
+                const ext = mime.extension(response.headers.get('content-type'))
                 if (!ACCEPTED_FILES.includes(ext)) {
                     return new Error(`Format ${ext} not allowed`);
                 }
 
                 const fileInfo = {
-                    mime: response.headers['content-type'],
                     extension: ext,
-                    size: parseInt(response.headers['content-length'], 10),
+                    size: parseInt(response.headers.get('content-length'), 10),
                 };
                 const stream = fsExtra.createWriteStream(`${filePath}.${ext}`);
-                response.pipe(stream);
-                stream.on('finish', function() {
-                    stream.end();
-                    return resolve(fileInfo);
-                });
-
-            }).on('error', function(e) {
-                return reject(new Error(e));
-            })
+                streamPipeline(response.body, stream)
+                    .then(() => { return resolve(fileInfo) })
+                    .catch((err) => { return reject(new Error(e))});
+            } else {
+                return reject(new Error(`unexpected response ${response.statusText}`));
+            }
         } catch (e) {
             return reject(new Error(e));
         }
