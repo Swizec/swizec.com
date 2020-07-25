@@ -26,7 +26,7 @@ const scope = {
   },
 }
 
-const Switch = props => {
+const Switch = (props) => {
   const [active, setActive] = React.useState(true)
   const toggle = () => setActive(!active)
 
@@ -35,7 +35,7 @@ const Switch = props => {
 
 scope.Switch = Switch
 
-const transformCode = code => `<>${code}</>`
+const transformCode = (code) => `<>${code}</>`
 
 const Preview = ({ fullwidth, ...props }) => (
   <Box
@@ -47,7 +47,7 @@ const Preview = ({ fullwidth, ...props }) => (
   />
 )
 
-const Editor = props => (
+const Editor = (props) => (
   <Box
     {...props}
     as={LiveEditor}
@@ -60,7 +60,7 @@ const Editor = props => (
   />
 )
 
-const Err = props => (
+const Err = (props) => (
   <Box
     {...props}
     as={LiveError}
@@ -98,7 +98,7 @@ export default ({ className, ...props }) => {
       <Box
         sx={{
           mb: 4,
-          border: t => `1px solid ${t.colors.muted}`,
+          border: (t) => `1px solid ${t.colors.muted}`,
           borderRadius: 2,
         }}
       >

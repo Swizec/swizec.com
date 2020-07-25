@@ -21,7 +21,7 @@ module.exports = {
     //     path: `${__dirname}/src/pages/blog`,
     //   },
     // },
-    
+
     "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",
     "gatsby-remark-images",
@@ -65,7 +65,7 @@ module.exports = {
             options: {},
           },
         ],
-        plugins: [{ resolve: "gatsby-remark-images"}],
+        plugins: [{ resolve: "gatsby-remark-images" }],
       },
     },
     // add a gatsby-source-filesystem entry for every article's images
