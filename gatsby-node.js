@@ -36,22 +36,14 @@ exports.createPages = ({ graphql, actions }) => {
   
           const allPosts = result.data.allMdx.edges
   
-          const redirects = []
   
           // For all posts with redirect_from frontmatter,
           // extract all values and push to redirects array
           allPosts.forEach((post) => {
-            redirects.push({
-              from: post.node.frontmatter.redirect_from,
-              to: `/blog${post.node.fields.slug}`
-            //   to: post.node.fields.slug
-            })
-          })
 
-  
-          // Create redirects from the just constructed array
-          redirects.forEach(({ from, to }) => {
-            // iterate through all `from` array items
+            const from = post.node.frontmatter.redirect_from;
+            const to = `/blog${post.node.fields.slug}`;
+
             from.forEach((from) => {
               createRedirect({
                 fromPath: from,
