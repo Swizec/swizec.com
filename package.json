@@ -61,6 +61,7 @@
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "react-helmet": "^5.2.1",
+        "react-hook-form": "^6.1.0",
         "react-sticky": "^6.0.3",
         "rebass": "^4.0.6",
         "remark-html": "^11.0.2",

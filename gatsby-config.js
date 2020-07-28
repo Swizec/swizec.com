@@ -6,6 +6,11 @@ require("dotenv").config({
 })
 
 module.exports = {
+  siteMetadata: {
+    convertkit: {
+      defaultFormId: "772ba7c9ba",
+    }
+  },
   plugins: [
     "gatsby-plugin-slug",
     "gatsby-plugin-zeit-now",

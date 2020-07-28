@@ -1,13 +1,42 @@
-import React from 'react'
-import styled from "@emotion/styled"
-import {LearnedSomethingNew} from './';
+import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
+import { Box } from 'rebass';
+import { useForm } from "react-hook-form";
+import { Input } from '@rebass/forms';
+import styled from "@emotion/styled";
+import DefaultBeforeCopy from './DefaultBeforeCopy';
+import DefaultLeftCopy from './DefaultLeftCopy';
 
 const FormCK = ({ copyBefore, submitText, formId, children}) => {
 
-    console.log("COPYBEGORE", copyBefore)
+    const { register, errors, handleSubmit } = useForm();
 
-    const handleSubmit = () => {
+    const data = useStaticQuery(getDefaultFormId);
+    if (!formId) {
+        formId  = data.site.siteMetadata.convertkit.defaultFormId
+    }
+    
+    const onSubmit = (data) => {
+        //Id address is filled then it's spam
+        if (!data.address) {
+            const url = `https://api.convertkit.com/v3/forms/${formId}/subscribe`;
+            var headers = {
+                "Content-Type": "application/json; charset=utf-8",
+            }
+            var data = {
+                api_key: "sTFpfy7l8TfzLnMUVvh1CA",
+                email: data.email,
+                first_name: data.name
+            }
 
+            fetch(url, { method: 'POST', headers, body: data})
+                .then((res) => {
+                    return res.json();
+                })
+                .then((json) => {
+                    console.log("RESPONSE", json);
+                });
+        }
     }
 
     return (
@@ -17,33 +46,70 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                 <div className="copy-left">
                     {children}
                 </div>
-                <div className="cta-form">
-                    <form onSubmit={handleSubmit}>
-                        <input
-                            id="name"
-                            type="text" 
-                            name="name"
-                            placeholder="Your first name"
-                        />
-                        <input
-                            id="email"
-                            type="email" 
-                            name="email"
-                            placeholder="Your email address"
-                        />
-                        <button type="submit">{submitText}</button>
-                        {/* <button  disabled={state.submitting}>
-                            Sign Up
-                        </button> */}
-                    </form>
-                    
+                <Box
+                    as="form"
+                    onSubmit={handleSubmit(onSubmit)}>
+                    <Input
+                        id="name"
+                        type="text" 
+                        name="name"
+                        ref={register({ required: true})}
+                        placeholder="Your first name"
+                    />
+                    {errors.name && <span>⚠️ Name is required</span>}
+                    <Input
+                        id="email"
+                        type="email" 
+                        name="email"
+                        ref={register({ 
+                            required: "⚠️ E-mail is required",
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: "⚠️ Invalid email address"
+                            }
+                        })}
+                        placeholder="Your email address"
+                    />
+                    {errors.email && <span>{errors.email.message}</span>}
+
+                    <input 
+                        className="stashaway" 
+                        autoComplete="nope" 
+                        type="text" 
+                        id="address" 
+                        name="address" 
+                        ref={register}
+                        placeholder="Your address here" 
+                    />
+                    <button type="submit">{submitText}</button>
+                    {/* <button  disabled={state.submitting}>
+                        Sign Up
+                    </button> */}
                     <p>No spam. Unsubscribe at any time. ✌️</p>
-                </div>
+                </Box>
+                
             </div>
         </FormCkWrapper>
     )
 }
 
+FormCK.defaultProps = {
+    children: <DefaultLeftCopy />,
+    copyBefore: <DefaultBeforeCopy />,
+    submitText: "Improve my career ?",
+};
+
+const getDefaultFormId = graphql`
+    query {
+        site {
+            siteMetadata {
+                convertkit {
+                    defaultFormId
+                }
+            }
+        }
+    }
+`;
 
 const FormCkWrapper = styled.div`
 
@@ -60,14 +126,12 @@ const FormCkWrapper = styled.div`
             text-align: center;
         }
 
-        .cta-form {
+        form {
             display: flex;
             flex-direction: column;
 
             padding: 2rem;
             text-align: center;
-
-            form {
 
                 input {
                     border-color: #e3e3e3;
@@ -76,8 +140,23 @@ const FormCkWrapper = styled.div`
                     font-size: 1rem;
                     font-weight: 400;
                     line-height: 1.4;
-                    margin-bottom: 1rem;
+                    margin-top: 1rem;
                     padding: 0.8rem;
+                }
+
+                span {
+                    color: red;
+                    text-align: left;
+                }
+
+                .stashaway {
+                    opacity: 0;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 0;
+                    width: 0;
+                    z-index: -1;
                 }
 
                 button {
@@ -87,10 +166,9 @@ const FormCkWrapper = styled.div`
                     cursor: pointer;
                     font-size: 1rem;
                     font-weight: 700;
+                    margin-top: 1rem;
                     padding: 1rem 2rem;
                 }
-            }
-
         }
     }
 `
