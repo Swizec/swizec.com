@@ -7,6 +7,8 @@ require("dotenv").config({
 
 module.exports = {
   plugins: [
+    "gatsby-plugin-slug",
+    "gatsby-plugin-zeit-now",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -14,15 +16,14 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    // {
-    //   resolve: "gatsby-source-filesystem",
-    //   options: {
-    //     name: "posts",
-    //     path: `${__dirname}/src/pages/blog`,
-    //   },
-    // },
 
-    "gatsby-transformer-sharp",
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "posts",
+        path: `${__dirname}/src/pages/blog`,
+      },
+    },    "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",
     "gatsby-remark-images",
     {
@@ -31,6 +32,7 @@ module.exports = {
         extensions: [".mdx", ".md"],
         remarkPlugins,
         gatsbyRemarkPlugins: [
+
           "gatsby-remark-copy-linked-files",
           {
             resolve: "gatsby-remark-giphy",
@@ -57,6 +59,7 @@ module.exports = {
               },
             },
           },
+
           {
             resolve: `${__dirname}/src/gatsby-remark-social-card`,
           },
