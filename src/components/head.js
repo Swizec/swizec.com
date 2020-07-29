@@ -8,7 +8,9 @@ function getSocialCard({ title, hero }) {
     const ext = hero.split(".").pop()
 
     // URL guaranteed by src/gatsby-remark-social-card
-    return `/social-cards/${slugify(title, {remove: /[*+~.()'"!?:@,]/g})}.${ext}`
+    return `/social-cards/${slugify(title, {
+      remove: /[*+~.()'"!?/:@,]/g,
+    })}.${ext}`
   } else {
     return ""
   }
@@ -17,19 +19,18 @@ function getSocialCard({ title, hero }) {
 export default (props) => {
   const { frontmatter } = props.pageContext
 
-  const title = [
-    frontmatter?.title || props.title,
-    "Swizec.com",
-  ]
+  const title = [frontmatter?.title || props.title, "Swizec.com"]
     .filter(Boolean)
     .join(" | ")
-  const description =
-    frontmatter?.description || props.description || "Swizec helps you become a better frontend engineer with books, articles, talks, and workshops";
-    // (frontmatter && frontmatter.description) || props.description || "Swizec helps you become a better frontend engineer with books, articles, talks, and workshops";
 
-  const socialImage = getSocialCard(frontmatter);
-  const image = `https://swizec.com${socialImage || defaultHero}`;
-  const url = `https://swizec.com${props.path}`;
+  const description =
+    frontmatter?.description ||
+    props.description ||
+    "Swizec helps you become a better frontend engineer with books, articles, talks, and workshops"
+
+  const socialImage = getSocialCard(frontmatter)
+  const image = `https://swizec.com${socialImage || defaultHero}`
+  const url = `https://swizec.com${props.path}`
 
   return (
     <Helmet

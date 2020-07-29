@@ -65,6 +65,7 @@
         "react-hook-form": "^6.1.0",
         "react-sticky": "^6.0.3",
         "rebass": "^4.0.6",
+        "remark-frontmatter": "^2.0.0",
         "remark-html": "^11.0.2",
         "remark-slug": "^5.1.2",
         "slugify": "^1.4.0",
@@ -77,9 +78,10 @@
         "chalk": "^4.1.0",
         "child_process": "^1.0.2",
         "mime-types": "^2.1.27",
+        "node-fetch": "^2.6.0",
+        "prettier": "^2.0.5",
         "to-vfile": "^6.1.0",
         "unist-util-visit": "^2.0.3",
-        "unist-util-visit-parents": "^3.1.0",
         "url": "^0.11.0"
     }
 }

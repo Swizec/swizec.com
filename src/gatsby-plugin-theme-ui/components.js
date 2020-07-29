@@ -2,7 +2,7 @@ import React from "react"
 import code from "../components/code"
 import { wrapper } from "../components/wrapper"
 
-const heading = Tag => props => {
+const heading = (Tag) => (props) => {
   if (!props.id) return <Tag {...props} />
 
   return (
@@ -14,7 +14,7 @@ const heading = Tag => props => {
 
 export default {
   wrapper,
-  pre: props => props.children,
+  pre: (props) => props.children,
   code,
   h2: heading("h2"),
   h3: heading("h3"),

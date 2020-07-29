@@ -8,7 +8,7 @@ import SkipLink from "./skip-link"
 import Header from "./header"
 import Footer from "./footer"
 import Nav from "./nav"
-import BlogFooter from './blogFooter';
+import BlogFooter from "./blogFooter"
 import { ArticleMetaData } from "./ArticleMetaData"
 import { currentLocation } from "../util"
 import { Title } from "../components/blocks"
@@ -70,42 +70,41 @@ const Sidebar = (props) => {
 }
 
 const Content = (props) => {
+  const isArticle =
+    props.pageContext.frontmatter && props.pageContext.frontmatter.title
 
-  const isArticle = props.pageContext.frontmatter && props.pageContext.frontmatter.title;
+  return !props.fullwidth || props.menu ? (
+    <Sidebar
+      {...props}
+      nav={props.nav}
+      open={props.menu}
+      setMenu={props.setMenu}
+    >
+      <Head {...props} />
+      {isArticle && (
+        <>
+          <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title>
+          <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
+        </>
+      )}
 
-  return (
-    !props.fullwidth || props.menu ? (
-      <Sidebar
-        {...props}
-        nav={props.nav}
-        open={props.menu}
-        setMenu={props.setMenu}
-      >
-        <Head {...props} />
+      <main id="content">
+        {props.children}
         {isArticle && (
           <>
-            <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title>
-            <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
+            <Reactions page={props.uri} />
+            <BlogFooter />
           </>
         )}
-
-        <main id="content">
-          {props.children}
-          {isArticle && (
-            <>
-              <Reactions page={props.uri} />
-              <BlogFooter /> 
-            </>
-          )}
-        </main>
-      </Sidebar>
-    ) : (
-      <>
-        <Head {...props} />
-        <main id="content">{props.children}</main>
-      </>
-    )
-)}
+      </main>
+    </Sidebar>
+  ) : (
+    <>
+      <Head {...props} />
+      <main id="content">{props.children}</main>
+    </>
+  )
+}
 
 export default (props) => {
   const fullwidth = currentLocation(props) === "/"
