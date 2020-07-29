@@ -23,7 +23,8 @@ module.exports = {
         name: "posts",
         path: `${__dirname}/src/pages/blog`,
       },
-    },    "gatsby-transformer-sharp",
+    },
+    "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",
     "gatsby-remark-images",
     {
@@ -32,7 +33,6 @@ module.exports = {
         extensions: [".mdx", ".md"],
         remarkPlugins,
         gatsbyRemarkPlugins: [
-
           "gatsby-remark-copy-linked-files",
           {
             resolve: "gatsby-remark-giphy",

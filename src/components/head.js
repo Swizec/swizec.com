@@ -19,13 +19,10 @@ function getSocialCard({ title, hero }) {
 export default (props) => {
   const { frontmatter } = props.pageContext
 
-  const title = [
-    frontmatter?.title || props.title,
-    "Swizec.com",
-  ]
+  const title = [frontmatter?.title || props.title, "Swizec.com"]
     .filter(Boolean)
     .join(" | ")
-    
+
   const description =
     frontmatter?.description ||
     props.description ||
@@ -33,7 +30,7 @@ export default (props) => {
 
   const socialImage = getSocialCard(frontmatter)
   const image = `https://swizec.com${socialImage || defaultHero}`
-  const url = `https://swizec.com${props.path}`;
+  const url = `https://swizec.com${props.path}`
 
   return (
     <Helmet
