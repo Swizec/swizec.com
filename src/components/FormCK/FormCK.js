@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Box } from 'rebass';
 import { useForm } from "react-hook-form";
 import { Input } from '@rebass/forms';
+import fetch from 'node-fetch';
 import styled from "@emotion/styled";
 import DefaultBeforeCopy from './DefaultBeforeCopy';
 import DefaultLeftCopy from './DefaultLeftCopy';
@@ -10,33 +11,45 @@ import DefaultLeftCopy from './DefaultLeftCopy';
 const FormCK = ({ copyBefore, submitText, formId, children}) => {
 
     const { register, errors, handleSubmit } = useForm();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const data = useStaticQuery(getDefaultFormId);
     if (!formId) {
         formId  = data.site.siteMetadata.convertkit.defaultFormId
     }
     
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+        setIsSubmitting(true);
         //Id address is filled then it's spam
         if (!data.address) {
-            const url = `https://api.convertkit.com/v3/forms/${formId}/subscribe`;
+            // const url2 = `https://api.convertkit.com/v3/forms/1559011/subscriptions?api_secret=nFUaWyDTRbR5p9gnxujIC4W2IL3ZLuZ3UBGhvPm1l9U`;
+            // fetch(url2).then(res => res.json()).then((json) => console.log("JSONSD", json));
+            const url = `https://api.convertkit.com/v3/forms/1559011/subscribe`;
             var headers = {
-                "Content-Type": "application/json; charset=utf-8",
+                "Content-Type": 'application/json; charset="utf-8"',
             }
-            var data = {
+            var bodyData = {
                 api_key: "sTFpfy7l8TfzLnMUVvh1CA",
                 email: data.email,
                 first_name: data.name
             }
 
-            fetch(url, { method: 'POST', headers, body: data})
-                .then((res) => {
-                    return res.json();
-                })
-                .then((json) => {
-                    console.log("RESPONSE", json);
-                });
+            try {
+                const response = await fetch(url, { method: 'POST', headers, body: JSON.stringify(bodyData)});
+                const json = await response.json();
+                console.log("Response", json)
+                console.log("STATUS", json.status)
+                switch (json.status) {
+                    case '200': 
+                        setIsSubmitted(true);
+                }
+            } catch (error) {
+                console.log("Error", error);
+            }
         }
+
+        setIsSubmitting(false);
     }
 
     return (
@@ -81,7 +94,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                         ref={register}
                         placeholder="Your address here" 
                     />
-                    <button type="submit">{submitText}</button>
+                    <button type="submit" disabled={isSubmitting}>{submitText}</button>
                     {/* <button  disabled={state.submitting}>
                         Sign Up
                     </button> */}

@@ -8,7 +8,7 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     convertkit: {
-      defaultFormId: "772ba7c9ba",
+      defaultFormId: "1559011",
     }
   },
   plugins: [
