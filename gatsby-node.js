@@ -40,8 +40,6 @@ exports.createPages = ({ graphql, actions }) => {
           const from = post.node.frontmatter.redirect_from
           const to = `/blog${post.node.fields.slug}`
 
-          console.log("FROM", post.node.frontmatter.redirect_from)
-
           from.forEach((from) => {
             createRedirect({
               fromPath: from,
