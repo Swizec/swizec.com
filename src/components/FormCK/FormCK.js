@@ -7,12 +7,13 @@ import fetch from 'node-fetch';
 import styled from "@emotion/styled";
 import DefaultBeforeCopy from './DefaultBeforeCopy';
 import DefaultLeftCopy from './DefaultLeftCopy';
+import FormThankYou from './FormThankYou';
 
 const FormCK = ({ copyBefore, submitText, formId, children}) => {
 
     const { register, errors, handleSubmit } = useForm();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(true);
 
     const data = useStaticQuery(getDefaultFormId);
     if (!formId) {
@@ -23,9 +24,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
         setIsSubmitting(true);
         //Id address is filled then it's spam
         if (!data.address) {
-            // const url2 = `https://api.convertkit.com/v3/forms/1559011/subscriptions?api_secret=nFUaWyDTRbR5p9gnxujIC4W2IL3ZLuZ3UBGhvPm1l9U`;
-            // fetch(url2).then(res => res.json()).then((json) => console.log("JSONSD", json));
-            const url = `https://api.convertkit.com/v3/forms/1559011/subscribe`;
+            const url = `https://api.convertkit.com/v3/forms/${formId}/subscribe`;
             var headers = {
                 "Content-Type": 'application/json; charset="utf-8"',
             }
@@ -38,12 +37,12 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
             try {
                 const response = await fetch(url, { method: 'POST', headers, body: JSON.stringify(bodyData)});
                 const json = await response.json();
-                console.log("Response", json)
-                console.log("STATUS", json.status)
-                switch (json.status) {
-                    case '200': 
-                        setIsSubmitted(true);
+                if (json?.subscription?.state === "active") {
+                    console.log("FUCK YEAH MATE")
+                    setIsSubmitted(true);
                 }
+                console.log("state", json.subscription)
+                console.log("state", json.subscription.state)
             } catch (error) {
                 console.log("Error", error);
             }
@@ -59,47 +58,54 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                 <div className="copy-left">
                     {children}
                 </div>
-                <Box
-                    as="form"
-                    onSubmit={handleSubmit(onSubmit)}>
-                    <Input
-                        id="name"
-                        type="text" 
-                        name="name"
-                        ref={register({ required: true})}
-                        placeholder="Your first name"
-                    />
-                    {errors.name && <span>⚠️ Name is required</span>}
-                    <Input
-                        id="email"
-                        type="email" 
-                        name="email"
-                        ref={register({ 
-                            required: "⚠️ E-mail is required",
-                            pattern: {
-                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                message: "⚠️ Invalid email address"
-                            }
-                        })}
-                        placeholder="Your email address"
-                    />
-                    {errors.email && <span>{errors.email.message}</span>}
+                {isSubmitted? (
+                    <Box
+                        px={2}>
+                        <FormThankYou />
+                    </Box>
+                ) : (
+                    <Box
+                        as="form"
+                        onSubmit={handleSubmit(onSubmit)}>
+                        <Input
+                            id="name"
+                            type="text" 
+                            name="name"
+                            ref={register({ required: true})}
+                            placeholder="Your first name"
+                        />
+                        {errors.name && <span>⚠️ Name is required</span>}
+                        <Input
+                            id="email"
+                            type="email" 
+                            name="email"
+                            ref={register({ 
+                                required: "⚠️ E-mail is required",
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                    message: "⚠️ Invalid email address"
+                                }
+                            })}
+                            placeholder="Your email address"
+                        />
+                        {errors.email && <span>{errors.email.message}</span>}
 
-                    <input 
-                        className="stashaway" 
-                        autoComplete="nope" 
-                        type="text" 
-                        id="address" 
-                        name="address" 
-                        ref={register}
-                        placeholder="Your address here" 
-                    />
-                    <button type="submit" disabled={isSubmitting}>{submitText}</button>
-                    {/* <button  disabled={state.submitting}>
-                        Sign Up
-                    </button> */}
-                    <p>No spam. Unsubscribe at any time. ✌️</p>
-                </Box>
+                        <input 
+                            className="stashaway" 
+                            autoComplete="nope" 
+                            type="text" 
+                            id="address" 
+                            name="address" 
+                            ref={register}
+                            placeholder="Your address here" 
+                        />
+                        <button type="submit" disabled={isSubmitting}>{submitText}</button>
+                        {/* <button  disabled={state.submitting}>
+                            Sign Up
+                        </button> */}
+                        <p>No spam. Unsubscribe at any time. ✌️</p>
+                    </Box>
+                )}
                 
             </div>
         </FormCkWrapper>
