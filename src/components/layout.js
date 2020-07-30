@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react"
 import { Global } from "@emotion/core"
-import { Box, Flex, Text } from "rebass"
+import { Box, Flex } from "rebass"
 import { Sidenav, Pagination } from "@theme-ui/sidenav"
 
 import Head from "./head"

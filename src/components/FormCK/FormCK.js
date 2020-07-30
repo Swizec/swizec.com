@@ -13,7 +13,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
 
     const { register, errors, handleSubmit } = useForm();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(true);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const data = useStaticQuery(getDefaultFormId);
     if (!formId) {
@@ -37,7 +37,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
             try {
                 const response = await fetch(url, { method: 'POST', headers, body: JSON.stringify(bodyData)});
                 const json = await response.json();
-                if (json?.subscription?.state === "active") {
+                if (response.ok && json?.subscription?.id) {
                     setIsSubmitted(true);
                 }
             } catch (error) {
@@ -75,7 +75,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                             ref={register({ required: true})}
                             placeholder="Your first name"
                         />
-                        {errors.name && <span>⚠️ Name is required</span>}
+                        {errors.name && <span><span role="img" aria-label="danger">⚠️</span> Name is required</span>}
                         <Input
                             id="email"
                             type="email" 
@@ -104,7 +104,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                         {/* <button  disabled={state.submitting}>
                             Sign Up
                         </button> */}
-                        <p>No spam. Unsubscribe at any time. ✌️</p>
+                        <p>No spam. Unsubscribe at any time. <span role="img" aria-label="ok">✌️</span></p>
                     </Box>
                     </>
                 )}
