@@ -4,7 +4,7 @@ import { Box } from "rebass"
 const Typeform = () => {
   useEffect(() => {
     // Taken from typeform
-    ;(function() {
+    ;(function () {
       var /*qs,*/
         js,
         q,
