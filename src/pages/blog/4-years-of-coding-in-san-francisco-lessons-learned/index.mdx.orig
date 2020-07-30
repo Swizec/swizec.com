@@ -8,15 +8,21 @@ redirect_from:
 categories: "Uncategorized"
 hero: ./img/6ou5Jf9.png
 ---
+<<<<<<< HEAD
 
 import FormCK from '../../../components/FormCK'
 
 ![](./img/blog-wp-content-uploads-2019-04-11084974_642240412543178_1151569054_n.jpg)
 
+<FormCK formId="1559011" />
 
-<FormCK /> 
+> Your code doesn&#x27;t matter. Your tools are irrelevant. Shipped beats perfect.
+=======
+>>>>>>> master
 
-Your code doesn't matter. Your tools are irrelevant. Shipped beats perfect.
+![](./img/blog-wp-content-uploads-2019-04-11084974_642240412543178_1151569054_n.jpg)
+
+> Your code doesn't matter. Your tools are irrelevant. Shipped beats perfect.
 
 https&amp;#x3A;//twitter.com/Swizec/status/1106450826308939778
 

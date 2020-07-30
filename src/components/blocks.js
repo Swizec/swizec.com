@@ -164,7 +164,7 @@ export const Title = (props) => {
 export const JumpToCourse = () => (
   <Box textAlign="center" mt={2}>
     <a href="#serverlessreact.dev">
-      <Button>👇 Jump into ServerlessReact.Dev 👇</Button>
+      <Button><span role="img" aria-label="finger-down">👇</span> Jump into ServerlessReact.Dev <span role="img" aria-label="finger-down">👇</span></Button>
     </a>
   </Box>
 )

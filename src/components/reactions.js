@@ -17,14 +17,6 @@ const JoyButton = styled.div`
   }
 `
 
-const ShareButtons = styled.div`
-  margin: auto auto;
-`
-
-const SocialButton = styled.a`
-  padding: 5px;
-`
-
 const Reactions = ({ page }) => {
   const [pathname, setPathname] = useState(page)
 
