@@ -7,7 +7,7 @@ import fetch from 'node-fetch';
 import styled from "@emotion/styled";
 import DefaultBeforeCopy from './DefaultBeforeCopy';
 import DefaultLeftCopy from './DefaultLeftCopy';
-import FormThankYou from './FormThankYou';
+import ThankYou from './ThankYou';
 
 const FormCK = ({ copyBefore, submitText, formId, children}) => {
 
@@ -29,7 +29,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                 "Content-Type": 'application/json; charset="utf-8"',
             }
             var bodyData = {
-                api_key: "sTFpfy7l8TfzLnMUVvh1CA",
+                api_key: process.env.GATSBY_CONVERTKIT_APIKEY,
                 email: data.email,
                 first_name: data.name
             }
@@ -38,11 +38,8 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                 const response = await fetch(url, { method: 'POST', headers, body: JSON.stringify(bodyData)});
                 const json = await response.json();
                 if (json?.subscription?.state === "active") {
-                    console.log("FUCK YEAH MATE")
                     setIsSubmitted(true);
                 }
-                console.log("state", json.subscription)
-                console.log("state", json.subscription.state)
             } catch (error) {
                 console.log("Error", error);
             }
@@ -55,15 +52,19 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
         <FormCkWrapper>
             {copyBefore}
             <div className="copy-content">
-                <div className="copy-left">
-                    {children}
-                </div>
                 {isSubmitted? (
                     <Box
-                        px={2}>
-                        <FormThankYou />
+                        px={4}
+                        style={{
+                            textAlign: 'center'
+                        }}>
+                        <ThankYou />
                     </Box>
                 ) : (
+                    <>
+                    <div className="copy-left">
+                        {children}
+                    </div>
                     <Box
                         as="form"
                         onSubmit={handleSubmit(onSubmit)}>
@@ -105,8 +106,8 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                         </button> */}
                         <p>No spam. Unsubscribe at any time. ✌️</p>
                     </Box>
+                    </>
                 )}
-                
             </div>
         </FormCkWrapper>
     )
