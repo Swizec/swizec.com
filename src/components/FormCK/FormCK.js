@@ -12,23 +12,17 @@ import ThankYou from './ThankYou';
 const FormCK = ({ copyBefore, submitText, formId, children}) => {
 
     const { register, errors, handleSubmit, formState, reset } = useForm();
-    const [submitError, setSubmitError] = useState()
+    const [submitError, setSubmitError] = useState();
+    const [formSuccess, setFormSuccess] = useState(false);
 
     const data = useStaticQuery(getDefaultFormId);
     if (!formId) {
         formId  = data.site.siteMetadata.convertkit.defaultFormId
     }
 
-    useEffect(() => {
-        //If the call to convertkit failed I display an error to the user and reset the form
-        if (formState.isSubmitted && submitError) {
-            reset();
-        }
-    }, [formState.isSubmitted])
-    
     const onSubmit = async (data) => {
-        //Id address is filled then it's spam
-        if (!data.address) {
+        //If address is filled then it's spam
+        if (!data.address && formState.isValid) {
             const url = `https://api.convertkit.com/v3/forms/${formId}/subscribe`;
             var headers = {
                 "Content-Type": 'application/json; charset="utf-8"',
@@ -43,7 +37,9 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                 const response = await fetch(url, { method: 'POST', headers, body: JSON.stringify(bodyData)});
                 const json = await response.json();
                 if (!response.ok || !json?.subscription?.id) {
-                    setSubmitError("Sorry there was an error, try again later or contact me!")
+                    setSubmitError("Sorry there was an error, try again later or <a target='_blank' href='https://twitter.com/swizec'>contact me</a>!")
+                } else {
+                    setFormSuccess(true);
                 }
             } catch (error) {
                 console.log("Error", error);
@@ -55,7 +51,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
         <FormCkWrapper>
             {copyBefore}
             <div className="copy-content">
-                {formState.isSubmitted? (
+                {formSuccess? (
                     <Box
                         px={4}
                         style={{
@@ -75,7 +71,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                             id="name"
                             type="text" 
                             name="name"
-                            ref={register({ required: true})}
+                            ref={register({ required: true })}
                             placeholder="Your first name"
                         />
                         {errors.name && <span><span role="img" aria-label="danger">⚠️</span> Name is required</span>}
@@ -86,7 +82,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                             ref={register({ 
                                 required: "⚠️ E-mail is required",
                                 pattern: {
-                                    value: '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/',
+                                    value: "^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",
                                     message: "⚠️ Invalid email address"
                                 }
                             })}
@@ -104,7 +100,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                             placeholder="Your address here" 
                         />
                         <button type="submit" disabled={formState.isSubmitting}>{submitText}</button>
-                        {submitError && <p>{submitError}</p>}
+                        {submitError && <p dangerouslySetInnerHTML={{ __html: submitError }}></p> }
                         <p>No spam. Unsubscribe at any time. <span role="img" aria-label="ok">✌️</span></p>
                     </Box>
                     </>
