@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Box } from 'rebass';
 import { useForm } from "react-hook-form";
@@ -11,17 +11,22 @@ import ThankYou from './ThankYou';
 
 const FormCK = ({ copyBefore, submitText, formId, children}) => {
 
-    const { register, errors, handleSubmit } = useForm();
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const { register, errors, handleSubmit, formState, reset } = useForm();
+    const [submitError, setSubmitError] = useState()
 
     const data = useStaticQuery(getDefaultFormId);
     if (!formId) {
         formId  = data.site.siteMetadata.convertkit.defaultFormId
     }
+
+    useEffect(() => {
+        //If the call to convertkit failed I display an error to the user and reset the form
+        if (formState.isSubmitted && submitError) {
+            reset();
+        }
+    }, [formState.isSubmitted])
     
     const onSubmit = async (data) => {
-        setIsSubmitting(true);
         //Id address is filled then it's spam
         if (!data.address) {
             const url = `https://api.convertkit.com/v3/forms/${formId}/subscribe`;
@@ -37,22 +42,20 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
             try {
                 const response = await fetch(url, { method: 'POST', headers, body: JSON.stringify(bodyData)});
                 const json = await response.json();
-                if (response.ok && json?.subscription?.id) {
-                    setIsSubmitted(true);
+                if (!response.ok || !json?.subscription?.id) {
+                    setSubmitError("Sorry there was an error, try again later or contact me!")
                 }
             } catch (error) {
                 console.log("Error", error);
             }
         }
-
-        setIsSubmitting(false);
     }
 
     return (
         <FormCkWrapper>
             {copyBefore}
             <div className="copy-content">
-                {isSubmitted? (
+                {formState.isSubmitted? (
                     <Box
                         px={4}
                         style={{
@@ -83,7 +86,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                             ref={register({ 
                                 required: "⚠️ E-mail is required",
                                 pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                    value: '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/',
                                     message: "⚠️ Invalid email address"
                                 }
                             })}
@@ -92,7 +95,7 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                         {errors.email && <span>{errors.email.message}</span>}
 
                         <input 
-                            className="stashaway" 
+                            className="required" 
                             autoComplete="nope" 
                             type="text" 
                             id="address" 
@@ -100,10 +103,8 @@ const FormCK = ({ copyBefore, submitText, formId, children}) => {
                             ref={register}
                             placeholder="Your address here" 
                         />
-                        <button type="submit" disabled={isSubmitting}>{submitText}</button>
-                        {/* <button  disabled={state.submitting}>
-                            Sign Up
-                        </button> */}
+                        <button type="submit" disabled={formState.isSubmitting}>{submitText}</button>
+                        {submitError && <p>{submitError}</p>}
                         <p>No spam. Unsubscribe at any time. <span role="img" aria-label="ok">✌️</span></p>
                     </Box>
                     </>
@@ -169,7 +170,7 @@ const FormCkWrapper = styled.div`
                     text-align: left;
                 }
 
-                .stashaway {
+                .required {
                     opacity: 0;
                     position: absolute;
                     top: 0;

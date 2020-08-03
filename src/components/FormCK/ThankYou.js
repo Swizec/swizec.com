@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import ThankYouTwitter from './ThankYouTwitter.mdx'
+import ThankYouResources from './ThankYouResources.mdx'
 import styled from "@emotion/styled";
 
 import TwitterButton from './TwitterButton'
@@ -11,44 +13,10 @@ const ThankYou = () => {
     return (
         <ThankYouWrapper>
             {showResources ? (
-                <>
-                    <div className="copy-resources">
-                            <span role="img" aria-label="love">❤️</span> <br />
-                            Click below to get your stuff
-                    </div>
-                    <ul className="copy-bonuses">
-                        <li>
-                            <img src="https://goviral.growthtools.com/images/bullets/1.png" alt="1" /> 
-                            <div>
-                                Free copy of Why Programmers Work at Night <span role="img" aria-label="owl">🦉</span> <br />
-                                <a target="_blank" rel="noreferrer" href="https://leanpub.com/nightowls/c/blog-freebie">
-                                    Get the book
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="https://goviral.growthtools.com/images/bullets/2.png" alt="2" />
-                            <div>
-                                29 videos on React Basics <span role="img" aria-label="film">🎥</span> 
-                                <a target="_blank" rel="noreferrer" href="https://www.youtube.com/playlist?list=PLF8WgaD4xmjWuh7FTYTealxehOuNor_2S">
-                                    Watch now
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </>
+                <ThankYouResources />
             ) : (
                 <>
-                    <h2>This is the start of a beautiful friendship <span role="img" aria-label="love">❤️</span> </h2>
-                    <div className="copy-thanks">Thanks for signing up to my email list <span role="img" aria-label="letter">💌</span>  You're the best! <span role="img" aria-label="Horns">🤘</span> My robots are sending you a welcome email. Here are some extra bonuses, if you want <span role="img" aria-label="finger-down">👇</span></div>
-                    <ul className="copy-bonuses">
-                        <li>
-                            <img src="https://goviral.growthtools.com/images/bullets/1.png" alt="1" /> Free copy of Why Programmers Work at Night <span role="img" aria-label="owl">🦉</span>
-                        </li>
-                        <li>
-                            <img src="https://goviral.growthtools.com/images/bullets/2.png" alt="2" /> 29 videos on React Basics <span role="img" aria-label="film"></span>
-                        </li>
-                    </ul>
+                    <ThankYouTwitter />
                     <TwitterButton onButtonClick={() => setShowResources(true)} />
                 </>
             )}
@@ -68,7 +36,7 @@ const ThankYouWrapper = styled.div`
         font-size: 1.2em;
     }
 
-    .copy-bonuses {
+    ul {
         list-style: none;
         margin: 2rem auto;
         padding-left: 0;
@@ -85,27 +53,22 @@ const ThankYouWrapper = styled.div`
                 height: 1.5em;
                 margin-right: 1rem;
             }
+
+            a {
+                background-color: #0099e5;
+                border-radius: 5px;
+                color: #ffffff;
+                cursor: pointer;
+                padding: 0.5rem 1rem;
+                text-decoration: none;
+                width: fit-content;
+            }
             
             div {
                 display: flex;
                 flex-direction: column;
-
-                a {
-                    background-color: #0099e5;
-                    border-radius: 5px;
-                    color: #ffffff;
-                    cursor: pointer;
-                    padding: 0.5rem 1rem;
-                    text-decoration: none;
-                    width: fit-content;
-                }
             }
         }
-    }
-
-    .copy-resources {
-        font-size: 2rem;
-        padding: 2rem;
     }
 
     @media (min-width: 960px) {
@@ -117,7 +80,7 @@ const ThankYouWrapper = styled.div`
             font-size: 1em;
         }
 
-        .copy-bonuses {
+        ul {
             width:82%;
         }
     }
