@@ -9,7 +9,7 @@ module.exports = {
   siteMetadata: {
     convertkit: {
       defaultFormId: "1559011",
-    }
+    },
   },
   plugins: [
     "gatsby-plugin-slug",
@@ -120,7 +120,7 @@ module.exports = {
         background_color: "#fff",
         theme_color: "#FF002B",
         display: "standalone",
-        icon: "./static/icon.png",
+        icon: "./static/favicon.png",
       },
     },
 
