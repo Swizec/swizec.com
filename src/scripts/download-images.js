@@ -38,8 +38,9 @@ glob(articlesPath + "/*/*.mdx", {}, (err, files) => {
 
         await Promise.all(
           nodes.map(async function (node) {
-            const title =
+            let title =
               node.title || node.alt || node.url.slice(node.url.length - 10)
+            title += Math.random().toString(20).substr(2, 6);
             const slugTitle = slugify(title, { remove: /[*+~.()'"!?/:@,]/g })
 
             const imagesPath = path.join(parentDirectory, "img")
