@@ -7,7 +7,7 @@
     "scripts": {
         "start": "gatsby develop",
         "clean": "gatsby clean",
-        "build": "gatsby clean && gatsby build",
+        "build": "gatsby build",
         "serve": "gatsby serve",
         "fix-images": "node src/scripts/download-images.js",
         "icon": "npx repng src/components/icon.js -d static -f icon.png -w 512 -h 512",
