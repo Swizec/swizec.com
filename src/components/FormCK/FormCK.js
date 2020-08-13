@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { Box } from "rebass"
+import { Box, Flex, Button } from "rebass"
 import { useForm } from "react-hook-form"
 import { Input } from "@rebass/forms"
 import fetch from "node-fetch"
@@ -68,13 +68,17 @@ const FormCK = ({ copyBefore, submitText, formId, children }) => {
         ) : (
           <>
             <div className="copy-left">{children}</div>
-            <Box as="form" onSubmit={handleSubmit(onSubmit)}>
+            <Flex
+              as="form"
+              onSubmit={handleSubmit(onSubmit)}
+              sx={{ justifyContent: "center" }}
+            >
               <Input
                 id="name"
                 type="text"
                 name="name"
                 ref={register({ required: true })}
-                placeholder="Your first name"
+                placeholder="Your name"
               />
               {errors.name && (
                 <span>
@@ -109,19 +113,20 @@ const FormCK = ({ copyBefore, submitText, formId, children }) => {
                 ref={register}
                 placeholder="Your address here"
               />
-              <button type="submit" disabled={formState.isSubmitting}>
+              <Button type="submit" disabled={formState.isSubmitting}>
                 {submitText}
-              </button>
+              </Button>
               {submitError && (
                 <p dangerouslySetInnerHTML={{ __html: submitError }}></p>
               )}
               <p>
-                No spam. Unsubscribe at any time.{" "}
+                Join over 10,000 engineers just like you already improving their
+                JS careers with my letters, workshops, courses, and talks.{" "}
                 <span role="img" aria-label="ok">
                   ✌️
                 </span>
               </p>
-            </Box>
+            </Flex>
           </>
         )}
       </div>
@@ -132,7 +137,7 @@ const FormCK = ({ copyBefore, submitText, formId, children }) => {
 FormCK.defaultProps = {
   children: <DefaultLeftCopy />,
   copyBefore: <DefaultBeforeCopy />,
-  submitText: "Improve my career 💌",
+  submitText: "Subscribe & Get my cheatsheet 💌",
 }
 
 const getDefaultFormId = graphql`
