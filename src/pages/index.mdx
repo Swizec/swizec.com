@@ -1,6 +1,9 @@
 import { Box, Flex, Button } from "rebass"
 import FormCK from "../components/FormCK"
 import HomepageBeforeCopy from "../components/FormCK/HomepageBeforeCopy"
+import Workshops from "./workshops"
+import Courses from "./courses"
+import Talks from "./talks"
 
 <Box width={[1, 1, 2/3]} m="auto" p={3}>
 
@@ -36,9 +39,9 @@ Leave your email and I'll send you an **Interactive Modern JavaScript Cheatsheet
 
 # What others are saying
 
-<Box sx={{display: 'grid', gridGap: 3, gridTemplateColumns: 'repeat(auto-fit, 30%)'}}>
+<Box sx={{display: 'grid', gridGap: [1, 2, 3], gridTemplateColumns: ['repeat(auto-fit, 100%)', 'repeat(auto-fit, 45%)', 'repeat(auto-fit, 30%)']}}>
 
-> Man, I love your way of writing these newsletters. Often very relatable and funny perspectives about the mundane struggles of a dev. Lightens up my day.  
+> Swizec, I love your way of writing these newsletters. Often very relatable and funny perspectives about the mundane struggles of a dev. Lightens up my day.  
 > ~ Kostas
 
 > Great insights. Completely loved it.
@@ -56,7 +59,7 @@ Leave your email and I'll send you an **Interactive Modern JavaScript Cheatsheet
 > Something that I needed to hear today :)
 > ~ Elisa
 
-> You inspire me man. I love getting your emails. +1
+> You inspire me Swizec. I love getting your emails. +1
 > ~ Anthony
 
 > Good lessons summarized neatly in a quick read
@@ -105,116 +108,20 @@ Here's how I help beyond the newsletter 👇
 
 </Box>
 
+<Box width={[1, 1, 2 / 3]} m="auto" p={3} mt={4}>
+  <Workshops />
+</Box>
+
+<Box width={[1, 1, 2 / 3]} m="auto" p={3} mt={4}>
+  <Courses />
+</Box>
+
 <Box width={[1, 1, 2/3]} m="auto" p={3} mt={4}>
-
-# Workshops
-
-![Teaching a Serverless React workshop at Reactathon 2019](../images/swizec-workshop-25.jpg)
-
-## Serverless React
-
-**The web has never been so productive.**
-
-You can build and launch a whole new app in just a few hours. It’s crazy! You can build what huge teams with large budgets could only dream of a few years ago.
-
-- Beautiful UI? Got that.
-- Great SEO? Yep. Easy.
-- Amazing lighthouse speed scores? You got it.
-- Running heavy code on the backend? Done.
-- Saving user data? Yepp.
-- Works on mobile? Of course.
-- What about an offline PWA? Absolutely.
-- Makes money? Yep got that too.
-
-Maybe it’s not your job to do all that in your company right now. The bigger the company, the smaller your area of expertise.
-
-But wouldn’t it be awesome if you could do all of that? What if the next time you have an idea for a great feature, you just build it? Own the whole stack from start to finish. You’d be a superhero!
-
-Or maybe it’s just for you. Great idea for a project, an app, a painful problem you want to solve? Now you can. There’s no faster way to upercharge your career than a side project you’re passionate about. In this workshop, you will learn:
-
-- How to set up a static-first webapp with Gatsby
-- Why that’s important for SEO and speed scores
-- How to build good looking UIs without design skills
-- How to move some functionality to the backend using a serverless approach
-- How to use serverless to store user data
-- Using GraphQL to query your data
-- How to add user authentication
-- How to monetize your creation
-
-You’ll leave this full-day workshop knowing some of the most powerful (and fun!) technologies that make web development in 2020 so amazing.
-
-[Sign up to get notified when Serverless React Workshop happens next 👉](https://swizec.com/letters)
-
-## React for Data Visualization
-
-https://www.instagram.com/p/BghreGJgStj/
-
-Become a data visualization engineer with React + D3v5. Creating dynamic and interactive data visualizations on the web is a pain. It gets really hard when you add animation, inter-connected dashboards, and fast performance on mobile devices.
-
-You’re either using libraries you can’t customize, copy pasting D3 examples you don’t understand, or battling documentation to write spaghetti code you can’t reuse. It’s okay, we’ve all been there :)
-
-In this workshop, you will learn:
-
-- How to build modern data visualization the maintainable way.
-- Modeling your code as a state machine in React apps
-- D3 Fundamentals
-- Different ways to integrate D3 with React
-- Investigate the pros and cons of each method
-- Build something beautiful together
-
-By the end of this workshop you’ll have the tools you need to build any dataviz challenge your boss or client throws at you. Even if they ask you to animate 20,000 datapoints on a 5 year old phone.
-
-[Sign up to get notified when React for Dataviz happens next 👉](https://reactfordataviz.com)
-
-## React and Redux
-
-</Box><Box width={[1, 1, 2/3]} m="auto" p={3} mt={4}>
-
-# Courses
-
-## Serverless React
-
-## React for Data Visualization
-
-</Box><Box width={[1, 1, 2/3]} m="auto" p={3} mt={4}>
 
 # Books
 
-</Box><Box width={[1, 1, 2/3]} m="auto" p={3} mt={4}>
+</Box>
 
-# Talks
-
-![Speaking at WriteTheDocs Prague in 2014](../images/swizec-at-writethedocs.jpg)
-
-> Swizec had every­one simul­ta­ne­ously laugh­ing, com­mis­er­at­ing and applaud­ing with his epic tale of blood, sweat, tears and rewrites. This ses­sion also fea­tured the sin­gle best quote of the entire con­fer­ence: “Edi­tors are hor­ri­ble people”.
->
-> ~ [Kay Smoljak](http://kay.smoljak.com/2014/04/write-the-docs/) about my talk at WTD Hungary 2014
-
-> First talk of the conference that made me want to close my laptop
->
-> ~ [lowk3y](http://twitter.com/lowk3y) about my keynote at Drupal Alpe Adria 2014
-
-- 2020 - [Wormhole state management with React Hooks – ReactiveConf Meetup](https://www.youtube.com/watch?v=62AMy1QIpzk)
-- 2020 - [UseAuth - delightfully simple authentication in React? - #wwwhmb 111](https://www.youtube.com/watch?v=JUadifIFBTQ)
-- 2018 - [Data Visualizations with React + D3](https://www.youtube.com/watch?v=9JvIyz7uB2s)
-- 2018 - [Using blockchain for shared UI state on the web](https://www.youtube.com/watch?v=fSpLUWhde5M)
-- 2017 - [Modern web development: The Component is King](https://www.meetup.com/ReactJS-Boston/events/245412798/)
-- 2016 - [Reusable data visualization with React and d3.js](https://www.youtube.com/watch?v=UP1nCXG2t4M)
-- 2016 - [How to use React and d3.js to Build Visualization Components](https://www.youtube.com/watch?v=TbTOh5c4CGo)
-- 2016 - [bayd3: React & D3 - Better Together](https://www.youtube.com/watch?v=47uMw-2mb4U)
-- 2014 - [Wat ... are we doing to ourselves?](https://www.youtube.com/watch?v=LED7ezyT7l0)
-- 2014 - [Why programmers work at night](https://www.youtube.com/watch?v=xVT19ZBL2g8), keynote
-- 2014 - [What I learned writing a lousy tech book](https://www.youtube.com/watch?v=w1L2SgQuv6Q)
-- 2013 - [Self-publishing yes or no](http://video.kiberpipa.org/samozaloznistvo_da_ali_ne/)
-- 2012 - [Why programmers work at night](http://2012.webcampzg.org/swizec-teller-why-programmers-code-at-night/)
-- 2012 - [Modern Python idioms](http://video.kiberpipa.org/py_swizec_modern_python_idioms/)
-- 2012 - [I don't like servers](http://video.hekovnik.com/stc_4_p_2_swizec_i_dont_like_servers/)
-- 2012 - [Django SQL optimisation](http://video.kiberpipa.org/pot_dml_0522/)
-- 2012 - [Blogging, hats, stuff](http://video.kiberpipa.org/SU_Swizec_Teller-Bloganje_klobuki/)
-- 2011 - [Tools that get you laid](http://video.webcamp.si/wc2011_teller_tools_that_get_you_laid/)
-- 2010 - [Scraping the wild internets](http://video.kiberpipa.org/su_swizec_teller-ciscenje_divjih_internetov/)
-- 2010 - [The future internet](http://video.kiberpipa.org/pot_swizec-the_future_internet/)
-- 2010 - [LazySharer](http://video.kiberpipa.org/camp_swizec_teller-lazysharer/)
-- 2009 - [The Synaptic Web](http://video.kiberpipa.org/camp_swizec-the_synaptic_web/)
-
+<Box width={[1, 1, 2 / 3]} m="auto" p={3} mt={4}>
+  <Talks />
 </Box>
