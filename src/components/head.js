@@ -26,7 +26,7 @@ export default (props) => {
   const description =
     frontmatter?.description ||
     props.description ||
-    "Swizec helps shows you how to become a better JavaScript engineer with books, articles, talks, and workshops"
+    "Swizec shows you how to become a better JavaScript engineer with books, articles, talks, and workshops"
 
   const socialImage = getSocialCard(frontmatter)
   const image = `https://swizec.com${socialImage || defaultHero}`
