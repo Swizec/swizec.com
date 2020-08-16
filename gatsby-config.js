@@ -1,5 +1,6 @@
 const remarkPlugins = [require("remark-slug")]
 const fs = require("fs")
+const YoutubeTransformer = require("./src/YoutubeEmbedderTransformer.js");
 
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
@@ -70,7 +71,11 @@ module.exports = {
           },
           {
             resolve: "gatsby-remark-embedder",
-            options: {},
+            options: {
+              customTransformers: [
+                YoutubeTransformer
+              ],
+            },
           },
         ],
         plugins: [{ resolve: "gatsby-remark-images" }],

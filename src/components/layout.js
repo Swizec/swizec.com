@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react"
-import { Global } from "@emotion/core"
+import { Global, css } from "@emotion/core"
 import { Box, Flex } from "rebass"
 import { Sidenav, Pagination } from "@theme-ui/sidenav"
 
@@ -119,9 +119,19 @@ export default (props) => {
     >
       <SkipLink />
       <Global
-        styles={{
-          body: { margin: 0 },
-        }}
+        styles={css`
+          body { margin: 0; }
+          .youtube-embed {
+            height: 315px;
+            width: 100%;
+
+            @media (min-width: 960px) {
+              width: 80%;
+              margin: 0 auto;
+            }
+          }
+        `
+        }
       />
       <Header fullwidth={fullwidth} menu={menu} setMenu={setMenu} nav={nav} />
 
