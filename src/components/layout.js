@@ -120,18 +120,23 @@ export default (props) => {
       <SkipLink />
       <Global
         styles={css`
-          body { margin: 0; }
+          body {
+            margin: 0;
+          }
           .youtube-embed {
-            height: 315px;
-            width: 100%;
+            height: 390px;
+            width: 640px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            max-width: 100%;
 
             @media (min-width: 960px) {
               width: 80%;
               margin: 0 auto;
             }
           }
-        `
-        }
+        `}
       />
       <Header fullwidth={fullwidth} menu={menu} setMenu={setMenu} nav={nav} />
 
