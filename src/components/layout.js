@@ -124,12 +124,12 @@ export default (props) => {
             margin: 0;
           }
           .youtube-embed {
-            height: 390px;
-            width: 640px;
             position: relative;
             overflow: hidden;
             margin: 0 auto;
-            max-width: 100%;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
 
             @media (min-width: 960px) {
               width: 80%;
