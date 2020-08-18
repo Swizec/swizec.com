@@ -12,6 +12,7 @@ import BlogFooter from "./blogFooter"
 import { ArticleMetaData } from "./ArticleMetaData"
 import { currentLocation } from "../util"
 import { Title } from "../components/blocks"
+import FormCK from "../components/FormCK"
 
 import Reactions from "./reactions"
 
@@ -84,7 +85,6 @@ const Content = (props) => {
       {isArticle && (
         <>
           <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title>
-          <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
         </>
       )}
 
@@ -93,6 +93,16 @@ const Content = (props) => {
         {isArticle && (
           <>
             <Reactions page={props.uri} />
+            <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
+            <Box
+              sx={{
+                ml: [0, "-32px", "-32px"],
+                mr: [0, "-32px", "-32px"],
+                mb: [2, 3, 5],
+              }}
+            >
+              <FormCK />
+            </Box>
             <BlogFooter />
           </>
         )}

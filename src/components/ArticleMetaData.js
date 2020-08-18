@@ -6,7 +6,8 @@ export const ArticleMetaData = ({ frontmatter }) => {
   if (frontmatter.published) {
     return (
       <Text>
-        Published on {format(new Date(frontmatter.published), "MMMM do, yyyy")}
+        Published on {format(new Date(frontmatter.published), "MMMM do, yyyy")}{" "}
+        in {frontmatter.categories}
       </Text>
     )
   } else {
