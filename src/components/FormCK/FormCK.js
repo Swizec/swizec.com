@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { Box, Flex, Button } from "rebass"
 import { useForm } from "react-hook-form"
-import { Input } from "@rebass/forms"
+import { Input, Label } from "@rebass/forms"
 import fetch from "node-fetch"
 import styled from "@emotion/styled"
 import DefaultBeforeCopy from "./DefaultBeforeCopy"
@@ -18,6 +18,8 @@ const FormCK = ({ copyBefore, submitText, formId, children }) => {
   if (!formId) {
     formId = data.site.siteMetadata.convertkit.defaultFormId
   }
+
+  const uniqueId = `${new Date().getTime()}`
 
   const onSubmit = async (data) => {
     //If address is filled then it's spam
@@ -73,8 +75,9 @@ const FormCK = ({ copyBefore, submitText, formId, children }) => {
               onSubmit={handleSubmit(onSubmit)}
               sx={{ justifyContent: "center" }}
             >
+              <Label htmlFor={`${uniqueId}-name`}>Your Name</Label>
               <Input
-                id="name"
+                id={`${uniqueId}-name`}
                 type="text"
                 name="name"
                 ref={register({ required: true })}
@@ -88,8 +91,9 @@ const FormCK = ({ copyBefore, submitText, formId, children }) => {
                   Name is required
                 </span>
               )}
+              <Label htmlFor={`${uniqueId}-email`}>Your Email</Label>
               <Input
-                id="email"
+                id={`${uniqueId}-email`}
                 type="email"
                 name="email"
                 ref={register({
@@ -104,11 +108,14 @@ const FormCK = ({ copyBefore, submitText, formId, children }) => {
               />
               {errors.email && <span>{errors.email.message}</span>}
 
+              <Label htmlFor={`${uniqueId}-address`} className="required">
+                Your Address
+              </Label>
               <input
                 className="required"
                 autoComplete="nope"
                 type="text"
-                id="address"
+                id={`${uniqueId}-address`}
                 name="address"
                 ref={register}
                 placeholder="Your address here"
@@ -137,7 +144,7 @@ const FormCK = ({ copyBefore, submitText, formId, children }) => {
 FormCK.defaultProps = {
   children: <DefaultLeftCopy />,
   copyBefore: <DefaultBeforeCopy />,
-  submitText: "Subscribe & Get my cheatsheet 💌",
+  submitText: "Subscribe & Get your cheatsheet 💌",
 }
 
 const getDefaultFormId = graphql`
@@ -180,8 +187,12 @@ const FormCkWrapper = styled.div`
         font-size: 1rem;
         font-weight: 400;
         line-height: 1.4;
-        margin-top: 1rem;
         padding: 0.8rem;
+      }
+
+      label {
+        margin-top: 1rem;
+        margin-bottom: 0.1rem;
       }
 
       span {
