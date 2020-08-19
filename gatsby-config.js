@@ -96,8 +96,8 @@ module.exports = {
     "gatsby-plugin-catch-links",
     "gatsby-plugin-theme-ui",
     "gatsby-plugin-react-helmet",
-    // "gatsby-plugin-twitter",
-    // "gatsby-plugin-instagram-embed",
+    "gatsby-plugin-twitter",
+    "gatsby-plugin-instagram-embed",
     {
       resolve: "gatsby-plugin-google-analytics",
       options: {
