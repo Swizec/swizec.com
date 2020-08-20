@@ -1,7 +1,7 @@
 import React from "react"
 import { Flex, Box, Link, Button, Image } from "rebass"
 import { useColorMode } from "theme-ui"
-import swizecAvatar from "../images/swizec.png"
+import swizecAvatar from "../images/swizec-head-avatar.webp"
 
 const modes = ["themed", "lite", "dark", "gray", "hack", "pink"]
 
