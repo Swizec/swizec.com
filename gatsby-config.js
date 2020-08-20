@@ -14,7 +14,7 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-slug",
-    "gatsby-plugin-zeit-now",
+    "gatsby-plugin-netlify",
     {
       resolve: "gatsby-source-filesystem",
       options: {
