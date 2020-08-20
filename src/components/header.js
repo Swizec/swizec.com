@@ -68,7 +68,12 @@ export default ({ nav, menu, setMenu, style, showBanner }) => {
       bg="background"
       style={style}
     >
-      <Image src={swizecAvatar} width={35} />
+      <Image
+        src={swizecAvatar}
+        width={35}
+        alt="Swizec Teller - a geek with a hat"
+        title="Swizec Teller - a geek with a hat"
+      />
       {/* <Button
         title="Toggle Menu"
         sx={{
