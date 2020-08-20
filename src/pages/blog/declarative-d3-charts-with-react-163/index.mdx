@@ -27,11 +27,15 @@ Here’s a small example of building a bar chart with React 16.3. Using only app
 
 
 
+https://www.youtube.com/watch?v=kH7bnSX9t4Q
+
 
 
 You can play with it on CodeSandbox 👇
 
 
+
+https://codesandbox.io/s/lq0yr1lnq?module=%2Fsrc%2FBarChart.js
 
 
 
@@ -63,9 +67,7 @@ That&#x27;s right, you can have complex objects in state now. It&#x27;s totally 
 
 
 
-> No that’s fine, React won’t change them, it’s one of the new “was bad practice but is fine now” things that comes with async. You can even mutate their properties.
->
-> — Ryan Florence (@ryanflorence) [April 12, 2018](https://twitter.com/ryanflorence/status/984513942696296448?ref_src=twsrc%5Etfw)
+https://twitter.com/ryanflorence/status/984513942696296448?ref_src=twsrc%5Etfw
 
 
 
@@ -81,8 +83,8 @@ Defining D3 objects as component properties used to be best. Now you should do i
 
 
 
-```
-class BarChart extends React.Component {
+```undefined
+<code>class BarChart extends React.Component {
   state = {
     widthScale: d3
       .scaleBand()
@@ -94,6 +96,7 @@ class BarChart extends React.Component {
       .domain([0, d3.max(this.props.data)])
       .range([0, this.props.height])
   };
+</code>
 ```
 
 
@@ -110,8 +113,8 @@ You then use `getDerivedStateFromProps` to keep those scales up to date when you
 
 
 
-```
-  static getDerivedStateFromProps(nextProps, prevState) {
+```undefined
+<code>  static getDerivedStateFromProps(nextProps, prevState) {
     let { widthScale, heightScale } = prevState;
 
     widthScale.domain(d3.range(0, nextProps.data.length));
@@ -120,6 +123,7 @@ You then use `getDerivedStateFromProps` to keep those scales up to date when you
     prevState = { ...prevState, widthScale, heightScale };
     return prevState;
   }
+</code>
 ```
 
 
@@ -140,19 +144,20 @@ Now that your scales are always up to date, you can render your chart. Same as u
 
 
 
-```
-  render() {
+```undefined
+<code>  render() {
     const { x, y, data, height } = this.props,
       { widthScale, heightScale } = this.state;
 
     return (
-      
+      <g transform="{`translate(${x}," ${y})`}="">
         {data.map((d, i) => (
-          
+          <rect x={widthScale(i)} y="{height" -="" heightscale(d)}="" width={widthScale.bandwidth()} height={heightScale(d)}>
         ))}
-      
+      </rect></g>
     );
   }
+</code>
 ```
 
 
@@ -181,8 +186,4 @@ You can render 100,000 SVG nodes in CodeSandbox if you&#x27;re patient. Then you
 
 
 
-> You can render 100,000 SVG elements in [@codesandboxapp](https://twitter.com/codesandboxapp?ref_src=twsrc%5Etfw) and then you can&#x27;t edit your code anymore.  
->   
-> 👉 <https://t.co/8IQCpZteAq> [pic.twitter.com/NRjp7iVWrE](https://t.co/NRjp7iVWrE)
->
-> — Swizec (@Swizec) [April 27, 2018](https://twitter.com/Swizec/status/989909019463630848?ref_src=twsrc%5Etfw)
+https://twitter.com/Swizec/status/989909019463630848?ref_src=twsrc%5Etfw

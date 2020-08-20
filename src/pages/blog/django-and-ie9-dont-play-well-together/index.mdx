@@ -7,7 +7,7 @@ redirect_from:
 categories: "Chrome, Compatibility mode, Data Formats, Firefox, Google Chrome, HTML, Internet Explorer 9, Microsoft, Uncategorized"
 hero: ./img/7054-6935959929_a80f9166c9_m.jpg
 ---
-You know those bugs that take_hours_ to debug? And the fix is ... _moving a single line._ \[caption id=&quot;&quot; align=&quot;alignright&quot; width=&quot;240&quot; caption=&quot;filming of the HTML music video (Photo credit: MadLabUK)&quot;][![filming of the HTML music video](./img/7054-6935959929_a80f9166c9_m.jpg "filming of the HTML music video")](http://www.flickr.com/photos/43963088@N03/6935959929)\[/caption] That kind of bug is tripped up when you use django&#x27;s csrf protection and someone comes to your site using [IE9](http://ie9.com "Internet Explorer 9"). It can easily happen that not only will form stylings not affect the elements, the form might even ignore any values entered! But it works perfectly on older versions of IE. The bug was insanely difficult to pinpoint because I don&#x27;t have IE9 anywhere - only linux and mac around here, any windows box is so old IE7 is about the extent of its capabilities ... After installing some sort of windows 7 to a [virtual machine](http://en.wikipedia.org/wiki/Virtual_machine "Virtual machine") and getting IE9 working, I set to work.
+You know those bugs that take_ hours_ to debug? And the fix is ... _moving a single line._ \[caption id=&quot;&quot; align=&quot;alignright&quot; width=&quot;240&quot; caption=&quot;filming of the HTML music video (Photo credit: MadLabUK)&quot;][![filming of the HTML music video](./img/7054-6935959929_a80f9166c9_m.jpg "filming of the HTML music video")](http://www.flickr.com/photos/43963088@N03/6935959929)\[/caption] That kind of bug is tripped up when you use django&#x27;s csrf protection and someone comes to your site using [IE9](http://ie9.com "Internet Explorer 9"). It can easily happen that not only will form stylings not affect the elements, the form might even ignore any values entered! But it works perfectly on older versions of IE. The bug was insanely difficult to pinpoint because I don&#x27;t have IE9 anywhere - only linux and mac around here, any windows box is so old IE7 is about the extent of its capabilities ... After installing some sort of windows 7 to a [virtual machine](http://en.wikipedia.org/wiki/Virtual_machine "Virtual machine") and getting IE9 working, I set to work.
 
 ## Symptoms
 
@@ -22,10 +22,12 @@ For some reason IE9 thinks the form is empty. Displays all elements, but they do
 
 After many pointless wanderings and random code changes, I realized the [HTML](http://en.wikipedia.org/wiki/HTML "HTML")doesn&#x27;t look like something I&#x27;d usually write (legacy-ish code).
 
-```
-
-{% csrf_token %} 
-blah 
+```html
+<form action="/somewhere" method="POST">
+  {% csrf_token %}
+  <label>blah</label><input type="text" name="blah" />
+  <!-- etc -->
+</form>
 ```
 
 Usually I&#x27;d put the {% _csrf_token %}_ at the end. Not sure why, just the way I&#x27;ve always done it ... surely this can&#x27;t make a difference right? It can! Putting it at the bottom of the form fixed all bugs. Styling suddenly worked, form was submitted with all data and everything worked everywhere.
@@ -34,17 +36,23 @@ Usually I&#x27;d put the {% _csrf_token %}_ at the end. Not sure why, just the w
 
 \[caption id=&quot;&quot; align=&quot;alignright&quot; width=&quot;240&quot; caption=&quot;filming of the HTML music video (Photo credit: MadLabUK)&quot;][![filming of the HTML music video](./img/7204-6935959333_484df58faa_m.jpg "filming of the HTML music video")](http://www.flickr.com/photos/43963088@N03/6935959333)\[/caption] When the form is rendered that _{% csrf_token %}_ is replaced with an invisible [div tag](http://en.wikipedia.org/wiki/Span_and_div "Span and div"). For some reason this ticks off IE9&#x27;s strictness and the rest of the form isn&#x27;t considered to be a part of this element anymore. Something like this:
 
+```html
+<form method="POST" class="filter" style="display: none;">
+  <div style="display: none;">
+    <input
+      type="hidden"
+      name="csrfmiddlewaretoken"
+      value="41aeb46067bf9e800f9ce6c718265121"
+    />
+  </div>
+  <input type="hidden" name="selected" value="" />
+  <label for="dateFrom">From date:</label>
+  <input type="text" class="datepicker" name="dateFrom" readonly value="" />
+  <!-- etc. -->
+</form>
 ```
 
-    
-
-    
-    From date:
-    
-    
-```
-
-I can&#x27;t find official reference either way, but I think div&#x27;s inside forms are legal HTML, perhaps not the best looking HTML, but _p_ tags are allowed, even happen in the[form tag example on w3.org](http://www.w3.org/TR/html401/interact/forms.html#h-17.4.2), so I have no idea why IE9 would trip up on this. Perhaps someone a bit more knowledgeable of strict HTML can shed some light on this issue? For now, let&#x27;s all just be aware of this little quirk.
+I can&#x27;t find official reference either way, but I think div&#x27;s inside forms are legal HTML, perhaps not the best looking HTML, but _p_ tags are allowed, even happen in the[ form tag example on w3.org](http://www.w3.org/TR/html401/interact/forms.html#h-17.4.2), so I have no idea why IE9 would trip up on this. Perhaps someone a bit more knowledgeable of strict HTML can shed some light on this issue? For now, let&#x27;s all just be aware of this little quirk.
 
 ###### Related articles
 

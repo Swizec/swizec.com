@@ -13,7 +13,7 @@ _\[This post is part of an ongoing challenge to understand 52 papers in 52 weeks
 
 Fold as a central concept in a programming language dates from [APL](http://en.wikipedia.org/wiki/APL_%28programming_language%29 "APL (programming language)")&#x27;s reduction operator in 1962 and later [FP](http://en.wikipedia.org/wiki/Functional_programming "Functional programming")&#x27;s insertion operator in 1978. In [Haskell](http://haskell.org "Haskell (programming language)") it&#x27;s defined like this: \[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;707&quot;]![Fold in Haskell](./img/images-8825.png "Fold in Haskell") Fold in Haskell\[/caption] The paper uses Haskell for all its examples so I&#x27;m going to stick to that as well. This code tells us that _fold_ takes a function `f` of type α → β → β, a value `v` of type β, and processes a list of type \[α] to return a value of type β. It does this by replacing the nil constructor \[] with `v`. And every cons operator `:` with the function `f`. Just think of lists as long chains of cons followed by a nil. You can think of a list `[1,2,3]` as prepending each value to an existing list - `1:2:3:[]`. When you apply a &#x27;fold (+) 0&#x27; it becomes &#x27;1+2+3+0&#x27;, which just so happens to be the sum function. But that&#x27;s essentially all that fold does - it replaces the cons in lists with a supplied function and the nil constructor with a base value. There&#x27;s also a [right fold](http://en.wikipedia.org/wiki/Fold_%28higher-order_function%29 "Fold (higher-order function)"), _foldr_, which does the same, but right-to-left. Using foldl vs. foldr changes the associativity of the supplied function:
 
-```
+```haskell
 Prelude> foldl (-) 0 [1,2,3] # 0-1-2-3
 -6
 Prelude> foldr (-) 0 [1,2,3] # 1-(2-(3-0))
@@ -26,20 +26,20 @@ We can implement all the standard functions using fold using more complex functi
 
 In 1990 Malcolm was the first to systematically use the universal property of fold in his generalisation of lists to arbitrary datatypes. For finite lists it can be stated as an equivalence between two definitions of `g`. \[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;708&quot;]![Universal property](./img/images-8867.png "Universal property") Universal property\[/caption] Looking left-to-right, substituting `g` with `g = fold f v` gives you the recursive definition of _fold_, and right-to-left the two equations for `g` are exactly the assumptions to inductively prove that _g_ equals _fold f v_. The universal property is particularly useful as a **proof principle** because it encapsulates a common pattern of [inductive proof](http://en.wikipedia.org/wiki/Mathematical_induction "Mathematical induction"). Rather than mess about with induction, you can just appeal to the universal property. Let&#x27;s prove a simple equivalence:
 
-```
+```haskell
 (+1) . sum = fold (+) 1
 ```
 
 The left function is a composition of `+1` and `sum`, which sums a list then increments the result. The right function replaces every cons in a list with a `+` and the empty list with a `1`. We want to prove they will always give the same result when applied to the same list. The equation matches the right-hand side of the universal property of fold, `g = fold f v`, with `g = (+1) . sum`, `f = (+)`, and `v = 1`. With some simplification, the equation is equivalent to these:
 
-```
+```haskell
 sum   []   + 1 = 1
 sum (x:xs) + 1 = x + (sum xs + 1)
 ```
 
 Which can be verified by simple calculation: \[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;919&quot;]![Proof of sum = fold](./img/images-8945.png "Proof of sum = fold") Proof of sum = fold\[/caption] This concludes the proof. Much simpler than explicitly performing induction! For a less haskelly example, here&#x27;s what happened:
 
-```
+```javascript
 var inc = function (x) { return x+1; }
 var sum = function (x, xs) {
  return xs.length > 0 ? x + sum(xs[0], xs.slice(1)) : x;
@@ -55,20 +55,20 @@ function (xs) { return inc(sum(0, xs)); } == function (xs) { return xs.reduce(pl
 
 The **fusion property of fold** allows us to fuse the composition of an arbitrary function and _fold_ into a single _fold_. This isn&#x27;t true in general, so we use the universal property to calculate the conditions.
 
-```
+```haskell
 h . fold g w = fold f v
 ```
 
 Using the same process as above, we expand this equation into two equations.
 
-```
+```haskell
 h (fold g w   [])   = v
 h (fold g w (x:xs)) = f x (h (fold g w xs))
 ```
 
 Which we simplify with two calculations: ![](./img/images-8947.png) To get: \[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;875&quot;]![Conditions for equivalence](./img/images-8948.png "Conditions for equivalence") Conditions for equivalence\[/caption] Which basically says that, if the conditions on the left are met, then our composition of an arbitrary function and fold behaves exactly as a fold would. Now we can greatly simplify our proof of the sum equation:
 
-```
+```haskell
 (+1) . sum = fold (+) 1 
 =>
 (+1) . fold (+) 0 = fold (+) 1
@@ -76,7 +76,7 @@ Which we simplify with two calculations: ![](./img/images-8947.png) To get: \[ca
 
 Which matches the fusion property and we&#x27;re done. Simple :) We can also use universality as a **definition principle** to help us transform explicit recursion into folds. Let&#x27;s take a recursively defined sum: \[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;443&quot;]![Recursively defined sum](./img/images-8950.png "Recursively defined sum") Recursively defined sum\[/caption] We want to rewrite this into a _fold_. That is, we&#x27;re going to solve the equation `sum = fold f v` for function `f` and value `v`. Because it matches the right-hand side of the universal property, we turn it into two equations: ![](./img/images-8951.png) We can see from the first equation that `v = 0`. From the second equation we calculate a definition for `f`. ![](./img/images-8952.png) We calculated that `f = (+)` and `sum = fold (+) 0`, which is a contrived example because the definition using fold is obvious, but does a good job of showing the idea behind what we&#x27;re doing. The key step (†) above is the generalisation of `sum xs` to a fresh variable `y`. This step will feature in most such calculations and isn&#x27;t specific to _sum_. Using this process, you can even write _map_ as a _fold_:
 
-```
+```haskell
 map f = fold (λx ys → f x : ys) []
 ```
 
@@ -84,14 +84,14 @@ map f = fold (λx ys → f x : ys) []
 
 We can make _fold_ even more powerful by using it to generate tuples. Say you want a sumlength function that returns a list&#x27;s length as well as its sum:
 
-```
+```haskell
 sumlength   :: [Int] → (Int, Int)
 sumlength xs = (sum xs, length xs)
 ```
 
 Turning this function into a single _fold_ is more efficient because it only makes a single pass over the list.
 
-```
+```haskell
 sumlength = fold (λn (x, y) → (n+x, 1+y)) (0, 0)
 ```
 

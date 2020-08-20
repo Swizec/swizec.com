@@ -9,7 +9,7 @@ hero: ../../../defaultHero.jpg
 ---
 It&#x27;s been a busy few weeks since I last posted about my toying around with [project euler](http://projecteuler.net/ "Project Euler"), but never you mind. I did do some progress nontheless! HA! Just so I won&#x27;t bore you with the details, the most interesting thing I discovered is that the way I was calculating prime numbers was totally wrong. Not in the sense that it didn&#x27;t work, but in the sense that it was only fast in theory. In practice it turns out that either my implementation was completely and utterly horrible or that I simply don&#x27;t know enough about performance bottlenecks of clojure and made a boo boo somewhere. Here&#x27;s my original way of creating prime numbers and checking if a number is prime:
 
-```
+```lisp
 (defn any? [l]
   (reduce #(or %1 %2) l))
 
@@ -33,7 +33,7 @@ It&#x27;s been a busy few weeks since I last posted about my toying around with 
 
 Not exactly certain what sieve I was using here, but the idea is that a number is prime if it isn&#x27;t divisible by any primes smaller than the number you&#x27;re checking. This works great in theory because you&#x27;re always dividing with very few numbers. But turns out, there&#x27;s a much _much_ faster way of doing it:
 
-```
+```lisp
 (defn any? [l]
   (reduce #(or %1 %2) l))
 

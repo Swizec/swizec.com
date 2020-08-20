@@ -7,13 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/media-D11LdPWUcAA6SVw.png
 ---
-The other day I was dealing with some laggy UI on a project and discovered React.memo as a way of fixing it. I don&#x27;t know how long React.memo has been a thing but it&#x27;s new to me and it&#x27;s amazing.
-
-
-
-
-
-And when I say laggy UI, I mean _really_ laggy UI.
+The other day I was dealing with some laggy UI on a project and discovered React.memo as a way of fixing it. I don&#x27;t know how long React.memo has been a thing but it&#x27;s new to me and it&#x27;s amazing.And when I say laggy UI, I mean _really_ laggy UI.
 
 
 
@@ -84,8 +78,9 @@ JavaScript compares objects by reference.
 
 
 
-```
-{foo: 'bar'} === {foo: 'bar'} // false
+```undefined
+<code class="javascript">{foo: 'bar'} === {foo: 'bar'} // false
+</code>
 ```
 
 
@@ -114,8 +109,8 @@ Two ways you can approach this:
 
 
 
-```
-onChange: value => {
+```undefined
+<code class="javascript">onChange: value => {
   let { values } = this.state;
   values = [...values];
   values.push(value);
@@ -123,6 +118,7 @@ onChange: value => {
   
   this.setState({ values });
 }
+</code>
 ```
 
 
@@ -131,8 +127,8 @@ onChange: value => {
 
 
 
-```
-onChange: value => {
+```undefined
+<code class="javascript">onChange: value => {
   let { values } = this.state;
   values = [...values];
   values.push(value);
@@ -140,6 +136,7 @@ onChange: value => {
 
   window.requestIdleCallback(() => this.setState({ values }));
 }
+</code>
 ```
 
 
@@ -180,14 +177,15 @@ Like this
 
 
 
-```
-export const MemoRecursive = React.memo(
+```undefined
+<code class="javascript">export const MemoRecursive = React.memo(
   ({ values }) => {
     // render values
   },
   (prevProps, nextProps) =>
     JSON.stringify(prevProps) === JSON.stringify(nextProps)
 );
+</code>
 ```
 
 

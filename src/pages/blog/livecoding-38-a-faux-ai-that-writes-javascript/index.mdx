@@ -11,9 +11,11 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
+https://www.youtube.com/watch?v=N_k1c0sed_w
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/865295043162021889
+
+https://twitter.com/Swizec/status/865295043162021889
 
 
 
@@ -97,43 +99,45 @@ Our population kept getting stuck at a maximum far away from the result. Once ev
 
 
 
-The situation improved once we tweaked our fitness function and added constraint weights. Instead of having a series of `true`/`false` conditions, we weighted them by \\importance.
+The situation improved once we tweaked our fitness function and added constraint weights. Instead of having a series of `true`/`false` conditions, we weighted them by importance.
 
 
 
-```
+```javascript
 // We aim to maximize this value
 function fitness(code, conditions) {
-    const max = conditions.reduce((sum, { condition, weight }) => sum + weight,
-                                  0),
-          fit = conditions.map(({ condition, weight }) => Number(condition(code))*weight)
-                          .reduce((sum, fit) => sum + fit,
-                                  0);
+  const max = conditions.reduce(
+      (sum, { condition, weight }) => sum + weight,
+      0
+    ),
+    fit = conditions
+      .map(({ condition, weight }) => Number(condition(code)) * weight)
+      .reduce((sum, fit) => sum + fit, 0);
 
-    return fit/max;
+  return fit / max;
 }
 
 const Conditions = [
-    {
-        condition: code => !(run(code) instanceof Error),
-        weight: 10
-    },
-    {
-        condition: code => run(code) === 4,
-        weight: 8
-    },
-    {
-        condition: code => code !== "4",
-        weight: 2
-    },
-    {
-        condition: code => code !== 4,
-        weight: 2
-    },
-    {
-        condition: code => code.length > 4 ? 4/code.length : 1,
-        weight: 6
-    }
+  {
+    condition: (code) => !(run(code) instanceof Error),
+    weight: 10,
+  },
+  {
+    condition: (code) => run(code) === 4,
+    weight: 8,
+  },
+  {
+    condition: (code) => code !== "4",
+    weight: 2,
+  },
+  {
+    condition: (code) => code !== 4,
+    weight: 2,
+  },
+  {
+    condition: (code) => (code.length > 4 ? 4 / code.length : 1),
+    weight: 6,
+  },
 ];
 ```
 
@@ -155,30 +159,28 @@ Our evolutionary algorithm looks like this:
 
 
 
-```
+```javascript
 function* generation({ population, fitness, N }) {
-    while (true) {
-        population = rank(population, fitness);
+  while (true) {
+    population = rank(population, fitness);
 
-        // pairwise breed top 50% of population
-        population = population.concat(
-            breedPairs(_.chunk(_.take(population,
-                                 population.length/2),
-                          2)
-            ));
+    // pairwise breed top 50% of population
+    population = population.concat(
+      breedPairs(_.chunk(_.take(population, population.length / 2), 2))
+    );
 
-        population = rank(population, fitness);
+    population = rank(population, fitness);
 
-        population = _.take(population, BIGGEST_POPULATION);
+    population = _.take(population, BIGGEST_POPULATION);
 
-        yield {
-            fitness: fitness(population[0], Conditions),
-            code: population[0],
-            fitnessLast: fitness(population[population.length-1], Conditions),
-            codeLast: population[population.length-1],
-            size: population.length
-        };
-    }
+    yield {
+      fitness: fitness(population[0], Conditions),
+      code: population[0],
+      fitnessLast: fitness(population[population.length - 1], Conditions),
+      codeLast: population[population.length - 1],
+      size: population.length,
+    };
+  }
 }
 ```
 
@@ -204,8 +206,9 @@ This current approach did not produce a single working piece of code. This was t
 
 
 
-```
-" pci  s |ePke "
+```undefined
+<code>" pci  s |ePke "
+</code>
 ```
 
 

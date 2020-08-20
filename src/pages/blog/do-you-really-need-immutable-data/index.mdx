@@ -83,10 +83,10 @@ Look at something like a `sum` operation. Done the old way, it looks something l
 
 
 
-```
+```javascript
 let sum = 0;
 for (let i = 0; i < arr.length; i++) {
-    sum += arr[i]
+  sum += arr[i];
 }
 ```
 
@@ -104,8 +104,8 @@ We can fix that with a functional/immutable approach, like this:
 
 
 
-```
-let sum = arr.reduce((sum, n) => sum+n, 0)
+```javascript
+let sum = arr.reduce((sum, n) => sum + n, 0);
 ```
 
 

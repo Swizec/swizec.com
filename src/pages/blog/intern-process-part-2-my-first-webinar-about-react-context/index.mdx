@@ -7,15 +7,7 @@ redirect_from:
 categories: "Business, Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
-https&amp;#x3A;//www.youtube.com/watch?v=zCYuhqW2Qeo
-
-
-
-My first webinar! How I hate the word, but that&#x27;s what it was.
-
-
-
-The plan was to get a bunch of [prospective tech interns](https://swizec.com/blog/tech-intern-job/swizec/8454) together on a stream, teach them a React concept, and give them something to build. Sunday night, I&#x27;m seeing what they build and figuring out who I want to work with.
+https://www.youtube.com/watch?v=zCYuhqW2QeoMy first webinar! How I hate the word, but that&#x27;s what it was.The plan was to get a bunch of [prospective tech interns](https://swizec.com/blog/tech-intern-job/swizec/8454) together on a stream, teach them a React concept, and give them something to build. Sunday night, I&#x27;m seeing what they build and figuring out who I want to work with.
 
 
 
@@ -31,7 +23,7 @@ Imagine `y` is your skill and `x` is time. Slope always beats out y-intercept in
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1007281218570711040
+https://twitter.com/Swizec/status/1007281218570711040
 
 
 
@@ -55,7 +47,7 @@ We used `React.createContext()` to create a context:
 
 
 
-````
+````javascript
 const LockContext = React.createContext()
 ```
 
@@ -76,23 +68,17 @@ class ContextualThing extends React.Component {
         const { locked } = this.state;
 
         return (
-            
-
+            <div>
                  This is a lock 
-                
-
-
-                    {locked ? Locked! : "Open"}
-                
-
-
-                
+                <p style={{ fontsize: "2em" }}>
+                    {locked ? <b>Locked!</b> : "Open"}
+                </p>
+                <lockcontext class="provider" value={{ locked, togglelock: this.togglelock }}>
                     
-                        {[1, 2, 3, 2, 1].map(n => )}
-                    
-                
-            
-
+                        {[1, 2, 3, 2, 1].map(n => <togglerow n={n}>)}
+                    </togglerow><table></table>
+                </lockcontext>
+            </div>
         );
     }
 }
@@ -112,15 +98,15 @@ Each `ToggleRow` renders as many table cells as you ask it to:
 
 
 
-```
+```javascript
 const ToggleRow = ({ n }) => (
-    
-        {new Array(n).fill(0).map(_ => (
-            
-                
-            
-        ))}
-    
+  <row>
+    {new Array(n).fill(0).map((_) => (
+      <cell>
+        <locktoggle></locktoggle>
+      </cell>
+    ))}
+  </row>
 );
 ```
 
@@ -134,15 +120,15 @@ That&#x27;s because `LockToggle` is a smart context component 👇
 
 
 
-```
+```javascript
 const LockToggle = () => (
-    
-        {({ locked, toggleLock }) => (
-            
-                {locked ? "Unlock" : "Lock"}
-            
-        )}
-    
+  <lockcontext class="consumer">
+    {({ locked, toggleLock }) => (
+      <button onclick={toggleLock} style={{ fontsize: "1.5em" }}>
+        {locked ? "Unlock" : "Lock"}
+      </button>
+    )}
+  </lockcontext>
 );
 ```
 

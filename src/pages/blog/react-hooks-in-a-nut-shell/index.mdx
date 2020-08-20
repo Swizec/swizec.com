@@ -47,7 +47,7 @@ Built-in hooks cover the most common uses cases. You can build your own for ever
 
 The `useState` hook replaces pairs of state getters and setters.
 
-```
+```javascript
   class myComponent extends React.Component {
     state = {
       value: 'default'
@@ -60,20 +60,20 @@ The `useState` hook replaces pairs of state getters and setters.
     render() {
       const { value } = this.state;
       
-      return 
+      return <input value={value} onchange={handleChange}>
     }
 }
 ```
 
 👇
 
-```
+```javascript
 const myComponent = () => {
   const [value, setValue] = useState('default');
   
   const handleChange = (e) => setValue(e.target.value)
   
-  return 
+  return <input value={value} onchange={handleChange}>
 }
 ```
 
@@ -103,7 +103,7 @@ Wanna do all this only when certain props change? Gotta check for that.
 
 Class:
 
-```
+```javascript
 class myComp extends Component {
   state = {
       value: 'default'
@@ -131,14 +131,14 @@ class myComp extends Component {
     render() {
       const { value } = this.state;
       
-      return 
+      return <input value={value} onchange={handleChange}>
     }
 }
 ```
 
 👇
 
-```
+```javascript
 const myComponent = () => {
   const [value, setValue] = useState('default');
   
@@ -150,7 +150,7 @@ const myComponent = () => {
     
     useEffect(saveValue, [value]);
   
-  return 
+  return <input value={value} onchange={handleChange}>
 }
 ```
 
@@ -162,14 +162,14 @@ No need to double check with a conditional. If your effect updates the component
 
 When you return a method from `useEffect`, it acts as a `componentWillUnmount`. Listening to, say, your mouse position looks like this:
 
-```
+```javascript
 const [mouseX, setMouseX] = useState();
 const handleMouse = (e) => setMouseX(e.screenX);
 
 useEffect(() => {
-    window.addEventListener('mousemove', handleMouse);
-    return () => window.removeEventListener(handleMouse);
-})
+  window.addEventListener("mousemove", handleMouse);
+  return () => window.removeEventListener(handleMouse);
+});
 ```
 
 Neat 👌
@@ -180,15 +180,16 @@ Waiting for the day we can use this to do naughty DOM stuff in functional compon
 
 `useContext` cleans up your render prop callbacky hell.
 
-```
-
+```javascript
+<somecontext>
   {state => ...}
+</somecontext>
 ```
 
 👇
 
-```
-const state = useContext(SomeContext)
+```javascript
+const state = useContext(SomeContext);
 ```
 
 Context becomes just a value in your function. React auto subscribes you to all updates.
@@ -201,7 +202,7 @@ You don&#x27;t really have to know this one. But it comes by default and it&#x27
 
 You should [watch Ryan&#x27;s talk](https://youtu.be/wXLf18DsV-I?t=1457) to learn more about this one. Too long to explain in a nutshell 🥐 post.
 
-https&amp;#x3A;//youtu.be/wXLf18DsV-I?t=1538
+https://youtu.be/wXLf18DsV-I?t=1538
 
 <!-- /wp:html -->
 
@@ -217,7 +218,7 @@ https&amp;#x3A;//youtu.be/wXLf18DsV-I?t=1538
 
 <!-- wp:paragraph -->
 
-Willhooks change the way you write React forever? We&#x27;ll see. The internet is excited.
+Will hooks change the way you write React forever? We&#x27;ll see. The internet is excited.
 
 <!-- /wp:paragraph -->
 
@@ -233,7 +234,7 @@ You can write your own hooks. Repositories of hooks are popping up like crazy. I
 
 <!-- wp:paragraph -->
 
-Most \\importantly 👇
+Most importantly 👇
 
 <!-- /wp:paragraph -->
 

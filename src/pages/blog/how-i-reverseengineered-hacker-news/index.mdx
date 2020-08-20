@@ -65,28 +65,37 @@ Which in HTML looks like this:
 
 
 
-```
-
-    
-    
-    
-    
-        username:	
-        
-            
-        
-    
-
-    
-        password:	
-        
-            
-        
-    
-    
-    
-
-    
+```html
+<form method="post" action="login">
+  <input type="hidden" name="goto" value="news" />
+  <table border="0">
+    <tbody>
+      <tr>
+        <td>username:</td>
+        <td>
+          <input
+            type="text"
+            name="acct"
+            size="20"
+            autocorrect="off"
+            spellcheck="false"
+            autocapitalize="off"
+            autofocus
+            autocomplete="off"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>password:</td>
+        <td>
+          <input type="password" name="pw" size="20" autocomplete="off" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <input type="submit" value="login" />
+</form>
 ```
 
 
@@ -103,8 +112,8 @@ The Upvote action isn&#x27;t a form; it&#x27;s a link that looks like this:
 
 
 
-```
-
+```html
+<a id="up_14918911" onclick="return vote(event, this, "up")" href="vote?id=14918911&how=up&auth=0855997b736abc0c65600fee44fbf9bbf3bca65c&goto=news"><div class="votearrow" title="upvote"></div></a>
 ```
 
 
@@ -121,7 +130,7 @@ The `vote()` function looks like this:
 
 
 
-```
+```javascript
 function vote(ev, el, how) {
   var id = el.id.split(/_/)[1];
   var up = $('up_' + id);
@@ -129,7 +138,9 @@ function vote(ev, el, how) {
   vis($('down_' + id), how == 'un');
   var unv = '';
   if (how != 'un') {
-    unv = " | " + (how == 'up' ? 'unvote' : 'undown') + ""
+    unv = " | <a id="un_" + id
+      + "" onclick="return vote(event, this,\"un\")" href=""
+      + up.href.replace(" how="up','how=un')" +="" "'="">" + (how == 'up' ? 'unvote' : 'undown') + "</a>"
   }
   $('unv_' + id).innerHTML = unv;
   new Image().src = el.href;
@@ -204,36 +215,36 @@ To fake these requests, we use `fetch()`. Login is simple; it looks like this:
 
 
 
-```
+```javascript
 class HN {
-    BaseURL = 'https://news.ycombinator.com';
+  BaseURL = "https://news.ycombinator.com";
 
-    login(username, password) {
-        let headers = new Headers({
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Access-Control-Allow-Origin": "*"
-        });
+  login(username, password) {
+    let headers = new Headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Access-Control-Allow-Origin": "*",
+    });
 
-        return fetch(`${this.BaseURL}/login`,
-                     {
-                         method: "POST",
-                         headers: headers,
-                         body: convertRequestBodyToFormUrlEncoded({
-                             acct: username,
-                             pw: password,
-                             goto: 'news'
-                         }),
-                         mode: 'no-cors',
-                         credentials: 'include'
-                     }).then(res => res.text())
-                       .then(body => {
-                           if (body.match(/Bad Login/i)) {
-                               return false;
-                           }else{
-                               return true;
-                           }
-                       });
-    }
+    return fetch(`${this.BaseURL}/login`, {
+      method: "POST",
+      headers: headers,
+      body: convertRequestBodyToFormUrlEncoded({
+        acct: username,
+        pw: password,
+        goto: "news",
+      }),
+      mode: "no-cors",
+      credentials: "include",
+    })
+      .then((res) => res.text())
+      .then((body) => {
+        if (body.match(/Bad Login/i)) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+  }
 }
 ```
 
@@ -271,21 +282,21 @@ Each HackerNews story can have its own page. This makes our job easier. We can r
 
 
 
-```
+```javascript
 class HN {
-    // ..
-    getUpvoteURL(id) {
-        return fetch(`${this.BaseURL}/item?id=${id}`,
-                     {
-                         mode: 'no-cors',
-                         credentials: 'include'
-                     }).then(res => res.text())
-                       .then(body => {
-                           const doc = cheerio.load(body);
+  // ..
+  getUpvoteURL(id) {
+    return fetch(`${this.BaseURL}/item?id=${id}`, {
+      mode: "no-cors",
+      credentials: "include",
+    })
+      .then((res) => res.text())
+      .then((body) => {
+        const doc = cheerio.load(body);
 
-                           return doc(`#up_${id}`).attr('href');
-                       });
-    }
+        return doc(`#up_${id}`).attr("href");
+      });
+  }
 }
 ```
 
@@ -303,8 +314,8 @@ You can find the correct ID in the upvote button&#x27;s HTML. Here it is again:
 
 
 
-```
-
+```html
+<a id="up_14918911" onclick="return vote(event, this, "up")" href="vote?id=14918911&how=up&auth=0855997b736abc0c65600fee44fbf9bbf3bca65c&goto=news"><div class="votearrow" title="upvote"></div></a>
 ```
 
 
@@ -317,24 +328,26 @@ To use this link, we issue a `fetch()` request similar to the one we used to fin
 
 
 
-```
+```javascript
 class HN {
-    // ...
-    upvote(id) {
-        return this.getUpvoteURL(id)
-                   .then(url => fetch(`${this.BaseURL}/${url}`, {
-                       mode: 'no-cors',
-                       credentials: 'include'
-                   }))
-                   .then(res => res.text())
-                   .then(body => {
-                       return true;
-                   })
-                   .catch(error => {
-                       console.log(error);
-                       return false;
-                   });
-    }
+  // ...
+  upvote(id) {
+    return this.getUpvoteURL(id)
+      .then((url) =>
+        fetch(`${this.BaseURL}/${url}`, {
+          mode: "no-cors",
+          credentials: "include",
+        })
+      )
+      .then((res) => res.text())
+      .then((body) => {
+        return true;
+      })
+      .catch((error) => {
+        console.log(error);
+        return false;
+      });
+  }
 }
 ```
 

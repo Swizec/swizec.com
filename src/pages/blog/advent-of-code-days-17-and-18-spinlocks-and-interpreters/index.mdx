@@ -7,13 +7,7 @@ redirect_from:
 categories: "Haskell, Technical"
 hero: ./img/blog-wp-content-uploads-2017-12-carbon-spinlock.png
 ---
-https&amp;#x3A;//www.youtube.com/watch?v=3Eee0va5t0A
-
-
-
-Days 17 and 18 both defeated me. Star 1 was easy, Star 2 was not. Both were pretty quick to solve for the first star, though, so let&#x27;s look at that.
-
-
+https://www.youtube.com/watch?v=3Eee0va5t0ADays 17 and 18 both defeated me. Star 1 was easy, Star 2 was not. Both were pretty quick to solve for the first star, though, so let&#x27;s look at that.
 
 ## Day 17 – Spinlock
 
@@ -67,7 +61,7 @@ To find out, I built a recursive implementation of the spinlock algorithm above 
 
 
 
-```
+```haskell
 spinlock::[Int] -> Int -> Int -> Int -> Int -> (Int, [Int])
 spinlock buffer steps pos i iterations
     | i < iterations = spinlock (left ++ [i] ++ right) steps nextPos (i+1) iterations
@@ -111,7 +105,7 @@ This worked great for the `2017` iterations from Star 1.
 
 
 
-```
+```haskell
 star1::Int -> Int
 star1 steps = buffer!!pos
     where (pos, buffer) = spinlock [0] steps 0 1 2017
@@ -127,7 +121,7 @@ For Star 2, they wanted us to find the value after `0` when 50,000,000 iteration
 
 
 
-```
+```haskell
 star2::Int -> Int
 star2 steps = buffer!!(zeroAt+1)
     where (pos, buffer) = spinlock [0] steps 0 1 50000000
@@ -204,15 +198,15 @@ We start with a bunch of `registers`, which are a JavaScript `Map`.
 
 
 
-```
+```javascript
 function initRegisters() {
-    const registers = new Map(
-        "abcdefghijklmnopqrstuvwxyz".split("").map(l => [l, 0])
-    );
-    registers.set("sound", null);
-    registers.set("pointer", 0);
+  const registers = new Map(
+    "abcdefghijklmnopqrstuvwxyz".split("").map((l) => [l, 0])
+  );
+  registers.set("sound", null);
+  registers.set("pointer", 0);
 
-    return registers;
+  return registers;
 }
 ```
 
@@ -234,46 +228,46 @@ Anyway, the interpreter 👇
 
 
 
-```
+```javascript
 function execute(registers, command) {
-    const [com, val1, val2] = command.trim().split(" ");
+  const [com, val1, val2] = command.trim().split(" ");
 
-    function getVal(val) {
-        if (registers.has(val)) {
-            return registers.get(val);
-        } else {
-            return Number(val);
-        }
+  function getVal(val) {
+    if (registers.has(val)) {
+      return registers.get(val);
+    } else {
+      return Number(val);
     }
+  }
 
-    let jumped = false,
-        kill = false;
+  let jumped = false,
+    kill = false;
 
-    const commands = {
-        snd: a => registers.set("sound", getVal(a)),
-        set: (a, b) => registers.set(a, getVal(b)),
-        add: (a, b) => registers.set(a, getVal(a) + getVal(b)),
-        mul: (a, b) => registers.set(a, getVal(a) * getVal(b)),
-        mod: (a, b) => registers.set(a, getVal(a) % getVal(b)),
-        rcv: a => (
-            console.log("SOUND:", getVal("sound")),
-            (kill = true),
-            registers.set(a, getVal("sound"))
-        ),
-        jgz: (a, b) =>
-            getVal(a) > 0
-                ? ((jumped = true),
-                  registers.set("pointer", getVal("pointer") + getVal(b)))
-                : null
-    };
+  const commands = {
+    snd: (a) => registers.set("sound", getVal(a)),
+    set: (a, b) => registers.set(a, getVal(b)),
+    add: (a, b) => registers.set(a, getVal(a) + getVal(b)),
+    mul: (a, b) => registers.set(a, getVal(a) * getVal(b)),
+    mod: (a, b) => registers.set(a, getVal(a) % getVal(b)),
+    rcv: (a) => (
+      console.log("SOUND:", getVal("sound")),
+      (kill = true),
+      registers.set(a, getVal("sound"))
+    ),
+    jgz: (a, b) =>
+      getVal(a) > 0
+        ? ((jumped = true),
+          registers.set("pointer", getVal("pointer") + getVal(b)))
+        : null,
+  };
 
-    commands[com](val1, val2);
+  commands[com](val1, val2);
 
-    if (!jumped) {
-        registers.set("pointer", getVal("pointer") + 1);
-    }
+  if (!jumped) {
+    registers.set("pointer", getVal("pointer") + 1);
+  }
 
-    return [kill, registers];
+  return [kill, registers];
 }
 ```
 
@@ -307,23 +301,20 @@ With the interpreter in hand, we then have to add some looping to find the answe
 
 
 
-```
+```javascript
 function star1() {
-    let registers = initRegisters(),
-        kill = false;
-    const program = input.split("\n").filter(command => command.length > 0);
+  let registers = initRegisters(),
+    kill = false;
+  const program = input.split("\n").filter((command) => command.length > 0);
 
-    // find sound value at first non-zero rcv
-    while (
-        registers.get("pointer") >= 0 &&
-        registers.get("pointer") < program.length &&
-        !kill
-    ) {
-        [kill, registers] = execute(
-            registers,
-            program[registers.get("pointer")]
-        );
-    }
+  // find sound value at first non-zero rcv
+  while (
+    registers.get("pointer") >= 0 &&
+    registers.get("pointer") < program.length &&
+    !kill
+  ) {
+    [kill, registers] = execute(registers, program[registers.get("pointer")]);
+  }
 }
 ```
 

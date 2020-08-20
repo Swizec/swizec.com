@@ -27,9 +27,10 @@ Things like this:
 
 
 
-```
-> "0" == 0
+```undefined
+<code>> "0" == 0
 true
+</code>
 ```
 
 
@@ -38,11 +39,12 @@ And like this:
 
 
 
-```
-> true == 1
+```undefined
+<code>> true == 1
 true
 > false == 0
 true
+</code>
 ```
 
 
@@ -51,11 +53,12 @@ Even things as silly as this:
 
 
 
-```
-> new Array() == 0
+```undefined
+<code>> new Array() == 0
 true
 > [] == 0
 true
+</code>
 ```
 
 
@@ -68,8 +71,8 @@ And your linter would be right. `===` fixes all of those examples.
 
 
 
-```
-> "0" === 0
+```undefined
+<code>> "0" === 0
 false
 > true === 1
 false
@@ -79,6 +82,7 @@ false
 false
 > [] === 0
 false
+</code>
 ```
 
 
@@ -91,11 +95,12 @@ But here&#x27;s one situation where it gets tricky. Checking undefinedness:
 
 
 
-```
-> null == undefined
+```undefined
+<code>> null == undefined
 true
 > null === undefined
 false
+</code>
 ```
 
 
@@ -112,11 +117,12 @@ Here are some examples I found in my coworker&#x27;s PR. 👇
 
 
 
-```
-const url = $(elem).data('url')
+```undefined
+<code>const url = $(elem).data('url')
 if (url !== null) {
     // ...
 }
+</code>
 ```
 
 
@@ -129,10 +135,11 @@ A better approach is to use `if (url)` because `undefined` is falsey and so is a
 
 
 
-```
-function scroll({ elem, offset, duration }) {
+```undefined
+<code>function scroll({ elem, offset, duration }) {
     duration = duration !== null ? duration : 2000;
 }
+</code>
 ```
 
 
@@ -141,13 +148,14 @@ But if you call `scroll()` without duration, it&#x27;s `undefined`, and your cod
 
 
 
-```
-function get_id(widget) {
+```undefined
+<code>function get_id(widget) {
     let id = widget.id;
     if (id !== null) {
         // ...
     }
 }
+</code>
 ```
 
 
@@ -156,14 +164,15 @@ But reading an inexistent object property returns `undefined`, not `null`, and t
 
 
 
-```
-function createWidget(defaultText, onClick, markBusy) {
+```undefined
+<code>function createWidget(defaultText, onClick, markBusy) {
     new Widget({
         text: defaultText,
         onClick: onClick,
         markBusy: markBusy !== null && markBusy
     })
 }
+</code>
 ```
 
 

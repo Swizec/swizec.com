@@ -17,7 +17,7 @@ This is hyperbole, of course. System bugs _do_ happen. But not often. A programm
 
 Three weeks ago, I realized _why_ Our App(tm) didn&#x27;t work on Safari. Some of my code was using ES6&#x27;s `Map`, which Chrome supports, but Safari does not. I thought [Babel](https://babeljs.io/) would deal with that out of the box, but I was wrong. Something to do with `Map` being a semantic feature and Babel needing to use polyfills that implement `Map` in pure ES5. This should be a simple configuration tweak. Well, we were still on Babel 5 and Babel 6 had come out a month prior. In this brave new world of open-source JavaScript, where shiny toys are king and long-term-support is even rarer than developers making a living from donations, that meant all documentation for Babel 5 was gone. Wiped clean. Nowhere to be found. What do you mean you&#x27;re still using technology that&#x27;s outdated by a whole entire month!? Get with the times, daddy-o! You see, in theory, you&#x27;d want to avoid updating your build system for as long as possible. A lot of unknown unknowns can rear their ugly heads and bite you in the ass. But I had a bug to fix and a system in production. Ho boy. The upgrade path is simple: remove old packages, install new packages, tweak some configs. In the new system, you need 6 packages to do syntax transpiling _and_ semantic polyfills; like this:
 
-```
+```son
 // dependencies in package.json
     "babel-core": "^6.3.15",
     "babel-loader": "^6.2.0",
@@ -29,7 +29,7 @@ Three weeks ago, I realized _why_ Our App(tm) didn&#x27;t work on Safari. Some o
 
 That&#x27;s a lot of packages to install for one piece of Stuff, but hey, I&#x27;m sure that won&#x27;t be painful to update in two months at all … You also need to add a `babel-polyfill` entry to your Webpack config and enable the `transform-runtime` and `es2015` plugins. That&#x27;s how Webpack knows to include the polyfills and to transpile ES6 syntax into ES5.
 
-```
+```javascript
 entry: {
             // ...
             babel_polyfill: 'babel-polyfill'
@@ -51,7 +51,7 @@ loaders: [
 
 Easy enough. The code transpiled without error, the app loaded fine, and it even worked in Safari. Yass! _&quot;Yo, when you check my PR, make sure you click around a bit,&quot;_ I said to my coworker as I submitted a pull request. _&quot;It should be fine really. The only way something broke is if there was a bug in Babel 5 that we were unknowingly relying on to make our code work. I don&#x27;t foresee any issues, really. Compilers usually don&#x27;t have bugs.&quot;_ He didn&#x27;t click around. It wasn&#x27;t fine. An hour after he closed my pull request, the intern started complaining on Slack: _&quot;Hey, my code doesn&#x27;t work anymore. I don&#x27;t know what happened. I try to test this thing and it just doesn&#x27;t load.&quot;_ That&#x27;s … odd. That really shouldn&#x27;t be broken. _&quot;Did you update from latest master?&quot;_ He did. The error was short and cryptic:
 
-```
+```javascript
 TypeError: (0 , _typeof3.default) is not a function
 ```
 

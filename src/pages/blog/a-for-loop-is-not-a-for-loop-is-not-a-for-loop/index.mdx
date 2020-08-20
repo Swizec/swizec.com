@@ -15,9 +15,9 @@ For loops are kind of a big deal. So big in fact that it&#x27;s virtually imposs
 
 ## C
 
-```
+```C
 
-#include
+#include<stdio class="h">
 
 int main() {
   int i = 5;
@@ -28,17 +28,37 @@ int main() {
 
   printf("%d\n", i); // prints 5
 }
+</stdio>
 ```
 
 ## PHP
 
-```
+```php
+<!--?php
 
+$i = 5;
+
+for ($i=0; $i<2; $i++) {
+  echo "for:$i\n"; // prints 0, 1
+}
+
+echo "after:$i\n"; // prints 2
+
+$i = 5;
+
+for ($j=0; $j<2; $j++) {
+  $i = $j+1;
+  echo "for:$i\n"; // prints 1, 2
+}
+
+echo "after:$i\n"; // prints 2
+
+?-->
 ```
 
 ## Java
 
-```
+```java
 // does not compile
 
 public class For {
@@ -56,7 +76,7 @@ public class For {
 
 ## Scala
 
-```
+```scala
 
 
 object forVarReuse extends App {
@@ -72,7 +92,7 @@ object forVarReuse extends App {
 
 ## Perl
 
-```
+```perl
 
 $i = 5;
 
@@ -94,7 +114,7 @@ print "after:$i\n"; # prints 5
 
 ## Ruby
 
-```
+```ruby
 
 i = 5
 
@@ -107,28 +127,28 @@ print "after:", i, "\n" # prints 5
 
 ## JavaScript
 
-```
+```javascript
 var i = 5;
 
-for (var i=0; i<2; i++) {
-    console.log("for:"+i); // prints 0, 1
+for (var i = 0; i < 2; i++) {
+  console.log("for:" + i); // prints 0, 1
 }
 
-console.log("after:"+i); // prints 2
+console.log("after:" + i); // prints 2
 
 i = 5;
 
-for (var j=0; j<2; j++) {
-    var i = j+1;
-    console.log("for2:"+i); // prints 1, 2
+for (var j = 0; j < 2; j++) {
+  var i = j + 1;
+  console.log("for2:" + i); // prints 1, 2
 }
 
-console.log("after:"+i); // prints 2
+console.log("after:" + i); // prints 2
 ```
 
 ## CoffeeScript
 
-```
+```coffeescript
 
 i = 5
 
@@ -147,7 +167,7 @@ console.log i # prints 1
 
 ## Python
 
-```
+```python
 
 i = 5
 
@@ -165,7 +185,7 @@ print "after:", i
 
 ## Conclusion
 
-The interesting part is how differently languages of the curly-braces family behave. Some consider the for loop its own scope, many don&#x27;t. It&#x27;s interesting to compare JavaScript and Perl. They both have a way to tell a variable to be defined in the local scope, but JavaScript simply doesn&#x27;t let you do that with fors, apparently only functions have scope of their own. Ruby is similar to Perl in this regard. That little dollar sign can change the scope and that&#x27;s what let us pull off the trick since loops are \\important enough to warrant scope at all. The biggest disappointment is Python. I was honestly expecting the [list comprehension](http://en.wikipedia.org/wiki/List_comprehension "List comprehension") to have its own scope, but alas.
+The interesting part is how differently languages of the curly-braces family behave. Some consider the for loop its own scope, many don&#x27;t. It&#x27;s interesting to compare JavaScript and Perl. They both have a way to tell a variable to be defined in the local scope, but JavaScript simply doesn&#x27;t let you do that with fors, apparently only functions have scope of their own. Ruby is similar to Perl in this regard. That little dollar sign can change the scope and that&#x27;s what let us pull off the trick since loops are important enough to warrant scope at all. The biggest disappointment is Python. I was honestly expecting the [list comprehension](http://en.wikipedia.org/wiki/List_comprehension "List comprehension") to have its own scope, but alas.
 
 ###### Related articles
 

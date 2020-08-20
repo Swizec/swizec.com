@@ -19,9 +19,9 @@ Usually when people first implement timing in an application they (or rather we)
 
 Those ambiguous periods are the main thing pytz takes care of. To be perfectly honest I never even considered this problem before reading the documentation and having my mind blown. There&#x27;s just so much intricacies over keeping up to date on what each timezone is doing and what particular timezone a user is in right now ... it&#x27;s insane! Even though [pytz](http://pypi.python.org/pypi/pytz) claims they don&#x27;t take care of ambiguous periods like Poland rewinding their clocks half an hour in 1915 to start using [CET](http://en.wikipedia.org/wiki/Central_European_Time "Central European Time"), they&#x27;re still pretty vital for everything else. Of course you&#x27;ll still want to handle all times internally as UTC otherwise doing time arithmetic can get quite hairy, although pytz can supposedly handle that too ... but at least now it should be possible to correctly get the [UTC time](http://en.wikipedia.org/wiki/Coordinated_Universal_Time "Coordinated Universal Time") out of user input and then correctly display the result. An example:
 
-```
-from datetime \import datetime
-from pytz \import *
+```python
+from datetime import datetime
+from pytz import *
 
 eastern = timezone('US/Eastern')
 loc_dt = eastern.localize(datetime(2011, 11, 2, 7, 27, 0))

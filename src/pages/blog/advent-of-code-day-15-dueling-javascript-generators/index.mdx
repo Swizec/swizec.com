@@ -7,11 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/blog-wp-content-uploads-2017-12-carbon-generator.png
 ---
-https&amp;#x3A;//youtu.be/mM5iTlp-Pe4
-
-
-
-\[caption id=&quot;attachment_7972&quot; align=&quot;alignnone&quot; width=&quot;1172&quot;]![JavaScript generators are 👌](./img/blog-wp-content-uploads-2017-12-carbon-generator.png) JavaScript generators are 👌\[/caption]
+https://youtu.be/mM5iTlp-Pe4\[caption id=&quot;attachment_7972&quot; align=&quot;alignnone&quot; width=&quot;1172&quot;]![JavaScript generators are 👌](./img/blog-wp-content-uploads-2017-12-carbon-generator.png) JavaScript generators are 👌\[/caption]
 
 
 
@@ -35,15 +31,15 @@ The full generator for Day 15 looks like this 👇
 
 
 
-```
+```javascript
 function* star2generator(factor, startingValue, denominator) {
-    let val = startingValue;
-    while (true) {
-        val = (val * factor) % 2147483647;
-        if (val % denominator === 0) {
-            yield val;
-        }
+  let val = startingValue;
+  while (true) {
+    val = (val * factor) % 2147483647;
+    if (val % denominator === 0) {
+      yield val;
     }
+  }
 }
 ```
 
@@ -61,10 +57,10 @@ You get the next value like this:
 
 
 
-```
+```javascript
 const A = generator(16807, startA, denomA);
-A.next().value // some number
-A.next().value // next number
+A.next().value; // some number
+A.next().value; // next number
 ```
 
 
@@ -105,27 +101,27 @@ To count the number of matches, I used this function 👇
 
 
 
-```
+```javascript
 function countMatches({
-    startA,
-    startB,
-    generator,
-    denominators = [],
-    sampleSize
+  startA,
+  startB,
+  generator,
+  denominators = [],
+  sampleSize,
 }) {
-    const A = generator(16807, startA, denominators[0]),
-        B = generator(48271, startB, denominators[1]);
+  const A = generator(16807, startA, denominators[0]),
+    B = generator(48271, startB, denominators[1]);
 
-    let judge = 0,
-        mask = 0b00000000000000001111111111111111;
+  let judge = 0,
+    mask = 0b00000000000000001111111111111111;
 
-    for (let i = 0; i < sampleSize; i++) {
-        if ((A.next().value & mask) === (B.next().value & mask)) {
-            judge += 1;
-        }
+  for (let i = 0; i < sampleSize; i++) {
+    if ((A.next().value & mask) === (B.next().value & mask)) {
+      judge += 1;
     }
+  }
 
-    return judge;
+  return judge;
 }
 ```
 
@@ -153,8 +149,8 @@ Solving for Star 1 and Star 2 then becomes a matter of calling the `matchCount` 
 
 
 
-```
-console.log(
+```undefined
+<code>console.log(
     countMatches({
         startA: 591,
         startB: 393,
@@ -163,6 +159,7 @@ console.log(
         sampleSize: 5000000
     })
 );
+</code>
 ```
 
 

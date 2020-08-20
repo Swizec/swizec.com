@@ -59,11 +59,11 @@ That&#x27;s where Redux or MobX step in.
 
 
 
-**First**, you look at your App component&#x27;s state. Let&#x27;s say it has 5 \\important parts:
+**First**, you look at your App component&#x27;s state. Let&#x27;s say it has 5 important parts:
 
 
 
-```
+```javascript
 class App extends Component {
     state = {
         rawData: [],
@@ -93,16 +93,16 @@ In a MobX store, that looks like this:
 
 
 
-```
+```javascript
 class Store {
-    @observable rawData = [];
-    @observable filteringBy = null;
-    @observable filter = () => true;
-    @observalbe someRandomBool = false;
- 
-    @computed filteredData() {
-        return this.rawData.filter(this.filter);
-    }
+  @observable rawData = [];
+  @observable filteringBy = null;
+  @observable filter = () => true;
+  @observalbe someRandomBool = false;
+
+  @computed filteredData() {
+    return this.rawData.filter(this.filter);
+  }
 }
 ```
 
@@ -124,14 +124,14 @@ That&#x27;s why we used to put computable stuff in `this.state`. To make things 
 
 
 
-```
+```javascript
 @observer
 class App extends Component {
-    store = new Store()
- 
-    render() {
-        // change all this.state to this.store
-    }
+  store = new Store();
+
+  render() {
+    // change all this.state to this.store
+  }
 }
 ```
 

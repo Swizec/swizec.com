@@ -7,19 +7,7 @@ redirect_from:
 categories: "blockchain, Front End, Livecoding, react, redux"
 hero: ./img/blog-wp-content-uploads-2018-04-firebase-blockchain-init.png
 ---
-https&amp;#x3A;//www.youtube.com/watch?v=N9YIInvZZEU
-
-
-
-Sunday was fun. We built a thing! 🎉
-
-
-
-Well… we added a thing to the You Can Use Blockchain To Store And Share UI State proof of concept I&#x27;ve been livecoding on. I&#x27;d share a live link with you, but… err… the app broke.
-
-
-
-_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should subscribe to [My Youtube](https://www.youtube.com/TheSwizec) channel to catch me live._
+https://www.youtube.com/watch?v=N9YIInvZZEUSunday was fun. We built a thing! 🎉Well… we added a thing to the You Can Use Blockchain To Store And Share UI State proof of concept I&#x27;ve been livecoding on. I&#x27;d share a live link with you, but… err… the app broke._This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should subscribe to [My Youtube](https://www.youtube.com/TheSwizec) channel to catch me live._
 
 
 
@@ -39,7 +27,7 @@ We did get _something_ working, however. When you `dispatch` an action on `block
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/983112275526496256
+https://twitter.com/Swizec/status/983112275526496256
 
 
 
@@ -107,7 +95,7 @@ To initialize the blockchain and render a live count of nodes, you&#x27;d do som
 
 
 
-```
+```javascript
 // App.js
 
 class App extends Component {
@@ -144,25 +132,23 @@ class App extends Component {
         }
 
         return (
-        
+        <div class="App">
+            <blockchaincontext class="provider" value={this.blockchain}>
+                <introcopy>
 
-            
-                
-
-                
+                <blockchaincontext class="consumer">
                     {blockchain => (
-                        
+                        <benchmarks blockchain={blockchain}>
                     )}
-                
+                </benchmarks></blockchaincontext>
 
-                
-
+                <div style={{ padding: "3vh" }}>
             
-        
-       
+        </div>       
          );
     }
 }
+</introcopy></blockchaincontext></div>
 ```
 
 
@@ -179,17 +165,17 @@ Then inside `<IntroCopy />`, where you display the node count, you do something 
 
 
 
-```
+```javascript
 // IntroCopy.js
 
 // functional component boilerplate ...
 // ... render stuff
 
-
+<blockchaincontext class="consumer">
     {({ getWholeChain = () => [] }) => (
         There are {getWholeChain().length} nodes on the chain
     )}
-
+</blockchaincontext>
 
 // ... more other render stuff
 ```

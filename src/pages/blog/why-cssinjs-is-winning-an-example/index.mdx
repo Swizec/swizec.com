@@ -71,9 +71,7 @@ Styled components and a couple libraries [@Diegohaz](https://twitter.com/diegoha
 
 
 
-> Wow [@diegohaz](https://twitter.com/diegohaz?ref_src=twsrc%5Etfw)&#x27;s libs made this ridiculously easy to build. Blog coming soon [pic.twitter.com/Cpp7LoMrHC](https://t.co/Cpp7LoMrHC)
->
-> — Swizec Teller (@Swizec) [January 29, 2019](https://twitter.com/Swizec/status/1090146315361636352?ref_src=twsrc%5Etfw)
+https://twitter.com/Swizec/status/1090146315361636352?ref_src=twsrc%5Etfw
 
 
 
@@ -85,6 +83,8 @@ Here&#x27;s a CodeSandbox you can try.
 
 
 
+https://codesandbox.io/s/vy3ll0220
+
 
 
 Pretty isn&#x27;t it? I think it is.
@@ -95,8 +95,8 @@ Here&#x27;s all the component code 👇
 
 
 
-```
-const Step = ({ index, done, last }) => (
+```undefined
+<code lang="javascript">const Step = ({ index, done, last }) => (
   <Circle index={index} done={done} last={last}>
     {last ? "⭐️" : index + 1}
   </Circle>
@@ -109,6 +109,7 @@ export default ({ step, maxSteps }) => (
     ))}
   </Steps>
 );
+</code>
 ```
 
 
@@ -153,14 +154,15 @@ BUT ALL IS NOT LOST! Look at this beauty.
 
 
 
-```
-\import { Box, Flex, Heading, styled } from "reakit";
+```undefined
+<code class="javascript">import { Box, Flex, Heading, styled } from "reakit";
 
 const Steps = styled(Flex)`
     align-items: center;
     justify-content: center;
     padding-top: 40px;
 `;
+</code>
 ```
 
 
@@ -185,8 +187,8 @@ And then comes the `<Circle>` component. The individual steps.
 
 
 
-```
-\import { theme, palette, withProp, ifProp } from "styled-tools";
+```undefined
+<code class="javascript">import { theme, palette, withProp, ifProp } from "styled-tools";
 
 const Circle = styled(Box)`
     border-radius: 100%;
@@ -214,6 +216,7 @@ const Circle = styled(Box)`
         margin-right: 0px;
     }
 `;
+</code>
 ```
 
 
@@ -240,8 +243,9 @@ We start with a `Box`, which is just a `div`.
 
 
 
-```
-const Circle = styled(Box)`
+```undefined
+<code class="javascript">const Circle = styled(Box)`
+</code>
 ```
 
 
@@ -250,9 +254,10 @@ Then we turn it into a circle with a border.
 
 
 
-```
-    border-radius: 100%;
+```undefined
+<code class="css">    border-radius: 100%;
     border: 1px solid;
+</code>
 ```
 
 
@@ -261,8 +266,8 @@ Border and background color come from our `theme`, based on the combination of `
 
 
 
-```
-    border-color: ${ifProp(
+```undefined
+<code class="javascript">    border-color: ${ifProp(
         "done",
         withProp("index", index => palette("steps", index)),
         palette("grey", 2)
@@ -272,6 +277,7 @@ Border and background color come from our `theme`, based on the combination of `
         withProp("index", index => palette("steps", index)),
         "white"
     )}
+</code>
 ```
 
 
@@ -295,8 +301,9 @@ A similar process gives you the font color.
 
 
 
-```
-    color: ${ifProp("done", "white", palette("grey", 2))};
+```undefined
+<code class="javascript">    color: ${ifProp("done", "white", palette("grey", 2))};
+</code>
 ```
 
 
@@ -309,8 +316,8 @@ Then we have font size, bold fonts, widths and heights, and other normal CSS stu
 
 
 
-```
-    font-size: ${palette("size", 1)};
+```undefined
+<code class="javascript">    font-size: ${palette("size", 1)};
     ${theme("bold")}
     width: 30px;
     height: 30px;
@@ -322,6 +329,7 @@ Then we have font size, bold fonts, widths and heights, and other normal CSS stu
         margin-right: 0px;
     }
 `;
+</code>
 ```
 
 

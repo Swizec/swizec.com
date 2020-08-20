@@ -13,22 +13,22 @@ You know that one piece of shitty code that always makes you cringe? Something a
 
 Have a string? Want a date? JavaScript&#x27;s got your back bro!
 
-```
+```javascript
 // all of this correctly returns a millisecond timestamp since unix epoch
 // the string argument can also be passed to the date constructor by the way (returns a correct Date object)
-Date.parse("Aug 9, 1995")
-Date.parse("Wed, 09 Aug 1995 00:00:00 GMT")
-Date.parse("Wed, 09 Aug 1995 00:00:00")
-Date.parse("Thu, 01 Jan 1970 00:00:00 GMT")
-Date.parse("Thu, 01 Jan 1970 00:00:00")
-Date.parse("Thu, 01 Jan 1970 00:00:00 GMT-0400")
+Date.parse("Aug 9, 1995");
+Date.parse("Wed, 09 Aug 1995 00:00:00 GMT");
+Date.parse("Wed, 09 Aug 1995 00:00:00");
+Date.parse("Thu, 01 Jan 1970 00:00:00 GMT");
+Date.parse("Thu, 01 Jan 1970 00:00:00");
+Date.parse("Thu, 01 Jan 1970 00:00:00 GMT-0400");
 ```
 
 ## Date -&gt; String
 
 Have a date and want a string? You&#x27;re shit out of luck son. Pretty much the only date to string conversions javascript natively supports is returning a locale string, which is nonstandard and varies greatly computer to computer, and forms of standardized [ISO time](http://en.wikipedia.org/wiki/ISO_8601 "ISO 8601"). It can do this and only this in numerous ways even!
 
-```
+```javascript
 > var d = new Date()
 > d
 Mon, 12 Dec 2011 11:28:55 GMT

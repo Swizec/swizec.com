@@ -16,7 +16,7 @@ A bit of fun coding after a statistics midterm last night and the solution shoul
 ## Algorithm
 
 1. Generate cubes up to 10,000
-2. Every cube is a pair of a digit-ordered string _n^3_ and _n,_for instance _(&quot;279&quot;,9)_
+2. Every cube is a pair of a digit-ordered string _n^3_ and _n, _for instance _(&quot;279&quot;,9)_
 3. Order cubes by the string number presentation
 4. Group together all cubes with the same _n^3_
 5. Pick out groups with the size of 5
@@ -27,8 +27,8 @@ Should work in principle right? So why doesn&#x27;t the website accept my answer
 
 ## Code
 
-```
-\import Data.List
+```haskell
+import Data.List
 
 cubes::(Num a) => a -> [(String, a)]
 cubes 1 = [(show 1, 1)]

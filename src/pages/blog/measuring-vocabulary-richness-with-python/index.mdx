@@ -15,9 +15,9 @@ In preparation for a blogpost I&#x27;m going to make some time this week I found
 
 Unfortunately I don&#x27;t have the link anymore. It was a seriously random pdf I found online, the title seems to be _&quot;Quantitative [corpus linguistics](http://en.wikipedia.org/wiki/Corpus_linguistics "Corpus linguistics") with R: a practical introduction&quot;_ In hopes this blogpost saves somebody a few hours of googling when trying to measure vocabulary richness, here&#x27;s my python implementation of Yule&#x27;s K characteristic (or rather its inverse, Yule&#x27;s I)
 
-```
-from nltk.stem.porter \import PorterStemmer
-from itertools \import groupby
+```python
+from nltk.stem.porter import PorterStemmer
+from itertools import groupby
 
 def words(entry):
     return filter(lambda w: len(w) > 0,

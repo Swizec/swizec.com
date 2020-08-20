@@ -11,7 +11,7 @@ hero: ./img/iknWGlq.jpg
 
 I turned [my animated alphabet example](http://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797) into an animation of what you’re typing. New characters drop in from above, old characters drop down, and any white space gets squeezed out. Pretty cool, huh? Try it out:  Maybe I’m a weirdo nerd, but I could play with that for days. Well, okay, minutes. At least 30 seconds! What I like about this demo is that it’s a great example of declarative transitions built with React. Each letter handles its own animation, so all that the main component has to do is go through a list of characters in a loop and render a `Letter` component for each, like this:
 
-```
+```javascript
     render() {
         let { x, y } = this.props,
             transition = d3.transition()
@@ -19,13 +19,13 @@ I turned [my animated alphabet example](http://swizec.com/blog/using-d3js-transi
                            .ease(d3.easeCubicInOut);
 
         return (
-            
-                
+            <g transform="{`translate(${x}," ${y})`}="">
+                <reacttransitiongroup component="g">
                     {this.state.text.map((l, i) =>
-                        
+                        <letter letter={l} i={i} key={i} transition={transition}>
                      )}
-                
-            
+                </letter></reacttransitiongroup>
+            </g>
         );
     }
 ```
@@ -67,62 +67,74 @@ The implementation took me 55 lines of code. You can see it in its entirety at t
 
 ### Step 1 - prep the vars
 
-```
+```javascript
 // FancyText.jsx -> componentWillReceiveProps()
-  const oldText = this.state.textWithIds;
-        const newText = newProps.text.split('');
-        let indexOfChange = 0,
-            sizeOfChange = 0,
-            newLastId = this.state.lastId;
+const oldText = this.state.textWithIds;
+const newText = newProps.text.split("");
+let indexOfChange = 0,
+  sizeOfChange = 0,
+  newLastId = this.state.lastId;
 ```
 
 `oldText` is the current array of `(char, id)` pairs, `newText` becomes an array of characters in the new string. We initiate `indexOfChange` and `sizeOfChange` to `0`. `this.state.lastId` is where we keep a running tally of new characters. Think of it as an auto increment ID.
 
 ### Step 2 - find the change
 
-```
+```javascript
 // FancyText.jsx -> componentWillReceiveProps()
 // find change
-for (; newText[indexOfChange] == (oldText[indexOfChange] && oldText[indexOfChange][0]); indexOfChange++);
+for (
+  ;
+  newText[indexOfChange] ==
+  (oldText[indexOfChange] && oldText[indexOfChange][0]);
+  indexOfChange++
+);
 ```
 
 Looks like old school C code, doesn’t it? We keep incrementing `indexOfChange` until we find a character mismatch between the new and old text. Then we know where the insertion or deletion begins.
 
 ### Step 3 - calculating size of change
 
-```
+```javascript
 // FancyText.jsx -> componentWillReceiveProps()
 
-        // calculate size of change
-        if (newText.length > oldText.length) {
-            while (newText[indexOfChange+sizeOfChange] != (oldText[indexOfChange] && oldText[indexOfChange][0])
-                    && indexOfChange+sizeOfChange < newText.length) {
-                        sizeOfChange = sizeOfChange+1;
-            }
-        }else{
-            while (newText[indexOfChange] != (oldText[indexOfChange+sizeOfChange] && oldText[indexOfChange+sizeOfChange][0])
-                    && indexOfChange+sizeOfChange < oldText.length) {
-                        sizeOfChange = sizeOfChange+1;
-            }
-        }
+// calculate size of change
+if (newText.length > oldText.length) {
+  while (
+    newText[indexOfChange + sizeOfChange] !=
+      (oldText[indexOfChange] && oldText[indexOfChange][0]) &&
+    indexOfChange + sizeOfChange < newText.length
+  ) {
+    sizeOfChange = sizeOfChange + 1;
+  }
+} else {
+  while (
+    newText[indexOfChange] !=
+      (oldText[indexOfChange + sizeOfChange] &&
+        oldText[indexOfChange + sizeOfChange][0]) &&
+    indexOfChange + sizeOfChange < oldText.length
+  ) {
+    sizeOfChange = sizeOfChange + 1;
+  }
+}
 ```
 
 Here we have two different branches - one for insertion and one for deletion. They both use the same principle and have small differences based on which characters to compare. We keep increasing `sizeOfChange` until `indexOfChange+sizeOfChange` either finds a character that matches in both strings, or until it runs out of characters to check. The difference between insertion and deletion is that we’re shifting the lookup index of either `newText` or `oldText`.
 
 ### Step 4 - copying same section
 
-```
+```javascript
 // FancyText.jsx -> componentWillReceiveProps()
 
 // use existing ids up to point of change
-d3.range(0, indexOfChange).forEach((i) => newText[i] = oldText[i]);
+d3.range(0, indexOfChange).forEach((i) => (newText[i] = oldText[i]));
 ```
 
 `d3.range` creates an array of indexes from `0` to `indexOfChange`. We loop through it and overwrite `newText` with existing `(char, id)` pairs from `oldText`.
 
 ### Step 5 - add new (char, id) pairs
 
-```
+```javascript
 // FancyText.jsx -> componentWillReceiveProps()
 
       // use new ids for additions
@@ -137,30 +149,30 @@ If the change is an insertion, we go from `indexOfChange` to `indexOfChange+size
 
 ### Step 6 - shift remaining (char, id) pairs
 
-```
+```javascript
 // FancyText.jsx -> componentWillReceiveProps()
 
-        if (newText.length > oldText.length) {
-            // insertion …
+if (newText.length > oldText.length) {
+  // insertion …
 
-            // use existing ids from change to end
-            d3.range(indexOfChange+sizeOfChange, newText.length).forEach((i) =>
-                newText[i] = oldText[i-sizeOfChange]);
-        }else{
-            // use existing ids from change to end, but skip what's gone
-            d3.range(indexOfChange, newText.length).forEach((i) =>
-                newText[i] = oldText[i+sizeOfChange]);
-        }
+  // use existing ids from change to end
+  d3.range(indexOfChange + sizeOfChange, newText.length).forEach(
+    (i) => (newText[i] = oldText[i - sizeOfChange])
+  );
+} else {
+  // use existing ids from change to end, but skip what's gone
+  d3.range(indexOfChange, newText.length).forEach(
+    (i) => (newText[i] = oldText[i + sizeOfChange])
+  );
+}
 ```
 
 Here we again have two branches: one for insertion, one for deletion. Both copy `(char, id)` pairs from `oldText` to `newText`, but the shift happens in different directions. When inserting, we have to shift the index by `sizeOfChange` to the right. When deleting, we shift the index to the left.
 
-```
+```javascript
 // FancyText.jsx -> componentWillReceiveProps()
 
-        this.setState({text: newProps.text,
-                       textWithIds: newText,
-                       lastId: newLastId});
+this.setState({ text: newProps.text, textWithIds: newText, lastId: newLastId });
 ```
 
 We have an updated list of `(char, id)` pairs in `newText`. It reflects the updated text value while keeping all ID assignments stable throughout the process. Pretty neat. We use `this.setState` so that when React calls `render()` on our `FancyText` component, it will use the updated state. `componentWillReceiveProps` is the only lifecycle method where calling `setState` does not trigger a re-render. Neat, huh?
@@ -169,17 +181,17 @@ We have an updated list of `(char, id)` pairs in `newText`. It reflects the upda
 
 There’s one more thing. We have to update how rendering happens. Invoking the `Letter` component looks like this now:
 
-```
+```javascript
 // FancyText.jsx -> render()
 
  return (
-            
-                
+            <g transform="{`translate(${x}," ${y})`}="">
+                <reacttransitiongroup component="g">
                     {this.state.textWithIds.map(([l, id], i) =>
-                        
+                        <letter letter={l} i={i} key={id} transition={transition}>
                      )}
-                
-            
+                </letter></reacttransitiongroup>
+            </g>
         );
 ```
 

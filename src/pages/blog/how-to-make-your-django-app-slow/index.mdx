@@ -24,7 +24,7 @@ And that&#x27;s where it all gets ever so slightly weird. When you choose anythi
 
 In light of what I&#x27;ve learned about [unit testing being for lazy people](http://swizec.com/blog/unit-testing-is-for-lazy-people/swizec/3752 "Unit testing is for lazy people") last week, I decided to set up a [unit test](http://en.wikipedia.org/wiki/Unit_testing "Unit testing") that is actually an [integration test](http://en.wikipedia.org/wiki/Integration_testing "Integration testing") and most likely isn&#x27;t either of those since it&#x27;s some sort of benchmark. But it goes in [django](http://www.djangoproject.com "Django (Web framework)")&#x27;s testing framework, the python module behind that is called unittest, so I&#x27;m calling it a unit test.
 
-```
+```python
     def test_date_range(self):
         t1 = datetime.now()
         response = self.c.post('/accounts/dashboard/',

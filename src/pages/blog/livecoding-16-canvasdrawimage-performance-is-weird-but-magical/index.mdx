@@ -9,7 +9,7 @@ hero: ../../../defaultHero.jpg
 ---
 _This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Shorter than 500 words. With pictures. You can follow my channel, [here](https://livecoding.tv/swizec). New content almost **every Sunday at 2pm PDT**. There’s live chat ?_  This week, I had the charisma of a peeled potato. The livestream started with 6 people in the chat, and it ended with 2. Usually it ends with … more. So sad. BUT! We learned stuff about `canvas.drawImage`, _and_ I poked around after the stream and made this glorious bastard. 14,000 smoothly animated particles! \\o/ \[caption id=&quot;&quot; align=&quot;aligncenter&quot; width=&quot;853&quot;]![](./img/eSfblPT.gif) 14,000 animated particle minions\[/caption] Cool, huh? Such a shame it didn’t work during the stream. Then 3 people would’ve stayed! The first thing we tried was the concept of sprites. Instead of doing `.arc` and `.stroke` for every particle, you do it once, then copy-pasta that particle to other places like this:
 
-```
+```javascript
 // draw a sprite particle in componentDidMount
 this.context.beginPath();
 this.context.arc(1.5, 1.5, 1, 0, 2*Math.PI, false);
@@ -26,7 +26,7 @@ drawParticle(particle) {
 
 Using `.drawImage` like this tells canvas to take pixels from the top left corner and copy them to a new place. A fast operation in theory, but something went wrong for us. \[caption id=&quot;&quot; align=&quot;aligncenter&quot; width=&quot;853&quot;]![](./img/902lShK.gif) Slow drawImage\[/caption] Terrible. Even worse than before. Copying those few pixels thousands of times grinds our animation to a halt. With a few thousand elements, each frame render takes a few seconds. But at least the `.drawImage`. approach makes it easy to render arbitrary images instead of particles. Instead of using `this.canvas` as the source, you can use an arbitrary `Image()` object, which you can fill with an image from any URL on the internet. \[caption id=&quot;&quot; align=&quot;aligncenter&quot; width=&quot;853&quot;]![](./img/K3JIWBY.gif) Minion Sprites\[/caption] Strange … that feels smoother, doesn’t it? I’m not going crazy, right? Anyway, there’s only one thing left to do: decouple physics from frame rate. A big part of why the animation feels so slow is that we only calculate new particle positions once per frame, which makes sense because we’re only drawing them once per frame. Our frame rate is not up to snuff for that. We’re dropping frames, so we have to compensate for that in our calculation. The idea is that for each drawn frame, we have to pretend like multiple physics frames happened. Fixing physics happens in the reducer and looks like this:
 
-```
+```javascript
 // reducer
 
 case ‘TIME_TICK’:

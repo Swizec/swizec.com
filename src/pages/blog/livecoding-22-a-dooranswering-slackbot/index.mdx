@@ -32,24 +32,24 @@ The bright side is that you can see all my API keys in the livecoding video. Iâ€
 
 When Twilio receives a phone call, it posts to our webhook on `<server>/call`. This is the start of our user experience. We reply with `Hello! State your name, then press anything`. Like this:
 
-```
-router.post('/call', function (req, res, next) {
-    const caller = req.body.Caller;
-    const callSid = req.body.CallSid;
+```javascript
+router.post("/call", function (req, res, next) {
+  const caller = req.body.Caller;
+  const callSid = req.body.CallSid;
 
-    let twiml = new twilio.TwimlResponse();
+  let twiml = new twilio.TwimlResponse();
 
-    twiml.say('Hello! State your name, then press any key.', {voice: 'alice'});
+  twiml.say("Hello! State your name, then press any key.", { voice: "alice" });
 
-    twiml.record({
-        action: `/call/recording/${callSid}`,
-        //transcribe: true,
-        //transcribeCallback: `/call/recording/${callSid}`,
-        maxLength: 60
-    });
+  twiml.record({
+    action: `/call/recording/${callSid}`,
+    //transcribe: true,
+    //transcribeCallback: `/call/recording/${callSid}`,
+    maxLength: 60,
+  });
 
-    res.type('text/xml');
-    res.send(twiml.toString());
+  res.type("text/xml");
+  res.send(twiml.toString());
 });
 ```
 
@@ -57,43 +57,45 @@ That `twiml` stuff constructs a response using TwiML, a Twilio-extended XML lang
 
 We ask Twilio to record a response and send the audio clip to our `/call/recording/<id>` API. In that API, we send a Slack text and put the caller on hold.
 
-```
-router.post('/call/recording/:callSid', (req, res, next) => {
-    const callSid = req.params.callSid;
-    const twiml = new twilio.TwimlResponse();
-    const recordingUrl = req.body.RecordingUrl;
+```javascript
+router.post("/call/recording/:callSid", (req, res, next) => {
+  const callSid = req.params.callSid;
+  const twiml = new twilio.TwimlResponse();
+  const recordingUrl = req.body.RecordingUrl;
 
-    let data = {
-        attachments: [{
-            fallback: 'Somebody is at the door',
-            title: 'Somebody is at the door',
-            title_link: recordingUrl,
-            text: 'Click link to hear the recording',
-            callback_id: `door_open:${callSid}`,
-            actions: [
-                {
-                    name: 'open_door',
-                    text: 'Let them in',
-                    type: 'button',
-                    value: 'open_door'
-                },
-                {
-                    name: 'deny_access',
-                    text: 'No.',
-                    type: 'button',
-                    value: 'deny_access'
-                }
-            ]
-        }]
-    };
+  let data = {
+    attachments: [
+      {
+        fallback: "Somebody is at the door",
+        title: "Somebody is at the door",
+        title_link: recordingUrl,
+        text: "Click link to hear the recording",
+        callback_id: `door_open:${callSid}`,
+        actions: [
+          {
+            name: "open_door",
+            text: "Let them in",
+            type: "button",
+            value: "open_door",
+          },
+          {
+            name: "deny_access",
+            text: "No.",
+            type: "button",
+            value: "deny_access",
+          },
+        ],
+      },
+    ],
+  };
 
-    webSlack.chat.postMessage('#bot-testing', '', data, () => {
-        twiml.say('Thank you. Please hold.', {voice: 'alice'});
-        twiml.pause(240);
+  webSlack.chat.postMessage("#bot-testing", "", data, () => {
+    twiml.say("Thank you. Please hold.", { voice: "alice" });
+    twiml.pause(240);
 
-        res.type('text/xml');
-        res.send(twiml.toString());
-    });
+    res.type("text/xml");
+    res.send(twiml.toString());
+  });
 });
 ```
 

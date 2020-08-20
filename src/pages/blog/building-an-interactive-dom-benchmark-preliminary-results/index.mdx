@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=Ukm3mRWZtCk
+https://www.youtube.com/watch?v=Ukm3mRWZtCk
 
 
 
@@ -95,7 +95,7 @@ The core of this benchmark is the render code. Drops all nodes and renders from 
 
 
 
-```
+```javascript
     naiveRender() {
         let start = new Date();
         // remove all existing nodes
@@ -117,7 +117,7 @@ The core of this benchmark is the render code. Drops all nodes and renders from 
         this.times.push(end - start);
 
         // update meta info
-        this.refs.time.innerHTML = `${end - start}ms`;
+        this.refs.time.innerHTML = `<code>${end - start}ms</code>`;
         this.refs.currentCount.innerHTML = this.nodes.length;
         this.refs.avgTime.innerHTML = this.averageTime;
     }
@@ -157,23 +157,23 @@ You can see the whole [benchmark on GitHub](https://github.com/Swizec/dom-benchm
 
 
 
-```
-    prepend = () => {
-        let nodes = this.newNodes,
-            scratchpad = this.refs.scratchpad;
-        this.nodes = [...nodes, ...this.nodes];
+```javascript
+prepend = () => {
+  let nodes = this.newNodes,
+    scratchpad = this.refs.scratchpad;
+  this.nodes = [...nodes, ...this.nodes];
 
-        let start = new Date();
+  let start = new Date();
 
-        nodes.map(k => {
-            let node = document.createElement("div");
-            node.appendChild(document.createTextNode(k));
-            return node;
-        });
-        scratchpad.prepend(nodes);
+  nodes.map((k) => {
+    let node = document.createElement("div");
+    node.appendChild(document.createTextNode(k));
+    return node;
+  });
+  scratchpad.prepend(nodes);
 
-        this.updateMeta(start);
-    };
+  this.updateMeta(start);
+};
 ```
 
 

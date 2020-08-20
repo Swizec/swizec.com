@@ -9,7 +9,7 @@ hero: ./img/7082-7297820998_d94789a144_m.jpg
 ---
 \[caption id=&quot;&quot; align=&quot;alignright&quot; width=&quot;240&quot;][![Bitcoin Magazine](./img/7082-7297820998_d94789a144_m.jpg "Bitcoin Magazine")](http://www.flickr.com/photos/22823034@N00/7297820998) Bitcoin Magazine (Photo credit: zcopley)\[/caption] Yesterday everything went so comically wrong I just have to share. This post might be more a confession than a tale of warning, you be the judge. My objective, convert prices in USD to prices in bitcoin. Simple. Especially after I discovered someone&#x27;s already made a [gem that talks to the MtGox exchange](https://github.com/sferik/mtgox) and tells me how much a single BTC is worth. All I had to do was this:
 
-```
+```console
 Gemfile:
 gem 'mtgox'
 
@@ -21,16 +21,16 @@ price/MtGox.ticker.sell
 
 Simple, right? Because I like to make sure I&#x27;m working from a sane state I first ran the test suite. [Ruby](http://www.ruby-lang.org/ "Ruby (programming language)") core dump. Right, I&#x27;ve been having these problems randomly for about a week now and they usually go away if you run the tests twice or thrice. This time, it just did not work. I got a ruby core dump, _you have probably encountered a ruby bug_ every single time. No wonder! My Ruby interpreter is going to be a year old in a few days! Let&#x27;s update. It all went downhill from that. And not in a pleasant adrenaline rush kind of way either. After about an hour of fiddling with RVM and Ruby versions and aliasing things from _~/.rvm/bin/_ to _/usr/bin/_ the tests are finally running and I can begin. Mtgox is not defined. Hmm ... okay then. I thought Rails automagically loaded all gems specified in the Gemfile. A quick google later and I discovered that I can list all loaded gems with _Gem.loaded_specs.keys_. Sure thing, the gem was loaded. Right, let&#x27;s make a separate ruby file and make sure things are working.
 
-```
+```ruby
 require 'rubygems'
 require 'mtgox'
 
 puts Mtgox.ticker.sell
 ```
 
-No such gem &quot;mtgox&quot;. Grrrr, okay fine. _gem install mtgox_ ... already installed, wtf are you doing Swizec, you have that? Oh right, I did just update my Ruby stuff and maybe broke the environment and require paths are confused. Let&#x27;s try this on my mac, I haven&#x27;t done any fiddling there. The mtgox gem only works with Ruby 1.9.2+, you have 1.8.7 ... that&#x27;s what you get for using your expensive laptop as a Skype and [IRC](http://en.wikipedia.org/wiki/Internet_Relay_Chat "Internet Relay Chat") machine. I can just update this, no problem! Your Homebrew is out of date. Your [XCode](http://developer.apple.com/tools/xcode/ "Xcode") does not exist. I have no idea what you&#x27;re trying to do! Grargh. Fiddle fiddle fiddle and I eventually get Homebrew installed after at least an hour of _effort_. Let&#x27;s try that RVM thing once again. After several fails with automake and sometimes just simply saying _&quot;Hey, an error happened&quot;_and the log looking perfectly fine I finally got it to start installing Ruby.
+No such gem &quot;mtgox&quot;. Grrrr, okay fine. _gem install mtgox_ ... already installed, wtf are you doing Swizec, you have that? Oh right, I did just update my Ruby stuff and maybe broke the environment and require paths are confused. Let&#x27;s try this on my mac, I haven&#x27;t done any fiddling there. The mtgox gem only works with Ruby 1.9.2+, you have 1.8.7 ... that&#x27;s what you get for using your expensive laptop as a Skype and [IRC](http://en.wikipedia.org/wiki/Internet_Relay_Chat "Internet Relay Chat") machine. I can just update this, no problem! Your Homebrew is out of date. Your [XCode](http://developer.apple.com/tools/xcode/ "Xcode") does not exist. I have no idea what you&#x27;re trying to do! Grargh. Fiddle fiddle fiddle and I eventually get Homebrew installed after at least an hour of _effort_. Let&#x27;s try that RVM thing once again. After several fails with automake and sometimes just simply saying _&quot;Hey, an error happened&quot; _and the log looking perfectly fine I finally got it to start installing Ruby.
 
-```
+```console
 ruby-1.9.3-p392 - #configuring........
 ruby-1.9.3-p392 - #compiling.
 ruby-1.9.3-p392 - #installing .

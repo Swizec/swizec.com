@@ -13,28 +13,28 @@ Working on a complicated frontend web app, Backbone soon becomes unwieldy. Route
 
 [Backbone.SubRoute](http://geekdave.com/2012/04/05/module-specific-subroutes-in-backbone/) makes this approach possible by letting you create Backbone routers attached at a certain path in the URL. By doing something like `var bla = new SubBla("/bla", …)` you create a self-contained Backbone app that handles everything under `/bla` and doesn&#x27;t care about the outside world. We didn&#x27;t like how the official docs recommend going about this, so we made it automagical-er. A simple `app_skeleton.js` file holds the entire application together and loads modules when they&#x27;re needed.
 
-```
-var YourApp = window.YourApp = {Routers: {}};
+```javascript
+var YourApp = (window.YourApp = { Routers: {} });
 
 YourApp.Router = Backbone.Router.extend({
-    routes: {
-        "": "invokeRootModule",
-        ":module(/*subroute)" : "invokeModule"
-    },
+  routes: {
+    "": "invokeRootModule",
+    ":module(/*subroute)": "invokeModule",
+  },
 
-    invokeRootModule: function () {
-        this.invokeModule("root");
-    },
+  invokeRootModule: function () {
+    this.invokeModule("root");
+  },
 
-    invokeModule: function (module, subroute) {
-        module = module.toLowerCase().capitalize();
+  invokeModule: function (module, subroute) {
+    module = module.toLowerCase().capitalize();
 
-        if (!YourApp.Routers[module]) {
-            YourApp.Routers[module] = 
-                new YourApp[module].Router(module.toLowerCase()+"/",
-                                           {createTrailingSlashRoutes: true});
-        }
+    if (!YourApp.Routers[module]) {
+      YourApp.Routers[module] = new YourApp[
+        module
+      ].Router(module.toLowerCase() + "/", { createTrailingSlashRoutes: true });
     }
+  },
 });
 ```
 
@@ -44,24 +44,23 @@ We agree to register all our modules as `window.YourApp.Module.Router`. This let
 
 Modules work the same as standalone Backbone applications. They have views and collections and models and everything is held together by a router. You just have to conform to what app skeleton expects. A simple module might look like this:
 
-```
+```javascript
 (function ($) {
-    YourApp.Root = {};
+  YourApp.Root = {};
 
-    YourApp.Root.Router = Backbone.SubRoute.extend({
-        routes: {
-            "(:step)": "step"
-        },
+  YourApp.Root.Router = Backbone.SubRoute.extend({
+    routes: {
+      "(:step)": "step",
+    },
 
-        initialize: function () {
-            // do stuff
-        },
+    initialize: function () {
+      // do stuff
+    },
 
-        step: function () {
-            // something for this step
-        }
-    });
-
+    step: function () {
+      // something for this step
+    },
+  });
 })(jQuery);
 ```
 
@@ -71,7 +70,7 @@ Modules work the same as standalone Backbone applications. They have views and c
 
 Let&#x27;s make things interesting; the module is called `Root` because it&#x27;s going to handle submodules of its own - funnel steps in our case. `Root` loads them on the home page, `app_skeleton` loads them on standalone pages. For some reason dynamically instantiating submodules was not an option in this case. Not sure why, but it probably had to do with listening to events between submodules. Yes, unclean, but there&#x27;s no reason to go overboard with architecture principles. Sometimes you just have to get shit done. Root&#x27;s initialize becomes something like this:
 
-```
+```javascript
         initialize: function () {
             this.subrouters = {};
 
@@ -87,7 +86,7 @@ Let&#x27;s make things interesting; the module is called `Root` because it&#x27;
 
 Every subrouter is instantiated on initialize. If we want to change our views when particular submodules are active, we have to listen to their `route` events because they steal routing from their parent. For instance, we had to make sure the accordion was visible, splash step was hidden and so on.
 
-```
+```javascript
         __listenToSubrouters: function () {
             _.keys(this.subrouters).map(_.bind(function (router) {
                 this.listenTo(this.subrouters[router], 
@@ -102,7 +101,7 @@ Every subrouter is instantiated on initialize. If we want to change our views wh
 
 `__listenToSubrouters` goes through all the instantiated routers and makes sure to call the `step` function when a submodule does something. The `step` function becomes something like this:
 
-```
+```javascript
         step: function(step, subpath, options) {
             // do view stuff here
 

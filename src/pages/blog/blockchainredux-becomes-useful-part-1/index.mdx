@@ -7,11 +7,7 @@ redirect_from:
 categories: "blockchain, Front End, Livecoding, redux, Technical"
 hero: ./img/blog-wp-content-uploads-2018-04-Screen-Shot-on-2018-04-03-at-124014.png
 ---
-https&amp;#x3A;//www.youtube.com/watch?v=D3WH5nI9Nj4
-
-
-
-Remember my [blockchain-redux](https://swizec.com/blog/blockchain-redux-experiment-part-2/swizec/8055) project from December? Probably not.
+https://www.youtube.com/watch?v=D3WH5nI9Nj4Remember my [blockchain-redux](https://swizec.com/blog/blockchain-redux-experiment-part-2/swizec/8055) project from December? Probably not.
 
 
 
@@ -39,7 +35,7 @@ My ultimate goal is to give you this 👇
 
 
 
-1. `\import { createStore } from 'blockchain-redux'`
+1. `import { createStore } from 'blockchain-redux'`
 2. `blockchain = createStore(rootReducer)`
 3. `blockchain.dispatch()` and `blockchain.getState()`
 4. You have a globally distributed validated data store
@@ -78,7 +74,7 @@ Each block holds data that looks like this:
 
 
 
-```
+```javascript
 {
     "vanilla": {
         "prepend1000": [35, 92, 31, 33, 33, 7],
@@ -136,17 +132,17 @@ First 2 steps aren&#x27;t too hard:
 
 
 
-```
+```javascript
 // App.js
-\import { createStore, firebaseMiddleware } from "blockchain-redux";
-\import * as firebase from "firebase";
+import { createStore, firebaseMiddleware } from "blockchain-redux";
+import * as firebase from "firebase";
 
 class App extends Component {
     blockchain = {};
 
     componentDidMount = async () => {
         const FirebaseApp = firebase.initializeApp({
-            apiKey: "",
+            apiKey: "<api key="">",
             databaseURL: "https://blockchain-dom-benchmark.firebaseio.com",
             projectId: "blockchain-dom-benchmark"
         });
@@ -165,6 +161,7 @@ class App extends Component {
     componentWillUnmount() {
         this.unsubscribe();
     }
+</api>
 ```
 
 
@@ -193,9 +190,9 @@ We use the new React 16.3 context API to pass the chain to child components.
 
 
 
-```
+```javascript
 // BlockchainContext.js
-\import React from "react";
+import React from "react";
 
 const BlockchainContext = React.createContext({});
 
@@ -204,7 +201,7 @@ export default BlockchainContext;
 
 
 
-We create a new context in a separate file. This allows us to \\import it in other components so we can define consumers.
+We create a new context in a separate file. This allows us to import it in other components so we can define consumers.
 
 
 
@@ -212,14 +209,14 @@ In App.js, we set its value like this:
 
 
 
-```
+```javascript
 // App.js
 render() {
-    return 
-            
+    return <blockchaincontext class="provider" value={this.blockchain}>
+            <introcopy>
 
-            
-        
+            <benchmarks>
+        </benchmarks></introcopy></blockchaincontext>
 }
 ```
 
@@ -237,28 +234,24 @@ In `<IntroCopy>`, we render the current length of our blockchain like this:
 
 
 
-```
-\import BlockchainContext from "./BlockchainContext";
+```javascript
+import BlockchainContext from "./BlockchainContext";
 
 export default () => (
-    
-        
-
-            
-
-                Let's benchmark the DOM{" "}
+    <react class="fragment">
+        <div class="App-heading App-flex">
+            <h2>
+                Let's benchmark the <span class="App-react">DOM</span>{" "}
                 together
-            
-
-        
-
-        
-
-            
+            </h2>
+        </div>
+        <div class="App-instructions App-flex">
+            <blockchaincontext class="consumer">
                 {({ getWholeChain = () => [] }) => (
                     There are {getWholeChain().length} nodes on the chain
                 )}
-            
+            </blockchaincontext>
+</div></react>
 ```
 
 
@@ -287,7 +280,7 @@ Adding new benchmark values to the chain works via action dispatchers. Just like
 
 
 
-```
+```javascript
 // benchmarks/VanillaBenchmark.js
 
 updateValues() {
@@ -311,14 +304,14 @@ The overall `<Benchmarks />` component takes this callback and dispatches an act
 
 
 
-```
+```javascript
 addToBenchmark = ({ name, type, value }) => {
-    this.props.blockchain.dispatch({
-        actionType: "ADD_BENCHMARK",
-        name,
-        type,
-        value
-    });
+  this.props.blockchain.dispatch({
+    actionType: "ADD_BENCHMARK",
+    name,
+    type,
+    value,
+  });
 };
 ```
 
@@ -332,30 +325,30 @@ Our reducer for this example doesn&#x27;t do much more than concat values to arr
 
 
 
-```
-const benchmarkReducer = function(name) {
-    return function(state = defaultState, action) {
-        if (name !== action.name) {
-            return state;
-        }
+```javascript
+const benchmarkReducer = function (name) {
+  return function (state = defaultState, action) {
+    if (name !== action.name) {
+      return state;
+    }
 
-        switch (action.actionType) {
-            case "ADD_BENCHMARK":
-                return Object.assign(state, {
-                    [action.type]: [...state[action.type], action.value]
-                });
-            default:
-                return state;
-        }
-    };
+    switch (action.actionType) {
+      case "ADD_BENCHMARK":
+        return Object.assign(state, {
+          [action.type]: [...state[action.type], action.value],
+        });
+      default:
+        return state;
+    }
+  };
 };
 
 export default combineReducers({
-    vanilla: benchmarkReducer("vanilla"),
-    smart: benchmarkReducer("smart"),
-    react: benchmarkReducer("react"),
-    preact: benchmarkReducer("preact"),
-    vue: benchmarkReducer("vue")
+  vanilla: benchmarkReducer("vanilla"),
+  smart: benchmarkReducer("smart"),
+  react: benchmarkReducer("react"),
+  preact: benchmarkReducer("preact"),
+  vue: benchmarkReducer("vue"),
 });
 ```
 

@@ -7,27 +7,7 @@ redirect_from:
 categories: "Back End, Front End, Technical"
 hero: ./img/techletter.app-screenshot-1585240252506.png
 ---
-You should always keep development and production separate my friend, but how do you pull that off when everyone has your back and tries to keep your app secure?
-
-
-
-wait what 🤨
-
-
-
-Here&#x27;s the problem 👉
-
-
-
-You&#x27;ve built a cool app. Static JAM on the frontend, Serverless functions on the backend, nearly free to host, super fast to load. It&#x27;s amazing and you&#x27;re proud as heck.
-
-
-
-Time to show off!
-
-
-
-![show_off giphy](./img/media-QugrBeDxEFuDfooN11-giphy.gif)
+You should always keep development and production separate my friend, but how do you pull that off when everyone has your back and tries to keep your app secure?wait what 🤨Here&#x27;s the problem 👉You&#x27;ve built a cool app. Static JAM on the frontend, Serverless functions on the backend, nearly free to host, super fast to load. It&#x27;s amazing and you&#x27;re proud as heck.Time to show off!![show_off giphy](./img/media-QugrBeDxEFuDfooN11-giphy.gif)
 
 
 
@@ -47,7 +27,7 @@ Using the demo app from [ServerlessReact.Dev](https://serverlessreact.dev) for e
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252506.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=yaml&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=service%3A%20markdownlandingpage%0A%0Aprovider%3A%0A%20%20%20%20name%3A%20aws%0A%20%20%20%20runtime%3A%20nodejs12.x%0A%20%20%20%20stage%3A%20dev%20%23%20this%20is%20the%20\important%20bit%0A%20%20%20%20environment%3A%0A%20%20%20%20%20%20%20%20USER_TABLE%3A%20%24%7Bself%3Aservice%7D-users-%24%7Bself%3Aprovider.stage%7D%0A%0Afunctions%3A%0A%20%20%20%20graphql%3A%0A%20%20%20%20%20%20%20%20handler%3A%20dist%2Fgraphql.handler%0A%20%20%20%20%20%20%20%20events%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20path%3A%20graphql%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20GET%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cors%3A%20true%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20path%3A%20graphql%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20POST%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cors%3A%20true%0A%0Aresources%3A%0A%20%20%20%20Resources%3A%0A%20%20%20%20%20%20%20%20UsersTable%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20Type%3A%20%22AWS%3A%3ADynamoDB%3A%3ATable%22%0A%20%20%20%20%20%20%20%20%20%20%20%20Properties%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20AttributeDefinitions%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20AttributeName%3A%20userId%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20AttributeType%3A%20S%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20KeySchema%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20AttributeName%3A%20userId%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20KeyType%3A%20HASH%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ProvisionedThroughput%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ReadCapacityUnits%3A%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20WriteCapacityUnits%3A%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20TableName%3A%20%24%7Bself%3Aprovider.environment.USER_TABLE%7D)
+[![Click through for source](./img/techletter.app-screenshot-1585240252506.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=yaml&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=service%3A%20markdownlandingpage%0A%0Aprovider%3A%0A%20%20%20%20name%3A%20aws%0A%20%20%20%20runtime%3A%20nodejs12.x%0A%20%20%20%20stage%3A%20dev%20%23%20this%20is%20the%20important%20bit%0A%20%20%20%20environment%3A%0A%20%20%20%20%20%20%20%20USER_TABLE%3A%20%24%7Bself%3Aservice%7D-users-%24%7Bself%3Aprovider.stage%7D%0A%0Afunctions%3A%0A%20%20%20%20graphql%3A%0A%20%20%20%20%20%20%20%20handler%3A%20dist%2Fgraphql.handler%0A%20%20%20%20%20%20%20%20events%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20path%3A%20graphql%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20GET%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cors%3A%20true%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20path%3A%20graphql%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20POST%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cors%3A%20true%0A%0Aresources%3A%0A%20%20%20%20Resources%3A%0A%20%20%20%20%20%20%20%20UsersTable%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20Type%3A%20%22AWS%3A%3ADynamoDB%3A%3ATable%22%0A%20%20%20%20%20%20%20%20%20%20%20%20Properties%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20AttributeDefinitions%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20AttributeName%3A%20userId%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20AttributeType%3A%20S%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20KeySchema%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20AttributeName%3A%20userId%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20KeyType%3A%20HASH%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ProvisionedThroughput%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ReadCapacityUnits%3A%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20WriteCapacityUnits%3A%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20TableName%3A%20%24%7Bself%3Aprovider.environment.USER_TABLE%7D)
 
 
 
@@ -283,7 +263,7 @@ The other tradeoff is that these configs aren&#x27;t available at runtime. You g
 
 
 
-And you can&#x27;t `\import 'now.json'` either. Zeit deletes that file ☹️
+And you can&#x27;t `import 'now.json'` either. Zeit deletes that file ☹️
 
 
 
@@ -330,7 +310,7 @@ Use the configs directly in your build-time code via `config.X`. Works just fine
 
 
 
-You can \\import JSON files in the browser, sure, but you won&#x27;t know which environment. Put them in `siteMetadata.myConfig` instead, so you can get configs with static queries anywhere in your app.
+You can import JSON files in the browser, sure, but you won&#x27;t know which environment. Put them in `siteMetadata.myConfig` instead, so you can get configs with static queries anywhere in your app.
 
 
 

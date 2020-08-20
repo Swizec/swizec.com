@@ -41,9 +41,7 @@ How do you thaw carrots at the office? With your laptop!
 
 <!-- wp:paragraph {"className":"twitter-tweet"} -->
 
-> Is there a node package I can run to warmup my laptop? I’m thawing some carrots and it’s taking too long [pic.twitter.com/AZiY0RanRf](https://t.co/AZiY0RanRf)
->
-> — Swizec Teller (@Swizec) [October 10, 2018](https://twitter.com/Swizec/status/1050142413468000256?ref_src=twsrc%5Etfw)
+https://twitter.com/Swizec/status/1050142413468000256?ref_src=twsrc%5Etfw
 
 <!-- /wp:paragraph -->
 
@@ -75,17 +73,7 @@ So I built a tool! A node app. An app that thaws your carrots. Keeps your hands 
 
 <!-- wp:paragraph {"className":"twitter-tweet"} -->
 
-> Perhaps my most \\important contribution to our field 👇  
->   
-> 🥕 thaw-carrots -t 90  
->   
-> Keep CPU at 90℃  
->   
-> 👉 <https://t.co/qpA039OQ00>  
->   
-> Never eat frozen snacks or have cold hands again. 🔥 [pic.twitter.com/fnwJw7I8X5](https://t.co/fnwJw7I8X5)
->
-> — Swizec Teller (@Swizec) [October 11, 2018](https://twitter.com/Swizec/status/1050288715178770432?ref_src=twsrc%5Etfw)
+https://twitter.com/Swizec/status/1050288715178770432?ref_src=twsrc%5Etfw
 
 <!-- /wp:paragraph -->
 
@@ -170,8 +158,8 @@ The approach is simple:
 
 <!-- wp:code -->
 
-```
-async function thawMyCarrots(targetTemp) {
+```undefined
+<code>async function thawMyCarrots(targetTemp) {
     let temp = await readTemp(),
         temps = [temp, temp, temp],
         children = [];
@@ -201,6 +189,7 @@ async function thawMyCarrots(targetTemp) {
         sleep.msleep(500);
     }
 }
+</code>
 ```
 
 <!-- /wp:code -->
@@ -321,8 +310,8 @@ Looks like this:
 
 <!-- wp:code -->
 
-```
-function mySlowFunction(baseNumber) {
+```undefined
+<code>function mySlowFunction(baseNumber) {
     console.time('mySlowFunction');
     var result = 0; 
     for (var i = Math.pow(baseNumber, 10); i >= 0; i--) {       
@@ -333,6 +322,7 @@ function mySlowFunction(baseNumber) {
 }
 
 mySlowFunction(3);
+</code>
 ```
 
 <!-- /wp:code -->

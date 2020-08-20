@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=a4g81widnGM
+https://www.youtube.com/watch?v=a4g81widnGM
 
 
 
@@ -31,7 +31,7 @@ No… [just like Promises](https://swizec.com/blog/javascript-promises-monads/sw
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/914613801785319425
+https://twitter.com/Swizec/status/914613801785319425
 
 
 
@@ -47,23 +47,24 @@ Let&#x27;s say you want to fetch a list of images from Imgur and narrow it down 
 
 
 
-```
+```javascript
 class Imgur {
-    static URL = 'https://api.imgur.com/3/';
-    static CLIENT_ID = 'c848e36012571f2';
-    
-    static gifs(page) {
-         return fetch(`${Imgur.URL}gallery/hot/rising/${page}`,
-                     {headers: { Authorization: `Client-ID ${Imgur.CLIENT_ID}`}}
-        ).then(res => res.json())
-         .then(json => {
-             if (json.success) {
-                 return json.data.filter(({ type }) => type === 'video/mp4');
-             }else{
-                 throw new Error(json.data.error);
-             }
-         })
-    }
+  static URL = "https://api.imgur.com/3/";
+  static CLIENT_ID = "c848e36012571f2";
+
+  static gifs(page) {
+    return fetch(`${Imgur.URL}gallery/hot/rising/${page}`, {
+      headers: { Authorization: `Client-ID ${Imgur.CLIENT_ID}` },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success) {
+          return json.data.filter(({ type }) => type === "video/mp4");
+        } else {
+          throw new Error(json.data.error);
+        }
+      });
+  }
 }
 ```
 
@@ -85,10 +86,10 @@ With async/await, that same code looks like this:
 
 
 
-```
+```javascript
 class Imgur {
     static URL = 'https://api.imgur.com/3/';
-    static CLIENT_ID = '';
+    static CLIENT_ID = '<your_id>';
 
     static async gifs(page) {
         const res = await fetch(`${Imgur.URL}gallery/hot/rising/${page}`,
@@ -102,6 +103,7 @@ class Imgur {
         }
     }
 }
+</your_id>
 ```
 
 

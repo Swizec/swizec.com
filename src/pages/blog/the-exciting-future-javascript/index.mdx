@@ -9,7 +9,7 @@ hero: ./img/4073-4766782412_f471ddd85e_m.jpg
 ---
 [ECMAscript](http://www.ecma-international.org/publications/standards/Ecma-262.htm "ECMAScript"), 6th edition might bring us fat arrow notation - [Douglas Crockford on fat arrows](http://www.yuiblog.com/blog/2012/03/30/what-is-the-meaning-of-this)
 
-```
+```javascript
 function (x) {
     return x * x;
 }
@@ -27,7 +27,7 @@ Spurred on by excitement I decided to poke around the [wiki for the ongoing spec
 
 1. **[Array comprehensions](http://wiki.ecmascript.org/doku.php?id=harmony:array_comprehensions) and [generators](http://wiki.ecmascript.org/doku.php?id=harmony:generator_expressions) and [iterators](http://wiki.ecmascript.org/doku.php?id=harmony:iterators)** - a natural notation for constructing lists from lists, used a lot in python and haskell.
 
-   ```
+   ```javascript
    // mapping
    [ square(x) for (x of [1,2,3,4,5]) ]
    // filtering
@@ -36,15 +36,15 @@ Spurred on by excitement I decided to poke around the [wiki for the ongoing spec
 
    This naturally extends into generators, where you can have an object generating values according to a pattern - possibly until infinity. (the example given in the proposal are fibonacci numbers, obviously) [Iterators](http://en.wikipedia.org/wiki/Iterator "Iterator") are a similar beast - you get to define _how_ an object should be iterated over, which gives us nice abstractions for all sorts of things.
 
-2. **[Classes](http://wiki.ecmascript.org/doku.php?id=harmony:classes)**- although using prototypes, functions and instances is enough to do everything classes can do, it isn&#x27;t very expressive and too much deep knowledge is required to understand the code.
+2. **[Classes](http://wiki.ecmascript.org/doku.php?id=harmony:classes) **- although using prototypes, functions and instances is enough to do everything classes can do, it isn&#x27;t very expressive and too much deep knowledge is required to understand the code.
 
    > A class defines four objects and their properties: a [constructor function](http://en.wikipedia.org/wiki/Constructor_%28object-oriented_programming%29 "Constructor (object-oriented programming)"), a prototype, a new instance, and a private record bound to the new instance. The body of a class is a collection of member [definitions](http://en.wikipedia.org/wiki/Definition "Definition").
 
 3. **[Block scoped bindings](http://wiki.ecmascript.org/doku.php?id=harmony:block_scoped_bindings)** - Javascript used to only be [lexically scoped](http://en.wikipedia.org/wiki/Scope_%28computer_science%29 "Scope (computer science)"), otherwise known to new programmers as _&quot;Aaaaaah everything is global what the hell!?&quot;_. With the addition of [let](http://wiki.ecmascript.org/doku.php?id=harmony:let), [const](http://wiki.ecmascript.org/doku.php?id=harmony:const) and block functions there will now also be block scope where you can define things to only exist inside two {}.
 
-4. **[Modules!](http://wiki.ecmascript.org/doku.php?id=harmony:modules)** What has traditionally been solved using require.js will now work similar to how python does it. You get to define modules and then \\import them where they are needed. Possibly the most earth shattering addition since dependency management in Javascript has devolved into an extreme sport lately.
+4. **[Modules!](http://wiki.ecmascript.org/doku.php?id=harmony:modules)** What has traditionally been solved using require.js will now work similar to how python does it. You get to define modules and then import them where they are needed. Possibly the most earth shattering addition since dependency management in Javascript has devolved into an extreme sport lately.
 
-   ```
+   ```javascript
    // module
    module math {
        export function sum(x, y) {
@@ -54,8 +54,8 @@ Spurred on by excitement I decided to poke around the [wiki for the ongoing spec
    }
 
    // client
-   // we can \import in script code, not just inside a module
-   \import {sum, pi} from math;
+   // we can import in script code, not just inside a module
+   import {sum, pi} from math;
 
    alert("2π = " + sum(pi, pi));
    ```

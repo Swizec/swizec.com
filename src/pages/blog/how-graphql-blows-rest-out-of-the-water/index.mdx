@@ -7,11 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/techletter.app-screenshot-1579794681281.png
 ---
-You&#x27;re building an app. It needs data from a server. What do you do?
-
-
-
-Oh, you make a `fetch()` request. Easy.
+You&#x27;re building an app. It needs data from a server. What do you do?Oh, you make a `fetch()` request. Easy.
 
 
 
@@ -163,7 +159,7 @@ You get a pattern like this:
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1579794681647.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=\import%20%7B%20useQuery%20%7D%20from%20&#x27;%40apollo%2Freact-hooks&#x27;%3B%0A\import%20gql%20from%20&#x27;graphql-tag&#x27;%3B%0A%0A%2F%2F%20define%20the%20graphql%20query%0Aconst%20LUKE_QUERY%20%3D%20gql%60%0A%09query%20luke%20%7B%0A%09%20%20Person(name%3A%20%22Luke%20Skywalker%22)%20%7B%0A%09%20%20%20%20name%0A%09%20%20%20%20hairColor%0A%09%20%20%20%20species%20%7B%0A%09%20%20%20%20%20%20name%0A%09%20%20%20%20%7D%0A%09%20%20%20%20starships%20%7B%0A%09%20%20%20%20%20%20name%0A%09%20%20%20%20%7D%0A%09%20%20%7D%0A%09%7D%0A%60%0A%0A%2F%2F%20a%20component%20that%20fetches%20data%20and%20displays%20it%0Aconst%20Luke%20%3D%20()%20%3D%3E%20%7B%0A%09const%20%7B%20loading%2C%20data%20%7D%20%3D%20useQuery(LUKE_QUERY)%0A%09%0A%09return%20loading%20%3F%20%0A%09%09%3Cp%3EFetching%20...%3C%2Fp%3E%20%0A%09%3A%20%0A%09%09%3Cp%3E%7Bdata.Person.name%7D%20is%20a%20%7Bdata.Person.hairColor%5B0%5D%7D%20%7Bdata.Person.species%5B0%5D.name%7D%20and%20flies%20around%20in%20%7Bdata.Person.starships.map(ship%20%3D%3E%20ship.name).join(%22%2C%20%22)%7D%3C%2Fp%3E%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1579794681647.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=import%20%7B%20useQuery%20%7D%20from%20&#x27;%40apollo%2Freact-hooks&#x27;%3B%0Aimport%20gql%20from%20&#x27;graphql-tag&#x27;%3B%0A%0A%2F%2F%20define%20the%20graphql%20query%0Aconst%20LUKE_QUERY%20%3D%20gql%60%0A%09query%20luke%20%7B%0A%09%20%20Person(name%3A%20%22Luke%20Skywalker%22)%20%7B%0A%09%20%20%20%20name%0A%09%20%20%20%20hairColor%0A%09%20%20%20%20species%20%7B%0A%09%20%20%20%20%20%20name%0A%09%20%20%20%20%7D%0A%09%20%20%20%20starships%20%7B%0A%09%20%20%20%20%20%20name%0A%09%20%20%20%20%7D%0A%09%20%20%7D%0A%09%7D%0A%60%0A%0A%2F%2F%20a%20component%20that%20fetches%20data%20and%20displays%20it%0Aconst%20Luke%20%3D%20()%20%3D%3E%20%7B%0A%09const%20%7B%20loading%2C%20data%20%7D%20%3D%20useQuery(LUKE_QUERY)%0A%09%0A%09return%20loading%20%3F%20%0A%09%09%3Cp%3EFetching%20...%3C%2Fp%3E%20%0A%09%3A%20%0A%09%09%3Cp%3E%7Bdata.Person.name%7D%20is%20a%20%7Bdata.Person.hairColor%5B0%5D%7D%20%7Bdata.Person.species%5B0%5D.name%7D%20and%20flies%20around%20in%20%7Bdata.Person.starships.map(ship%20%3D%3E%20ship.name).join(%22%2C%20%22)%7D%3C%2Fp%3E%0A%7D)
 
 
 
@@ -179,7 +175,7 @@ You could even make your component accept a search parameter.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1579794681459.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=\import%20%7B%20useQuery%20%7D%20from%20&#x27;%40apollo%2Freact-hooks&#x27;%3B%0A\import%20gql%20from%20&#x27;graphql-tag&#x27;%3B%0A%0A%2F%2F%20define%20the%20graphql%20query%0Aconst%20PERSON_QUERY%20%3D%20gql%60%0A%09query%20person(%24name%3A%20String!)%20%7B%0A%09%20%20Person(name%3A%20%24name)%20%7B%0A%09%20%20%20%20name%0A%09%20%20%20%20hairColor%0A%09%20%20%20%20species%20%7B%0A%09%20%20%20%20%20%20name%0A%09%20%20%20%20%7D%0A%09%20%20%20%20starships%20%7B%0A%09%20%20%20%20%20%20name%0A%09%20%20%20%20%7D%0A%09%20%20%7D%0A%09%7D%0A%60%0A%0A%2F%2F%20a%20component%20that%20fetches%20data%20and%20displays%20it%0Aconst%20Person%20%3D%20(%7B%20name%20%7D)%20%3D%3E%20%7B%0A%09const%20%7B%20loading%2C%20data%20%7D%20%3D%20useQuery(PERSON_QUERY%2C%20%7B%0A%09%09variables%3A%20%7B%0A%09%09%09name%0A%09%09%7D%0A%09%7D)%0A%09%0A%09return%20loading%20%3F%20%0A%09%09%3Cp%3EFetching%20...%3C%2Fp%3E%20%0A%09%3A%20%0A%09%09%3Cp%3E%7Bdata.Person.name%7D%20is%20a%20%7Bdata.Person.hairColor%5B0%5D%7D%20%7Bdata.Person.species%5B0%5D.name%7D%20and%20flies%20around%20in%20%7Bdata.Person.starships.map(ship%20%3D%3E%20ship.name).join(%22%2C%20%22)%7D%3C%2Fp%3E%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1579794681459.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=import%20%7B%20useQuery%20%7D%20from%20&#x27;%40apollo%2Freact-hooks&#x27;%3B%0Aimport%20gql%20from%20&#x27;graphql-tag&#x27;%3B%0A%0A%2F%2F%20define%20the%20graphql%20query%0Aconst%20PERSON_QUERY%20%3D%20gql%60%0A%09query%20person(%24name%3A%20String!)%20%7B%0A%09%20%20Person(name%3A%20%24name)%20%7B%0A%09%20%20%20%20name%0A%09%20%20%20%20hairColor%0A%09%20%20%20%20species%20%7B%0A%09%20%20%20%20%20%20name%0A%09%20%20%20%20%7D%0A%09%20%20%20%20starships%20%7B%0A%09%20%20%20%20%20%20name%0A%09%20%20%20%20%7D%0A%09%20%20%7D%0A%09%7D%0A%60%0A%0A%2F%2F%20a%20component%20that%20fetches%20data%20and%20displays%20it%0Aconst%20Person%20%3D%20(%7B%20name%20%7D)%20%3D%3E%20%7B%0A%09const%20%7B%20loading%2C%20data%20%7D%20%3D%20useQuery(PERSON_QUERY%2C%20%7B%0A%09%09variables%3A%20%7B%0A%09%09%09name%0A%09%09%7D%0A%09%7D)%0A%09%0A%09return%20loading%20%3F%20%0A%09%09%3Cp%3EFetching%20...%3C%2Fp%3E%20%0A%09%3A%20%0A%09%09%3Cp%3E%7Bdata.Person.name%7D%20is%20a%20%7Bdata.Person.hairColor%5B0%5D%7D%20%7Bdata.Person.species%5B0%5D.name%7D%20and%20flies%20around%20in%20%7Bdata.Person.starships.map(ship%20%3D%3E%20ship.name).join(%22%2C%20%22)%7D%3C%2Fp%3E%0A%7D)
 
 
 

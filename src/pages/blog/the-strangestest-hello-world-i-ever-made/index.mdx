@@ -29,19 +29,19 @@ Obviously the only real solution to this problem is designing a new [programming
 
 The hello world turns out to be pretty simple.
 
-```
+```murray
 say "Hello World"
 ```
 
 Compiles to python and works. And no, no I&#x27;m not just using a regex to replace &#x27;say&#x27; with &#x27;print&#x27;. I actually wrote a parser for this thing. Everything that sticks together is considered a paragraph of code and will essentially evaluate to a big [function composition](http://en.wikipedia.org/wiki/Function_composition "Function composition") like so f(g(h(x))). Ok? ok. So when I write this:
 
-```
+```murray
 say "hello world" say "meow" say "hai"
 ```
 
 It compiles into something a bit like so: say( &quot;hello world&quot;, say(&quot;meow&quot;, say(&quot;hai&quot;))) So the output becomes:
 
-```
+```undefined
 hai
 None meow
 None hello world
@@ -49,13 +49,13 @@ None hello world
 
 Which doesn&#x27;t seem too logical, the None should go on the other side ... I should fix this. But anyway, the None is there because &#x27;say&#x27; doesn&#x27;t return anything, we can fix the wonky output like this:
 
-```
+```murray
 say "hello world". say "meow". say "hai"
 ```
 
 What magic buffonery is this!? Well the dot is another function again and [Murray](http://github.com/Swizec/Murray) can understand one-char functions even when they are attached to something else. The dot is a simple function anyway, it sort of &#x27;destroys&#x27; output by returning an empty string so it doesn&#x27;t get in the way later on in the execution stack. But what about them code paragraphs I mentioned earlier? Well their intended use eventually is to define &#x27;functions&#x27;, but I haven&#x27;t figured this out too much yet. Right now they just do this:
 
-```
+```murray
 say "meow1"
 
 say "meow2"
@@ -63,7 +63,7 @@ say "meow2"
 
 This compiles into two distinct function calls so the output is like this:
 
-```
+```undefined
 meow1
 meow2
 ```

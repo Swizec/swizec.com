@@ -21,7 +21,7 @@ When you&#x27;re working Karma runs in the terminal. That&#x27;s where you see t
 
 Luckily, Travis boxes come with Chrome pre-installed. We just have to tweak our configuration to use it. First we have to use `.travis.yml` to convince the shell we&#x27;ve got a screen after all.
 
-```
+```yaml
 before_install:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
@@ -36,20 +36,20 @@ We did three things:
 
 Then we uuse `karma.conf.js` to let Karma know, we need a special browser for Travis.
 
-```
+```javascript
 var configuration = {
-    // other things
+  // other things
 
-    customLaunchers: {
-        Chrome_travis_ci: {
-            base: 'Chrome',
-            flags: ['--no-sandbox']
-        }
+  customLaunchers: {
+    Chrome_travis_ci: {
+      base: "Chrome",
+      flags: ["--no-sandbox"],
     },
+  },
 };
 
 if (process.env.TRAVIS) {
-    configuration.browsers = ['Chrome_travis_ci'];
+  configuration.browsers = ["Chrome_travis_ci"];
 }
 
 config.set(configuration);

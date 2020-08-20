@@ -137,7 +137,7 @@ You tell Jest to use a mock library like this:
 
 
 
-Jest \\imports this file instead of `isomorphic-fetch` when running your code. Same approach works to replace any other library.
+Jest imports this file instead of `isomorphic-fetch` when running your code. Same approach works to replace any other library.
 
 
 
@@ -149,7 +149,7 @@ So when your code says
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1582908305371.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=\import%20fetch%20from%20&#x27;isomorphic-fetch&#x27;)
+[![Click through for source](./img/techletter.app-screenshot-1582908305371.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=import%20fetch%20from%20&#x27;isomorphic-fetch&#x27;)
 
 
 
@@ -157,7 +157,7 @@ It&#x27;s actually getting the sandbox 🤘
 
 
 
-You&#x27;ll need to \\import _a_ fetch to support mocking – can&#x27;t rely on the global `window.fetch` I&#x27;m afraid. You can&#x27;t use that in test environments anyway since it doesn&#x27;t exist.
+You&#x27;ll need to import _a_ fetch to support mocking – can&#x27;t rely on the global `window.fetch` I&#x27;m afraid. You can&#x27;t use that in test environments anyway since it doesn&#x27;t exist.
 
 
 
@@ -173,7 +173,7 @@ You have to tell the type system that _&quot;Hey, this is actually fetch-mock. A
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1582908305261.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=null&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20src%2F__tests__%2FAuthHelper.spec.ts%0A%0A\import%20_fetchMock%20from%20&#x27;isomorphic-fetch&#x27;%20%2F%2F%20\imports%20the%20sandbox%0Atype%20FetchMock%20%3D%20\import(&#x27;fetch-mock&#x27;)%20%2F%2F%20\imports%20type%20info%0A%0Aconst%20fetchMock%20%3D%20_fetchMock%20as%20FetchMock%20%2F%2F%20casts%20as%20correct%20type)
+[![Click through for source](./img/techletter.app-screenshot-1582908305261.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=null&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20src%2F__tests__%2FAuthHelper.spec.ts%0A%0Aimport%20_fetchMock%20from%20&#x27;isomorphic-fetch&#x27;%20%2F%2F%20imports%20the%20sandbox%0Atype%20FetchMock%20%3D%20import(&#x27;fetch-mock&#x27;)%20%2F%2F%20imports%20type%20info%0A%0Aconst%20fetchMock%20%3D%20_fetchMock%20as%20FetchMock%20%2F%2F%20casts%20as%20correct%20type)
 
 
 

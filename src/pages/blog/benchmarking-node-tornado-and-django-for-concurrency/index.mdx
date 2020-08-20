@@ -7,7 +7,7 @@ redirect_from:
 categories: "JSON, Languages, PHP, Programming, Redis, Ruby, Uncategorized"
 hero: ./img/6sGx6.png
 ---
-This is a continuation from the last time [I benchmarked node vs. clojure for hard computation](http://swizec.com/blog/comparing-clojure-and-node-js-for-speed/swizec/1593 "Comparing clojure and node.js for speed"), sort of. This time &#x27;round I decided to benchmark how many concurrent requests a single process of technology X can handle. Threading is fine. tl;dr ---&gt; node is fast but a bit unpredictable, django fails a lot, tornado is mediocre Clojure isn&#x27;t included in this test because it isn&#x27;t your average web backend technology and I honestly didn&#x27;t feel like figuring out how to set it up to act as a server ... yes, I know it&#x27;s possible, no, I do not in fact know how to do it. I imagine jetty or tomcat would be the way to go. There are two very \\important server-side languages that I omitted. Ruby and PHP. [Ruby](http://www.ruby-lang.org/ "Ruby (programming language)") \[on Rails], is missing simply because I don&#x27;t know it well enough to implement the test in. There are varied mostly personal and silly reasons as to why this is, but the fact remains. I don&#x27;t know Ruby. [PHP](http://www.php.net/ "PHP") ... This isn&#x27;t because I personally hate PHP (I do), I tried very very very hard to get it working for this test, but it just would not cooperate. I spent as much time trying to get PHP to _run_ as getting all the other benchmarks coded and tested. Not sure why exactly php-fpm hates me, or why it hates nginx, or maybe they&#x27;ve ganged up on me and hate me in unison, but it just did not work. I give up. After it finally looked like it might work it would just vomit 404 errors rather than actually run anything ... yes, I double, tripple and quintoople checked my paths. Either way, I ended up testing node.js and django, then just because the whole test is a bit unfair to django, I added Tornado, which is supposed to work a bit more the same way as node is. Onward to the test!
+This is a continuation from the last time [I benchmarked node vs. clojure for hard computation](http://swizec.com/blog/comparing-clojure-and-node-js-for-speed/swizec/1593 "Comparing clojure and node.js for speed"), sort of. This time &#x27;round I decided to benchmark how many concurrent requests a single process of technology X can handle. Threading is fine. tl;dr ---&gt; node is fast but a bit unpredictable, django fails a lot, tornado is mediocre Clojure isn&#x27;t included in this test because it isn&#x27;t your average web backend technology and I honestly didn&#x27;t feel like figuring out how to set it up to act as a server ... yes, I know it&#x27;s possible, no, I do not in fact know how to do it. I imagine jetty or tomcat would be the way to go. There are two very important server-side languages that I omitted. Ruby and PHP. [Ruby](http://www.ruby-lang.org/ "Ruby (programming language)") \[on Rails], is missing simply because I don&#x27;t know it well enough to implement the test in. There are varied mostly personal and silly reasons as to why this is, but the fact remains. I don&#x27;t know Ruby. [PHP](http://www.php.net/ "PHP") ... This isn&#x27;t because I personally hate PHP (I do), I tried very very very hard to get it working for this test, but it just would not cooperate. I spent as much time trying to get PHP to _run_ as getting all the other benchmarks coded and tested. Not sure why exactly php-fpm hates me, or why it hates nginx, or maybe they&#x27;ve ganged up on me and hate me in unison, but it just did not work. I give up. After it finally looked like it might work it would just vomit 404 errors rather than actually run anything ... yes, I double, tripple and quintoople checked my paths. Either way, I ended up testing node.js and django, then just because the whole test is a bit unfair to django, I added Tornado, which is supposed to work a bit more the same way as node is. Onward to the test!
 
 ## The [Benchmark](http://www.benchmark.com/ "Benchmark Capital")
 
@@ -30,32 +30,36 @@ All the benchmarks ran on my MBP, with 4GB of RAM and a 2.5GHz core 2 duo. There
 
 You can see the rest of the code [on github](https://github.com/Swizec/random-coding/tree/master/serverbench). I&#x27;ll just share the relevant server bits here so we can compare how much code it takes to make this sort of thing in different environments. Node:
 
-```
-var redis = require('redis').createClient(),
-    http = require('http');
+```javascript
+var redis = require("redis").createClient(),
+  http = require("http");
 
-http.createServer(function (req, res) {
-    var data = '';
-    req.on('data', function (chunk) { data += chunk });
-    req.on('end', function () {
-	var input = JSON.parse(data);
-
-	redis.get(input.key, function (err, value) {
-	    redis.set(input.key, input.value, function (err) {
-		res.writeHead(200, {'Content-Type': 'application/json'});
-		res.end(value);
-	    });
-	});
+http
+  .createServer(function (req, res) {
+    var data = "";
+    req.on("data", function (chunk) {
+      data += chunk;
     });
-}).listen(8124, '127.0.0.1');
+    req.on("end", function () {
+      var input = JSON.parse(data);
+
+      redis.get(input.key, function (err, value) {
+        redis.set(input.key, input.value, function (err) {
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(value);
+        });
+      });
+    });
+  })
+  .listen(8124, "127.0.0.1");
 ```
 
 [Django](http://www.djangoproject.com "Django (web framework)"):
 
-```
-from django.http \import HttpResponse
+```python
+from django.http import HttpResponse
 
-\import json, redis
+import json, redis
 
 r = redis.Redis(host='localhost', port=6379, db=0)
 
@@ -69,11 +73,11 @@ def bench(request):
 
 Tornado:
 
-```
-\import tornado.ioloop
-\import tornado.web
+```python
+import tornado.ioloop
+import tornado.web
 
-\import json, redis
+import json, redis
 
 r = redis.Redis(host='localhost', port=6379, db=0)
 

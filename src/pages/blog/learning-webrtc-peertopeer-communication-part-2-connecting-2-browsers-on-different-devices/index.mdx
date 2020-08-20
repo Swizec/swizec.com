@@ -19,7 +19,7 @@ Well… after the initial handshake. You still need a server for that.
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/995933206187728896
+https://twitter.com/Swizec/status/995933206187728896
 
 
 
@@ -27,11 +27,11 @@ That was a fun weekend. Two livecoding sessions. Finally got it working late at 
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=8TFj_U5CyWQ
+https://www.youtube.com/watch?v=8TFj_U5CyWQ
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=L8bsztuOEeQ
+https://www.youtube.com/watch?v=L8bsztuOEeQ
 
 
 
@@ -149,16 +149,16 @@ The next step is `handleICECandidate`, interactive connectivity establishment, w
 
 
 
-```
-    handleICECandidateEvent = event => {
-        if (event.candidate) {
-            this.signalingConnection.sendToServer({
-                type: "new-ice-candidate",
-                target: this.targetUsername,
-                candidate: event.candidate
-            });
-        }
-    };
+```javascript
+handleICECandidateEvent = (event) => {
+  if (event.candidate) {
+    this.signalingConnection.sendToServer({
+      type: "new-ice-candidate",
+      target: this.targetUsername,
+      candidate: event.candidate,
+    });
+  }
+};
 ```
 
 
@@ -171,25 +171,22 @@ But the function creates a new connection offer, updates the local SDP descripti
 
 
 
-```
-   handleNegotiationNeededEvent = () => {
-        const {
-            username,
-            targetUsername
-        } = this;
-        this.peerConnection
-            .createOffer()
-            .then(offer => this.peerConnection.setLocalDescription(offer))
-            .then(() =>
-                this.signalingConnection.sendToServer({
-                    name: username,
-                    target: targetUsername,
-                    type: "video-offer",
-                    sdp: this.peerConnection.localDescription
-                })
-            )
-            .catch(console.error);
-    };
+```javascript
+handleNegotiationNeededEvent = () => {
+  const { username, targetUsername } = this;
+  this.peerConnection
+    .createOffer()
+    .then((offer) => this.peerConnection.setLocalDescription(offer))
+    .then(() =>
+      this.signalingConnection.sendToServer({
+        name: username,
+        target: targetUsername,
+        type: "video-offer",
+        sdp: this.peerConnection.localDescription,
+      })
+    )
+    .catch(console.error);
+};
 ```
 
 
@@ -202,22 +199,22 @@ Then we have the fun stuff: handling messages from our signaling server.
 
 
 
-```
-    onSignalingMessage = (msg) => {
-        switch (msg.type) {
-            case "video-answer": // Callee has answered our offer
-                this.videoAnswer(msg);
-                break;
+```javascript
+onSignalingMessage = (msg) => {
+  switch (msg.type) {
+    case "video-answer": // Callee has answered our offer
+      this.videoAnswer(msg);
+      break;
 
-            case "new-ice-candidate": // A new ICE candidate has been received
-                this.newICECandidate(msg)
-                break;
+    case "new-ice-candidate": // A new ICE candidate has been received
+      this.newICECandidate(msg);
+      break;
 
-            case "hang-up": // The other peer has hung up the call
-                this.close()
-                break;
-        }
-    }
+    case "hang-up": // The other peer has hung up the call
+      this.close();
+      break;
+  }
+};
 ```
 
 
@@ -230,27 +227,23 @@ Those functions are thin wrappers over WebRTC APIs.
 
 
 
-```
-    videoAnswer = ({
-        sdp
-    }) => {
-        this.peerConnection
-            .setRemoteDescription(new RTCSessionDescription(sdp))
-            .catch(console.error);
-    }
+```javascript
+videoAnswer = ({ sdp }) => {
+  this.peerConnection
+    .setRemoteDescription(new RTCSessionDescription(sdp))
+    .catch(console.error);
+};
 
-    newICECandidate = ({
-        candidate
-    }) => {
-        this.peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
-    }
-    
-   close = () => {
-        this.peerConnection.close();
-        this.peerConnection = null;
+newICECandidate = ({ candidate }) => {
+  this.peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+};
 
-        this.onClose()
-    }
+close = () => {
+  this.peerConnection.close();
+  this.peerConnection = null;
+
+  this.onClose();
+};
 ```
 
 
@@ -283,49 +276,49 @@ Here are the salient parts. 👇
 
 
 
-```
-    call = user => {
-        this.setState({
-            targetUsername: user
-        });
-        this.createPeerConnection();
-    };
+```javascript
+call = (user) => {
+  this.setState({
+    targetUsername: user,
+  });
+  this.createPeerConnection();
+};
 
-    hangUp = () => {
-        this.signalingConnection.sendToServer({
-            name: this.state.username,
-            target: this.state.targetUsername,
-            type: "hang-up"
-        });
-        this.peerConnection.close();
-    };
+hangUp = () => {
+  this.signalingConnection.sendToServer({
+    name: this.state.username,
+    target: this.state.targetUsername,
+    type: "hang-up",
+  });
+  this.peerConnection.close();
+};
 
-    createPeerConnection = () => {
-        if (this.peerConnection) return;
+createPeerConnection = () => {
+  if (this.peerConnection) return;
 
-        this.peerConnection = new PeerConnection({
-            gotRemoteStream: this.gotRemoteStream,
-            gotRemoteTrack: this.gotRemoteTrack,
-            signalingConnection: this.signalingConnection,
-            onClose: this.closeVideoCall,
-            localStream: this.state.localStream,
-            username: this.state.username,
-            targetUsername: this.state.targetUsername
-        });
-    };
+  this.peerConnection = new PeerConnection({
+    gotRemoteStream: this.gotRemoteStream,
+    gotRemoteTrack: this.gotRemoteTrack,
+    signalingConnection: this.signalingConnection,
+    onClose: this.closeVideoCall,
+    localStream: this.state.localStream,
+    username: this.state.username,
+    targetUsername: this.state.targetUsername,
+  });
+};
 
-    closeVideoCall = () => {
-        this.remoteVideoRef.current.srcObject &&
-            this.remoteVideoRef.current.srcObject
-                .getTracks()
-                .forEach(track => track.stop());
-        this.remoteVideoRef.current.src = null;
+closeVideoCall = () => {
+  this.remoteVideoRef.current.srcObject &&
+    this.remoteVideoRef.current.srcObject
+      .getTracks()
+      .forEach((track) => track.stop());
+  this.remoteVideoRef.current.src = null;
 
-        this.setState({
-            targetUsername: null,
-            callDisabled: false
-        });
-    };
+  this.setState({
+    targetUsername: null,
+    callDisabled: false,
+  });
+};
 ```
 
 
@@ -350,7 +343,7 @@ There&#x27;s one message from the signaling server we have to handle in the glue
 
 
 
-```
+```javascript
     case "video-offer": // Invitation and offer to chat
         this.createPeerConnection();
         this.peerConnection.videoOffer(msg);
@@ -363,31 +356,26 @@ When the server tells us someone wants to connect, we have to create a new `Peer
 
 
 
-```
-   videoOffer = ({
-        sdp
-    }) => {
-        const {
-            username,
-            targetUsername
-        } = this;
+```javascript
+videoOffer = ({ sdp }) => {
+  const { username, targetUsername } = this;
 
-        this.peerConnection
-            .setRemoteDescription(new RTCSessionDescription(sdp))
-            .then(() => this.peerConnection.createAnswer())
-            .then(answer => {
-                return this.peerConnection.setLocalDescription(answer);
-            })
-            .then(() => {
-                this.signalingConnection.sendToServer({
-                    name: username,
-                    targetUsername: targetUsername,
-                    type: "video-answer",
-                    sdp: this.peerConnection.localDescription
-                });
-            })
-            .catch(console.error);
-    }
+  this.peerConnection
+    .setRemoteDescription(new RTCSessionDescription(sdp))
+    .then(() => this.peerConnection.createAnswer())
+    .then((answer) => {
+      return this.peerConnection.setLocalDescription(answer);
+    })
+    .then(() => {
+      this.signalingConnection.sendToServer({
+        name: username,
+        targetUsername: targetUsername,
+        type: "video-answer",
+        sdp: this.peerConnection.localDescription,
+      });
+    })
+    .catch(console.error);
+};
 ```
 
 
@@ -404,4 +392,4 @@ If all the stars align, you can now have a call between 2 browsers on different 
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/995933206187728896
+https://twitter.com/Swizec/status/995933206187728896

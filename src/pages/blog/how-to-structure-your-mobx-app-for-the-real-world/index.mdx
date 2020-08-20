@@ -126,60 +126,60 @@ As a MobX store or model, your box looks like this:
 
 
 
-```
+```javascript
 // src/models/Box.js
 
-\import { observable, computed, action, extendObservable } from 'mobx';
+import { observable, computed, action, extendObservable } from "mobx";
 
 export class Box {
-    @observable sealed = true;
-    @observable closed = true;
-    @observable kakis = [];
- 
-    constructor(store, initialState) {
-        this.store = store;
-        extendObservable(this, initialState);
+  @observable sealed = true;
+  @observable closed = true;
+  @observable kakis = [];
+
+  constructor(store, initialState) {
+    this.store = store;
+    extendObservable(this, initialState);
+  }
+
+  @computed get canSeal() {
+    return this.closed;
+  }
+
+  @computed get canOpen() {
+    return !this.sealed;
+  }
+
+  @computed get canManipulatekakis() {
+    return !this.closed;
+  }
+
+  @action addkaki() {
+    this.kakis.push(new kaki());
+  }
+
+  @action takekaki() {
+    this.kakis.pop();
+  }
+
+  @action open() {
+    if (this.canOpen) {
+      this.opened = true;
     }
- 
-    @computed get canSeal() {
-        return this.closed;
+  }
+
+  @action close() {
+    this.closed = true;
+  }
+
+  @action seal() {
+    if (this.canSeal) {
+      this.sealed = true;
     }
- 
-    @computed get canOpen() {
-        return !this.sealed;
-    }
- 
-    @computed get canManipulatekakis() {
-        return !this.closed;
-    }
- 
-    @action addkaki() {
-        this.kakis.push(new kaki());
-    }
- 
-    @action takekaki() {
-        this.kakis.pop();
-    }
- 
-    @action open() {
-        if (this.canOpen) {
-            this.opened = true;
-        }
-    }
- 
-    @action close() {
-        this.closed = true;
-    }
- 
-    @action seal() {
-        if (this.canSeal) {
-            this.sealed = true;
-        }
-    }
- 
-    @action unseal() {
-        this.sealed = false;
-    }
+  }
+
+  @action unseal() {
+    this.sealed = false;
+  }
 }
 ```
 
@@ -201,44 +201,44 @@ So much work for a box, right? But look what happens when we put this in a React
 
 
 
-```
+```javascript
 // src/components/App.js
 
-\import { Provider } from 'mobx-react';
+import { Provider } from "mobx-react";
 
-\import { Box } from './models/Box';
+import { Box } from "./models/Box";
 
 // would normally go in src/stores/...
 class MainStore {
-    @observable box = null;
- 
-    @action getBoxFromMail() {
-        this.box = new Box({sealed: true,
-                                                closed: true,
-                                                kakis: [new kaki(), new kaki()]});
-    }
+  @observable box = null;
+
+  @action getBoxFromMail() {
+    this.box = new Box({
+      sealed: true,
+      closed: true,
+      kakis: [new kaki(), new kaki()],
+    });
+  }
 }
 
 class App extends Component {
-    mainStore = new MainStore();
- 
-    render() {
-        const mainStore = this.mainStore;
-     
-        return (
-            
-                
+  mainStore = new MainStore();
 
-                    
-                        Get Mail
-                    
-                 
-                    
-                
+  render() {
+    const mainStore = this.mainStore;
 
-            
-        );
-    }
+    return (
+      <provider mainstore={mainStore}>
+        <div>
+          <button onclick={mainStore.getBoxFromMail.bind(mainStore)}>
+            Get Mail
+          </button>
+
+          <box></box>
+        </div>
+      </provider>
+    );
+  }
 }
 ```
 
@@ -264,10 +264,10 @@ Let me show you.
 
 
 
-```
+```javascript
 // src/components/Box.js
 
-\import { inject, observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 const SealedOrOpened = observer(({ box }) => (
     if (box.sealed) {
@@ -286,25 +286,21 @@ const Box = inject('mainStore')(observer(({ mainStore }) => {
     const box = mainStore.box;
  
     return (
-    
-
-        
-        
-            Open box
-        
+    <div>
+        <sealedoropened box={box}>
+        <if cond={box.canOpen}>
+            <button onclick={box.open.bind(box)}>Open box</button>
+        </if>
      
-        
-            
-
-                {box.kakis.map(kaki => )}
-            
-
-            
+        <if cond={box.opened}>
+            <ul>
+                {box.kakis.map(kaki => <kaki>)}
+            </kaki></ul>
+            <button onclick={box.takekaki.bind(box)}>
                 Take a kaki
-            
-        
-    
-
+            </button>
+        </if>
+    </sealedoropened></div>
     );
 ));
 ```

@@ -7,52 +7,50 @@ redirect_from:
 categories: "Front End, react, Technical"
 hero: ../../../defaultHero.jpg
 ---
-Higher order components – HOCs – are one of the best ways to improve your React code. When you see a lot of components sharing similar code, it&#x27;s time for a HOC.
+Higher order components – HOCs – are one of the best ways to improve your React code. When you see a lot of components sharing similar code, it&#x27;s time for a HOC.A HOC used as a decorator can turn a 36-line component like this:
 
-
-
-A HOC used as a decorator can turn a 36-line component like this:
-
-
-
-```
-@inject('configStore') @observer
+```javascript
+@inject("configStore")
+@observer
 class Toolbox extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        autorun(this._render.bind(this));
+    autorun(this._render.bind(this));
+  }
+
+  componentDidUpdate() {
+    this._render();
+  }
+  componentDidMount() {
+    this._render();
+  }
+  componentWillUnmount() {
+    this._cleanup();
+  }
+
+  _init() {
+    this.backbone = new ToolboxView({
+      currentUser: new Backbone.Model(toJS(this.props.configStore.currentUser)),
+      pages: [],
+    });
+  }
+
+  _render() {
+    this._cleanup();
+    this._init();
+    this.backbone.setElement(this.refs.anchor).render();
+  }
+
+  _cleanup() {
+    if (this.backbone) {
+      this.backbone.undelegateEvents();
     }
+  }
 
-    componentDidUpdate() { this._render() }
-    componentDidMount() { this._render() }
-    componentWillUnmount() { this._cleanup() }
-
-    _init() {
-        this.backbone = new ToolboxView({
-            currentUser: new Backbone.Model(toJS(this.props.configStore.currentUser)),
-            pages: []
-        });
-    }
-
-    _render() {
-        this._cleanup();
-        this._init();
-        this.backbone.setElement(this.refs.anchor).render();
-    }
-
-    _cleanup() {
-        if (this.backbone) {
-            this.backbone.undelegateEvents();
-        }
-    }
-
-    render() {
-        return (
-            
-
-        );
-    }
+  render() {
+    return <div ref="anchor"></div>;
+  }
 }
 ```
 
@@ -62,17 +60,19 @@ Into an 11-line beauty like this:
 
 
 
-```
-@inject('configStore') @observer @backbone(ToolboxView)
+```javascript
+@inject("configStore")
+@observer
+@backbone(ToolboxView)
 class Toolbox extends Component {
-    backboneProps = {
-        currentUser: new Backbone.Model(toJS(this.props.configStore.currentUser)),
-        pages: []
-    }
+  backboneProps = {
+    currentUser: new Backbone.Model(toJS(this.props.configStore.currentUser)),
+    pages: [],
+  };
 
-    render() {
-        return this.anchor;
-    }
+  render() {
+    return this.anchor;
+  }
 }
 ```
 
@@ -82,7 +82,7 @@ class Toolbox extends Component {
 
 
 
-This is a Backbone integration HOC based on [my approach to integrating React, MobX, and Backbone](https://swizec.com/blog/backbone-%E2%86%92-react-handling-state-with-mobx/swizec/7051) from a few months ago. It takes away all the integration boilerplate and lets you focus on the \\important stuff – setting data for the old Backbone View and potential rendering embelishments.
+This is a Backbone integration HOC based on [my approach to integrating React, MobX, and Backbone](https://swizec.com/blog/backbone-%E2%86%92-react-handling-state-with-mobx/swizec/7051) from a few months ago. It takes away all the integration boilerplate and lets you focus on the important stuff – setting data for the old Backbone View and potential rendering embelishments.
 
 
 
@@ -121,7 +121,7 @@ Soooo… everything. ?
 
 
 
-We&#x27;re leaving React&#x27;s `render()` method out of the HOC to give consumers better flexibility, and we&#x27;re adding the ability to set Backbone params. Those are \\important.
+We&#x27;re leaving React&#x27;s `render()` method out of the HOC to give consumers better flexibility, and we&#x27;re adding the ability to set Backbone params. Those are important.
 
 
 
@@ -133,7 +133,7 @@ The core of our HOC is a React (or Preact or Inferno) component:
 
 
 
-```
+```javascript
 class Backbone extends WrappedComponent {
     constructor(props) {
         super(props);
@@ -181,10 +181,10 @@ class Backbone extends WrappedComponent {
     }
 
     get anchor() {
-        return (
-)
+        return (<div ref="anchor">)
     }
 }
+</div>
 ```
 
 
@@ -217,7 +217,7 @@ To turn this component into a real HOC, we have to wrap it in a function. You co
 
 
 
-```
+```javascript
 function (WrappedComponent) {
         return // code from above
 }
@@ -253,7 +253,7 @@ Our HOC then looks like this:
 
 
 
-```
+```javascript
 function backbone(BackboneView) {
         return function (WrappedComponent) {
                 return class Backbone extens WrappedComponent {
@@ -281,17 +281,19 @@ Using it looks like this:
 
 
 
-```
-@inject('configStore') @observer @backbone(ToolboxView)
+```javascript
+@inject("configStore")
+@observer
+@backbone(ToolboxView)
 class Toolbox extends Component {
-    backboneProps = {
-        currentUser: new Backbone.Model(toJS(this.props.configStore.currentUser)),
-        pages: []
-    }
+  backboneProps = {
+    currentUser: new Backbone.Model(toJS(this.props.configStore.currentUser)),
+    pages: [],
+  };
 
-    render() {
-        return this.anchor;
-    }
+  render() {
+    return this.anchor;
+  }
 }
 ```
 
@@ -317,7 +319,7 @@ And yes, you _can_ use them without decorators. It&#x27;s just not as pretty. So
 
 
 
-```
+```javascript
 class MyThing extends Component {
     // stuff
 }

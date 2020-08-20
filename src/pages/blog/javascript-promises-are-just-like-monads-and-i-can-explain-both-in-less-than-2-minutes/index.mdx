@@ -7,11 +7,7 @@ redirect_from:
 categories: "Learning, Technical"
 hero: ../../../defaultHero.jpg
 ---
-https&amp;#x3A;//youtu.be/KVYm0qC4b1Y
-
-
-
-There&#x27;s a joke in functional programming that once you understand monads, it becomes impossible to explain them to others. The [amount of monad tutorials on the internet](https://wiki.haskell.org/Monad_tutorials_timeline) is growing almost exponentially 😁
+https://youtu.be/KVYm0qC4b1YThere&#x27;s a joke in functional programming that once you understand monads, it becomes impossible to explain them to others. The [amount of monad tutorials on the internet](https://wiki.haskell.org/Monad_tutorials_timeline) is growing almost exponentially 😁
 
 
 
@@ -55,12 +51,13 @@ Like this:
 
 
 
-```
-function getQuestion() {
+```undefined
+<code>function getQuestion() {
 return Earth()
 .then(ArthurDent => ArthurDent.subconscious())
 .then(subconscious => Scrabble.output(subconscious))
 }
+</code>
 ```
 
 
@@ -81,13 +78,13 @@ Let&#x27;s compare promises to callbacks. You&#x27;re likely to have met with ca
 
 
 
-```
+```javascript
 let theFuture = function (callback) {
-    setTimeout(callback, 5000);
-}
+  setTimeout(callback, 5000);
+};
 
 theFuture(() => {
-    console.log("It is now 5 seconds later");
+  console.log("It is now 5 seconds later");
 });
 ```
 
@@ -113,7 +110,7 @@ Check out this simplified real world example from my day job.
 
 
 
-```
+```javascript
 makePurchase(){
     this.paymentView
           .fetchPaymentInfo()

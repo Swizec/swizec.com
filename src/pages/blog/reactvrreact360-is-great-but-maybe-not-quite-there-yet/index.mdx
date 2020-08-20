@@ -27,7 +27,7 @@ Instead, I got a squished [Baymax healthcare companion](http://disney.wikia.com/
 
 
 
-ReactVR, recently renamed to [react-360](https://github.com/facebook/react-360), doesn&#x27;t have 3D modeling primitives like spheres and boxes. Instead, it asks you to \\import 3D models and build your scenes with that.
+ReactVR, recently renamed to [react-360](https://github.com/facebook/react-360), doesn&#x27;t have 3D modeling primitives like spheres and boxes. Instead, it asks you to import 3D models and build your scenes with that.
 
 
 
@@ -39,11 +39,11 @@ And that works great 👇
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=49wBihodcso
+https://www.youtube.com/watch?v=49wBihodcso
 
 
 
-You can \\import a model, display it with a React component, and look around using VR goggles and the Oculus browser. Just gotta make sure there&#x27;s a URL that shows your VR app.
+You can import a model, display it with a React component, and look around using VR goggles and the Oculus browser. Just gotta make sure there&#x27;s a URL that shows your VR app.
 
 
 
@@ -55,17 +55,22 @@ To display a 3D model in VR space, you put it in a react-360 `<View>` component,
 
 
 
-```
+```javascript
 class Baymax extends React.Component {
-    render() {
-        return (
-            
-                
-                
-                
-            
-        );
-    }
+  render() {
+    return (
+      <view>
+        <ambientlight intensity={1.0} color="#ffffff">
+          <pointlight
+            intensity={0.4}
+            style={{ transform: [{ translate: [0, 4, -1] }] }}
+          >
+            <entity source={{ obj: baymax }}></entity>
+          </pointlight>
+        </ambientlight>
+      </view>
+    );
+  }
 }
 ```
 
@@ -79,7 +84,7 @@ Where it gets interesting is the scale transformation. _In theory_, you can scal
 
 
 
-But I guess that&#x27;s the problem with models you \\import from the web because you don&#x27;t know how to make your own. Their scales are out of whack.
+But I guess that&#x27;s the problem with models you import from the web because you don&#x27;t know how to make your own. Their scales are out of whack.
 
 
 
@@ -103,11 +108,8 @@ This goes in your `client.js` and you can have as many roots as you need.
 
 
 
-```
-r360.renderToLocation(
-    r360.createRoot("Baymax"),
-    new Location([0, -30, -200])
-);
+```javascript
+r360.renderToLocation(r360.createRoot("Baymax"), new Location([0, -30, -200]));
 ```
 
 
@@ -148,25 +150,25 @@ This builds that panel on the left 👇
 
 
 
-```
+```javascript
 const TopPosts = props => {
     if (!props.posts) {
         return (
-            
-                Loading...
-            
+            <view style={styles.wrapper}>
+                <text>Loading...</text>
+            </view>
         );
     }
 
     return (
-        
-            
+        <view style={styles.wrapper}>
+            <text style={styles.postButtonName}>
                 Posts: {props.posts.length}
-            
+            </text>
             {props.posts.map((post, i) => (
-                
+                <postbutton key={post.id} index={i} name={post.name} author={post.author} preview={post.preview}>
             ))}
-        
+        </postbutton></view>
     );
 };
 ```
@@ -185,9 +187,9 @@ You place the panel in 3D space with a root, a surface, and a render to surface.
 
 
 
-```
+```javascript
 const leftPanel = new Surface(300, 1200, Surface.SurfaceShape.Flat);
-    leftPanel.setAngle(-0.6, 0);
+leftPanel.setAngle(-0.6, 0);
 r360.renderToSurface(r360.createRoot("TopPosts"), leftPanel);
 ```
 
@@ -221,4 +223,4 @@ Watch me build the squished Baymax 👇 and [preorder React + D3 2018](#), likel
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=aGN9Nm-bHYs
+https://www.youtube.com/watch?v=aGN9Nm-bHYs

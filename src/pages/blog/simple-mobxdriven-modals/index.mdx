@@ -56,23 +56,23 @@ You start with a store.
 
 
 
-```
+```javascript
 // src/App.js for example purposes
 class Store {
-    @observable modal = {
-        show: false,
-        body: null
-    }
+  @observable modal = {
+    show: false,
+    body: null,
+  };
 
-    @action showModal(body) {
-        this.modal.show = true;
-        this.modal.body = body;
-    }
+  @action showModal(body) {
+    this.modal.show = true;
+    this.modal.body = body;
+  }
 
-    @action closeModal() {
-        this.modal.show = false;
-        this.modal.body = null;
-    }
+  @action closeModal() {
+    this.modal.show = false;
+    this.modal.body = null;
+  }
 }
 ```
 
@@ -114,7 +114,7 @@ In `App.js`, you add a helper function or two. These aren&#x27;t necessary, but 
 
 
 
-```
+```javascript
 // src/App.js
 
 @observer
@@ -127,12 +127,13 @@ class App extends Component {
     }
 
     openModal1() {
-        this.store.showModal(Strong Hello);
+        this.store.showModal(<strong>Strong Hello</strong>);
     }
 
     openModal2() {
-        this.store.showModal();
+        this.store.showModal(<app>);
     }
+</app>
 ```
 
 
@@ -149,15 +150,20 @@ For the modal component itself, we&#x27;re using `simple-react-modal` because it
 
 
 
-```
+```javascript
 // src/App.js -> render()
 
-            
+<modal
+  show={this.store.modal.show}
+  closeonouterclick={true}
+  onclose={this.store.closeModal.bind(this.store)}
+>
+  <a onclick={this.store.closeModal.bind(this.store)} style={closeStyle}>
+    X
+  </a>
 
-                X
-
-                {this.store.modal.body}
-            
+  {this.store.modal.body}
+</modal>;
 ```
 
 

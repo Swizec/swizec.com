@@ -7,37 +7,11 @@ redirect_from:
 categories: "Front End, Livecoding, Technical"
 hero: ../../../defaultHero.jpg
 ---
-JavaScript generators are amazing. A brilliant concept infinitely useful on paper.
+JavaScript generators are amazing. A brilliant concept infinitely useful on paper.They let you write infinite loops that terminate. Yield values from functions before they finish. Build lazy data structures. Lazy evaluation programming!A functional programmer&#x27;s wet dream. 😍And I bet you&#x27;ve never used a JavaScript generator even once did you? Do you even know the syntax?I bet you don&#x27;t.Turns out generators aren&#x27;t very useful in practice. 😢But yesterday, after years of knowing about generators, years of itching to use them, years of ... I FOUND A USE! A real world practical use-case where generators _actually_ make your code better. 😱
 
 
 
-
-
-They let you write infinite loops that terminate. Yield values from functions before they finish. Build lazy data structures. Lazy evaluation programming!
-
-
-
-A functional programmer&#x27;s wet dream. 😍
-
-
-
-And I bet you&#x27;ve never used a JavaScript generator even once did you? Do you even know the syntax?
-
-
-
-I bet you don&#x27;t.
-
-
-
-Turns out generators aren&#x27;t very useful in practice. 😢
-
-
-
-But yesterday, after years of knowing about generators, years of itching to use them, years of ... I FOUND A USE! A real world practical use-case where generators _actually_ make your code better. 😱
-
-
-
-https&amp;#x3A;//youtu.be/XSHwIQUrD8E?t=1411
+https://youtu.be/XSHwIQUrD8E?t=1411
 
 
 
@@ -65,8 +39,9 @@ First, you create a regex that matches `@` followed by a series of word symbols.
 
 
 
-```
-const UserRegex = new RegExp(/@(\w+)/, "g");
+```undefined
+<code class="javascript">const UserRegex = new RegExp(/@(\w+)/, "g");
+</code>
 ```
 
 
@@ -75,8 +50,8 @@ Then you create a generator that runs this regex in a loop. Each `UserRegex.exec
 
 
 
-```
-function* getUsernames(string) {
+```undefined
+<code class="javascript">function* getUsernames(string) {
     let match = null;
 
     do {
@@ -86,6 +61,7 @@ function* getUsernames(string) {
         }
     } while (match);
 }
+</code>
 ```
 
 
@@ -110,12 +86,13 @@ You can now find all usernames in a string with a loop.
 
 
 
-```
-const string = "this is a test with @swizec and @kyleshevlin, maybe @lukeed05"
+```undefined
+<code class="javascript">const string = "this is a test with @swizec and @kyleshevlin, maybe @lukeed05"
 
 for (const username of getUsernames(string)) {
   console.log(username)
 }
+</code>
 ```
 
 
@@ -124,10 +101,11 @@ That outputs
 
 
 
-```
-["@swizec", "swizec"]
+```undefined
+<code>["@swizec", "swizec"]
 ["@kyleshevlin", "kyleshevlin"]
 ["@lukeed05", "lukeed05"]
+</code>
 ```
 
 
@@ -140,7 +118,7 @@ Here&#x27;s a CodeSandbox you can play with
 
 
 
-https&amp;#x3A;//codesandbox.io/s/lr800pko5m
+https://codesandbox.io/s/lr800pko5m
 
 
 

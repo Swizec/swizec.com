@@ -7,13 +7,13 @@ redirect_from:
 categories: "Uncategorized"
 hero: ./img/122-295555757_6d62ff89ee.jpg
 ---
-Yesterday I got nerd sniped into solving the FizzBuzz problem without using if sentences.\[tweet https&amp;#x3A;//twitter.com/Swizec/status/247344854521245697] Unfortunately, a more careful inspection of the problem specification reveals this solution was incorrect.
+Yesterday I got nerd sniped into solving the FizzBuzz problem without using if sentences.\[tweet https://twitter.com/Swizec/status/247344854521245697] Unfortunately, a more careful inspection of the problem specification reveals this solution was incorrect.
 
 > Write a program that prints the numbers from 1 to 100. But for multiples of three print &quot;Fizz&quot; instead of the number and for the multiples of five print &quot;Buzz&quot;. For numbers which are multiples of both three and five print &quot;FizzBuzz&quot;.
 
 Luckily, that&#x27;s a very simple fix:
 
-```
+```python
 # codegolf version (90 characters):
 [{0:"fizzbuzz"}.get(x%(3*5),{0:"fizz"}.get(x%3,{0:"buzz"}.get(x%5,x)))for x in range(101)]
 
@@ -28,7 +28,7 @@ There you have it, a solution to the fizzbuzz problem that relies on python&#x27
 
 ## The challenge
 
-Your challenge, should you choose to accept it, is to produce a shorter fizzbuzz solution without using if sentences. I will buy a bottle of beer for the winner. The best Scala solution so far is 106 characters. \[tweet https&amp;#x3A;//twitter.com/HairyFotr/status/247362763188477953] No really, I will send a bottle of beer anywhere in the world if you write a shorter solution. Of course, if feasible, I would prefer to take you out for a beer than use snail mail :) \[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;500&quot; caption=&quot;Beer bottles by photos for fun&quot;][![Beer bottles by photos for fun](./img/122-295555757_6d62ff89ee.jpg "Beer bottles by photos for fun")](http://www.flickr.com/photos/97073587@N00/295555757/)\[/caption]
+Your challenge, should you choose to accept it, is to produce a shorter fizzbuzz solution without using if sentences. I will buy a bottle of beer for the winner. The best Scala solution so far is 106 characters. \[tweet https://twitter.com/HairyFotr/status/247362763188477953] No really, I will send a bottle of beer anywhere in the world if you write a shorter solution. Of course, if feasible, I would prefer to take you out for a beer than use snail mail :) \[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;500&quot; caption=&quot;Beer bottles by photos for fun&quot;][![Beer bottles by photos for fun](./img/122-295555757_6d62ff89ee.jpg "Beer bottles by photos for fun")](http://www.flickr.com/photos/97073587@N00/295555757/)\[/caption]
 
 ###### Related articles
 

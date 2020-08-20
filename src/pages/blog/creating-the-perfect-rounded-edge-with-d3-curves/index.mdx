@@ -19,7 +19,7 @@ Well hmm… it&#x27;s a tree of some sort. Each icon is a node, and each line is
 
 
 
-You can build this with D3. Calculate each node&#x27;s position, then iterate and render. An image \\imported as an SVG component will do. Webpack can handle that for you.
+You can build this with D3. Calculate each node&#x27;s position, then iterate and render. An image imported as an SVG component will do. Webpack can handle that for you.
 
 
 
@@ -35,15 +35,19 @@ D3 is perfect for that! Drawing lines from A to B is super easy 👇
 
 
 
-```
+```javascript
 // create a line path generator
 const line = d3.line();
 // pair of coordinates
-const data = [[0, 0], [100, 100]];
+const data = [
+  [0, 0],
+  [100, 100],
+];
 
 // draw, using JSX notation
-
-  
+<svg>
+  <path d={line(data)} style={lineStyle}></path>
+</svg>;
 ```
 
 
@@ -51,6 +55,8 @@ const data = [[0, 0], [100, 100]];
 That draws a line from point `(0, 0)` to point `(100, 100)`.
 
 
+
+https://codesandbox.io/s/0yv3v8lljv?autoresize=1
 
 
 
@@ -66,7 +72,7 @@ We can add some curve to our line with the `.curve` method.
 
 
 
-```
+```javascript
 // create a line path generator
 const line2 = d3.line().curve(d3.curveCardinal);
 ```
@@ -80,6 +86,8 @@ If you try that, you&#x27;ll see that nothing happens. Curves need multiple poin
 Like this 👇
 
 
+
+https://codesandbox.io/s/7zwm0zm8l6?autoresize=1
 
 
 
@@ -99,7 +107,7 @@ After some experimentation, I found a solution.
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=VyCP-3gL72k
+https://www.youtube.com/watch?v=VyCP-3gL72k
 
 
 
@@ -107,13 +115,15 @@ https&amp;#x3A;//www.youtube.com/watch?v=VyCP-3gL72k
 
 
 
+https://codesandbox.io/s/4zvl8njr0x?autoresize=1
+
 
 
 The poorly named `<RoundedCorner>` component is just 15 lines of Prettier&#x27;d code. All values discovered experimentally.
 
 
 
-```
+```javascript
 const RoundedCorner = ({ start, end, radius = 5 }) => {
   const line = d3
     .line()
@@ -128,8 +138,9 @@ const RoundedCorner = ({ start, end, radius = 5 }) => {
     end
   ];
 
-  return ;
+  return <path d={line(points)} style={lineStyle}>;
 };
+</path>
 ```
 
 

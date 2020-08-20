@@ -7,6 +7,10 @@ redirect_from:
 categories: "Technical"
 hero: ./img/blog-wp-content-uploads-2017-02-sprite.jpg
 ---
+https://www.youtube.com/watch?v=oli1qacE-wo?ecver=2
+
+
+
 Today we&#x27;re looking at declarative animation that renders on `<canvas>`: React for declarativeness, [Konva](https://konvajs.github.io/) as a canvas abstraction layer, and [react-konva](https://github.com/lavrton/react-konva) to make them work together.
 
 
@@ -60,7 +64,7 @@ That means you don&#x27;t have to think about using react-konva. Focus on the Ko
 
 
 
-```
+```javascript
 class Marble extends Component {
     onDragEnd() {
         const { x, y } = this.props,
@@ -78,10 +82,11 @@ class Marble extends Component {
         const { x, y, sprite, type, draggable } = this.props;
 
         return (
-            
+            <circle 111="" x={x} y={y} radius={MarbleR} fillpatternimage={sprite} fillpatternoffset={Marbles[type]} fillpatternscale={{ x: marbler*2 111, y: }} shadowcolor={Marbles[type].c} shadowblur="15" shadowopacity="1" draggable={draggable} ondragend={this.onDragEnd.bind(this)} ref="circle">
         );
     }
 }
+</circle>
 ```
 
 
@@ -132,7 +137,7 @@ This component has three major parts:
 
 
 
-```
+```javascript
 class Collisions extends Component {
     constructor(props) {
         // setting up this.state
@@ -165,7 +170,7 @@ class Collisions extends Component {
 
 
 
-```
+```javascript
     componentDidMount() {
         const sprite = new Image();
         sprite.src = MarbleSprite;
@@ -190,7 +195,7 @@ If you&#x27;re not familiar with the `Image` object, it&#x27;s basically an in-m
 
 
 
-```
+```javascript
     get initialPositions() {
         const { width, height } = this.props,
               center = width/2;
@@ -245,7 +250,7 @@ You get the left edge is `y` marble halves to the left, and the right is `y` mar
 
 
 
-Oh, and those `range()` functions are actually `d3.range`. I got them with `\import { range } from 'd3-array'`.
+Oh, and those `range()` functions are actually `d3.range`. I got them with `import { range } from 'd3-array'`.
 
 
 
@@ -261,7 +266,7 @@ Like this:
 
 
 
-```
+```javascript
     shoot(newPos, i) {
         let marbles = this.state.marbles;
 
@@ -310,29 +315,27 @@ After all that logic, rendering is the easy part. We loop through the marbles an
 
 
 
-```
+```javascript
     render() {
         const { sprite } = this.state,
               { width, height } = this.props,
               marbleTypes = Object.keys(Marbles);
 
         if (!sprite) {
-            return (
-Loading sprites ...
-);
+            return (<h2>Loading sprites ...</h2>);
         }
 
         return (
-            
-                
-                    
+            <stage width={width} height={height}>
+                <layer>
+                    <group>
                         {this.state.marbles.map(({x: x, y: y}, i) => (
-                             this.shoot(newPos, i)}
+                            <marble x={x} y={y} type={marbleTypes[i%marbleTypes.length]} sprite={sprite} draggable="true" onshoot="{(newPos)" ==""> this.shoot(newPos, i)}
                                     key={`marble-${i}`} />
                         ))}
-                    
-                
-            
+                    </marble></group>
+                </layer>
+            </stage>
         )
     }
 ```
@@ -343,7 +346,7 @@ See? Loop through `marbles`, put down `Marble` components. All this inside a `St
 
 
 
-A Stage must always have at least one Layer. So that part is \\important albeit seemingly useless.
+A Stage must always have at least one Layer. So that part is important albeit seemingly useless.
 
 
 

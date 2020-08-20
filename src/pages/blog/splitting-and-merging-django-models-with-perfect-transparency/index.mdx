@@ -13,7 +13,7 @@ This is a howto that might come in handy to some people, but mostly I just want 
 
 First we introduce a model that connects different user id&#x27;s to the main user (i.e. the first id said user was given)
 
-```
+```python
 class UserNormalisation(models.Model):
 	main_id = models.IntegerField()
 	sub_id = models.IntegerField()
@@ -24,7 +24,7 @@ class UserNormalisation(models.Model):
 
 Then we give our Delicious model a ModelManager that will perform duplicity checking and tie different users together as needed.
 
-```
+```python
 class DeliciousManager(models.Manager):
 	def create(self, **kwargs):
 		try:
@@ -51,7 +51,7 @@ class Delicious(models.Model):
 
 Basically when the _create_function is called it checks whether a Delicious model with the same username already exists and if it does, then a row is added to the UserNormalisation table to tie the two user id&#x27;s together. And here&#x27;s the real magic, the changes we did to the pUser model.
 
-```
+```python
 class pUserManager(models.Manager):
 	def get(self, **kwargs):
 		user = super(pUserManager, self).get(**kwargs)
@@ -81,7 +81,7 @@ class pUser(models.Model):
 
 The pUserManager should have a few more functions that do essentially the same thing for other operations (filter comes to mind). Essentially whenever a pUser is fetched from the db the manager will return the real user as per the UserNormalisation model. Another trick that makes this work seamlessly even when used as a connecting model (primary key for instance) in a different table is that \_\_init\_\_ function. What I&#x27;ve discovered is that there it&#x27;s enough to just change the user&#x27;s id in place and everything will work. Here are the tests that confirm all of this funky stuff actually performs as expected
 
-```
+```python
 	def test_normalisation(self):
 		user = pUser(username="test", password="test")
 		user.save()

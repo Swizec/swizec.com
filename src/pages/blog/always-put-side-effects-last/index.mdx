@@ -15,7 +15,7 @@ You know how some lessons you can only learn from experience? This is such a les
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/950152073819009024
+https://twitter.com/Swizec/status/950152073819009024
 
 
 
@@ -35,13 +35,14 @@ The core of your system is a `send_next_message` function. Something like this ð
 
 
 
-```
-def send_next_message(lead)
+```undefined
+<code>def send_next_message(lead)
     campaign = lead.campaign
     Twilio.send_message(lead, campaign.message)
     CRM.update_data(lead)
     campaign.advance_to_next_message
 end
+</code>
 ```
 
 
@@ -58,12 +59,13 @@ You run it in a cronjob once a day. Like this:
 
 
 
-```
-def send_campaigns
+```undefined
+<code>def send_campaigns
     Lead.active.each do |lead|
         send_next_message.perform_async(lead)
     end
 end
+</code>
 ```
 
 
@@ -88,13 +90,14 @@ Let&#x27;s review our `send_next_message` code.
 
 
 
-```
-def send_next_message(lead)
+```undefined
+<code>def send_next_message(lead)
     campaign = lead.campaign
     Twilio.send_message(lead, campaign.message)
     CRM.update_data(lead)
     campaign.advance_to_next_message
 end
+</code>
 ```
 
 
@@ -143,14 +146,15 @@ Here&#x27;s what you should do instead ðŸ‘‡
 
 
 
-```
-def send_next_message(lead)
+```undefined
+<code>def send_next_message(lead)
     campaign = lead.campaign
     message = campaign.message
     CRM.update_data(lead)
     campaign.advance_to_next_message
     Twilio.send_message(lead, campaign.message)
 end
+</code>
 ```
 
 

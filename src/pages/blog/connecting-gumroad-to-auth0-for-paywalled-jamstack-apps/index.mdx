@@ -60,7 +60,7 @@ Assuming you&#x27;ve got a JAMStack app – Gatsby, NextJS, or even CreateReactA
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1582560335267.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=\import%20React%20from%20&#x27;react&#x27;%0A\import%20%7B%20Button%20%7D%20from%20%22rebass%22%0A%0Aconst%20BuyButton%20%3D%20(%7B%20gumroadID%2C%20cta%20%7D)%20%3D%3E%20(%0A%09%3CButton%0A%20%20%20%20as%3D%22a%22%0A%20%20%20%20href%3D%7B%60https%3A%2F%2Fgumroad.com%2Fl%2F%24%7BgumroadID%7D%3Fwanted%3Dtrue%60%7D%0A%20%20%20%20data-gumroad-product-id%3D%7BgumroadID%7D%0A%20%20%20%20data-gumroad-single-product%3D%22true%22%0A%20%20%20%20mx%3D%7B2%7D%0A%20%20%20%20sx%3D%7B%7B%0A%20%20%20%20%20%20%22%3Ahover%22%3A%20%7B%0A%20%20%20%20%20%20%20%20cursor%3A%20%22pointer%22%2C%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%7D%7D%0A%20%20%3E%0A%20%20%20%20%7Bcta%7D%0A%20%20%3C%2FButton%3E%0A))
+[![Click through for source](./img/techletter.app-screenshot-1582560335267.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=import%20React%20from%20&#x27;react&#x27;%0Aimport%20%7B%20Button%20%7D%20from%20%22rebass%22%0A%0Aconst%20BuyButton%20%3D%20(%7B%20gumroadID%2C%20cta%20%7D)%20%3D%3E%20(%0A%09%3CButton%0A%20%20%20%20as%3D%22a%22%0A%20%20%20%20href%3D%7B%60https%3A%2F%2Fgumroad.com%2Fl%2F%24%7BgumroadID%7D%3Fwanted%3Dtrue%60%7D%0A%20%20%20%20data-gumroad-product-id%3D%7BgumroadID%7D%0A%20%20%20%20data-gumroad-single-product%3D%22true%22%0A%20%20%20%20mx%3D%7B2%7D%0A%20%20%20%20sx%3D%7B%7B%0A%20%20%20%20%20%20%22%3Ahover%22%3A%20%7B%0A%20%20%20%20%20%20%20%20cursor%3A%20%22pointer%22%2C%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%7D%7D%0A%20%20%3E%0A%20%20%20%20%7Bcta%7D%0A%20%20%3C%2FButton%3E%0A))
 
 
 
@@ -88,7 +88,7 @@ Gumroad supports a [Gumroad Ping](https://gumroad.com/ping), which is a POST req
 
 
 
-Webhooks let you do stuff on \\important events in 3rd party services. Creating a user in our case.
+Webhooks let you do stuff on important events in 3rd party services. Creating a user in our case.
 
 
 
@@ -120,7 +120,7 @@ A benefit of using AWS directly is that you can use [AWS Secrets Manager](https:
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1582560335327.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=\import%20qs%20from%20%22querystring%22%0A%0Aconst%20SR_PRODUCTS%20%3D%20%5B%0A%20%20%22https%3A%2F%2Fgum.co%2FIeDvq%22%2C%0A%20%20%22https%3A%2F%2Fgum.co%2FWTeMS%22%2C%0A%20%20%22https%3A%2F%2Fgumroad.com%2Fl%2FIeDvq%22%2C%0A%20%20%22https%3A%2F%2Fgumroad.com%2Fl%2FWTeMS%22%2C%0A%5D%0A%0Aexport%20const%20pingHandler%20%3D%20async%20(%0A%20%20event%3A%20APIGatewayEvent%0A)%3A%20Promise%3CAPIResponse%3E%20%3D%3E%20%7B%0A%20%20const%20ping%3A%20GumroadPing%20%3D%20qs.parse(event.body!)%20as%20any%0A%0A%20%20console.log(%22ping%20for%22%2C%20ping.product_permalink)%0A%0A%20%20if%20(SR_PRODUCTS.includes(ping.product_permalink))%20%7B%0A%20%20%20%20console.log(%22doing%20the%20thing%22)%0A%20%20%20%20const%20user%20%3D%20await%20upsertUser(ping)%0A%0A%20%20%20%20if%20(user)%20%7B%0A%20%20%20%20%20%20const%20auth0%20%3D%20await%20getAuth0Client()%0A%0A%20%20%20%20%20%20await%20auth0.assignRolestoUser(%0A%20%20%20%20%20%20%20%20%7B%20id%3A%20user.user_id!%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%2F%2F%20hardcoded%20Student%20role%20id%20from%20Auth0%20URL%0A%20%20%20%20%20%20%20%20%20%20roles%3A%20%5B%22rol_wyNa81ZMSaFU7wSW%22%5D%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20)%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20return%20response(200%2C%20%7B%7D)%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1582560335327.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=import%20qs%20from%20%22querystring%22%0A%0Aconst%20SR_PRODUCTS%20%3D%20%5B%0A%20%20%22https%3A%2F%2Fgum.co%2FIeDvq%22%2C%0A%20%20%22https%3A%2F%2Fgum.co%2FWTeMS%22%2C%0A%20%20%22https%3A%2F%2Fgumroad.com%2Fl%2FIeDvq%22%2C%0A%20%20%22https%3A%2F%2Fgumroad.com%2Fl%2FWTeMS%22%2C%0A%5D%0A%0Aexport%20const%20pingHandler%20%3D%20async%20(%0A%20%20event%3A%20APIGatewayEvent%0A)%3A%20Promise%3CAPIResponse%3E%20%3D%3E%20%7B%0A%20%20const%20ping%3A%20GumroadPing%20%3D%20qs.parse(event.body!)%20as%20any%0A%0A%20%20console.log(%22ping%20for%22%2C%20ping.product_permalink)%0A%0A%20%20if%20(SR_PRODUCTS.includes(ping.product_permalink))%20%7B%0A%20%20%20%20console.log(%22doing%20the%20thing%22)%0A%20%20%20%20const%20user%20%3D%20await%20upsertUser(ping)%0A%0A%20%20%20%20if%20(user)%20%7B%0A%20%20%20%20%20%20const%20auth0%20%3D%20await%20getAuth0Client()%0A%0A%20%20%20%20%20%20await%20auth0.assignRolestoUser(%0A%20%20%20%20%20%20%20%20%7B%20id%3A%20user.user_id!%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%2F%2F%20hardcoded%20Student%20role%20id%20from%20Auth0%20URL%0A%20%20%20%20%20%20%20%20%20%20roles%3A%20%5B%22rol_wyNa81ZMSaFU7wSW%22%5D%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20)%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20return%20response(200%2C%20%7B%7D)%0A%7D)
 
 
 
@@ -148,7 +148,7 @@ We&#x27;re also hardcoding the `Student` role because Auth0 doesn&#x27;t work wi
 
 
 
-Step 2 is \\important because Gumroad pings for all purchases. Wouldn&#x27;t wanna give access to someone who bought a different product. 🙃
+Step 2 is important because Gumroad pings for all purchases. Wouldn&#x27;t wanna give access to someone who bought a different product. 🙃
 
 
 
@@ -168,7 +168,7 @@ Using upserts lets you support free trials and people who repurchase after a ref
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1582560335371.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=\import%20passwords%20from%20%22generate-password%22%0A%0Aasync%20function%20upsertUser(purchaseData%3A%20GumroadPing)%20%7B%0A%20%20const%20auth0%20%3D%20await%20getAuth0Client()%0A%0A%20%20const%20users%20%3D%20await%20auth0.getUsersByEmail(purchaseData.email)%0A%0A%20%20if%20(users.length%20%3E%200)%20%7B%0A%20%20%20%20return%20users%5B0%5D%0A%20%20%7D%20else%20%7B%0A%20%20%20%20return%20auth0.createUser(%7B%0A%20%20%20%20%20%20connection%3A%20%22Username-Pass-Auth%22%2C%0A%20%20%20%20%20%20email%3A%20purchaseData.email%2C%0A%20%20%20%20%20%20name%3A%20purchaseData.full_name%2C%0A%20%20%20%20%20%20password%3A%20passwords.generate(%7B%0A%20%20%20%20%20%20%20%20length%3A%2018%2C%0A%20%20%20%20%20%20%20%20numbers%3A%20true%2C%0A%20%20%20%20%20%20%20%20symbols%3A%20false%2C%0A%20%20%20%20%20%20%20%20excludeSimilarCharacters%3A%20true%2C%0A%20%20%20%20%20%20%7D)%2C%0A%20%20%20%20%7D)%0A%20%20%7D%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1582560335371.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=import%20passwords%20from%20%22generate-password%22%0A%0Aasync%20function%20upsertUser(purchaseData%3A%20GumroadPing)%20%7B%0A%20%20const%20auth0%20%3D%20await%20getAuth0Client()%0A%0A%20%20const%20users%20%3D%20await%20auth0.getUsersByEmail(purchaseData.email)%0A%0A%20%20if%20(users.length%20%3E%200)%20%7B%0A%20%20%20%20return%20users%5B0%5D%0A%20%20%7D%20else%20%7B%0A%20%20%20%20return%20auth0.createUser(%7B%0A%20%20%20%20%20%20connection%3A%20%22Username-Pass-Auth%22%2C%0A%20%20%20%20%20%20email%3A%20purchaseData.email%2C%0A%20%20%20%20%20%20name%3A%20purchaseData.full_name%2C%0A%20%20%20%20%20%20password%3A%20passwords.generate(%7B%0A%20%20%20%20%20%20%20%20length%3A%2018%2C%0A%20%20%20%20%20%20%20%20numbers%3A%20true%2C%0A%20%20%20%20%20%20%20%20symbols%3A%20false%2C%0A%20%20%20%20%20%20%20%20excludeSimilarCharacters%3A%20true%2C%0A%20%20%20%20%20%20%7D)%2C%0A%20%20%20%20%7D)%0A%20%20%7D%0A%7D)
 
 
 
@@ -196,7 +196,7 @@ Infosec matters.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1582560335200.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=\import%20%7B%20ManagementClient%20%7D%20from%20%22auth0%22%0A%0Aasync%20function%20getAuth0Client()%20%7B%0A%20%20const%20secrets%20%3D%20await%20auth0Tokens()%0A%20%20const%20auth0%20%3D%20new%20ManagementClient(%7B%0A%20%20%20%20domain%3A%20%60%24%7Bsecrets.domain%7D.auth0.com%60%2C%0A%20%20%20%20clientId%3A%20secrets.clientId%2C%0A%20%20%20%20clientSecret%3A%20secrets.clientSecret%2C%0A%20%20%20%20scope%3A%20%22read%3Ausers%20update%3Ausers%20create%3Ausers%22%2C%0A%20%20%7D)%0A%0A%20%20return%20auth0%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1582560335200.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=import%20%7B%20ManagementClient%20%7D%20from%20%22auth0%22%0A%0Aasync%20function%20getAuth0Client()%20%7B%0A%20%20const%20secrets%20%3D%20await%20auth0Tokens()%0A%20%20const%20auth0%20%3D%20new%20ManagementClient(%7B%0A%20%20%20%20domain%3A%20%60%24%7Bsecrets.domain%7D.auth0.com%60%2C%0A%20%20%20%20clientId%3A%20secrets.clientId%2C%0A%20%20%20%20clientSecret%3A%20secrets.clientSecret%2C%0A%20%20%20%20scope%3A%20%22read%3Ausers%20update%3Ausers%20create%3Ausers%22%2C%0A%20%20%7D)%0A%0A%20%20return%20auth0%0A%7D)
 
 
 
@@ -208,7 +208,7 @@ Call `getAuth0Tokens` to get secrets, instantiate a new `ManagementClient` for A
 
 
 
-`auth0Tokens` is a helper method to read API tokens and secrets from AWS Secrets Manager. This is \\important to avoid hardcoding secrets in your code, sharing them with other developers, and making sure they&#x27;re secure at rest.
+`auth0Tokens` is a helper method to read API tokens and secrets from AWS Secrets Manager. This is important to avoid hardcoding secrets in your code, sharing them with other developers, and making sure they&#x27;re secure at rest.
 
 
 
@@ -224,7 +224,7 @@ Attacking that would require an OS-level hack.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1582560335184.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=\import%20AWS%20from%20%22aws-sdk%22%0A%0Aconst%20secrets%3A%20%7B%20%5Bkey%3A%20string%5D%3A%20Secret%20%7D%20%3D%20%7B%7D%0A%0Aexport%20const%20auth0Tokens%20%3D%20async%20()%20%3D%3E%20%7B%0A%20%20const%20SecretId%20%3D%20%22auth0APITokensServerlessReact%22%0A%20%20const%20ssm%20%3D%20new%20AWS.SecretsManager()%0A%20%20const%20data%20%3D%20await%20ssm%0A%20%20%20%20.getSecretValue(%7B%0A%20%20%20%20%20%20SecretId%2C%0A%20%20%20%20%7D)%0A%20%20%20%20.promise()%0A%0A%20%20if%20(!(%22SecretString%22%20in%20data))%20%7B%0A%20%20%20%20throw%20new%20Error(%60Error%20getting%20secret%20%24%7BSecretId%7D%60)%0A%20%20%7D%0A%0A%20%20if%20(data.SecretString)%20%7B%0A%20%20%20%20%2F%2F%20real%20production%20should%20expire%20this%20cache%0A%20%20%20%20secrets%5BSecretId%5D%20%3D%20JSON.parse(data.SecretString)%0A%20%20%7D%20else%20%7B%0A%20%20%20%20throw%20new%20Error(%60Error%20getting%20secret%20%24%7BSecretId%7D%60)%0A%20%20%7D%0A%0A%20%20return%20secrets%5BSecretId%5D%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1582560335184.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=import%20AWS%20from%20%22aws-sdk%22%0A%0Aconst%20secrets%3A%20%7B%20%5Bkey%3A%20string%5D%3A%20Secret%20%7D%20%3D%20%7B%7D%0A%0Aexport%20const%20auth0Tokens%20%3D%20async%20()%20%3D%3E%20%7B%0A%20%20const%20SecretId%20%3D%20%22auth0APITokensServerlessReact%22%0A%20%20const%20ssm%20%3D%20new%20AWS.SecretsManager()%0A%20%20const%20data%20%3D%20await%20ssm%0A%20%20%20%20.getSecretValue(%7B%0A%20%20%20%20%20%20SecretId%2C%0A%20%20%20%20%7D)%0A%20%20%20%20.promise()%0A%0A%20%20if%20(!(%22SecretString%22%20in%20data))%20%7B%0A%20%20%20%20throw%20new%20Error(%60Error%20getting%20secret%20%24%7BSecretId%7D%60)%0A%20%20%7D%0A%0A%20%20if%20(data.SecretString)%20%7B%0A%20%20%20%20%2F%2F%20real%20production%20should%20expire%20this%20cache%0A%20%20%20%20secrets%5BSecretId%5D%20%3D%20JSON.parse(data.SecretString)%0A%20%20%7D%20else%20%7B%0A%20%20%20%20throw%20new%20Error(%60Error%20getting%20secret%20%24%7BSecretId%7D%60)%0A%20%20%7D%0A%0A%20%20return%20secrets%5BSecretId%5D%0A%7D)
 
 
 
@@ -236,7 +236,7 @@ I should open source this 🤔
 
 
 
-### An \\important sidenote
+### An important sidenote
 
 
 

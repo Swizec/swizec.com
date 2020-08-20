@@ -7,17 +7,7 @@ redirect_from:
 categories: "d3js, Front End, react, Technical"
 hero: ./img/blog-wp-content-uploads-2017-08-2017-08-31-at-3.17-PM.png
 ---
-https&amp;#x3A;//youtu.be/pzMTVChKvjo
-
-
-
-You and I both know that when it&#x27;s time to code some D3, the easiest approach is to find an example that does something similar, copy its code, and tweak it a bit.
-
-
-
-But a lot of those examples are in old versions of D3, and what if you&#x27;re using React or something and can&#x27;t just plop code into your project like nobody&#x27;s business? Here&#x27;s what you do:
-
-
+https://youtu.be/pzMTVChKvjoYou and I both know that when it&#x27;s time to code some D3, the easiest approach is to find an example that does something similar, copy its code, and tweak it a bit.But a lot of those examples are in old versions of D3, and what if you&#x27;re using React or something and can&#x27;t just plop code into your project like nobody&#x27;s business? Here&#x27;s what you do:
 
 1. Find the example
 2. Split it up into styling, data calc, and rendering
@@ -53,12 +43,12 @@ We need a component:
 
 
 
-```
+```javascript
 // src/CongressionalDistricts.js
 
-\import React, { Component } from 'react';
-\import * as topojson from 'topojson';
-\import * as d3 from 'd3';
+import React, { Component } from 'react';
+import * as topojson from 'topojson';
+import * as d3 from 'd3';
 
 class CongressionalDistricts extends Component {
     state = {
@@ -81,11 +71,12 @@ class CongressionalDistricts extends Component {
             return null;
         }
 
-        return ;
+        return <g ref="anchor">;
     }
 }
 
 export default CongressionalDistricts;
+</g>
 ```
 
 
@@ -106,20 +97,22 @@ Next in our example, we find the setup code.
 
 
 
-```
+```javascript
 var width = 960,
-    height = 600;
+  height = 600;
 
-var projection = d3.geo.albersUsa()
-    .scale(1280)
-    .translate([width / 2, height / 2]);
+var projection = d3.geo
+  .albersUsa()
+  .scale(1280)
+  .translate([width / 2, height / 2]);
 
-var path = d3.geo.path()
-    .projection(projection);
+var path = d3.geo.path().projection(projection);
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+var svg = d3
+  .select("body")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
 ```
 
 
@@ -140,7 +133,7 @@ So we copy the projection and path setup into `componentDidUpdate` like this:
 
 
 
-```
+```javascript
 // src/CongressionalDistricts.js
     componentDidUpdate() {
         const svg = d3.select(this.refs.anchor),
@@ -174,11 +167,11 @@ Next, the example loads its data.
 
 
 
-```
+```javascript
 queue()
-    .defer(d3.json, "/mbostock/raw/4090846/us.json")
-    .defer(d3.json, "/mbostock/raw/4090846/us-congress-113.json")
-    .await(ready);
+  .defer(d3.json, "/mbostock/raw/4090846/us.json")
+  .defer(d3.json, "/mbostock/raw/4090846/us-congress-113.json")
+  .await(ready);
 ```
 
 
@@ -191,7 +184,7 @@ Also, we change the URLs and download those files into our `/public` folder.
 
 
 
-```
+```javascript
 // src/CongressionalDistricts.js
     componentWillMount() {
         d3.queue()
@@ -216,7 +209,7 @@ Now for the coup-de-grace: A massive copypasta that puts all the rendering code 
 
 
 
-```
+```javascript
 // src/CongressionalDistricts.js
 
     componentDidUpdate() {
@@ -283,11 +276,14 @@ That way you could have a render method that looks more like this:
 
 
 
-```
-
-  
-  
-    
+```javascript
+<g>
+  <usland>
+    <usstateboundaries>
+      <usdistrictboundaries></usdistrictboundaries>
+    </usstateboundaries>
+  </usland>
+</g>;
 ```
 
 

@@ -27,8 +27,9 @@ You install with npm. Or whatever you use to install packages from npmjs.org. Ya
 
 
 
-```
-$ npm install --save better-fetch
+```undefined
+<code>$ npm install --save better-fetch
+</code>
 ```
 
 
@@ -37,15 +38,15 @@ Then you set up headers that every one of your `fetch()` calls needs. My backend
 
 
 
-```
+```javascript
 // top of project
 // src/index.js
 
-\import fetch from 'better-fetch';
+import fetch from "better-fetch";
 
 fetch.setDefaultHeaders({
-    Authorization: `Token token=${GlobalTokenValue}`,
-    Accept: "application/json.v2"
+  Authorization: `Token token=${GlobalTokenValue}`,
+  Accept: "application/json.v2",
 });
 
 // ^ this is optional and depends on your use-case ^
@@ -57,15 +58,15 @@ You can then use `better-fetch` anywhere in your code as you normally would with
 
 
 
-```
+```javascript
 // any file
-\import fetch from 'better-fetch';
+import fetch from "better-fetch";
 
-fetch('/api/some/thing')
-  .then(response => response.json())
-    .then(json => {
-        // do stuff
-    });
+fetch("/api/some/thing")
+  .then((response) => response.json())
+  .then((json) => {
+    // do stuff
+  });
 ```
 
 
@@ -78,21 +79,20 @@ POST-ing is also made less cumbersome:
 
 
 
-```
+```javascript
 // any file
-\import fetch from 'better-fetch';
+import fetch from "better-fetch";
 
 const data = {
-    key: 'value',
-    key2: 'value2'
+  key: "value",
+  key2: "value2",
 };
 
-fetch('/api/save_response', {method: 'POST',
-                             body: data})
-          .then(response => response.json())
-          .then(json => {
-              console.log(json);
-          });
+fetch("/api/save_response", { method: "POST", body: data })
+  .then((response) => response.json())
+  .then((json) => {
+    console.log(json);
+  });
 ```
 
 

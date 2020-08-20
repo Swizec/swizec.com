@@ -13,6 +13,8 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
+https://www.youtube.com/watch?v=39jb-y85YBo
+
 
 
 This Sunday we had 3 jobs:
@@ -29,7 +31,7 @@ But AR is hard.
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/904492731086528512
+https://twitter.com/Swizec/status/904492731086528512
 
 
 
@@ -53,39 +55,39 @@ The `minecraft` component comes from `A-FRAME-minecraft.js`, which we copied off
 
 
 
-```
-FRAME.registerComponent('minecraft', {
-    schema: {
-        skinUrl: {
-            type: 'string',
-            default : ''
-        },
-        wellKnownSkin: {
-            type: 'string',
-            default : ''
-        },
-        heightMeter : {
-            default : 1
-        }
+```javascript
+FRAME.registerComponent("minecraft", {
+  schema: {
+    skinUrl: {
+      type: "string",
+      default: "",
     },
-    init: function () {
-        var character   = new THREEx.MinecraftChar()
-        this.character = character
+    wellKnownSkin: {
+      type: "string",
+      default: "",
+    },
+    heightMeter: {
+      default: 1,
+    },
+  },
+  init: function () {
+    var character = new THREEx.MinecraftChar();
+    this.character = character;
 
-        this.el.object3D.add( character.root )
-        // this.el.setObject3D('superRoot', character.root);
-    },
-    update: function () {
-                if( Object.keys(this.data).length === 0 )       return
-        var character = this.character
-        character.root.scale.set(1,1,1).multiplyScalar(this.data.heightMeter)
+    this.el.object3D.add(character.root);
+    // this.el.setObject3D('superRoot', character.root);
+  },
+  update: function () {
+    if (Object.keys(this.data).length === 0) return;
+    var character = this.character;
+    character.root.scale.set(1, 1, 1).multiplyScalar(this.data.heightMeter);
 
-        if( this.data.skinUrl ){
-            character.loadSkin(this.data.skinUrl)
-        }else if( this.data.wellKnownSkin ){
-            character.loadWellKnownSkin(this.data.wellKnownSkin)
-        }
-    },
+    if (this.data.skinUrl) {
+      character.loadSkin(this.data.skinUrl);
+    } else if (this.data.wellKnownSkin) {
+      character.loadWellKnownSkin(this.data.wellKnownSkin);
+    }
+  },
 });
 ```
 
@@ -99,13 +101,14 @@ Schema props are passed into A-FRAME components as a string. Like this:
 
 
 
+```javascript
+<entity minecraft="{`heightMeter:" 2;="" skinurl:="" ${skinurl}`}="" minecraft-head-anim="yes" minecraft-body-anim="hiwave">
+</entity>
 ```
 
-```
 
 
-
-You can read that as \*&quot;Create an A-FRAME Entity composed out of `minecraft` with `heightMeter: 2; skinUrl:`, and `minecraft-head-anim` set to `yes` and `minecraft-body-anim` set to `hiwave`. Both `minecraft-head-anim` and `minecraft-body-anim` are A-FRAME components.
+You can read that as \*&quot;Create an A-FRAME Entity composed out of `minecraft` with `heightMeter: 2; skinUrl: `, and `minecraft-head-anim` set to `yes` and `minecraft-body-anim` set to `hiwave`. Both `minecraft-head-anim` and `minecraft-body-anim` are A-FRAME components.
 
 
 
@@ -133,8 +136,8 @@ Unfortunately we weren&#x27;t able to convince AR.js to use our marker. Even exp
 
 
 
-```
-
+```javascript
+<a-marker type="pattern" url="/markers/marker64.pat"></a-marker>;
 ```
 
 
@@ -151,17 +154,18 @@ We went the [aframe-react](https://github.com/ngokevin/aframe-react) way to buil
 
 
 
-```
+```javascript
 class BallisticMissile extends Component {
 
     render() {
         const { pos } = this.props;
 
         return (
-                                />
+            <entity geometry="{{primitive:" 'box',="" width:="" .2,="" height:="" 1,="" depth:="" .2}}="" material="{{roughness:" 0,="" src:="" require('.="" texture.jpg')}}="" scale="{{x:" y:="" z:="" 1}}="" position="{pos}</p">                    />
         )
     }
 }
+</entity>
 ```
 
 
@@ -174,11 +178,11 @@ class BallisticMissile extends Component {
 
 
 
-This did not work. I couldn&#x27;t figure out how to set a tick handler that actually gets called, so we set up a little game loop in our `` component to make the missile fly.
+This did not work. I couldn&#x27;t figure out how to set a tick handler that actually gets called, so we set up a little game loop in our ``component to make the missile fly.
 
 
 
-```
+```javascript
 class App extends Component {
     state = {
         missile: false,
@@ -218,7 +222,7 @@ On every `requestAnimationFrame` we update `missilePos` with velocity on each ax
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/904492731086528512
+https://twitter.com/Swizec/status/904492731086528512
 
 
 

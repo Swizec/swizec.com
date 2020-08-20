@@ -9,7 +9,7 @@ hero: ./img/blog-wp-content-uploads-2012-02-2921731384_72ed2e98da_m5.jpg
 ---
 \[caption id=&quot;&quot; align=&quot;alignright&quot; width=&quot;240&quot; caption=&quot;CAEN 25th Anniversary Celebration (Photo credit: rosefirerising)&quot;][![CAEN 25th Anniversary Celebration](./img/blog-wp-content-uploads-2012-02-2921731384_72ed2e98da_m5.jpg "CAEN 25th Anniversary Celebration")](http://www.flickr.com/photos/69145729@N00/2921731384)\[/caption] Every couple of weeks somebody will come running to me: _&quot;Swizec, Swizec, I did everything right, but this [javascript](http://en.wikipedia.org/wiki/JavaScript "JavaScript") isn&#x27;t doing what it&#x27;s supposed to! Whatever I [click](http://en.wikipedia.org/wiki/Event_%28computing%29 "Event (computing)") only the last item works. Halp!&quot;_ Every time it&#x27;s the same bug - people just don&#x27;t understand how loops and [closures](http://en.wikipedia.org/wiki/Closure_%28computer_science%29 "Closure (computer science)") play together in javascript. Invariably they [loop](http://en.wikipedia.org/wiki/Control_flow "Control flow") through an array, attach the index to an event, then get frustrated when, upon triggering the event, that particular variable seems to have the wrong value. The code usually looks something like this:
 
-```
+```javascript
 json = JSON.parse(this.responseText);
 for (i = 0; i < json.links.length; i++) {
        params = json.links[i];
@@ -28,7 +28,7 @@ for (i = 0; i < json.links.length; i++) {
 
 Can you spot the problem? On the first use of _params_ everything is happy, using the [local variable](http://en.wikipedia.org/wiki/Local_variable "Local variable"), which is updated on every loop iteration. But when that _click_ event is triggered it **still** uses the local params variable ... that was updated on every loop iteration. By now, the loop has long since completed and that variable holds the last value - causing a weird-looking bug that is difficult for newbies to fix because, hey, why should I know about how pointers work? This is a [scripting language](http://en.wikipedia.org/wiki/Scripting_language "Scripting language") damn it! Luckily the fix is very simple:
 
-```
+```javascript
 json = JSON.parse(this.responseText);
 json.links.map(function (params) {
 

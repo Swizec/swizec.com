@@ -7,9 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
-> Dear diary, all I did today was fix 1 bug. I don&#x27;t know why it happens, but I know how to make it not happen.[#engineering](https://twitter.com/hashtag/engineering?src=hash)
->
-> — Swizec (@Swizec) [August 6, 2016](https://twitter.com/Swizec/status/761722056681545729)
+https://twitter.com/Swizec/status/761722056681545729
 
 That was on Friday. I still don’t know _why_ the bug happens, but I can reproduce it. Evidence says it’s a Chrome 52 bug, not a general JavaScript bug. Neither Safari nor Firefox make it happen.
 
@@ -29,22 +27,22 @@ I used `create-react-app` to set up a basic environment, ejected with `npm run e
 
 To show the bug itself, we need a Backbone model:
 
-```
+```javascript
 // A basic Backbone model
 class BugModel extends Backbone.Model {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.url = "bla.json";
-    }
+    this.url = "bla.json";
+  }
 }
 ```
 
 Now I know what you’re thinking, that’s an ES6 object and Backbone was built before ES6. Official docs never mention the new `class` syntax. The traditional Backbone approach works too:
 
-```
+```javascript
 var BugModel = Backbone.Model.extend({
-    url: "bla.json"
+  url: "bla.json",
 });
 ```
 
@@ -52,24 +50,24 @@ The same bug happens. I tried.
 
 To cause the bug, we have to call `.fetch()` on two instances of `BugModel` that share the same `id`. The code looks like this:
 
-```
+```javascript
 let bug = new BugModel();
 bug.fetch({
-    success: () => {
-        console.log('fetch 1'); // this happens
-        doWeirdness(bug);
-    }
+  success: () => {
+    console.log("fetch 1"); // this happens
+    doWeirdness(bug);
+  },
 });
 
 function doWeirdness(bug) {
-    let newBug = new BugModel({id: bug.id});
+  let newBug = new BugModel({ id: bug.id });
 
-    console.log('about to re-fetch');
+  console.log("about to re-fetch");
 
-    newBug.fetch({
-        success: () => console.log('fetch 2', newBug), // don't get here
-        error: () => console.log('error')
-    });
+  newBug.fetch({
+    success: () => console.log("fetch 2", newBug), // don't get here
+    error: () => console.log("error"),
+  });
 }
 ```
 
@@ -95,15 +93,15 @@ If both instances have a different `id`, both `fetch` calls fire callbacks. (clu
 
 Curiously, if you add a third `fetch()` call, that works.
 
-```
-    newBug.fetch({
-        success: () => console.log('fetch 2', newBug), // don't get here
-        error: () => console.log('error')
-    });
+```javascript
+newBug.fetch({
+  success: () => console.log("fetch 2", newBug), // don't get here
+  error: () => console.log("error"),
+});
 
-    newBug.fetch({
-        success: () => console.log('fetch 3') // prints
-    });
+newBug.fetch({
+  success: () => console.log("fetch 3"), // prints
+});
 ```
 
 The bug didn’t happen in Chrome 51.

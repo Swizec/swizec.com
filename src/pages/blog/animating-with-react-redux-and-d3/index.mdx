@@ -23,12 +23,12 @@ We’ll start with the presentation components because they’re the least compl
 
 None of them contain state, but `App` has to be a proper component so that we can use `componentDidMount`. We need it to attach d3 event listeners. The `Particle` component is a circle. It looks like this:
 
-```
+```javascript
 // src/components/Particles/Particle.jsx
-\import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 const Particle = ({ x, y }) => (
-    
+    <circle cx={x} cy={y} r="1.8">
 );
 
 Particle.propTypes = {
@@ -37,21 +37,22 @@ Particle.propTypes = {
 };
 
 export default Particle;
+</circle>
 ```
 
 It takes `x` and `y` coordinates and returns an SVG circle. The `Particles` component isn’t much smarter – it returns a list of circles wrapped in a grouping element, like this:
 
-```
+```javascript
 // src/components/Particles/index.jsx
-\import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-\import Particle from './Particle';
+import Particle from './Particle';
 
 const Particles = ({ particles }) => (
-    {particles.map(particle =>
-        
+    <g>{particles.map(particle =>
+        <particle key={particle.id} {...particle}="">
         )}
-    
+    </particle></g>
 );
 
 Particles.propTypes = {
@@ -67,31 +68,27 @@ export default Particles;
 
 Note that `key={particle.id}` part. React complains endlessly without it. I think it’s used to tell similar components apart, which makes the fancy algorithms work. Cool. Given an array of `{id, x, y}` objects, we can render our SVG circles. Now comes our first fun component: the `App`. `App` takes care of rendering the scene and attaching d3 event listeners. The rendering part looks like this:
 
-```
+```javascript
 // src/components/index.jsx
 
-\import React, { PropTypes, Component } from 'react';
-\import ReactDOM from 'react-dom';
-\import d3 from 'd3';
+import React, { PropTypes, Component } from 'react';
+import ReactDOM from 'react-dom';
+import d3 from 'd3';
 
-\import Particles from './Particles';
-\import Footer from './Footer';
-\import Header from './Header';
+import Particles from './Particles';
+import Footer from './Footer';
+import Header from './Header';
 
 class App extends Component {
     render() {
         return (
-            
- this.props.startTicker()} style={{overflow: 'hidden'}}>
-                 
-
-                 
-                     
-                 
-                 
-
-             
-
+            <div onmousedown="{e" ==""> this.props.startTicker()} style={{overflow: 'hidden'}}>
+                 <header>
+                 <svg width={this.props.svgWidth} height={this.props.svgHeight} ref="svg" style="{{background:" 'rgba(124,="" 224,="" 249,="" .3)'}}="">
+                     <particles particles={this.props.particles}></particles>
+                 </svg>
+                 <footer n={this.props.particles.length}>
+             </footer></header></div>
         );
     }
 }
@@ -114,7 +111,7 @@ There’s more going on, but the gist is that we return a `<div>` with a `Header
 
 To let users generate particles, we have to wire up those functions we mentioned in `propTypes`. It looks like this:
 
-```
+```javascript
 // src/components/index.jsx
 
 class App extends Component {
@@ -170,17 +167,17 @@ Then you have `updateMousePos` and `updateTouchPos`, which use d3’s magic to c
 
 Redux actions are a fancy way of saying _“Yo, a thing happened!”_. They’re functions you call to get structured metadata about what’s up. We have 6 actions. The most complicated one looks like this:
 
-```
+```javascript
 // src/actions/index.jsx
-export const CREATE_PARTICLES = 'CREATE_PARTICLES';
+export const CREATE_PARTICLES = "CREATE_PARTICLES";
 
 export function createParticles(N, x, y) {
-    return {
-        type: CREATE_PARTICLES,
-        x: x,
-        y: y,
-        N: N
-    };
+  return {
+    type: CREATE_PARTICLES,
+    x: x,
+    y: y,
+    N: N,
+  };
 }
 ```
 
@@ -190,13 +187,13 @@ It tells the system to create `N` particles at `(x, y)` coordinates. You’ll se
 
 Containers are React components much like the presentation bits. Unlike presentation components, containers talk to the redux data store. I’m not sure this separation is strictly necessary, but it does make your code look nice. You have functionally clean presentation components that turn properties into elements, and dirty, dirty containers that talk to the outside world. You can think of them as data store monads if it helps. The gist of our `AppContainer` looks like this:
 
-```
+```javascript
 // src/containers/AppContainer.jsx
-\import { connect } from 'react-redux';
-\import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
-\import App from '../components';
-\import { tickTime, tickerStarted, startParticles, stopParticles, updateMousePos, createParticles } from '../actions';
+import App from '../components';
+import { tickTime, tickerStarted, startParticles, stopParticles, updateMousePos, createParticles } from '../actions';
 
 class AppContainer extends Component {
     componentDidMount() {
@@ -217,7 +214,7 @@ class AppContainer extends Component {
         const state = store.getState();
 
         return (
-            
+            <app {...state}="" startticker={::this.startTicker} startparticles={::this.startParticles} stopparticles={::this.stopParticles} updatemousepos={::this.updateMousePos}>
         );
     }
 };
@@ -227,9 +224,10 @@ AppContainer.contextTypes = {
 };
 
 export default AppContainer;
+</app>
 ```
 
-We \\import stuff, then we define `AppContainer` as a proper React `Component`. We need to use lifecycle methods, which aren’t available in stateless components. There are three \\important parts in this code:
+We import stuff, then we define `AppContainer` as a proper React `Component`. We need to use lifecycle methods, which aren’t available in stateless components. There are three important parts in this code:
 
 1. We wire up the store in `componentDidMount` and `componentWillUnmount`. Subscribe to data changes on mount, unsubscribe on unmount.
 2. When rendering, we assume the store is our context, use `getState()`, then render the component we’re wrapping. In this case, we render the `App` component.
@@ -241,7 +239,7 @@ Contexts are nice because they let us implicitly pass properties. The context ca
 
 Great, you know the basics. Now we need to define those callbacks so `App` can trigger actions. Most are boilerplate-y action wrappers. Like this:
 
-```
+```javascript
 // src/containers/AppContainer.jsx
     startParticles() {
         const { store } = this.context;
@@ -261,7 +259,7 @@ Great, you know the basics. Now we need to define those callbacks so `App` can t
 
 That’s boilerplate. The action function gives us that `{type: ..}` object, and we dispatch it on the store. When that happens, Redux uses our reducer to create a new instance of the state tree. We’ll talk more about that in the next section. First, we have to look at the `startTicker` callback. It’s where our magic begins.
 
-```
+```javascript
     startTicker() {
         const { store } = this.context;
 
@@ -293,34 +291,34 @@ Yes, that means we are asynchronously dispatching redux actions. It’s okay; th
 
 Sweet. With the actions firing and the drawing done, it’s time to look at the entire logic of our particle generator. We’ll get it done in just 33 lines of code and some change. Ok. Honestly? It’s a bunch of change. But the 33 lines that make up `CREATE_PARTICLES` and `TIME_TICK` changes are the most interesting. All of our logic goes in the reducer. [Dan Abramov says](http://redux.js.org/docs/basics/Reducers.html) to think of reducers as the function you’d put in `.reduce()`. Given a state and a set of changes, how do I create the new state? A simplistic example would look like this:
 
-```
-let sum = [1,2,3,4].reduce((sum, i) => sum+i, 0);
+```javascript
+let sum = [1, 2, 3, 4].reduce((sum, i) => sum + i, 0);
 ```
 
 For every number, take the previous sum and add the number. Our particle generator is a more complicated version of that. It takes the current application state, incorporates an action, and returns the new application state. To keep things simple, we’ll put everything into the same reducer and use a big `switch` statement to decide what to do based on `action.type`. In bigger applications, we’d split this into multiple reducers, but the base principles stay the same. Let’s start with the basics:
 
-```
+```javascript
 // src/reducers/index.js
 const Gravity = 0.5,
-      randNormal = d3.random.normal(0.3, 2),
-      randNormal2 = d3.random.normal(0.5, 1.8);
+  randNormal = d3.random.normal(0.3, 2),
+  randNormal2 = d3.random.normal(0.5, 1.8);
 
 const initialState = {
-    particles: [],
-    particleIndex: 0,
-    particlesPerTick: 5,
-    svgWidth: 800,
-    svgHeight: 600,
-    tickerStarted: false,
-    generateParticles: false,
-    mousePos: [null, null]
+  particles: [],
+  particleIndex: 0,
+  particlesPerTick: 5,
+  svgWidth: 800,
+  svgHeight: 600,
+  tickerStarted: false,
+  generateParticles: false,
+  mousePos: [null, null],
 };
 
 function particlesApp(state = initialState, action) {
-    switch (action.type) {
+  switch (action.type) {
     default:
-            return state;
-    }
+      return state;
+  }
 }
 
 export default particlesApp;
@@ -334,13 +332,13 @@ This is our reducer. We started with the gravity constant and two random generat
 - default svg sizing
 - and the two flags and `mousePos` for the generator
 
-Our reducer doesn’t change anything yet. It’s \\important to always return at least an unchanged state.
+Our reducer doesn’t change anything yet. It’s important to always return at least an unchanged state.
 
 ### Update the state to animate
 
 For most actions, our reducer updates a single value. Like this:
 
-```
+```javascript
 // src/reducers/index.js
     switch (action.type) {
         case 'TICKER_STARTED':
@@ -361,9 +359,9 @@ For most actions, our reducer updates a single value. Like this:
             });
 ```
 
-Even though we’re only changing values of boolean flags and two-digit arrays, _we have to create a new state_. Always create a new state. Redux relies on application state being immutable. That’s why we use `Object.assign({}, ...` every time. It creates a new empty object, fills it with the current state, then overwrites specific values with new ones. Either do that every time, or use a library for immutable data structures. That might work better, but I haven’t tried it yet. The two most \\important state updates – animation tick and create particles – look like this:
+Even though we’re only changing values of boolean flags and two-digit arrays, _we have to create a new state_. Always create a new state. Redux relies on application state being immutable. That’s why we use `Object.assign({}, ...` every time. It creates a new empty object, fills it with the current state, then overwrites specific values with new ones. Either do that every time, or use a library for immutable data structures. That might work better, but I haven’t tried it yet. The two most important state updates – animation tick and create particles – look like this:
 
-```
+```javascript
         case 'CREATE_PARTICLES':
             let newParticles = state.particles.slice(0),
                 i;
@@ -405,7 +403,7 @@ That looks like a bunch of code. Sort of. It’s spread out. The first part – 
 
 ## Important Discoveries
 
-Building this particle generator in React and Redux, I made three \\important discoveries:
+Building this particle generator in React and Redux, I made three important discoveries:
 
 1. **Redux is much faster than I thought**. You’d think creating a new copy of the state tree on each animation loop was crazy, but it works well. We’re probably creating only a shallow copy for the most part, which explains the speed.
 2. **Adding to JavaScript arrays is slow**. Once we hit about 300 particles, adding new ones becomes visibly slow. Stop adding particles and you get smooth animation. This indicates that something about creating particles is slow: either adding to the array, or creating React component instances, or creating SVG DOM nodes.

@@ -7,13 +7,7 @@ redirect_from:
 categories: "Front End, Livecoding, Technical"
 hero: ./img/techletter.app-screenshot-1558716298013.png
 ---
-You know that feeling when you meet an old friend you haven&#x27;t seen in years? You used to be so close but ...
-
-
-
-
-
-_&quot;Long time huh ...&quot;_
+You know that feeling when you meet an old friend you haven&#x27;t seen in years? You used to be so close but ..._&quot;Long time huh ...&quot;_
 
 
 
@@ -61,7 +55,7 @@ Also a favor for a friend who&#x27;s preparing to talk about React to a bunch of
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=BP1I28jWuOY
+https://www.youtube.com/watch?v=BP1I28jWuOY
 
 
 
@@ -149,7 +143,7 @@ React handles the rest.
 
 
 
-The hardest part of building the jQuery version was figuring out how to \\import jQuery in a modern compiled-JavaScript app. 😂
+The hardest part of building the jQuery version was figuring out how to import jQuery in a modern compiled-JavaScript app. 😂
 
 
 
@@ -161,7 +155,7 @@ No seriously, I struggled, tried a bunch of things, and ended up with a good old
 
 
 
-People don&#x27;t do that in real life anymore. It&#x27;s all \\import this \\import that.
+People don&#x27;t do that in real life anymore. It&#x27;s all import this import that.
 
 
 
@@ -233,7 +227,7 @@ Then you got the component that drives state and renders a bunch of kitties with
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1558716776602.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%3Cscript%3E%0A%20%20\import%20Kitty%20from%20%22.%2FKitty.svelte%22%3B%0A%20%20let%20showCount%20%3D%201%3B%0A%20%20let%20cats%20%3D%20%5B%5D%3B%0A%0A%20%20function%20fetchCats(currentCount)%20%7B%0A%20%20%20%20const%20page%20%3D%20Math.ceil(currentCount%20%2F%205)%3B%0A%20%20%20%20return%20fetch(%0A%20%20%20%20%20%20%60https%3A%2F%2Fapi.thecatapi.com%2Fv1%2Fimages%2Fsearch%3Flimit%3D5%26page%3D%24%7Bpage%7D%26order%3DDesc%60%0A%20%20%20%20).then(response%20%3D%3E%20response.json())%3B%0A%20%20%7D%0A%0A%20%20fetchCats(showCount).then(newCats%20%3D%3E%20%7B%0A%20%20%20%20cats%20%3D%20%5B...cats%2C%20...newCats%5D%3B%0A%20%20%7D)%3B%0A%0A%20%20function%20moreCats()%20%7B%0A%20%20%20%20showCount%20%2B%3D%201%3B%0A%0A%20%20%20%20if%20(showCount%3E%20%20cats.length)%20%7B%0A%20%20%20%20%20%20fetchCats(showCount).then(newCats%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20cats%20%3D%20%5B...cats%2C%20...newCats%5D%3B%0A%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%3C%2Fscript%3E)
+[![Click through for source](./img/techletter.app-screenshot-1558716776602.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%3Cscript%3E%0A%20%20import%20Kitty%20from%20%22.%2FKitty.svelte%22%3B%0A%20%20let%20showCount%20%3D%201%3B%0A%20%20let%20cats%20%3D%20%5B%5D%3B%0A%0A%20%20function%20fetchCats(currentCount)%20%7B%0A%20%20%20%20const%20page%20%3D%20Math.ceil(currentCount%20%2F%205)%3B%0A%20%20%20%20return%20fetch(%0A%20%20%20%20%20%20%60https%3A%2F%2Fapi.thecatapi.com%2Fv1%2Fimages%2Fsearch%3Flimit%3D5%26page%3D%24%7Bpage%7D%26order%3DDesc%60%0A%20%20%20%20).then(response%20%3D%3E%20response.json())%3B%0A%20%20%7D%0A%0A%20%20fetchCats(showCount).then(newCats%20%3D%3E%20%7B%0A%20%20%20%20cats%20%3D%20%5B...cats%2C%20...newCats%5D%3B%0A%20%20%7D)%3B%0A%0A%20%20function%20moreCats()%20%7B%0A%20%20%20%20showCount%20%2B%3D%201%3B%0A%0A%20%20%20%20if%20(showCount%3E%20%20cats.length)%20%7B%0A%20%20%20%20%20%20fetchCats(showCount).then(newCats%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20cats%20%3D%20%5B...cats%2C%20...newCats%5D%3B%0A%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%3C%2Fscript%3E)
 
 
 

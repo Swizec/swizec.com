@@ -7,11 +7,7 @@ redirect_from:
 categories: "Learning, Technical"
 hero: ./img/wikipedia-commons-c-c5-Fdedit.png
 ---
-I&#x27;ll never forget this lesson I learned from a friend in 6th or 7th grade.
-
-
-
-We were building our own Windows clone. In [Turbo Pascal](https://en.wikipedia.org/wiki/Turbo_Pascal), running in [DOS](https://en.wikipedia.org/wiki/DOS), using a [textual user interface](https://en.wikipedia.org/wiki/Text-based_user_interface) because we didn&#x27;t know how to do graphics.
+I&#x27;ll never forget this lesson I learned from a friend in 6th or 7th grade.We were building our own Windows clone. In [Turbo Pascal](https://en.wikipedia.org/wiki/Turbo_Pascal), running in [DOS](https://en.wikipedia.org/wiki/DOS), using a [textual user interface](https://en.wikipedia.org/wiki/Text-based_user_interface) because we didn&#x27;t know how to do graphics.
 
 
 
@@ -63,7 +59,7 @@ You could build navigation like this:
 
 
 
-```
+```javascript
 onLeftKeyPress() {
     if (currentMenu === "File") {
         goTo("Help")
@@ -127,7 +123,7 @@ So here&#x27;s what you can do instead.
 
 
 
-```
+```javascript
 items = ["File", "Edit", "Format", "View", "Window", "Help"]
 currentItem = 0
 
@@ -209,8 +205,9 @@ Here&#x27;s how you do it:
 
 
 
-```
-[() => userSubscribed ? <CreditCard /> : <DoTheThing />, ...]
+```undefined
+<code>[() => userSubscribed ? <CreditCard /> : <DoTheThing />, ...]
+</code>
 ```
 
 

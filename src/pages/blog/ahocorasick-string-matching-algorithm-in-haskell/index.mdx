@@ -17,13 +17,13 @@ At the core of this algorithm are three functions: \[caption id=&quot;attachment
 - a _Failure_ function, which tells the _Goto_ function which state to jump into when the character it just read doesn&#x27;t match anything
 - an _Output_ function, which maps states to outputs - potentially more than one per state
 
-The algorithm works in two stages. It will first construct the _Goto, Failure_ and _Output_ functions. The complexity of this operation hinges solely on the size of our dictionary. Then it iterates over the input text to produce all the matches. Using [state machines](http://en.wikipedia.org/wiki/Finite-state_machine "Finite-state machine") for parsing text is a well known trick - the real genius of this algorithm rests in that _Failure_function if you ask me. It makes lateral transitions between states when the algorithm climbs itself into a wall. Say you have _she_ and _hers_ in the dictionary. The _Goto_ machine eats your input string one character at the time. Let&#x27;s say it&#x27;s already read s_h_. The next input is an _e_ so it outputs _she_ and reaches a final state. Next it reads an _r_, but the state didn&#x27;t expect any more inputs, so the _Failure_ function puts us on the path towards _hers_. This is a bit tricky to explain in text, I suggest you look at the picture from the original article and look at what&#x27;s happening.
+The algorithm works in two stages. It will first construct the _Goto, Failure_ and _Output_ functions. The complexity of this operation hinges solely on the size of our dictionary. Then it iterates over the input text to produce all the matches. Using [state machines](http://en.wikipedia.org/wiki/Finite-state_machine "Finite-state machine") for parsing text is a well known trick - the real genius of this algorithm rests in that _Failure _function if you ask me. It makes lateral transitions between states when the algorithm climbs itself into a wall. Say you have _she_ and _hers_ in the dictionary. The _Goto_ machine eats your input string one character at the time. Let&#x27;s say it&#x27;s already read s_h_. The next input is an _e_ so it outputs _she_ and reaches a final state. Next it reads an _r_, but the state didn&#x27;t expect any more inputs, so the _Failure_ function puts us on the path towards _hers_. This is a bit tricky to explain in text, I suggest you look at the picture from the original article and look at what&#x27;s happening.
 
 ## My Haskell implementation
 
 The first implementation I tried, relied on manully mapping inputs to outputs for the _Goto, Failure_ and _Output_ functions by using pattern recognition. Not very pretty, extremely hardcoded, but it worked and was easy to make. Building the functions dynamically proved a bit trickier.
 
-```
+```haskell
 type Goto = Map (Int, Char) Int
 type Failure = Map Int Int
 type Output = Map Int [String]
@@ -31,7 +31,7 @@ type Output = Map Int [String]
 
 First off, we build the _Goto_ function.
 
-```
+```haskell
 -- builds the goto function
 build_goto::Goto -> String -> (Goto, String)
 build_goto m s = (add_one 0 m s, s)
@@ -48,7 +48,7 @@ add_one state m (c:rest)
 
 Essentially this builds a flattened prefix tree in a HashMap of _(state, char)_ pairs mapping to the next state. It makes sure to avoid adding new edges to the three as much as possible. The reason it&#x27;s not simply a prefix tree are those lateral transitions; doing them in a tree would require backtracking and repeating of steps, so we haven&#x27;t achieved anything. Once we have the _Goto_ function, building the _Output_ is trivial.
 
-```
+```haskell
 -- builds the output function
 build_output::(?m::Goto) => [String] -> Output
 build_output [] = empty
@@ -65,7 +65,7 @@ fin state (c:rest) = fin next rest
 
 We are essentially going over the dictionary, finding the final state for each word and building a hash table mapping final states to their outputs. Building the _Failure_ function was trickiest, because we need a way to iterate over the _depths_ at which nodes are position in the _Goto_ state machine. But we threw that info away by using a HashMap.
 
-```
+```haskell
 -- tells us which nodes in the goto state machine are at which traversal depth
 nodes_at_depths::(?m::Goto) => [[Int]]
 nodes_at_depths =
@@ -79,7 +79,7 @@ nodes_at_depths =
 
 We now have a list of lists, that tells us at which depth certain nodes are.
 
-```
+```haskell
 -- builds the failure function
 build_fail::(?m::Goto) => [[Int]] -> Int -> Failure
 build_fail nodes 0 = fst $
@@ -106,9 +106,9 @@ key' state ((k, v):rest)
   | otherwise = key' state rest
 ```
 
-Here we are going over the list of nodes at depths and deciding what the failure should be for each depth based on the failures of depth-1. At depth zero, all failures go to the zeroth state. An \\important part of this process was inverting the _Goto_ HashMap so values point to keys, which is essentially what the _key&#x27;_ function does. Finally, we can use the whole algorithm like this:
+Here we are going over the list of nodes at depths and deciding what the failure should be for each depth based on the failures of depth-1. At depth zero, all failures go to the zeroth state. An important part of this process was inverting the _Goto_ HashMap so values point to keys, which is essentially what the _key&#x27;_ function does. Finally, we can use the whole algorithm like this:
 
-```
+```haskell
 main = do
   let ?m = fst $ mapAccumL build_goto empty dictionary
   let ?f = build_fail nodes_at_depths $ (length $ nodes_at_depths)-1

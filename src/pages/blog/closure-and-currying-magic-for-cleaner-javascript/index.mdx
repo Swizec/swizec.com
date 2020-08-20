@@ -9,17 +9,19 @@ hero: ../../../defaultHero.jpg
 ---
 Sometimes you find a piece of [javascript](http://en.wikipedia.org/wiki/JavaScript "JavaScript"), a perfect piece of javascript, it does _exactly_ what you need! Perfect! You could spend hours, even days, getting something to work and someone&#x27;s already done it, shared the code on the internets even! Hooray! But ... the code looks something like this:
 
-```
+```javascript
 // to populate later
-var data = [], oldData = [], semiOldData = [];
+var data = [],
+  oldData = [],
+  semiOldData = [];
 var a_switch = "blah";
 
 function do_something() {
-   // use subset of globals
+  // use subset of globals
 }
 
 function something_else() {
-   // use some other globals
+  // use some other globals
 }
 
 // etc.
@@ -35,30 +37,32 @@ The code works ... if you only need to use it once. What if you need two indepen
 
 There&#x27;s a better way - put it in a closure.
 
-```
-var my_widget = (function (data_function) {
-// to populate later
-var data = [], oldData = [], semiOldData = [];
-var an_index = 1;
+```javascript
+var my_widget = function (data_function) {
+  // to populate later
+  var data = [],
+    oldData = [],
+    semiOldData = [];
+  var an_index = 1;
 
-function do_something() {
-   // use subset of globals
-}
+  function do_something() {
+    // use subset of globals
+  }
 
-function something_else() {
-   // use some other globals
-}
+  function something_else() {
+    // use some other globals
+  }
 
-// etc.
+  // etc.
 
-function update(index) {
-  an_index = index;
-  data = data_function();
-  // use all of the above
-}
+  function update(index) {
+    an_index = index;
+    data = data_function();
+    // use all of the above
+  }
 
-return update;
-});
+  return update;
+};
 ```
 
 Now you get to create the widget with a simple function call. Hooray! And the function returns its own update function so you can run an update whenever you need. All the state and weirdness is neatly packaged inside the closure, the code itself doesn&#x27;t need to know anything about the outside state. By changing the update function a little bit you can even affect the internal state of the closure by calling the [curried function](http://en.wikipedia.org/wiki/Currying "Currying").
@@ -67,7 +71,7 @@ Now you get to create the widget with a simple function call. Hooray! And the fu
 
 Here&#x27;s where it gets even more magical. Stacking closures to achieve true greatness. Code is the best way to explain what I mean ...
 
-```
+```javascript
 // these functions are used to slice up data
 var slice_functions = {
         students: function (item) { return !!item.cs_student; },

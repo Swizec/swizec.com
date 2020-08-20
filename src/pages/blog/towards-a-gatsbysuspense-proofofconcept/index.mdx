@@ -7,13 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/K6USjWa.jpg
 ---
-Messing around with React Suspense gave me a great idea: What if you could fallback to preloaded data instead of a loading spinner? 💡
-
-
-
-
-
-![](./img/K6USjWa.jpg)
+Messing around with React Suspense gave me a great idea: What if you could fallback to preloaded data instead of a loading spinner? 💡![](./img/K6USjWa.jpg)
 
 
 
@@ -65,7 +59,7 @@ I like to wrap the root node in ApolloProvider and use [react-apollo-hooks](http
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573495144942.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20gatsby-browser.js%0A%2F%2F%20gatsby-ssr.js%0A%0A\import%20%7B%20client%20%7D%20from%20%22.%2Fsrc%2Fapollo%22%0A%0Aexport%20const%20wrapRootElement%20%3D%20(%7B%20element%20%7D)%20%3D%3E%20(%0A%20%20%3CApolloProvider%20client%3D%7Bclient%7D%3E%7Belement%7D%3C%2FApolloProvider%3E%0A))
+[![Click through for source](./img/techletter.app-screenshot-1573495144942.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20gatsby-browser.js%0A%2F%2F%20gatsby-ssr.js%0A%0Aimport%20%7B%20client%20%7D%20from%20%22.%2Fsrc%2Fapollo%22%0A%0Aexport%20const%20wrapRootElement%20%3D%20(%7B%20element%20%7D)%20%3D%3E%20(%0A%20%20%3CApolloProvider%20client%3D%7Bclient%7D%3E%7Belement%7D%3C%2FApolloProvider%3E%0A))
 
 
 
@@ -73,7 +67,7 @@ That gives my entire app access to GraphQL for a specific server. Using [Star Wa
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573495144760.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20src%2Fapollo.js%0A%0A\import%20ApolloClient%20from%20%22apollo-boost%22%0A\import%20fetch%20from%20%22isomorphic-fetch%22%0A%0Aconst%20SERVER_URI%20%3D%0A%20%20%20%20%22https%3A%2F%2Fapi.graphcms.com%2Fsimple%2Fv1%2Fswapi%22%0A%0Aexport%20const%20client%20%3D%20new%20ApolloClient(%7B%0A%20%20%20%20uri%3A%20SERVER_URI%2C%0A%20%20%20%20fetch%2C%0A%7D))
+[![Click through for source](./img/techletter.app-screenshot-1573495144760.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20src%2Fapollo.js%0A%0Aimport%20ApolloClient%20from%20%22apollo-boost%22%0Aimport%20fetch%20from%20%22isomorphic-fetch%22%0A%0Aconst%20SERVER_URI%20%3D%0A%20%20%20%20%22https%3A%2F%2Fapi.graphcms.com%2Fsimple%2Fv1%2Fswapi%22%0A%0Aexport%20const%20client%20%3D%20new%20ApolloClient(%7B%0A%20%20%20%20uri%3A%20SERVER_URI%2C%0A%20%20%20%20fetch%2C%0A%7D))
 
 
 
@@ -133,7 +127,7 @@ Here&#x27;s how you might set it up for Gatsby. Or at least how I did.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1573495144991.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20pages%2Findex.js%0A%0A\import%20%7B%20starshipQuery%2C%20ErrorBoundary%20%7D%20from%20%22..%2Futil%22%0A%0A%2F%2F%20Export%20static%20query%20for%20Gatsby%0Aexport%20const%20query%20%3D%20graphql%60%0A%20%20query%20%7B%0A%20%20%20%20swapi%20%7B%0A%20%20%20%20%20%20allStarships(last%3A%205)%20%7B%0A%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%60%0A%0A%2F%2F%20Run%20query%20on%20browser%20hydration%0Aconst%20starshipQuerySuspender%20%3D%20starshipQuery(10)%0A%0A%2F%2F%20The%20component%20that%20suspends%20with%20a%20data%20load%0Aconst%20Starships%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20starships%20%3D%20starshipQuerySuspender.read()%0A%0A%20%20return%20%3CStarshipsList%20list%3D%7Bstarships%7D%20title%3D%2210%20Dynamically%20loaded%20ships%22%20%2F%3E%0A%7D%0A%0A%2F%2F%20Wrapper%20component%20with%20a%20title%20and%20a%20list%0Aconst%20StarshipsList%20%3D%20(%7B%20list%2C%20title%20%7D)%20%3D%3E%20(%0A%20%20%3C%3E%0A%20%20%20%20%3Ch2%3E%7Btitle%7D%3C%2Fh2%3E%0A%20%20%20%20%3Cul%3E%0A%20%20%20%20%20%20%7Blist.allStarships.map((ship%2C%20i)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3Cli%20key%3D%7Bi%7D%3E%7Bship.name%7D%3C%2Fli%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2Ful%3E%0A%20%20%3C%2F%3E%0A))
+[![Click through for source](./img/techletter.app-screenshot-1573495144991.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20pages%2Findex.js%0A%0Aimport%20%7B%20starshipQuery%2C%20ErrorBoundary%20%7D%20from%20%22..%2Futil%22%0A%0A%2F%2F%20Export%20static%20query%20for%20Gatsby%0Aexport%20const%20query%20%3D%20graphql%60%0A%20%20query%20%7B%0A%20%20%20%20swapi%20%7B%0A%20%20%20%20%20%20allStarships(last%3A%205)%20%7B%0A%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%60%0A%0A%2F%2F%20Run%20query%20on%20browser%20hydration%0Aconst%20starshipQuerySuspender%20%3D%20starshipQuery(10)%0A%0A%2F%2F%20The%20component%20that%20suspends%20with%20a%20data%20load%0Aconst%20Starships%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20starships%20%3D%20starshipQuerySuspender.read()%0A%0A%20%20return%20%3CStarshipsList%20list%3D%7Bstarships%7D%20title%3D%2210%20Dynamically%20loaded%20ships%22%20%2F%3E%0A%7D%0A%0A%2F%2F%20Wrapper%20component%20with%20a%20title%20and%20a%20list%0Aconst%20StarshipsList%20%3D%20(%7B%20list%2C%20title%20%7D)%20%3D%3E%20(%0A%20%20%3C%3E%0A%20%20%20%20%3Ch2%3E%7Btitle%7D%3C%2Fh2%3E%0A%20%20%20%20%3Cul%3E%0A%20%20%20%20%20%20%7Blist.allStarships.map((ship%2C%20i)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3Cli%20key%3D%7Bi%7D%3E%7Bship.name%7D%3C%2Fli%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2Ful%3E%0A%20%20%3C%2F%3E%0A))
 
 
 
@@ -181,7 +175,7 @@ Here&#x27;s where the fun starts:
 
 
 
-Even if it all goes to shit, our user gets the most \\important data they&#x27;re looking for.
+Even if it all goes to shit, our user gets the most important data they&#x27;re looking for.
 
 
 

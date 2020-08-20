@@ -7,11 +7,11 @@ redirect_from:
 categories: "Front End, Livecoding, Technical"
 hero: ../../../defaultHero.jpg
 ---
-_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should [subscribe to ￼My Youtube￼ channel](http://youtube.com/user/theswizec)(https&amp;#x3A;//www.youtube.com/user/theswizec) to catch me live._
+_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should [subscribe to ￼My Youtube￼ channel](http://youtube.com/user/theswizec)(https://www.youtube.com/user/theswizec) to catch me live._
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=eOenovuDHxE
+https://www.youtube.com/watch?v=eOenovuDHxE
 
 
 
@@ -23,7 +23,7 @@ Here is a flamegraph built with React &amp; D3. It shows some stack data I stole
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1003402982552002560
+https://twitter.com/Swizec/status/1003402982552002560
 
 
 
@@ -54,8 +54,8 @@ The `<Flamegraph>` component without animation takes your data, loops it through
 
 
 
-```
-\import { scaleLinear, schemeOrRd, color as d3color } from "d3";
+```javascript
+import { scaleLinear, schemeOrRd, color as d3color } from "d3";
 
 class Flamegraph extends React.Component {
     render() {
@@ -66,22 +66,22 @@ class Flamegraph extends React.Component {
             .range([0, width]);
 
         return (
-            
+            <g transform="{`translate(${x}," ${y})`}="">
                 {data.map((d, i) => {
                     const start = data
                         .slice(0, i)
                         .reduce((sum, d) => sum + d.value, 0);
 
                     return (
-                        
-                            
+                        <react class="fragment" key={`${level}-${d.name}`}>
+                            <flamerect x={xScale(start)} y={0} width={xScale(d.value)} height={RowHeight} name={d.name}>
                             {d.children && (
-                                
+                                <flamegraph data={d.children} x={xScale(start)} y={RowHeight} width={xScale(d.value)} level="{level" +="" 1}="">
                             )}
-                        
+                        </flamegraph></flamerect></react>
                     );
                 })}
-            
+            </g>
         );
     }
 }
@@ -117,8 +117,8 @@ It looks like this:
 
 
 
-```
-\import { scaleLinear, schemeOrRd, color as d3color } from "d3";
+```javascript
+import { scaleLinear, schemeOrRd, color as d3color } from "d3";
 
 class FlameRect extends React.Component {
     state = {
@@ -150,14 +150,14 @@ class FlameRect extends React.Component {
         }
 
         return (
-            
-                
+            <g transform="{`translate(${x}," ${y})`}="" style={{ cursor: "pointer" }} onclick={this.onClick}>
+                <rect x={0} y={0} width={width} height={height} style={{ stroke: "white", fill: color }}>
                 {!hideLabel && (
-                    
+                    <text x={5} y={13} style={{ fontsize: "12px" }} ref={this.labelRefCallback}>
                         {name}
-                    
+                    </text>
                 )}
-            
+            </rect></g>
         );
     }
 }
@@ -193,7 +193,7 @@ Where it gets tricky is adding animation that lets users explore their data. Tur
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1003904212755857408
+https://twitter.com/Swizec/status/1003904212755857408
 
 
 
@@ -209,7 +209,7 @@ This warrants further research. I&#x27;ll be back :)
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=MLchhOfiOwM
+https://www.youtube.com/watch?v=MLchhOfiOwM
 
 
 

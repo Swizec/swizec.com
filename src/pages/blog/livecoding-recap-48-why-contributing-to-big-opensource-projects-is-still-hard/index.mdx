@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=1eoa259yPBk
+https://www.youtube.com/watch?v=1eoa259yPBk
 
 
 
@@ -74,7 +74,7 @@ We filed a [helpful issue](https://github.com/gatsbyjs/gatsby/issues/2395) compl
 
 
 
-2 hours later, we had installed some 30 missing packages and aaaaalmost got a clean `yarn test` run. Very \\important to have all your tests passing before you start poking around a large codebase.
+2 hours later, we had installed some 30 missing packages and aaaaalmost got a clean `yarn test` run. Very important to have all your tests passing before you start poking around a large codebase.
 
 
 
@@ -106,26 +106,26 @@ This function 👇
 
 
 
-```
+```javascript
 async function getTableOfContents(markdownNode) {
- const cachedToc = await cache.get(tableOfContentsCacheKey(markdownNode))
- //if (cachedToc) {
- // return cachedToc
- //} else {
- const ast = await getAST(markdownNode)
- const tocAst = mdastToToc(ast)
- let toc
- if (tocAst.map) {
- //toc = hastToHTML(toHAST(tocAst.map))
- toc = toHAST(tocAst.map)
- console.log(require('util').inspect(tocAst.map, false, null))
- } else {
- toc = ``
- }
- cache.set(tableOfContentsCacheKey(markdownNode), toc)
- return toc
- //}
- }
+  const cachedToc = await cache.get(tableOfContentsCacheKey(markdownNode));
+  //if (cachedToc) {
+  // return cachedToc
+  //} else {
+  const ast = await getAST(markdownNode);
+  const tocAst = mdastToToc(ast);
+  let toc;
+  if (tocAst.map) {
+    //toc = hastToHTML(toHAST(tocAst.map))
+    toc = toHAST(tocAst.map);
+    console.log(require("util").inspect(tocAst.map, false, null));
+  } else {
+    toc = ``;
+  }
+  cache.set(tableOfContentsCacheKey(markdownNode), toc);
+  return toc;
+  //}
+}
 ```
 
 

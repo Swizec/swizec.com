@@ -43,7 +43,7 @@ For example, to get a JSON object with superagent, you&#x27;d do this:
 
 
 
-```
+```javascript
 superagent.get('/api/some.json')
                     .set('Accept, 'application/json')
                     .end((err, res) => {
@@ -57,12 +57,12 @@ The same call with fetch() looks like this:
 
 
 
-```
-fetch('/api/some.json', {headers: {Accept: 'application/json'}})
-    .then((res) => res.json())
-    .then((json) => {
-        // json contains parsed JSON
-    });
+```javascript
+fetch("/api/some.json", { headers: { Accept: "application/json" } })
+  .then((res) => res.json())
+  .then((json) => {
+    // json contains parsed JSON
+  });
 ```
 
 
@@ -75,7 +75,7 @@ Where it gets interesting is when you have two calls that rely on each other. Ob
 
 
 
-```
+```javascript
 superagent.get('/api/some.json')
                     .set('Accept, 'application/json')
                     .end((err, res) => {
@@ -94,17 +94,17 @@ Vs.
 
 
 
-```
-fetch('/api/some.json', {headers: {Accept: 'application/json'}})
-    .then((res) => res.json())
-    .then((json) => {
-        const url = `/api/details/${json.details_id}.json`;
-        return fetch(url, {headers: {Accept: 'application/json'}});
-    })
-    .then((res) => res.json())
-    .then((json) => {
-        // json contains parsed details
-    });
+```javascript
+fetch("/api/some.json", { headers: { Accept: "application/json" } })
+  .then((res) => res.json())
+  .then((json) => {
+    const url = `/api/details/${json.details_id}.json`;
+    return fetch(url, { headers: { Accept: "application/json" } });
+  })
+  .then((res) => res.json())
+  .then((json) => {
+    // json contains parsed details
+  });
 ```
 
 
@@ -125,11 +125,7 @@ Your clean code stops working. You&#x27;re doing everything right: you send the 
 
 
 
-> TIL: Rails doesn&#x27;t think HTTP headers are case-insensitive.  
->   
-> fetch() knows they are and forces lowercase [pic.twitter.com/3DyMz7mgc6](https://t.co/3DyMz7mgc6)
->
-> — Swizec (@Swizec) [October 31, 2016](https://twitter.com/Swizec/status/793197010664824832)
+https://twitter.com/Swizec/status/793197010664824832
 
 
 
@@ -137,11 +133,7 @@ You fall into a rabbit hole…
 
 
 
-> Rails can still get the token out of Authentication header, but returns 401 anyway.  
->   
-> This is what I get for trying to uses Promises.
->
-> — Swizec (@Swizec) [October 31, 2016](https://twitter.com/Swizec/status/793200932485894144)
+https://twitter.com/Swizec/status/793200932485894144
 
 
 
@@ -153,11 +145,7 @@ You abandon all hope…
 
 
 
-> Oh great, looks like it&#x27;s actually Warden bug deep inside the bowels of Devise.  
->   
-> All I wanted was to use fetch() ?
->
-> — Swizec (@Swizec) [October 31, 2016](https://twitter.com/Swizec/status/793210701175148544)
+https://twitter.com/Swizec/status/793210701175148544
 
 
 
@@ -181,11 +169,7 @@ The difference between superagent and fetch() isn&#x27;t that one sends your hea
 
 
 
-> Oh god ... the REAL issue is that fetch() doesn&#x27;t automatically send Cookies and I didn&#x27;t notice.  
->   
-> Fuck my life. [pic.twitter.com/hWbxA8bvzV](https://t.co/hWbxA8bvzV)
->
-> — Swizec (@Swizec) [October 31, 2016](https://twitter.com/Swizec/status/793215715939463168)
+https://twitter.com/Swizec/status/793215715939463168
 
 
 
@@ -201,19 +185,23 @@ Code looks like this:
 
 
 
-```
-fetch('/api/some.json', {headers: {Accept: 'application/json'},
-                                                 credentials: 'same-origin'})
-    .then((res) => res.json())
-    .then((json) => {
-        const url = `/api/details/${json.details_id}.json`;
-        return fetch(url, {headers: {Accept: 'application/json'},
-                                             credentials: 'same-origin'});
-    })
-    .then((res) => res.json())
-    .then((json) => {
-        // json contains parsed details
+```javascript
+fetch("/api/some.json", {
+  headers: { Accept: "application/json" },
+  credentials: "same-origin",
+})
+  .then((res) => res.json())
+  .then((json) => {
+    const url = `/api/details/${json.details_id}.json`;
+    return fetch(url, {
+      headers: { Accept: "application/json" },
+      credentials: "same-origin",
     });
+  })
+  .then((res) => res.json())
+  .then((json) => {
+    // json contains parsed details
+  });
 ```
 
 

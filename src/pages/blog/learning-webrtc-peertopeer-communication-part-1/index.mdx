@@ -7,11 +7,7 @@ redirect_from:
 categories: "blockchain, Front End, Livecoding, Technical, WebRTC"
 hero: ../../../defaultHero.jpg
 ---
-https&amp;#x3A;//www.youtube.com/watch?v=pjoem5laCYQ
-
-
-
-Remember [blockchain-redux](https://github.com/Swizec/blockchain-redux)? Yeah, I&#x27;m still working on it. Last time, we got it to [share blocks between clients in real-time](https://swizec.com/blog/blockchain-redux-shares-blocks-between-clients-real-time/swizec/8320).
+https://www.youtube.com/watch?v=pjoem5laCYQRemember [blockchain-redux](https://github.com/Swizec/blockchain-redux)? Yeah, I&#x27;m still working on it. Last time, we got it to [share blocks between clients in real-time](https://swizec.com/blog/blockchain-redux-shares-blocks-between-clients-real-time/swizec/8320).
 
 
 
@@ -31,7 +27,7 @@ I built [a demo app](https://swizec.github.io/webrtc-sample/) that uses `RTCPeer
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/993269639235842051
+https://twitter.com/Swizec/status/993269639235842051
 
 
 
@@ -87,59 +83,65 @@ We start with a React component that renders 2 videos and 3 buttons. It has a bu
 
 
 
-```
+```javascript
 class WebRTCPeerConnection extends React.Component {
-    state = {
-        startDisabled: false,
-        callDisabled: true,
-        hangUpDisabled: true,
-        servers: null,
-        pc1: null,
-        pc2: null,
-        localStream: null
-    };
+  state = {
+    startDisabled: false,
+    callDisabled: true,
+    hangUpDisabled: true,
+    servers: null,
+    pc1: null,
+    pc2: null,
+    localStream: null,
+  };
 
-    localVideoRef = React.createRef();
-    remoteVideoRef = React.createRef();
+  localVideoRef = React.createRef();
+  remoteVideoRef = React.createRef();
 
-    start = () => {
-        // start media devices
-    };
+  start = () => {
+    // start media devices
+  };
 
-    call = () => {
-        // initiate a call
-    };
+  call = () => {
+    // initiate a call
+  };
 
-    hangUp = () => {
-        // hang up connection
-    };
+  hangUp = () => {
+    // hang up connection
+  };
 
-    render() {
-        const { startDisabled, callDisabled, hangUpDisabled } = this.state;
+  render() {
+    const { startDisabled, callDisabled, hangUpDisabled } = this.state;
 
-        return (
-            
-
-                
-                
-
-                
-
-                    
-                        Start
-                    
-                    
-                        Call
-                    
-                    
-                        Hang Up
-                    
-                
-
-            
-
-        );
-    }
+    return (
+      <div>
+        <video
+          ref={this.localVideoRef}
+          autoplay
+          muted
+          style={{ width: "240px", height: "180px" }}
+        >
+          <video
+            ref={this.remoteVideoRef}
+            autoplay
+            style={{ width: "240px", height: "180px" }}
+          >
+            <div>
+              <button onclick={this.start} disabled>
+                Start
+              </button>
+              <button onclick={this.call} disabled>
+                Call
+              </button>
+              <button onclick={this.hangUp} disabled>
+                Hang Up
+              </button>
+            </div>
+          </video>
+        </video>
+      </div>
+    );
+  }
 }
 ```
 
@@ -157,27 +159,27 @@ When you click the `Start` button, we ask for audio/video permissions and start 
 
 
 
-```
-    start = () => {
-        this.setState({
-            startDisabled: true
-        });
-        navigator.mediaDevices
-            .getUserMedia({
-                audio: true,
-                video: true
-            })
-            .then(this.gotStream)
-            .catch(e => alert("getUserMedia() error:" + e.name));
-    };
-    
-    gotStream = stream => {
-        this.localVideoRef.current.srcObject = stream;
-        this.setState({
-            callDisabled: false,
-            localStream: stream
-        });
-    };
+```javascript
+start = () => {
+  this.setState({
+    startDisabled: true,
+  });
+  navigator.mediaDevices
+    .getUserMedia({
+      audio: true,
+      video: true,
+    })
+    .then(this.gotStream)
+    .catch((e) => alert("getUserMedia() error:" + e.name));
+};
+
+gotStream = (stream) => {
+  this.localVideoRef.current.srcObject = stream;
+  this.setState({
+    callDisabled: false,
+    localStream: stream,
+  });
+};
 ```
 
 
@@ -201,48 +203,43 @@ You can now press the `Call` button. That starts two peer connections, `pc1` and
 
 
 
-```
-    call = () => {
-        this.setState({
-            callDisabled: true,
-            hangUpDisabled: false
-        });
-        let { localStream } = this.state;
+```javascript
+call = () => {
+  this.setState({
+    callDisabled: true,
+    hangUpDisabled: false,
+  });
+  let { localStream } = this.state;
 
-        let servers = null,
-            pc1 = new RTCPeerConnection(servers),
-            pc2 = new RTCPeerConnection(servers);
+  let servers = null,
+    pc1 = new RTCPeerConnection(servers),
+    pc2 = new RTCPeerConnection(servers);
 
-        pc1.onicecandidate = e => this.onIceCandidate(pc1, e);
-        pc1.oniceconnectionstatechange = e => this.onIceStateChange(pc1, e);
+  pc1.onicecandidate = (e) => this.onIceCandidate(pc1, e);
+  pc1.oniceconnectionstatechange = (e) => this.onIceStateChange(pc1, e);
 
-        pc2.onicecandidate = e => this.onIceCandidate(pc2, e);
-        pc2.oniceconnectionstatechange = e => this.onIceStateChange(pc2, e);
-        pc2.ontrack = this.gotRemoteStream;
+  pc2.onicecandidate = (e) => this.onIceCandidate(pc2, e);
+  pc2.oniceconnectionstatechange = (e) => this.onIceStateChange(pc2, e);
+  pc2.ontrack = this.gotRemoteStream;
 
-        localStream
-            .getTracks()
-            .forEach(track => pc1.addTrack(track, localStream));
+  localStream.getTracks().forEach((track) => pc1.addTrack(track, localStream));
 
-        pc1
-            .createOffer({
-                offerToReceiveAudio: 1,
-                offerToReceiveVideo: 1
-            })
-            .then(this.onCreateOfferSuccess, error =>
-                console.error(
-                    "Failed to create session description",
-                    error.toString()
-                )
-            );
+  pc1
+    .createOffer({
+      offerToReceiveAudio: 1,
+      offerToReceiveVideo: 1,
+    })
+    .then(this.onCreateOfferSuccess, (error) =>
+      console.error("Failed to create session description", error.toString())
+    );
 
-        this.setState({
-            servers,
-            pc1,
-            pc2,
-            localStream
-        });
-    };
+  this.setState({
+    servers,
+    pc1,
+    pc2,
+    localStream,
+  });
+};
 ```
 
 
@@ -271,45 +268,42 @@ When all that&#x27;s done, we update component state.
 
 
 
-After `pc1` successfully creates an offer to be received, we update local and remote descriptions in our clients. I&#x27;m not sure what these &quot;descriptions&quot; are, but it&#x27;s where the \\important stuff happens.
+After `pc1` successfully creates an offer to be received, we update local and remote descriptions in our clients. I&#x27;m not sure what these &quot;descriptions&quot; are, but it&#x27;s where the important stuff happens.
 
 
 
-```
-    onCreateOfferSuccess = desc => {
-        let { pc1, pc2 } = this.state;
+```javascript
+onCreateOfferSuccess = (desc) => {
+  let { pc1, pc2 } = this.state;
 
-        pc1
-            .setLocalDescription(desc)
-            .then(
-                () =>
-                    console.log("pc1 setLocalDescription complete createOffer"),
-                error =>
-                    console.error(
-                        "pc1 Failed to set session description in createOffer",
-                        error.toString()
-                    )
-            );
+  pc1.setLocalDescription(desc).then(
+    () => console.log("pc1 setLocalDescription complete createOffer"),
+    (error) =>
+      console.error(
+        "pc1 Failed to set session description in createOffer",
+        error.toString()
+      )
+  );
 
-        pc2.setRemoteDescription(desc).then(
-            () => {
-                console.log("pc2 setRemoteDescription complete createOffer");
-                pc2
-                    .createAnswer()
-                    .then(this.onCreateAnswerSuccess, error =>
-                        console.error(
-                            "pc2 Failed to set session description in createAnswer",
-                            error.toString()
-                        )
-                    );
-            },
-            error =>
-                console.error(
-                    "pc2 Failed to set session description in createOffer",
-                    error.toString()
-                )
+  pc2.setRemoteDescription(desc).then(
+    () => {
+      console.log("pc2 setRemoteDescription complete createOffer");
+      pc2
+        .createAnswer()
+        .then(this.onCreateAnswerSuccess, (error) =>
+          console.error(
+            "pc2 Failed to set session description in createAnswer",
+            error.toString()
+          )
         );
-    };
+    },
+    (error) =>
+      console.error(
+        "pc2 Failed to set session description in createOffer",
+        error.toString()
+      )
+  );
+};
 ```
 
 
@@ -326,38 +320,28 @@ When `pc2` successfully creates an answer, we do another round of description se
 
 
 
-```
-    onCreateAnswerSuccess = desc => {
-        let { pc1, pc2 } = this.state;
+```javascript
+onCreateAnswerSuccess = (desc) => {
+  let { pc1, pc2 } = this.state;
 
-        pc1
-            .setRemoteDescription(desc)
-            .then(
-                () =>
-                    console.log(
-                        "pc1 setRemoteDescription complete createAnswer"
-                    ),
-                error =>
-                    console.error(
-                        "pc1 Failed to set session description in onCreateAnswer",
-                        error.toString()
-                    )
-            );
+  pc1.setRemoteDescription(desc).then(
+    () => console.log("pc1 setRemoteDescription complete createAnswer"),
+    (error) =>
+      console.error(
+        "pc1 Failed to set session description in onCreateAnswer",
+        error.toString()
+      )
+  );
 
-        pc2
-            .setLocalDescription(desc)
-            .then(
-                () =>
-                    console.log(
-                        "pc2 setLocalDescription complete createAnswer"
-                    ),
-                error =>
-                    console.error(
-                        "pc2 Failed to set session description in onCreateAnswer",
-                        error.toString()
-                    )
-            );
-    };
+  pc2.setLocalDescription(desc).then(
+    () => console.log("pc2 setLocalDescription complete createAnswer"),
+    (error) =>
+      console.error(
+        "pc2 Failed to set session description in onCreateAnswer",
+        error.toString()
+      )
+  );
+};
 ```
 
 
@@ -374,7 +358,7 @@ At this point, we have two video streams talking to each other on the same page.
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/993269639235842051
+https://twitter.com/Swizec/status/993269639235842051
 
 
 
@@ -386,23 +370,17 @@ At some point during all this, both `pc*`s say that they&#x27;ve got an ICE cand
 
 
 
-```
-    onIceCandidate = (pc, event) => {
-        let { pc1, pc2 } = this.state;
+```javascript
+onIceCandidate = (pc, event) => {
+  let { pc1, pc2 } = this.state;
 
-        let otherPc = pc === pc1 ? pc2 : pc1;
+  let otherPc = pc === pc1 ? pc2 : pc1;
 
-        otherPc
-            .addIceCandidate(event.candidate)
-            .then(
-                () => console.log("addIceCandidate success"),
-                error =>
-                    console.error(
-                        "failed to add ICE Candidate",
-                        error.toString()
-                    )
-            );
-    };
+  otherPc.addIceCandidate(event.candidate).then(
+    () => console.log("addIceCandidate success"),
+    (error) => console.error("failed to add ICE Candidate", error.toString())
+  );
+};
 ```
 
 
@@ -419,20 +397,20 @@ Hanging up is easy. You close both clients.
 
 
 
-```
-    hangUp = () => {
-        let { pc1, pc2 } = this.state;
+```javascript
+hangUp = () => {
+  let { pc1, pc2 } = this.state;
 
-        pc1.close();
-        pc2.close();
+  pc1.close();
+  pc2.close();
 
-        this.setState({
-            pc1: null,
-            pc2: null,
-            hangUpDisabled: true,
-            callDisabled: false
-        });
-    };
+  this.setState({
+    pc1: null,
+    pc2: null,
+    hangUpDisabled: true,
+    callDisabled: false,
+  });
+};
 ```
 
 

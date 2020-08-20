@@ -17,6 +17,8 @@ So we played around and got that working on a stream 👇
 
 
 
+https://www.youtube.com/watch?v=xyyI6EytvZk
+
 
 
 Using hooks because why not. It&#x27;s fun to experiment with the future :)
@@ -41,6 +43,8 @@ Here&#x27;s a CodeSandbox, try it out 👇
 
 
 
+https://codesandbox.io/s/nr2z3qlm00
+
 
 
 ## First, you need a context and some state
@@ -55,10 +59,10 @@ A couple lines is all we need:
 
 
 
-```
+```javascript
 // src/useTooltip.js
 
-\import React, { useState } from "react";
+import React, { useState } from "react";
 
 const tooltipContext = React.createContext();
 
@@ -104,10 +108,10 @@ Like I said, we used scatterplots because they&#x27;re quick to build. Take some
 
 
 
-```
+```javascript
 // src/Scatterplot.js
 
-\import { tooltipContext } from "./useTooltip";
+import { tooltipContext } from "./useTooltip";
 
 export default ({
   x,
@@ -131,16 +135,16 @@ export default ({
     .range([padding, height - padding]);
 
   return (
-    
+    <g transform="{`translate(${x}," ${y})`}="">
       {data.map(d => (
-         setTooltip(d)}
+        <circle key={d.id} cx={xScale(xDimension(d))} cy={yScale(yDimension(d))} r={3} onmouseover="{()" ==""> setTooltip(d)}
           onMouseOut={() => setTooltip(false)}
         />
       ))}
       {tooltip && (
-        
+        <tooltip x={xScale(xDimension(tooltip))} y={yScale(yDimension(tooltip))} info={tooltip}>
       )}
-    
+    </tooltip></circle></g>
   );
 };
 ```
@@ -167,15 +171,15 @@ Each circle gets a position based on our scale and a passed-in value accessor. `
 
 
 
-Then we render the `` component.
+Then we render the ``component.
 
 
 
-## Third, you need a ``
+## Third, you need a``
 
 
 
-The `` component takes coordinates and content. Renders them in an SVG `foreignObject` so we can leverage HTML&#x27;s built-in text formatting abilities.
+The ``component takes coordinates and content. Renders them in an SVG `foreignObject` so we can leverage HTML&#x27;s built-in text formatting abilities.
 
 
 
@@ -183,27 +187,21 @@ Reflowing text in SVG yourself is painful 😉
 
 
 
-```
+```javascript
 // src/Scatterplot.js
 
 const Tooltip = ({ x, y, info }) => (
-  
-    
-
-      {info.name}
+  <foreignobject x="{x" +="" 10}="" y="{y" width={100} height={50}>
+    <div>
+      <strong>{info.name}</strong>
       
         {info.state} {info.zipCode}
       
-      
-
-
+      <p style={{ color: info.color }}>
         {info.number1.toFixed(2)}, {info.number2.toFixed(2)}
-      
-
-
-    
-
-  
+      </p>
+    </div>
+  </foreignobject>
 );
 ```
 
@@ -233,7 +231,7 @@ Looks like this
 
 
 
-```
+```javascript
 function App() {
   // Generate random data on first load
   const data = useMemo(
@@ -263,31 +261,25 @@ function App() {
   const state = useTooltip();
 
   return (
-    
-
-      
-React & D3 dashboard with synced tooltips
-
-      
-For simplicity, it's scatterplots ✌️
-
-      
-        
-           d.number1}
+    <div class="App">
+      <h1>React & D3 dashboard with synced tooltips</h1>
+      <h2>For simplicity, it's scatterplots ✌️</h2>
+      <tooltipcontext class="provider" value={state}>
+        <svg width="800" height="600">
+          <scatterplot x={0} y={0} width={200} height={200} data={data} xdimension="{d" ==""> d.number1}
             yDimension={d => d.number2}
           />
 
-           d.number1}
+          <scatterplot x={250} y={0} width={200} height={200} data={data} xdimension="{d" ==""> d.number1}
             yDimension={d => stateToNumber(d.state)}
           />
 
-           stateToNumber(d.state)}
+          <scatterplot x={0} y={250} width={200} height={200} data={data} xdimension="{d" ==""> stateToNumber(d.state)}
             yDimension={d => alphabet(d.name[0])}
           />
-        
-      
-    
-
+        </scatterplot></scatterplot></scatterplot></svg>
+      </tooltipcontext>
+    </div>
   );
 }
 ```

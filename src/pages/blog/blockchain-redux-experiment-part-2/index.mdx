@@ -11,11 +11,11 @@ The [blockchain-redux](https://github.com/Swizec/blockchain-redux) experiment co
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=CREqFkX_r1o
+https://www.youtube.com/watch?v=CREqFkX_r1o
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=EW8uJ8Z2pYA
+https://www.youtube.com/watch?v=EW8uJ8Z2pYA
 
 
 
@@ -71,16 +71,16 @@ The concept here is simple:
 
 
 
-```
-    let listeners = [];
+```javascript
+let listeners = [];
 
-    function subscribe(listener) {
-        listeners.push(listener);
+function subscribe(listener) {
+  listeners.push(listener);
 
-        return function unsubscribe() {
-            listeners.splice(listeners.indexOf(listener), 1);
-        };
-    }
+  return function unsubscribe() {
+    listeners.splice(listeners.indexOf(listener), 1);
+  };
+}
 ```
 
 
@@ -113,7 +113,7 @@ First part is to add a 3rd argument to `createStore` – the `enhancer`.
 
 
 
-```
+```javascript
 function createStore(reducer, preloadedState, enhancer) {
     if (
         typeof preloadedState === "function" &&
@@ -138,24 +138,24 @@ The enhancer, a middleware, then takes care of instantiating the store and chang
 
 
 
-```
+```javascript
 // a logging middleweare
-export default function() {
-    return createStore => (...args) => {
-        const store = createStore(...args);
-        const _dispatch = store.dispatch;
+export default function () {
+  return (createStore) => (...args) => {
+    const store = createStore(...args);
+    const _dispatch = store.dispatch;
 
-        function dispatch(action) {
-            _dispatch(action);
+    function dispatch(action) {
+      _dispatch(action);
 
-            console.log("ACTION", action);
-        }
-        
-        return Object.assign(store, {
-            dispatch
-        });
+      console.log("ACTION", action);
     }
-};
+
+    return Object.assign(store, {
+      dispatch,
+    });
+  };
+}
 ```
 
 
@@ -224,13 +224,13 @@ Just like before, the only function it augments is `dispatch`. It now tries to s
 
 
 
-```
-        function dispatch(action) {
-            _dispatch(action);
+```javascript
+function dispatch(action) {
+  _dispatch(action);
 
-            const newBlock = store.getLastBlock();
-            return saveBlock(newBlock);
-        }
+  const newBlock = store.getLastBlock();
+  return saveBlock(newBlock);
+}
 ```
 
 
@@ -243,23 +243,23 @@ Saving that block is fraught with some difficulty, however.
 
 
 
-```
-        function saveBlock(block) {
-            block._data = block._data || {};
+```javascript
+function saveBlock(block) {
+  block._data = block._data || {};
 
-            return db
-                .ref(`blockchain/${block.index}`)
-                .once("value")
-                .then(snapshot => {
-                    if (!snapshot.exists()) {
-                        db.ref(`blockchain/${block.index}`).set(block);
-                        return true;
-                    } else {
-                        // collision resolution?
-                        return false;
-                    }
-                });
-        }
+  return db
+    .ref(`blockchain/${block.index}`)
+    .once("value")
+    .then((snapshot) => {
+      if (!snapshot.exists()) {
+        db.ref(`blockchain/${block.index}`).set(block);
+        return true;
+      } else {
+        // collision resolution?
+        return false;
+      }
+    });
+}
 ```
 
 
@@ -292,30 +292,28 @@ One approach I found was to read the whole thing from Firebase and replacing the
 
 
 
-```
+```javascript
 function initFromFirebase() {
-            return db
-                .ref("blockchain")
-                .orderByKey()
-                .once("value")
-                .then(snapshot => snapshot.val())
-                .then(blockchain => {
-                    blockchain = Object.values(blockchain).map(block => {
-                        block.data = block._data ? JSON.parse(block._data) : {};
-                        return block;
-                    });
+  return db
+    .ref("blockchain")
+    .orderByKey()
+    .once("value")
+    .then((snapshot) => snapshot.val())
+    .then((blockchain) => {
+      blockchain = Object.values(blockchain).map((block) => {
+        block.data = block._data ? JSON.parse(block._data) : {};
+        return block;
+      });
 
-                    store.replaceChain(blockchain);
+      store.replaceChain(blockchain);
 
-                    return Object.assign(store, {
-                        dispatch
-                    });
-                });
-        }
+      return Object.assign(store, {
+        dispatch,
+      });
+    });
+}
 
-        return Promise.all(store._blockchain.map(saveBlock)).then(
-            initFromFirebase
-        );
+return Promise.all(store._blockchain.map(saveBlock)).then(initFromFirebase);
 ```
 
 

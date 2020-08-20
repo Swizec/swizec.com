@@ -7,15 +7,7 @@ redirect_from:
 categories: "Front End, Learning, Technical"
 hero: ../../../defaultHero.jpg
 ---
-DRY is the first of the big rules engineers learn. Do not Repeat Yourself.
-
-
-
-It&#x27;s a good rule. You&#x27;ll figure it out on your own even if nobody teaches you.
-
-
-
-_&quot;Make a button&quot;_
+DRY is the first of the big rules engineers learn. Do not Repeat Yourself.It&#x27;s a good rule. You&#x27;ll figure it out on your own even if nobody teaches you._&quot;Make a button&quot;_
 
 
 
@@ -23,10 +15,8 @@ Okay, you can write a component like this:
 
 
 
-```
-const Button = () => (
-    Button
-);
+```javascript
+const Button = () => <button>Button</button>;
 ```
 
 
@@ -39,14 +29,10 @@ You got it!
 
 
 
-```
-const Button = () => (
-    Button
-);
+```javascript
+const Button = () => <button>Button</button>;
 
-const ClickMe = () => (
-    ClickMe
-);
+const ClickMe = () => <button>ClickMe</button>;
 ```
 
 
@@ -59,14 +45,10 @@ Okay, we can do that.
 
 
 
-```
-const Button = () => (
-    Button
-);
+```javascript
+const Button = () => <button onclick={openCart}>Button</button>;
 
-const ClickMe = () => (
-    ClickMe
-);
+const ClickMe = () => <button onclick={closePage}>ClickMe</button>;
 ```
 
 
@@ -87,22 +69,23 @@ Okay. Let me DRY this up.
 
 
 
-```
+```javascript
 const GenericButton = ({ onClick, label }) => (
-    {label}
+    <button onclick={onClick}>{label}</button>
 )
 
 const Button = () => (
-    
+    <genericbutton onclick={openCart} label="Button">
 )
 
 const ClickMe = () => (
-    
+    <genericbutton onclick={closePage} label="ClickMe">
 )
 
 const CloseModal = () => (
-    
+    <genericbutton onclick={closeModal} label="Close Modal">
 )
+</genericbutton></genericbutton></genericbutton>
 ```
 
 
@@ -119,11 +102,11 @@ You&#x27;ve just DRY&#x27;d up your code, and here&#x27;s your first victory. Bu
 
 
 
-```
+```javascript
 const GenericButton = ({ onClick, label }) => (
-    
+    <button 20="" onclick={onClick} style={{ fontsize: }}>
         {label}
-    
+    </button>
 )
 ```
 
@@ -153,24 +136,25 @@ Okay, that&#x27;s annoying, why 3 different buttons, but you can extend `Generic
 
 
 
-```
+```javascript
 const GenericButton = ({ onClick, label, style }) => (
-    
+    <button onclick={onClick} style={{ fontsize: 20, ...style }}>
         {label}
-    
+    </button>
 )
 
 const Button = () => (
-    
+    <genericbutton onclick={openCart} label="Button" style={{ background: 'green' }}>
 )
 
 const ClickMe = () => (
-    
+    <genericbutton onclick={closePage} label="ClickMe" style={{ background: 'blue' }}>
 )
 
 const CloseModal = () => (
-    
+    <genericbutton onclick={closeModal} label="Close Modal" style={{ background: 'green' }}>
 )
+</genericbutton></genericbutton></genericbutton>
 ```
 
 
@@ -207,13 +191,12 @@ Hmm… 2 of your 3 buttons need new behavior. Best add it to the base implementa
 
 
 
-```
+```javascript
 const GenericButton = ({ onClick, label, active, style }) => (
-    
-        
-        {label}
-    
-)
+  <button onclick={onClick} disabled style={{ fontsize: 20, ...style }}>
+    {label}
+  </button>
+);
 ```
 
 
@@ -238,17 +221,16 @@ You adapt the code.
 
 
 
-```
+```javascript
 const GenericButton = ({ onClick, label, active, style }) => {
-    active = active === undefined ? true : active;
-    
-    return (
-        
-            
-            {label}
-        
-    )
-}
+  active = active === undefined ? true : active;
+
+  return (
+    <button onclick={onClick} disabled style={{ fontsize: 20, ...style }}>
+      {label}
+    </button>
+  );
+};
 ```
 
 
@@ -277,7 +259,7 @@ Happens a lot.
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1081328297634459649
+https://twitter.com/Swizec/status/1081328297634459649
 
 
 

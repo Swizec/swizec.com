@@ -7,11 +7,7 @@ redirect_from:
 categories: "d3, Front End, react, Technical"
 hero: ./img/blog-wp-content-uploads-2018-04-carbon-945x1024.png
 ---
-The new React 16.3 brings some changes to the ecosystem that change how we go about integrating React and D3 to build data visualizations.
-
-
-
-`componentWillReceiveProps`, `componentWillUpdate` and `compnentWillMount` are on their way out. They were great for making [React and D3](https://swizec.com/reactd3js) happy together, but they cause issues with the async rendering that the React team is planning for React 17.
+The new React 16.3 brings some changes to the ecosystem that change how we go about integrating React and D3 to build data visualizations.`componentWillReceiveProps`, `componentWillUpdate` and `compnentWillMount` are on their way out. They were great for making [React and D3](https://swizec.com/reactd3js) happy together, but they cause issues with the async rendering that the React team is planning for React 17.
 
 
 
@@ -27,13 +23,15 @@ Here&#x27;s a small example of building a transition with React 16.3. Using only
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=dipl9j1gpM8
+https://www.youtube.com/watch?v=dipl9j1gpM8
 
 
 
 You can play with it on CodeSandbox 👇
 
 
+
+https://codesandbox.io/s/618mr9r6nr
 
 
 
@@ -69,7 +67,7 @@ That happens in `componentDidUpdate`.
 
 
 
-```
+```javascript
 componentDidUpdate() {
     d3
       .select(this.circleRef.current)
@@ -119,13 +117,13 @@ Making the ball jump left to right looks like this:
 
 
 
-```
+```javascript
 // state = { ballLeft: false }
 // ballJump() flip ballLeft state
 // render()
-
-          
-        
+<svg style={{ width: "300", height: "100px" }} onclick={this.ballJump}>
+          <ball 15="" x="{ballLeft" ?="" :="" 300}=""></ball>
+        </svg>
 ```
 
 

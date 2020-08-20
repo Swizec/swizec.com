@@ -9,13 +9,13 @@ hero: ../../../defaultHero.jpg
 ---
 You&#x27;ve set up rails with [devise](https://github.com/plataformatec/devise) and [omniauth](http://www.omniauth.org/). Users are signing up with facebook or twitter or email&amp;password or something completely different. Everything is going great. Now you want to force some users to add a facebook login to their account. Maybe you just want to see if their name and avatar match what they&#x27;ve set up in your service to make sure they really are who they say they are. Whatever. It seems like you might need to add a custom Devise strategy. You start googling. Doesn&#x27;t seem like a lot of work, you just extend `Authorizable` and override the `authorize!` function and then ... do _something_. Seems you&#x27;ll have to mostly override how authorization works. Will that play well with `omniauthable`? But that only solves the problem of forcing [Facebook](http://en.wikipedia.org/wiki/Facebook "Facebook") on authorization. Who&#x27;s going to check the conditions on every page load and sign the user out? You set up a filter. Put it in `application_controller` and it&#x27;s just a big mess. You&#x27;re still not sure how to tie everything together and the clusterfuck of code is growing and growing.
 
-> If it’s complicated and confusing, you probably haven’t found the right approach yet. [#programming](https://twitter.com/search?q=%23programming&amp;src=hash) — Swizec (@Swizec) [June 18, 2013](https://twitter.com/Swizec/statuses/347024137086173185)
+https://twitter.com/Swizec/statuses/347024137086173185
 
 ## Force FB with just 19 sloc
 
 There&#x27;s a better way! I stumbled on this solution almost by accident after ending up on an obscure API doc page on my gazillionth google search. Turns out you can force a user to sign up with facebook in just under 19 [lines of code](http://en.wikipedia.org/wiki/Source_lines_of_code "Source lines of code"). We have to extend how _models_ behave, not create a new Devise strategy. The function we&#x27;re looking to override is `active_for_authentication?`. This function is called on every page load when a user is signed in and checks that they&#x27;re still active. If it returns `false` the user will be signed out and asked to login before continuing. They won&#x27;t be let through until the function returns `true`. Elegant! All you have to do is put something like this in your `app/classes` directory.
 
-```
+```ruby
 module Facebookable
   extend ActiveSupport::Concern
 

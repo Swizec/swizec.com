@@ -55,7 +55,7 @@ And then you&#x27;re tempted to write something like this:
 
 
 
-```
+```javascript
    function try () {
      if (!$("#element").size()) {
        setTimeout(try, 500); // give everything some time to render
@@ -113,7 +113,7 @@ So instead of that setTimeout, you should do something like this:
 
 
 
-```
+```javascript
   function try() {
     if (!$("#element").size()) {
       window.requestAnimationFrame(try);

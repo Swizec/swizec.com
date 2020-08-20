@@ -27,24 +27,25 @@ As promised [poolside on Sunday](https://twitter.com/Swizec/status/8765371157602
 
 
 
+https://www.youtube.com/watch?v=eRMhOpdaKE8
+
 
 
 The main render code looks like this:
 
 
 
-```
-                
+```javascript
+                <div class="App-intro">
+                    <threescene width={800} height={600} style="{{margin:" '0="" auto'="" }}="">
+                        <perspectivecamera fov={75} aspect={800/600} near={0.1} far={1000} position="{{x:" 0,="" y:="" z:="" 30}}="">
 
-                    
-                        
+                            <cube rotation={rotation1} position="{{x:" 2,="" y:="" 0,="" z:="" 25}}="">
+                            <cube 10="" rotation={rotation2} position="{{x:" -10,="" y:="" 5,="" z:="" }}="">
 
-                            
-                            
-
-                        
-                    
-                
+                        </cube></cube></perspectivecamera>
+                    </threescene>
+                </div>
 ```
 
 
@@ -77,7 +78,7 @@ PS: Full [code is on GitHub](https://github.com/Swizec/something-3d)
 
 
 
-```
+```javascript
 class ThreeScene extends Component {
     scene = new THREE.Scene();
     renderer = new THREE.WebGLRenderer();
@@ -108,11 +109,9 @@ class ThreeScene extends Component {
         const { width, height, style } = this.props;
 
         return (
-            
-
+            <div ref="anchor" style="{[{width," height},="" style]}="">
                  {this.props.children}
-            
-
+            </div>
         )
     }
 }
@@ -153,46 +152,44 @@ The base example uses `PerspectiveCamera`, so that&#x27;s what I used, too. This
 
 
 
-```
+```javascript
 class PerspectiveCamera extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.updateThree(props);
-    }
-    componentDidUpdate() {
-        this.updateThree(this.props);
-        this._render();
-    }
+    this.updateThree(props);
+  }
+  componentDidUpdate() {
+    this.updateThree(this.props);
+    this._render();
+  }
 
-    updateThree(props) {
-        const { fov, aspect, near, far, position } = this.props;
+  updateThree(props) {
+    const { fov, aspect, near, far, position } = this.props;
 
-        this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-        this.camera.position.x = position.x;
-        this.camera.position.y = position.y;
-        this.camera.position.z = position.z;
-    }
+    this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+    this.camera.position.x = position.x;
+    this.camera.position.y = position.y;
+    this.camera.position.z = position.z;
+  }
 
-    componentDidMount() {
-        this._render();
-    }
+  componentDidMount() {
+    this._render();
+  }
 
-    _render() {
-        this.context.renderer.render(this.context.scene, this.camera);
-    }
+  _render() {
+    this.context.renderer.render(this.context.scene, this.camera);
+  }
 
-    render() {
-        return 
-{this.props.children}
-;
-    }
+  render() {
+    return <div>{this.props.children}</div>;
+  }
 }
 
 PerspectiveCamera.contextTypes = {
-    scene: PropTypes.object,
-    renderer: PropTypes.object
-}
+  scene: PropTypes.object,
+  renderer: PropTypes.object,
+};
 ```
 
 
@@ -217,35 +214,35 @@ Finally, our `<Cube>` components know how to render a 3D cube from props, and ad
 
 
 
-```
+```javascript
 class Cube extends Component {
-    componentWillMount() {
-        this.geometry = new THREE.BoxGeometry(1, 1, 1);
-        this.material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        this.cube = new THREE.Mesh(this.geometry, this.material);
+  componentWillMount() {
+    this.geometry = new THREE.BoxGeometry(1, 1, 1);
+    this.material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    this.cube = new THREE.Mesh(this.geometry, this.material);
 
-        this.context.scene.add(this.cube);
-    }
+    this.context.scene.add(this.cube);
+  }
 
-    componentDidUpdate() {
-        const { rotation, position } = this.props;
+  componentDidUpdate() {
+    const { rotation, position } = this.props;
 
-        this.cube.rotation.x = rotation.x;
-        this.cube.rotation.y = rotation.y;
+    this.cube.rotation.x = rotation.x;
+    this.cube.rotation.y = rotation.y;
 
-        this.cube.position.x = position.x;
-        this.cube.position.y = position.y;
-        this.cube.position.z = position.z;
-    }
+    this.cube.position.x = position.x;
+    this.cube.position.y = position.y;
+    this.cube.position.z = position.z;
+  }
 
-    render() {
-        return null;
-    }
+  render() {
+    return null;
+  }
 }
 
 Cube.contextTypes = {
-    scene: PropTypes.object
-}
+  scene: PropTypes.object,
+};
 ```
 
 

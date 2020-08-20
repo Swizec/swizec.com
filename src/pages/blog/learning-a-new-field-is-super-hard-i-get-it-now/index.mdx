@@ -67,17 +67,7 @@ NodeJS with JavaScript or TypeScript got disqualified I&#x27;m not sure why. Pyt
 
 
 
-> The time has come for me to learn Kotlin. Because reasons
->
-> First surprise: It takes 700MB of space just to install the language. No IDE or anything.
->
->
->
-> node_modules ain&#x27;t got nothing on this
->
->
->
-> — Swizec Teller (@Swizec) [March 5, 2019](https://twitter.com/Swizec/status/1103070682248704002?ref_src=twsrc%5Etfw)
+https://twitter.com/Swizec/status/1103070682248704002?ref_src=twsrc%5Etfw
 
 
 
@@ -113,19 +103,11 @@ Ok so I get that set up and after a painful run at installing Java I can run sma
 
 
 
-> O oh ... [pic.twitter.com/nXGppnelUK](https://t.co/nXGppnelUK)
->
-> — Swizec Teller (@Swizec) [March 5, 2019](https://twitter.com/Swizec/status/1103076169048420353?ref_src=twsrc%5Etfw)
+https://twitter.com/Swizec/status/1103076169048420353?ref_src=twsrc%5Etfw
 
 
 
-> Ah yes. The popup modal links you to the wrong thing, you need JDK, not JRE, whatever that is. How absolutely obvious why didn&#x27;t I think of that
->
-> Thanks StackOverflow<https://t.co/yZ4Q1XSP2m>
->
->
->
-> — Swizec Teller (@Swizec) [March 5, 2019](https://twitter.com/Swizec/status/1103078534661074944?ref_src=twsrc%5Etfw)
+https://twitter.com/Swizec/status/1103078534661074944?ref_src=twsrc%5Etfw
 
 
 
@@ -189,17 +171,7 @@ Googled around and I needed some sort of `awscli` that has a `configure` command
 
 
 
-> Trying to install the aws cli so I can properly configure stuff. Thanks [@NejcRavnik](https://twitter.com/NejcRavnik?ref_src=twsrc%5Etfw) for the idea
->
-> Tried 2 ways to install: running a bash command and with pip3
->
->
->
-> Both succeed. Neither installs aws-cli. It&#x27;s literally not in the only Python path I have on my computer [pic.twitter.com/m7QC2vrLON](https://t.co/m7QC2vrLON)
->
->
->
-> — Swizec Teller (@Swizec) [March 7, 2019](https://twitter.com/Swizec/status/1103740088431697922?ref_src=twsrc%5Etfw)
+https://twitter.com/Swizec/status/1103740088431697922?ref_src=twsrc%5Etfw
 
 
 
@@ -215,9 +187,7 @@ But I could run my code locally 💪
 
 
 
-> IT LIVES [pic.twitter.com/xFa2ZWjPJs](https://t.co/xFa2ZWjPJs)
->
-> — Swizec Teller (@Swizec) [March 7, 2019](https://twitter.com/Swizec/status/1103759822837542912?ref_src=twsrc%5Etfw)
+https://twitter.com/Swizec/status/1103759822837542912?ref_src=twsrc%5Etfw
 
 
 
@@ -245,17 +215,7 @@ Training Google to give good results is a big part of learning a new language or
 
 
 
-> Learning completely new tech is an eye opening experience.
->
-> I know everything about Kotlin unit testing. I know what the good libraries are, I know how to write tests in the one I picked, I even know how to configure them.
->
->
->
-> But I don&#x27;t know where to put files or how to run them.
->
->
->
-> — Swizec Teller (@Swizec) [March 9, 2019](https://twitter.com/Swizec/status/1104170641735933952?ref_src=twsrc%5Etfw)
+https://twitter.com/Swizec/status/1104170641735933952?ref_src=twsrc%5Etfw
 
 
 
@@ -275,7 +235,7 @@ Okay ... where do I put these files? How do I run them?
 
 
 
-Every guide and blog assumed I already know this. Oh you&#x27;re trying to test your Kotlin code? _Obviously_ you know how to write a valid Kotlin file, where to put it, which \\imports to use, and how to run it.
+Every guide and blog assumed I already know this. Oh you&#x27;re trying to test your Kotlin code? _Obviously_ you know how to write a valid Kotlin file, where to put it, which imports to use, and how to run it.
 
 
 
@@ -287,8 +247,8 @@ This was an example in docs:
 
 
 
-```
-class MyTests : StringSpec({
+```undefined
+<code class="kotlin">class MyTests : StringSpec({
   "length should return size of string" {
     "hello".length shouldBe 5
   }
@@ -296,6 +256,7 @@ class MyTests : StringSpec({
     "world" should startWith("wor")
   }
 })
+</code>
 ```
 
 
@@ -304,11 +265,11 @@ The file you _actually_ need to write looks like this:
 
 
 
-```
-package your.stuff
+```undefined
+<code class="kotlin">package your.stuff
 
-\import io.kotlintest.specs.StringSpec
-\import io.kotlintest.shouldBe
+import io.kotlintest.specs.StringSpec
+import io.kotlintest.shouldBe
 
 class MyTests : StringSpec({
   "length should return size of string" {
@@ -318,6 +279,7 @@ class MyTests : StringSpec({
     "world" should startWith("wor")
   }
 })
+</code>
 ```
 
 

@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=Ff5NiCzP0ek
+https://www.youtube.com/watch?v=Ff5NiCzP0ek
 
 
 
@@ -27,7 +27,7 @@ But this isn&#x27;t a rant about Vue. If you like the ease of porting your 2012-
 
 
 
-You do you. I built a Vue component and hated every minute of it. But it&#x27;s \\important to try new things.
+You do you. I built a Vue component and hated every minute of it. But it&#x27;s important to try new things.
 
 
 
@@ -39,7 +39,7 @@ Oh, and it took an hour just to get it compiling.
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/970435615450849280
+https://twitter.com/Swizec/status/970435615450849280
 
 
 
@@ -67,12 +67,10 @@ Buttons can `prepend`, `insert`, `append`, `drop`, and `remove` nodes. Clicks ma
 
 
 
-```
-
-    
-
-        {{ k }}
-    
+```javascript
+<div class="row benchmark-scratchpad">
+  <div v-for="k in nodes">{{ k }}</div>
+</div>;
 ```
 
 
@@ -85,7 +83,7 @@ Click events call instance methods via `v-on:click="func"`. They manipulate the 
 
 
 
-```
+```javascript
 prepend() {
     this.nodes = [...this.newNodes(), ...this.nodes];
 },
@@ -105,26 +103,26 @@ _However_, you have to define instance attributes in a `data:` key and instance 
 
 
 
-```
+```javascript
 module.exports = {
-    // adding attributes here does nothing
- 
-    data: function () {
-        // this is where you define state
-        return {
-            nodes: [],
-            start: null,
-            times: [],
-            // ...
-        }
-    },
- 
-    // override Vue instance methods here
- 
-    methods: {
-        // define custom instance methods here
-    }
-}
+  // adding attributes here does nothing
+
+  data: function () {
+    // this is where you define state
+    return {
+      nodes: [],
+      start: null,
+      times: [],
+      // ...
+    };
+  },
+
+  // override Vue instance methods here
+
+  methods: {
+    // define custom instance methods here
+  },
+};
 ```
 
 
@@ -170,8 +168,9 @@ Some finagling with `vue-loader` was necessary. Two steps 👇
 
 
 
-```
-yarn add vue vue-loader vue-template-compiler
+```undefined
+<code>yarn add vue vue-loader vue-template-compiler
+</code>
 ```
 
 
@@ -184,14 +183,14 @@ I installed [vuera](https://github.com/akxcv/vuera) as well. It gives you a wrap
 
 
 
-```
+```javascript
 // VueBenchmarkWrapper.js
 
-\import React from "react";
-\import { VueWrapper } from "vuera";
-\import VueBenchmark from "./VueBenchmark.vue";
+import React from "react";
+import { VueWrapper } from "vuera";
+import VueBenchmark from "./VueBenchmark.vue";
 
-export default () => ;
+export default () => <vuewrapper component={VueBenchmark}>;</vuewrapper>;
 ```
 
 
@@ -204,20 +203,22 @@ After installing Vue, you have to tell Webpack how to use it. That goes in `nwb.
 
 
 
-```
+```javascript
 // nwb.config.js
 module.exports = {
-    type: "react-app",
-    webpack: {
-        extra: {
-            module: {
-                rules: [{ 
-                    test: /\.vue$/, 
-                    loader: "vue-loader" 
-                }]
-            }
-        }
-    }
+  type: "react-app",
+  webpack: {
+    extra: {
+      module: {
+        rules: [
+          {
+            test: /\.vue$/,
+            loader: "vue-loader",
+          },
+        ],
+      },
+    },
+  },
 };
 ```
 

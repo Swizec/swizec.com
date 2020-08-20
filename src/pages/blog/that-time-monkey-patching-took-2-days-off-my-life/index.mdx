@@ -221,7 +221,7 @@ At wit&#x27;s end we tried a thing.
 
 
 
-What if we remove that gem we added? That&#x27;s the only thing left. Could that library that enables CSV data \\imports have something to do with this?
+What if we remove that gem we added? That&#x27;s the only thing left. Could that library that enables CSV data imports have something to do with this?
 
 
 
@@ -237,7 +237,7 @@ Digging through the gem&#x27;s codebase we found this in a dependency.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1571068942366.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=ruby&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=ActiveSupport.on_load(%3Aactive_record)%20do%0A%20%20require%20%22activerecord-\import%2Fbase%22%0Aend)
+[![Click through for source](./img/techletter.app-screenshot-1571068942366.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=ruby&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=ActiveSupport.on_load(%3Aactive_record)%20do%0A%20%20require%20%22activerecord-import%2Fbase%22%0Aend)
 
 
 

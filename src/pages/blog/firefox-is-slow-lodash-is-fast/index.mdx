@@ -26,20 +26,20 @@ Now, is this benchmark fair? I don’t know. Running benchmarks on a computer th
 
 I say “deep-ish” because we’re cloning an array of some 81,000 objects. The objects are shallow, which means we can cut corners.
 
-```
+```javascript
 const experiments = {
-            'lodash _.cloneDeep': _.cloneDeep,
-            '.map + lodash _.clone': (arr) => arr.map((d) => _.clone(d)),
-            '.map + lodash _.assign': (arr) => arr.map((d) => _.assign({}, d)),
-            'JSON string/parse': (arr) => JSON.parse(JSON.stringify(arr)),
-            '.map + Object.assign': (arr) => arr.map((d) => Object.assign({}, d)),
-            '.map + React\'s update()': (arr) => arr.map((d) => update({}, {$merge: d}))
-        };
+  "lodash _.cloneDeep": _.cloneDeep,
+  ".map + lodash _.clone": (arr) => arr.map((d) => _.clone(d)),
+  ".map + lodash _.assign": (arr) => arr.map((d) => _.assign({}, d)),
+  "JSON string/parse": (arr) => JSON.parse(JSON.stringify(arr)),
+  ".map + Object.assign": (arr) => arr.map((d) => Object.assign({}, d)),
+  ".map + React's update()": (arr) => arr.map((d) => update({}, { $merge: d })),
+};
 ```
 
 We use `_.cloneDeep` without understanding context. This is a little bit unfair because it tries to do too much. We run `_.clone`, `_.assign`, `Object.assign`, and [React’s `update`](https://facebook.github.io/react/docs/update.html) in a loop. They benefit from not trying to work in the general case. `JSON.parse/stringify` is on the same level as `_.cloneDeep`: naïve, complete, works for anything. I’m gobsmacked that for datasets this big, you’re better off converting to JSON and back than using Lodash’s `cloneDeep` function. I have no idea how that’s even possible. Maybe JSON benefits from an implementation detail deep in the engine? But then why is `_.assign` faster than `Object.assign`? They both make a shallow copy of an object, but `Object.assign` is a language feature, and `_.assign` is implemented in pure JavaScript. I think … how else? I hope [@jdalton](https://twitter.com/jdalton) can shed some light on this. You can see the entire test runner on Github [here](https://github.com/Swizec/compare-copy-methods/blob/master/src/App.js). There are a few comments, but the interesting bit is this `runner` function. It ensure fairness by isolating timing to only the cloning method.
 
-```
+```javascript
 
     runner(name, method) {
         let data = this.state.data;

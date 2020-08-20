@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=I7ibjBQtcQE
+https://www.youtube.com/watch?v=I7ibjBQtcQE
 
 
 
@@ -75,7 +75,7 @@ First, you&#x27;ll need to create a directory and a `manifest.json` file.
 
 
 
-```
+```javascript
 {
     "manifest_version": 2,
     "name": "Hide imgur homepage",
@@ -101,12 +101,12 @@ First, you&#x27;ll need to create a directory and a `manifest.json` file.
 
 
 
-It&#x27;s a JSON config file that tells Chrome how your extension is supposed to work. The \\important parts are 👇
+It&#x27;s a JSON config file that tells Chrome how your extension is supposed to work. The important parts are 👇
 
 
 
 1. `manifest_version`, `name`, and `version` are all required. You need those for your extension to work at all.
-2. `description` is useful but not crazy \\important. I&#x27;m not even sure where it shows up for the user.
+2. `description` is useful but not crazy important. I&#x27;m not even sure where it shows up for the user.
 3. You need 3 `icons` for various places Chrome puts them. You should make a simple image and resize it to 16x16, 48x48, and 128x128 pixels.
 
 
@@ -163,28 +163,28 @@ The [DOM is fast these days](https://swizec.com/blog/building-interactive-dom-be
 
 
 
-```
+```javascript
 // hide-imgur.js
 function hideElement(query) {
-    let el = document.querySelector(query);
-    if (el) {
-        el.style.visibility = "hidden";
-        return true;
-    } else {
-        return false;
-    }
+  let el = document.querySelector(query);
+  if (el) {
+    el.style.visibility = "hidden";
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function hideAsync(query) {
-    const hidden = hideElement(query);
+  const hidden = hideElement(query);
 
-    if (!hidden) {
-        setTimeout(function() {
-            hideAsync(query);
-        }, 100);
-    } else {
-        putUpSomeContent();
-    }
+  if (!hidden) {
+    setTimeout(function () {
+      hideAsync(query);
+    }, 100);
+  } else {
+    putUpSomeContent();
+  }
 }
 ```
 
@@ -194,7 +194,7 @@ In `hideElement`, we look for a DOM node. If it&#x27;s found, we set its `visibi
 
 
 
-It&#x27;s \\important to toggle visibility instead of the usual `display: none` because it avoids removing the node, just hides it. We want to avoid removing the node because if we collapse the page to zero height, Imgur&#x27;s infinite scroll falls into an infinite loop and eats all our CPU.
+It&#x27;s important to toggle visibility instead of the usual `display: none` because it avoids removing the node, just hides it. We want to avoid removing the node because if we collapse the page to zero height, Imgur&#x27;s infinite scroll falls into an infinite loop and eats all our CPU.
 
 
 
@@ -214,17 +214,17 @@ Finally, we loop through all distracting elements of Imgur and hide them in a lo
 
 
 
-```
+```javascript
 // hide-imgur.js
 
 // Go through dangerouns elements and hide them
 [
-    "#imagelist",
-    "#top-comments",
-    ".sentence-sorting",
-    "#right-content",
-    "#extended-imagelist",
-    ".next-prev"
+  "#imagelist",
+  "#top-comments",
+  ".sentence-sorting",
+  "#right-content",
+  "#extended-imagelist",
+  ".next-prev",
 ].forEach(hideAsync);
 ```
 

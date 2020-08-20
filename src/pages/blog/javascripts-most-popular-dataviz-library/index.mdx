@@ -7,19 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/24R4Mll.png
 ---
-Yesterday we talked about how data visualization helps you understand the world. Today I wanted to tell you about JavaScript&#x27;s most popular data visualization library 👉 D3.
-
-
-
-D3 is amazing.
-
-
-
-D3 can do stuff like this
-
-
-
-[![](./img/tNfXLwD.gif)](https://www.nytimes.com/interactive/2014/upshot/mapping-the-spread-of-drought-across-the-us.html)
+Yesterday we talked about how data visualization helps you understand the world. Today I wanted to tell you about JavaScript&#x27;s most popular data visualization library 👉 D3.D3 is amazing.D3 can do stuff like this[![](./img/tNfXLwD.gif)](https://www.nytimes.com/interactive/2014/upshot/mapping-the-spread-of-drought-across-the-us.html)
 
 
 
@@ -256,7 +244,7 @@ Colored shapes in the domain map to colors in the range. No formula for this one
 
 
 
-```
+```undefined
 <code>let shapes = d3.scaleOrdinal()
     .domain(['triangle', 'rectangle', ...)
     .range(['red', 'orange', ...)
@@ -305,7 +293,7 @@ You take a `forceLayout` and feed it your data. It returns an object with a `tic
 
 
 
-```
+```undefined
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }))
     .force("charge", d3.forceManyBody())

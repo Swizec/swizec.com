@@ -7,6 +7,10 @@ redirect_from:
 categories: "Technical"
 hero: ../../../defaultHero.jpg
 ---
+https://www.youtube.com/watch?v=PU8kGUrC1dw?ecver=2
+
+
+
 Here&#x27;s an interesting problem for you: build some simple caching.
 
 
@@ -23,7 +27,7 @@ In Ruby, finding the latest app version looks like this:
 
 
 
-```
+```ruby
 AppVersion.where(platform: platform)
           .sort_by{ |v| Gem::Version.new(v.version) }
           .last
@@ -67,7 +71,7 @@ Your code looks something like this:
 
 
 
-```
+```ruby
 class AppVersion < ActiveRecord::Base
 
   @current = {}
@@ -176,7 +180,7 @@ Fixed code looks like this:
 
 
 
-```
+```ruby
 def self.latest(platform)
     Rails.cache.fetch("latest_app_version/#{platform}") do
       where(platform: platform).sort_by{ |v| Gem::Version.new(v.version) }.last

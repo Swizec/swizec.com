@@ -59,29 +59,30 @@ Here&#x27;s an excerpt:
 
 
 
-```
+```javascript
 class SubjectExam {
-    constructor(user, subject) {
-        when(() => this.isOutOfTime,
-             () => {
-                 if (!this.finished) {
-                     this.finish();
-                 }
-             }
-        );
-    }
-    
-    @computed get isOutOfTime() {
-        return !_.isNull(this.timeLeft) && this.timeLeft <= 0;
-    }
-    
-    @computed get timeLeft() {
-        if (this.should_end_by) {
-            return moment.duration(moment.unix(this.should_end_by).diff(Clock.time));
-        }else{
-            return null;
+  constructor(user, subject) {
+    when(
+      () => this.isOutOfTime,
+      () => {
+        if (!this.finished) {
+          this.finish();
         }
+      }
+    );
+  }
+
+  @computed get isOutOfTime() {
+    return !_.isNull(this.timeLeft) && this.timeLeft <= 0;
+  }
+
+  @computed get timeLeft() {
+    if (this.should_end_by) {
+      return moment.duration(moment.unix(this.should_end_by).diff(Clock.time));
+    } else {
+      return null;
     }
+  }
 }
 ```
 

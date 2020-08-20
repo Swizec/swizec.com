@@ -7,11 +7,7 @@ redirect_from:
 categories: "Front End, preact, react, Technical"
 hero: ./img/blog-wp-content-uploads-2018-02-react-wrap-preact.png
 ---
-https&amp;#x3A;//www.youtube.com/watch?v=sdxz_1A8zFk
-
-
-
-Have you ever wanted to render a [Preact](https://preactjs.com/) component inside a React project?
+https://www.youtube.com/watch?v=sdxz_1A8zFkHave you ever wanted to render a [Preact](https://preactjs.com/) component inside a React project?
 
 
 
@@ -23,20 +19,18 @@ Preact and React are [pretty similar](https://github.com/developit/preact/wiki/D
 
 
 
-```
+```javascript
 // React component
-\import React from 'react';
-const Header => 
-I am a header
+import React from 'react';
+const Header => <h1>I am a header</h1>
 ```
 
 
 
-```
+```javascript
 // Preact component
-\import Preact from 'preact';
-const Header => 
-I am a header
+import Preact from 'preact';
+const Header => <h1>I am a header</h1>
 ```
 
 
@@ -57,22 +51,7 @@ I got this idea from Jason himself.
 
 
 
-> Set your pragma to \&#x60;h\&#x60; and conditionally assign h within the scope you want:  
->   
-> /\*\* [@jsx](https://twitter.com/jsx?ref_src=twsrc%5Etfw) h \*/  
-> \\import React from &#x27;react&#x27;  
-> \\import { h } from &#x27;preact&#x27;  
->   
-> const WithReact = () =&gt; {  
-> let h = React.createElement;  
-> return &amp;lt;div&gt;react&amp;lt;/div&gt;  
-> }  
->   
-> const WithPreact = () =&gt; (  
-> &amp;lt;div&gt;preact&amp;lt;/div&gt;  
-> )
->
-> — Jason Miller 🦊⚛ (@\_developit) [February 26, 2018](https://twitter.com/_developit/status/968143181694033921?ref_src=twsrc%5Etfw)
+https://twitter.com/\_developit/status/968143181694033921?ref_src=twsrc%5Etfw
 
 
 

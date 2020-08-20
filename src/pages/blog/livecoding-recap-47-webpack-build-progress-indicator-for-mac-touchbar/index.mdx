@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=cwNlRu5Dy-Y
+https://www.youtube.com/watch?v=cwNlRu5Dy-Y
 
 
 
@@ -23,7 +23,7 @@ Here it is in action on my day job project 👇
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/909565004642316288
+https://twitter.com/Swizec/status/909565004642316288
 
 
 
@@ -40,7 +40,7 @@ You can start using it right now. All you need is an expensive laptop, my [Touch
 
 
 
-```
+```javascript
 // package.json
 "dependencies" {
     // ...
@@ -54,8 +54,9 @@ Then run installation:
 
 
 
-```
-$ npm install
+```undefined
+<code>$ npm install
+</code>
 ```
 
 
@@ -68,15 +69,15 @@ Now you have my progress indicator. It can talk to your Touchbar when the app fr
 
 
 
-```
+```javascript
 // webpack.config.js
 
 plugins: [
-    // ...
-    new require('nyan-progress-webpack-plugin')({
-        sendProgressToTouchbar: true
-    })
-]
+  // ...
+  new require("nyan-progress-webpack-plugin")({
+    sendProgressToTouchbar: true,
+  }),
+];
 ```
 
 
@@ -110,12 +111,12 @@ The native app runs a web server built with [Swifter](https://github.com/httpswi
 
 
 
-We added these lines to what looks like the most \\important Nyan cat file – `NyanCatCanvas.swift`.
+We added these lines to what looks like the most important Nyan cat file – `NyanCatCanvas.swift`.
 
 
 
-```
-// NyanCatCanvas.swift
+```undefined
+<code class="swift">// NyanCatCanvas.swift
 
 func downloadImage() {
     // stuff that downloads nyan gif
@@ -141,6 +142,7 @@ func updateProgress() -> ((HttpRequest) -> HttpResponse) {
     }
     }
 }
+</code>
 ```
 
 
@@ -165,7 +167,7 @@ Like this 👇
 
 
 
-```
+```javascript
 // index.js
 function onProgress(...) {
     // ...

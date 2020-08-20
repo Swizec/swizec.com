@@ -11,7 +11,7 @@ _This is a Livecoding Recap â€“ an almost-weekly post about interesting things d
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=fG_SnnGnSXo
+https://www.youtube.com/watch?v=fG_SnnGnSXo
 
 
 
@@ -27,7 +27,7 @@ And then you get stuck.
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1011018745349791744
+https://twitter.com/Swizec/status/1011018745349791744
 
 
 
@@ -71,13 +71,14 @@ The easiest way to refactor your components to use StaticQuery goes like this ğŸ
 
 
 
-```
+```javascript
 // src/components/layout.js
 
 export default ({ children }) => (
-   {children}}
+  <staticquery query="{graphql`" layoutquery="" {="" site="" sitemetadata="" title="" description="" }="" `}="" render="{data" ==""> <layout data={data}>{children}</layout>}
   />
 )
+</staticquery>
 ```
 
 
@@ -94,11 +95,12 @@ When Gatsby fixes the bug, you&#x27;ll be able to make that code more readable l
 
 
 
-```
+```javascript
 export default ({ children }) => (
-   {children}}
+  <staticquery query={query} render="{data" ==""> <layout data={data}>{children}</layout>}
   />
 )
+</staticquery>
 ```
 
 

@@ -7,19 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/blog-wp-content-uploads-2019-01-dashboard-screenshot.png
 ---
-In my quest never to set up a server ever again, I discovered Auth0 – a serverless authentication service. You give them keys to the kingdom, and they keep you and your users secure.
-
-
-
-You don&#x27;t even have to store anything. 👌
-
-
-
-Since Gatsby is my favorite way to build new React apps with server-side rendering and super-fast performance, I decided to combine the two. Easy in theory, but turns out tricky in practice.
-
-
-
-Took me 3 livecoding sessions to figure out. [Luke Oliff&#x27;s article on Gatsby v1 + Auth0](https://auth0.com/blog/building-a-blog-with-gatsby-react-and-webtask/) article helped a lot, as did [Auth0&#x27;s React SPA setup guide](https://auth0.com/docs/quickstart/spa/react/01-login).
+In my quest never to set up a server ever again, I discovered Auth0 – a serverless authentication service. You give them keys to the kingdom, and they keep you and your users secure.You don&#x27;t even have to store anything. 👌Since Gatsby is my favorite way to build new React apps with server-side rendering and super-fast performance, I decided to combine the two. Easy in theory, but turns out tricky in practice.Took me 3 livecoding sessions to figure out. [Luke Oliff&#x27;s article on Gatsby v1 + Auth0](https://auth0.com/blog/building-a-blog-with-gatsby-react-and-webtask/) article helped a lot, as did [Auth0&#x27;s React SPA setup guide](https://auth0.com/docs/quickstart/spa/react/01-login).
 
 
 
@@ -27,15 +15,15 @@ You can think of this article as a distillation of those guides and these 3 hour
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=xwyOQqi7Xm8
+https://www.youtube.com/watch?v=xwyOQqi7Xm8
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=jF0AIV8EtJk
+https://www.youtube.com/watch?v=jF0AIV8EtJk
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=eWPpTIb98YM
+https://www.youtube.com/watch?v=eWPpTIb98YM
 
 
 
@@ -107,8 +95,9 @@ This part is easy.
 
 
 
-```
-$ gatsby new gatsby-auth0-playground
+```undefined
+<code>$ gatsby new gatsby-auth0-playground
+</code>
 ```
 
 
@@ -129,18 +118,18 @@ You&#x27;re best off copy-pasting this whole file verbatim into your project. Ma
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1087224394257031168
+https://twitter.com/Swizec/status/1087224394257031168
 
 
 
-```
+```javascript
 // src/utils/auth.js
 
-\import auth0 from 'auth0-js'
-\import { navigate } from 'gatsby'
+import auth0 from 'auth0-js'
+import { navigate } from 'gatsby'
 
-const AUTH0_DOMAIN = '.auth0.com'
-const AUTH0_CLIENT_ID = ''
+const AUTH0_DOMAIN = '<your domain="">.auth0.com'
+const AUTH0_CLIENT_ID = '<your client="" id="">'
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
@@ -209,6 +198,7 @@ export default class Auth {
     }
   }
 }
+</your></your>
 ```
 
 
@@ -245,35 +235,33 @@ Like this 👇
 
 
 
-```
+```javascript
 // src/pages/auth0_callback.js
 
-\import React from 'react'
-\import { ClipLoader } from 'react-spinners'
+import React from "react";
+import { ClipLoader } from "react-spinners";
 
-\import Auth from '../utils/auth'
-\import Layout from '../components/layout'
-\import useComponentDidMount from '../useComponentDidMount'
+import Auth from "../utils/auth";
+import Layout from "../components/layout";
+import useComponentDidMount from "../useComponentDidMount";
 
 const Auth0CallbackPage = () => {
   useComponentDidMount(() => {
-    const auth = new Auth()
-    auth.handleAuthentication()
-  })
+    const auth = new Auth();
+    auth.handleAuthentication();
+  });
 
   return (
-    
-      
-
+    <layout>
+      <h1>
         This is the auth callback page, you should be redirected immediately.
-      
+      </h1>
+      <cliploader sizeunit="px" size={150}></cliploader>
+    </layout>
+  );
+};
 
-      
-    
-  )
-}
-
-export default Auth0CallbackPage
+export default Auth0CallbackPage;
 ```
 
 
@@ -294,17 +282,14 @@ PS: the `useComponentDidMount` hook looks like this:
 
 
 
-```
+```javascript
 export default function useComponentDidMount(onMounted) {
-  const [mounted, setMounted] = useState(false)
-  useEffect(
-    () => {
-      setMounted(true)
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
 
-      onMounted()
-    },
-    [mounted]
-  )
+    onMounted();
+  }, [mounted]);
 }
 ```
 
@@ -326,26 +311,26 @@ Now all you need is a login button.
 
 
 
-```
+```javascript
 // src/components/Login.js
 
-\import React from 'react'
-\import { Button } from 'reakit'
-\import Auth from '../utils/Auth'
+import React from "react";
+import { Button } from "reakit";
+import Auth from "../utils/Auth";
 
-const auth = new Auth()
+const auth = new Auth();
 
 const Login = () => {
-  const { isAuthenticated } = auth
+  const { isAuthenticated } = auth;
 
   if (isAuthenticated()) {
-    return Logout {auth.getUserName()}
+    return <button onclick={auth.logout}>Logout {auth.getUserName()}</button>;
   } else {
-    return Login
+    return <button onclick={auth.login}>Login</button>;
   }
-}
+};
 
-export default Login
+export default Login;
 ```
 
 
@@ -362,4 +347,4 @@ That&#x27;s it.
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1088117007138975744
+https://twitter.com/Swizec/status/1088117007138975744

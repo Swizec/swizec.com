@@ -24,7 +24,7 @@ So how do you make a robot speak? Natural language generation is a _huge_ field,
 
 You end up with this sort of data structure.
 
-```
+```python
 {-8818677644356330256: {'next': {-6361492750444014453: 1},
                         'text': ['dobu'],
                         'weight': 1.9},
@@ -35,9 +35,9 @@ You end up with this sort of data structure.
 # and so on for quite a while
 ```
 
-While this works great for static text, an irc chatroom is a rolling [time series](http://en.wikipedia.org/wiki/Time_series "Time series") that never really ends. Not only will you soon run out of memory, how do you deal with staying relevant? I had to wait until _**4:03AM**_ for the solution to hit me! It doesn&#x27;t have to be complicated at all - just decay the weights of all _next_ items whenever you poke an element. And do the same whenever a new text is added to the Corpus. Especially \\important is to choose the starting point well. The more relevant it is to current discussion, the more chance you have of saying something relevant. So instead of choosing at random, we make a weighted choice here as well. When everything is packaged together, usage becomes pretty simple:
+While this works great for static text, an irc chatroom is a rolling [time series](http://en.wikipedia.org/wiki/Time_series "Time series") that never really ends. Not only will you soon run out of memory, how do you deal with staying relevant? I had to wait until _**4:03AM**_ for the solution to hit me! It doesn&#x27;t have to be complicated at all - just decay the weights of all _next_ items whenever you poke an element. And do the same whenever a new text is added to the Corpus. Especially important is to choose the starting point well. The more relevant it is to current discussion, the more chance you have of saying something relevant. So instead of choosing at random, we make a weighted choice here as well. When everything is packaged together, usage becomes pretty simple:
 
-```
+```python
 corpus.add(text) # repeat this a couple of times
 
 # to generate, you just
@@ -47,7 +47,7 @@ text = " ".join(take(corpus, 5)) # creates a 5 word text
 
 All the [code is on github](https://github.com/Swizec/botko/blob/speaking/src/Corpus.py). Making the data structure iterable like that was especially interesting. Now I can change how the generator works without affecting external code.
 
-```
+```python
     def __iter__(self):
         return self
 
@@ -88,13 +88,13 @@ Pretty cool right?
 
 Okay, that takes care of generating the text. But when should _\_botko\__ speak anyway? \[caption id=&quot;&quot; align=&quot;alignright&quot; width=&quot;240&quot; caption=&quot;How Should You Act on IRC (Internet Relay Chatroom)? (Photo credit: Chris Pirillo)&quot;][![How Should You Act on IRC (Internet Relay Chat...](./img/3246-2866792711_027e60dd7e_m.jpg "How Should You Act on IRC (Internet Relay Chat...")](http://www.flickr.com/photos/49503157467@N01/2866792711)\[/caption] You certainly don&#x27;t want the bot to spam everyone. But you don&#x27;t want him to be completely quiet most of the time. Speaking every X amount of events is simply too predictable and boring ... Ideally you&#x27;d want him to speak more when the chatroom is busier and less when it&#x27;s a bit quiet. When it&#x27;s been quiet for a long time and it suddenly becomes very busy, that&#x27;s also a good time to speak. Sort of like a greeting. I ended up using a combination of chat velocity and the rate of chat acceleration change to determine the probability of speaking, which is then still left up to [randomness](http://en.wikipedia.org/wiki/Randomness "Randomness"). Velocity is measured as the ratio between the timespan of the last 10 messages and the timespan of the last 60. This basically measures how densely the messages are coming into the chatroom right now.
 
-```
+```python
 velocity_rate = (now - 10_messages_ago_time)/(now - 60_messages_ago_time)
 ```
 
 The rate of acceleration change idea took some time to materialize in my head. The idea is that you want to make it likelier for the bot to speak when there is a sudden flurry of activity and fall back to the _velocity_rate_ formula when conditions are mostly stable.
 
-```
+```python
 v_i = average_speed_of_last_[0+i : i*5]_messages
 a_i = delta_of_two_speeds
 accel_rate = a_1/a_2

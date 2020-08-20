@@ -11,9 +11,7 @@ hero: ../../../defaultHero.jpg
 
 One of d3’s biggest selling points is the general update pattern. Add some function calls and voila – animated visualization with transitions. You can see it in action in Mike Bostock’s [General Update Pattern 4.0](https://bl.ocks.org/mbostock/a8a5baa4c4a470cda598) where he animates an alphabet. Update the alphabet and old letters transition out, new letters transition in, updated letters transition into a new position. It works like magic. D3 always works like magic …
 
-> .[@Swizec](https://twitter.com/Swizec) also with React you&#x27;re not \*binding the data\*. you&#x27;re just iterating over the data and creating SVG elements. It&#x27;s not data-driven
->
-> — Luca Matteis (@lmatteis) [April 16, 2016](https://twitter.com/lmatteis/status/721351646907863040)
+https://twitter.com/lmatteis/status/721351646907863040
 
 You totally _can_ achieve the same result with React. Yes, even if you use React to render SVG. Yes, you can use d3’s powerful transitions API too. The React version is easier to understand, too. Keep reading and you’ll see why.
 
@@ -30,36 +28,36 @@ We’re going to use React to render SVG elements, and d3 for transitions, inter
 
 The `Alphabet` component holds the current list of letters in state and renders a collection of `Letter` components in a loop. We start with a skeleton like this:
 
-```
+```javascript
 // src/components/Alphabet/index.jsx
 
-\import React, { Component } from 'react';
-\import ReactTransitionGroup from 'react-addons-transition-group';
-\import d3 from 'd3';
+import React, { Component } from "react";
+import ReactTransitionGroup from "react-addons-transition-group";
+import d3 from "d3";
 
-require('./style.less');
+require("./style.less");
 
-\import Letter from './Letter';
+import Letter from "./Letter";
 
 class Alphabet extends Component {
-    static letters = "abcdefghijklmnopqrstuvwxyz".split('');
-    state = {alphabet: []}
+  static letters = "abcdefghijklmnopqrstuvwxyz".split("");
+  state = { alphabet: [] };
 
-    componentWillMount() {
-        // starts an interval to update alphabet
-    }
+  componentWillMount() {
+    // starts an interval to update alphabet
+  }
 
-    render() {
-        // spits out svg elements
-    }
+  render() {
+    // spits out svg elements
+  }
 }
 
 export default Alphabet;
 ```
 
-We \\import our dependencies, add some styling, and define the `Alphabet` component. It holds a list of available letters in a static `letters` property, and an empty `alphabet` in component state. We’ll need a `componentWillMount` and a `render` method as well. _Sidenote_: That `require('style.less')` isn’t key to this tutorial. I’m not a fan of inline styling, so I like to add `less` compilation to Webpack and include stylesheets like this. To showcase enter-update-exit transitions, we want to create a new alphabet every couple of seconds. The best place to do that is in `componentWillMount`:
+We import our dependencies, add some styling, and define the `Alphabet` component. It holds a list of available letters in a static `letters` property, and an empty `alphabet` in component state. We’ll need a `componentWillMount` and a `render` method as well. _Sidenote_: That `require('style.less')` isn’t key to this tutorial. I’m not a fan of inline styling, so I like to add `less` compilation to Webpack and include stylesheets like this. To showcase enter-update-exit transitions, we want to create a new alphabet every couple of seconds. The best place to do that is in `componentWillMount`:
 
-```
+```javascript
 // src/components/Alphabet/index.jsx
 
     componentWillMount() {
@@ -73,20 +71,20 @@ We \\import our dependencies, add some styling, and define the `Alphabet` compon
 
 We use `d3.interval( //.., 1500)` to call a function every 1.5 seconds. It’s the same as `setInterval`, but friendlier to batteries and CPUs. On each period, we shuffle the available letters, slice out a random amount, sort them, then update component state with `setState`. This ensures our alphabet is both random and in alphabetical order. Starting the interval in `componentWillMount` ensures it only runs when the component is on the page, and that everything’s ready by the time our component renders. It’s good practice to explicitly stop these sorts of intervals in `componentWillUnmount`. Our declarative transitions magic starts in the `render` method.
 
-```
+```javascript
 // src/components/Alphabet/index.jsx
 
     render() {
         let transform = `translate(${this.props.x}, ${this.props.y})`;
 
         return (
-            
-                
+            <g transform={transform}>
+                <reacttransitiongroup component="g">
                     {this.state.alphabet.map((d, i) => (
-                        
+                        <letter d={d} i={i} key={`letter-${d}`}>
                      ))}
-                
-            
+                </letter></reacttransitiongroup>
+            </g>
         );
     }
 ```
@@ -105,12 +103,12 @@ Wrapping our list of `Letter`s in `ReactTransitionGroup` lets us do our magic. T
 
 Now we’re ready for the real magic – a component that can transition itself into and out of a visualization… without bothering anyone else _or_ confusing React. The basic skeleton of our `Letter` component looks like this:
 
-```
+```javascript
 // src/components/Alphabet/Letter.jsx
 
-\import React, { Component } from 'react';
-\import ReactDOM from 'react-dom';
-\import d3 from 'd3';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import d3 from 'd3';
 
 class Letter extends Component {
     state = {
@@ -138,20 +136,20 @@ class Letter extends Component {
     }
 
     render() {
-       // spit out a  element
+       // spit out a <text> element
     }
 };
 
-export default Letter;
+export default Letter;</text>
 ```
 
-We start with some \\imports, and define a `Letter` component with a default state and a default transition. Yes, it feels weird to use `state` for coordinates, class name, and styling, but the component needs to change them sometimes. As far as I know, components can’t change their own props. Defining a default transition is a d3 v4 trick. It saves us some typing. With the stable version of d3, you’d define this duration and easing function on each transition. All of the magic values – default/final `y` coordinate, transition properties, etc. – are good candidates for props. That would make `Alphabet` more flexible, but add unnecessary complexity for this tutorial.
+We start with some imports, and define a `Letter` component with a default state and a default transition. Yes, it feels weird to use `state` for coordinates, class name, and styling, but the component needs to change them sometimes. As far as I know, components can’t change their own props. Defining a default transition is a d3 v4 trick. It saves us some typing. With the stable version of d3, you’d define this duration and easing function on each transition. All of the magic values – default/final `y` coordinate, transition properties, etc. – are good candidates for props. That would make `Alphabet` more flexible, but add unnecessary complexity for this tutorial.
 
 ### componentWillEnter
 
 We start with the enter transition in `componentWillEnter`.
 
-```
+```javascript
 // src/components/Alphabet/Letter.jsx
 
     componentWillEnter(callback) {
@@ -175,7 +173,7 @@ We use `reactDOM.findDOMNode` to get our DOM node and use `d3.select` to turn it
 
 The exit transition goes in `componentWillLeave` and follows the same principle, except in reverse. It looks like this:
 
-```
+```javascript
 // src/components/Alphabet/Letter.jsx
 
     componentWillLeave(callback) {
@@ -199,7 +197,7 @@ This time, we update state to change the `className` instead of `x`. That’s be
 
 The update transition goes into `componentWillReceiveProps` like this:
 
-```
+```javascript
 // src/components/Alphabet/Letter.jsx
 
     componentWillReceiveProps(nextProps) {
@@ -221,14 +219,14 @@ You know the pattern by now, don’t you? Update state, do transition, sync stat
 
 After all that transition magic, you might be thinking _“Holy shit, how do I render this!?”_. I don’t blame ya! But we did the hard work. Rendering is straightforward:
 
-```
+```javascript
 // src/components/Alphabet/Letter.jsx
 
     render() {
         return (
-            
+            <text dy=".35em" y={this.state.y} x={this.state.x} class={this.state.className} style="{{fillOpacity:" this.state.fillopacity}}="">
                 {this.props.d}
-            
+            </text>
         );
     }
 ```

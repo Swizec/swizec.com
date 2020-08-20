@@ -29,41 +29,23 @@ And so it begins. Outdated documentation. ?
 
 Basic API spec says that you should post messages with an `as_user: true` flag, which makes the bot use its default settings from Step 1.
 
-```
+```ruby
 
 #Setup stuff, goes in a global file somewhere. config/initializers/slack.rb for instance
 
+<p>Slack.configure do |config|</p>
 
+<p>config.token = ENV[‘SLACK_API_TOKEN’]</p>
 
-Slack.configure do |config|
-
-
-
-
-
-config.token = ENV[‘SLACK_API_TOKEN’]
-
-
-
-
-
-end
-
-
+<p>end</p>
 
 #Instantiate client
 
-
-
-client = Slack::Web::Client.new
-
-
+<p>client = Slack::Web::Client.new</p>
 
 #Send message to #general channel
 
-
-
-client.chat_postMessage(channel: ‘#general’, text: ‘Hello World’, as_user: true)
+<p>client.chat_postMessage(channel: ‘#general’, text: ‘Hello World’, as_user: true)</p>
 ```
 
 That code throws an error `-> user not in channel`. So you dig through the documentation and find `channels_join`. But that throws an error, too `-> user is a bot`.
@@ -88,7 +70,7 @@ I’m keeping it simple for now: report error, add contextual logs. In theory, t
 
 Adding attachments looks like this for me:
 
-```
+```ruby
 client.chat_postMessage(
 	channel: '#bot-test',
 	text: "this is *bold*",

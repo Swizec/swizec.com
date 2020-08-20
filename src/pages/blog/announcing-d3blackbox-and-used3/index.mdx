@@ -21,27 +21,29 @@ Enter [`D3blackbox`](https://d3blackbox.com).
 
 Turn your code into a function, pass it into `D3blackbox()`, voila: Self-contained React component.
 
+https://codesandbox.io/s/km3l21y60r
+
 👉 [d3blackbox.com](https://d3blackbox.com)
 
 👉 [github.com/Swizec/d3blackbox](https://github.com/Swizec/d3blackbox)
 
 ## 1. Install `d3blackbox` and `d3`
 
-```
+```javascript
 $ npm install d3blackbox d3
 ```
 
 ## 2. Wrap D3 code in `D3blackbox`
 
-```
-\import React from "react";
-\import D3blackbox from "d3blackbox";
-\import * as d3 from "d3";
+```javascript
+import React from "react";
+import D3blackbox from "d3blackbox";
+import * as d3 from "d3";
 
-const Barchart = D3blackbox(function(anchor, props) {
-    const svg = d3.select(anchor.current);
+const Barchart = D3blackbox(function (anchor, props) {
+  const svg = d3.select(anchor.current);
 
-    // the rest of your D3 code
+  // the rest of your D3 code
 });
 
 export default Barchart;
@@ -55,17 +57,21 @@ It renders an anchor element and gives your renderer a React ref and all the pro
 
 ## 3. Render your component
 
-```
-
+```javascript
+<barchart x={10} y={10} width={300} height={200}></barchart>;
 ```
 
 Once you&#x27;ve created a D3blackbox&#x27;d React component, render as usual. If you want to change the anchor element, use the `component` prop.
 
 You now have a reusable declarative component. 👌
 
+https://codesandbox.io/s/km3l21y60r
+
 You can render anything you want. No matter how complex the code you&#x27;ve found, D3blackbox can take it all.
 
 Here&#x27;s an example of an interactive donut chart with tooltips. Didn&#x27;t even need to read the D3 code. 😇
+
+https://codesandbox.io/s/9jm82v2lry
 
 
 
@@ -77,8 +83,8 @@ Same principle: anchor element, call D3 code on every update. Except with hooks 
 
 Works like this 👇
 
-```
-\import { useD3 } from "d3blackbox";
+```javascript
+import { useD3 } from "d3blackbox";
 
 function renderSomeD3(anchor) {
     d3.select(anchor);
@@ -89,8 +95,9 @@ function renderSomeD3(anchor) {
 const MyD3Component = ({ x, y }) => {
     const refAnchor = useD3(anchor => renderSomeD3(anchor));
 
-    return ;
+    return <g ref={refAnchor} transform="{`translate(${x}," ${y})`}="">;
 };
+</g>
 ```
 
 You call `useD3`, give it a render function, and receive a React ref. Your render function should take care of all the rendering, and the component where you call the hook needs to render the anchor element.

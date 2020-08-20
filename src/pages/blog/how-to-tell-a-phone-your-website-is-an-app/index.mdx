@@ -14,23 +14,26 @@ I don&#x27;t always get to work on mobile projects, but when I do they&#x27;re w
 
 First step to fixing things is disabling user scalability:
 
-```
-
+```html
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"
+/>
 ```
 
 Default zooming is okay now and users can&#x27;t [pinch-to-zoom](http://en.wikipedia.org/wiki/Multi-touch_gestures "Multi-touch gestures") anymore. But they can still do plenty of strange side-scrolling and bouncing around. Something apps don&#x27;t usually do. Adding another meta tag fixes that problem.
 
-```
-
+```html
+<meta name="apple-mobile-web-app-capable" content="yes" />
 ```
 
 Our only problem now is that pesky [address bar](http://en.wikipedia.org/wiki/Address_bar "Address bar") on the top. Apps don&#x27;t have that! This can be solved with a bit of simple javascript:
 
-```
+```javascript
 // When ready...
-window.addEventListener("load",function() {
+window.addEventListener("load", function () {
   // Set a timeout...
-  setTimeout(function(){
+  setTimeout(function () {
     // Hide the address bar!
     window.scrollTo(0, 1);
   }, 0);

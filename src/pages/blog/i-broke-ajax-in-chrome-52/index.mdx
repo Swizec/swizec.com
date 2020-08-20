@@ -15,31 +15,31 @@ It’s terrifying to tell the Chrome team they made a mistake.
 
 This is what yesterday’s repro code looks like:
 
-```
+```javascript
 var BugModel = Backbone.Model.extend({
-    url: "bla.json"
+  url: "bla.json",
 });
 
 let bug = new BugModel();
 bug.fetch({
-    success: () => {
-        console.log('fetch 1'); // prints
-        doWeirdness(bug);
-    }
+  success: () => {
+    console.log("fetch 1"); // prints
+    doWeirdness(bug);
+  },
 });
 
 function doWeirdness(bug) {
-    let newBug = new BugModel({id: 1});
+  let newBug = new BugModel({ id: 1 });
 
-    console.log('about to re-fetch'); // prings
+  console.log("about to re-fetch"); // prings
 
-    newBug.fetch({
-        success: () => console.log('fetch 2', newBug), // doesn't print
-        error: () => console.log('error')
-    });
-    newBug.fetch({
-       success: () => console.log('fetch 3') // prints
-       });
+  newBug.fetch({
+    success: () => console.log("fetch 2", newBug), // doesn't print
+    error: () => console.log("error"),
+  });
+  newBug.fetch({
+    success: () => console.log("fetch 3"), // prints
+  });
 }
 ```
 
@@ -51,7 +51,7 @@ Adding `console.log(newBug == bug)` prints `false`, which implies that Chrome do
 
 So what does Backbone’s `Model.fetch` method do?
 
-```
+```javascript
 fetch: function(options) {
       options = _.extend({parse: true}, options);
       var model = this;
@@ -85,18 +85,18 @@ Let’s see what happens inside `sync` … ugh, it’s a long function. I’m no
 
 Can we make the same bug happen without Backbone, then?
 
-```
+```javascript
 $.ajax({
-    url: 'bla.json',
-    complete: () => {
-        console.log('done 1st request');
-        $.ajax({
-            url: 'bla.json',
-            complete: () => {
-                console.log('done 2nd request');
-            }
-        });
-    }
+  url: "bla.json",
+  complete: () => {
+    console.log("done 1st request");
+    $.ajax({
+      url: "bla.json",
+      complete: () => {
+        console.log("done 2nd request");
+      },
+    });
+  },
 });
 ```
 
@@ -112,15 +112,13 @@ It might be safe to say that jQuery is battle tested enough that this couldn’t
 
 Does the bug still happen?
 
-```
-request.get('bla.json')
-       .end(() => {
-           console.log('1st success');
-           request.get('bla.json')
-                  .end(() => {
-                      console.log('2nd success');
-                  });
-       });
+```javascript
+request.get("bla.json").end(() => {
+  console.log("1st success");
+  request.get("bla.json").end(() => {
+    console.log("2nd success");
+  });
+});
 ```
 
 ![Superagent repros too](./img/blog-wp-content-uploads-2016-08-superagent-bug.gif)
@@ -131,25 +129,21 @@ Now you might think: _“A-ha! Every even Ajax call to the same URL fails.”_ I
 
 The bug only happens, if you make the same AJAX request in the callback. You can extend a chain like this forever:
 
-```
-request.get('bla.json')
-       .end(() => {
-           console.log('1st success');
-           request.get('bla.json')
-                  .end(() => {
-                      console.log('2nd success');
-                  });
+```javascript
+request.get("bla.json").end(() => {
+  console.log("1st success");
+  request.get("bla.json").end(() => {
+    console.log("2nd success");
+  });
 
-           request.get('bla.json')
-                  .end(() => {
-                      console.log('3rd success');
+  request.get("bla.json").end(() => {
+    console.log("3rd success");
 
-                      request.get('bla.json')
-                             .end(() => {
-                                 console.log('4th success');
-                             });
-                  });
-       });
+    request.get("bla.json").end(() => {
+      console.log("4th success");
+    });
+  });
+});
 ```
 
 And it only prints the odd numbered console.logs.

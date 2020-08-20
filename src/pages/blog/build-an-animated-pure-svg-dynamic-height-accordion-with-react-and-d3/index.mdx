@@ -7,6 +7,10 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/blog-wp-content-uploads-2018-06-githubscreenshot.png
 ---
+https://codesandbox.io/s/r02j7p45w4
+
+
+
 This is a proof of concept I built for a client. They were building an event flow data visualization and weren&#x27;t happy with how finicky and hard to use their components turned out.
 
 
@@ -43,7 +47,7 @@ But also full control of element positioning. 😩
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/999619898555826176
+https://twitter.com/Swizec/status/999619898555826176
 
 
 
@@ -128,6 +132,8 @@ Savvy? Here&#x27;s how it works again
 
 
 
+https://codesandbox.io/s/r02j7p45w4
+
 
 
 Let&#x27;s look at the code :)
@@ -146,25 +152,26 @@ It starts by creating an array of arrays to represent our data. Each has an `<Ic
 
 
 
-```
+```javascript
 // index.js prep data
 
-const icons = [, , ],
+const icons = [<circle>, <rectangle>, <triangle>],
   flowData = d3range(10).map(i => [
     icons[i % 3],
     contentUpdated => (
-      
+      <dynamiccontent title="{`Row" ${i}`}="" contentupdated={contentUpdated}>
         {d3range(10)
           .slice(0, i)
           .map(() => faker.lorem.paragraph())}
-      
+      </dynamiccontent>
     )
   ]);
+</triangle></rectangle></circle>
 ```
 
 
 
-Icon is a plain component. We&#x27;re rendering it as a compound component with no frills. `` is wrapped in a function because it&#x27;s going to be used as a render prop. It gets the callback function it can call to dynamically update its height after initial rendering.
+Icon is a plain component. We&#x27;re rendering it as a compound component with no frills. ``is wrapped in a function because it&#x27;s going to be used as a render prop. It gets the callback function it can call to dynamically update its height after initial rendering.
 
 
 
@@ -176,11 +183,11 @@ Rendering our dataviz is meant to be simple 👇
 
 
 
-```
+```javascript
 // index.js render method
-    
-      
-    
+<svg width="600" height="2240">
+  <accordionflow data={flowData}></accordionflow>
+</svg>;
 ```
 
 
@@ -201,7 +208,7 @@ Using idiomatic but not the most readable code, it comes out to 30 lines. 💁�
 
 
 
-```
+```javascript
 // AccordionFlow
 
 class AccordionFlow extends React.Component {
@@ -214,13 +221,13 @@ class AccordionFlow extends React.Component {
       { heights } = this.state;
 
     return (
-      
-         sum + h, 0)}
+      <g transform="translate(0, 20)">
+        <line x1={15} x2={15} y1={10} y2="{heights.reduce((sum," h)=""> sum + h, 0)}
           stroke="lightgrey"
           strokeWidth="2.5"
         />
         {data.map(([icon, content], i) => (
-           sum + h, 0)}
+          <row icon={icon} content={content} y="{heights.slice(0," i).reduce((sum,="" h)=""> sum + h, 0)}
             width={450}
             key={i}
             reportHeight={height => {
@@ -233,7 +240,7 @@ class AccordionFlow extends React.Component {
             }}
           />
         ))}
-      
+      </row></line></g>
     );
   }
 }
@@ -266,7 +273,7 @@ We should probably move that callback into a class method, but we need to encaps
 
 
 
-The `` component is more beastly. It renders the icon and the content, handles height callbacks, and uses my [declarative D3 transitions with React 16.3+](https://swizec.com/blog/declarative-d3-transitions-react/swizec/8323) approach to animate its vertical positioning.
+The ``component is more beastly. It renders the icon and the content, handles height callbacks, and uses my [declarative D3 transitions with React 16.3+](https://swizec.com/blog/declarative-d3-transitions-react/swizec/8323) approach to animate its vertical positioning.
 
 
 
@@ -274,20 +281,20 @@ The `` component is more beastly. It renders the icon and the content, handles h
 
 
 
-```
+```javascript
 class Row extends React.Component {
   state = {
     open: false,
-    y: this.props.y
+    y: this.props.y,
   };
-  
+
   toggleOpen = () => this.setState({ open: !this.state.open });
 
-    // needed for animation
+  // needed for animation
   rowRef = React.createRef();
 
-    // magic dynamic height detection
-  contentRefCallback = element => {
+  // magic dynamic height detection
+  contentRefCallback = (element) => {
     if (element) {
       this.contentRef = element;
       this.props.reportHeight(element.getBoundingClientRect().height);
@@ -305,14 +312,14 @@ class Row extends React.Component {
   }
 
   render() {
-      // render stuff
+    // render stuff
   }
 }
 ```
 
 
 
-Our `` component uses `state` to keep track of whether it&#x27;s `open` and its vertical position `y`.
+Our ``component uses `state` to keep track of whether it&#x27;s `open` and its vertical position `y`.
 
 
 
@@ -324,7 +331,7 @@ The fun stuff happens in `contentRefCallback`. We use this as a [React ref callb
 
 
 
-We use this opportunity to save the ref as a component property for future reference, get its height using `getBoundingClientRect`, and call the `reportHeight` callback to tell `` about our new height.
+We use this opportunity to save the ref as a component property for future reference, get its height using `getBoundingClientRect`, and call the `reportHeight` callback to tell ``about our new height.
 
 
 
@@ -340,35 +347,33 @@ The `render` method puts all of this together.
 
 
 
-```
+```javascript
   render() {
     const { icon, content, width } = this.props,
       { y } = this.state;
 
     return (
-      
-        
+      <g transform="{`translate(5," ${y})`}="" ref={this.rowRef}>
+        <g onclick={this.toggleOpen} style={{ cursor: "pointer" }}>
           {icon}
-        
+        </g>
         {this.state.open ? (
-          
-            
-
+          <foreignobject x={20} y={-20} width={width} style={{ border: "1px solid red" }}>
+            <div ref={this.contentRefCallback}>
               {typeof content === "function"
                 ? content(this.contentUpdated)
                 : content}
-            
-
-          
+            </div>
+          </foreignobject>
         ) : null}
-      
+      </g>
     );
   }
 ```
 
 
 
-We start with a grouping element `` that handles positioning and sets the `rowRef`.
+We start with a grouping element ``that handles positioning and sets the `rowRef`.
 
 
 
@@ -400,7 +405,7 @@ We then render our `content` as either a functional render prop being passed the
 
 
 
-```
+```javascript
   componentDidUpdate() {
     const { y } = this.props;
     d3
@@ -435,7 +440,7 @@ It&#x27;s a component that renders a title and some paragraphs, waits 1.2 second
 
 
 
-```
+```javascript
 lass DynamicContent extends React.Component {
   state = {
     paragraphs: this.props.children,
@@ -456,24 +461,21 @@ lass DynamicContent extends React.Component {
       { paragraphs, spinner } = this.state;
 
     return (
-      
-        
-{title}
-
+      <react class="fragment">
+        <h3>{title}</h3>
         {paragraphs.map(c => {c}
 
 )}
-        
-
-
+        <p>
           {spinner && (
-            
+            <spinner name="cube-grid" color="green" fadein="none" style={{ margin: "0 auto" }}>
           )}
         
       
     );
   }
 }
+</spinner></p></react>
 ```
 
 
@@ -502,4 +504,4 @@ What do you think, should I open source this? Would anyone find it useful? Ping 
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1002602899845738496
+https://twitter.com/Swizec/status/1002602899845738496

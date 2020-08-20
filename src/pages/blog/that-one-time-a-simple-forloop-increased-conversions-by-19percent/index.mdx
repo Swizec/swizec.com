@@ -7,31 +7,7 @@ redirect_from:
 categories: "Startups, Technical"
 hero: ./img/blog-wp-content-uploads-2017-10-backed-up-queue.png
 ---
-Once upon a time, I made a brilliant decision: We&#x27;re going to make a new background worker for every analytics event on our platform.
-
-
-
-The goal was simple: have real-time analytics, don&#x27;t be bound to a single provider, keep local copies of all events in case something goes wrong.
-
-
-
-I designed a system that does that. Clients (web and mobile) send events to our server, our server stores them in the database and creates a new worker on the queue. That worker runs, sends the event to Mixpanel, and marks it as sent.
-
-
-
-With this design, we can easily switch to a different provider. Just change the call on our backend, clients keep the same API. Wonderful.
-
-
-
-If anything goes wrong when talking to Mixpanel, or if we need to run a complex query involving events and the rest of our data, we can. All events are stored. Wonderful.
-
-
-
-Job well done.
-
-
-
-![](./img/media-Mp4hQy51LjY6A-giphy.gif)
+Once upon a time, I made a brilliant decision: We&#x27;re going to make a new background worker for every analytics event on our platform.The goal was simple: have real-time analytics, don&#x27;t be bound to a single provider, keep local copies of all events in case something goes wrong.I designed a system that does that. Clients (web and mobile) send events to our server, our server stores them in the database and creates a new worker on the queue. That worker runs, sends the event to Mixpanel, and marks it as sent.With this design, we can easily switch to a different provider. Just change the call on our backend, clients keep the same API. Wonderful.If anything goes wrong when talking to Mixpanel, or if we need to run a complex query involving events and the rest of our data, we can. All events are stored. Wonderful.Job well done.![](./img/media-Mp4hQy51LjY6A-giphy.gif)
 
 
 

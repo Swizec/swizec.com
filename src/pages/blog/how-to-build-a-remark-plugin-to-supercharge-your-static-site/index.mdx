@@ -7,11 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/techletter.app-screenshot-1547049367743.png
 ---
-Remark plugins are a little esoteric, and with the rise of Gatsby, they’re becoming more and more \\important.
-
-
-
-[Remark](https://github.com/remarkjs/remark) is a markdown parser built in JavaScript. &quot;Parser&quot; doesn&#x27;t do Remark justice. Remark is a whole compiler ecosystem built on plugins.
+Remark plugins are a little esoteric, and with the rise of Gatsby, they’re becoming more and more important.[Remark](https://github.com/remarkjs/remark) is a markdown parser built in JavaScript. &quot;Parser&quot; doesn&#x27;t do Remark justice. Remark is a whole compiler ecosystem built on plugins.
 
 
 
@@ -27,7 +23,7 @@ There are [many Remark plugins](https://github.com/remarkjs/remark/blob/master/d
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=LWvaOGVHLfE
+https://www.youtube.com/watch?v=LWvaOGVHLfE
 
 
 
@@ -43,7 +39,7 @@ Here&#x27;s an early preview 👇
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1082086702926024705
+https://twitter.com/Swizec/status/1082086702926024705
 
 
 
@@ -74,6 +70,8 @@ You can try my [markdown-to-tweet](https://github.com/Swizec/markdown-to-tweet) 
 
 
 
+https://codesandbox.io/s/n375856710
+
 
 
 Maybe I should release the underlying Remark plugins separately 🤔
@@ -84,7 +82,7 @@ Maybe I should release the underlying Remark plugins separately 🤔
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=X7mZAsfwYng
+https://www.youtube.com/watch?v=X7mZAsfwYng
 
 
 
@@ -104,24 +102,24 @@ A basic Remark call goes something like this:
 
 
 
-```
-\import remark from "remark";
-\import html from "remark-html";
+```javascript
+import remark from "remark";
+import html from "remark-html";
 
 // ...
 
 remark()
-    .use(html)
-    .process(input_markdown, function (err, html_output) {
-        if (err) throw err;
-        
-        console.log(html_output)
-    })
+  .use(html)
+  .process(input_markdown, function (err, html_output) {
+    if (err) throw err;
+
+    console.log(html_output);
+  });
 ```
 
 
 
-You \\import `remark` and `remark-html`, instantiate remark, and tell it to use the `html` plugin. Then you call `.process` on your input source, and out comes a parsed HTML for you to use.
+You import `remark` and `remark-html`, instantiate remark, and tell it to use the `html` plugin. Then you call `.process` on your input source, and out comes a parsed HTML for you to use.
 
 
 
@@ -153,21 +151,19 @@ Your Remark plugin is a function that returns a transform. Also a function.
 
 
 
-```
-\import visit from "unist-util-visit";
-\import { bolden } from "./unicodeTransformer";
+```javascript
+import visit from "unist-util-visit";
+import { bolden } from "./unicodeTransformer";
 
 function utf8() {
-    return function transformer(tree, file) {
-        visit(tree, "strong", bold);
+  return function transformer(tree, file) {
+    visit(tree, "strong", bold);
 
-        function bold(node) {
-            node.type = "text";
-            node.value = node.children
-                .map(child => bolden(child.value))
-                .join(" ");
-        }
-    };
+    function bold(node) {
+      node.type = "text";
+      node.value = node.children.map((child) => bolden(child.value)).join(" ");
+    }
+  };
 }
 
 export default utf8;
@@ -179,7 +175,7 @@ Simple as that. Let me explain.
 
 
 
-You \\import the `visit` helper from Unified utilities, prefixed always with `unist-util` for some reason. There&#x27;s also a `map` and a `reduce` and all the other methods you commonly use to work with data.
+You import the `visit` helper from Unified utilities, prefixed always with `unist-util` for some reason. There&#x27;s also a `map` and a `reduce` and all the other methods you commonly use to work with data.
 
 
 
@@ -195,7 +191,7 @@ You call `visit()` to do your manipulations.
 
 
 
-```
+```javascript
 visit(tree, "strong", bold);
 ```
 
@@ -213,12 +209,10 @@ The manipulation itself happens in your node visitor – the `bold` function.
 
 
 
-```
+```javascript
 function bold(node) {
-    node.type = "text";
-    node.value = node.children
-        .map(child => bolden(child.value))
-        .join(" ");
+  node.type = "text";
+  node.value = node.children.map((child) => bolden(child.value)).join(" ");
 }
 ```
 
@@ -232,7 +226,7 @@ Text nodes with values are the lowest level in MDAST. They&#x27;re strings that 
 
 
 
-Changing node type is very \\important if you don&#x27;t want other plugins to mess with your changes. Or if you _do_ and want to tell them how.
+Changing node type is very important if you don&#x27;t want other plugins to mess with your changes. Or if you _do_ and want to tell them how.
 
 
 
@@ -244,7 +238,7 @@ This is called [the visitor pattern](https://en.wikipedia.org/wiki/Visitor_patte
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=uzzvwnjtaPs
+https://www.youtube.com/watch?v=uzzvwnjtaPs
 
 
 
@@ -269,28 +263,28 @@ Around that, your transformer has to return a Promise and resolve it after you&#
 
 
 
-```
+```javascript
 function codeScreenshot() {
-    return tree =>
-        new Promise(async (resolve, reject) => {
-            const nodesToChange = [];
-            visit(tree, "code", node => {
-                nodesToChange.push({
-                    node
-                });
-            });
-            for (const { node } of nodesToChange) {
-                try {
-                    const url = await getCodeScreenshot(node.value);
-                    node.value = url;
-                } catch (e) {
-                    console.log("ERROR", e);
-                    return reject(e);
-                }
-            }
-
-            resolve();
+  return (tree) =>
+    new Promise(async (resolve, reject) => {
+      const nodesToChange = [];
+      visit(tree, "code", (node) => {
+        nodesToChange.push({
+          node,
         });
+      });
+      for (const { node } of nodesToChange) {
+        try {
+          const url = await getCodeScreenshot(node.value);
+          node.value = url;
+        } catch (e) {
+          console.log("ERROR", e);
+          return reject(e);
+        }
+      }
+
+      resolve();
+    });
 }
 ```
 
@@ -308,12 +302,12 @@ Inside that Promise, you can see the two phases of an async Remark plugin.
 
 
 
-```
+```javascript
 const nodesToChange = [];
-visit(tree, "code", node => {
-    nodesToChange.push({
-        node
-    });
+visit(tree, "code", (node) => {
+  nodesToChange.push({
+    node,
+  });
 });
 ```
 
@@ -335,15 +329,15 @@ This is where I got stuck for a couple hours 😅
 
 
 
-```
+```javascript
 for (const { node } of nodesToChange) {
-    try {
-        const url = await getCodeScreenshot(node.value);
-        node.value = url;
-    } catch (e) {
-        console.log("ERROR", e);
-        return reject(e);
-    }
+  try {
+    const url = await getCodeScreenshot(node.value);
+    node.value = url;
+  } catch (e) {
+    console.log("ERROR", e);
+    return reject(e);
+  }
 }
 
 resolve();

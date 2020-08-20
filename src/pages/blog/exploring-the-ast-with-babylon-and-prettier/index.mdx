@@ -7,6 +7,10 @@ redirect_from:
 categories: "Technical"
 hero: ./img/blog-wp-content-uploads-2017-06-fileprogram1.jpg
 ---
+https://www.youtube.com/watch?v=zTE2QjKBJ-E
+
+
+
 At [this week&#x27;s livecoding session](https://swizec.com/blog/livecoding-39-towards-ai-writes-javascript/swizec/7621), I mentioned mutating ASTs to improve the performance of our [faux AI that writes JavaScript](https://github.com/Swizec/faux-js-ai) algorithm. It would help us converge on a solution faster.
 
 
@@ -31,19 +35,16 @@ We begin with a test harness runnable in node.js.
 
 
 
-```
-const util = require('util')
-const babylon = require('babylon');
+```javascript
+const util = require("util");
+const babylon = require("babylon");
 
 const code = `
 `;
 
 let AST = babylon.parse(code);
 
-console.log(util.inspect(
-    AST,
-    false, null
-));
+console.log(util.inspect(AST, false, null));
 ```
 
 
@@ -56,7 +57,7 @@ Parsing an empty piece of code creates an AST like this:
 
 
 
-```
+```javascript
 Node {
   type: 'File',
   start: 0,
@@ -112,7 +113,7 @@ Here&#x27;s the part we care about:
 
 
 
-```
+```javascript
   program: 
    Node {
      type: 'Program',
@@ -149,7 +150,7 @@ Now let&#x27;s try a variable assignment.
 
 
 
-```
+```javascript
 const code = `
 let a = 5;
 `;
@@ -161,7 +162,7 @@ That outputs a bigger AST. I&#x27;m going to snip out some of the details to mak
 
 
 
-```
+```javascript
 program: 
    Node {
      type: 'Program',
@@ -231,7 +232,7 @@ There&#x27;s a list of tokens if you want to know what the code says:
 
 
 
-```
+```javascript
 tokens: 
    [ Token {
        type: 
@@ -359,7 +360,7 @@ For example, let&#x27;s say our parser encounters the `a` token. Just like you, 
 
 
 
-```
+```javascript
 Token {
    type: 
     TokenType {
@@ -390,7 +391,7 @@ So it finds the `=` sign.
 
 
 
-```
+```javascript
 type: 
 TokenType {
   label: '=',
@@ -433,7 +434,7 @@ Now, once you have an AST, you can use something like Prettier to print it back 
 
 
 
-```
+```javascript
 const code = `
 let
 

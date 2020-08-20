@@ -13,8 +13,8 @@ I finally started writing code for my [thesis](http://swizec.github.com/Le-Thesi
 
 The main problem comes from how [pseudo-random](http://en.wikipedia.org/wiki/Pseudorandom_number_generator "Pseudorandom number generator") generators work. Essentially you start with a _seed_ - it can be anything, I hear current time is a good starting seed - then every time somebody needs a new random number, you perform some formula on the _seed_ and get a number. The next number then depends on the previous number and so on until infinity. Your garden variety recursively defined series. Not very random at all, but works well enough for most. Noticed the problem? Yep, random generators rely on state and state is this hated, somewhat annoying thing to handle in Haskell. Monads may sound simple, but until you get the hang of them everything looks a bit odd. Oh and you wouldn&#x27;t want to pollute your whole codebase with a monad just because you want to start your whole algorithm with some random stuff, would you? No you wouldn&#x27;t, it&#x27;s messy. After a lot of searching (and a lot of scary suggestions), this was the cleanest solution I could find:
 
-```
-\import System.Random
+```haskell
+import System.Random
 
 -- takes a random generator and returns a list of strings of 50 chars
 start_population :: (RandomGen g) => g -> [[Char]]
@@ -29,7 +29,7 @@ main = do
 
 The best part about this approach is that Haskell automatically gives you a _standard generator,_ which already takes a seed from some sort of input - not sure what it uses - so your results will look reasonably random. But when you want to do testing, you can just as easily do this:
 
-```
+```haskell
 let rand = mkStdGen 42
 print $ take 2 $ randomRs ('a', 'z') rand
 ```

@@ -7,35 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/Mg1nuYD.png
 ---
-Markdown is all the rage these days.
-
-
-
-A simple text format for rich documents, you see it everywhere from GitHub issues to Slack messages. Even Facebook supports it in their business version. Soon their pleb version too, I hear.
-
-
-
-With the rise of Gatsby and other static site builders, markdown is an increasingly popular choice for text-heavy webapps. Write content in Markdown, parse and render to React or HTML.
-
-
-
-Easy to build the layout, easy to write the content. Perfect 👌
-
-
-
-Markdown for content-heavy apps is what I wanna talk about today. Because I discovered how you can make markdown do anything you want. Anything. It&#x27;s amazing.
-
-
-
-https&amp;#x3A;//www.youtube.com/watch?v=QtSSNLh_PBs
-
-
-
-I use markdown to write these letters. And my blogs. And my workshop materials.
-
-
-
-One of the tools that helps me do that is [TechLetterApp](https://techletter.app/). Takes my Markdown and turns code, youtube links, and tweets into screenshots. Makes them work in email :)
+Markdown is all the rage these days.A simple text format for rich documents, you see it everywhere from GitHub issues to Slack messages. Even Facebook supports it in their business version. Soon their pleb version too, I hear.With the rise of Gatsby and other static site builders, markdown is an increasingly popular choice for text-heavy webapps. Write content in Markdown, parse and render to React or HTML.Easy to build the layout, easy to write the content. Perfect 👌Markdown for content-heavy apps is what I wanna talk about today. Because I discovered how you can make markdown do anything you want. Anything. It&#x27;s amazing.https://www.youtube.com/watch?v=QtSSNLh_PBsI use markdown to write these letters. And my blogs. And my workshop materials.One of the tools that helps me do that is [TechLetterApp](https://techletter.app/). Takes my Markdown and turns code, youtube links, and tweets into screenshots. Makes them work in email :)
 
 
 
@@ -67,7 +39,7 @@ Either way, the solution was a rewrite to [Remark](https://github.com/remarkjs/r
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1114672906607325184
+https://twitter.com/Swizec/status/1114672906607325184
 
 
 
@@ -127,9 +99,9 @@ My link-to-screenshot plugin looks like this:
 
 
 
-```
-\import visit from "unist-util-visit";
-\import Url from "url-parse";
+```undefined
+<code class="javascript">import visit from "unist-util-visit";
+import Url from "url-parse";
 
 function getScreenshotUrl(url) {
     return `https://84wz7ux5rc.execute-api.us-east-1.amazonaws.com/default/screenshot-as-a-service-dev-screenshot-function?url=${url}`;
@@ -162,6 +134,7 @@ function remarkUrlThumbnail({ domains = [] }) {
 }
 
 export default remarkUrlThumbnail;
+</code>
 ```
 
 
@@ -170,9 +143,10 @@ export default remarkUrlThumbnail;
 
 
 
-```
-\import visit from "unist-util-visit";
-\import Url from "url-parse";
+```undefined
+<code class="javascript">import visit from "unist-util-visit";
+import Url from "url-parse";
+</code>
 ```
 
 
@@ -189,10 +163,11 @@ We use `Url` to parse URLs. You could write a regex for it and that&#x27;s fraug
 
 
 
-```
-function getScreenshotUrl(url) {
+```undefined
+<code class="javascript">function getScreenshotUrl(url) {
     return `https://84wz7ux5rc.execute-api.us-east-1.amazonaws.com/default/screenshot-as-a-service-dev-screenshot-function?url=${url}`;
 }
+</code>
 ```
 
 
@@ -205,8 +180,8 @@ I should write about how that works some time 🤔
 
 
 
-```
-function remarkUrlThumbnail({ domains = [] }) {
+```undefined
+<code class="javascript">function remarkUrlThumbnail({ domains = [] }) {
     return tree =>
         new Promise(async (resolve, reject) => {
             const nodesToChange = [];
@@ -231,6 +206,7 @@ function remarkUrlThumbnail({ domains = [] }) {
             resolve();
         });
 }
+</code>
 ```
 
 
@@ -283,12 +259,13 @@ You can fix that with a HAST handler. Like this
 
 
 
-```
-const screenshotHandler = (h, node) => {
+```undefined
+<code class="javascript">const screenshotHandler = (h, node) => {
     const props = { node };
 
     return h(node, "screenshot", props);
 };
+</code>
 ```
 
 
@@ -325,8 +302,8 @@ So I built a `<Screenshot>` component.
 
 
 
-```
-\import React, { useState, useEffect } from "react";
+```undefined
+<code class="javascript">import React, { useState, useEffect } from "react";
 
 function Screenshot({ node }) {
     const [image, setImage] = useState("/lg.pink-pig-ajax-loader.gif");
@@ -352,6 +329,7 @@ function Screenshot({ node }) {
 }
 
 export default Screenshot;
+</code>
 ```
 
 
@@ -378,11 +356,11 @@ Transforming from markdown to your output looks like this
 
 
 
-```
-\import remark from "remark";
-\import remark2react from "remark-react";
-\import urlThumbnail from "./remarkUrlThumbnail";
-\import Screenshot from "../Screenshot";
+```undefined
+<code class="javascript">import remark from "remark";
+import remark2react from "remark-react";
+import urlThumbnail from "./remarkUrlThumbnail";
+import Screenshot from "../Screenshot";
 
 export const remarkCompile = input =>
     new Promise((resolve, reject) => {
@@ -414,6 +392,7 @@ export const remarkCompile = input =>
                 }
             });
     });
+</code>
 ```
 
 
@@ -434,8 +413,8 @@ Second argument you pass into `use()` goes into your plugin as a function argume
 
 
 
-```
-.use(remark2react, {
+```undefined
+<code class="javascript">.use(remark2react, {
     sanitize: false,
     remarkReactComponents: {
         screenshot: Screenshot
@@ -446,6 +425,7 @@ Second argument you pass into `use()` goes into your plugin as a function argume
         }
     }
 })
+</code>
 ```
 
 

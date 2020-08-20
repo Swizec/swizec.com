@@ -11,7 +11,7 @@ What do you do if your boss comes up to you and asks, _&quot;So how many times m
 
 
 
-It&#x27;s an \\important question. How many touch points does your sales process require? Do you need 2 ad clicks or 5? Two shiny demos or one fat video?
+It&#x27;s an important question. How many touch points does your sales process require? Do you need 2 ad clicks or 5? Two shiny demos or one fat video?
 
 
 
@@ -19,7 +19,7 @@ As an engineer, you might not care, but this is the stuff that keeps your CEO an
 
 
 
-It&#x27;s an \\important question, therefore Google Analytics has the answer, right?
+It&#x27;s an important question, therefore Google Analytics has the answer, right?
 
 
 
@@ -93,8 +93,8 @@ Install the utility with `npm install web-session-counter`, then use it like thi
 
 
 
-```
-\import WebSessionCounter from 'web-session-counter';
+```javascript
+import WebSessionCounter from "web-session-counter";
 
 // Do this on user activity
 WebSessionCounter.update();
@@ -105,7 +105,7 @@ const count = WebSessionCounter.count;
 
 
 
-`WebSessionCounter` automatically calls `.update()` on every initialization. When you \\import the library, that is. It&#x27;s a singleton. You can get the current count through the `.count` property.
+`WebSessionCounter` automatically calls `.update()` on every initialization. When you import the library, that is. It&#x27;s a singleton. You can get the current count through the `.count` property.
 
 
 
@@ -129,78 +129,81 @@ The gist of `WebSessionCounter` is this 71-line class.
 
 
 
-```
+```javascript
 class WebSessionCounter {
-    constructor() {
-        this.update();
+  constructor() {
+    this.update();
+  }
+
+  get count() {
+    if (canUseLocalStorage) {
+      return Number(window.localStorage.getItem("user_web_session_count"));
+    } else {
+      return NaN;
     }
+  }
 
-    get count() {
-        if (canUseLocalStorage) {
-            return Number(window.localStorage.getItem('user_web_session_count'));
-        }else{
-            return NaN;
-        }
+  set count(val) {
+    window.localStorage.setItem("user_web_session_count", val);
+  }
+
+  get lastActive() {
+    const time = window.localStorage.getItem("user_web_session_last_active");
+
+    if (time) {
+      return moment(time);
+    } else {
+      return moment();
     }
+  }
 
-    set count(val) {
-        window.localStorage.setItem('user_web_session_count', val);
+  set lastActive(time) {
+    window.localStorage.setItem(
+      "user_web_session_last_active",
+      time.toISOString()
+    );
+  }
+
+  get lastUtmCampaign() {
+    return window.localStorage.getItem("user_web_session_utm_campaign");
+  }
+
+  set lastUtmCampaign(val) {
+    window.localStorage.setItem("user_web_session_utm_campaign", val);
+  }
+
+  get currentUtmCampaign() {
+    const [path, query = ""] = window.location.href.split("?"),
+      { utm_campaign = "" } = querystring.parse(query);
+
+    return utm_campaign;
+  }
+
+  update() {
+    if (canUseLocalStorage) {
+      let count = this.count,
+        time = this.lastActive;
+
+      if (count === 0 || this.isNewSession()) {
+        this.count = count + 1;
+        this.lastActive = moment();
+        this.lastUtmCampaign = this.currentUtmCampaign;
+      }
     }
+  }
 
-    get lastActive() {
-        const time = window.localStorage.getItem('user_web_session_last_active');
+  isNewSession() {
+    // use definition from https://support.google.com/analytics/answer/2731565?hl=en
 
-        if (time) {
-            return moment(time);
-        }else{
-            return moment();
-        }
-    }
+    const time = this.lastActive,
+      now = moment();
 
-    set lastActive(time) {
-        window.localStorage.setItem('user_web_session_last_active', time.toISOString());
-    }
-
-    get lastUtmCampaign() {
-        return window.localStorage.getItem('user_web_session_utm_campaign');
-    }
-
-    set lastUtmCampaign(val) {
-        window.localStorage.setItem('user_web_session_utm_campaign', val);
-    }
-
-    get currentUtmCampaign() {
-        const [ path, query = '' ] = window.location.href.split('?'),
-              { utm_campaign = '' } = querystring.parse(query);
-
-        return utm_campaign;
-    }
-
-    update() {
-        if (canUseLocalStorage) {
-            let count = this.count,
-                time = this.lastActive;
-
-            if (count === 0 || this.isNewSession()) {
-                this.count = count + 1;
-                this.lastActive = moment();
-                this.lastUtmCampaign = this.currentUtmCampaign;
-            }
-        }
-    }
-
-    isNewSession() {
-        // use definition from https://support.google.com/analytics/answer/2731565?hl=en
-
-        const time = this.lastActive,
-              now = moment();
-
-        return [
-            moment.duration(now.diff(time)).asMinutes() > 30,
-            now.format('YYYY-MM-DD') !== time.format('YYYY-MM-DD'),
-            this.lastUtmCampaign !== this.currentUtmCampaign
-        ].some(b => b);
-    }
+    return [
+      moment.duration(now.diff(time)).asMinutes() > 30,
+      now.format("YYYY-MM-DD") !== time.format("YYYY-MM-DD"),
+      this.lastUtmCampaign !== this.currentUtmCampaign,
+    ].some((b) => b);
+  }
 }
 ```
 
@@ -218,7 +221,7 @@ The `currentUtmCampaign` getter reads the URL and returns the current value of `
 
 
 
-https&amp;#x3A;//twitter.com/svensauleau/status/862401992110551042
+https://twitter.com/svensauleau/status/862401992110551042
 
 
 
@@ -226,7 +229,7 @@ Our business logic lies in the `update` and `isNewSession` methods.
 
 
 
-```
+```javascript
     update() {
         if (canUseLocalStorage) {
             let count = this.count;
@@ -275,7 +278,7 @@ The first condition checks if 30 minutes have passed since the last update, the 
 
 
 
-https&amp;#x3A;//twitter.com/Bladtman/status/862432478572752896
+https://twitter.com/Bladtman/status/862432478572752896
 
 
 

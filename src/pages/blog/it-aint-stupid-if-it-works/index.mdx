@@ -7,22 +7,13 @@ redirect_from:
 categories: "Technical"
 hero: ./img/WPQMsys.jpg
 ---
-How do you send your friendly neighborhood data scientist 1,571,043 messages to play with?
+How do you send your friendly neighborhood data scientist 1,571,043 messages to play with??Well, the easiest would be something like this:
 
-
-
-?
-
-
-
-Well, the easiest would be something like this:
-
-
-
-```
-username: MR_SCIENTIST
+```undefined
+<code>username: MR_SCIENTIST
 password: PLEASE_DONT_FUCK_UP_OUR_PRODUCTION_DATABASE
 url: postgres://user:pass@ec2-54-225-230-243.compute-1.amazonaws.com:5432/somepath
+</code>
 ```
 
 
@@ -91,7 +82,7 @@ You can do something like this:
 
 
 
-```
+```ruby
 timespan = many_days_ago.beginning_of_day .. 1.day.ago.end_of_day
 puts "session_id,created_at,sent_from,sent_to,content_type,text"
 Message.where(created_at: timespan).find_each { |msg|

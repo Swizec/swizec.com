@@ -7,13 +7,7 @@ redirect_from:
 categories: "Technical"
 hero: ./img/lFiUoxb.png
 ---
-Why? Because it’s cool.
-
-
-
-
-
-And in some cases, you can make a bot that answers the door. Like I [started here](https://swizec.com/blog/livecoding-22-a-door-answering-slackbot/swizec/7038) and [continued here](https://swizec.com/blog/livecoding-23-slackbots-oauth/swizec/7065). This isn’t a series. Don’t worry :)
+Why? Because it’s cool.And in some cases, you can make a bot that answers the door. Like I [started here](https://swizec.com/blog/livecoding-22-a-door-answering-slackbot/swizec/7038) and [continued here](https://swizec.com/blog/livecoding-23-slackbots-oauth/swizec/7065). This isn’t a series. Don’t worry :)
 
 
 
@@ -46,7 +40,7 @@ Run:
 
 
 
-```
+```undefined
 $ npm install --save grant-express express-session
 ```
 
@@ -60,28 +54,32 @@ To enable the dance, add this to your `app.js` file:
 
 
 
-```
+```javascript
 // /app.js
-let session = require('express-session'),
-    Grant = require('grant-express');
+let session = require("express-session"),
+  Grant = require("grant-express");
 let grant = new Grant({
-    server: {
-        protocol: 'https',
-        host: 'swizec.ngrok.io', // use your domain name
-        callback: '/callback',
-        transport: 'session',
-        state: true
-    },
-    slack: {
-        key: YOUR_SLACK_KEY,
-        secret: YOUR_SLACK_SECRET,
-        scope: ['chat:write:bot', 'chat:write:user', 'channels:read', 'commands', 'incoming-webhook'],
-        callback: '/handle_slack_callback'
-    }
+  server: {
+    protocol: "https",
+    host: "swizec.ngrok.io", // use your domain name
+    callback: "/callback",
+    transport: "session",
+    state: true,
+  },
+  slack: {
+    key: YOUR_SLACK_KEY,
+    secret: YOUR_SLACK_SECRET,
+    scope: [
+      "chat:write:bot",
+      "chat:write:user",
+      "channels:read",
+      "commands",
+      "incoming-webhook",
+    ],
+    callback: "/handle_slack_callback",
+  },
 });
-app.use(session({secret: 'grant',
-                 resave: false,
-                 saveUninitialized: true}));
+app.use(session({ secret: "grant", resave: false, saveUninitialized: true }));
 app.use(grant);
 ```
 
@@ -99,13 +97,13 @@ To complete the dance, you need a `/handle_slack_callback` route, which goes in 
 
 
 
-```
+```javascript
 // /routes/index.js
-router.get('/handle_slack_callback', (req, res) => {
-    console.log(req.session.grant.response);
-    
-    // this is a good opportunity to save the token in a DB of some sort
-    res.end(JSON.stringify(req.session.grant.response, null, 2));
+router.get("/handle_slack_callback", (req, res) => {
+  console.log(req.session.grant.response);
+
+  // this is a good opportunity to save the token in a DB of some sort
+  res.end(JSON.stringify(req.session.grant.response, null, 2));
 });
 ```
 
@@ -151,20 +149,20 @@ Step-by-step in code, that gif looks like this:
 
 
 
-```
+```javascript
 // routes/index.js
-router.post('/call', function (req, res, next) {
-    const caller = req.body.Caller;
-    const callSid = req.body.CallSid;
-    const twilio = require('twilio');
-    let twiml = new twilio.TwimlResponse();
-    twiml.say('Hello! State your name, then press any key.', {voice: 'alice'});
-    twiml.record({
-        action: `/call/recording/${callSid}`,
-        maxLength: 60
-    });
-    res.type('text/xml');
-    res.send(twiml.toString());
+router.post("/call", function (req, res, next) {
+  const caller = req.body.Caller;
+  const callSid = req.body.CallSid;
+  const twilio = require("twilio");
+  let twiml = new twilio.TwimlResponse();
+  twiml.say("Hello! State your name, then press any key.", { voice: "alice" });
+  twiml.record({
+    action: `/call/recording/${callSid}`,
+    maxLength: 60,
+  });
+  res.type("text/xml");
+  res.send(twiml.toString());
 });
 ```
 
@@ -178,48 +176,52 @@ TwiML is Twilio’s XML format that you can use to tell their servers what to do
 
 
 
-```
+```javascript
 // routes/index.js
-router.post('/call/recording/:callSid', (req, res, next) => {
-    const callSid = req.params.callSid;
-    const twiml = new twilio.TwimlResponse();
-    const recordingUrl = req.body.RecordingUrl;
-    
-    const twilio = require('twilio'),
-          WebClient = require('@slack/client').WebClient;
-        const webSlack = new WebClient(TOKEN_FROM_BEFORE);
-        // Sets up Slack message
-    let data = {
-        attachments: [{
-            fallback: 'Somebody is at the door',
-            title: 'Somebody is at the door',
-            title_link: recordingUrl,
-            text: 'Click link to hear the recording',
-            callback_id: `door_open:${callSid}`,
-            actions: [
-                {
-                    name: 'open_door',
-                    text: 'Let them in',
-                    type: 'button',
-                    value: 'open_door'
-                },
-                {
-                    name: 'deny_access',
-                    text: 'No.',
-                    type: 'button',
-                    value: 'deny_access'
-                }
-            ]
-        }]
-    };
-    /* Post on Slack, pause Twilio phone call */
-    webSlack.chat.postMessage('#bot-testing', '', data, () => {
-        twiml.say('Thank you. Please hold.', {voice: 'alice'});
-        twiml.pause({length: 240});
-        twiml.say('Sorry, nobody pressed the button. Try calling a real human.', {voice: 'alice'});
-        res.type('text/xml');
-        res.send(twiml.toString());
+router.post("/call/recording/:callSid", (req, res, next) => {
+  const callSid = req.params.callSid;
+  const twiml = new twilio.TwimlResponse();
+  const recordingUrl = req.body.RecordingUrl;
+
+  const twilio = require("twilio"),
+    WebClient = require("@slack/client").WebClient;
+  const webSlack = new WebClient(TOKEN_FROM_BEFORE);
+  // Sets up Slack message
+  let data = {
+    attachments: [
+      {
+        fallback: "Somebody is at the door",
+        title: "Somebody is at the door",
+        title_link: recordingUrl,
+        text: "Click link to hear the recording",
+        callback_id: `door_open:${callSid}`,
+        actions: [
+          {
+            name: "open_door",
+            text: "Let them in",
+            type: "button",
+            value: "open_door",
+          },
+          {
+            name: "deny_access",
+            text: "No.",
+            type: "button",
+            value: "deny_access",
+          },
+        ],
+      },
+    ],
+  };
+  /* Post on Slack, pause Twilio phone call */
+  webSlack.chat.postMessage("#bot-testing", "", data, () => {
+    twiml.say("Thank you. Please hold.", { voice: "alice" });
+    twiml.pause({ length: 240 });
+    twiml.say("Sorry, nobody pressed the button. Try calling a real human.", {
+      voice: "alice",
     });
+    res.type("text/xml");
+    res.send(twiml.toString());
+  });
 });
 ```
 
@@ -245,31 +247,34 @@ The message we sent looks like this:
 
 
 
-```
+```javascript
 // router/index.js
-router.post('/slack/response', (req, res, next) => {
-    const payload = JSON.parse(req.body.payload);
-    const callSid = payload.callback_id.split(':')[1];
-    const action = payload.actions[0];
-    const twilio = require('twilio');
-    const client = twilio(settings.twilio.accountSid, settings.twilio.authToken); // you get these in your Twilio dashboard
-    let continueAt = '',
-        lettingIn = false;
-    if (action.value === 'open_door') {
-        continueAt = 'call/open_the_door'
-        lettingIn = true;
-    }else{
-        continueAt = 'call/dont_open_door';
-        lettingIn = false;
+router.post("/slack/response", (req, res, next) => {
+  const payload = JSON.parse(req.body.payload);
+  const callSid = payload.callback_id.split(":")[1];
+  const action = payload.actions[0];
+  const twilio = require("twilio");
+  const client = twilio(settings.twilio.accountSid, settings.twilio.authToken); // you get these in your Twilio dashboard
+  let continueAt = "",
+    lettingIn = false;
+  if (action.value === "open_door") {
+    continueAt = "call/open_the_door";
+    lettingIn = true;
+  } else {
+    continueAt = "call/dont_open_door";
+    lettingIn = false;
+  }
+  client.calls(callSid).update(
+    {
+      url: `https://swizec.ngrok.io/${continueAt}`,
+      method: "POST",
+    },
+    (err, call) => {
+      res.send({
+        text: lettingIn ? "Letting them in" : "Telling them to go away",
+      });
     }
-    client.calls(callSid).update({
-        url: `https://swizec.ngrok.io/${continueAt}`,
-        method: 'POST'
-    }, (err, call) => {
-        res.send({
-            text: lettingIn ? "Letting them in" : "Telling them to go away"
-        });
-    });
+  );
 });
 ```
 
@@ -295,21 +300,23 @@ In the callback, when we know Twilio knows what we want, we send a response to S
 
 
 
-```
+```javascript
 // routes/index.js
-const twilio = require('twilio');
-router.post('/call/open_the_door', (req, res, next) => {
-    const twiml = new twilio.TwimlResponse();
-    twiml.say('Greetings! Come on up.', {voice: 'alice'});
-    twiml.play({digits: 9});
-    res.type('text/xml');
-    res.send(twiml.toString());
+const twilio = require("twilio");
+router.post("/call/open_the_door", (req, res, next) => {
+  const twiml = new twilio.TwimlResponse();
+  twiml.say("Greetings! Come on up.", { voice: "alice" });
+  twiml.play({ digits: 9 });
+  res.type("text/xml");
+  res.send(twiml.toString());
 });
-router.post('/call/dont_open_door', (req, res, next) => {
-    const twiml = new twilio.TwimlResponse();
-    twiml.say('Sorry, nobody pressed the button. Try calling a real human.', {voice: 'alice'});
-    res.type('text/xml');
-    res.send(twiml.toString());
+router.post("/call/dont_open_door", (req, res, next) => {
+  const twiml = new twilio.TwimlResponse();
+  twiml.say("Sorry, nobody pressed the button. Try calling a real human.", {
+    voice: "alice",
+  });
+  res.type("text/xml");
+  res.send(twiml.toString());
 });
 ```
 

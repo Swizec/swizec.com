@@ -9,11 +9,9 @@ hero: ../../../defaultHero.jpg
 ---
 I was fixing some code written by an intrepid junior the other day and came upon this beauty:
 
-
-
-```
-var day = 1000*60*60*24;
-var week = day*7;
+```javascript
+var day = 1000 * 60 * 60 * 24;
+var week = day * 7;
 
 var yesterday = new Date(today.getTime() - day);
 var lastWeek = new Date(today.getTime() - week);
@@ -41,9 +39,7 @@ Maybe not. I mean, we&#x27;ve all written code like this. Maybe not recently, bu
 
 
 
-> Pop quiz: Why is this code wrong?&amp;amp;#10;&amp;amp;#10;var day = 1000\*60\*60\*24
->
-> &amp;amp;mdash; Swizec (@Swizec) [November 3, 2015](https://twitter.com/Swizec/status/661675783199453184)
+https://twitter.com/Swizec/status/661675783199453184
 
 
 
@@ -55,9 +51,7 @@ Answers ranged from the slightly missing the point:
 
 
 
-> [@Swizec](https://twitter.com/Swizec)because there aren&amp;amp;#39;t 60,000 seconds in a minute. context would be helpful
->
-> &amp;amp;mdash; Aron (@MrAronD) [November 3, 2015](https://twitter.com/MrAronD/status/661677631360888832)
+https://twitter.com/MrAronD/status/661677631360888832
 
 
 
@@ -65,9 +59,7 @@ To the snarky:
 
 
 
-> [@swizec](https://twitter.com/Swizec) You should use ES6&amp;amp;#39;s const instead of var...
->
-> &amp;amp;mdash; Anže Pečar (@Smotko) [November 3, 2015](https://twitter.com/Smotko/status/661676777534857217)
+https://twitter.com/Smotko/status/661676777534857217
 
 
 
@@ -103,10 +95,10 @@ Let me show you some examples:
 
 
 
-```
-new Date((new Date("2015-11-01 02:59 pst").getTime()-1000*60*60*24))
+```javascript
+new Date((new Date("<a href="tel:2015110102">2015-11-01 02</a>:59 pst").getTime()-1000*60*60*24))
 // Sat Oct 31 2015 03:59:00 GMT-0700 (PDT)
-new Date((new Date("2015-11-01 02:59 pdt").getTime()-1000*60*60*24))
+new Date((new Date("<a href="tel:2015110102">2015-11-01 02</a>:59 pdt").getTime()-1000*60*60*24))
 // Sat Oct 31 2015 02:59:00 GMT-0700 (PDT)
 ```
 
@@ -120,8 +112,8 @@ The same example without specifying a timezone chooses your local timezone (whic
 
 
 
-```
-new Date((new Date("2015-11-01 02:59").getTime()-1000*60*60*24))
+```javascript
+new Date(new Date("2015-11-01 02:59").getTime() - 1000 * 60 * 60 * 24);
 // Sat Oct 31 2015 03:59:00 GMT-0700 (PDT)
 ```
 
@@ -131,10 +123,10 @@ Now let&#x27;s see what happens in March, when daylight savings time goes back i
 
 
 
-```
-new Date((new Date("2015-03-08 02:30 pdt").getTime()-1000*60*60*24))
+```javascript
+new Date(new Date("2015-03-08 02:30 pdt").getTime() - 1000 * 60 * 60 * 24);
 // Sat Mar 07 2015 01:30:00 GMT-0800 (PST)
-new Date((new Date("2015-03-08 02:30 pst").getTime()-1000*60*60*24))
+new Date(new Date("2015-03-08 02:30 pst").getTime() - 1000 * 60 * 60 * 24);
 // Sat Mar 07 2015 02:30:00 GMT-0800 (PST)
 ```
 
@@ -148,14 +140,14 @@ At least, this is what happened when I ran the code in San Francisco. When I tri
 
 
 
-```
-new Date((new Date("2015-11-01 02:59 pst").getTime()-1000*60*60*24))
+```javascript
+new Date(new Date("2015-11-01 02:59 pst").getTime() - 1000 * 60 * 60 * 24);
 // Sat Oct 31 2015 04:59:00 GMT-0600 (MDT)
-new Date((new Date("2015-11-01 02:59 pdt").getTime()-1000*60*60*24))
+new Date(new Date("2015-11-01 02:59 pdt").getTime() - 1000 * 60 * 60 * 24);
 // Sat Oct 31 2015 03:59:00 GMT-0600 (MDT)
-new Date((new Date("2015-11-01 01:59 pdt").getTime()-1000*60*60*24))
+new Date(new Date("2015-11-01 01:59 pdt").getTime() - 1000 * 60 * 60 * 24);
 // Sat Oct 31 2015 02:59:00 GMT-0600 (MDT)
-new Date((new Date("2015-11-01 01:59 pst").getTime()-1000*60*60*24))
+new Date(new Date("2015-11-01 01:59 pst").getTime() - 1000 * 60 * 60 * 24);
 // Sat Oct 31 2015 03:59:00 GMT-0600 (MDT)
 ```
 
@@ -197,8 +189,8 @@ Let&#x27;s see what JavaScript will do in this situation:
 
 
 
-```
-new Date(new Date("1999-01-01T00:00:00.00").getTime()-1000*60*60*24)
+```javascript
+new Date(new Date("1999-01-01T00:00:00.00").getTime() - 1000 * 60 * 60 * 24);
 // Wed Dec 30 1998 16:00:00 GMT-0800 (PST)
 ```
 
@@ -216,15 +208,11 @@ All that said, there were two or three people that put garlic around their necks
 
 
 
-> [@Swizec](https://twitter.com/Swizec) because it doesn&amp;amp;#39;t account for leap seconds? something to do with floating point rounding since that appears to be javascript? idk
->
-> &amp;amp;mdash; Aron (@MrAronD) [November 3, 2015](https://twitter.com/MrAronD/status/661676799022276608)
+https://twitter.com/MrAronD/status/661676799022276608
 
 
 
-> [@Swizec](https://twitter.com/Swizec) This is a minefield, especially for distributed systems. See falsehoods programmers believe about time: <https://t.co/C3CCMMhIib>
->
-> &amp;amp;mdash; galar (@galar) [November 4, 2015](https://twitter.com/galar/status/661701633030647809)
+https://twitter.com/galar/status/661701633030647809
 
 
 

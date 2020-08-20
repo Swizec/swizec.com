@@ -49,7 +49,7 @@ Our new `Curve` component looks like this:
 
 
 
-```
+```javascript
 const Curve = ({ start, end, color }) => {
     const line = d3.line()
                    .curve(d3.curveBasis),
@@ -58,9 +58,10 @@ const Curve = ({ start, end, color }) => {
           middle = [(x1 + x2)/2, (y1 + y2)/2-200];
 
     return (
-        
+        <path d="{line([start," middle,="" end])}="" style="{{stroke:" color,="" strokewidth:="" '1.6px',="" strokeopacity:="" '0.7',="" fillopacity:="" 0}}="">
     );
 };
+</path>
 ```
 
 

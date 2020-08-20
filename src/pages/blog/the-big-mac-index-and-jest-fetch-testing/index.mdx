@@ -9,12 +9,6 @@ hero: ./img/techletter.app-screenshot-1566489636202.png
 ---
 The Big Mac index is a purchasing power parity index published by The Economist. Jest fetch testing is a tech task so frustrating that it almost made me quit the industry.
 
-
-
-
-
-
-
 [![Click through for source](./img/techletter.app-screenshot-1566489636202.png)](https://twitter.com/Swizec/status/1164413095319494656)
 
 
@@ -146,11 +140,11 @@ To use `fetch-mock` instead of `isomorphic-fetch` in your tests, create a file l
 
 
 
-This means that every time you \\import `isomorphic-fetch` in a test file, it will instead \\import a sandboxed `fetch-mock` instance. You can add any other setup you want here. Anything you need for your mocks to work correctly.
+This means that every time you import `isomorphic-fetch` in a test file, it will instead import a sandboxed `fetch-mock` instance. You can add any other setup you want here. Anything you need for your mocks to work correctly.
 
 
 
-**BIG WARNING** 👉 you have to use the `require()` syntax. No ES6 \\imports because this is Node not JavaScript. That tripped me up for hours and rumors say you _can_ get `\import from` to work, but I eventually gave up.
+**BIG WARNING** 👉 you have to use the `require()` syntax. No ES6 imports because this is Node not JavaScript. That tripped me up for hours and rumors say you _can_ get `import from` to work, but I eventually gave up.
 
 
 
@@ -166,11 +160,11 @@ The file I&#x27;m testing is called `index.ts` so my test file is called `index.
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1566489637051.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20src%2Findex.test.ts%0A%0A\import%20%7B%20ParityPrice%20%7D%20from%20%22.%2Findex%22%3B%0A\import%20*%20as%20fetchMock%20from%20%22isomorphic-fetch%22%3B%0A%0Aconst%20URL%20%3D%0A%20%20%20%20%22http%3A%2F%2Fapi.ipstack.com%2Fcheck%3Faccess_key%3D%3Capi%20key%3E%22%3B%0A%0Adescribe(%22ParityPrice%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20beforeEach(()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20fetchMock.reset()%3B%0A%20%20%20%20%7D)%3B%0A%20%20%20%20%0A%20%20%20%20test(%22returns%20Japan%20price%20for%20Japan%22%2C%20async%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20fetchMock.mock(URL%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20status%3A%20200%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20body%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ip%3A%20%221.33.213.230%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20type%3A%20%22ipv4%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20continent_code%3A%20%22AS%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20continent_name%3A%20%22Asia%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20country_code%3A%20%22JP%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20country_name%3A%20%22Japan%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20region_code%3A%20%2213%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20region_name%3A%20%22Tokyo%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20city%3A%20%22Tokyo%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20zip%3A%20%22100-6801%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20latitude%3A%2035.688838958740234%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20longitude%3A%20139.7628631591797%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20location%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20geoname_id%3A%201850147%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20capital%3A%20%22Tokyo%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20languages%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20code%3A%20%22ja%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20name%3A%20%22Japanese%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20native%3A%20%22%5Cu65e5%5Cu672c%5Cu8a9e%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20country_flag%3A%20%22http%3A%2F%2Fassets.ipstack.com%2Fflags%2Fjp.svg%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20country_flag_emoji%3A%20%22%5Cud83c%5Cuddef%5Cud83c%5Cuddf5%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20country_flag_emoji_unicode%3A%20%22U%2B1F1EF%20U%2B1F1F5%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20calling_code%3A%20%2281%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20is_eu%3A%20false%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%0A%20%20%20%20%20%20%20%20const%20parity%20%3D%20new%20ParityPrice(%3Capi%20key%3E)%3B%0A%20%20%20%20%20%20%20%20await%20expect(parity.price(149)).resolves.toBe(96)%3B%0A%20%20%20%20%7D)%3B%0A%7D)%3B)
+[![Click through for source](./img/techletter.app-screenshot-1566489637051.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20src%2Findex.test.ts%0A%0Aimport%20%7B%20ParityPrice%20%7D%20from%20%22.%2Findex%22%3B%0Aimport%20*%20as%20fetchMock%20from%20%22isomorphic-fetch%22%3B%0A%0Aconst%20URL%20%3D%0A%20%20%20%20%22http%3A%2F%2Fapi.ipstack.com%2Fcheck%3Faccess_key%3D%3Capi%20key%3E%22%3B%0A%0Adescribe(%22ParityPrice%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20beforeEach(()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20fetchMock.reset()%3B%0A%20%20%20%20%7D)%3B%0A%20%20%20%20%0A%20%20%20%20test(%22returns%20Japan%20price%20for%20Japan%22%2C%20async%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20fetchMock.mock(URL%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20status%3A%20200%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20body%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ip%3A%20%221.33.213.230%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20type%3A%20%22ipv4%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20continent_code%3A%20%22AS%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20continent_name%3A%20%22Asia%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20country_code%3A%20%22JP%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20country_name%3A%20%22Japan%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20region_code%3A%20%2213%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20region_name%3A%20%22Tokyo%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20city%3A%20%22Tokyo%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20zip%3A%20%22100-6801%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20latitude%3A%2035.688838958740234%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20longitude%3A%20139.7628631591797%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20location%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20geoname_id%3A%201850147%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20capital%3A%20%22Tokyo%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20languages%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20code%3A%20%22ja%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20name%3A%20%22Japanese%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20native%3A%20%22%5Cu65e5%5Cu672c%5Cu8a9e%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20country_flag%3A%20%22http%3A%2F%2Fassets.ipstack.com%2Fflags%2Fjp.svg%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20country_flag_emoji%3A%20%22%5Cud83c%5Cuddef%5Cud83c%5Cuddf5%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20country_flag_emoji_unicode%3A%20%22U%2B1F1EF%20U%2B1F1F5%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20calling_code%3A%20%2281%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20is_eu%3A%20false%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%0A%20%20%20%20%20%20%20%20const%20parity%20%3D%20new%20ParityPrice(%3Capi%20key%3E)%3B%0A%20%20%20%20%20%20%20%20await%20expect(parity.price(149)).resolves.toBe(96)%3B%0A%20%20%20%20%7D)%3B%0A%7D)%3B)
 
 
 
-We&#x27;re in Jest now so we can use modern \\imports.
+We&#x27;re in Jest now so we can use modern imports.
 
 
 
@@ -214,7 +208,7 @@ The full version has some continent-based conversions when a country isn&#x27;t 
 
 
 
-**RIDICULOUS WARNING** 👉 notice the `const fetch = require()` part up top? That&#x27;s because while modern \\imports work for Jest files and they definitely work when packaging your library, _I couldn&#x27;t get them to work when testing your library_. I tried everything. Nothing worked.
+**RIDICULOUS WARNING** 👉 notice the `const fetch = require()` part up top? That&#x27;s because while modern imports work for Jest files and they definitely work when packaging your library, _I couldn&#x27;t get them to work when testing your library_. I tried everything. Nothing worked.
 
 
 

@@ -27,9 +27,10 @@ O.o
 
 
 
-```
-ERROR in tutor_onboarding.js from UglifyJs
+```undefined
+<code>ERROR in tutor_onboarding.js from UglifyJs
 SyntaxError: Unexpected token: name (defaultHeaders) [./~/better-fetch/index.js:2,0]
+</code>
 ```
 
 
@@ -62,7 +63,7 @@ Here&#x27;s the line that broke [UglifyJS](https://github.com/mishoo/UglifyJS2):
 
 
 
-```
+```javascript
 let defaultHeaders = {};
 ```
 
@@ -80,7 +81,7 @@ I built a `fetch()` wrapper in ES6. Fuck me, right? Not like it&#x27;s an ES6+ o
 
 
 
-Nope. Not if a project that \\imports your library minifies their assets.
+Nope. Not if a project that imports your library minifies their assets.
 
 
 
@@ -104,7 +105,7 @@ You have to install `babel-cli` and `babel-preset-latest`:
 
 
 
-```
+```javascript
 $ npm install --save-dev babel-cli babel-preset-latest
 ```
 
@@ -114,7 +115,7 @@ And configure Babel:
 
 
 
-```
+```javascript
 // package.json
 
 "babel": {
@@ -128,11 +129,11 @@ Configuring in `package.json` is easiest. 17 characters is not a good enough rea
 
 
 
-You should update your `main` entry as well. It tells npm which file to use when somebody uses `require('your-library')` or `\import YourThing from 'your-library'`.
+You should update your `main` entry as well. It tells npm which file to use when somebody uses `require('your-library')` or `import YourThing from 'your-library'`.
 
 
 
-```
+```javascript
 // package.json
 
 "main": "lib/index.js"
@@ -148,7 +149,7 @@ To improve your quality of life, you should add a `build` script. Also in `packa
 
 
 
-```
+```javascript
 // package.json
 "scripts": {
     "build": "babel src -d lib"
@@ -173,7 +174,7 @@ Add these 3 lines to `package.json`:
 
 
 
-```
+```javascript
 // package.json
 "scripts": {
     "preversion": "",

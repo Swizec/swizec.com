@@ -7,21 +7,7 @@ redirect_from:
 categories: "Front End, python, Technical"
 hero: ./img/blog-wp-content-uploads-2017-12-carbon-2.png
 ---
-https&amp;#x3A;//www.youtube.com/watch?v=3f_f1T7kaK4
-
-
-
-Advent of Code Day 19 was one of those light, easy challenges. Just hard enough to make you think a little, easy enough to solve in 20 minutes.
-
-
-
-This could make a great interview question 🤔
-
-
-
-The gist of the problem is this:
-
-
+https://www.youtube.com/watch?v=3f_f1T7kaK4Advent of Code Day 19 was one of those light, easy challenges. Just hard enough to make you think a little, easy enough to solve in 20 minutes.This could make a great interview question 🤔The gist of the problem is this:
 
 - you are given an ASCII drawing of a path
 - you have to follow it to the end
@@ -34,13 +20,14 @@ For a map like this 👇
 
 
 
-```
-     |          
+```undefined
+<code>     |          
      |  +--+    
      A  |  C    
  F---|----E|--+ 
      |  |  |  D 
      +B-+  +--+ 
+</code>
 ```
 
 
@@ -77,7 +64,7 @@ If you encounter a corner, `input[y][x] == '+'`, you change direction – the mo
 
 
 
-```
+```python
         if input[y][x] == "+":
             if vy != 0:
                 # go left or right
@@ -111,7 +98,7 @@ When you encounter a letter, you add it to the list of letters.
 
 
 
-```
+```python
         elif input[y][x] not in ["-", "|"]:
             letters.append(input[y][x])
 ```
@@ -122,7 +109,7 @@ In the end, you make sure to update your current position and steps counter.
 
 
 
-```
+```python
         steps += 1
         pos = (y + vy, x + vx)
 ```
@@ -137,7 +124,7 @@ When we put it all together and add a loop, the path following implementation lo
 
 
 
-```
+```python
 def followpath(input):
     linelen = max(len(line) for line in input.split("\n"))
     input = [line.ljust(linelen, " ") for line in input.split("\n") if len(line) > 0]

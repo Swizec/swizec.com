@@ -41,11 +41,11 @@ After loading our datasets – a TopoJSON of US counties and states (geo info) a
 
 The component is about 50 lines, so I added comments to each method.
 
-```
+```javascript
 class CountyMap extends Component {
     // Setup default D3 objects
     // projection - defines our geo projection, how the map looks
-    // geoPath - calculates d attribute of  so it looks like a map
+    // geoPath - calculates d attribute of <path> so it looks like a map
     // quantize - threshold scale with 9 buckets
     constructor(props) {
         super(props);
@@ -86,27 +86,28 @@ class CountyMap extends Component {
                   statesMesh = topojson.mesh(us, us.objects.states, (a, b) => a !== b),
                   counties = topojson.feature(us, us.objects.counties).features;
 
-            // Loop through counties and draw  components
-            // Add a single  for state borders
+            // Loop through counties and draw <county> components
+            // Add a single <path> for state borders
             return (
-                
-                    {counties.map((feature) => )}
+                <g>
+                    {counties.map((feature) => <county geopath={this.geoPath} feature={feature} key={feature.id} quantize={this.quantize} data="{_.find(this.props.medianIncomes," {countyid:="" feature.id})}="">)}
 
-                     
-                
+                     <path d={this.geoPath(statesMesh)} style="{{fill:" 'none',="" stroke:="" '#fff',="" strokelinejoin:="" 'round'}}="">
+                </path></county></g>
             );
         }
     }
 }
+</path></county></path>
 ```
 
 I hope that makes sense. It follows [my standard React+D3js approach](http://swizec.com/reactd3js/).
 
 For the counties, we can use a stateless functional component that gets all relevant data through props. It looks like this:
 
-```
+```javascript
 // Combine array of colors and quantize scale to pick fill colo
-// Return a  element
+// Return a <path> element
 const County = ({ data, geoPath, feature, quantize }) => {
     let color = BlankColor;
 
@@ -114,8 +115,9 @@ const County = ({ data, geoPath, feature, quantize }) => {
         color = ChoroplethColors[quantize(data.medianIncome)];
     }
 
-    return ()
+    return (<path d={geoPath(feature)} style="{{fill:" color}}="" title={feature.id}>)
 };
+</path></path>
 ```
 
 With some setup and a bit of data loading, those two components create a choropleth map of median household incomes in the United States. [Watch the video](https://www.livecoding.tv/swizec/videos/YYKW3-comparing-177k-software-salaries) to see how it all fits together.

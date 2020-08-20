@@ -7,11 +7,7 @@ redirect_from:
 categories: "Front End, react, svg, Technical"
 hero: ./img/blog-wp-content-uploads-2018-08-react-d3-scatterplot-dashboard.png
 ---
-SVG is great. Best way to build scalable graphics on the web. SVG can do everything from simple logos to data visualization and even animation.
-
-
-
-The best part is, you can manipulate SVG with both CSS _and_ JavaScript. It&#x27;s an image that&#x27;s part of your DOM. 🤯
+SVG is great. Best way to build scalable graphics on the web. SVG can do everything from simple logos to data visualization and even animation.The best part is, you can manipulate SVG with both CSS _and_ JavaScript. It&#x27;s an image that&#x27;s part of your DOM. 🤯
 
 
 
@@ -63,8 +59,8 @@ You render each scatterplot like this:
 
 
 
-```
-
+```javascript
+<scatterplot data={data} x={100} y={100} width={350} height={350} filter="{d" =="">
             d.weight &&
             d.height &&
             d.weight[0] &&
@@ -76,9 +72,10 @@ You render each scatterplot like this:
         yLabel="Height (in)"
         title="Dog Breed Height & Weight"
         entry={props => (
-            
+            <datapoint breed={props.d.breed} {...props}="">
         )}
     />
+</datapoint></scatterplot>
 ```
 
 
@@ -91,11 +88,11 @@ Once positioned with a grouping element `<g>`, the scatterplot can use quasi-rel
 
 
 
-```
+```javascript
 render() {
     return (
-        
-            {title}
+        <g transform="{`translate(${x}," ${y})`}="">
+            <heading y={-25}>{title}</heading>
             {data.map(d =>
                 entry({
                     x: xScale(xData(d)),
@@ -103,9 +100,9 @@ render() {
                     d: d
                 })
             )}
-            
-            
-        
+            <axis scale={xScale} x={0} y={height} type="Bottom" label={xLabel}>
+            <axis scale={yScale} x={0} y={0} type="Left" label={yLabel}>
+        </axis></axis></g>
     );
 }
 ```
@@ -172,15 +169,15 @@ Wrap our dashboard in a `<Flexbox>` element and…
 
 
 
-```
-\import Flexbox from "react-svg-flexbox";
+```javascript
+import Flexbox from "react-svg-flexbox";
 
 // ...
 
 // render() etc.
-
-    
-        
+<svg>
+    <flexbox style={{ flexdirection: "row", justifycontent: "flex-start" }}>
+        <scatterplot data={data} width={200} height={200} filter="{d" =="">
                 d.weight &&
                 d.height &&
                 d.weight[0] &&
@@ -192,9 +189,10 @@ Wrap our dashboard in a `<Flexbox>` element and…
             yLabel="Height (in)"
             title="Dog Breed Height & Weight"
             entry={props => (
-                
+                <datapoint breed={props.d.breed} {...props}=""></datapoint>
             )}
         />
+</scatterplot></flexbox></svg>
 ```
 
 
@@ -239,8 +237,9 @@ For the biggest win, we add `flexWrap: wrap` to our `<Flexbox>` component. Like 
 
 
 
-```
- 
+```javascript
+ <flexbox 1024="" style={{ flexdirection: "row", justifycontent: "flex-start", flexwrap: "wrap", width: 1024, height: }}>
+</flexbox>
 ```
 
 
@@ -253,7 +252,7 @@ Easiest to attach an event listener in `componentDidMount`. Like this:
 
 
 
-```
+```javascript
 class App extends Component {
     state = {
         width: 1024
@@ -276,9 +275,10 @@ class App extends Component {
     render() {
         // ...
         
-        
-            
+        <svg 1024="" style={{ width: "100%", height: }} ref={this.svgRef}>
+            <flexbox 1024="" style={{ flexdirection: "row", justifycontent: "flex-start", flexwrap: "wrap", width: this.state.width, height: }}>
     }
+</flexbox></svg>
 ```
 
 
@@ -287,7 +287,7 @@ And your dashboard becomes responsive! Yay
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1030372365006327808
+https://twitter.com/Swizec/status/1030372365006327808
 
 
 

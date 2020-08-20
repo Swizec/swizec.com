@@ -13,15 +13,15 @@ hero: ./img/blog-wp-content-uploads-2011-11-300px-NFAexample.svg_1.png
 
 Essentially they were looking for the shortest implementation of an algorithm that can take a bunch of states, go through all of them on each step and then backtrack to find the solution. @zidarsk8 doesn&#x27;t really know python all that well so his way to optimize things was basically &quot;SHORTEN ALL THE CODES!&quot; and as a result he came up with this line _nobody_ understands.
 
-```
+```python
 state = [st for s in state for st in states[(s,letter)]]
 ```
 
 At first it looks just like a double loop. But then you notice the right-most for is taking the list to iterate over from its own body, which is the iterator of the left-most for loop ... What? Seriously, if you can explain how this works you win a lot of internets, eternal fame and I might just send you a box of cookies. Here&#x27;s the whole implementation in case you were wondering
 
-```
-from optparse \import OptionParser
-from collections \import defaultdict
+```python
+from optparse import OptionParser
+from collections import defaultdict
 
 def run(beseda):
        a, states = open("machine.txt") ,defaultdict(list)
@@ -36,9 +36,9 @@ print [(b,"YES") if run(b) else (b,"NO") for b in OptionParser().parse_args()[1]
 
 According to our best debugging efforts it works as advertised ... even though we can&#x27;t actually understand _why_ or how it&#x27;s even possible that python knows what to do. For curiosity&#x27;s sake, here&#x27;s @HairyFotr&#x27;s [Scala](http://www.scala-lang.org/ "Scala (programming language)") implementation
 
-```
+```scala
 object NKA extends App {
-    \import scala.collection.mutable._
+    import scala.collection.mutable._
     val gates = new HashMap[(String,Char), ListBuffer[String]]
     val lines = io.Source.fromFile("avtomat.txt").getLines.toSeq
     val (init,finals) = (lines(0).split(" ")(1),lines(1).split(" ").tail)

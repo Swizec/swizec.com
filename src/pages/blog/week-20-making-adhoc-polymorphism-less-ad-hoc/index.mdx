@@ -21,7 +21,7 @@ The easiest places to look at issues arising from ad-hoc polymorphism are arithm
 
 Let&#x27;s say we want to overload `(+)`, `(*)`, and `negate` on `Int` and `Float`. We can do this by introducing a _type class_ called `Num` that says _&quot;a type `a` belongs to `Num` if `(+)`, \&#x60;(_)`, and`negate\&#x60; in appropriate types are defined on it&quot;\*. Now we can define type instances such as `Num Int` and specify which functions to translate the overloaded symbols into. We assume things like `addInt` and `mulInt` are defined by default.
 
-```
+```undefined
 class Num a where
   (+), (*) :: a -> a -> a
   negate   :: a -> a
@@ -39,7 +39,7 @@ instance Num Float where
 
 This lets us define both the `square` and `squares` functions from before, but with a well-defined type at compile time.
 
-```
+```haskell
 square   :: Num a => a -> a
 square x = x*x
 
@@ -53,7 +53,7 @@ squares (x, y, z) = (square x, square y, square z)
 
 A compiler can use our class and instance definitions to create dictionaries holding pointers to correct methods. For `Num` we introduce `NumD` as a type constructor for a new type whose values are created using `NumDict`. Functions `add`, `mul`, and `neg` take a value of type `NumD` and return its first, second, or third component.
 
-```
+```haskell
 data NumD a = NumDict (a -> a -> a) (a -> a -> a) (a -> a)
 
 add (NumDict a m n) = a
@@ -69,7 +69,7 @@ numDFloat =  NumDict addFloat mulFloat negFloat
 
 To use `NumD` a compiler would simply replace all instances of `Num` with their respective dictionary values, as identified by the type. For instance, `x+y` translates into `add numD x y`. `add numD` returns the correct `addInt` or `addFloat` function as identified by the type of `x` and `y`, then applies said function on the arguments. It&#x27;s pretty nifty. Our `square` example becomes `square'`:
 
-```
+```haskell
 square'        :: NumD a -> a -> a
 square' numD x =  mul numD x x
 ```
@@ -80,7 +80,7 @@ Which means that a call such as `square 3` will translate into `square' numDInt 
 
 When applied to equality, type classes don&#x27;t differ much from Standard ML&#x27;s eqtype variables. But they allow the compiler to decide types at compile-time rather than run-time and a user can easily extend new classes to support abstract types. The definition is similar to how we defined `Num` earlier - we&#x27;ll make a type class called `Eq` and define instances for `Int` and `Char`. We&#x27;ll also define a `member` function, which was giving us trouble earlier.
 
-```
+```haskell
 class  Eq a where
   (==) :: a -> a -> bool
 
@@ -97,7 +97,7 @@ member (x:xs) y =  (x == y) \/ member xs y
 
 As you can imagine we can now write terms such as `5 == 4`, `'a' == 'b'`, and `member "Haskell" 'k'` or `member [1,2,3] 2`. The compiler can infer the correct type each time and using `member` on a type that doesn&#x27;t have an `Eq` instance will produce a type error. But what&#x27;s really cool is that we can define equality between lists and tuples. Even crazier things - sets, random data types we define ourselves, anything really.
 
-```
+```haskell
 instance Eq a, Eq b => Eq (a,b) where
  (u,v) == (x,y)     = (u == x) & (v == y)
 
@@ -114,7 +114,7 @@ Essentially _&quot;two tuples are equal if their members are equal&quot;_ and _&
 
 So far we&#x27;ve treated `Num` and `Eq` as completely different classes. But it makes sense that all numerical types should also be comparable, while all comparable types might not be numerical. We can make `Num` a subclass of `Eq`:
 
-```
+```haskell
 class Eq a => Num a where
   (+)    :: a -> a -> a
   (*)    :: a -> a -> a
@@ -123,7 +123,7 @@ class Eq a => Num a where
 
 This asserts that `a` may belong to class `Num` only if it also belongs to `Eq`, making `Num` a subclass of `Eq`. All other class and instance declarations remain the same. Things magically just work. Now we can write functions like this:
 
-```
+```haskell
 memsq :: Num a => [a] -> a -> Bool
 memsq xs x = member xs (square x)
 ```

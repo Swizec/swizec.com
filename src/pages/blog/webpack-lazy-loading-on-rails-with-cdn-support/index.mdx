@@ -13,9 +13,9 @@ Webpack is the best module bundler I&#x27;ve ever used. Just this week I used it
 
 Another great feature of Webpack is that it can perform a sort of minimal bundle coverage for your dependency graph. Instead of making one huge bundle that&#x27;s got all your code, it makes a few smaller discrete ones. Users no longer have to download all the code for `/admin_panel` when they&#x27;re looking at `/user_profile`. Not only that, Webpack automagically downloads the required javascripts when needed. This is called lazy loading and it is magic. It&#x27;s easy in theory, whenever you require a dependency like this:
 
-```
+```javascript
 require.ensure([], function () {
-   var more_code = require('./more_code');
+  var more_code = require("./more_code");
 });
 ```
 
@@ -33,13 +33,11 @@ First of all, you have to get Webpack working with Rails. The best guide I&#x27;
 
 You can find the details in Gordon&#x27;s long blogpost. It&#x27;s really good. Although personally I didn&#x27;t go as far as moving all my JavaScripts out of `app/assets` and I didn&#x27;t set up hot code loading for local dev. Now, to make Webpack understand that static assets should be loaded from a CloudFlare CDN, you have to change its `output` settings.
 
-```
+```javascript
 config.output = {
-    filename: in_dev() 
-        ? 'rails-bundle.js'
-        : '[id].[chunkhash].rails-bundle.js',
-    path: 'app/assets/javascripts/generated',
-    publicPath: getCDN()+'/assets/generated/'
+  filename: in_dev() ? "rails-bundle.js" : "[id].[chunkhash].rails-bundle.js",
+  path: "app/assets/javascripts/generated",
+  publicPath: getCDN() + "/assets/generated/",
 };
 ```
 
@@ -50,29 +48,29 @@ There&#x27;s two tricks here:
 
 The `in_dev` and `getCDN` make the config easier to understand. They look like this:
 
-```
+```javascript
 function getCDN() {
-    var CDNs = {
-        staging: '.cloudfront.net',
-        production: '.cloudfront.net',
-        preproduction: '.cloudfront.net'
-    };
+  var CDNs = {
+    staging: ".cloudfront.net",
+    production: ".cloudfront.net",
+    preproduction: ".cloudfront.net",
+  };
 
-    if (!in_dev()) {
-        return "//"+CDNs[process.env.RAILS_ENV.toLowerCase()];
-    }
-    
-    return "";
-};
+  if (!in_dev()) {
+    return "//" + CDNs[process.env.RAILS_ENV.toLowerCase()];
+  }
+
+  return "";
+}
 
 function in_dev() {
-    return !process.env.RAILS_ENV || process.env.RAILS_ENV == 'development';
+  return !process.env.RAILS_ENV || process.env.RAILS_ENV == "development";
 }
 ```
 
 They both look at the `RAILS_ENV` environment variable to decide which situation Webpack is running under. It works great, but does mean that we have two places to set the config for CDN. Here and the regular Ruby config. Now, because our files are fingerprinted, Rails&#x27;s asset pipeline no longer knows how to insert them. The filename `0.some_weird_hash.rails-bundle.js` changes every time Webpack compiles our code. The simplest fix I&#x27;ve found is to copy the file in that `assets.rake` task. Like this:
 
-```
+```ruby
 FileUtils.copy_file(Pathname.glob(path+'0.*.rails-bundle.js').first,
                         File.join(path, 'rails-bundle.js'))
 ```

@@ -11,10 +11,11 @@ hero: ./img/blog-wp-content-uploads-2016-11-3_hours_later.jpg
 
 
 
-```
-<Modal show={viewStore.modal.show}
+```undefined
+<code><Modal show={viewStore.modal.show}
        closeOnOuterClick={true}
        onClose={viewStore.closeModal.bind(viewStore)}
+</code>
 ```
 
 
@@ -67,7 +68,7 @@ We have a `Store` that holds the number of `clicks` and contains an `inc` action
 
 
 
-```
+```javascript
 class Store {
   @observable clicks = 0;
 
@@ -83,16 +84,13 @@ A not-very-smart functional stateless component renders the current count and a 
 
 
 
-```
+```javascript
 const Clicky = observer(({ store }) => (
-  
-
+  <div>
     Clicks: {store.clicks}
-    
-
-    +1
-  
-
+    <br>
+    <a href="#" onclick={store.inc.bind(store)}>+1</a>
+  </div>
 ));
 ```
 
@@ -118,19 +116,15 @@ We expanded our `Clicky` component with a link that uses an unbounded `store.inc
 
 
 
-```
+```javascript
 const Clicky = observer(({ store }) => (
-  
-
+  <div>
     Clicks: {store.clicks}
-    
-
-    +1 bound
-    
-
-    +1 unbound
-  
-
+    <br>
+    <a href="#" onclick={store.inc.bind(store)}>+1 bound</a>
+    <br>
+    <a href="#" onclick={store.inc}>+1 unbound</a>
+  </div>
 ));
 ```
 
@@ -172,7 +166,7 @@ It starts with `dispatchEvent`.
 
 
 
-```
+```javascript
 dispatchEvent: function (topLevelType, nativeEvent) {
     if (!ReactEventListener._enabled) {
       return;
@@ -199,7 +193,7 @@ Our next step in the chain is `batchedUpdates`.
 
 
 
-```
+```javascript
 var transaction = new ReactDefaultBatchingStrategyTransaction();
 
 var ReactDefaultBatchingStrategy = {
@@ -220,7 +214,7 @@ var ReactDefaultBatchingStrategy = {
     } else {
       transaction.perform(callback, null, a, b, c, d, e);
     }
-  }
+  },
 };
 ```
 
@@ -238,7 +232,7 @@ But we know our next step, eventually, is `transaction.perform`.
 
 
 
-```
+```javascript
 perform: function (method, scope, a, b, c, d, e, f) {
     !!this.isInTransaction() ? "development" !== 'production' ? invariant(false, 'Transaction.perform(...): Cannot initialize a transaction when there is already an outstanding transaction.') : _prodInvariant('27') : void 0;
     var errorThrown;
@@ -284,7 +278,7 @@ That&#x27;s a lot of code. Let&#x27;s focus on the bits that matter:
 
 
 
-```
+```javascript
 perform: function (method, scope, a, b, c, d, e, f) {
 // ...
       ret = method.call(scope, a, b, c, d, e, f);

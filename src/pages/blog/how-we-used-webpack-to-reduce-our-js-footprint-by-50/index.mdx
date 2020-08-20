@@ -7,6 +7,10 @@ redirect_from:
 categories: "Front End, Technical, Webpack"
 hero: ../../../defaultHero.jpg
 ---
+https://www.youtube.com/watch?v=wIh7xTBZbow
+
+
+
 In this article, I&#x27;m going to show you how we went **from 30 requests for 3.1MB** of minified uncompressed JavaScript **to 19 requests for 2.2MB** of minified uncompressed JS. Why uncompressed? Because Rails doesn&#x27;t gzip on localhost, and our production servers are running the new setup already.
 
 
@@ -31,15 +35,19 @@ We achieved this vendor/app split following [Webpack&#x27;s official guide on co
 
 
 
-```
-    plugins: [
-        // Avoid publishing files when compilation failed:
-        new webpack.NoEmitOnErrorsPlugin(),
-        new ExtractTextPlugin( envConfig.inDevelopment() ?  "[name]_style.css" : "[name]_style.[chunkhash].css"),
-        new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor', 'manifest'],
-        })
-    ]
+```javascript
+plugins: [
+  // Avoid publishing files when compilation failed:
+  new webpack.NoEmitOnErrorsPlugin(),
+  new ExtractTextPlugin(
+    envConfig.inDevelopment()
+      ? "[name]_style.css"
+      : "[name]_style.[chunkhash].css"
+  ),
+  new webpack.optimize.CommonsChunkPlugin({
+    names: ["vendor", "manifest"],
+  }),
+];
 ```
 
 
@@ -65,50 +73,57 @@ Here&#x27;s how that looks:
 
 
 
-```
+```javascript
 const Apps = {
-    // list entries
-    // will be reused as Webpack's entry config
+  // list entries
+  // will be reused as Webpack's entry config
 };
 
 // previously loaded as externals
-const GlobalModules = _.map({
-    jquery: ['$', 'jQuery', 'window.jQuery'],
-    lodash: ['_'],
-    backbone: ['Backbone'],
-    'backbone-validation': ['Backbone.Validation'],
-    'raven-js': ['Raven'],
-    moment: ['moment'],
-    string: ['string', 'S'],
-    async: ['async']
-}, (vars, module) => new webpack.ProvidePlugin(
-    _.fromPairs(vars.map(v => [v, module]))
-));
+const GlobalModules = _.map(
+  {
+    jquery: ["$", "jQuery", "window.jQuery"],
+    lodash: ["_"],
+    backbone: ["Backbone"],
+    "backbone-validation": ["Backbone.Validation"],
+    "raven-js": ["Raven"],
+    moment: ["moment"],
+    string: ["string", "S"],
+    async: ["async"],
+  },
+  (vars, module) =>
+    new webpack.ProvidePlugin(_.fromPairs(vars.map((v) => [v, module])))
+);
 
 // updated plugins config
-    plugins: [
-        new webpack.NoEmitOnErrorsPlugin(),
-        new ExtractTextPlugin( envConfig.inDevelopment() ? "[name]_style.css"
-                                                         : "[name]_style.[chunkhash].css"
-        ),
-    ].concat(
-        GlobalModules
-    ).concat(
-        Object.keys(Apps)
-              .map(app => new webpack.optimize.CommonsChunkPlugin({
-                  name: `${app}_vendor`,
-                  chunks: [app],
-                  minChunks: isVendor
-              }))
-    ).concat([
+plugins: [
+  new webpack.NoEmitOnErrorsPlugin(),
+  new ExtractTextPlugin(
+    envConfig.inDevelopment()
+      ? "[name]_style.css"
+      : "[name]_style.[chunkhash].css"
+  ),
+]
+  .concat(GlobalModules)
+  .concat(
+    Object.keys(Apps).map(
+      (app) =>
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'manifest',
-            chunks: Object.keys(Apps).map(n => `${n}_vendor`),
-            minChunks: (module, count) => {
-                return count >= Object.keys(Apps).length && isVendor(module)
-            }
+          name: `${app}_vendor`,
+          chunks: [app],
+          minChunks: isVendor,
         })
-    ])
+    )
+  )
+  .concat([
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "manifest",
+      chunks: Object.keys(Apps).map((n) => `${n}_vendor`),
+      minChunks: (module, count) => {
+        return count >= Object.keys(Apps).length && isVendor(module);
+      },
+    }),
+  ]);
 ```
 
 
@@ -133,11 +148,11 @@ Oh, and there&#x27;s the helpful `isVendor` function, which I got from [Juho&#x2
 
 
 
-```
+```javascript
 function isVendor(module, count) {
-    const userRequest = module.userRequest;
+  const userRequest = module.userRequest;
 
-    return userRequest && userRequest.indexOf('node_modules') >= 0;
+  return userRequest && userRequest.indexOf("node_modules") >= 0;
 }
 ```
 

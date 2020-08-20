@@ -21,7 +21,7 @@ You can watch the livestream here 👇
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=Wf6JeMPvM9Y
+https://www.youtube.com/watch?v=Wf6JeMPvM9Y
 
 
 
@@ -80,11 +80,12 @@ Best way to start a new Svelte project is with the CLI
 
 
 
-```
-$ npx degit sveltejs/template my-svelte-project
+```undefined
+<code>$ npx degit sveltejs/template my-svelte-project
 $ cd my-svelte-project
 $ yarn install
 $ yarn dev
+</code>
 ```
 
 
@@ -115,14 +116,14 @@ Our `App.svelte` component looks like this.
 
 
 
-```
-// src/App.svelte
+```undefined
+<code class="javascript">// src/App.svelte
 <script>
-  // \import other components
-  \import MarvelMovies from "./MarvelMovies.js";
-  \import Movie from "./Movie.svelte";
-  \import Header from "./Header.svelte";
-  \import Footer from "./Footer.svelte";
+  // import other components
+  import MarvelMovies from "./MarvelMovies.js";
+  import Movie from "./Movie.svelte";
+  import Header from "./Header.svelte";
+  import Footer from "./Footer.svelte";
 
   // this is automatically reactive
   let index = 0;
@@ -166,6 +167,7 @@ Our `App.svelte` component looks like this.
 
   <Footer />
 </div>
+</code>
 ```
 
 
@@ -178,7 +180,7 @@ A few interesting things to note about `App.svelte`:
 
 
 
-- You can \\import `.svelte` components just like normal JavaScript
+- You can import `.svelte` components just like normal JavaScript
 - Every `let` variable becomes reactive by default
 - Assigning new values in functions triggers re-renders. No need to think about any of that
 - Your CSS is scoped to your component so there&#x27;s no bleed-over
@@ -200,8 +202,8 @@ Where I think Svelte really shines is building components for re-use. Like the `
 
 
 
-```
-// src/Movie.svelte
+```undefined
+<code class="javascript">// src/Movie.svelte
 
 <script>
   export let title;
@@ -254,6 +256,7 @@ Where I think Svelte really shines is building components for re-use. Like the `
   <p>{description}</p>
 
 </div>
+</code>
 ```
 
 
@@ -286,8 +289,8 @@ Plus there was no boilerplate at all to get props working, reactive, and passed 
 
 
 
-```
-// <Movie> as React
+```undefined
+<code class="javascript">// <Movie> as React
 const Style = styled.div`
   grid-area: b2;
 
@@ -332,6 +335,7 @@ const Movie = ({ title, description, image, yearOut }) => (
     
     </Style>
 )
+</code>
 ```
 
 
@@ -348,8 +352,8 @@ Where Svelte shines is its reactivity. Look at all the state management for our 
 
 
 
-```
-  // this is automatically reactive
+```undefined
+<code class="javascript">  // this is automatically reactive
   let index = 0;
 
   // assigning new values in functions triggers re-renders
@@ -363,6 +367,7 @@ Where Svelte shines is its reactivity. Look at all the state management for our 
       index = MarvelMovies.length - 1;
     }
   }
+</code>
 ```
 
 
@@ -411,8 +416,9 @@ We used the `on:` directive to make buttons work
 
 
 
-```
-<button on:click={prevMovie} style="grid-area:b1">👈</button>
+```undefined
+<code class="html"><button on:click={prevMovie} style="grid-area:b1">👈</button>
+</code>
 ```
 
 
@@ -433,8 +439,8 @@ This is where I think Svelte fumbles. [Svelte&#x27;s template logic](https://sve
 
 
 
-```
-{#if user.loggedIn}
+```undefined
+<code class="javascript">{#if user.loggedIn}
     <button on:click={toggle}>
         Log out
     </button>
@@ -443,6 +449,7 @@ This is where I think Svelte fumbles. [Svelte&#x27;s template logic](https://sve
         Log in
     </button>
 {/if}
+</code>
 ```
 
 

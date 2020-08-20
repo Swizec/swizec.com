@@ -58,9 +58,9 @@ Which turns into some 30 lines of code:
 
 
 
-```
-\import React from 'react';
-\import { interpolateViridis } from 'd3-scale';
+```javascript
+import React from 'react';
+import { interpolateViridis } from 'd3-scale';
 
 const Factor = .5*Math.sqrt(2);
 
@@ -84,13 +84,13 @@ const Pythagoras = ({ maxlvl, w, x, y, lvl, left, right }) => {
     }
 
     return (
-        
-            
+        <g transform={`translate(${x} ${y})="" ${rotate}`}="">
+            <rect width={w} height={w} x={0} y={0} style="{{fill:" interpolateviridis(lvl="" maxlvl)}}="">
 
-            
+            <pythagoras w={nextLeft} x={w-nextLeft} y={-nextLeft} lvl={lvl+1} maxlvl={maxlvl} right="">
 
-            
-        
+            <pythagoras w={nextRight} x={0} y={-nextRight} lvl={lvl+1} maxlvl={maxlvl} left="">
+        </pythagoras></pythagoras></rect></g>
     );
 };
 
@@ -152,13 +152,19 @@ The animation is done in [App.js](https://github.com/Swizec/react-fractals/blob/
 
 
 
+```javascript
+<pythagoras
+  w={100}
+  x={320 - 50}
+  y={480 - 100}
+  lvl={0}
+  maxlvl="{this.state.currentMax}/"
+></pythagoras>;
 ```
-   
-```
 
 
 
-Start `lvl` at `0` and set the `maxlvl`. Those are \\important. At `maxlvl` past 12 or 13, it stops working. It takes too much CPU power to ever render.
+Start `lvl` at `0` and set the `maxlvl`. Those are important. At `maxlvl` past 12 or 13, it stops working. It takes too much CPU power to ever render.
 
 
 
@@ -198,12 +204,12 @@ Ok, that was expected. Since you know all the sides, you should be able to apply
 
 
 
-```
- const nextLeft = .3*Factor*w,
-          nextRight = .7*Factor*w,
-          d = nextLeft + nextRight + w,
-          A = Math.degrees(Math.asin(nextRight/d)),
-          B = Math.degrees(Math.asin(nextLeft/d));
+```javascript
+const nextLeft = 0.3 * Factor * w,
+  nextRight = 0.7 * Factor * w,
+  d = nextLeft + nextRight + w,
+  A = Math.degrees(Math.asin(nextRight / d)),
+  B = Math.degrees(Math.asin(nextLeft / d));
 ```
 
 

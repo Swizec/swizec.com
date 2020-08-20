@@ -15,16 +15,15 @@ Lately I&#x27;ve been spending my evenings and nights working on a super secret 
 
 It&#x27;s pretty simple to use, only has one function you should care about :)
 
-```
-var unshortener = require('unshortener');
+```javascript
+var unshortener = require("unshortener");
 
 // you can pass in a url object or string
-unshortener.expand('http://fb.me/UXVqinvO',
-                   function (url) {
-                       console.log(url.href);
+unshortener.expand("http://fb.me/UXVqinvO", function (url) {
+  console.log(url.href);
 
-		       // prints: http://www.facebook.com/photo.php?pid=514346&l=30b4ab9bbd&id=132853273433650
-                   });
+  // prints: http://www.facebook.com/photo.php?pid=514346&l=30b4ab9bbd&id=132853273433650
+});
 ```
 
 ## Simple logic

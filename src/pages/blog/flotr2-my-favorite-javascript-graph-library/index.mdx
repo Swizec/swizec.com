@@ -17,55 +17,53 @@ Plenty graphing libraries exist for javascript ranging from extremeley simplisti
 
 Those visualisations, while incredibly shiny, are _difficult_ to make. It can take ages, trust me. I&#x27;ve tried and nothing I could come up with came even close. Most of all, using raphael and d3 is usually overkill - sometimes you just want a graph. To visualize [my past year of 750words](http://swizec.com/blog/a-year-of-750words-com-with-shiny-graphs/swizec/4378 "A year of 750words.com – with shiny graphs") I used [Flotr2](http://humblesoftware.com/flotr2/) - it took me ten minutes to go from parsed data dumps to shiny graphs. And that was because I had to come up with a javascript function to mangle my data into something Flotr2 will understand. The best feature is that there isn&#x27;t enough rope to hang yourself with. Nor does it make you want to over-engineer a simple graph. Essentially, the code just sets up some data and a label or two:
 
-```
+```javascript
 function draw_time(container, data, title) {
-    var
-    start = new Date(DATA[0].date).getTime(),
+  var start = new Date(DATA[0].date).getTime(),
     options,
     graph,
-    i, x, o;
+    i,
+    x,
+    o;
 
-    options = {
-        xaxis : {
-            mode : 'time',
-            labelsAngle : 45
-        },
-        selection : {
-            mode : 'x'
-        },
-        legend: {
-            position: 'se'
-        },
-        HtmlText : false,
-        title : title
-    };
+  options = {
+    xaxis: {
+      mode: "time",
+      labelsAngle: 45,
+    },
+    selection: {
+      mode: "x",
+    },
+    legend: {
+      position: "se",
+    },
+    HtmlText: false,
+    title: title,
+  };
 
-    // Draw graph with default options, overwriting with passed options
-    function drawGraph (opts) {
+  // Draw graph with default options, overwriting with passed options
+  function drawGraph(opts) {
+    // Clone the options, so the 'options' variable always keeps intact.
+    o = Flotr._.extend(Flotr._.clone(options), opts || {});
 
-        // Clone the options, so the 'options' variable always keeps intact.
-        o = Flotr._.extend(Flotr._.clone(options), opts || {});
+    // Return a new graph.
+    return Flotr.draw(container, data, options);
+  }
 
-        // Return a new graph.
-        return Flotr.draw(
-            container,
-            data,
-            options
-        );
-    }
+  graph = drawGraph();
 
-    graph = drawGraph();
-
-    Flotr.EventAdapter.observe(container, 'flotr:select', function(area){
-        // Draw selected area
-        graph = drawGraph({
-            xaxis : { min : area.x1, max : area.x2, mode : 'time', labelsAngle : 45 },
-            yaxis : { min : area.y1, max : area.y2 }
-        });
+  Flotr.EventAdapter.observe(container, "flotr:select", function (area) {
+    // Draw selected area
+    graph = drawGraph({
+      xaxis: { min: area.x1, max: area.x2, mode: "time", labelsAngle: 45 },
+      yaxis: { min: area.y1, max: area.y2 },
     });
+  });
 
-    // When graph is clicked, draw the graph with default area.
-    Flotr.EventAdapter.observe(container, 'flotr:click', function () { graph = drawGraph();});
+  // When graph is clicked, draw the graph with default area.
+  Flotr.EventAdapter.observe(container, "flotr:click", function () {
+    graph = drawGraph();
+  });
 }
 ```
 

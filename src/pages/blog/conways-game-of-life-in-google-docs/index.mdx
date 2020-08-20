@@ -32,11 +32,11 @@ Conway’s Game of Life inside Google Docs, of course. It highlights the basics 
 3. Any live cell with more than three live neighbours dies, as if by over-population.
 4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-![](https://upload.wikimedia.org/wikipedia/commons/f/f2/Game_of_life_animated_glider.gif)
+![](./img/wikipedia-commons-f-f2-Game_of_life_animated_glider.gif)
 
 ![](https://upload.wikimedia.org/wikipedia/commons/9/95/Game_of_life_blinker.gif)
 
-![](https://upload.wikimedia.org/wikipedia/commons/0/07/Game_of_life_pulsar.gif)
+![](./img/wikipedia-commons-0-07-Game_of_life_pulsar.gif)
 
 I showed one of them some gifs and he said _“Oh dude, I’m excited! That looks so cool”_. All the confirmation I needed to go waste 3 hours of my life figuring out how to build this! ?
 
@@ -54,11 +54,11 @@ That can be optimized, though. Just access the spreadsheet less.
 
 The first step is to set global vars and add a menu:
 
-```
+```javascript
 // global vars
 var maxX = 30,
-    maxY = 30,
-    Alive = '#000000';
+  maxY = 30,
+  Alive = "#000000";
 
 // almost everything needs a reference to this
 var Sheet = SpreadsheetApp.getActiveSheet();
@@ -67,10 +67,10 @@ var Sheet = SpreadsheetApp.getActiveSheet();
 function onOpen() {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var menuItems = [
-    {name: 'Step game', functionName: 'stepGame'},
-    {name: 'Clear game', functionName: 'clearGame'}
+    { name: "Step game", functionName: "stepGame" },
+    { name: "Clear game", functionName: "clearGame" },
   ];
-  spreadsheet.addMenu('Conway\'s game of life', menuItems);
+  spreadsheet.addMenu("Conway's game of life", menuItems);
 }
 ```
 
@@ -82,23 +82,23 @@ Docs runs this code when you open your document. It adds a menu that looks like 
 
 On each game step, we build a map of living cells, then run the game rules on each. Like this:
 
-```
+```javascript
 function stepGame() {
   var range = Sheet.getRange(1, 1, maxX, maxY);
-  
+
   var numRows = range.getNumRows(),
-      numCols = range.getNumColumns();
-  
+    numCols = range.getNumColumns();
+
   var lifeMap = [];
-  
+
   for (var y = 1; y <= numRows; y++) {
     lifeMap[y] = [];
-    
+
     for (var x = 1; x <= numCols; x++) {
       lifeMap[y][x] = range.getCell(y, x).getBackground() == Alive;
     }
   }
-  
+
   for (var y = 1; y <= numRows; y++) {
     for (var x = 1; x <= numCols; x++) {
       conwayGame(lifeMap, y, x);
@@ -113,22 +113,24 @@ Having 2D memory also means there will be a lot of these nested for loop constru
 
 Applying Conway rules to each cell looks like this:
 
-```
+```javascript
 function conwayGame(lifeMap, y, x) {
-  var neighborPos = [y > 1 ? y-1 : 1, 
-                     x > 1 ? x-1 : 1, 
-                     y < maxY ? y+1 : maxY, 
-                     x < maxX ? x+1: maxX]
-  
+  var neighborPos = [
+    y > 1 ? y - 1 : 1,
+    x > 1 ? x - 1 : 1,
+    y < maxY ? y + 1 : maxY,
+    x < maxX ? x + 1 : maxX,
+  ];
+
   var livingNeighbors = countLife(lifeMap, neighborPos);
-  
+
   if (lifeMap[y][x]) {
     livingNeighbors -= 1;
   }
-  
+
   if ((livingNeighbors < 2 || livingNeighbors > 3) && lifeMap[y][x]) {
     deactivate(Sheet.getRange(y, x));
-  }else if (livingNeighbors == 3) {
+  } else if (livingNeighbors == 3) {
     activate(Sheet.getRange(y, x));
   }
 }

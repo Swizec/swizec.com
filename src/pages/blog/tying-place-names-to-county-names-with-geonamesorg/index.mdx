@@ -23,21 +23,23 @@ So, how do you tie town-based datasets to county-based datasets? Say you want to
 
 The tech salary is a CSV that looks like this:
 
-```
-supreme tech solutions llc,software analyst,"75,000","walnut creek, ca",10/25/2012,10/25/2012,certified
+```undefined
+<code>supreme tech solutions llc,software analyst,"75,000","walnut creek, ca",10/25/2012,10/25/2012,certified
 supreme tech solutions llc,software analyst,"76,690","brisbane, ca",10/16/2012,10/16/2012,certified
 west corporation,software analyst,"85,000","omaha, ne",10/12/2012,10/24/2012,certified
 wincere inc,software analyst,"86,133","anaheim, ca",11/01/2012,12/31/2012,certified
+</code>
 ```
 
 Company, job title, base salary, location (town + state), start date, visa succeeded. Supreme Tech Solutions, LLC employed a software analyst for $75,000 in Walnut Creek, CA on October 25th, 2012, and his or her H1B visa went through.
 
 The census dataset for median household incomes looks like this:
 
-```
-Autauga County,AL,54.366,50.916,57.816
+```undefined
+<code>Autauga County,AL,54.366,50.916,57.816
 Baldwin County,AL,49.626,46.516,52.736
 Barbour County,AL,34.971,32.475,37.467
+</code>
 ```
 
 County, state, median household income, 90% confidence interval lower bound, upper bound. In Autauga County, Alaska, the median household income is $54,366 and 90% of households fall between $50,916 and $57,816.
@@ -52,7 +54,7 @@ There’s an API with libraries for many languages, but it doesn’t return coun
 
 Scraping geonames’ search using Python and [pyquery](https://pythonhosted.org/pyquery/) looks like this:
 
-```
+```python
 def countynames():
     with open("h1bs-2012-2016-cleaned.csv", "rb") as csvfile:
         reader = csv.reader(csvfile)

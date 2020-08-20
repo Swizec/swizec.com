@@ -7,11 +7,7 @@ redirect_from:
 categories: "Front End, Technical, Webpack"
 hero: ./img/1hh3ii.jpg
 ---
-https&amp;#x3A;//twitter.com/erikthedev/status/818990904929349632
-
-
-
-Webpack 2.2 has reached [release candidate 4](https://github.com/webpack/webpack/releases/tag/v2.2.0-rc.4), the last pre-release version. Time to update!
+https://twitter.com/erikthedev/status/818990904929349632Webpack 2.2 has reached [release candidate 4](https://github.com/webpack/webpack/releases/tag/v2.2.0-rc.4), the last pre-release version. Time to update!
 
 
 
@@ -51,7 +47,7 @@ The day when we ship raw ES6 code can&#x27;t come soon enough.
 
 
 
-_BTW: Tree shaking removes unused dependencies (like when you \\import a whole library but just use a function or two), and dead code elimination removes code that&#x27;s unreachable, like functions you never call._
+_BTW: Tree shaking removes unused dependencies (like when you import a whole library but just use a function or two), and dead code elimination removes code that&#x27;s unreachable, like functions you never call._
 
 
 
@@ -75,7 +71,7 @@ You can use Webpack 2 in production. I&#x27;m about to start.
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/819004362231943168
+https://twitter.com/Swizec/status/819004362231943168
 
 
 
@@ -95,7 +91,7 @@ So here&#x27;s what you have to do:
 
 
 
-```
+```javascript
 // packages.json
 "dependencies": {
   //...
@@ -117,7 +113,7 @@ _But_ the published version on npm doesn&#x27;t work. ? I assume they&#x27;ll fi
 
 
 
-Why extract-text-webpack-plugin? It makes stylesheet \\imports better, I&#x27;m told.
+Why extract-text-webpack-plugin? It makes stylesheet imports better, I&#x27;m told.
 
 
 
@@ -161,7 +157,7 @@ Going from Webpack v1 to Webpack v2 involved many changes in this config. We use
 
 
 
-```
+```javascript
 // webpack.config.js
 loaders: [
     // ...
@@ -202,7 +198,7 @@ Which is probably too much config, but it worked. With Webpack v2 that&#x27;s be
 
 
 
-```
+```javascript
 // webpack.config.js
     module: {
         rules: [
@@ -217,7 +213,7 @@ Which is probably too much config, but it worked. With Webpack v2 that&#x27;s be
                         loader: 'css-loader?sourceMap',
                         query: {
                             modules: true,
-                            \importLoaders: 2
+                            importLoaders: 2
                         }
                     },
                     'postcss-loader?sourceMap',
@@ -238,22 +234,22 @@ That&#x27;s because a lot of it is now in a different file called `postcss.confi
 
 
 
-```
-const webpack = require('webpack')
+```javascript
+const webpack = require("webpack");
 
 module.exports = {
-    plugins: [
-        // UglifyJSPlugin mangles valid css during minfication. It is a known issue and this fix was obtained from: https://github.com/webpack/webpack/issues/666#issuecomment-184319770
-        require('postcss-\import')({ addDependencyTo: webpack }),
-        require('postcss-url'),
-        require('postcss-cssnext')({
-            browsers: ['last 2 versions', 'ie >= 9'],
-            compress: true
-        }),
-        require('cssnano')({zindex: false})
-            // end UglifyJSPlugin fix
-    ]
-}
+  plugins: [
+    // UglifyJSPlugin mangles valid css during minfication. It is a known issue and this fix was obtained from: https://github.com/webpack/webpack/issues/666#issuecomment-184319770
+    require("postcss-import")({ addDependencyTo: webpack }),
+    require("postcss-url"),
+    require("postcss-cssnext")({
+      browsers: ["last 2 versions", "ie >= 9"],
+      compress: true,
+    }),
+    require("cssnano")({ zindex: false }),
+    // end UglifyJSPlugin fix
+  ],
+};
 ```
 
 
@@ -273,7 +269,7 @@ Looking at code blobs is hard, so here&#x27;s what happened:
 5. **Use rules evaluate last to first.**
 6. First, we use `less-loader` to compile Less to CSS.
 7. Then, we use `postcss-loader` to do the PostCSS changes.
-8. Then, `css-loader` enables `\import css from 'file.css'`.
+8. Then, `css-loader` enables `import css from 'file.css'`.
 9. Finally, `ExtractTextPlugin` puts it in `<style>`.
 
 
@@ -294,11 +290,11 @@ Now for the reason we&#x27;re all here: tree shaking.
 
 
 
-Webpack 2 understands native ES6 \\imports and uses them as split points. That means it can organize your code into different chunks so you&#x27;re only loading the JavaScript that you&#x27;re using.
+Webpack 2 understands native ES6 imports and uses them as split points. That means it can organize your code into different chunks so you&#x27;re only loading the JavaScript that you&#x27;re using.
 
 
 
-What it _also_ means is that it understands when you&#x27;re \\importing more than you need. Combined with the [UglifyJsPlugin](https://www.npmjs.com/package/webpack-uglify-js-plugin), it can eliminate that extra code.
+What it _also_ means is that it understands when you&#x27;re importing more than you need. Combined with the [UglifyJsPlugin](https://www.npmjs.com/package/webpack-uglify-js-plugin), it can eliminate that extra code.
 
 
 
@@ -310,53 +306,51 @@ Here&#x27;s what you have to do:
 
 
 
-1. Tell Babel _not_ to compile \\imports into CommonJS (require stuff)
+1. Tell Babel _not_ to compile imports into CommonJS (require stuff)
 2. Enable UglifyJS
 
 
 
-```
+```javascript
 // webpack.config.js
 rules: [
-    {
-        test: /\.js$/,
-        include: [
-            path.resolve(__dirname, "app/assets/javascripts")
-        ],
-        exclude: [
-            path.resolve(__dirname, "node_modules/")
-        ],
-        query: {
-            plugins: ['transform-decorators-legacy',
-                      'transform-runtime',
-                      'transform-object-rest-spread',
-                      'transform-react-constant-elements',
-                      'transform-class-properties'],
-            presets: [['es2015', {modules: false}], 'latest', 'react']
-        },
-        loader: 'babel-loader',
+  {
+    test: /\.js$/,
+    include: [path.resolve(__dirname, "app/assets/javascripts")],
+    exclude: [path.resolve(__dirname, "node_modules/")],
+    query: {
+      plugins: [
+        "transform-decorators-legacy",
+        "transform-runtime",
+        "transform-object-rest-spread",
+        "transform-react-constant-elements",
+        "transform-class-properties",
+      ],
+      presets: [["es2015", { modules: false }], "latest", "react"],
     },
-]
+    loader: "babel-loader",
+  },
+];
 // ...
 plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-        compress: {
-            warnings: false,
-            screw_ie8: true,
-            conditionals: true,
-            unused: true,
-            comparisons: true,
-            sequences: true,
-            dead_code: true,
-            evaluate: true,
-            join_vars: true,
-            if_return: true
-        },
-        output: {
-            comments: false
-        }
-    }),
-]
+  new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: false,
+      screw_ie8: true,
+      conditionals: true,
+      unused: true,
+      comparisons: true,
+      sequences: true,
+      dead_code: true,
+      evaluate: true,
+      join_vars: true,
+      if_return: true,
+    },
+    output: {
+      comments: false,
+    },
+  }),
+];
 ```
 
 
@@ -365,7 +359,7 @@ See that `{modules: false}` in the `babel-loader` config? That&#x27;s new. You c
 
 
 
-`modules: false` tells the `es2015` preset to avoid compiling `\import` statements into CommonJS. That lets Webpack do tree shaking on your code.
+`modules: false` tells the `es2015` preset to avoid compiling `import` statements into CommonJS. That lets Webpack do tree shaking on your code.
 
 
 

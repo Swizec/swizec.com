@@ -59,7 +59,7 @@ Here&#x27;s an old video of mine explaining how that works 👇
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=pzMTVChKvjo
+https://www.youtube.com/watch?v=pzMTVChKvjo
 
 
 
@@ -84,6 +84,8 @@ Here&#x27;s a CodeSandbox from my workshops using the blackbox approach to make 
 
 
 
+https://codesandbox.io/s/zrjj0vlx7p
+
 
 
 👌
@@ -94,7 +96,7 @@ The HOC to make that work is a little scary. Hard to explain too.
 
 
 
-```
+```javascript
 export default function D3blackbox(D3render) {
   return class Blackbox extends React.Component {
     anchor = React.createRef();
@@ -108,15 +110,16 @@ export default function D3blackbox(D3render) {
 
     render() {
       const { x, y } = this.props;
-      return ;
+      return <g transform="{`translate(${x}," ${y})`}="" ref={this.anchor}>;
     }
   };
 }
+</g>
 ```
 
 
 
-17 sloc function that returns a class-based component with an `anchor`, two lifecycle methods, and a rendered `` element. That&#x27;s our anchor.
+17 sloc function that returns a class-based component with an `anchor`, two lifecycle methods, and a rendered ``element. That&#x27;s our anchor.
 
 
 
@@ -124,7 +127,7 @@ Using this HOC looks like wrapping some D3 code in a `D3blackbox` call.
 
 
 
-```
+```javascript
 const Barchart = D3blackbox(function(anchor, props) {
   var svg = d3.select(anchor.current),
   // ...
@@ -168,7 +171,7 @@ Here&#x27;s me figuring it out in a ninja livecode session 👇
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=MatW9u7ley0
+https://www.youtube.com/watch?v=MatW9u7ley0
 
 
 
@@ -176,7 +179,7 @@ And here&#x27;s proof that it takes just 2 minutes to take any random D3 example
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1057519327774232576
+https://twitter.com/Swizec/status/1057519327774232576
 
 
 
@@ -184,9 +187,11 @@ Here&#x27;s how it works:
 
 
 
+https://codesandbox.io/s/w0p3jqq00l
 
 
-```
+
+```javascript
 const D3blackbox = ({ x, y, render }) => {
   const refAnchor = React.useRef(null);
 
@@ -194,8 +199,9 @@ const D3blackbox = ({ x, y, render }) => {
     render(d3.select(refAnchor.current));
   });
 
-  return ;
+  return <g ref={refAnchor} transform="{`translate(${x}," ${y})`}="">;
 };
+</g>
 ```
 
 
@@ -216,8 +222,9 @@ You use it like this:
 
 
 
-```
- // D3 code} />
+```javascript
+<d3blackbox x={0} y={400} render="{svg" ==""> // D3 code} />
+</d3blackbox>
 ```
 
 

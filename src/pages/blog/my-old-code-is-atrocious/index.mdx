@@ -17,27 +17,30 @@ A few weeks ago, closer to a month or two than a fortnight, a project of mine su
 
 The first atrocity committed in the name of hacking was writing the program in two distinct languages for reasons that were weak at best. I used node.js to drive the main process and talk to API&#x27;s. `runner.js` calls other parts of the code, talks to mongodb, and runs the algorithmic Haskell part as a subprocess. The Haskell and node.js part communicate via mongodb. I didn&#x27;t even use a mongodb library. Hacked something together because mongoose - ORM-like mongodb library for node - was too slow for some reason. And I have no idea how Haskell does it. Monads continue to confuse me. To make matters even more worse, I didn&#x27;t use any libraries to talk to either [Toggl](http://www.toggl.com "Toggl.com") or [Toshl](http://toshl.com/). Partly because Toshl only released an official API this summer and other than [my half baked attempt from two weeks ago](http://swizec.com/blog/about-achieving-polymorphism-in-javascript/swizec/6370) there are no libraries, partly because I don&#x27;t know why. The Toshl part is the worst. I fake user interactions to log into their service and export a [CSV file](http://en.wikipedia.org/wiki/Comma-separated_values "Comma-separated values") with data, then parse it locally. Yes that includes sending plaintext passwords over https. Yes it also includes saving said password in a file on the server. Why yes, yes I do use that email/password combination elsewhere. Wonderful innit? And don&#x27;t even get me started on the Toggl implementation. That&#x27;s what broke by the way. Version 6 of their API was deprecated on September 1st and I just didn&#x27;t notice. I _know_ there was a library for Toggl. I even remember using it. But the code I was fixing last night used [superagent](https://github.com/visionmedia/superagent) to make JSON requests manually. Yes that includes setting `Accept: application/json` headers and utf8 encoding. Yup, there also wasn&#x27;t any abstraction at all. The three API calls were meticulously spelled out. Everything from bits of the URL (https, toggl.com, ...), to specifying the headers every time. All of that became this function:
 
-```
+```javascript
 var __request = function (url, query, callback) {
-    callback = arguments[arguments.length-1];
-    query = typeof query === 'function' ? {} : query;
+  callback = arguments[arguments.length - 1];
+  query = typeof query === "function" ? {} : query;
 
-    request.get({protocol: 'https',
-                 hostname: 'www.toggl.com',
-                 pathname: url,
-                 query: query,
-                 auth: require('./secrets').toggl_api+':api_token'})
-        .set('Accept-Charset', 'utf-8')
-        .set('Accept', 'application/json')
-        .end(callback);
+  request
+    .get({
+      protocol: "https",
+      hostname: "www.toggl.com",
+      pathname: url,
+      query: query,
+      auth: require("./secrets").toggl_api + ":api_token",
+    })
+    .set("Accept-Charset", "utf-8")
+    .set("Accept", "application/json")
+    .end(callback);
 };
 ```
 
 Which lets me do this:
 
-```
+```javascript
 var workspaces = function (callback) {
-    __request('/api/v8/workspaces', callback);
+  __request("/api/v8/workspaces", callback);
 };
 ```
 

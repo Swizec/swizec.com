@@ -7,11 +7,7 @@ redirect_from:
 categories: "Front End, react, Technical"
 hero: ../../../defaultHero.jpg
 ---
-Say you want to lazy load some images on your website. You don&#x27;t want them to just pop into existence and scare the user. A nice fade in effect works much better.
-
-
-
-![](./img/blog-wp-content-uploads-2018-01-gif.gif)
+Say you want to lazy load some images on your website. You don&#x27;t want them to just pop into existence and scare the user. A nice fade in effect works much better.![](./img/blog-wp-content-uploads-2018-01-gif.gif)
 
 
 
@@ -47,7 +43,7 @@ The component is just 40 lines of code. Pretty simple.
 
 
 
-```
+```javascript
 class FadeIn extends React.Component {
   state = {
     loaded: false,
@@ -59,16 +55,15 @@ class FadeIn extends React.Component {
       { loaded } = this.state;
 
     return (
-      
-        
-          {state =>
-            
-
+      <lazyload height={height} offset={150}>
+        <transition in={loaded} timeout={duration}>
+          {(state) => (
+            <div style={{ ...defaultstyle, ...transitionstyles[state] }}>
               {children(this.onLoad)}
-            
-}
-        
-      
+            </div>
+          )}
+        </transition>
+      </lazyload>
     );
   }
 }
@@ -96,11 +91,12 @@ All you have to do is trigger the `onLoad` callback once your content is ready. 
 
 
 
-```
-
+```javascript
+<fadein height={400}>
 {onLoad =>
-  
+  <img class={cx('img')} src={subheader2} onload={onLoad}>
 }
+</fadein>
 ```
 
 
@@ -113,7 +109,7 @@ Did you know `onLoad` was a built-in DOM callback that all browsers support? I h
 
 
 
-`onLoad` is \\important because without it the FadeIn transition might end before the image has even come down the pipe. That&#x27;s the issue I was facing at first [when I livecoded this](https://www.youtube.com/watch?v=k5DnlFjuf80).
+`onLoad` is important because without it the FadeIn transition might end before the image has even come down the pipe. That&#x27;s the issue I was facing at first [when I livecoded this](https://www.youtube.com/watch?v=k5DnlFjuf80).
 
 
 

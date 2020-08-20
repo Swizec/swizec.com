@@ -19,13 +19,13 @@ Turns out the internet is _super awesome_ and was more than willing to put me in
 
 They ranged from painfully obvious ([@sbelak](http://twitter.com/sbelak))
 
-```
+```clojure
 (combinations '[a b c d] 2)
 ```
 
 A saner (only core) solution in Clojure supposedly looks like this
 
-```
+```clojure
 (defn tails [xs]
   (take-while not-empty (iterate rest xs)))
 
@@ -37,7 +37,7 @@ A saner (only core) solution in Clojure supposedly looks like this
 
 To what the fuck am I looking at (I think this is J)
 
-```
+```J
 a = 'abcd'
 
 comb=: 4 : 0
@@ -55,7 +55,7 @@ Most people seem to have given it a shot in either Clojure or Haskell, meaning t
 
 This is my favourite Haskell solution, by [@purzelrakete](https://twitter.com/#!/purzelrakete)
 
-```
+```haskell
 [[x, y] | x <- set, y <- set, x < y]/pre>
 ```
 
@@ -63,11 +63,13 @@ This is my favourite Haskell solution, by [@purzelrakete](https://twitter.com/#!
 
 A really cool Javascript solution by Shaun Gilchrist.
 
-```
+```javascript
 function pairs(set) {
-    return _.isEmpty(set) ? [] : 
-        _.map(_.rest(set), function(y){ return [_.first(set), y]})
-        .concat(pairs(_.rest(set)));
+  return _.isEmpty(set)
+    ? []
+    : _.map(_.rest(set), function (y) {
+        return [_.first(set), y];
+      }).concat(pairs(_.rest(set)));
 }
 ```
 
@@ -75,7 +77,7 @@ function pairs(set) {
 
 For some reason I didn&#x27;t think C# would even make it to such a debate, but [Strilanc](http://news.ycombinator.com/user?id=Strilanc) makes it quite elegant.
 
-```
+```C
 list.SelectMany((e, i) => list.Skip(i+1).Select(f => Tuple.Create(e, f)))
 ```
 
@@ -83,7 +85,7 @@ list.SelectMany((e, i) => list.Skip(i+1).Select(f => Tuple.Create(e, f)))
 
 Here&#x27;s a nice succint solution in Python
 
-```
+```python
 [(x[i],x[j]) for i in range(len(x)) for j in range(i+1, len(x))]
 ```
 
@@ -91,7 +93,7 @@ Here&#x27;s a nice succint solution in Python
 
 And Ocaml by the same guy ([fab13n](http://news.ycombinator.com/user?id=fab13n))
 
-```
+```ocaml
 let rec pairs = function
     | a :: b -> List.map (fun x -> (a, x)) b @ (pairs b)
     | [] -> []
@@ -101,7 +103,7 @@ let rec pairs = function
 
 According to [@demisbellot](http://twitter.com/demisbellot) it would look like this in F#
 
-```
+```F
 let rec pairs = function 
 | h :: t -> List.append [ for i in t -> [h; i] ] (pairs t) 
 | _ -> []  
@@ -113,7 +115,7 @@ let rec pairs = function
 
 Scala by XxXX
 
-```
+```scala
  def pair(l : List[String]): List[Tuple2[String, String]] = l.size match {
  case 1 => Nil
  case _ => l.tail.flatMap { e => List((l.head, e)) } ++ pair(l.tail) 
@@ -124,7 +126,7 @@ Scala by XxXX
 
 By [JoelPM](http://joelpm.com/) ... although I&#x27;m not sure this is elegant.
 
-```
+```erlang
 -module(combos).
 
 -export([ combo/1 ]).
@@ -149,15 +151,24 @@ Output:
 
 @refaktor gave it the most attempts ... I think he had a boring weekend, or just got nerd sniped. Here&#x27;s his his final solution in javascript ... would have expected rebol from him though.
 
-```
-var f = function(a) { return a.length == 0 ? [] : (a.slice(1).map(function(x){return [a[0],x]})).concat(f(a.slice(1))); }
+```javascript
+var f = function (a) {
+  return a.length == 0
+    ? []
+    : a
+        .slice(1)
+        .map(function (x) {
+          return [a[0], x];
+        })
+        .concat(f(a.slice(1)));
+};
 ```
 
 ## Smalltalk
 
 By Larry ... he didn&#x27;t leave a link.
 
-```
+```smalltalk
 in := #(a b c d) asOrderedCollection.out := OrderedCollection new.in size timesRepeat: [	key := in removeFirst.	in do: [ :value |  out add:( Array with: key with: value). ].].
 ```
 

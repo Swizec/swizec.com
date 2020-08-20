@@ -9,7 +9,7 @@ hero: ../../../defaultHero.jpg
 ---
 Using returns and [callbacks](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)") in the same function. Sounds like crazy talk I know, but hear me out, I have good reason. I think. Let&#x27;s say you want to make several [TCP](http://en.wikipedia.org/wiki/Transmission_Control_Protocol "Transmission Control Protocol") servers in a node.js application. Have to listen on multiple ports or whatever. Using a factory function is your best bet to avoiding code repetition, right? You end up with something like this:
 
-```
+```javascript
 var server = function (port, callback) {
     var server = net.createServer(function (connection) {});
 
@@ -30,25 +30,27 @@ var server = function (port, callback) {
 
 Simple. Call a function, give it a port, get notified when server is ready to listen. Never be able to touch the server again. Wait, that&#x27;s not good. What if you want to reference the server later? To close it, for instance. That&#x27;s where using returns alongside callbacks comes in. Just adding a `return server` at the bottom of that function lets us do something like this:
 
-```
+```javascript
 var make_servers = function (callback) {
-    this.servers = {};
+  this.servers = {};
 
-    async.each([5000, 5001, 5002],
-               _.bind(function (port, callback) {
-                    this.servers[port] = server(port, callback);
-               }, this),
-               function (err) {
-                    callback();
-               });
+  async.each(
+    [5000, 5001, 5002],
+    _.bind(function (port, callback) {
+      this.servers[port] = server(port, callback);
+    }, this),
+    function (err) {
+      callback();
+    }
+  );
 
-    return this;
-}
+  return this;
+};
 ```
 
 I sneakily added the async and underscore libraries because they make life easier. `make_servers` will generate three servers listening on ports `5000` to `5002`. The async library helped us ensure the main callback is only called once all the servers are ready to listen, and using `_.bind` let us bind server generation to the current scope. When this function is done it returns its scope, which now includes references to all the servers, and it will tell your code to keep going when all the servers are ready. You&#x27;d use it something like this:
 
-```
+```javascript
 var stuff = make_servers(function () { // all servers listening });
 
 // stuff.servers can access all servers
@@ -56,7 +58,7 @@ var stuff = make_servers(function () { // all servers listening });
 
 If you bind all the callbacks inside `server` to current scope you can even keep track of connections. You&#x27;d end up with something like this:
 
-```
+```javascript
 var server = function (port) {
     var server = net.createServer(function (connection) {});
 

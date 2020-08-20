@@ -7,11 +7,7 @@ redirect_from:
 categories: "Front End, JavaScript, react, redux, Technical"
 hero: ../../../defaultHero.jpg
 ---
-https&amp;#x3A;//youtu.be/O0P7YIiQm4Y?t=3579
-
-
-
-Here&#x27;s a problem that took me embarrassingly long to solve: How do you populate dynamic values into a [react-redux-form](https://github.com/davidkpiano/react-redux-form)?
+https://youtu.be/O0P7YIiQm4Y?t=3579Here&#x27;s a problem that took me embarrassingly long to solve: How do you populate dynamic values into a [react-redux-form](https://github.com/davidkpiano/react-redux-form)?
 
 
 
@@ -51,15 +47,18 @@ Our form starts with a model and a Redux store:
 
 
 
-```
+```javascript
 const initialUserState = {
-  firstName: '',
-  lastName: '',
+  firstName: "",
+  lastName: "",
 };
 
-const store = createStore(combineForms({
-  user: initialUserState,
-}), applyMiddleware(thunk));
+const store = createStore(
+  combineForms({
+    user: initialUserState,
+  }),
+  applyMiddleware(thunk)
+);
 ```
 
 
@@ -76,31 +75,29 @@ The form itself comes in as a React component using `<Control>` elements from re
 
 
 
-```
+```javascript
 class UserForm extends Component {
   handleSubmit(values) {
     console.log(values);
   }
   render() {
     return (
-       this.handleSubmit(values)}
+      <form model="user" onsubmit="{(values)" ==""> this.handleSubmit(values)}
       >
-        
+        <div class="field">
+          <label>First name:</label>
+          <control class="text" model="user.firstName">
+        </control></div>
 
-          First name:
-          
-        
+        <div class="field">
+          <label>Last name:</label>
+          <control class="text" model="user.lastName">
+        </control></div>
 
-        
-
-          Last name:
-          
-        
-
-        
+        <button type="submit">
           Submit
-        
-      
+        </button>
+      </form>
     )
   }
 }
@@ -188,10 +185,10 @@ First we connect our `UserForm` component to Redux.
 
 
 
-```
+```javascript
 const mapDispatchToProps = {
-  setDefaultUser: (values) => actions.merge('user', values)
-}
+  setDefaultUser: (values) => actions.merge("user", values),
+};
 const ConnectedForm = connect(null, mapDispatchToProps)(UserForm);
 ```
 
@@ -209,7 +206,7 @@ I wired it to an `onClick` callback in this example so you can try it multiple t
 
 
 
-```
+```javascript
   changeUser() {
     this.props.setDefaultUser(
        randomUsers[Math.floor(Math.random()*randomUsers.length)]

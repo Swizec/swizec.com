@@ -61,7 +61,7 @@ Right now we&#x27;re rendering the migrations layer as a React component, like t
 
 
 
-```
+```javascript
 const Migrations = ({ topology, projection, data, nameIdMap }) => {
     const countries = topojson.feature(topology, topology.objects.countries),
           path = d3.geoPath(projection),
@@ -71,9 +71,9 @@ const Migrations = ({ topology, projection, data, nameIdMap }) => {
 
 
     return (
-        
-            
-        
+        <g>
+            <countrymigrations data={data[10]} nameidmap={nameIdMap} centroids={centroids}>
+        </countrymigrations></g>
     );
 };
 
@@ -88,11 +88,11 @@ const CountryMigrations = ({ data, nameIdMap, centroids }) => {
                            .filter(name => centroids[nameIdMap[name]])
                            .map(name => centroids[nameIdMap[name]]);
     return (
-        
+        <g>
             {sources.map((source, i) => (
-                
+                <path d="{line([destination," source])}="" style="{{stroke:" 'black',="" strokewidth:="" '1px'}}="" key={`${data.id}-${i}`}>
              ))}
-        
+        </path></g>
     )
 };
 ```

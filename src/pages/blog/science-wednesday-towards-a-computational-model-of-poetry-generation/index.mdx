@@ -24,7 +24,7 @@ In short, this is a really cool problem to solve because it&#x27;s something tha
 
 ## What makes it hard
 
-The problem with poetry is two-fold. On the one hand one finds themselves at a serious disadvantage in comparison to creating a traditional [NLG](http://en.wikipedia.org/wiki/Natural_language_generation "Natural language generation")(natural language generation) tool because poetry is less rigid. There is no message you are trying to convey and so the goal you are trying to achieve is a bit muddy. \[caption id=&quot;&quot; align=&quot;alignright&quot; width=&quot;300&quot; caption=&quot;Image via Wikipedia&quot;][![English: Portrait of Allen Ginsberg and Bob Dy...](./img/blog-wp-content-uploads-2012-03-300px-Ginsberg-dylan2.jpg "English: Portrait of Allen Ginsberg and Bob Dy...")](http://commons.wikipedia.org/wiki/File:Ginsberg-dylan.jpg)\[/caption] Furthermore, poetry possesses a certain unity between message and form. As Levin stated in 1962 _&quot;In poetry the form of the discourse and its meaning are fused into a higher unity&quot;_. This creates a problem because traditional NLG systems are decomposed into simpler units of [content determination](http://en.wikipedia.org/wiki/Content_determination "Content determination"), text planning and surface realisation. In [poetry form](http://en.wikipedia.org/wiki/Poetry "Poetry") and message are too intertwined to allow this approach. The only advantage we might have from creating poetry instead of informative text, is that readers expect to do a lot of interpretative work, but realistically this again only serves to make it more difficult to define a goal for our [algorithm](http://en.wikipedia.org/wiki/Algorithm "Algorithm"). Essentially: it&#x27;s hard to decide what we _want_and traditional well researched approaches break down. Great.
+The problem with poetry is two-fold. On the one hand one finds themselves at a serious disadvantage in comparison to creating a traditional [NLG](http://en.wikipedia.org/wiki/Natural_language_generation "Natural language generation")(natural language generation) tool because poetry is less rigid. There is no message you are trying to convey and so the goal you are trying to achieve is a bit muddy. \[caption id=&quot;&quot; align=&quot;alignright&quot; width=&quot;300&quot; caption=&quot;Image via Wikipedia&quot;][![English: Portrait of Allen Ginsberg and Bob Dy...](./img/blog-wp-content-uploads-2012-03-300px-Ginsberg-dylan2.jpg "English: Portrait of Allen Ginsberg and Bob Dy...")](http://commons.wikipedia.org/wiki/File:Ginsberg-dylan.jpg)\[/caption] Furthermore, poetry possesses a certain unity between message and form. As Levin stated in 1962 _&quot;In poetry the form of the discourse and its meaning are fused into a higher unity&quot;_. This creates a problem because traditional NLG systems are decomposed into simpler units of [content determination](http://en.wikipedia.org/wiki/Content_determination "Content determination"), text planning and surface realisation. In [poetry form](http://en.wikipedia.org/wiki/Poetry "Poetry") and message are too intertwined to allow this approach. The only advantage we might have from creating poetry instead of informative text, is that readers expect to do a lot of interpretative work, but realistically this again only serves to make it more difficult to define a goal for our [algorithm](http://en.wikipedia.org/wiki/Algorithm "Algorithm"). Essentially: it&#x27;s hard to decide what we _want _and traditional well researched approaches break down. Great.
 
 ## How it used to be done
 
@@ -39,7 +39,7 @@ Just as I&#x27;m planning to in my thesis, authors of this paper have decided to
 
 Generation is done by mutating the best candidates from the previous cycle through three simple constructs: Adding, Changing and Deleting. So if you had a verse _&quot;John walked&quot;_ it could become _&quot;John walked **to the store**&quot;_, or _&quot;John **lumbered**&quot;._ Or for instance _&quot;John likes Jill and Mary_&quot; it becomes _&quot;John likes Jill&quot;_. Because of an integrated architecture (combining all of semantics, form, etc.) these changes can and should happen at any level so special care must be taken that changing the semantics of a verse, doesn&#x27;t negatively affect its rhythm. Although from the paper I don&#x27;t grok why exactly this is a problem, since the evaluation step should take care of negative mutations. After we have a new population, these are then evaluated for correctness and the candidates with highest scores from the [fitness functions](http://en.wikipedia.org/wiki/Fitness_function "Fitness function") get to go into the next round of mutations. The authors go into little detail about assessing the different poetic structures, mostly because they have not yet cracked how to implement all of them. Detecting rhythm seems to be where they&#x27;ve made the most progress and a solution is suggested where we give the algorithm a target [phonetic form](http://en.wikipedia.org/wiki/Phonetic_form "Phonetic form"), like this _limerick_:
 
-```
+```undefined
 w,s,w,w,s,w,w,s(a)
 w,s,w,w,s,w,w,s(a)
   w,s,w,w,s(b)
@@ -49,27 +49,27 @@ w,s,w,w,s,w,w,s(a)
 
 Where _w_ means a weak stress syllable and _s_ means a strong one. In parentheses the rhyming structure is described. It is suggested that with the exception figurative language all the criteria can be dumbed down to numerical arguments that can be easily quantified through different means that are only loosely described. They also go into a bit of formal detail explaining the sort of grammars that are used, but you should go read the actual paper if you&#x27;re interested in such heavily theoretical things :) Here is an example of what their algorithm can produce: **Target semantics**
 
-```
+```undefined
 {john(1),mary(2), dog(3), bottle(4), love(5,6,7), slow(8), smile(9,10)}
 ```
 
 **Target Form**
 
-```
+```undefined
 w,s,w,w,s,w,w,s,
 w,s,w,w,s,w,w,s
 ```
 
 **Surface**
 
-```
+```undefined
 the bottle was loved by Luke
 a bottle was loved by a dog
 ```
 
 **Stress**
 
-```
+```undefined
 w,s,w,w,s,w,s,
 w,s,w,w,s,w,w,s
 ```

@@ -19,7 +19,7 @@ Right now the predictions are somewhat rudimentary, for instance I don&#x27;t ta
 
 Weights are calculated according to the simplest [infinite series](http://en.wikipedia.org/wiki/Series_%28mathematics%29 "Series (mathematics)") I could think of that always sums to one no matter how many elements are needed. But I also split it in half and shuffle it about at the pivot, so the strongest weight is moved back in the data when calculating days. So in a sense, when calculating the 1st unknown value, the last known has highest weight. Then the penultimate known and so forth. The algorithm is pretty simple in [Haskell](http://haskell.org "Haskell (programming language)")
 
-```
+```haskell
 
 -- ((n-i)*2)/((n-1)*n)
 weights :: (Num b, Fractional b, Enum b) => b -> [b]

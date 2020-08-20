@@ -17,24 +17,24 @@ Want to [center vertically](https://philipwalton.github.io/solved-by-flexbox/dem
 
 With flexbox, vertical centering looks like this:
 
-```
+```css
 .container {
-	display: flex;
+  display: flex;
 }
 
 .centered {
-	flex: 1;
+  flex: 1;
 }
 ```
 
 Assuming an HTML structure that looks like this:
 
-```
-
-	
-
-		This is centered
-	
+```html
+<div class="container">
+  <div class="centered">
+    This is centered
+  </div>
+</div>
 ```
 
 Sure beats the best hack from a few years ago: 3 divs with 50% offset positioning. [1](#fn1-11043 "see footnote") The only thing harder for pure CSS than vertical centering is a 3-column design with equal-height columns. A good hack was never found.
@@ -65,7 +65,7 @@ Those buttons are data. You get an array of labels, and you have to render them 
 
 `flex-flow: row wrap` is your friend. It breaks elements into lines and looks like this:
 
-\[codepen_embed height=&quot;265&quot; theme_id=&quot;0&quot; slug_hash=&quot;XjbrLP&quot; default_tab=&quot;html,result&quot; user=&quot;swizec&quot;]See the Pen [6-grid flexbox](http://codepen.io/swizec/pen/XjbrLP/) by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).\[/codepen_embed]
+\[codepen_embed height=&quot;265&quot; theme_id=&quot;0&quot; slug_hash=&quot;XjbrLP&quot; default_tab=&quot;html,result&quot; user=&quot;swizec&quot;]See the Pen [6-grid flexbox ](http://codepen.io/swizec/pen/XjbrLP/)by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).\[/codepen_embed]
 
 That’s a grid – wasn’t hard at all. But your designer wants that first cell to span two rows.
 

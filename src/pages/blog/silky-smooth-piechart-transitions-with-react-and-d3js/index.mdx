@@ -19,7 +19,7 @@ Got some help from Bostock&#x27;s [commented arc tween](http://bl.ocks.org/mbost
 
 
 
-> The single most \\important requirement to perform interpolation in D3.js is that the structure of A must match the structure of B.
+> The single most important requirement to perform interpolation in D3.js is that the structure of A must match the structure of B.
 >
 >
 >
@@ -39,8 +39,9 @@ You see, the problem with arc transitions is that their path definition has a fu
 
 
 
-```
-M100.6434055594246,-99.8203632756589A8,8,0,0,1,112.2823856114007,-99.46188154973098A150,150,0,0,1,-104.56274177607584,107.54828233063364A8,8,0,0,1,-104.38099615277264,95.90520136696549L-64.39381262786019,59.38549403963366A8,8,0,0,1,-53.635344263429694,59.35696964757701A80,80,0,0,0,61.78081312913049,-50.82451307295977A8,8,0,0,1,62.30830828934212,-61.57007978883599Z
+```undefined
+<code>M100.6434055594246,-99.8203632756589A8,8,0,0,1,112.2823856114007,-99.46188154973098A150,150,0,0,1,-104.56274177607584,107.54828233063364A8,8,0,0,1,-104.38099615277264,95.90520136696549L-64.39381262786019,59.38549403963366A8,8,0,0,1,-53.635344263429694,59.35696964757701A80,80,0,0,0,61.78081312913049,-50.82451307295977A8,8,0,0,1,62.30830828934212,-61.57007978883599Z
+</code>
 ```
 
 
@@ -53,7 +54,7 @@ PS: she can 👇
 
 
 
-https&amp;#x3A;//twitter.com/sarah_edo/status/971840965488119809
+https://twitter.com/sarah_edo/status/971840965488119809
 
 
 
@@ -119,26 +120,23 @@ Our `arcTween` function uses these to build a tween method that we then feed int
 
 
 
-```
+```javascript
 // inspired from http://bl.ocks.org/mbostock/5100636
 function arcTween(oldData, newData, arc) {
-    const copy = { ...oldData };
-    return function() {
-        const interpolateStartAngle = d3.interpolate(
-                oldData.startAngle,
-                newData.startAngle
-            ),
-            interpolateEndAngle = d3.interpolate(
-                oldData.endAngle,
-                newData.endAngle
-            );
+  const copy = { ...oldData };
+  return function () {
+    const interpolateStartAngle = d3.interpolate(
+        oldData.startAngle,
+        newData.startAngle
+      ),
+      interpolateEndAngle = d3.interpolate(oldData.endAngle, newData.endAngle);
 
-        return function(t) {
-            copy.startAngle = interpolateStartAngle(t);
-            copy.endAngle = interpolateEndAngle(t);
-            return arc(copy);
-        };
+    return function (t) {
+      copy.startAngle = interpolateStartAngle(t);
+      copy.endAngle = interpolateEndAngle(t);
+      return arc(copy);
     };
+  };
 }
 ```
 
@@ -164,19 +162,18 @@ You use it like this 👇
 
 
 
-```
+```javascript
 // Piechart.js
-d3
-    .select(this.refs.elem)
-    .transition()
-    .duration(80)
-    .attrTween("d", arcTween(this.state.d, newProps.d, this.arc))
-    .on("end", () =>
-        this.setState({
-            d: newProps.d,
-            pathD: this.arc(newProps.d)
-        })
-    );
+d3.select(this.refs.elem)
+  .transition()
+  .duration(80)
+  .attrTween("d", arcTween(this.state.d, newProps.d, this.arc))
+  .on("end", () =>
+    this.setState({
+      d: newProps.d,
+      pathD: this.arc(newProps.d),
+    })
+  );
 ```
 
 
@@ -214,7 +211,7 @@ The Piechart component itself is pretty simple. Takes some data, renders some ar
 
 
 
-```
+```javascript
 // Piechart.js
 class Piechart extends Component {
     pie = d3
@@ -229,17 +226,17 @@ class Piechart extends Component {
         const _data = groupByFunc(data, groupBy);
 
         return (
-            
+            <g transform="{`translate(${x}," ${y})`}="">
                 {this.pie(_data).map((d, i) => (
-                    
+                    <arc d={d} color={color(d)}>
                 ))}
-                
+                <text x="0" textanchor="middle">
                     {data.length}
-                
-                
+                </text>
+                <text y="18" x="0" textanchor="middle">
                     datapoints
-                
-            
+                </text>
+            </arc></g>
         );
     }
 }
@@ -295,7 +292,7 @@ The outline for our `<Arc>` component looks like this 👇
 
 
 
-```
+```javascript
 // Piechart.js
 
 class Arc extends Component {
@@ -326,10 +323,11 @@ class Arc extends Component {
         const { color, pathD } = this.state;
 
         return (
-            
+            <path d={pathD} style={{ fill: color }} onmouseover={this.hover} onmouseout={this.unhover} ref="elem">
         );
     }
 }
+</path>
 ```
 
 
@@ -338,7 +336,7 @@ Start with an `arc` generator that takes data and returns path definitions. Ours
 
 
 
-In the `constructor`, we copy \\important props to `this.state`. A good choice are props that we later intend to change. Color on hover/unhover, and `d` and `pathD` on input data changes.
+In the `constructor`, we copy important props to `this.state`. A good choice are props that we later intend to change. Color on hover/unhover, and `d` and `pathD` on input data changes.
 
 
 
@@ -366,8 +364,8 @@ Our goal is to take the new props, use D3 to transition appropriate attributes o
 
 
 
-```
-// Piechart.js in 
+```javascript
+// Piechart.js in <arc>
 
     componentWillReceiveProps(newProps) {
         this.setState({
@@ -386,6 +384,7 @@ Our goal is to take the new props, use D3 to transition appropriate attributes o
                 })
             );
     }
+</arc>
 ```
 
 

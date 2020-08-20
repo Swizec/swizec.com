@@ -7,19 +7,18 @@ redirect_from:
 categories: "flux, Front End, HTML, JavaScript, jQuery, react, Technical"
 hero: ./img/comics-automation.png
 ---
-\[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;404&quot;]![XKCD Automation](./img/comics-automation.png) XKCD Automation\[/caption] I waste almost 15 minutes a week on an annoying little task. Every email I send to an email list gets a link that says, _&quot;Click here to share with a friend.&quot;_ Clicking the link opens a filled-in email message. Add an address or two, click send, and you&#x27;re done. You share interesting information with your friends and my emails don&#x27;t become one of those &quot;Fwd: fwd: re: fwd: kids do the darnedest things!&quot; disasters. Nobody likes a forward, but everyone likes a direct share. It&#x27;s different. Making a direct share link, is as easy as using `mailto:?subject=some%20subject&body=some%20very%20long%20body`. This type of URL makes a magic email link containing the subject `some subject` and the body `some very long body`. One downside is that the subject and body are URL encoded. Finding an online URL encoder, pasting things in, and copying things out is a long process. Every time you want to change the body or fix a typo in the subject, you have to repeat the process all over again. Another downside is that the body doesn&#x27;t support HTML. You must strip it out or change it to Markdown. This task was annoying me so much that I decided to build [ShareThisEmail](http://sharethisemail.com), a tiny tool that takes a subject and a body, and returns a mailto&amp;#x3A; link. Simple, right?
+\[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;404&quot;]![XKCD Automation](./img/comics-automation.png) XKCD Automation\[/caption] I waste almost 15 minutes a week on an annoying little task. Every email I send to an email list gets a link that says, _&quot;Click here to share with a friend.&quot;_ Clicking the link opens a filled-in email message. Add an address or two, click send, and you&#x27;re done. You share interesting information with your friends and my emails don&#x27;t become one of those &quot;Fwd: fwd: re: fwd: kids do the darnedest things!&quot; disasters. Nobody likes a forward, but everyone likes a direct share. It&#x27;s different. Making a direct share link, is as easy as using `mailto:?subject=some%20subject&body=some%20very%20long%20body`. This type of URL makes a magic email link containing the subject `some subject` and the body `some very long body`. One downside is that the subject and body are URL encoded. Finding an online URL encoder, pasting things in, and copying things out is a long process. Every time you want to change the body or fix a typo in the subject, you have to repeat the process all over again. Another downside is that the body doesn&#x27;t support HTML. You must strip it out or change it to Markdown. This task was annoying me so much that I decided to build [ShareThisEmail](http://sharethisemail.com), a tiny tool that takes a subject and a body, and returns a mailto: link. Simple, right?
 
 ## Doing it simply
 
 Yes. It takes just three lines of JavaScript to make the link:
 
-```
+```javascript
 function the_thing (subject, body) {
         var subject = encodeURIComponent(subject),
             body = encodeURIComponent(
                 toMarkdown(
-                    body.replace(/(?:\r\n|\r|\n)/g, '
-')
+                    body.replace(/(?:\r\n|\r|\n)/g, '<br>')
                 )
             );
 
@@ -29,7 +28,7 @@ function the_thing (subject, body) {
 
 Well okay, _nine_ lines with good formatting. With this function, you encode the subject, encode the body, put the two together, and return the link. Dom Christie made an awesome [JavaScript markdown converter](https://github.com/domchristie/to-markdown) that makes this function easy. You can use jQuery and a _&quot;Do The Thing&quot;_ button, to drive this function with one line of code:
 
-```
+```javascript
 $("#do-the-thing").click(function () {
     $("#link").attr("href", the_thing($("#subject").val(), $("#body").val())
 });
@@ -45,7 +44,7 @@ On the other hand, maybe you&#x27;re like me. Maybe you thought to yourself, _&q
 
 The utility we&#x27;re building makes a `mailto:` link with a `subject` and a `body`. That means we need two inputs - an `input` for the subject, and a `textarea` for the body. It takes 19 lines of nicely formatted JSX to build the subject input field:
 
-```
+```javascript
 // src/Subject.jsx
 
 const Subject = React.createClass({
@@ -55,17 +54,11 @@ const Subject = React.createClass({
 
     render: function () {
         return (
-            
-
-                Subject:
-                
-                
-
-This will become the prefilled subject line.
-
-
-            
-
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" class="form-control" id="subject" placeholder="Paste your subject line" value={this.props.value} onchange={this.update}>
+                <p class="help-block">This will become the prefilled subject line.</p>
+            </div>
         );
     }
 });
@@ -73,27 +66,27 @@ This will become the prefilled subject line.
 
 Our component returns a normal `input` field with a type, a class, and a placeholder. The change event is bound to `this.update` with `onChange`, and the `value` is set to `this.props.value`. This combination is where the magic happens. Whenever a user types into the input field, React calls `this.update()`, which in turn calls `Actions.update_subject`. Actions is a global collection of helper functions that trigger events on the dispatcher. We use `Actions` because it makes our code shorter. It looks like this:
 
-```
+```javascript
 const Actions = {
-    update_subject: function (subject) {
-        Dispatcher.dispatch({
-            actionType: Constants.UPDATE_SUBJECT,
-            subject: subject
-        });
-    },
+  update_subject: function (subject) {
+    Dispatcher.dispatch({
+      actionType: Constants.UPDATE_SUBJECT,
+      subject: subject,
+    });
+  },
 
-    update_body: function (body) {
-        Dispatcher.dispatch({
-            actionType: Constants.UPDATE_BODY,
-            body: body
-        });
-    }
+  update_body: function (body) {
+    Dispatcher.dispatch({
+      actionType: Constants.UPDATE_BODY,
+      body: body,
+    });
+  },
 };
 ```
 
 Just an object with some functions. When our component calls `update_subject`, it dispatches a new event on the dispatcher singleton with the correct `actionType`, and the new value. We&#x27;ll look at what happens after dispatching in the next subheading. It involves setting the `value` property to `this.props.value`, so don&#x27;t forget about that. Great, we&#x27;ve got the `Subject` component. The `Body` component looks the same, except it&#x27;s a `textarea`:
 
-```
+```javascript
 // src/Body.jsx
 
 const Body = React.createClass({
@@ -103,10 +96,9 @@ const Body = React.createClass({
 
     render: function () {
         return (
-            
-
-                Email Body:
-                                <p className="help-block">This will become the prefilled body.</p>
+            <div class="form-group">
+                <label for="body">Email Body:</label>
+                <textarea id="body" style="{{height:" "300px"}}="" class="form-control" placeholder="Paste your email body here. HTML is fine, we'll convert it to a text-only format." value={this.props.value} onchange={this.update}>                <p className="help-block">This will become the prefilled body.</p>
             </div>
         );
     }
@@ -313,5 +305,5 @@ Your mileage may vary.
 
 PS: I'm working on a book about testing React code, <a href="mailto:swizec@swizec.com?subject=I%20like%20testing%20React!&body=Hey%20Swizec%2C%20%20%0A%0AI%20want%20to%20learn%20more%20about%20writing%20tests%20for%20React%20code.%20%20%0A%0AIn%20particular%20I%20want%20to%20know%20more%20about%20______%20%20%0A%0ACheers%2C%20%20%0A~%20My%20Name">send me an email</a>, if you're interested
 
-<strong>Thanks</strong> to Will Fanguy, Tiffany Morgan, David Bairne, and Coletta Teske for reading draft copies of this article
+<strong>Thanks</strong> to Will Fanguy, Tiffany Morgan, David Bairne, and Coletta Teske for reading draft copies of this article</textarea></div>
 ```

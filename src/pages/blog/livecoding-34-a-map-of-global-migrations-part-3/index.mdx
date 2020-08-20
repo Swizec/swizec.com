@@ -45,15 +45,15 @@ We used Bostock&#x27;s [Point-Along-Line Interpolation](https://bl.ocks.org/mbos
 
 
 
-```
+```javascript
 function translateAlong(path) {
-    var l = path.getTotalLength();
-    return function(d, i, a) {
-        return function(t) {
-            var p = path.getPointAtLength(t * l);
-            return "translate(" + p.x + "," + p.y + ")";
-        };
+  var l = path.getTotalLength();
+  return function (d, i, a) {
+    return function (t) {
+      var p = path.getPointAtLength(t * l);
+      return "translate(" + p.x + "," + p.y + ")";
     };
+  };
 }
 ```
 
@@ -79,7 +79,7 @@ We apply it in our `MigrationLine` component like this:
 
 
 
-```
+```javascript
 // inside MigrationLine
     _transform(circle, delay) {
         const { start } = this.props,
@@ -177,7 +177,7 @@ Apply those on the visualization and you get working zooming and panning! Of any
 
 
 
-```
+```javascript
 // in SVG rendering component
     onZoom() {
         this.setState({
@@ -196,10 +196,11 @@ Apply those on the visualization and you get working zooming and panning! Of any
     // ...
     render() {
         return (
-            
-                
+            <svg width={width} height={height} ref="svg">
+                <g transform={this.transform}>
                 // ...
     }
+</g></svg>
 ```
 
 

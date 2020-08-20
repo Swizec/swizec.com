@@ -13,31 +13,33 @@ hero: ./img/blog-wp-content-uploads-2012-11-nyan-cat-testing2.png
 
 Let&#x27;s take for example a very simple echo server. I used [Express](http://expressjs.com/) to make things easier to play with in the Chrome console. Here&#x27;s the relevant part of _app.js_.
 
-```
-var server = exports.server = http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
+```javascript
+var server = (exports.server = http
+  .createServer(app)
+  .listen(app.get("port"), function () {
+    console.log("Express server listening on port " + app.get("port"));
+  }));
 
-var io = require('socket.io').listen(server);
+var io = require("socket.io").listen(server);
 io.set("log level", 0);
 ```
 
-```
-// the \important parts of echo server
+```javascript
+// the important parts of echo server
 io.sockets.on("connection", function (socket) {
-    socket.on("echo", function (msg, callback) {
-        callback = callback || function () {};
+  socket.on("echo", function (msg, callback) {
+    callback = callback || function () {};
 
-        socket.emit("echo", msg);
+    socket.emit("echo", msg);
 
-        callback(null, "Done.");
-    });
+    callback(null, "Done.");
+  });
 });
 ```
 
-After not forgetting to load _/socket.io/socket.io.js_ into the index page, I can now run the server, point my browser to _http&amp;#x3A;//localhost:3000_ and play around in the console like this:
+After not forgetting to load _/socket.io/socket.io.js_ into the index page, I can now run the server, point my browser to _http://localhost:3000_ and play around in the console like this:
 
-```
+```log
 > var socket = io.connect("http://localhost:3000")
 undefined
 > socket.on("echo", function (msg) { console.log(msg); })
@@ -51,7 +53,7 @@ Hello World
 
 Typing commands into a console, even clicking around a webpage is a rather arduous and boring process. The easiest way I&#x27;ve found to automate this is using Mocha and socket.io-client. First thing we&#x27;re going to need is requiring everything and making sure the socket.io server is running.
 
-```
+```javascript
 var chai = require('chai'),
     mocha = require('mocha'),
     should = chai.should();
@@ -76,33 +78,33 @@ describe("echo", function () {
 
 See, simple :) Now comes the interesting part, the actual test making sure our server does in fact echo what we ask it to.
 
-```
-    it("echos message", function (done) {
-        var client = io.connect("http://localhost:3000", options);
+```javascript
+it("echos message", function (done) {
+  var client = io.connect("http://localhost:3000", options);
 
-        client.once("connect", function () {
-            client.once("echo", function (message) {
-                message.should.equal("Hello World");
+  client.once("connect", function () {
+    client.once("echo", function (message) {
+      message.should.equal("Hello World");
 
-                client.disconnect();
-                done();
-            });
-
-            client.emit("echo", "Hello World");
-        });
+      client.disconnect();
+      done();
     });
+
+    client.emit("echo", "Hello World");
+  });
+});
 ```
 
 The idea behind this test is simple:
 
 1. Connect client to server
 2. Once there&#x27;s a connection, listen for _echo_ event from the server
-3. Emit _echo_event to the server
+3. Emit _echo _event to the server
 4. Server responds and triggers our listener
 5. Listener checks correctness of response
 6. Disconnects client
 
-Disconnecting clients after tests is **_very \\important_**. As I&#x27;ve discovered, not disconnecting can lead to the socket accumulating [event listeners](http://en.wikipedia.org/wiki/Observer_pattern "Observer pattern"), which in turn can fire completely different tests than what you expect. It also leads to tests that pass 70% of the time, but fail in random ways. In the end, our efforts are rewarded by a happy nyan cat. [![Nyan cat testing](http://swizec.com/blog/wp-content/uploads/2012/11/nyan-cat-testing.png "Nyan cat testing")](./img/blog-wp-content-uploads-2012-11-nyan-cat-testing.png) PS: you can see all the code [on github](https://github.com/Swizec/random-coding/tree/master/socket.io-testing). Maria Ramos from [Webhostinghub.com/support/edu](http://www.webhostinghub.com/support/edu) has translated this post into [Spanish](http://www.webhostinghub.com/support/es/misc/probando-aplicaciones-de-socketio).
+Disconnecting clients after tests is **_very important_**. As I&#x27;ve discovered, not disconnecting can lead to the socket accumulating [event listeners](http://en.wikipedia.org/wiki/Observer_pattern "Observer pattern"), which in turn can fire completely different tests than what you expect. It also leads to tests that pass 70% of the time, but fail in random ways. In the end, our efforts are rewarded by a happy nyan cat. [![Nyan cat testing](http://swizec.com/blog/wp-content/uploads/2012/11/nyan-cat-testing.png "Nyan cat testing")](./img/blog-wp-content-uploads-2012-11-nyan-cat-testing.png) PS: you can see all the code [on github](https://github.com/Swizec/random-coding/tree/master/socket.io-testing). Maria Ramos from [Webhostinghub.com/support/edu](http://www.webhostinghub.com/support/edu) has translated this post into [Spanish](http://www.webhostinghub.com/support/es/misc/probando-aplicaciones-de-socketio).
 
 ###### Related articles
 

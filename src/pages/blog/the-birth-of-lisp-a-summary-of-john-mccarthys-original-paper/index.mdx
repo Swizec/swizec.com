@@ -21,7 +21,7 @@ For starters we need some core mathematical constructs. These are well known, bu
 
 - _Conditional Expressions_ - a notation for expressing values depending on predicates, which was traditionally done using human words. For instance, definining the function _abs(x)_ benefits from this concept. Best explained with an example:
 
-  ```
+  ```math
   (1 < 2→4, 1 > 2→3) = 4
   (2 < 1→4, 2 > 1→3, 2 > 1→2) = 3
   (2 < 1→4,T →3) = 3
@@ -32,7 +32,7 @@ For starters we need some core mathematical constructs. These are well known, bu
 
 - _Recursive Function Definitions_ - because of the way _conditional expression_s are defined, we can use them recursively without falling into infinite loops:
 
-  ```
+  ```math
   n! = (n = 0→1,T →n · (n−1)!)
 
   2! = (2 = 0→1,T →2 · (2−1)!)
@@ -45,7 +45,7 @@ For starters we need some core mathematical constructs. These are well known, bu
 
   The paper also defines propositional operators as recursive functions, because this helps us handle intractability without messing everything up.
 
-  ```
+  ```math
   p ∧ q = (p→q,T →F)
   p ∨ q = (p→T,T →q)
   ¬p = (p→F,T →T)
@@ -54,7 +54,7 @@ For starters we need some core mathematical constructs. These are well known, bu
 
 - _Functions and Forms_ - the paper makes a distinction between forms - _y^2+x -_ and functions - _f(x) = ..._ - because we need a clean notation for applying functions to parameters. Thus the notion of a _lambda_ is introduced that takes arguments, binds them to an expression and returns the result:
 
-  ```
+  ```math
   λ((x, y), y^2 + x),
   λ((u, v), v^2 + u)
   and λ((y, x), x^2 +y)
@@ -63,34 +63,34 @@ For starters we need some core mathematical constructs. These are well known, bu
 
 - _Expressions and Recursive Functions_ - lambdas aren&#x27;t good enough for defining things recursively because you can&#x27;t have an operator as _&quot;the whole expression&quot;_. To fix this a _label_ is introduced that binds the lambda expression to a name, so it can be reused:
 
-  ```
+  ```math
   label(sqrt, λ((a, x, eps), (|x2 −a| < eps→x,T →sqrt(a, 1/2(x+ a/x), eps))))
   ```
 
 ## Recursive functions of Symbolic expressions
 
-Now that we have a solid basis, it&#x27;s time to define symbolic expressions (S-expressions for short), show how they can be used to define functions, how those functions can in turn be represented as S-expressions and finally we will define the all \\important _apply_ function, which lets the computer calculate anything. **S-expressions** are formed by using the special characters _dot, left-, right- parentheses_ \[_·_()] and distinguishable atomic symbols (defined in this paper as capital Latin letters, digits and a single space).
+Now that we have a solid basis, it&#x27;s time to define symbolic expressions (S-expressions for short), show how they can be used to define functions, how those functions can in turn be represented as S-expressions and finally we will define the all important _apply_ function, which lets the computer calculate anything. **S-expressions** are formed by using the special characters _dot, left-, right- parentheses_ \[_·_()] and distinguishable atomic symbols (defined in this paper as capital Latin letters, digits and a single space).
 
 1. Atomic symbols are S-expressions
 2. If _e1_ and _e2_ are S-expressions, so is _(e1 · e2)_
 
-So an S-expression is any ordered pair of S-expressions. Strictly speaking we are supposed to terminate any nesting of S-expressions with a _[NIL](http://en.wikipedia.org/wiki/NIL_%28programming_language%29 "NIL (programming language)")_, but we agree that _(m)_ stands for _(m_· NIL)__and that instead of a dot operator we can write expressions as lists, which makes our lives a lot easier
+So an S-expression is any ordered pair of S-expressions. Strictly speaking we are supposed to terminate any nesting of S-expressions with a _[NIL](http://en.wikipedia.org/wiki/NIL_%28programming_language%29 "NIL (programming language)")_, but we agree that _(m)_ stands for _(m_ · NIL) __and that instead of a dot operator we can write expressions as lists, which makes our lives a lot easier
 
-```
+```math
 ((AB,C),D) for ((AB · (C ·NIL)) · (D ·NIL))
 ((A,B),C,D·E) for ((A· (B ·NIL)) · (C · (D · E)))
 ```
 
 **Functions of S-expressions** use conventional notation, except they&#x27;re limited to lower case letters, brackets and semicolons to distinguish them from S-expressions. These are called M-expressions (meta-expressions)
 
-```
+```math
 car[x]
 car[cons[(A· B); x]]
 ```
 
-McCarthy then defines five**Elementary S-functions and Predicates**. _atom_ tells us whether something is atomic, _eq_ compares two atomic things and tells us if they&#x27;re equal, _car_ returns the left part of an S-expression, _cdr_ returns the right and _cons_ constructs an S-expression from two atoms.\\ By introducing **Recursive S-functions** we finally get a strong enough class of functions that we can construct all computable functions. McCarthy now defines a bunch of useful functions_-_let&#x27;s look at the example of _ff_, which returns the first element of an S-expression.
+McCarthy then defines five** Elementary S-functions and Predicates**. _atom_ tells us whether something is atomic, _eq_ compares two atomic things and tells us if they&#x27;re equal, _car_ returns the left part of an S-expression, _cdr_ returns the right and _cons_ constructs an S-expression from two atoms.\\ By introducing **Recursive S-functions** we finally get a strong enough class of functions that we can construct all computable functions. McCarthy now defines a bunch of useful functions_ - _let&#x27;s look at the example of _ff_, which returns the first element of an S-expression.
 
-```
+```math
 ff[x] = [atom[x]→x;T →ff[car[x]]]
 
 ff [((A · B) · C)] = A
@@ -109,21 +109,21 @@ calculation:
 = A
 ```
 
-The next thing we need is **Representing S-functions as S-expressions.**We do this simply by changing lowercase into uppercase and properly handling some cases around labels and quotes. The M-expression for subst
+The next thing we need is **Representing S-functions as S-expressions. **We do this simply by changing lowercase into uppercase and properly handling some cases around labels and quotes. The M-expression for subst
 
-```
+```math
 label [subst; λ [[x; y; z]; [atom [z] → [eq [y; z] → x; T → z]; T → cons [subst [x; y; car [z]]; subst [x; y; cdr [z]]]]]]
 ```
 
 becomes the S-expression
 
-```
+```math
 (LABEL, SUBST, (LAMBDA, (X, Y, Z), (COND ((ATOM, Z), (COND, (EQ, Y, Z), X), ((QUOTE, T), Z))), ((QUOTE, T), (CONS, (SUBST, X, Y, (CAR Z)), (SUBST, X, Y, (CDR, Z)))))))
 ```
 
 Soup. It looks like a soup of weird. But it&#x27;s very simple in principle. Add some tactical line breaks and code alignment and you get readable code!
 
-```
+```math
 (LABEL, SUBST,
         (LAMBDA, (X, Y, Z),
                  (COND ((ATOM, Z),
@@ -134,18 +134,18 @@ Soup. It looks like a soup of weird. But it&#x27;s very simple in principle. Add
                          (SUBST, X, Y, (CDR, Z)))))))
 ```
 
-**The Universal S-Function _apply_** is the all \\important function that gives us a way of applying a function to a list of arguments. It&#x27;s a bit tricky to define and reason about - all you have to keep in mind is that it behaves exactly the same as the function it is applying. The main consequence of this is that we can now implement a machine (an interpreter) that only needs to implement the _apply_ function and it can run any program we write.
+**The Universal S-Function _apply_** is the all important function that gives us a way of applying a function to a list of arguments. It&#x27;s a bit tricky to define and reason about - all you have to keep in mind is that it behaves exactly the same as the function it is applying. The main consequence of this is that we can now implement a machine (an interpreter) that only needs to implement the _apply_ function and it can run any program we write.
 
-```
+```math
 λ[[x; y]; cons[car[x]; y]][(A,B); (C,D)]
 = apply[(LAMBDA, (X,Y ), (CONS, (CAR,X),Y )); ((A,B), (C,D))] = (A,C,D)
 ```
 
-In the background, _apply_ is an expression that represents the value of the function applied to arguments, while _eval_ does the heavy lifting of calculation, which takes an expression and its &quot;name&quot; as arguments, so it can attach the value to something useful in the next step of calculation. And we&#x27;ve come at the juicy goodness of functional programming - **Functions with Functions as Arguments.**The idea is that we can use an S-expression as an argument for another S-expression similar to what we did with _apply_, except in a more generally useful way. The paramount example is _maplist_(called &quot;map&quot; these days), which applies a function to every member of a list to construct a different list - for instance increasing all values by +1.
+In the background, _apply_ is an expression that represents the value of the function applied to arguments, while _eval_ does the heavy lifting of calculation, which takes an expression and its &quot;name&quot; as arguments, so it can attach the value to something useful in the next step of calculation. And we&#x27;ve come at the juicy goodness of functional programming - **Functions with Functions as Arguments. **The idea is that we can use an S-expression as an argument for another S-expression similar to what we did with _apply_, except in a more generally useful way. The paramount example is _maplist _(called &quot;map&quot; these days), which applies a function to every member of a list to construct a different list - for instance increasing all values by +1.
 
 ## The LISP programming system
 
-LISP&#x27;s core is a system of translating S-expressions into list structures that can be evaluated by a computer. This system was intended for various uses, the ultimate of which was the Advice Taker system. **Representing S-Expressions by a List Structure** can be visualised with a set of connected boxes. Each box is divided into two parts - the right being the _address field_ and the left being the _decrement field_. They contain the locations for subexpressions returned by _car_ and _cdr_ respectively. \[caption id=&quot;attachment_5133&quot; align=&quot;alignnone&quot; width=&quot;465&quot; caption=&quot;List structure&quot;][![List structure](http://swizec.com/blog/wp-content/uploads/2012/08/list-structure.png "List structure")](./img/blog-wp-content-uploads-2012-08-list-structure.png)\[/caption] Substructures can be repeated, but cycles aren&#x27;t allowed - the bottom-right example wouldn&#x27;t fly. When subexpressions are repeated their in-memory representation depends mostly on the program&#x27;s history, but luckily this doesn&#x27;t affect the final result. The reason McCarthy prohibits circular structures is interesting - they might help with representing, say, recursive functions, but there are too many difficulties with printing them in a world with our topology. \[caption id=&quot;attachment_5134&quot; align=&quot;alignnone&quot; width=&quot;165&quot; caption=&quot;((A · B) · (C · (E · F)))&quot;][![((A · B) · (C · (E · F)))](http://swizec.com/blog/wp-content/uploads/2012/08/example-list-structure.png "((A · B) · (C · (E · F)))")](./img/blog-wp-content-uploads-2012-08-example-list-structure.png)\[/caption] When storing atomic symbols an **association list** is used. These are used for anything from print names, to memory locations of values - the machine uses them for whatever low-level concept it needs to make the mathematical principles of LISP work. For example, to store the word _DIFFERENTIATE_ in an association list on a computer with 6-bit words a structure such as this is used: \[caption id=&quot;attachment_5136&quot; align=&quot;alignnone&quot; width=&quot;370&quot; caption=&quot;Association list for &quot;DIFFERENTIATE&quot;&quot;][![Association list for &quot;DIFFERENTIATE&quot;](http://swizec.com/blog/wp-content/uploads/2012/08/association-list.png "Association list for &quot;DIFFERENTIATE&quot;")](./img/blog-wp-content-uploads-2012-08-association-list.png)\[/caption] Even back then computers had more memory than a typical program would be using at all times, so a concept of a **free storage list** was introduced. At its core, the free storage list is simply a list structure that catalogs all the available free memory and starts with a pointer called _FREE_. A straightforward concept no doubt, but it introduces the invention of **garbage collection**. Whenever a subexpression is no longer needed it can be added to the free storage list. And because we&#x27;re using lists, every single redeemed element is useful! Sweet! When our program runs out of free memory the garbage collector (called _&quot;a reclamation cycle&quot;_back then) goes through all accessible registers and marks them. Then it simply goes through the whole memory and anything that wasn&#x27;t marked as accessible gets added to the free storage list. It&#x27;s easy to imagine how the **elementary S-functions work in the Computer**_._They amount to nothing more than returning the correct part of the word. So _car_ returns the address value, _cdr_ the decrement value, _cons_ takes from free storage and fills the values ... and so on. Everything else is merely constructed from elementary functions. Another interesting observation is that talking about **representation of S-functions by Programs** McCarthy ever so casually introduces lazy evaluation by saying that compilation is simple and _&quot;conditional expressions must be so compiled that only the_p&#x27;s_and_e&#x27;s_that are required are computed&quot;_ There are some problems with compiling recursive functions because of a possibility of register collisions - needing a part of memory that is also used by the previous level of recursion - which is solved by employing a mechanism we now know as _The Stack_.
+LISP&#x27;s core is a system of translating S-expressions into list structures that can be evaluated by a computer. This system was intended for various uses, the ultimate of which was the Advice Taker system. **Representing S-Expressions by a List Structure** can be visualised with a set of connected boxes. Each box is divided into two parts - the right being the _address field_ and the left being the _decrement field_. They contain the locations for subexpressions returned by _car_ and _cdr_ respectively. \[caption id=&quot;attachment_5133&quot; align=&quot;alignnone&quot; width=&quot;465&quot; caption=&quot;List structure&quot;][![List structure](http://swizec.com/blog/wp-content/uploads/2012/08/list-structure.png "List structure")](./img/blog-wp-content-uploads-2012-08-list-structure.png)\[/caption] Substructures can be repeated, but cycles aren&#x27;t allowed - the bottom-right example wouldn&#x27;t fly. When subexpressions are repeated their in-memory representation depends mostly on the program&#x27;s history, but luckily this doesn&#x27;t affect the final result. The reason McCarthy prohibits circular structures is interesting - they might help with representing, say, recursive functions, but there are too many difficulties with printing them in a world with our topology. \[caption id=&quot;attachment_5134&quot; align=&quot;alignnone&quot; width=&quot;165&quot; caption=&quot;((A · B) · (C · (E · F)))&quot;][![((A · B) · (C · (E · F)))](http://swizec.com/blog/wp-content/uploads/2012/08/example-list-structure.png "((A · B) · (C · (E · F)))")](./img/blog-wp-content-uploads-2012-08-example-list-structure.png)\[/caption] When storing atomic symbols an **association list** is used. These are used for anything from print names, to memory locations of values - the machine uses them for whatever low-level concept it needs to make the mathematical principles of LISP work. For example, to store the word _DIFFERENTIATE_ in an association list on a computer with 6-bit words a structure such as this is used: \[caption id=&quot;attachment_5136&quot; align=&quot;alignnone&quot; width=&quot;370&quot; caption=&quot;Association list for &quot;DIFFERENTIATE&quot;&quot;][![Association list for &quot;DIFFERENTIATE&quot;](http://swizec.com/blog/wp-content/uploads/2012/08/association-list.png "Association list for &quot;DIFFERENTIATE&quot;")](./img/blog-wp-content-uploads-2012-08-association-list.png)\[/caption] Even back then computers had more memory than a typical program would be using at all times, so a concept of a **free storage list** was introduced. At its core, the free storage list is simply a list structure that catalogs all the available free memory and starts with a pointer called _FREE_. A straightforward concept no doubt, but it introduces the invention of **garbage collection**. Whenever a subexpression is no longer needed it can be added to the free storage list. And because we&#x27;re using lists, every single redeemed element is useful! Sweet! When our program runs out of free memory the garbage collector (called _&quot;a reclamation cycle&quot; _back then) goes through all accessible registers and marks them. Then it simply goes through the whole memory and anything that wasn&#x27;t marked as accessible gets added to the free storage list. It&#x27;s easy to imagine how the **elementary S-functions work in the Computer**_. _They amount to nothing more than returning the correct part of the word. So _car_ returns the address value, _cdr_ the decrement value, _cons_ takes from free storage and fills the values ... and so on. Everything else is merely constructed from elementary functions. Another interesting observation is that talking about **representation of S-functions by Programs** McCarthy ever so casually introduces lazy evaluation by saying that compilation is simple and _&quot;conditional expressions must be so compiled that only the _p&#x27;s_ and _e&#x27;s_ that are required are computed&quot;_ There are some problems with compiling recursive functions because of a possibility of register collisions - needing a part of memory that is also used by the previous level of recursion - which is solved by employing a mechanism we now know as _The Stack_.
 
 ## Fin
 

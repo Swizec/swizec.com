@@ -7,29 +7,9 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/blog-wp-content-uploads-2018-02-barchartcode.png
 ---
-The other day somebody asked me how to learn D3.js from scratch. I quipped that it took me writing a book to really learn it. It&#x27;s one hell ofa library.
+The other day somebody asked me how to learn D3.js from scratch. I quipped that it took me writing a book to really learn it. It&#x27;s one hell ofa library.Most people don&#x27;t go that far. They don&#x27;t have to. Most people start with a problem, find similar examples, do some copy pasta, tweak until it works and end up with a working visualization they don&#x27;t understand. You&#x27;d be surprised how few people actually understand how their D3 dataviz works.
 
-
-
-Most people don&#x27;t go that far. They don&#x27;t have to. Most people start with a problem, find similar examples, do some copy pasta, tweak until it works and end up with a working visualization they don&#x27;t understand. You&#x27;d be surprised how few people actually understand how their D3 dataviz works.
-
-
-
-> Anecdata: I wrote a book on it to learn it.  
->   
-> Normal curve is like this 👇  
->   
-> 1) have problem/idea  
-> 2) find similar example  
-> 3) tweak until solve  
-> 4) repeat  
-> 5) get frustrated  
-> 6) learn 1 or 2 basic concepts  
-> 7) epiphany  
-> 8) lose touch with why it felt hard at first  
-> 9) teach
->
-> — Swizec (@Swizec) [February 8, 2018](https://twitter.com/Swizec/status/961448920600604672?ref_src=twsrc%5Etfw)
+https://twitter.com/Swizec/status/961448920600604672?ref_src=twsrc%5Etfw
 
 
 
@@ -147,10 +127,11 @@ Colored shapes in the domain map to colors in the range. No formula for this one
 
 
 
-```
-let shapes = d3.scaleOrdinal()
+```undefined
+<code>let shapes = d3.scaleOrdinal()
                  .domain(['red triangle', 'orange rectangle', ...)
                  .range(['red', 'orange', ...)
+</code>
 ```
 
 
@@ -199,11 +180,12 @@ You take a `forceLayout` for example and feed it your data. It returns an object
 
 
 
-```
-var simulation = d3.forceSimulation()
+```undefined
+<code>var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }))
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2));
+</code>
 ```
 
 

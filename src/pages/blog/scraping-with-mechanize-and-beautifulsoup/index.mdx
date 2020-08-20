@@ -26,8 +26,8 @@ You won&#x27;t get away from the fiddliness, but there&#x27;s a lot you can do t
 
 Then you discover the website uses csrf protection and you have to make a script that will go to the form address, parse the form, find the csrf field, hold the proper cookie and so on ... Pain in the ass.
 
-```
-\import urllib, urllib2
+```python
+import urllib, urllib2
 
 req = urllib2.Request("http://example.com/form/submit/url"
                       data=urllib.urlencode({'field1': 'value',
@@ -50,8 +50,8 @@ With [Mechanize](http://wwwsearch.sourceforge.net/mechanize/development.html) th
 
 The beautiful thing is, mechanize will automatically handle csrf fields and most other popular forms of preventing bots doing their dirty business all over a website.
 
-```
-\import mechanize
+```python
+import mechanize
 
 browser.open('http://example.com/form/')
 browser.select_form(name='the_form')
@@ -70,8 +70,8 @@ Now isn&#x27;t that much easier and cleaner? The cool thing about Mechanize is t
 
 Ok, now we can get to the data. But how do we get the data itself? Unfortunately this is the fiddly part of the process and there isn&#x27;t much you can do about that. Your best bet is using BeautifulSoup to at least make the process of handling poorly written HTML without a big fuss. It will even make sure everything is unicode. Win! At least [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/) makes browsing [DOM](http://en.wikipedia.org/wiki/Document_Object_Model "Document Object Model") a breeze:
 
-```
-from bs4 \import BeautifulSoup
+```python
+from bs4 import BeautifulSoup
 
 soup = BeautifulSoup(browser.response().read())
 

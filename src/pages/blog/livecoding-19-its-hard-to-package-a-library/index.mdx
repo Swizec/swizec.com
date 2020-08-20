@@ -15,18 +15,18 @@ It did not go so well. After 1 hour and 45 minutes of fighting everything from W
 
 ![A not animated piechart](./img/blog-wp-content-uploads-2016-08-Screen-Shot-2016-08-14-at-23.13.04.png)
 
-A _not_ animated piechart that shows the ratio of British \\imports vs. exports in the year 1820. Exports are blue. The tiny dataset is from [A Handbook of Small Data Sets](http://www.stat.ncsu.edu/research/sas/sicl/data/).
+A _not_ animated piechart that shows the ratio of British imports vs. exports in the year 1820. Exports are blue. The tiny dataset is from [A Handbook of Small Data Sets](http://www.stat.ncsu.edu/research/sas/sicl/data/).
 
 We were going to build an animation that walks through the years in our dataset – 1820 through 1850 – and draws a 2-arc piechart for each year. If there was time, we’d add the ability for users to scroll through.
 
 Building the piechart itself was quick: Fetch and parse data with `d3.tsv('data.dat')`, call `setState` and build a 2-entry array as data for the piechart. Our tiny dataset gives only one number, so we have to infer the other.
 
-```
+```javascript
 // src/App.js
 
 componentDidMount() {
         d3.tsv('data.dat')
-          .row(({\imports, year}) => ({\imports: Number(\imports),
+          .row(({imports, year}) => ({imports: Number(imports),
                                       year: Number(year)}))
           .get((data) => {
               this.setState({data: data,
@@ -39,20 +39,21 @@ componentDidMount() {
 
         if (this.state.data.length) {
             const yearData = this.state.data[this.state.currentIndex],
-                  pieData = [{value: yearData.\imports},
-                             {value: 100-yearData.\imports}];
+                  pieData = [{value: yearData.imports},
+                             {value: 100-yearData.imports}];
 
-            pie = ;
+            pie = <animatedpiechart data={pieData} x="400" y="300" r="100">;
         }
         
         // return an svg, add the pie, etc
     }
 }
+</animatedpiechart>
 ```
 
 That’s how you’d use the `AnimatedPiechart` component once it works. The component itself wasn’t quick to build, too. It looks like this:
 
-```
+```javascript
 // src/AnimatedPiechart.js
 
 class Arc extends Component { // this would be TransitionableComponent
@@ -62,7 +63,7 @@ class Arc extends Component { // this would be TransitionableComponent
                       .outerRadius(this.props.outerRadius);
 
         return (
-            
+            <path d={arc(this.props.data)} style="{{fill:" this.props.color}}="">
         );
     }
 }
@@ -74,20 +75,21 @@ const AnimatedPiechart = ({ x, y, r, data }) => {
         colors = d3.scaleOrdinal(d3.schemeCategory10);
 
     return (
-        
+        <g transform={translate}>
             {pie.map((d, i) => (
-                
+                <arc key={`arc-${i}`} data={d} innerradius="0" outerradius={r} color={colors(i)}>
              ))}
-        
+        </arc></g>
     );
 };
+</path>
 ```
 
 A piechart is a collection of arcs. As such it doesn’t need to do much: use `d3.pie()` to turn a dataset into a piechart, then walk through it and render arcs.
 
-The arcs were supposed to use `TransitionableComponent` to become animated, but … heh … it didn’t actually work as a library. Published to npm and everything. 29 people even tried to use it! Couldn’t even \\import ?
+The arcs were supposed to use `TransitionableComponent` to become animated, but … heh … it didn’t actually work as a library. Published to npm and everything. 29 people even tried to use it! Couldn’t even import ?
 
-Calling `\import TransitionableComponent from 'react-transitionable-component'` produced a syntax error. Something like _“Unexpected token: export in index.js”_.
+Calling `import TransitionableComponent from 'react-transitionable-component'` produced a syntax error. Something like _“Unexpected token: export in index.js”_.
 
 When you publish a library, it has to be compiled. Nobody wants to build their whole node_modules directory every time they run Webpack, so configs always exclude it.
 
@@ -105,6 +107,6 @@ We also had to install 16 dependencies, which is insane. And we’re no closer t
 
 But, you can use react-transition-group as a library now \\o/
 
-Join me next time, when we use `TransitionableComponent` to build an animated piechart for real. Maybe even figure out how to do `\import Thing from 'd3-transform'` properly.
+Join me next time, when we use `TransitionableComponent` to build an animated piechart for real. Maybe even figure out how to do `import Thing from 'd3-transform'` properly.
 
 PS: the edited and improved versions of these videos are becoming a video course. Readers of the engineer package of [React+d3js ES6](http://swizec.com/reactd3js/) get the video course for free when it’s ready.

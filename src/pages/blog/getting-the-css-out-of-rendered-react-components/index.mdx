@@ -7,21 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/techletter.app-screenshot-1559573006863.png
 ---
-Here&#x27;s a fun problem for ya: How do you get the CSS from a rendered React component?
-
-
-
-
-
-Right-click, inspect element, see it in dev tools. D&#x27;oh 🙄
-
-
-
-What about programmatically?
-
-
-
-![thinking giphy](./img/media-kPtv3UIPrv36cjxqLs-giphy.gif)
+Here&#x27;s a fun problem for ya: How do you get the CSS from a rendered React component?Right-click, inspect element, see it in dev tools. D&#x27;oh 🙄What about programmatically?![thinking giphy](./img/media-kPtv3UIPrv36cjxqLs-giphy.gif)
 
 
 
@@ -69,7 +55,7 @@ You can watch me figure this one out in a livestream 👇
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=v-akMfXZZNE
+https://www.youtube.com/watch?v=v-akMfXZZNE
 
 
 
@@ -81,7 +67,7 @@ CodeSandbox to prove it works 👇
 
 
 
-[heuristic-leakey-b645b](https://codesandbox.io/embed/heuristic-leakey-b645b?fontsize=14)
+https://codesandbox.io/s/heuristic-leakey-b645b?fontsize=14
 
 
 
@@ -101,7 +87,7 @@ We can combine those to get a clean set of CSS rules. Scoped to the target compo
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1559573006863.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=\import%20css%20from%20%22css%22%3B%0A%0Afunction%20getClassNames(node)%20%7B%0A%20%20%20%20return%20%5B%0A%20%20%20%20%20%20%20%20node.className%2C%0A%20%20%20%20%20%20%20%20...Array.from(node.children).map(getClassNames)%0A%20%20%20%20%5D.flat()%3B%0A%7D%0A%0Aexport%20default%20function%20extractCSS(node)%20%7B%0A%20%20%20%20%2F%2F%20Collect%20class%20names%20for%20a%20DOM%20subtree%0A%20%20%20%20%2F%2F%20Works%20for%20styled-components%20and%20CSS%20modules%20(anything%20based%20on%20CSS%20classes)%0A%20%20%20%20const%20classNames%20%3D%20getClassNames(node)%0A%20%20%20%20%20%20%20%20.map(name%20%3D%3E%20name.split(%22%20%22))%0A%20%20%20%20%20%20%20%20.flat()%0A%20%20%20%20%20%20%20%20.map(name%20%3D%3E%20%60.%24%7Bname%7D%60)%3B%0A%0A%20%20%20%20%2F%2F%20Gets%20embedded%20CSS%20for%20the%20entire%20page%0A%20%20%20%20const%20cssStyles%20%3D%20Array.from(document.head.getElementsByTagName(%22style%22))%0A%20%20%20%20%20%20%20%20.map(style%20%3D%3E%20style.innerHTML)%0A%20%20%20%20%20%20%20%20.join(%22%22)%3B%0A%0A%20%20%20%20%2F%2F%20Filters%20CSS%20for%20our%20classes%0A%20%20%20%20const%20parsedCSS%20%3D%20css.parse(cssStyles)%3B%0A%20%20%20%20parsedCSS.stylesheet.rules%20%3D%20parsedCSS.stylesheet.rules%0A%20%20%20%20%20%20%20%20.filter(rule%20%3D%3E%20rule.type%20%3D%3D%3D%20%22rule%22)%0A%20%20%20%20%20%20%20%20.filter(rule%20%3D%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20rule.selectors.some(selector%20%3D%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20classNames.some(name%20%3D%3E%20name%20%3D%3D%3D%20selector)%0A%20%20%20%20%20%20%20%20%20%20%20%20)%0A%20%20%20%20%20%20%20%20)%3B%0A%0A%20%20%20%20return%20css.stringify(parsedCSS)%3B%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1559573006863.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=import%20css%20from%20%22css%22%3B%0A%0Afunction%20getClassNames(node)%20%7B%0A%20%20%20%20return%20%5B%0A%20%20%20%20%20%20%20%20node.className%2C%0A%20%20%20%20%20%20%20%20...Array.from(node.children).map(getClassNames)%0A%20%20%20%20%5D.flat()%3B%0A%7D%0A%0Aexport%20default%20function%20extractCSS(node)%20%7B%0A%20%20%20%20%2F%2F%20Collect%20class%20names%20for%20a%20DOM%20subtree%0A%20%20%20%20%2F%2F%20Works%20for%20styled-components%20and%20CSS%20modules%20(anything%20based%20on%20CSS%20classes)%0A%20%20%20%20const%20classNames%20%3D%20getClassNames(node)%0A%20%20%20%20%20%20%20%20.map(name%20%3D%3E%20name.split(%22%20%22))%0A%20%20%20%20%20%20%20%20.flat()%0A%20%20%20%20%20%20%20%20.map(name%20%3D%3E%20%60.%24%7Bname%7D%60)%3B%0A%0A%20%20%20%20%2F%2F%20Gets%20embedded%20CSS%20for%20the%20entire%20page%0A%20%20%20%20const%20cssStyles%20%3D%20Array.from(document.head.getElementsByTagName(%22style%22))%0A%20%20%20%20%20%20%20%20.map(style%20%3D%3E%20style.innerHTML)%0A%20%20%20%20%20%20%20%20.join(%22%22)%3B%0A%0A%20%20%20%20%2F%2F%20Filters%20CSS%20for%20our%20classes%0A%20%20%20%20const%20parsedCSS%20%3D%20css.parse(cssStyles)%3B%0A%20%20%20%20parsedCSS.stylesheet.rules%20%3D%20parsedCSS.stylesheet.rules%0A%20%20%20%20%20%20%20%20.filter(rule%20%3D%3E%20rule.type%20%3D%3D%3D%20%22rule%22)%0A%20%20%20%20%20%20%20%20.filter(rule%20%3D%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20rule.selectors.some(selector%20%3D%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20classNames.some(name%20%3D%3E%20name%20%3D%3D%3D%20selector)%0A%20%20%20%20%20%20%20%20%20%20%20%20)%0A%20%20%20%20%20%20%20%20)%3B%0A%0A%20%20%20%20return%20css.stringify(parsedCSS)%3B%0A%7D)
 
 
 

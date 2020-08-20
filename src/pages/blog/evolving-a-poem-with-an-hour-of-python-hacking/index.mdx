@@ -17,21 +17,21 @@ On Monday I got a little bored at class. This is something that is likely to hap
 
 Ok so the basics of evolution algorithms are pretty simple. You take a population of random stuff. With every generation you mutate the members, perform breeding amongst the best members and remove the worst members from the population. Yep, pretty much like natural selection+evolution in nature. Obviously this means that choosing a proper breeding and [fitness functions](http://en.wikipedia.org/wiki/Fitness_function "Fitness function") is crucial here. The mutation function isn&#x27;t very interesting ... and in fact as I discovered it&#x27;s almost better if you don&#x27;t have it at all. The real reason it&#x27;s usually there is because it helps the algorithm get out of local minimums.
 
-```
+```python
 def mutate(a):
     return "".join([random.choice(ALPHABET) if abs(random.random()-0.5) < MUTATE_CHANCE else k for k in a])
 ```
 
 Basically _mutate_ just goes through the string and [randomly](http://en.wikipedia.org/wiki/Randomness "Randomness") changes characters, if some event with a low chance of happening occurs.
 
-```
+```python
 def distance(a, b):
     return sum([1 if a[i]!=b[i] else 0 for i in range(len(a))])
 ```
 
 Distance between strings is my fitness function. It is roughly based on my understanding of Leiningen distance. It simply counts the number of characters that differ between two strings. Very basic stuff.
 
-```
+```python
 def compete(population):
     population.sort(key=lambda a: distance(a, TARGET))
     return population
@@ -39,7 +39,7 @@ def compete(population):
 
 My compete function is pretty basic as well. Because of python&#x27;s awesomeness and because my fitness function returns a simple integer, I can simply sort the population by distance. Lovely.
 
-```
+```python
 def breed(a, b):
     if random.random()-0.5 < BREED_CHANCE:
         s = random.randint(0, len(a)-10)
@@ -56,7 +56,7 @@ The breed function is where it gets interesting and I firmly believe the way I i
 
 I haven&#x27;t really put this algorithm through its paces, but I was pleasantly surprised when it only took 10 generations to evolve a [simple sentence](http://en.wikipedia.org/wiki/Simple_sentence "Simple sentence") and only about 150 generations to create a stanza of Hamlet. The Oscar Wilde poem mentioned earlier is taking a bit longer. After 1000 generations it seems to be mostly prancing around the 5-8 differences range and showing a general downward trend. The lowest peak I saw was at 4. It will probably finish eventually, but perhaps some tweaking of the settings is needed. At the time of writing the algorithm has managed to turn this:
 
-```
+```random
 llajC
 beq'abvnM.pvvTSEjl -S
 c ue-v,ub,
@@ -83,7 +83,7 @@ hrb-FltrDkt'atC
 
 Into this:
 
-```
+```random
 Oft have be trod the vales of Castaly
 And heard sweet notes of sylvan music blown
 From antique reeds to common folk unknown:

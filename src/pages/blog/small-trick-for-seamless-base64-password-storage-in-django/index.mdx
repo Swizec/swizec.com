@@ -21,7 +21,7 @@ The reason is in fact quite simple: External [API](http://en.wikipedia.org/wiki/
 
 That&#x27;s where base64 comes in. But since we don&#x27;t want to make our code silly, here&#x27;s a simple way of achieving this without ever having to worry about it again.
 
-```
+```python
 class PasswordManager(models.Manager):
     use_for_related_fields = True
 

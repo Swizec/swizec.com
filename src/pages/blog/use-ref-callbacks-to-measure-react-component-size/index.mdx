@@ -9,7 +9,7 @@ hero: ../../../defaultHero.jpg
 ---
 You can use ref callbacks to measure the rendered size of React components, did you know? It&#x27;s a neat little trick.
 
-
+https://codesandbox.io/s/71vx2q5r76
 
 
 
@@ -33,9 +33,9 @@ A minimal size reporting component looks like this 👇
 
 
 
-```
+```javascript
 class ReportSize extends React.Component {
-  refCallback = element => {
+  refCallback = (element) => {
     if (element) {
       this.props.getSize(element.getBoundingClientRect());
     }
@@ -43,11 +43,9 @@ class ReportSize extends React.Component {
 
   render() {
     return (
-      
-
+      <div ref={this.refCallback} style={{ border: "1px solid red" }}>
         {faker.lorem.paragraphs(Math.random() * 10)}
-      
-
+      </div>
     );
   }
 }
@@ -63,7 +61,7 @@ After React places this element, it calls `refCallback` with a reference to the 
 
 
 
-```
+```javascript
 {
   "x": 8,
   "y": 158.8125,
@@ -94,6 +92,8 @@ However, you might still have to do that if your component size changes _after_ 
 
 
 
+https://codesandbox.io/s/v6m4o48zl
+
 
 
 Clicking the `shuffle` button doesn&#x27;t report new sizing information up the hierarchy. That&#x27;s not good 🤔
@@ -108,6 +108,8 @@ You can solve the problem with a lock, like this 👇
 
 
 
+https://codesandbox.io/s/7jqmo1jn8j
+
 
 
 Keep clicking `shuffle` and sizing info is always correct.
@@ -118,7 +120,7 @@ The key is enabling size reporting when you logically know size is going to chan
 
 
 
-```
+```javascript
 shuffle = () => {
     this.doReportSize = true;
     this.setState({

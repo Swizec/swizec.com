@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=OnLho6re1aI
+https://www.youtube.com/watch?v=OnLho6re1aI
 
 
 
@@ -43,6 +43,8 @@ Here&#x27;s an example
 
 
 
+https://codesandbox.io/s/5v21r0wo4x?module=%2Fsrc%2FAxis.js
+
 
 
 Take some D3 code, wrap it in a function, pass it to a HOC (higher order component), and you&#x27;re done. The HOC renders an anchor element, and your render function uses D3 to take over and manipulate the DOM.
@@ -57,9 +59,10 @@ Turning that into a library was pretty easy 👇
 
 
 
-```
-$ nwb new react-component simple-react-d3
+```undefined
+<code>$ nwb new react-component simple-react-d3
 <copy pasta>
+</code>
 ```
 
 
@@ -88,7 +91,7 @@ I came up with this
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/978078833076142080
+https://twitter.com/Swizec/status/978078833076142080
 
 
 
@@ -104,43 +107,33 @@ Now you can use the blackbox approach any way you like.
 
 
 
-```
-const Axis = SVGBlackbox(function() {
-    const scale = d3
-        .scaleLinear()
-        .domain([0, 10])
-        .range([0, 200]);
-    const axis = d3.axisBottom(scale);
+```javascript
+const Axis = SVGBlackbox(function () {
+  const scale = d3.scaleLinear().domain([0, 10]).range([0, 200]);
+  const axis = d3.axisBottom(scale);
 
-    d3.select(this.refs.anchor).call(axis);
+  d3.select(this.refs.anchor).call(axis);
 });
 
 class Demo extends Component {
-    render() {
-        return (
-            
+  render() {
+    return (
+      <div>
+        <h1>simple-react-d3 demo</h1>
+        <svg width="300" height="200">
+          <axis x={10} y={10}></axis>
+          <svgblackbox x={10} y={50}>
+            {(anchor) => {
+              const scale = d3.scaleLinear().domain([0, 10]).range([0, 200]);
+              const axis = d3.axisBottom(scale);
 
-                
-simple-react-d3 demo
-
-                
-                    
-                    
-                        {anchor => {
-                            const scale = d3
-                                .scaleLinear()
-                                .domain([0, 10])
-                                .range([0, 200]);
-                            const axis = d3.axisBottom(scale);
-
-                            d3.select(anchor).call(axis);
-                        }}
-                    
-                
-            
-
-        );
-    }
+              d3.select(anchor).call(axis);
+            }}
+          </svgblackbox>
+        </svg>
+      </div>
+    );
+  }
 }
 ```
 
@@ -166,11 +159,11 @@ However, Sophie Alpert had some good suggestions 👇
 
 
 
-https&amp;#x3A;//twitter.com/sophiebits/status/978096124824137728
+https://twitter.com/sophiebits/status/978096124824137728
 
 
 
-https&amp;#x3A;//twitter.com/sophiebits/status/978123160947122180
+https://twitter.com/sophiebits/status/978123160947122180
 
 
 
@@ -182,7 +175,7 @@ The idea of shoving render prop stuff into the `ref` callback smells like black 
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=EWVT1Cp8F4o
+https://www.youtube.com/watch?v=EWVT1Cp8F4o
 
 
 

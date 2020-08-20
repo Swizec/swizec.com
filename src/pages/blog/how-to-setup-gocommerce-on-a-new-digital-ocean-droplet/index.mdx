@@ -83,8 +83,9 @@ Login to your server. My user was called `gocommerce`.
 
 
 
-```
-$ ssh gocommerce@<YOUR_IP>
+```undefined
+<code>$ ssh gocommerce@<YOUR_IP>
+</code>
 ```
 
 
@@ -97,9 +98,10 @@ Then install `sqlite3`. [SQLite](https://sqlite.org/) is a simple database that&
 
 
 
-```
-$ sudo apt-get update
+```undefined
+<code>$ sudo apt-get update
 $ sudo apt-get install sqlite3 sqlite3-dev
+</code>
 ```
 
 
@@ -144,10 +146,11 @@ You install Go with these `apt-get` incantations.
 
 
 
-```
-$ sudo add-apt-repository ppa:gophers/archive
+```undefined
+<code>$ sudo add-apt-repository ppa:gophers/archive
 $ sudo apt-get update
 $ sudo apt-get install golang-1.9-go
+</code>
 ```
 
 
@@ -156,10 +159,11 @@ I installed the incorrect version of Go at first, so I also had to overwrite its
 
 
 
-```
-$ cd /usr/bin
+```undefined
+<code>$ cd /usr/bin
 $ sudo rm go
 $ sudo ln -s /usr/lib/go-1.9/bin/go
+</code>
 ```
 
 
@@ -172,8 +176,9 @@ Then we get to create `$GOPATH` and set it up in our `.bashrc`.
 
 
 
-```
-$ vim ~/.bashrc
+```undefined
+<code>$ vim ~/.bashrc
+</code>
 ```
 
 
@@ -182,11 +187,12 @@ Add these lines at the end of that file:
 
 
 
-```
-export GOPATH="$HOME/go"
+```undefined
+<code>export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 export PATH="$PATH:/usr/local/go/bin"
+</code>
 ```
 
 
@@ -199,8 +205,9 @@ Next you have to create that directory →
 
 
 
-```
-$ mkdir -p ~/go/src
+```undefined
+<code>$ mkdir -p ~/go/src
+</code>
 ```
 
 
@@ -221,8 +228,9 @@ First, create the directory it&#x27;s going to live in.
 
 
 
-```
-$ mkdir ~/go/src/github.com/netlify
+```undefined
+<code>$ mkdir ~/go/src/github.com/netlify
+</code>
 ```
 
 
@@ -231,10 +239,11 @@ Next go there and clone the repo from Github. Ubuntu comes with git preinstalled
 
 
 
-```
-$ cd ~/go/src/github.com/netlify
+```undefined
+<code>$ cd ~/go/src/github.com/netlify
 $ make deps
 $ make build_linux
+</code>
 ```
 
 
@@ -259,8 +268,8 @@ You can see details in [Gocommerce README](https://github.com/netlify/gocommerce
 
 
 
-```
-GOCOMMERCE_SITE_URL=http://jamcommerce.netlify.com
+```undefined
+<code>GOCOMMERCE_SITE_URL=http://jamcommerce.netlify.com
 GOCOMMERCE_JWT_SECRET="thisissupersecret"
 GOCOMMERCE_DB_DRIVER=sqlite3
 DATABASE_URL=gotrue.db
@@ -275,6 +284,7 @@ GOCOMMERCE_MAILER_SUBJECTS_ORDER_CONFIRMATION="Thank you for your order!"
 GOCOMMERCE_MAILER_SUBJECTS_ORDER_RECEIVED="A new order has been placed"
 GOCOMMERCE_PAYMENT_STRIPE_ENABLED=true
 GOCOMMERCE_PAYMENT_STRIPE_SECRET_KEY=<your stripe key>
+</code>
 ```
 
 
@@ -315,8 +325,8 @@ To do this, you create `/etc/systemd/system/gocommerce.service`. I used vim, so 
 
 
 
-```
-[Unit]
+```undefined
+<code>[Unit]
 Description=Gocommerce Service
 After=network.target
 
@@ -329,6 +339,7 @@ Restart=on-abort
 
 [Install]
 WantedBy=multi-user.targer 
+</code>
 ```
 
 
@@ -341,8 +352,9 @@ You can now start the service.
 
 
 
-```
-$ systemctl start gocommerce
+```undefined
+<code>$ systemctl start gocommerce
+</code>
 ```
 
 

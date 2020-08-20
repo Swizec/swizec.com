@@ -70,9 +70,10 @@ We fixed that by building a map beforehand. Like this:
 
 
 
-```
+```javascript
 const countyValueMap = _.fromPairs(
-    this.props.values.map(d => [d.countyID, d.value]));
+  this.props.values.map((d) => [d.countyID, d.value])
+);
 ```
 
 
@@ -81,7 +82,7 @@ Then rendering `County` components in a loop, like this:
 
 
 
-```
+```javascript
 {counties.map((feature) => (
     
 ))}
@@ -105,18 +106,17 @@ The new `County` component looks like this:
 
 
 
-```
+```javascript
 class County extends Component {
-    shouldComponentUpdate(nextProps, nextState) {
-        const { zoom, value } = this.props;
+  shouldComponentUpdate(nextProps, nextState) {
+    const { zoom, value } = this.props;
 
-        return zoom !== nextProps.zoom
-            || value !== nextProps.value;
-    }
+    return zoom !== nextProps.zoom || value !== nextProps.value;
+  }
 
-        render() {
-            // body from previous functional stateless version
-        }
+  render() {
+    // body from previous functional stateless version
+  }
 }
 ```
 

@@ -7,11 +7,7 @@ redirect_from:
 categories: "Front End, Livecoding, OpenSource, Technical"
 hero: ../../../defaultHero.jpg
 ---
-Dude, open source is hard. People really do this every day!? 🤨
-
-
-
-I open sourced my [react-lazyload-fadein](https://github.com/Swizec/react-lazyload-fadein) component this weekend. 75 stars already. I guess people like it 💪
+Dude, open source is hard. People really do this every day!? 🤨I open sourced my [react-lazyload-fadein](https://github.com/Swizec/react-lazyload-fadein) component this weekend. 75 stars already. I guess people like it 💪
 
 
 
@@ -27,7 +23,7 @@ It builds on top of react-lazyload to give you a nice fade-in effect when your c
 
 
 
-[Building thecomponent](https://swizec.com/blog/fade-in-lazy-loaded-images-react-css-quick-guide/swizec/8163) was pretty quick. Learn the new API for React transitions, realize images have an `onLoad` event, package it up in a component. Easy 👌
+[Building the component](https://swizec.com/blog/fade-in-lazy-loaded-images-react-css-quick-guide/swizec/8163) was pretty quick. Learn the new API for React transitions, realize images have an `onLoad` event, package it up in a component. Easy 👌
 
 
 
@@ -39,7 +35,7 @@ You can see half of the [process on YouTube](https://www.youtube.com/watch?v=vPH
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=vPHWS9Kk9lI
+https://www.youtube.com/watch?v=vPHWS9Kk9lI
 
 
 
@@ -51,7 +47,7 @@ Here are a few lessons I learned:
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/965102216603344896
+https://twitter.com/Swizec/status/965102216603344896
 
 
 
@@ -75,8 +71,9 @@ Point is, you are trying to publish an isolated component. You still need _some_
 
 
 
-```
-nwb new react-component react-bla
+```undefined
+<code>nwb new react-component react-bla
+</code>
 ```
 
 
@@ -150,7 +147,7 @@ This duplication is annoying and creates work for you. But it&#x27;s worth it, I
 
 
 
-The React community is a bit silly and loves to invent new patterns to bicker about. Function as children, render props, \\import this way or that way.
+The React community is a bit silly and loves to invent new patterns to bicker about. Function as children, render props, import this way or that way.
 
 
 
@@ -158,11 +155,11 @@ Your component should support everything that&#x27;s practical. That makes you a
 
 
 
-Someone likes to do `\import FadeIn from 'react-lazyload-fadein'`? They can.
+Someone likes to do `import FadeIn from 'react-lazyload-fadein'`? They can.
 
 
 
-They prefer `\import { FadeIn } from 'react-lazyload-fadein'`? They can do that, too.
+They prefer `import { FadeIn } from 'react-lazyload-fadein'`? They can do that, too.
 
 
 
@@ -170,8 +167,9 @@ Wanna use function as children, my favorite? Yep, it works.
 
 
 
-```
-<FadeIn>{onload => <MyThing onLoad={onload} />}</FadeIn>
+```undefined
+<code><FadeIn>{onload => <MyThing onLoad={onload} />}</FadeIn>
+</code>
 ```
 
 
@@ -180,8 +178,9 @@ Using render props in your codebase? That works too.
 
 
 
-```
-<FadeIn render={onload => <MyThing onLoad={onload} />} />
+```undefined
+<code><FadeIn render={onload => <MyThing onLoad={onload} />} />
+</code>
 ```
 
 
@@ -194,16 +193,14 @@ And you know how hard it is to support both patterns?
 
 
 
-```
+```javascript
 render() {
     const { children, render } = this.props;
     return (
-        
-
+        <div>
             {children && children(this.onLoad)}
             {render && render(this.onLoad)}
-        
-
+        </div>
     )
 }
 ```

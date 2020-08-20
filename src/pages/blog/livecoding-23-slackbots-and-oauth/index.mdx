@@ -31,32 +31,36 @@ Then it’s going to say that this app is part of your team, _but it’s not_. Y
 
 On the server side, you’re in for a world of doubya-tee-eff, mate. If you’re on express.js, then you can use [Grant](https://github.com/simov/grant) to set up Slack OAuth somewhat painlessly. _In theory_, this is all it takes:
 
-```
+```javascript
 // app.js
-var session = require('express-session'),
-    Grant = require('grant-express');
+var session = require("express-session"),
+  Grant = require("grant-express");
 
 var grant = new Grant({
-    server: {
-        protocol: 'https',
-        host: 'swizec.ngrok.io',
-        callback: '/callback',
-        transport: 'session',
-        state: true
-    },
-    slack: {
-        key: '14110144963.81022664631',
-        secret: '24df277cd8e3d24e32087885c6ee7c80',
-        scope: ['chat:write:bot', 'chat:write:user', 'channels:read', 'commands', 'incoming-webhook'],
-        //callback: '/connect/slack/callback'
-    }
+  server: {
+    protocol: "https",
+    host: "swizec.ngrok.io",
+    callback: "/callback",
+    transport: "session",
+    state: true,
+  },
+  slack: {
+    key: "14110144963.81022664631",
+    secret: "24df277cd8e3d24e32087885c6ee7c80",
+    scope: [
+      "chat:write:bot",
+      "chat:write:user",
+      "channels:read",
+      "commands",
+      "incoming-webhook",
+    ],
+    //callback: '/connect/slack/callback'
+  },
 });
 
 // ...
 
-app.use(session({secret: 'grant',
-                 resave: false,
-                 saveUninitialized: true}));
+app.use(session({ secret: "grant", resave: false, saveUninitialized: true }));
 
 app.use(grant);
 ```

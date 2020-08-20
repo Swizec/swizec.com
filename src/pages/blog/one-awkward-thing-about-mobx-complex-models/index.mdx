@@ -31,26 +31,28 @@ A `User` model might look like this:
 
 
 
-```
+```javascript
 class User {
-    constructor(mainStore, id) {
-        this.mainStore = mainStore;
-        this.id = id;
-     
-        this.fetchFromAPI()
-    }
- 
-    @computed get url() {
-        return `/api/users/${id}`;
-    }
- 
-    @action fetchFromAPI() {
-        fetch(this.url)
-            .then(response => response.json())
-            .then(action('set-user-params', json => {
-                extendObservable(json);
-            }));
-    }
+  constructor(mainStore, id) {
+    this.mainStore = mainStore;
+    this.id = id;
+
+    this.fetchFromAPI();
+  }
+
+  @computed get url() {
+    return `/api/users/${id}`;
+  }
+
+  @action fetchFromAPI() {
+    fetch(this.url)
+      .then((response) => response.json())
+      .then(
+        action("set-user-params", (json) => {
+          extendObservable(json);
+        })
+      );
+  }
 }
 ```
 
@@ -96,7 +98,7 @@ You can fake a [maybe monad](#) in MobX using `when`, like this:
 
 
 
-```
+```javascript
 when(() => user.subject_statuses,
         () => // do stuff with data)
 ```
@@ -115,7 +117,7 @@ Let&#x27;s have a `mainStore` that looks a lot like the `User` model above. It m
 
 
 
-```
+```javascript
 const MainStore {
     @observable currentUser = null;
  
@@ -144,7 +146,7 @@ The API returns an object with many properties. In our example, let&#x27;s assum
 
 
 
-```
+```javascript
 {
     currentUser: {
         id: N,
@@ -192,17 +194,15 @@ Not that the number or naming of subjects ever changes.
 
 
 
-```
+```javascript
 const SubjectPicker = inject('mainStore')(observer(({ mainStore }) => {
     if (mainStore.subjects) {
         return (
-            
-
+            <div>
                 {mainStore.subjects.map((s, i) =>
-                    
+                    <subject subject={s} key={i}>
                  )}
-            
-
+            </subject></div>
         );
     } else {
         return null;
@@ -212,24 +212,20 @@ const SubjectPicker = inject('mainStore')(observer(({ mainStore }) => {
 
 
 
-Assume we put an instance of `MainStore` in a `` as `mainStore`. That gives us global access via `inject` and cleans up our codebase.
+Assume we put an instance of `MainStore` in a ``as `mainStore`. That gives us global access via `inject` and cleans up our codebase.
 
 
 
-A simplified `` component would look like this:
+A simplified ``component would look like this:
 
 
 
-```
+```javascript
 const Subject = observer(({ subject }) => (
-    
-
-        
-{subject.name}
-
-        {subject.userStatus.can_start_exam ? 'Go for it' : 'LoL Nope.'}
-    
-
+  <div>
+    <h3>{subject.name}</h3>
+    {subject.userStatus.can_start_exam ? "Go for it" : "LoL Nope."}
+  </div>
 ));
 ```
 
@@ -271,19 +267,20 @@ We need a new `Subject` model that knows about `currentUser`. It looks like this
 
 
 
-```
+```javascript
 class Subject {
-    @observable currentUser = null;
+  @observable currentUser = null;
 
-    constructor(currentUser, data) {
-        this.currentUser = currentUser;
-        extendObservable(this, data);
-    }
+  constructor(currentUser, data) {
+    this.currentUser = currentUser;
+    extendObservable(this, data);
+  }
 
-    @computed get userStatus() {
-        return this.currentUser.subject_statuses
-                            .find(s => this.id === s.subject_id);
-    }
+  @computed get userStatus() {
+    return this.currentUser.subject_statuses.find(
+      (s) => this.id === s.subject_id
+    );
+  }
 }
 ```
 
@@ -305,7 +302,7 @@ Anyway, in `MainStore`, we now do something like this:
 
 
 
-```
+```javascript
     @action setData(json) {
         this.currentUser = new User(this, json.currentUser.id);
         delete json.currentUser;

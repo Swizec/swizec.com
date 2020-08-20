@@ -21,12 +21,11 @@ But The Bug doesn’t happen! Let me show you.
 
 Ugh, promises don’t work in the console. That’s a bummer … never did like promises. It’s really just weird syntax sugar for callbacks.
 
-```
-fetch('bla.json')
-             .then(response => {
-                 console.log(response.ok); // prints true
-                 console.log(response.body); // ReadableStream O.o
-             });
+```javascript
+fetch("bla.json").then((response) => {
+  console.log(response.ok); // prints true
+  console.log(response.body); // ReadableStream O.o
+});
 ```
 
 `fetch()` issues an AJAX request to the server. When it’s done, it triggers the `then` part of its promise and gives it a `response` object. This object can do many useful things, one of which is to tell you if it was successful. Another is to give you a ReadableStream.
@@ -35,29 +34,26 @@ You probably don’t care about readable streams, so there are functions to pars
 
 They work like this:
 
-```
-fetch('bla.json')
-             .then(response => {
-                 response.json()
-                         .then((json) => console.log(json)); // Object {id: 1, hai: "hello"}
+```javascript
+fetch("bla.json").then((response) => {
+  response.json().then((json) => console.log(json)); // Object {id: 1, hai: "hello"}
 
-                 response.text()
-                         .then((text) => console.log(text)); // nothing
-             });
+  response.text().then((text) => console.log(text)); // nothing
+});
 ```
 
 The `json().then()` combination prints a JavaScript object parsed from our data. Which feels roundabout, but the internet tells me that promises are better than The Callback Hell.
 
 This:
 
-```
-fetch(url).then(data => data.body.json().then(real_data => doStuff))
+```javascript
+fetch(url).then((data) => data.body.json().then((real_data) => doStuff));
 ```
 
 Is supposed to be better than:
 
-```
-request.get('bla.json').end((err, res) => console.log(res.body));
+```javascript
+request.get("bla.json").end((err, res) => console.log(res.body));
 ```
 
 ¯\_(ツ)\_/¯
@@ -68,10 +64,10 @@ Maybe there’s no good reason you’d want to do that, but what if I _do_ want 
 
 There’s an even worse caveat, though. Let me show you what happens when your `fetch()` call returns a 404.
 
-```
-fetch('nope.json')
-           .catch(() => console.log('something went wrong')) // no error
-           .then((res) => console.log(res.ok)); // but not okay either
+```javascript
+fetch("nope.json")
+  .catch(() => console.log("something went wrong")) // no error
+  .then((res) => console.log(res.ok)); // but not okay either
 ```
 
 With promises, `catch()` should give us a chance to catch errors. This keeps our code cleaner because `then()` can focus on the happy path.

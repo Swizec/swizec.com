@@ -7,23 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/blog-wp-content-uploads-2017-12-advent-of-code-day20-particles-1024x575.jpg
 ---
-https&amp;#x3A;//www.youtube.com/watch?v=ekm7m9CDnBQ
-
-
-
-Day 20 smells like one of those problems that you have to math.
-
-
-
-https&amp;#x3A;//twitter.com/Swizec/status/943380787528835072
-
-
-
-You&#x27;re given a large list of particles that each have a velocity vector and an acceleration vector. Velocity tells you where they move and how fast. Acceleration tells you how velocity changes.
-
-
-
-You then have to figure out which particle will stay closest to the center – `<0,0,0>` – in the &quot;long term&quot;.
+https://www.youtube.com/watch?v=ekm7m9CDnBQDay 20 smells like one of those problems that you have to math.https://twitter.com/Swizec/status/943380787528835072You&#x27;re given a large list of particles that each have a velocity vector and an acceleration vector. Velocity tells you where they move and how fast. Acceleration tells you how velocity changes.You then have to figure out which particle will stay closest to the center – `<0,0,0>` – in the &quot;long term&quot;.
 
 
 
@@ -47,8 +31,8 @@ Say a particle starts at `p = <3,0,0>` and is moving away from center at `v = <3
 
 
 
-```
-p = <3,0,0>  v=<3,0,0>  a = <-1,0,0>
+```undefined
+<code>p = <3,0,0>  v=<3,0,0>  a = <-1,0,0>
 p = <5,0,0>  v=<2,0,0>  a = <-1,0,0>
 p = <6,0,0>  v=<1,0,0>  a = <-1,0,0>
 p = <6,0,0>  v=<0,0,0>  a = <-1,0,0>
@@ -56,6 +40,7 @@ p = <5,0,0>  v=<-1,0,0> a = <-1,0,0>
 p = <3,0,0>  v=<-2,0,0> a = <-1,0,0>
 p = <0,0,0>  v=<-3,0,0> a = <-1,0,0>
 ...
+</code>
 ```
 
 
@@ -88,16 +73,16 @@ The gist of our bruteforcing is the simulation function itself, the `tick`. It g
 
 
 
-```
+```javascript
 function tick(particles) {
-    return particles.map(({ p, v, a }) => {
-        v = v.map((n, i) => n + a[i]);
-        return {
-            p: p.map((n, i) => n + v[i]),
-            v: v,
-            a: a
-        };
-    });
+  return particles.map(({ p, v, a }) => {
+    v = v.map((n, i) => n + a[i]);
+    return {
+      p: p.map((n, i) => n + v[i]),
+      v: v,
+      a: a,
+    };
+  });
 }
 ```
 
@@ -111,19 +96,19 @@ We then also need a way to find the particle closest to center. That&#x27;s thes
 
 
 
-```
+```javascript
 function distance(particle) {
-    return particle.p.reduce((d, n) => d + Math.abs(n), 0);
+  return particle.p.reduce((d, n) => d + Math.abs(n), 0);
 }
 
 function closest(particles) {
-    return particles.reduce(
-        ({ min, index }, p, i) =>
-            distance(p) < min
-                ? { min: distance(p), index: i }
-                : { min: min, index: index },
-        { min: distance(particles[0]), index: 0 }
-    );
+  return particles.reduce(
+    ({ min, index }, p, i) =>
+      distance(p) < min
+        ? { min: distance(p), index: i }
+        : { min: min, index: index },
+    { min: distance(particles[0]), index: 0 }
+  );
 }
 ```
 
@@ -145,31 +130,31 @@ The longer you keep looking, the likelier that you&#x27;re at the best possible 
 
 
 
-```
+```javascript
 function star1(input) {
-    let particles = prepInput(input);
+  let particles = prepInput(input);
 
-    let stable = {
-        min: 0,
-        index: 0,
-        iterations_unchanged: 0
-    };
+  let stable = {
+    min: 0,
+    index: 0,
+    iterations_unchanged: 0,
+  };
 
-    while (stable.iterations_unchanged < 2000) {
-        particles = tick(particles);
+  while (stable.iterations_unchanged < 2000) {
+    particles = tick(particles);
 
-        const { min, index } = closest(particles);
+    const { min, index } = closest(particles);
 
-        if (stable.index === index) {
-            stable.iterations_unchanged += 1;
-        } else {
-            stable.min = min;
-            stable.index = index;
-            stable.iterations_unchanged = 0;
-        }
+    if (stable.index === index) {
+      stable.iterations_unchanged += 1;
+    } else {
+      stable.min = min;
+      stable.index = index;
+      stable.iterations_unchanged = 0;
     }
+  }
 
-    console.log(stable);
+  console.log(stable);
 }
 ```
 
@@ -211,20 +196,22 @@ The simplest approach is to compare every particle with every particle. Surprisi
 
 
 
-```
+```javascript
 function collision(particles) {
-    return particles.map((particle, idx) => {
-        const { p: [x, y, z] } = particle;
+  return particles.map((particle, idx) => {
+    const {
+      p: [x, y, z],
+    } = particle;
 
-        if (
-            particles.find(
-                ({ p }, i) => i !== idx && p[0] == x && p[1] == y && p[2] == z
-            )
-        ) {
-            particle.dead = true;
-        }
-        return particle;
-    });
+    if (
+      particles.find(
+        ({ p }, i) => i !== idx && p[0] == x && p[1] == y && p[2] == z
+      )
+    ) {
+      particle.dead = true;
+    }
+    return particle;
+  });
 }
 ```
 
@@ -238,27 +225,27 @@ To run the experiment, we then use a similar setup as before 👇
 
 
 
-```
+```javascript
 function star2(input) {
-    let particles = prepInput(input);
+  let particles = prepInput(input);
 
-    let stable = {
-        length: particles.length,
-        iterations_unchanged: 0
-    };
+  let stable = {
+    length: particles.length,
+    iterations_unchanged: 0,
+  };
 
-    while (stable.iterations_unchanged < 2000) {
-        particles = collision(tick(particles)).filter(({ dead }) => !dead);
+  while (stable.iterations_unchanged < 2000) {
+    particles = collision(tick(particles)).filter(({ dead }) => !dead);
 
-        if (stable.length === particles.length) {
-            stable.iterations_unchanged += 1;
-        } else {
-            stable.length = particles.length;
-            stable.iterations_unchanged = 0;
-        }
+    if (stable.length === particles.length) {
+      stable.iterations_unchanged += 1;
+    } else {
+      stable.length = particles.length;
+      stable.iterations_unchanged = 0;
     }
+  }
 
-    console.log(stable);
+  console.log(stable);
 }
 ```
 

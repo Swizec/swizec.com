@@ -9,13 +9,13 @@ hero: ../../../defaultHero.jpg
 ---
 You can be doing something straightforward. Say, listing some items from the database and giving them an `id` so javascript can reference them. Because you know names are unique, you decide to use those for `id`&#x27;s. You&#x27;re using them for URL&#x27;s too, so it makes sense. Simplifies [Backbone](http://backbonejs.org/) routing code. At this point experienced developers get the heebie jeebies. A tiny little voice screaming _&quot;Watch out!&quot;_ in the back of their head. I couldn&#x27;t remember why using `name` felt funny, so I ignored the little voice and barged on. I deployed. Bam. Didn&#x27;t work. After hours of debugging I finally traced the issue down to spaces in item names. Turns out `id="a word"` doesn&#x27;t work. Who&#x27;d&#x27;ve thought? (hint: everyone) But that&#x27;s an easy fix right? Just do something like:
 
-```
+```ruby
 id="<%= item.name.gsub(' ', '-') %>"
 ```
 
 Or add a function to the model. Whatever. The point is, all you have to do is replace spaces with dashes. Simple. But you&#x27;re wrong. You are creating a slug. It looks easy, but is actually very complicated. Luckily others have solved the problem already. Better than you. A quick Google search reveals a bunch of solutions do in fact exist, but [Stringex](https://github.com/rsl/stringex) comes out as the best solution for [Ruby](http://www.ruby-lang.org/ "Ruby (programming language)"). There should be plenty for any language you love. Why spend an hour looking for and learning how to use a gem instead of solving the problem in two minutes of coding? Because -&gt; from Stringex&#x27;s documentation:
 
-```
+```ruby
 # A simple prelude
 "simple English".to_url => "simple-english"
 "it's nothing at all".to_url => "its-nothing-at-all"

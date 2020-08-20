@@ -19,123 +19,200 @@ The only viable option was uglify-js. It&#x27;s a neatly packaged node.js module
 
 Here&#x27;s an example of a file that outputs its own AST to give you a feel for what I&#x27;m talking about:
 
-```
-var parser = require('uglify-js').parser;
-var util = require('util');
+```javascript
+var parser = require("uglify-js").parser;
+var util = require("util");
 
-(function get_ast (path, callback) {
-    require('fs').readFile(path, 'utf-8', function (err, data) {
-        if (err) throw err;
+(function get_ast(path, callback) {
+  require("fs").readFile(path, "utf-8", function (err, data) {
+    if (err) throw err;
 
-        callback(parser.parse(data));
-    });
-})('./example.js', function (data) {
-    console.log(util.inspect(data, true, null));
+    callback(parser.parse(data));
+  });
+})("./example.js", function (data) {
+  console.log(util.inspect(data, true, null));
 });
 ```
 
 The file parses itself and outputs a tree encoded as a javascript array (scroll past the insanity, there&#x27;s a bit more text there):
 
-```
-[ 'toplevel',
-  [ [ 'var',
-      [ [ 'parser',
-          [ 'dot',
-            [ 'call',
-              [ 'name', 'require', [length]: 2 ],
-              [ [ 'string', 'uglify-js', [length]: 2 ],
-                [length]: 1 ],
-              [length]: 3 ],
-            'parser',
-            [length]: 3 ],
-          [length]: 2 ],
-        [length]: 1 ],
-      [length]: 2 ],
-    [ 'var',
-      [ [ 'util',
-          [ 'call',
-            [ 'name', 'require', [length]: 2 ],
-            [ [ 'string', 'util', [length]: 2 ], [length]: 1 ],
-            [length]: 3 ],
-          [length]: 2 ],
-        [length]: 1 ],
-      [length]: 2 ],
-    [ 'stat',
-      [ 'call',
-        [ 'function',
-          'get_ast',
-          [ 'path', 'callback', [length]: 2 ],
-          [ [ 'stat',
-              [ 'call',
-                [ 'dot',
-                  [ 'call',
-                    [ 'name', 'require', [length]: 2 ],
-                    [ [ 'string', 'fs', [length]: 2 ], [length]: 1 ],
-                    [length]: 3 ],
-                  'readFile',
-                  [length]: 3 ],
-                [ [ 'name', 'path', [length]: 2 ],
-                  [ 'string', 'utf-8', [length]: 2 ],
-                  [ 'function',
+```javascript
+[
+  "toplevel",
+  [
+    [
+      "var",
+      [
+        [
+          "parser",
+          [
+            "dot",
+            [
+              "call",
+              ["name", "require", ([length]: 2)],
+              [["string", "uglify-js", ([length]: 2)], ([length]: 1)],
+              ([length]: 3),
+            ],
+            "parser",
+            ([length]: 3),
+          ],
+          ([length]: 2),
+        ],
+        ([length]: 1),
+      ],
+      ([length]: 2),
+    ],
+    [
+      "var",
+      [
+        [
+          "util",
+          [
+            "call",
+            ["name", "require", ([length]: 2)],
+            [["string", "util", ([length]: 2)], ([length]: 1)],
+            ([length]: 3),
+          ],
+          ([length]: 2),
+        ],
+        ([length]: 1),
+      ],
+      ([length]: 2),
+    ],
+    [
+      "stat",
+      [
+        "call",
+        [
+          "function",
+          "get_ast",
+          ["path", "callback", ([length]: 2)],
+          [
+            [
+              "stat",
+              [
+                "call",
+                [
+                  "dot",
+                  [
+                    "call",
+                    ["name", "require", ([length]: 2)],
+                    [["string", "fs", ([length]: 2)], ([length]: 1)],
+                    ([length]: 3),
+                  ],
+                  "readFile",
+                  ([length]: 3),
+                ],
+                [
+                  ["name", "path", ([length]: 2)],
+                  ["string", "utf-8", ([length]: 2)],
+                  [
+                    "function",
                     null,
-                    [ 'err', 'data', [length]: 2 ],
-                    [ [ 'if',
-                        [ 'name', 'err', [length]: 2 ],
-                        [ 'throw',
-                          [ 'name', 'err', [length]: 2 ],
-                          [length]: 2 ],
+                    ["err", "data", ([length]: 2)],
+                    [
+                      [
+                        "if",
+                        ["name", "err", ([length]: 2)],
+                        [
+                          "throw",
+                          ["name", "err", ([length]: 2)],
+                          ([length]: 2),
+                        ],
                         undefined,
-                        [length]: 4 ],
-                      [ 'stat',
-                        [ 'call',
-                          [ 'name', 'callback', [length]: 2 ],
-                          [ [ 'call',
-                              [ 'dot',
-                                [ 'name', 'parser', [length]: 2 ],
-                                'parse',
-                                [length]: 3 ],
-                              [ [ 'name', 'data', [length]: 2 ], [length]: 1 ],
-                              [length]: 3 ],
-                            [length]: 1 ],
-                          [length]: 3 ],
-                        [length]: 2 ],
-                      [length]: 2 ],
-                    [length]: 4 ],
-                  [length]: 3 ],
-                [length]: 3 ],
-              [length]: 2 ],
-            [length]: 1 ],
-          [length]: 4 ],
-        [ [ 'string', './example.js', [length]: 2 ],
-          [ 'function',
+                        ([length]: 4),
+                      ],
+                      [
+                        "stat",
+                        [
+                          "call",
+                          ["name", "callback", ([length]: 2)],
+                          [
+                            [
+                              "call",
+                              [
+                                "dot",
+                                ["name", "parser", ([length]: 2)],
+                                "parse",
+                                ([length]: 3),
+                              ],
+                              [["name", "data", ([length]: 2)], ([length]: 1)],
+                              ([length]: 3),
+                            ],
+                            ([length]: 1),
+                          ],
+                          ([length]: 3),
+                        ],
+                        ([length]: 2),
+                      ],
+                      ([length]: 2),
+                    ],
+                    ([length]: 4),
+                  ],
+                  ([length]: 3),
+                ],
+                ([length]: 3),
+              ],
+              ([length]: 2),
+            ],
+            ([length]: 1),
+          ],
+          ([length]: 4),
+        ],
+        [
+          ["string", "./example.js", ([length]: 2)],
+          [
+            "function",
             null,
-            [ 'data', [length]: 1 ],
-            [ [ 'stat',
-                [ 'call',
-                  [ 'dot',
-                    [ 'name', 'console', [length]: 2 ],
-                    'log',
-                    [length]: 3 ],
-                  [ [ 'call',
-                      [ 'dot',
-                        [ 'name', 'util', [length]: 2 ],
-                        'inspect',
-                        [length]: 3 ],
-                      [ [ 'name', 'data', [length]: 2 ],
-                        [ 'name', 'true', [length]: 2 ],
-                        [ 'name', 'null', [length]: 2 ],
-                        [length]: 3 ],
-                      [length]: 3 ],
-                    [length]: 1 ],
-                  [length]: 3 ],
-                [length]: 2 ],
-              [length]: 1 ],
-            [length]: 4 ],
-          [length]: 2 ],
-        [length]: 3 ],
-      [length]: 2 ],
-    [length]: 3 ],
-  [length]: 2 ]
+            ["data", ([length]: 1)],
+            [
+              [
+                "stat",
+                [
+                  "call",
+                  [
+                    "dot",
+                    ["name", "console", ([length]: 2)],
+                    "log",
+                    ([length]: 3),
+                  ],
+                  [
+                    [
+                      "call",
+                      [
+                        "dot",
+                        ["name", "util", ([length]: 2)],
+                        "inspect",
+                        ([length]: 3),
+                      ],
+                      [
+                        ["name", "data", ([length]: 2)],
+                        ["name", "true", ([length]: 2)],
+                        ["name", "null", ([length]: 2)],
+                        ([length]: 3),
+                      ],
+                      ([length]: 3),
+                    ],
+                    ([length]: 1),
+                  ],
+                  ([length]: 3),
+                ],
+                ([length]: 2),
+              ],
+              ([length]: 1),
+            ],
+            ([length]: 4),
+          ],
+          ([length]: 2),
+        ],
+        ([length]: 3),
+      ],
+      ([length]: 2),
+    ],
+    ([length]: 3),
+  ],
+  ([length]: 2),
+];
 ```
 
 ## Conclusion

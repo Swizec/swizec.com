@@ -57,7 +57,7 @@ You can watch me flounder around trying different solutions in this stream from 
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=8IOHiwI74Fc
+https://www.youtube.com/watch?v=8IOHiwI74Fc
 
 
 
@@ -69,7 +69,7 @@ Oh there&#x27;s also a codesandbox you can check out:
 
 
 
-https&amp;#x3A;//codesandbox.io/s/7mlxwrjw4x
+https://codesandbox.io/s/7mlxwrjw4x
 
 
 
@@ -77,7 +77,7 @@ Or read this online 👉 <https://reactviz.holiday/gift-stockings/>
 
 
 
-Click here, if you&#x27;d like a daily dataviz tutorial/challenge until Christmas 👉 https&amp;#x3A;//reactviz.holiday/
+Click here, if you&#x27;d like a daily dataviz tutorial/challenge until Christmas 👉 https://reactviz.holiday/
 
 
 
@@ -85,14 +85,14 @@ Click here, if you&#x27;d like a daily dataviz tutorial/challenge until Christma
 
 
 
-```
+```javascript
 const [tooltip, setTooltip] = useState({
   show: false,
   x: 0,
   y: 0,
-  content: '',
+  content: "",
   orientLeft: false,
-})
+});
 ```
 
 
@@ -105,8 +105,11 @@ To make changing this state easier, we sneakily include `setTooltip` in the obje
 
 
 
-```
-
+```javascript
+<tooltipcontext
+  class="provider"
+  value={{ ...tooltip, settooltip }}
+></tooltipcontext>;
 ```
 
 
@@ -127,16 +130,16 @@ Our `<Tooltip>` component doesn&#x27;t do much on its own. It&#x27;s a wrapper t
 
 
 
-```
+```javascript
 const Tooltip = ({ width, height, children }) => {
   const { x, y, show, orientLeft } = useContext(TooltipContext)
 
   return (
-    
-      
+    <g transform="{`translate(${orientLeft" ?="" x="" -="" width="" :="" x},="" ${y})`}="" style={{ visibility: show 'visible' 'hidden' }}>
+      <foreignobject width={width} height={height}>
         {children}
-      
-    
+      </foreignobject>
+    </g>
   )
 }
 ```
@@ -159,18 +162,18 @@ The `Tooltip.js` file also exports a React Context.
 
 
 
-```
+```javascript
 const TooltipContext = React.createContext({
   show: false,
   x: 0,
   y: 0,
   orientLeft: false,
-  content: '',
-})
+  content: "",
+});
 
 // ...
-export default Tooltip
-export { TooltipContext }
+export default Tooltip;
+export { TooltipContext };
 ```
 
 
@@ -187,8 +190,8 @@ Rendering our tooltip happens in the main App component. It also holds tooltip s
 
 
 
-```
-\import Tooltip, { TooltipContext } from "./Tooltip";
+```javascript
+import Tooltip, { TooltipContext } from "./Tooltip";
 
 // ...
 
@@ -202,22 +205,22 @@ function App() {
   });
 
   return (
-      
-        
+      <tooltipcontext class="provider" value={{ ...tooltip, settooltip }}>
+        <svg width="800" height="600">
           {* // where you put tooltip triggerers *}
 
-          
-            {tooltip.content}
-          
-        
-      
+          <tooltip width={150} height={60}>
+            <tooltipp>{tooltip.content}</tooltipp>
+          </tooltip>
+        </svg>
+      </tooltipcontext>
   );
 }
 ```
 
 
 
-We \\import tooltip and its context, then `useState` to create a local `tooltip` state and its setter. Pass both of those in a common object into a `<TooltipContext.Provider`.
+We import tooltip and its context, then `useState` to create a local `tooltip` state and its setter. Pass both of those in a common object into a `<TooltipContext.Provider`.
 
 
 
@@ -233,14 +236,12 @@ Render our Tooltip as a sibling to all the other SVG stuff. Any components that 
 
 
 
-```
+```javascript
 const TooltipP = styled.p`
-  background: ${chroma('green')
-    .brighten()
-    .hex()};
+  background: ${chroma("green").brighten().hex()};
   border-radius: 3px;
   padding: 1em;
-`
+`;
 ```
 
 
@@ -269,7 +270,7 @@ We split it into the main donut component and a component for each slice, or `<A
 
 
 
-```
+```javascript
 const Arc = ({ d, r, color, offsetX, offsetY }) => {
   const [selected, setSelected] = useState(false)
   const tooltipContext = useContext(TooltipContext)
@@ -299,9 +300,10 @@ const Arc = ({ d, r, color, offsetX, offsetY }) => {
   }
 
   return (
-    
+    <path d={arc(d)} fill={color} onmouseover={mouseOver} onmouseout={mouseOut} style={{ cursor: 'pointer' }}>
   )
 }
+</path>
 ```
 
 
@@ -322,19 +324,19 @@ All that is followed by our mouse eve handling fucntions.
 
 
 
-```
+```javascript
 const mouseOver = () => {
-  const [x, y] = arc.centroid(d)
+  const [x, y] = arc.centroid(d);
 
-  setSelected(true)
+  setSelected(true);
   tooltipContext.setTooltip({
     show: d.index !== null,
     x: x + offsetX + 30,
     y: y + offsetY + 30,
     content: d.data.stuffer,
     orientLeft: offsetX < 0,
-  })
-}
+  });
+};
 ```
 
 
@@ -351,11 +353,11 @@ Deselecting the arc happens in a `mouseOut` function
 
 
 
-```
+```javascript
 const mouseOut = () => {
-  setSelected(false)
-  tooltipContext.setTooltip({ show: false })
-}
+  setSelected(false);
+  tooltipContext.setTooltip({ show: false });
+};
 ```
 
 
@@ -368,10 +370,11 @@ With all that defined, rendering our arc is a matter of returning a path with so
 
 
 
-```
+```javascript
 return (
-  
+  <path d={arc(d)} fill={color} onmouseover={mouseOver} onmouseout={mouseOut} style={{ cursor: 'pointer' }}>
 )
+</path>
 ```
 
 
@@ -388,17 +391,17 @@ We did all the complicated state and tooltip stuff in individual arcs. The donut
 
 
 
-```
+```javascript
 const StockingDonut = ({ data, x, y, r }) => {
   const pie = d3.pie().value(d => d.percentage)
 
   const color = chroma.brewer.set3
   return (
-    
+    <g transform="{`translate(${x}," ${y})`}="">
       {pie(data).map(d => (
-        
+        <arc d={d} color={color[d.index]} r={r} key={d.index} offsetx={x} offsety={y}>
       ))}
-    
+    </arc></g>
   )
 }
 ```
@@ -437,7 +440,7 @@ You need a global way to store info about the tooltip and some way to trigger it
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/1071461874170945536
+https://twitter.com/Swizec/status/1071461874170945536
 
 
 
@@ -445,18 +448,15 @@ Got tired of the `useState`/`useEffect` dance when loading data with hooks. Buil
 
 
 
-```
+```javascript
 function useData(loadData) {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState(null);
 
-  useEffect(
-    () => {
-      loadData(setData)
-    },
-    [!data]
-  )
+  useEffect(() => {
+    loadData(setData);
+  }, [!data]);
 
-  return data
+  return data;
 }
 ```
 
@@ -470,7 +470,7 @@ You use it like this 👇
 
 
 
-```
+```javascript
 function App() {
   const data = useData(setData =>
     d3

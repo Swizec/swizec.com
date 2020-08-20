@@ -7,21 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/techletter.app-screenshot-1547664644055.png
 ---
-Wanna get a room full of React engineers talking? Mention state management.
-
-
-
-
-
-Everyone has their favorite library. The Redux camp loves their actions and reducers and sagas and whatnot. The MobX camp loves observers and actions and overwritten object defaults and magic.
-
-
-
-Both say their way is simplest. Both hide many footguns.
-
-
-
-[![https://twitter.com/thekitze/status/1085062217312153600](./img/techletter.app-screenshot-1547664644055.png)](https://twitter.com/thekitze/status/1085062217312153600)
+Wanna get a room full of React engineers talking? Mention state management.Everyone has their favorite library. The Redux camp loves their actions and reducers and sagas and whatnot. The MobX camp loves observers and actions and overwritten object defaults and magic. Both say their way is simplest. Both hide many footguns. [![https://twitter.com/thekitze/status/1085062217312153600](./img/techletter.app-screenshot-1547664644055.png)](https://twitter.com/thekitze/status/1085062217312153600)
 
 
 
@@ -49,7 +35,7 @@ Contrary to popular belief, you don&#x27;t need complex state management to buil
 
 
 
-```
+```javascript
 class Field extends React.Component {
     state = {
         value: "",
@@ -70,7 +56,7 @@ class Field extends React.Component {
         const { value, error } = this.state;
         return (
             <>
-                
+                <input value={value} onchange={this.onChange}>
                 {error}
             
         )
@@ -92,18 +78,17 @@ A login form can reuse this field twice.
 
 
 
-```
+```javascript
 class Login extends React.Component {
-    render() {
-        return (
-            
-
-                
-                
-            
-
-        )
-    }
+  render() {
+    return (
+      <div>
+        <field>
+          <field></field>
+        </field>
+      </div>
+    );
+  }
 }
 ```
 
@@ -129,10 +114,10 @@ Something like this, then 👇
 
 
 
-```
+```javascript
 const Field = ({ onChange, value, error }) => (
     <>
-        
+        <input value={value} onchange={onChange}>
         {error}
     
 )
@@ -187,14 +172,15 @@ class Login extends React.Component {
     render() {
         const { user, pass, error } = this.state;
         return (
-            
-                
-                
+            <form>
+                <field value={user.value} error={user.error} onchange={this.onChangeUser}>
+                <field value={pass.value} error={pass.error} onchange={this.onChangePass}>
                 {error}
             
         )
     }
 }
+</field></field></form>
 ```
 
 
@@ -221,7 +207,7 @@ The modern context API makes it pretty painless to create ad-hoc contexts that s
 
 
 
-```
+```javascript
 const FormContext = React.createContext();
 ```
 
@@ -231,7 +217,7 @@ This creates a `FormContext` We&#x27;re using it in a contrived way and I&#x27;l
 
 
 
-```
+```javascript
 class Field extends React.Component {
     state = {
         value: this.props.value,
@@ -254,19 +240,20 @@ class Field extends React.Component {
         const { value, error } = this.state;
         return (
             <>
-                
+                <input value={value} onchange={this.onChange}>
                 {error}
             
         )
     }
 }
 const ContextField = ({ name }) => (
-    
+    <formcontext class="consumer">
         {(state) => (
-             state.onChange(value, name) />
+            <field value={name} returnvalue="{value" ==""> state.onChange(value, name) />
         )}
     
-)
+)<br>
+</field></formcontext>
 ```
 
 
@@ -287,34 +274,38 @@ The Login form then looks like this:
 
 
 
-```
+```javascript
 class Login extends React.Component {
-    state = {
-        user: "",
-        pass: "",
-        error: "",
-        onChange: (value, field) => this.setState({
-            [field]: value
-        }, this.validate)
+  state = {
+    user: "",
+    pass: "",
+    error: "",
+    onChange: (value, field) =>
+      this.setState(
+        {
+          [field]: value,
+        },
+        this.validate
+      ),
+  };
+  validate = () => {
+    const { user, pass } = this.state;
+    if (!someValidation(user) || !someValidation(pass)) {
+      this.setState({
+        error: "A lovely form error",
+      });
     }
-    validate = () => {
-        const { user, pass } = this.state;
-        if (!someValidation(user) || !someValidation(pass)) {
-            this.setState({
-                error: "A lovely form error"
-            });
-        }
-    }
-    render() {
-        const { error } = this.state;
-        return (
-            
-                
-                
-                {error}
-            
-        )
-    }
+  };
+  render() {
+    const { error } = this.state;
+    return (
+      <formcontext class="provider" value={this.state}>
+        <contextfield name="user">
+          <contextfield name="pass">{error}</contextfield>
+        </contextfield>
+      </formcontext>
+    );
+  }
 }
 ```
 
@@ -344,7 +335,7 @@ Check out that same field implemented with React hooks 👇
 
 
 
-```
+```javascript
 const Field = ({ value, returnValue }) => {
     const [state, setState] = useState(value);
     const [error, setError] = useState("");
@@ -357,7 +348,7 @@ const Field = ({ value, returnValue }) => {
     }, [state])
     return (
         <>
-             setState(event.target.value)} />
+            <input value={state} onchange="{event" ==""> setState(event.target.value)} />
         
     )
 }
@@ -385,7 +376,7 @@ Rather than messing around with `useContext`, I suggest using [Constate](https:/
 
 
 
-\[https&amp;#x3A;//www.youtube.com/watch?v=63UI2nTz1qA]
+\[https://www.youtube.com/watch?v=63UI2nTz1qA]
 
 
 
@@ -397,7 +388,7 @@ Something like this 👇
 
 
 
-```
+```javascript
 function useForm() {
     const [user, setuser] = useState("");
     const [pass, setpass] = useState("");
@@ -407,7 +398,7 @@ function useForm() {
 const FormContainer = createContainer(userForm);
 const ContextField = ({ name }) => (
     const state = useContext(FormContainer.Context);
-    return 
+    return <field value={state[name]} returnvalue={state[`set${name}`}>
 )
 function Error() {
     const { error, setError, user, pass } = useContext(FormContainer.Context);
@@ -421,12 +412,13 @@ function Error() {
     )
 }
 function Login() {
-    
-        
-        
-        
-    
+    <contextfield class="provider">
+        <contextfield name="user">
+        <contextfield name="pass">
+        <error>
+    </error></contextfield></contextfield></contextfield>
 }
+</field>
 ```
 
 

@@ -7,13 +7,7 @@ redirect_from:
 categories: "Front End, Livecoding, Technical"
 hero: ./img/techletter.app-screenshot-1563209614123.png
 ---
-Here&#x27;s a fun challenge for ya: Add Giphy support to GitHub comments. How hard can it be?
-
-
-
-
-
-Indeed, how hard _can_ it be?
+Here&#x27;s a fun challenge for ya: Add Giphy support to GitHub comments. How hard can it be?Indeed, how hard _can_ it be?
 
 
 
@@ -105,7 +99,7 @@ Finding a giph was easy. Giphy&#x27;s API is great and React Hooks make building
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1563209612510.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=\import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0A\import%20giphyAPI%20from%20%22giphy-api%22%3B%0A%0Aconst%20Giphys%20%3D%20(%7B%20target%20%7D)%20%3D%3E%20%7B%0A%20%20%20%20const%20%5Bsearch%2C%20setSearch%5D%20%3D%20useState(%22%22)%3B%0A%0A%20%20%20%20async%20function%20findGiphy()%20%7B%0A%20%20%20%20%20%20%20%20const%20results%20%3D%20await%20giphyAPI(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20apiKey%3A%20GIPHY_KEY%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20https%3A%20true%0A%20%20%20%20%20%20%20%20%7D).search(search)%3B%0A%0A%20%20%20%20%20%20%20%20const%20giph%20%3D%20results.data.filter(d%20%3D%3E%20d.type%20%3D%3D%3D%20%22gif%22)%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%2F%2F%20insert%20into%20target%0A%0A%20%20%20%20%20%20%20%20setSearch(%22%22)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20function%20onSubmit(event)%20%7B%0A%20%20%20%20%20%20%20%20event.preventDefault()%3B%0A%20%20%20%20%20%20%20%20findGiphy()%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%20%20%3Cform%20onSubmit%3D%7BonSubmit%7D%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20Add%20a%20Giph%20%F0%9F%91%89%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20value%3D%7Bsearch%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20onChange%3D%7Bevent%20%3D%3E%20setSearch(event.target.value)%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2Fform%3E%0A%20%20%20%20)%3B%0A%7D%3B)
+[![Click through for source](./img/techletter.app-screenshot-1563209612510.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0Aimport%20giphyAPI%20from%20%22giphy-api%22%3B%0A%0Aconst%20Giphys%20%3D%20(%7B%20target%20%7D)%20%3D%3E%20%7B%0A%20%20%20%20const%20%5Bsearch%2C%20setSearch%5D%20%3D%20useState(%22%22)%3B%0A%0A%20%20%20%20async%20function%20findGiphy()%20%7B%0A%20%20%20%20%20%20%20%20const%20results%20%3D%20await%20giphyAPI(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20apiKey%3A%20GIPHY_KEY%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20https%3A%20true%0A%20%20%20%20%20%20%20%20%7D).search(search)%3B%0A%0A%20%20%20%20%20%20%20%20const%20giph%20%3D%20results.data.filter(d%20%3D%3E%20d.type%20%3D%3D%3D%20%22gif%22)%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%2F%2F%20insert%20into%20target%0A%0A%20%20%20%20%20%20%20%20setSearch(%22%22)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20function%20onSubmit(event)%20%7B%0A%20%20%20%20%20%20%20%20event.preventDefault()%3B%0A%20%20%20%20%20%20%20%20findGiphy()%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%20%20%3Cform%20onSubmit%3D%7BonSubmit%7D%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20Add%20a%20Giph%20%F0%9F%91%89%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20value%3D%7Bsearch%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20onChange%3D%7Bevent%20%3D%3E%20setSearch(event.target.value)%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2Fform%3E%0A%20%20%20%20)%3B%0A%7D%3B)
 
 
 
@@ -127,7 +121,7 @@ Rendering this next to every textarea is a matter of some classic DOM manipulati
 
 
 
-[![Click through for source](./img/techletter.app-screenshot-1563209612788.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=\import%20ReactDOM%20from%20%22react-dom%22%3B%0A%0Afor%20(const%20node%20of%20document.getElementsByTagName(%22textarea%22))%20%7B%0A%20%20%20%20const%20div%20%3D%20document.createElement(%22div%22)%3B%0A%20%20%20%20node.parentNode.insertBefore(div%2C%20node)%3B%0A%0A%20%20%20%20ReactDOM.render(%3CGiphys%20target%3D%7Bnode%7D%20%2F%3E%2C%20div)%3B%0A%7D)
+[![Click through for source](./img/techletter.app-screenshot-1563209612788.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=javascript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=import%20ReactDOM%20from%20%22react-dom%22%3B%0A%0Afor%20(const%20node%20of%20document.getElementsByTagName(%22textarea%22))%20%7B%0A%20%20%20%20const%20div%20%3D%20document.createElement(%22div%22)%3B%0A%20%20%20%20node.parentNode.insertBefore(div%2C%20node)%3B%0A%0A%20%20%20%20ReactDOM.render(%3CGiphys%20target%3D%7Bnode%7D%20%2F%3E%2C%20div)%3B%0A%7D)
 
 
 
@@ -356,7 +350,7 @@ Second argument is an `EventInit` dictionary with options. By default events are
 
 
 
-That feels \\important 🤔
+That feels important 🤔
 
 
 

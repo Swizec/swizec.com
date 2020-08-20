@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=7PVF41QHIK0
+https://www.youtube.com/watch?v=7PVF41QHIK0
 
 
 
@@ -35,7 +35,7 @@ Also, this killer feature looks cool and I want it.
 
 
 
-https&amp;#x3A;//twitter.com/\_developit/status/926509015672160256
+https://twitter.com/\_developit/status/926509015672160256
 
 
 
@@ -87,24 +87,24 @@ This is the function we&#x27;re tweaking by the way 👇
 
 
 
-```
-    async function getTableOfContents(markdownNode) {
-      const cachedToc = await cache.get(tableOfContentsCacheKey(markdownNode))
-      if (cachedToc) {
-        return cachedToc
-      } else {
-        const ast = await getAST(markdownNode)
-        const tocAst = mdastToToc(ast)
-        let toc
-        if (tocAst.map) {
-          toc = hastToHTML(toHAST(tocAst.map))
-        } else {
-          toc = ``
-        }
-        cache.set(tableOfContentsCacheKey(markdownNode), toc)
-        return toc
-      }
+```javascript
+async function getTableOfContents(markdownNode) {
+  const cachedToc = await cache.get(tableOfContentsCacheKey(markdownNode));
+  if (cachedToc) {
+    return cachedToc;
+  } else {
+    const ast = await getAST(markdownNode);
+    const tocAst = mdastToToc(ast);
+    let toc;
+    if (tocAst.map) {
+      toc = hastToHTML(toHAST(tocAst.map));
+    } else {
+      toc = ``;
     }
+    cache.set(tableOfContentsCacheKey(markdownNode), toc);
+    return toc;
+  }
+}
 ```
 
 

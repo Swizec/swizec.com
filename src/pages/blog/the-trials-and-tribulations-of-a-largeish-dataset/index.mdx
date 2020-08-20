@@ -13,15 +13,15 @@ Last week I wrote a little script in node.js. Its goal? GET ALL THE DATA! [![Com
 
 The next step was going through the list of repositories and fetching punchcard data for each. \[caption id=&quot;attachment_5855&quot; align=&quot;alignnone&quot; width=&quot;650&quot;][![This is a punchcard](http://swizec.com/blog/wp-content/uploads/2013/01/swizec-punchcard.png "This is a punchcard")](./img/blog-wp-content-uploads-2013-01-swizec-punchcard.png) This is a punchcard\[/caption] A core saying of practical computer science goes something like _&quot;Our O(N^5) algorithm sucks for large N, but N is usually less than 10&quot;_ Although not a very big dataset by most means, at half a million, it was enough to thwart my original approach of using [Mongoose](http://mongoosejs.com/) to handle my mongodb connection. While Mongoose was great for writing, it failed completely at reading. Not exactly certain where the problem was, but running this sort of code quickly made my EC2 instance run out of memory:
 
-```
+```javascript
 models.repo.find({}, function (err, repos) {
-   repos.forEach(do_something);
+  repos.forEach(do_something);
 });
 ```
 
 Where _models.repo_ is the Schema for a repository. So I was forced to ditch the relative comforts afforded by Mongoose and read my data the old fashioned way:
 
-```
+```javascript
 mongo.Db.connect(
         format("mongodb://%s:%s/github-nightowls?w=1", 'localhost', 27017),
         function(err, _db) {

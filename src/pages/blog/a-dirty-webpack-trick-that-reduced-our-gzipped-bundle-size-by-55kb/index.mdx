@@ -7,6 +7,10 @@ redirect_from:
 categories: "Front End, Technical, Webpack"
 hero: ./img/blog-wp-content-uploads-2017-06-big-files-screenshot.png
 ---
+https://www.youtube.com/watch?v=74Twn8krQS4
+
+
+
 At my day job, we&#x27;re using Webpack 2 to make our JavaScript as small as possible.
 
 
@@ -75,14 +79,14 @@ Like this:
 
 
 
-```
+```javascript
 // webpack.config.js
 
 // ...
- plugins: [
-        // ..
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-    ]
+plugins: [
+  // ..
+  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+];
 ```
 
 
@@ -111,10 +115,10 @@ Armed with my `grep`, I set to work. The goal:
 
 
 
-- \\import only those Lodash modules that are used
+- import only those Lodash modules that are used
 - _install_ only those that are used
 - avoid manually having to manage Lodash dependencies
-- using `_.somethingLodash` should work without explicitly \\importing anything
+- using `_.somethingLodash` should work without explicitly importing anything
 
 
 
@@ -122,53 +126,50 @@ Here&#x27;s what I came up with:
 
 
 
-```
+```javascript
 // webpack.config.js
 
 const LodashModules = (() => {
-    const path = require('path'),
-          execSync = require('child_process').execSync;
+  const path = require("path"),
+    execSync = require("child_process").execSync;
 
-    const files = path.resolve(__dirname, './app/assets/javascripts'),
-          code = execSync(`grep -r "_\\\." ${files} --exclude=mathquill.js`,
-                          {encoding: 'utf-8'});
+  const files = path.resolve(__dirname, "./app/assets/javascripts"),
+    code = execSync(`grep -r "_\\\." ${files} --exclude=mathquill.js`, {
+      encoding: "utf-8",
+    });
 
+  const matches = new Set(code.match(/_\.([a-z]+)/gi));
 
-    const matches = new Set(code.match(/_\.([a-z]+)/ig));
+  return Array.from(matches.values()).map((m) => {
+    let module = m.replace("_.", "lodash.").toLowerCase(),
+      vars = [m];
 
-    return Array.from(matches.values())
-                .map(m => {
-                    let module = m.replace('_.', 'lodash.').toLowerCase(),
-                        vars = [m];
+    if (module === "lodash.extend") {
+      module = "lodash.assign";
+      vars = vars.concat("_.assign");
+    }
+    if (module === "lodash.each") {
+      module = "lodash.foreach";
+      vars = vars.concat("_.forEach");
+    }
 
-                    if (module === 'lodash.extend') {
-                        module = 'lodash.assign';
-                        vars = vars.concat('_.assign');
-                    }
-                    if (module === 'lodash.each') {
-                        module = 'lodash.foreach';
-                        vars = vars.concat('_.forEach');
-                    }
+    try {
+      require.resolve(module);
+    } catch (e) {
+      console.log(`Installing ${module}`);
+      execSync(`npm install --save ${module}`);
+    }
 
-                    try {
-                        require.resolve(module);
-                    }catch(e) {
-                        console.log(`Installing ${module}`);
-                        execSync(`npm install --save ${module}`);
-                    }
-
-                    return new webpack.ProvidePlugin(
-                        _.fromPairs(vars.map(v => [v, module]))
-                    )
-                })
+    return new webpack.ProvidePlugin(_.fromPairs(vars.map((v) => [v, module])));
+  });
 })();
 
 // ...
 
- plugins: [
-        // ..
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-    ].concat(LodashModules)
+plugins: [
+  // ..
+  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+].concat(LodashModules);
 ```
 
 
@@ -185,7 +186,7 @@ I think it&#x27;s similar to J Dalton&#x27;s [babel-plugin-lodash](https://githu
 
 
 
-It differs in how this goal is achieved. Dalton&#x27;s plugin uses proper code analysis to find functions that are used and \\import them as `lodash/<function>` from a full install of Lodash.
+It differs in how this goal is achieved. Dalton&#x27;s plugin uses proper code analysis to find functions that are used and import them as `lodash/<function>` from a full install of Lodash.
 
 
 
@@ -193,7 +194,7 @@ My solution goes for modular installation as well modular usage. If I&#x27;m not
 
 
 
-And I think Dalton&#x27;s plugin needs you to explicitly \\import Lodash when you use it. Mine turns it into a magic super global via `webpack.ProvidePlugin`.
+And I think Dalton&#x27;s plugin needs you to explicitly import Lodash when you use it. Mine turns it into a magic super global via `webpack.ProvidePlugin`.
 
 
 
@@ -209,7 +210,7 @@ Let me explain.
 
 
 
-```
+```javascript
 const LodashModules = (() => {
     const path = require('path'),
           execSync = require('child_process').execSync;
@@ -240,11 +241,11 @@ All occurrences of `_.something` are put in a `Set`. This removes any duplicates
 
 
 
-### Make magic \\imports
+### Make magic imports
 
 
 
-```
+```javascript
     return Array.from(matches.values())
                 .map(m => {
                     let module = m.replace('_.', 'lodash.').toLowerCase(),
@@ -281,7 +282,7 @@ When we have those unique Lodash function calls, we walk through them, and for e
 
 - get a clean module name, `module.replace ...`
 - resolve aliases (the list is incomplete, it covers only what our codebase uses)
-- try to \\import the module
+- try to import the module
 - if it exists, move on
 - if module doesn&#x27;t exist, install it and save to package.json
 - create a new `ProvidePlugin` entry for the module

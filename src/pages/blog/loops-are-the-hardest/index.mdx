@@ -23,7 +23,7 @@ It&#x27;s great.
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/963537340571398144
+https://twitter.com/Swizec/status/963537340571398144
 
 
 
@@ -87,14 +87,14 @@ I mean, the simplest solution to my challenge is changing this 👇
 
 
 
-```
+```javascript
  render() {
     return (
-      
+      <g>
         {d3.range(20).map(i => (
-          
+          <swatch color={this.colors[i]} width={this.width.step()} x={this.width(i)} y="0">
         ))}
-      
+      </swatch></g>
     )
   }
 ```
@@ -105,14 +105,14 @@ To this 👇
 
 
 
-```
+```javascript
  render() {
     return (
-      
+      <g>
         {d3.range(20).map(j => d3.range(20).map(i => (
-          
+          <swatch color="{this.colors[j%2" ?="" i="" :="" this.colors.length-i-1]}="" width={this.width.step()} x={this.width(i)} y={j*20}>
         )))}
-      
+      </swatch></g>
     )
   }
 ```

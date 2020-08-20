@@ -7,15 +7,11 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
-This was a fun little build, but I wish I remembered to turn on my stream. It was kinda nice to just write some code, too 😇
+This was a fun little build, but I wish I remembered to turn on my stream. It was kinda nice to just write some code, too 😇`<LogViewer>` takes a stream of server logs, or process logs, or any flat text file (let&#x27;s be honest) and turns it into a searchable, filterable little thing. Type in the input box, find what you&#x27;re looking for. Matched strings are highlighted so you know what you&#x27;re doing.
 
 
 
-`<LogViewer>` takes a stream of server logs, or process logs, or any flat text file (let&#x27;s be honest) and turns it into a searchable, filterable little thing. Type in the input box, find what you&#x27;re looking for. Matched strings are highlighted so you know what you&#x27;re doing.
-
-
-
-https&amp;#x3A;//twitter.com/Swizec/status/1019501310197030912
+https://twitter.com/Swizec/status/1019501310197030912
 
 
 
@@ -94,11 +90,12 @@ The result is an array of log fragments like this
 
 
 
-```
-match = 'cat'
+```undefined
+<code>match = 'cat'
 log = 'my cat is grumpy'
 
 chunks --> ['my ', 'cat', ' is grumpy']
+</code>
 ```
 
 
@@ -115,11 +112,12 @@ The `<Highlighted>` component is simplistic because I&#x27;m no designer.
 
 
 
-```
-const Highlight = styled.span`
+```undefined
+<code>const Highlight = styled.span`
     color: red;
     background: yellow;
 `;
+</code>
 ```
 
 

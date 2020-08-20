@@ -73,21 +73,20 @@ First, we need a `Clock` store. It looks like this:
 
 
 
-```
-\import { observable, action } from 'mobx';
-\import moment from 'moment';
+```javascript
+import { observable, action } from "mobx";
+import moment from "moment";
 
 class Clock {
-    @observable time = moment();
+  @observable time = moment();
 
-    constructor(period = 1000) {
-        this.interval = setInterval(() => this.clockTick(),
-                                    period);
-    }
+  constructor(period = 1000) {
+    this.interval = setInterval(() => this.clockTick(), period);
+  }
 
-    @action clockTick(newTime = moment()) {
-        this.time = newTime;
-    }
+  @action clockTick(newTime = moment()) {
+    this.time = newTime;
+  }
 }
 
 const clock = new Clock();
@@ -113,7 +112,7 @@ The real trick to making this work is in the last two lines:
 
 
 
-```
+```javascript
 const clock = new Clock();
 
 export default clock;
@@ -121,7 +120,7 @@ export default clock;
 
 
 
-We export _an instance of Clock_, not the class. This ensures that anywhere we use `\import Clock`, we get the same singleton.
+We export _an instance of Clock_, not the class. This ensures that anywhere we use `import Clock`, we get the same singleton.
 
 
 
@@ -129,7 +128,7 @@ _&quot;But inject()! You can inject() and that will make a singleton!”_ I hear
 
 
 
-Yes, but you can only `inject()` into React components. Sometimes `MobX` stores need access to The Clock as well. You can&#x27;t inject into those, but you _can_ \\import stuff.
+Yes, but you can only `inject()` into React components. Sometimes `MobX` stores need access to The Clock as well. You can&#x27;t inject into those, but you _can_ import stuff.
 
 
 
@@ -145,14 +144,14 @@ We make a `Time*` component that displays durations. It can be a functional stat
 
 
 
-```
-const CurrentTime = inject('Clock')(observer(({ Clock }) => (
-    
-
-        Current Time: 
-    
-
-)));
+```javascript
+const CurrentTime = inject("Clock")(
+  observer(({ Clock }) => (
+    <div>
+      Current Time: <duration d={Clock.time}></duration>
+    </div>
+  ))
+);
 ```
 
 
@@ -165,15 +164,19 @@ The `Duration` component takes a `moment()` object and displays it as a digital 
 
 
 
-```
+```javascript
 const Duration = ({ d }) => {
-    let h = d.hours(),
-        m = d.minutes(),
-        s = d.seconds();
+  let h = d.hours(),
+    m = d.minutes(),
+    s = d.seconds();
 
-    [h, m, s] = [h, m, s].map(n => n < 10 ? `0${n}` : n);
+  [h, m, s] = [h, m, s].map((n) => (n < 10 ? `0${n}` : n));
 
-    return {h}:{m}:{s};
+  return (
+    <code>
+      {h}:{m}:{s}
+    </code>
+  );
 };
 ```
 
@@ -199,24 +202,20 @@ Now that you have a system `Clock` and a way to show `Time`, you can put it all 
 
 
 
-```
+```javascript
 class App extends Component {
   render() {
       return (
-          
-              
-
-                  
-                  
-
-                      
-                      
-                      
-                  
-
-              
-
-          
+          <provider clock={Clock}>
+              <div class="App">
+                  <devtools>
+                  <div class="App-intro">
+                      <time until="{moment().add(10," 'minutes')}="">
+                      <time since="{moment().subtract(5," 'minutes')}="">
+                      <time>
+                  </time></time></time></div>
+              </devtools></div>
+          </provider>
     );
   }
 }
@@ -240,7 +239,7 @@ Check this out from my Day Job code.
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/795798444094853121
+https://twitter.com/Swizec/status/795798444094853121
 
 
 
@@ -248,7 +247,7 @@ It&#x27;s in a store, `isOutOfTime` is a `@computed` property that compares `Clo
 
 
 
-```
+```javascript
     @computed get timeLeft() {
         if (this.should_end_by) {
             return moment.duration(

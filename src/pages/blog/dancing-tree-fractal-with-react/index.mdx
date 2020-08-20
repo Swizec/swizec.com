@@ -31,12 +31,12 @@ It took _somebody doing the math instead of me_ to kick my arse into gear. Here&
 
 
 
-```
+```javascript
 const currentH = 0.2 * w,
-nextLeft = Math.sqrt(currentH*currentH + (0.7*w*0.7*w)),
-nextRight = Math.sqrt(currentH*currentH + (0.3*w*0.3*w)),
-A = Math.deg(Math.atan(currentH / (0.3*w))),
-B = Math.deg(Math.atan(currentH / (0.7*w)));
+  nextLeft = Math.sqrt(currentH * currentH + 0.7 * w * 0.7 * w),
+  nextRight = Math.sqrt(currentH * currentH + 0.3 * w * 0.3 * w),
+  A = Math.deg(Math.atan(currentH / (0.3 * w))),
+  B = Math.deg(Math.atan(currentH / (0.7 * w)));
 ```
 
 
@@ -75,7 +75,7 @@ The improved `<Pythagoras>` component takes a few more arguments than before, an
 
 
 
-```
+```javascript
 const Pythagoras = ({ w,x, y, heightFactor, lean, left, right, lvl, maxlvl }) => {
     if (lvl >= maxlvl || w < 1) {
         return null;
@@ -96,14 +96,14 @@ const Pythagoras = ({ w,x, y, heightFactor, lean, left, right, lvl, maxlvl }) =>
     }
 
     return (
-        
-            
+        <g transform={`translate(${x} ${y})="" ${rotate}`}="">
+            <rect width={w} height={w} x={0} y={0} style="{{fill:" interpolateviridis(lvl="" maxlvl)}}="">
 
-            
+            <pythagoras w={nextLeft} x={0} y={-nextLeft} lvl={lvl+1} maxlvl={maxlvl} heightfactor={heightFactor} lean={lean} left="">
 
-            
+            <pythagoras w={nextRight} x={w-nextRight} y={-nextRight} lvl={lvl+1} maxlvl={maxlvl} heightfactor={heightFactor} lean={lean} right="">
 
-        
+        </pythagoras></pythagoras></rect></g>
     );
 };
 ```
@@ -136,34 +136,34 @@ I don&#x27;t _really_ understand this math, but I sort of know where it&#x27;s c
 
 
 
-```
-const memoizedCalc = function () {
-    const memo = {};
+```javascript
+const memoizedCalc = (function () {
+  const memo = {};
 
-    const key = ({ w, heightFactor, lean }) => [w,heightFactor, lean].join('-');
+  const key = ({ w, heightFactor, lean }) => [w, heightFactor, lean].join("-");
 
-    return (args) => {
-        const memoKey = key(args);
+  return (args) => {
+    const memoKey = key(args);
 
-        if (memo[memoKey]) {
-            return memo[memoKey];
-        }else{
-            const { w, heightFactor, lean } = args;
+    if (memo[memoKey]) {
+      return memo[memoKey];
+    } else {
+      const { w, heightFactor, lean } = args;
 
-            const trigH = heightFactor*w;
+      const trigH = heightFactor * w;
 
-            const result = {
-                nextRight: Math.sqrt(trigH**2 + (w * (.5+lean))**2),
-                nextLeft: Math.sqrt(trigH**2 + (w * (.5-lean))**2),
-                A: Math.deg(Math.atan(trigH / ((.5-lean) * w))),
-                B: Math.deg(Math.atan(trigH / ((.5+lean) * w)))
-            };
+      const result = {
+        nextRight: Math.sqrt(trigH ** 2 + (w * (0.5 + lean)) ** 2),
+        nextLeft: Math.sqrt(trigH ** 2 + (w * (0.5 - lean)) ** 2),
+        A: Math.deg(Math.atan(trigH / ((0.5 - lean) * w))),
+        B: Math.deg(Math.atan(trigH / ((0.5 + lean) * w))),
+      };
 
-            memo[memoKey] = result;
-            return result;
-        }
+      memo[memoKey] = result;
+      return result;
     }
-}();
+  };
+})();
 ```
 
 
@@ -196,7 +196,7 @@ Inside `App.js`, we add a mouse event listener. We use D3&#x27;s because it give
 
 
 
-```
+```javascript
 // App.js
 state = {
         currentMax: 0,
@@ -229,9 +229,10 @@ onMouseMove(event) {
 
 render() {
     // ...
-     //...
-    
+    <svg ref="svg"> //...
+    <pythagoras w={this.state.baseW} h={this.state.baseW} heightfactor={this.state.heightFactor} lean={this.state.lean} x={this.svg.width/2-40} y={this.svg.height-this.state.baseW} lvl={0} maxlvl="{this.state.currentMax}/">
 }
+</pythagoras></svg>
 ```
 
 
@@ -255,7 +256,7 @@ That happens in `onMouseMove`:
 
 
 
-```
+```javascript
 onMouseMove(event) {
     const [x, y] = d3mouse(this.refs.svg),
 
@@ -274,7 +275,7 @@ onMouseMove(event) {
 
 
 
-`d3mouse` – which is an \\imported `mouse` function from `d3-selection` – gives us cursor position relative to the SVG element. Two linear scales give us `scaleFactor` and `scalelean` values, which we put into component state.
+`d3mouse` – which is an imported `mouse` function from `d3-selection` – gives us cursor position relative to the SVG element. Two linear scales give us `scaleFactor` and `scalelean` values, which we put into component state.
 
 
 

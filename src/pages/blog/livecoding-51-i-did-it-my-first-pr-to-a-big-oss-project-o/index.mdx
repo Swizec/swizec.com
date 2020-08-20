@@ -11,7 +11,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 
 
-https&amp;#x3A;//www.youtube.com/watch?v=DFz5tHyhkw0
+https://www.youtube.com/watch?v=DFz5tHyhkw0
 
 
 
@@ -35,8 +35,8 @@ The bug was more of a feature, really. When Remark generates a table of contents
 
 
 
-```
-# Heading
+```undefined
+<code># Heading
 
 ## Subheading 1
 
@@ -45,6 +45,7 @@ The bug was more of a feature, really. When Remark generates a table of contents
 ### Subsubheading
 
 ## Subheading 3
+</code>
 ```
 
 
@@ -53,12 +54,13 @@ That turns into an HTML list with `#heading`, `#subheading-1` (etc) links. Nesti
 
 
 
-```
-- Heading (#heading)
+```undefined
+<code>- Heading (#heading)
   - Subheading 1 (#subheading-1)
   - Subheading 2 (#subheading-2)
     - Subsubheading (#subsubheading)
   - Subheading 3 (#subheading-3)
+</code>
 ```
 
 
@@ -87,18 +89,18 @@ Our fix went into the aptly named `getTableOfContents` function.
 
 
 
-```
-  const addSlugToUrl = function(node) {
-    if (node.url) {
-      node.url = withPrefix(`${markdownNode.fields.slug}${node.url}`)
-    }
-    if (node.children) {
-      node.children = node.children.map(node => addSlugToUrl(node))
-    }
-
-    return node
+```javascript
+const addSlugToUrl = function (node) {
+  if (node.url) {
+    node.url = withPrefix(`${markdownNode.fields.slug}${node.url}`);
   }
-  tocAst.map = addSlugToUrl(tocAst.map)
+  if (node.children) {
+    node.children = node.children.map((node) => addSlugToUrl(node));
+  }
+
+  return node;
+};
+tocAst.map = addSlugToUrl(tocAst.map);
 ```
 
 

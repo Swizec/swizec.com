@@ -13,28 +13,32 @@ hero: ./img/blog-wp-content-uploads-2011-12-300px-Haskell-Logo.svg_4.png
 
 Haskell:
 
-```
+```haskell
 sum [x | x <- [1..999], mod x 5 == 0 || mod x 3 == 0]
 ```
 
 Python:
 
-```
+```python
 sum([x for x in range(1000) if x%3 == 0 or x%5 == 0])
 ```
 
 Javascript:
 
-```
-for (var x=0,s=0; x < 1000; x++, (x%3==0 || x%5==0) ? s+=x : s) {}
-s
+```javascript
+for (
+  var x = 0, s = 0;
+  x < 1000;
+  x++, x % 3 == 0 || x % 5 == 0 ? (s += x) : s
+) {}
+s;
 ```
 
 ## Sum of even fibonacci terms under 4,000,000
 
 Haskell:
 
-```
+```haskell
 fib :: [Int] -> [Int]
 fib terms
   | head terms < max' = fib ((sum (take 2 terms)):terms)
@@ -46,7 +50,7 @@ sum [x | x <- fib [1], mod x 2 == 0]
 
 Python:
 
-```
+```python
 def fib(terms):
      return terms if terms[0] >= 4000000 else fib([terms[0]+terms[1]]+terms)
 sum(filter(lambda x: x%2 == 0, fib([1,1])))
@@ -54,9 +58,17 @@ sum(filter(lambda x: x%2 == 0, fib([1,1])))
 
 Javascript:
 
-```
-function fib(l) { return (l[0] >= 4000000) ? l : fib([l[0]+l[1]].concat(l)) }
-fib([1,1]).filter(function (a) { return a%2 == 0}).reduce(function (a,b) { return a+b })
+```javascript
+function fib(l) {
+  return l[0] >= 4000000 ? l : fib([l[0] + l[1]].concat(l));
+}
+fib([1, 1])
+  .filter(function (a) {
+    return a % 2 == 0;
+  })
+  .reduce(function (a, b) {
+    return a + b;
+  });
 ```
 
 I was writing the python and javascript examples directly in the console, hence less new lines. But the point is, even after just very little time, haskell is proving to be pretty much as expressive as my two primary languages where I know ~~all~~ a lot of the tricks. This looks like the beginning of a long relationship.

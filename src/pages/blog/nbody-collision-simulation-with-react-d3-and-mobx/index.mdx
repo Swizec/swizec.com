@@ -7,6 +7,10 @@ redirect_from:
 categories: "d3js, Front End, MobX, react, Technical"
 hero: ../../../defaultHero.jpg
 ---
+https://www.youtube.com/watch?v=H84fmXjTElM
+
+
+
 Collision detection is one of those problems that&#x27;s easy in theory but hard in practice. Even between ideal circles.
 
 
@@ -29,7 +33,7 @@ Another approach is called a priori collision detection. That predicts collision
 
 
 
-As per this [159 page thesis on collision detection](https://wwwx.cs.unc.edu/~geom/papers/documents/dissertations/lin93.pdf), collision detection is \\important.
+As per this [159 page thesis on collision detection](https://wwwx.cs.unc.edu/~geom/papers/documents/dissertations/lin93.pdf), collision detection is important.
 
 
 
@@ -97,7 +101,7 @@ I started tweaking parameters, changing coefficients, and tweaking multipliers. 
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/841529688002449409
+https://twitter.com/Swizec/status/841529688002449409
 
 
 
@@ -198,7 +202,9 @@ The [`Physics.js`](https://github.com/Swizec/declarative-canvas-react-konva/blob
 
 
 
-```
+```javascript
+
+
 @action simulationStep() {
     const { width, height, MarbleR } = this;
 
@@ -264,15 +270,15 @@ You can think of it as a function and a loop. At the bottom, there is a `.forEac
 
 
 
-```
-    this.marbles.forEach((marble, i) => {
-        const { x, y, vx, vy } = moveMarble(marble);
+```javascript
+this.marbles.forEach((marble, i) => {
+  const { x, y, vx, vy } = moveMarble(marble);
 
-        this.marbles[i].x = x;
-        this.marbles[i].y = y;
-        this.marbles[i].vx = vx;
-        this.marbles[i].vy = vy;
-    });
+  this.marbles[i].x = x;
+  this.marbles[i].y = y;
+  this.marbles[i].vx = vx;
+  this.marbles[i].vy = vy;
+});
 ```
 
 
@@ -303,9 +309,9 @@ I wonder why I did it like this ? Maybe a leftover from before MobX?
 
 
 
-```
-let _vx = ((x+vx < MarbleR) ? -vx : (x+vx > width-MarbleR) ? -vx : vx)*.99,
-    _vy = ((y+vy < MarbleR) ? -vy : (y+vy > height-MarbleR) ? -vy : vy)*.99;
+```javascript
+let _vx = (x + vx < MarbleR ? -vx : x + vx > width - MarbleR ? -vx : vx) * 0.99,
+  _vy = (y + vy < MarbleR ? -vy : y + vy > height - MarbleR ? -vy : vy) * 0.99;
 ```
 
 
@@ -318,15 +324,17 @@ Nested ternary expressions are kinda messy, but they’re good enough. If a marb
 
 
 
-```
+```javascript
 // nearest marble is a collision candidate
-const subdividedSpace = quadtree().extent([[-1, -1],
-                                           [this.width+1, this.height+1]])
-                                  .x(d => d.x)
-                                  .y(d => d.y)
-                                  .addAll(this.marbles
-                                              .filter(m => id !== m.id)),
-      candidate = subdividedSpace.find(x, y, MarbleR*2);
+const subdividedSpace = quadtree()
+    .extent([
+      [-1, -1],
+      [this.width + 1, this.height + 1],
+    ])
+    .x((d) => d.x)
+    .y((d) => d.y)
+    .addAll(this.marbles.filter((m) => id !== m.id)),
+  candidate = subdividedSpace.find(x, y, MarbleR * 2);
 ```
 
 
@@ -351,33 +359,32 @@ The code looks like this:
 
 
 
-```
+```javascript
 if (candidate) {
+  // borrowing @air_hadoken's implementation from here:
+  // https://github.com/airhadoken/game_of_circles/blob/master/circles.js#L64
+  const cx = candidate.x,
+    cy = candidate.y,
+    normx = cx - x,
+    normy = cy - y,
+    dist = normx ** 2 + normy ** 2,
+    c = ((_vx * normx + _vy * normy) / dist) * 2.3;
 
-    // borrowing @air_hadoken's implementation from here:
-    // https://github.com/airhadoken/game_of_circles/blob/master/circles.js#L64
-    const cx = candidate.x,
-          cy = candidate.y,
-          normx = cx - x,
-          normy = cy - y,
-          dist = (normx ** 2 + normy ** 2),
-          c = (_vx * normx + _vy * normy) / dist * 2.3;
+  _vx = (_vx - c * normx) / 2.3;
+  _vy = (_vy - c * normy) / 2.3;
 
-    _vx = (_vx - c * normx)/2.3;
-    _vy = (_vy - c * normy)/2.3;
-
-    candidate.vx += -_vx;
-    candidate.vy += -_vy;
-    candidate.x += -_vx;
-    candidate.y += -_vy;
+  candidate.vx += -_vx;
+  candidate.vy += -_vy;
+  candidate.x += -_vx;
+  candidate.y += -_vy;
 }
 
 return {
-    x: x + _vx,
-    y: y + _vy,
-    vx: _vx,
-    vy: _vy
-}
+  x: x + _vx,
+  y: y + _vy,
+  vx: _vx,
+  vy: _vy,
+};
 ```
 
 

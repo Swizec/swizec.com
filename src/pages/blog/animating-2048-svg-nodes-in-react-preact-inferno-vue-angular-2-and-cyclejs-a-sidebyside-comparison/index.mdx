@@ -7,11 +7,7 @@ redirect_from:
 categories: "AngularJS, cyclejs, inferno, preact, react, Technical, vue"
 hero: ../../../defaultHero.jpg
 ---
-Ever wondered which front-end framework is smoothest to animate 2048 SVG nodes? Here are some GIFs.
-
-
-
-Same [dancing pythagorean tree fractal](https://swizec.com/blog/dancing-tree-fractal-react/swizec/7288), same mid-2012 retina MacBook Pro. All recorded with LICEcap in a normal, everyday setting running Chrome, Spotify, Emacs, etc. Click on a GIF to see its code.
+Ever wondered which front-end framework is smoothest to animate 2048 SVG nodes? Here are some GIFs.Same [dancing pythagorean tree fractal](https://swizec.com/blog/dancing-tree-fractal-react/swizec/7288), same mid-2012 retina MacBook Pro. All recorded with LICEcap in a normal, everyday setting running Chrome, Spotify, Emacs, etc. Click on a GIF to see its code.
 
 
 
@@ -19,7 +15,7 @@ Same [dancing pythagorean tree fractal](https://swizec.com/blog/dancing-tree-fra
 
 
 
-People have been asking _why_ this test is \\important, _why_ should they care, _what&#x27;s the point_. It&#x27;s fun and the demo looks pretty. Fundamentally, it&#x27;s a showcase of &quot;jank&quot; – how much jankiness is there between what you see on the screen and what you do with the mouse.
+People have been asking _why_ this test is important, _why_ should they care, _what&#x27;s the point_. It&#x27;s fun and the demo looks pretty. Fundamentally, it&#x27;s a showcase of &quot;jank&quot; – how much jankiness is there between what you see on the screen and what you do with the mouse.
 
 
 
@@ -79,7 +75,7 @@ I tried throttling to `requestAnimationFrame`, but that didn&#x27;t work so good
 
 
 
-```
+```javascript
 onMouseMove(event) {
     if (this.running) return;
     this.running = true;
@@ -128,7 +124,7 @@ Here&#x27;s how he did it: [diff on github](https://github.com/Swizec/react-frac
 
 
 
-In `package.json`, he added `preact`, `preact-compat`, and preact -compat clones for React libraries. I guess you need the latter so you don&#x27;t have to change your \\imports.
+In `package.json`, he added `preact`, `preact-compat`, and preact -compat clones for React libraries. I guess you need the latter so you don&#x27;t have to change your imports.
 
 
 
@@ -136,12 +132,12 @@ He changed the functional stateless `Pythagoras` component into a stateful compo
 
 
 
-```
+```javascript
 // src/Pythagoras.js
 export default class {
-    render(props) {
-        return Pythagoras(props);
-    }
+  render(props) {
+    return Pythagoras(props);
+  }
 }
 ```
 
@@ -151,17 +147,17 @@ And enabled debounced asynchronous rendering:
 
 
 
-```
+```javascript
 // src/index.js
-\import { options } from 'preact';
+import { options } from "preact";
 options.syncComponentUpdates = false;
 
 //option 1:  rIC + setTimeout fallback
 let timer;
-options.debounceRendering = f => {
-    clearTimeout(timer);
-    timer = setTimeout(f, 100);
-    requestIdleCallback(f);
+options.debounceRendering = (f) => {
+  clearTimeout(timer);
+  timer = setTimeout(f, 100);
+  requestIdleCallback(f);
 };
 ```
 
@@ -187,7 +183,7 @@ Dominic changed all `react-scripts` references to `inferno-scripts`, and it&#x27
 
 
 
-From there, the main changes are to the \\imports – React becomes Inferno – and he changed some class methods to bound fat arrow functions. I don&#x27;t know if that&#x27;s a stylistic choice or an Inferno requirement.
+From there, the main changes are to the imports – React becomes Inferno – and he changed some class methods to bound fat arrow functions. I don&#x27;t know if that&#x27;s a stylistic choice or an Inferno requirement.
 
 
 
@@ -195,7 +191,7 @@ He also had to change a string-based ref into a callback ref. Inferno doesn&#x27
 
 
 
-```
+```javascript
 // src/App.js
 
 class App extends Component {
@@ -296,19 +292,15 @@ This implies Angular is sticking with the traditional one-language-per-file webd
 
 
 
-```
-
-  
-This is a dancing Pythagoras tree
-
-
-
-
-
-
-  
-    
-  
+```javascript
+<div class="App-header">
+  <h2>This is a dancing Pythagoras tree</h2>
+</div>
+<p class="App-intro">
+  <svg #svg="" [attr.width]="width" [attr.height]="height" style="border: 1px solid lightgray">
+    <g app-pythagoras="" [w]="baseW" [heightfactor]="heightFactor" [lean]="lean" [x]="width / 2 - 40" [y]="height - baseW" [lvl]="0" [maxlvl]="currentMax"></g>
+  </svg>
+</p>
 ```
 
 
@@ -317,7 +309,7 @@ That&#x27;s some funny looking HTML.
 
 
 
-I&#x27;m also not sure I understand the difference between a module and a component. It looks like the module declares certain \\imports, children components, and stuff. But each component still declares its own CSS and template \\imports.
+I&#x27;m also not sure I understand the difference between a module and a component. It looks like the module declares certain imports, children components, and stuff. But each component still declares its own CSS and template imports.
 
 
 
@@ -345,7 +337,7 @@ It&#x27;s hard for me to tell what he changed because of TypeScript and what&#x2
 
 
 
-```
+```javascript
 export function App(sources: Sources): Sinks {
     const factorAndLean$ = sources.DOM.select('#the-svg') //...
  
@@ -372,16 +364,26 @@ The part I really dislike is how Wayne specifies the DOM in CycleJS. The main Ap
 
 
 
-```
-        div(Styles.App, [
-            div(Styles.AppHeader, [
-                img(Styles.AppLogo, { attrs: { src: 'cyclejs_logo.svg' } }),
-                h2('This is a dancing Pythagoras tree')
-            ]),
-            p(Styles.AppIntro, [
-                svg('#the-svg', { attrs: { height: svgDimensions.height, width: svgDimensions.width, style: 'border: 1px solid lightgray' } }, [ x ])
-            ])
-        ])
+```javascript
+div(Styles.App, [
+  div(Styles.AppHeader, [
+    img(Styles.AppLogo, { attrs: { src: "cyclejs_logo.svg" } }),
+    h2("This is a dancing Pythagoras tree"),
+  ]),
+  p(Styles.AppIntro, [
+    svg(
+      "#the-svg",
+      {
+        attrs: {
+          height: svgDimensions.height,
+          width: svgDimensions.width,
+          style: "border: 1px solid lightgray",
+        },
+      },
+      [x]
+    ),
+  ]),
+]);
 ```
 
 
@@ -398,9 +400,7 @@ Edit on Dec 24th: as @spion pointed out, it turns out the CycleJS example only r
 
 
 
-> [@spion](https://twitter.com/spion) [@dan_abramov](https://twitter.com/dan_abramov) [@waynemaurer](https://twitter.com/waynemaurer) [@andrestaltz](https://twitter.com/andrestaltz) just checked, document.getElementsByTagName(&#x27;rect&#x27;).length does indeed return just 1024 :)
->
-> — Swizec (@Swizec) [December 24, 2016](https://twitter.com/Swizec/status/812724325392318464)
+https://twitter.com/Swizec/status/812724325392318464
 
 
 

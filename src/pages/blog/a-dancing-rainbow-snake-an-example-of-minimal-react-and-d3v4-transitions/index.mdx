@@ -7,6 +7,10 @@ redirect_from:
 categories: "d3js, react, Technical"
 hero: ./img/d3-d3-scale-master-img-point.png
 ---
+https://www.youtube.com/watch?v=\_zzGKD-ybw4
+
+
+
 Remember that [dancing fractal tree](https://swizec.com/blog/animating-svg-nodes-react-preact-inferno-vue/swizec/7311) from December? That was built using what I like to call The Rich Animation Technique. TRAT for short.
 
 
@@ -71,7 +75,7 @@ The App component needs only a `render` method that returns an SVG.
 
 
 
-```
+```javascript
   render() {
     const width = 600,
           N = 50,
@@ -82,12 +86,12 @@ The App component needs only a `render` method that returns an SVG.
                   .round(true);
     
     return (
-      
+      <svg width="600" height="600">
         {d3.range(N).map(x => 
            d3.range(N).map(y =>
-             
+             <dot x={pos(x)} y={pos(y)} key={`${x}-${y}`} maxpos={width}></dot>
         ))}
-      
+      </svg>
     )
   }
 ```
@@ -106,7 +110,7 @@ Here&#x27;s a diagram of how `scalePoint` works:
 
 
 
-To render the grid, we use two nested loops going from 0 to N. `d3.range` builds an array for us so we can `.map` over it. We return a `` component for each iteration.
+To render the grid, we use two nested loops going from 0 to N. `d3.range` builds an array for us so we can `.map` over it. We return a ``component for each iteration.
 
 
 
@@ -122,7 +126,7 @@ The Dot component has a few more moving parts. It needs a `constructor`, a trans
 
 
 
-```
+```javascript
 class Dot extends Component {
   constructor(props) {
     super(props);
@@ -143,9 +147,10 @@ class Dot extends Component {
   render() {
     const { x, y, r, colorize } = this.state;
     
-    return 
+    return <circle cx={x} cy={y} r={r} ref="circle" onmouseover={this.flash.bind(this)} style="{{fill:" colorize="" ?="" this.color="" :="" 'black'}}="">
   }
 }
+</circle>
 ```
 
 
@@ -166,11 +171,11 @@ So we put props in state and render from state. This lets us keep a stable platf
 
 
 
-Not super \\important in our particular example because those changes never happen. But I had many interesting issues in this [animated typing example](https://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797).
+Not super important in our particular example because those changes never happen. But I had many interesting issues in this [animated typing example](https://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797).
 
 
 
-For the `render` method, we return an SVG `` element positioned at `(x, y)`, with a radius, an `onMouseOver` listener, and a style with the `fill` color depending on `state.colorize`.
+For the `render` method, we return an SVG ``element positioned at `(x, y)`, with a radius, an `onMouseOver` listener, and a style with the `fill` color depending on `state.colorize`.
 
 
 
@@ -182,7 +187,7 @@ When you mouse over one of the dots, its `flash()` method gets called as an even
 
 
 
-```
+```javascript
   flash() {
     let node = d3.select(this.refs.circle);
     
@@ -210,7 +215,7 @@ Here&#x27;s what happens:
 
 
 
-1. We `d3.select` the `` node. This enables D3 to take over the rendering of this particular DOM node
+1. We `d3.select` the ``node. This enables D3 to take over the rendering of this particular DOM node
 2. We `setState` to enable colorization. Yes, this triggers a re-render.
 3. We start a `transition` that changes the `r` attribute to `20` pixels over a duration of `250` milliseconds.
 4. We add a `easeCubicOut` easing function, which makes the animation look more natural
@@ -251,7 +256,7 @@ Calibrate a linear scale to translate between `[0, maxR^2]` and `[0, 1]`, then f
 
 
 
-```
+```javascript
   get color() {
     const { x, y, maxPos } = this.state;
     
@@ -297,7 +302,7 @@ Another improvement could be rendering more circles to provide a tighter grid. T
 
 
 
-https&amp;#x3A;//twitter.com/Swizec/status/829590239458922496
+https://twitter.com/Swizec/status/829590239458922496
 
 
 
