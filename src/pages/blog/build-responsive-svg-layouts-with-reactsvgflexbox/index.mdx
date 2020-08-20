@@ -7,57 +7,32 @@ redirect_from:
 categories: "Front End, react, svg, Technical"
 hero: ./img/blog-wp-content-uploads-2018-08-react-d3-scatterplot-dashboard.png
 ---
-SVG is great. Best way to build scalable graphics on the web. SVG can do everything from simple logos to data visualization and even animation.The best part is, you can manipulate SVG with both CSS _and_ JavaScript. It&#x27;s an image that&#x27;s part of your DOM. 🤯
 
+SVG is great. Best way to build scalable graphics on the web. SVG can do everything from simple logos to data visualization and even animation.The best part is, you can manipulate SVG with both CSS _and_ JavaScript. It's an image that's part of your DOM. 🤯
 
+Look at this animated fire example. Isn't it neat? No animated image required, just some SVG elements and a bit of JavaScript.
 
-Look at this animated fire example. Isn&#x27;t it neat? No animated image required, just some SVG elements and a bit of JavaScript.
-
-
-
-[SVG Fire 🔥](//codepen.io/ste-vg/embed/oZXmdL/?height=265&amp;theme-id=0&amp;default-tab=html,result&amp;embed-version=2)
-
-
+[SVG Fire 🔥](//codepen.io/ste-vg/embed/oZXmdL/?height=265&theme-id=0&default-tab=html,result&embed-version=2)
 
 No wonder then that SVG is the norm when it comes to data visualization and other programmable graphics.
 
-
-
 Just one problem: **SVG sucks at layout**
 
-
-
-Absolutely terrible. There&#x27;s no layout support at all. You get absolute positioning and that&#x27;s it. Sure, you can position absolutely within absolutely positioned elements, which is sort of relative positioning, but ugh ...
-
-
+Absolutely terrible. There's no layout support at all. You get absolute positioning and that's it. Sure, you can position absolutely within absolutely positioned elements, which is sort of relative positioning, but ugh ...
 
 ## Absolute positioning hell
 
+\[caption id="attachment_8574" align="alignnone" width="2792"]![A React + D3 dashboard of scatterplots](./img/blog-wp-content-uploads-2018-08-react-d3-scatterplot-dashboard.png) A React + D3 dashboard of scatterplots\[/caption]
 
-
-\[caption id=&quot;attachment_8574&quot; align=&quot;alignnone&quot; width=&quot;2792&quot;]![A React + D3 dashboard of scatterplots](./img/blog-wp-content-uploads-2018-08-react-d3-scatterplot-dashboard.png) A React + D3 dashboard of scatterplots\[/caption]
-
-
-
-Say you&#x27;re building a small dashboard. Like of different scatterplots looking at a dataset about dog breeds.
-
-
+Say you're building a small dashboard. Like of different scatterplots looking at a dataset about dog breeds.
 
 Because the data is there, and you can, of course.
 
-
-
 You create a scatterplot component. It takes an `x` and a `y` position and sizing info. Inside, it places two axes, a caption, and the datapoints.
-
-
 
 The `<Scatterplot>` is absolutely positioned via a `translate` transformation. That moves an SVG element by a vector from `(0, 0)`, thus rendering at the `(x, y)` coordinate.
 
-
-
 You render each scatterplot like this:
-
-
 
 ```javascript
 <scatterplot data={data} x={100} y={100} width={350} height={350} filter="{d" =="">
@@ -78,15 +53,9 @@ You render each scatterplot like this:
 </datapoint></scatterplot>
 ```
 
-
-
 A lot of arguments, I know. Data, positioning, sizing, functions for interpreting data, a few labels, and a render prop for each datapoint.
 
-
-
 Once positioned with a grouping element `<g>`, the scatterplot can use quasi-relative positioning for its elements.
-
-
 
 ```javascript
 render() {
@@ -107,67 +76,35 @@ render() {
 }
 ```
 
-
-
 Position the main container at `x` and `y`. Place `Heading` at `(0, -25)`, datapoints at wherever they go, one axis at `(0, 0)`, and another at left bottom. All relative to the parent container.
-
-
 
 The parent container is technically relative to the whole SVG container ... 🤔
 
-
-
-Absolute or relative, doesn&#x27;t matter. You&#x27;re gonna have one hell of a fun time calculating the position of each individual element by hand. D3 scales help, but you still have to think about it.
-
-
+Absolute or relative, doesn't matter. You're gonna have one hell of a fun time calculating the position of each individual element by hand. D3 scales help, but you still have to think about it.
 
 SVG itself offers zero help.
 
+Want to resize your scatterplots? Here's what happens 👇
 
+\[caption id="attachment_8575" align="alignnone" width="2660"]![Smaller scatterplots, gotta update positions](./img/blog-wp-content-uploads-2018-08-scatterplots-spaced-out.png) Smaller scatterplots, gotta update positions\[/caption]
 
-Want to resize your scatterplots? Here&#x27;s what happens 👇
+Want to resize your browser? Here's what happens 👇
 
-
-
-\[caption id=&quot;attachment_8575&quot; align=&quot;alignnone&quot; width=&quot;2660&quot;]![Smaller scatterplots, gotta update positions](./img/blog-wp-content-uploads-2018-08-scatterplots-spaced-out.png) Smaller scatterplots, gotta update positions\[/caption]
-
-
-
-Want to resize your browser? Here&#x27;s what happens 👇
-
-
-
-\[caption id=&quot;attachment_8576&quot; align=&quot;alignnone&quot; width=&quot;1396&quot;]![Resized browser cuts off visualization](./img/blog-wp-content-uploads-2018-08-not-responsive-at-all.png) Resized browser cuts off visualization\[/caption]
-
-
+\[caption id="attachment_8576" align="alignnone" width="1396"]![Resized browser cuts off visualization](./img/blog-wp-content-uploads-2018-08-not-responsive-at-all.png) Resized browser cuts off visualization\[/caption]
 
 Ugh.
 
-
-
 ## react-svg-flexbox to the rescue
 
+You can fix the layouting problem with [`react-svg-flexbox`](https://github.com/zoopoetics/react-svg-flexbox). It's a small library, not a lot of stars, but omg so perfect.
 
+Built on top of Facebook's [css-layout](https://www.npmjs.com/package/css-layout), which has recently become a part of [yoga](https://github.com/facebook/yoga), it lets you use CSS flexbox to position SVG elements.
 
-You can fix the layouting problem with [`react-svg-flexbox`](https://github.com/zoopoetics/react-svg-flexbox). It&#x27;s a small library, not a lot of stars, but omg so perfect.
+Flexbox might be confusing to grok – I look at tutorials any time I use it for anything – but it's way better than doing it yourself. How many engineers worked on browser layout engines over the past two decades?
 
-
-
-Built on top of Facebook&#x27;s [css-layout](https://www.npmjs.com/package/css-layout), which has recently become a part of [yoga](https://github.com/facebook/yoga), it lets you use CSS flexbox to position SVG elements.
-
-
-
-Flexbox might be confusing to grok – I look at tutorials any time I use it for anything – but it&#x27;s way better than doing it yourself. How many engineers worked on browser layout engines over the past two decades?
-
-
-
-Wouldn&#x27;t wanna retrace all those steps yourself 😅
-
-
+Wouldn't wanna retrace all those steps yourself 😅
 
 Wrap our dashboard in a `<Flexbox>` element and…
-
-
 
 ```javascript
 import Flexbox from "react-svg-flexbox";
@@ -195,62 +132,34 @@ import Flexbox from "react-svg-flexbox";
 </scatterplot></flexbox></svg>
 ```
 
-
-
 We take `<Flexbox>` out of `react-svg-flexbox`, use flexbox styles to say we want to render in a row that starts at the beginning, and the rest happens on its own.
-
-
 
 Note that react-svg-flexbox passes `x` and `y` props into our components, so we had to take out manual positioning. Our dashboard now uses up all the space it can 👇
 
+\[caption id="attachment_8571" align="alignnone" width="2612"]![Scatterplots rendered in a flexbox row](./img/blog-wp-content-uploads-2018-08-scatterplots-in-a-row.png) Scatterplots rendered in a flexbox row\[/caption]
 
-
-\[caption id=&quot;attachment_8571&quot; align=&quot;alignnone&quot; width=&quot;2612&quot;]![Scatterplots rendered in a flexbox row](./img/blog-wp-content-uploads-2018-08-scatterplots-in-a-row.png) Scatterplots rendered in a flexbox row\[/caption]
-
-
-
-Something&#x27;s funky with our vertical positioning, but it&#x27;s an easy fix. Offset `y` coordinates by a few pixels. ¯\_(ツ)\_/¯ it&#x27;s not happening in the official examples, so it must be something we&#x27;re doing inside those scatterplots.
-
-
+Something's funky with our vertical positioning, but it's an easy fix. Offset `y` coordinates by a few pixels. ¯\_(ツ)\_/¯ it's not happening in the official examples, so it must be something we're doing inside those scatterplots.
 
 The axes are still poking outside our `width` bounds, but this looks better already.
 
-
-
-\[caption id=&quot;attachment_8572&quot; align=&quot;alignnone&quot; width=&quot;2774&quot;]![Scatterplots with a vertical offset](./img/blog-wp-content-uploads-2018-08-scatterplots-vertical-offset.png) Scatterplots with a vertical offset\[/caption]
-
-
+\[caption id="attachment_8572" align="alignnone" width="2774"]![Scatterplots with a vertical offset](./img/blog-wp-content-uploads-2018-08-scatterplots-vertical-offset.png) Scatterplots with a vertical offset\[/caption]
 
 Even if we make one of them bigger, everything still works. No changes to positioning required! o/
 
-
-
-\[caption id=&quot;attachment_8573&quot; align=&quot;alignnone&quot; width=&quot;2588&quot;]![One big scatterplot](./img/blog-wp-content-uploads-2018-08-one-big-scatterplot.png) One big scatterplot\[/caption]
-
-
+\[caption id="attachment_8573" align="alignnone" width="2588"]![One big scatterplot](./img/blog-wp-content-uploads-2018-08-one-big-scatterplot.png) One big scatterplot\[/caption]
 
 ## Responsive layout with react-svg-flexbox
 
-
-
 For the biggest win, we add `flexWrap: wrap` to our `<Flexbox>` component. Like this 👇
-
-
 
 ```javascript
  <flexbox 1024="" style={{ flexdirection: "row", justifycontent: "flex-start", flexwrap: "wrap", width: 1024, height: }}>
 </flexbox>
 ```
 
-
-
-You have to specify available width in your styles, otherwise, it doesn&#x27;t work. That means you should listen to `window.onresize` and update width accordingly.
-
-
+You have to specify available width in your styles, otherwise, it doesn't work. That means you should listen to `window.onresize` and update width accordingly.
 
 Easiest to attach an event listener in `componentDidMount`. Like this:
-
-
 
 ```javascript
 class App extends Component {
@@ -281,38 +190,20 @@ class App extends Component {
 </flexbox></svg>
 ```
 
-
-
 And your dashboard becomes responsive! Yay
 
-
-
-https://twitter.com/Swizec/status/1030372365006327808
-
-
+<https://twitter.com/Swizec/status/1030372365006327808>
 
 ## See the code, play with examples
 
-
-
 You can see a full set of [react-svg-flexbox examples on their Storybook](https://zoopoetics.github.io/react-svg-flexbox/).
-
-
 
 Code for my dog breed dashboard example is on GitHub [here](https://github.com/Swizec/dog-size-intelligence-popularity).
 
-
-
 You can [try it live here](https://build-qoyobtahea.now.sh).
-
-
 
 ## Fin
 
-
-
-Use react-svg-flexbox. Your life will improve. The best thing that&#x27;s ever happened to me for SVG coding.
-
-
+Use react-svg-flexbox. Your life will improve. The best thing that's ever happened to me for SVG coding.
 
 Thanks [Cody Averett](https://twitter.com/code_e_averett) for finding this gem 💎

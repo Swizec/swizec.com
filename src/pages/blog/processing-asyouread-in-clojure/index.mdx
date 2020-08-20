@@ -7,11 +7,12 @@ redirect_from:
 categories: "Clojure, Function, Java, Languages, life, Programming, Uncategorized"
 hero: ./img/blog-wp-content-uploads-2010-04-300px-SixHardDriveFormFactors.jpg
 ---
-- [![Six hard disk drives with cases opened showing...](./img/blog-wp-content-uploads-2010-04-300px-SixHardDriveFormFactors.jpg "Six hard disk drives with cases opened showing...")](http://commons.wikipedia.org/wiki/Image:SixHardDriveFormFactors.jpg)
 
-  Image via [Wikipedia](http://commons.wikipedia.org/wiki/Image:SixHardDriveFormFactors.jpg)
+-   [![Six hard disk drives with cases opened showing...](./img/blog-wp-content-uploads-2010-04-300px-SixHardDriveFormFactors.jpg "Six hard disk drives with cases opened showing...")](http://commons.wikipedia.org/wiki/Image:SixHardDriveFormFactors.jpg)
 
-Sometimes we&#x27;re given a stupid [algorithm](http://en.wikipedia.org/wiki/Algorithm "Algorithm") or two to implement at this or that course at uni. This time &#x27;round they wanted us to implement something called external [matrix](http://en.wikipedia.org/wiki/Matrix_%28mathematics%29 "Matrix (mathematics)") transposition ... the idea is that you have to [transpose](http://en.wikipedia.org/wiki/Transpose "Transpose") a matrix live from the [hard drive](http://en.wikipedia.org/wiki/Hard_disk_drive "Hard disk drive") because it is potentially so bloody huge you can&#x27;t store a single row in memory. Which is a bit silly, who&#x27;s got 60+ gig huge matrixes these days? You&#x27;re doing it wrong if you need that many dimensions! VERY wrong! But anyway, what really struck me as a bit silly is that they were big nazis when it comes to how we&#x27;re supposed to do this. Needs to compile with their specific command, can only be done in [Java](http://java.sun.com "Java (programming language)") or C/C++ ... yeah fuck you and fuck your grade, let&#x27;s _learn_ something. So I went and did it in [Clojure](http://clojure.org "Clojure") ... well not really since I didn&#x27;t finish, but I came close. Surprisingly, it is in fact very _very_ hard to process data live as it&#x27;s being read in a functional environment. Every library that&#x27;s already out there open-read-closes the file, at best you get something that can read lines and allows you to work on every line as it&#x27;s being read, but oh no, not characters. Nope, what sort of bloody idiot would want _that_? Well ... me. So here is my implementation, probably not the most elegant thing out there since I&#x27;m new to this, of what Java people call &quot;nextInt&quot;. It returns the next integer in a file as a proper integer and so on.
+    Image via [Wikipedia](http://commons.wikipedia.org/wiki/Image:SixHardDriveFormFactors.jpg)
+
+Sometimes we're given a stupid [algorithm](http://en.wikipedia.org/wiki/Algorithm "Algorithm") or two to implement at this or that course at uni. This time 'round they wanted us to implement something called external [matrix](http://en.wikipedia.org/wiki/Matrix_%28mathematics%29 "Matrix (mathematics)") transposition ... the idea is that you have to [transpose](http://en.wikipedia.org/wiki/Transpose "Transpose") a matrix live from the [hard drive](http://en.wikipedia.org/wiki/Hard_disk_drive "Hard disk drive") because it is potentially so bloody huge you can't store a single row in memory. Which is a bit silly, who's got 60+ gig huge matrixes these days? You're doing it wrong if you need that many dimensions! VERY wrong! But anyway, what really struck me as a bit silly is that they were big nazis when it comes to how we're supposed to do this. Needs to compile with their specific command, can only be done in [Java](http://java.sun.com "Java (programming language)") or C/C++ ... yeah fuck you and fuck your grade, let's _learn_ something. So I went and did it in [Clojure](http://clojure.org "Clojure") ... well not really since I didn't finish, but I came close. Surprisingly, it is in fact very _very_ hard to process data live as it's being read in a functional environment. Every library that's already out there open-read-closes the file, at best you get something that can read lines and allows you to work on every line as it's being read, but oh no, not characters. Nope, what sort of bloody idiot would want _that_? Well ... me. So here is my implementation, probably not the most elegant thing out there since I'm new to this, of what Java people call "nextInt". It returns the next integer in a file as a proper integer and so on.
 
 ```clojure
 (ns io (:require [clojure.contrib.io :as io]))
@@ -38,7 +39,7 @@ Sometimes we&#x27;re given a stupid [algorithm](http://en.wikipedia.org/wiki/Alg
       (read-number rdr (concat acc [c])))))
 ```
 
-You call it with an open reader and an empty \[] thingy because, the latter because I couldn&#x27;t figure out optional [function](http://en.wikipedia.org/wiki/Function_%28mathematics%29 "Function (mathematics)") arguments. And if anyone&#x27;s interested, here&#x27;s the rest of the code that opens a file where the first number denotes the number of columns in the matrix and then contains the rest of it delimited with spaces or tabs or anything non-numerical, and copies every row into a separate file so a transposition can then be done (didn&#x27;t quite get to this part)
+You call it with an open reader and an empty \[] thingy because, the latter because I couldn't figure out optional [function](http://en.wikipedia.org/wiki/Function_%28mathematics%29 "Function (mathematics)") arguments. And if anyone's interested, here's the rest of the code that opens a file where the first number denotes the number of columns in the matrix and then contains the rest of it delimited with spaces or tabs or anything non-numerical, and copies every row into a separate file so a transposition can then be done (didn't quite get to this part)
 
 ```clojure
 (defn copy-number [rdr writer]
@@ -64,6 +65,6 @@ You call it with an open reader and an empty \[] thingy because, the latter beca
 (transpose-matrix "/home/swizec/Documents/APS2/input.txt")
 ```
 
-PS: that try/catch in there is fugly, but I didn&#x27;t know how else to check for EOF \*blush\*
+PS: that try/catch in there is fugly, but I didn't know how else to check for EOF \*blush\*
 
 [![Reblog this post \[with Zemanta\]](http://img.zemanta.com/reblog_e.png?x-id=40a33885-b638-42dc-8b23-c0933a1af6bb)](http://reblog.zemanta.com/zemified/40a33885-b638-42dc-8b23-c0933a1af6bb/ "Reblog this post \[with Zemanta]")

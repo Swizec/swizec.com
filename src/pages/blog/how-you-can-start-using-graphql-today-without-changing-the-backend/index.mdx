@@ -7,332 +7,171 @@ redirect_from:
 categories: "Back End, Technical"
 hero: ./img/h5gaIXC.png
 ---
+
 > GraphQL for new projects looks great ... buuuut how do you use it with that old backend cobbled together in Rails over the last bazillion years?
->
->
 
+Can you write an async function that returns some data? Great! That's all GraphQL needs. 🤘
 
-
-Can you write an async function that returns some data? Great! That&#x27;s all GraphQL needs. 🤘
-
-
-
-No seriously, it&#x27;s _that_ simple.
-
-
+No seriously, it's _that_ simple.
 
 You can connect GraphQL to your REST API instead of the database. Create a small proxy and start using GraphQL on the frontend today. No backend changes required.
 
-
-
 ![](./img/h5gaIXC.png)
-
-
 
 We explored this idea on a stream 👇
 
-
-
-
-
 [![Click through for source](./img/techletter.app-screenshot-1584029350206.png)](https://www.youtube.com/watch?v=5d_CZHljxuw)
-
-
-
-
 
 Out came a proof of concept that took a 37KB payload from our production API at [Yup](https://yup.com) and turned it into this:
 
-
-
 ![](./img/YKXYMJT.png)
-
-
 
 😍
 
-
-
 ## Why wrap a production API in GraphQL
 
+37KB for _one request_ isn't even the biggest API payload we've got. It's just the most common 👉 _our entire settings object_.
 
-
-37KB for _one request_ isn&#x27;t even the biggest API payload we&#x27;ve got. It&#x27;s just the most common 👉 _our entire settings object_.
-
-
-
-Nobody even knows which of those fields are still in use. Can&#x27;t remove any because you might break an old client.
-
-
+Nobody even knows which of those fields are still in use. Can't remove any because you might break an old client.
 
 So forever more every client gets every setting that any client in history ever needed.
 
-
-
 ![ew giphy](./img/media-aNtt9T8SqGNK8-giphy.gif)
-
-
 
 With a GraphQL proxy, each client can take just what it needs.
 
-
-
 It works like this:
 
-
-
-1. Client sends GraphQL query
-2. GraphQL proxy gets query and maps it to the `settings` resolver
-3. Resolver makes `fetch()` request to API
-4. API returns full settings object
-5. GraphQL machinery matches object to query
-6. Proxy returns only the requested data
-
-
+1.  Client sends GraphQL query
+2.  GraphQL proxy gets query and maps it to the `settings` resolver
+3.  Resolver makes `fetch()` request to API
+4.  API returns full settings object
+5.  GraphQL machinery matches object to query
+6.  Proxy returns only the requested data
 
 Want to combine multiple API requests into one? Now you can! Just send 2 queries in 1 request.
 
-
-
 Users get a faster app and lower bandwidth usage.
-
-
 
 You get an easier coding experience on the client _and_ you empower frontend engineers to make better decisions.
 
-
-
 Worried about the overhead of a GraphQL proxy?
 
-
-
-Many requests can be cached and don&#x27;t even have to hit your real backend.
-
-
+Many requests can be cached and don't even have to hit your real backend.
 
 ## How to wrap a REST API with GraphQL
 
+1.  Create a GraphQL server
+2.  Write query resolvers that poke your API
+3.  Build GraphQL type definitions from your payloads
 
+That last part is tedious, I'm sorry.
 
-1. Create a GraphQL server
-2. Write query resolvers that poke your API
-3. Build GraphQL type definitions from your payloads
-
-
-
-That last part is tedious, I&#x27;m sorry.
-
-
-
-Wittern et al talk about [Generating GraphQL-Wrappers for REST APIs](https://arxiv.org/abs/1809.08319) in a 2018 paper, but I haven&#x27;t found a good implementation in the wild yet. [Hasura](https://hasura.io/) looks like a great approach, but they convert your Postgres schema into a GraphQL API, not your client-facing API.
-
-
+Wittern et al talk about [Generating GraphQL-Wrappers for REST APIs](https://arxiv.org/abs/1809.08319) in a 2018 paper, but I haven't found a good implementation in the wild yet. [Hasura](https://hasura.io/) looks like a great approach, but they convert your Postgres schema into a GraphQL API, not your client-facing API.
 
 How related are your Postgres and your REST API really? I bet you build those payloads from SQL queries, environment variables, helper methods, and all sorts of stuff.
 
-
-
 WalmartLabs created a [JSON-to-GraphQL](https://walmartlabs.github.io/json-to-simple-graphql-schema/) library that works well for a first pass. I used it on the stream.
-
-
 
 You could create a crawler that goes through your API and builds GraphQL type definitions. 🤔
 
-
-
 ## Build a proof-of-concept to impress your boss.
 
+After harping on and on that we need GraphQL and it will solve many of our problems, my team started getting tired of my shit. We can't do it, it's too hard, we don't want to change the backend, we ... screw you I'm building it.
 
-
-After harping on and on that we need GraphQL and it will solve many of our problems, my team started getting tired of my shit. We can&#x27;t do it, it&#x27;s too hard, we don&#x27;t want to change the backend, we ... screw you I&#x27;m building it.
-
-
-
-here&#x27;s what I found
-
-
+here's what I found
 
 [full code on Github](https://github.com/Swizec/graphql-rest-proxy)
 
-
-
 ### serverless.yml
 
+Host on AWS Lambda so you don't have to deal with servers. Focus on the code.
 
-
-Host on AWS Lambda so you don&#x27;t have to deal with servers. Focus on the code.
-
-
-
-[![Click through for source](./img/techletter.app-screenshot-1584029348368.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=yaml&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=service%3A%20yup-graphql-proxy%0A%0Aprovider%3A%0A%20%20%20%20name%3A%20aws%0A%20%20%20%20runtime%3A%20nodejs12.x%0A%20%20%20%20stage%3A%20dev%0A%0Afunctions%3A%0A%20%20%20%20graphql%3A%0A%20%20%20%20%20%20%20%20handler%3A%20dist%2Fgraphql.handler%0A%20%20%20%20%20%20%20%20events%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20path%3A%20graphql%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20GET%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cors%3A%20true%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20path%3A%20graphql%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20POST%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cors%3A%20true)
-
-
+[![Click through for source](./img/techletter.app-screenshot-1584029348368.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=yaml&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=service%3A%20yup-graphql-proxy%0A%0Aprovider%3A%0A%20%20%20%20name%3A%20aws%0A%20%20%20%20runtime%3A%20nodejs12.x%0A%20%20%20%20stage%3A%20dev%0A%0Afunctions%3A%0A%20%20%20%20graphql%3A%0A%20%20%20%20%20%20%20%20handler%3A%20dist%2Fgraphql.handler%0A%20%20%20%20%20%20%20%20events%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20path%3A%20graphql%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20GET%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cors%3A%20true%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20path%3A%20graphql%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20POST%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cors%3A%20true)
 
 Run `sls deploy` and you get a server that runs your `graphql.handler` method on every GET and POST request.
 
-
-
 ### graphql.ts – Apollo AWS Lambda server
-
-
 
 Apollo is great for building GraphQL servers. Good community support, integrates well with Lambda, great developer experience. 👌
 
-
-
-[![Click through for source](./img/techletter.app-screenshot-1584029348184.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20src%2Fgraphql.ts%0Aimport%20%7B%20ApolloServer%2C%20gql%20%7D%20from%20%22apollo-server-lambda%22%3B%0Aimport%20%7B%20APIwrapper%20%7D%20from%20%22.%2FAPIwrapper%22%3B%0Aimport%20%7B%20settingsSchema%20%7D%20from%20%22.%2Fschema%2FSettings%22%3B%0A%0A%2F%2F%20this%20is%20where%20we%20define%20the%20shape%20of%20our%20API%0Aconst%20rootSchema%20%3D%20gql%60%0A%20%20%20%20type%20Query%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20queries%20%E2%80%93%C2%A0GET%20api%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20type%20Mutation%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20mutations%20%E2%80%93%C2%A0POST%20api%0A%20%20%20%20%7D%0A%60%3B%0A%0Aconst%20typeDefs%20%3D%20%5BrootSchema%2C%20settingsSchema%5D%3B%0A%0A%2F%2F%20a%20convenience%20wrapper%20for%20your%20API%0Aconst%20API%20%3D%20new%20APIwrapper()%3B%0A%0A%2F%2F%20this%20is%20where%20the%20shape%20maps%20to%20functions%0Aconst%20resolvers%20%3D%20%7B%0A%20%20%20%20Query%3A%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20query%20resolvers%20go%20here%0A%20%20%20%20%7D%0A%20%20%20%20Mutation%3A%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20mutation%20resolvers%20go%20here%0A%20%20%20%20%7D%0A%7D%3B%0A%0Aconst%20server%20%3D%20new%20ApolloServer(%7B%20typeDefs%2C%20resolvers%20%7D)%3B%0A%0Aexport%20const%20handler%20%3D%20server.createHandler(%7B%0A%20%20%20%20cors%3A%20%7B%0A%20%20%20%20%20%20%20%20origin%3A%20%22*%22%2C%20%2F%2F%20for%20security%20in%20production%2C%20lock%20this%20to%20your%20real%20endpoints%0A%20%20%20%20%20%20%20%20credentials%3A%20true%0A%20%20%20%20%7D%0A%7D)%3B)
-
-
+[![Click through for source](./img/techletter.app-screenshot-1584029348184.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2Fgraphql.ts%0Aimport%20%7B%20ApolloServer%2C%20gql%20%7D%20from%20%22apollo-server-lambda%22%3B%0Aimport%20%7B%20APIwrapper%20%7D%20from%20%22.%2FAPIwrapper%22%3B%0Aimport%20%7B%20settingsSchema%20%7D%20from%20%22.%2Fschema%2FSettings%22%3B%0A%0A%2F%2F%20this%20is%20where%20we%20define%20the%20shape%20of%20our%20API%0Aconst%20rootSchema%20%3D%20gql%60%0A%20%20%20%20type%20Query%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20queries%20%E2%80%93%C2%A0GET%20api%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20type%20Mutation%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20mutations%20%E2%80%93%C2%A0POST%20api%0A%20%20%20%20%7D%0A%60%3B%0A%0Aconst%20typeDefs%20%3D%20%5BrootSchema%2C%20settingsSchema%5D%3B%0A%0A%2F%2F%20a%20convenience%20wrapper%20for%20your%20API%0Aconst%20API%20%3D%20new%20APIwrapper()%3B%0A%0A%2F%2F%20this%20is%20where%20the%20shape%20maps%20to%20functions%0Aconst%20resolvers%20%3D%20%7B%0A%20%20%20%20Query%3A%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20query%20resolvers%20go%20here%0A%20%20%20%20%7D%0A%20%20%20%20Mutation%3A%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20mutation%20resolvers%20go%20here%0A%20%20%20%20%7D%0A%7D%3B%0A%0Aconst%20server%20%3D%20new%20ApolloServer(%7B%20typeDefs%2C%20resolvers%20%7D)%3B%0A%0Aexport%20const%20handler%20%3D%20server.createHandler(%7B%0A%20%20%20%20cors%3A%20%7B%0A%20%20%20%20%20%20%20%20origin%3A%20%22*%22%2C%20%2F%2F%20for%20security%20in%20production%2C%20lock%20this%20to%20your%20real%20endpoints%0A%20%20%20%20%20%20%20%20credentials%3A%20true%0A%20%20%20%20%7D%0A%7D)%3B)
 
 This creates a GraphQL server. Send a POST request and it maps queries to resolvers. Send a GET request and you see an Apollo playground so you can try your queries.
 
-
-
 ![](./img/YKXYMJT.png)
-
-
 
 ### schemas
 
-
-
 Schemas represent the shape of your API.
-
-
 
 This will take some manual work. I recommend a Query for every GET endpoint in your API and a Mutation for every POST/PUT/DELETE etc.
 
-
-
-Then use something like the [walmartlabs schema generator](https://walmartlabs.github.io/json-to-simple-graphql-schema/) to build type definitions for each endpoint. Some might overlap and that&#x27;s okay.
-
-
+Then use something like the [walmartlabs schema generator](https://walmartlabs.github.io/json-to-simple-graphql-schema/) to build type definitions for each endpoint. Some might overlap and that's okay.
 
 To keep code organized I recommend 1 schema file per endpoint – `src/schema/Thing.ts`. Like this
 
+[![Click through for source](./img/techletter.app-screenshot-1584029348191.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=src%2Fschema%2FSettings.ts%0A%0Aimport%20%7B%20gql%20%7D%20from%20%22apollo-server%22%3B%0A%0A%2F%2F%20schema%20generated%20with%3A%20https%3A%2F%2Fwalmartlabs.github.io%2Fjson-to-simple-graphql-schema%2F%0Aexport%20const%20settingsSchema%20%3D%20gql%60%0A%20%20%20%20type%20Reactions%20%7B%0A%20%20%20%20%20%20%20%20name%3A%20String%0A%20%20%20%20%20%20%20%20emoji%3A%20String%0A%20%20%20%20%20%20%20%20label%3A%20String%0A%20%20%20%20%7D%0A%0A%20%20%20%20type%20Subtopics%20%7B%0A%20%20%20%20%20%20%20%20id%3A%20Int%0A%20%20%20%20%20%20%20%20name%3A%20String%0A%20%20%20%20%20%20%20%20label%3A%20String%0A%20%20%20%20%7D%0A%0A%20%20%20%20type%20Subjects%20%7B%0A%20%20%20%20%20%20%20%20id%3A%20Int%0A%20%20%20%20%20%20%20%20name%3A%20String%0A%20%20%20%20%20%20%20%20blurb%3A%20String%0A%20%20%20%20%20%20%20%20available%3A%20Boolean%0A%20%20%20%20%20%20%20%20%0A%2F%2F%20...%0A%20%20%20%20%7D%0A%60%3B)
 
-
-[![Click through for source](./img/techletter.app-screenshot-1584029348191.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=src%2Fschema%2FSettings.ts%0A%0Aimport%20%7B%20gql%20%7D%20from%20%22apollo-server%22%3B%0A%0A%2F%2F%20schema%20generated%20with%3A%20https%3A%2F%2Fwalmartlabs.github.io%2Fjson-to-simple-graphql-schema%2F%0Aexport%20const%20settingsSchema%20%3D%20gql%60%0A%20%20%20%20type%20Reactions%20%7B%0A%20%20%20%20%20%20%20%20name%3A%20String%0A%20%20%20%20%20%20%20%20emoji%3A%20String%0A%20%20%20%20%20%20%20%20label%3A%20String%0A%20%20%20%20%7D%0A%0A%20%20%20%20type%20Subtopics%20%7B%0A%20%20%20%20%20%20%20%20id%3A%20Int%0A%20%20%20%20%20%20%20%20name%3A%20String%0A%20%20%20%20%20%20%20%20label%3A%20String%0A%20%20%20%20%7D%0A%0A%20%20%20%20type%20Subjects%20%7B%0A%20%20%20%20%20%20%20%20id%3A%20Int%0A%20%20%20%20%20%20%20%20name%3A%20String%0A%20%20%20%20%20%20%20%20blurb%3A%20String%0A%20%20%20%20%20%20%20%20available%3A%20Boolean%0A%20%20%20%20%20%20%20%20%0A%2F%2F%20...%0A%20%20%20%20%7D%0A%60%3B)
-
-
-
-There&#x27;s 300 lines of this crap. You don&#x27;t wanna write it by hand from scratch 😅
-
-
+There's 300 lines of this crap. You don't wanna write it by hand from scratch 😅
 
 A crawler could be a good idea. Something you point at all the different endpoints and it collects those schema definitions.
 
-
-
-You&#x27;ll have to consolidate and clean up by hand.
-
-
+You'll have to consolidate and clean up by hand.
 
 ### combining all those schemas
 
-
-
 Get all your schemas imported and into an array, pass them into ApolloServer as type definitions.
 
-
-
-[![Click through for source](./img/techletter.app-screenshot-1584029348174.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20src%2Fgraphql.ts%0A%0Aimport%20%7B%20userSchema%20%7D%20from%20%22.%2Fschema%2FUser%22%3B%0Aimport%20%7B%20settingsSchema%20%7D%20from%20%22.%2Fschema%2FSettings%22%3B%0A%0Aconst%20rootSchema%20%3D%20gql%60%0A%20%20%20%20type%20Query%20%7B%0A%20%20%20%20%20%20%20%20user%3A%20User%0A%20%20%20%20%20%20%20%20settings%3A%20Settings%0A%20%20%20%20%7D%0A%60%3B%0A%0Aconst%20typeDefs%20%3D%20%5BrootSchema%2C%20userSchema%2C%20settingsSchema%5D%3B%0A%0Aconst%20server%20%3D%20new%20ApolloServer(%7B%20typeDefs%2C%20resolvers%20%7D)%3B)
-
-
+[![Click through for source](./img/techletter.app-screenshot-1584029348174.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2Fgraphql.ts%0A%0Aimport%20%7B%20userSchema%20%7D%20from%20%22.%2Fschema%2FUser%22%3B%0Aimport%20%7B%20settingsSchema%20%7D%20from%20%22.%2Fschema%2FSettings%22%3B%0A%0Aconst%20rootSchema%20%3D%20gql%60%0A%20%20%20%20type%20Query%20%7B%0A%20%20%20%20%20%20%20%20user%3A%20User%0A%20%20%20%20%20%20%20%20settings%3A%20Settings%0A%20%20%20%20%7D%0A%60%3B%0A%0Aconst%20typeDefs%20%3D%20%5BrootSchema%2C%20userSchema%2C%20settingsSchema%5D%3B%0A%0Aconst%20server%20%3D%20new%20ApolloServer(%7B%20typeDefs%2C%20resolvers%20%7D)%3B)
 
 Query `user` returns the `User` model, `settings` for `Settings` etc. Build a mapping that makes sense for your API.
 
-
-
 Remember that you can `extend type` in any schema to extend existing types. Great for adding queries and mutations.
-
-
 
 ### map queries to REST requests with resolvers
 
-
-
 Resolvers are where you map queries to data. Any data from anywhere. 🤘
-
-
 
 For my settings proof-of-concept, it looks like this:
 
-
-
-[![Click through for source](./img/techletter.app-screenshot-1584029348370.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20src%2Fgraphql.ts%0A%0Aconst%20API%20%3D%20new%20APIwrapper()%3B%0A%0A%2F%2F%20this%20is%20where%20the%20shape%20maps%20to%20functions%0Aconst%20resolvers%20%3D%20%7B%0A%20%20%20%20Query%3A%20%7B%0A%20%20%20%20%20%20%20%20settings%3A%20async%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20await%20API.login()%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20API.settings()%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%20%20%2F%2F%20Mutation%3A%20%7B%7D%0A%7D%3B)
-
-
+[![Click through for source](./img/techletter.app-screenshot-1584029348370.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2Fgraphql.ts%0A%0Aconst%20API%20%3D%20new%20APIwrapper()%3B%0A%0A%2F%2F%20this%20is%20where%20the%20shape%20maps%20to%20functions%0Aconst%20resolvers%20%3D%20%7B%0A%20%20%20%20Query%3A%20%7B%0A%20%20%20%20%20%20%20%20settings%3A%20async%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20await%20API.login()%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20API.settings()%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%20%20%2F%2F%20Mutation%3A%20%7B%7D%0A%7D%3B)
 
 An API wrapper helps with authentication, staying logged in as a user, and sending the right headers with each request.
 
-
-
 The `API.settings()` method sends a fetch request to `/api/settings` and returns the payload.
 
+[![Click through for source](./img/techletter.app-screenshot-1584029348135.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2FAPIwrapper.ts%0A%0Aimport%20fetch%20from%20%22isomorphic-fetch%22%3B%0A%0Aexport%20class%20APIwrapper%20%7B%0A%20%20%20%20headers%3A%20JSONBlob%20%3D%20%7B%0A%20%20%20%20%20%20%20%20%22Content-Type%22%3A%20%22application%2Fjson%22%2C%0A%20%20%20%20%20%20%20%20Authorization%3A%20%60Token%20token%3D%3Cauth_token%3E%60%2C%0A%20%20%20%20%20%20%20%20Accept%3A%20%22application%2Fjson.v2%22%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20async%20settings()%20%7B%0A%20%20%20%20%20%20%20%20await%20this.login()%3B%0A%0A%20%20%20%20%20%20%20%20const%20settings%20%3D%20await%20fetch(%22https%3A%2F%2Fswizec.ngrok.io%2Fapi%2Fsettings%22%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20headers%3A%20this.headers%0A%20%20%20%20%20%20%20%20%7D).then(res%20%3D%3E%20res.json())%3B%0A%0A%20%20%20%20%20%20%20%20return%20settings%3B%0A%20%20%20%20%7D%0A%7D)
 
-
-[![Click through for source](./img/techletter.app-screenshot-1584029348135.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=%2F%2F%20src%2FAPIwrapper.ts%0A%0Aimport%20fetch%20from%20%22isomorphic-fetch%22%3B%0A%0Aexport%20class%20APIwrapper%20%7B%0A%20%20%20%20headers%3A%20JSONBlob%20%3D%20%7B%0A%20%20%20%20%20%20%20%20%22Content-Type%22%3A%20%22application%2Fjson%22%2C%0A%20%20%20%20%20%20%20%20Authorization%3A%20%60Token%20token%3D%3Cauth_token%3E%60%2C%0A%20%20%20%20%20%20%20%20Accept%3A%20%22application%2Fjson.v2%22%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20async%20settings()%20%7B%0A%20%20%20%20%20%20%20%20await%20this.login()%3B%0A%0A%20%20%20%20%20%20%20%20const%20settings%20%3D%20await%20fetch(%22https%3A%2F%2Fswizec.ngrok.io%2Fapi%2Fsettings%22%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20headers%3A%20this.headers%0A%20%20%20%20%20%20%20%20%7D).then(res%20%3D%3E%20res.json())%3B%0A%0A%20%20%20%20%20%20%20%20return%20settings%3B%0A%20%20%20%20%7D%0A%7D)
-
-
-
-Hardcoded to my dev machine because this is just a prototype. You&#x27;d want that to be a setting or environment variable of some sort.
-
-
+Hardcoded to my dev machine because this is just a prototype. You'd want that to be a setting or environment variable of some sort.
 
 The headers also are hardcoded and I stripped the token before sharing.
 
+My login method also is quite ratchet. It uses a demo user's email/pass combination to fake logging into the server. 🤣
 
+[![Click through for source](./img/techletter.app-screenshot-1584029348257.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=async%20login()%20%7B%0A%20%20%20%20if%20(this.headers%5B%22X-Has-User-Account%22%5D)%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20already%20logged%20in%2C%20keep%20going%0A%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20const%20response%3A%20LoginResponse%20%3D%20await%20fetch(%0A%20%20%20%20%20%20%20%20%22https%3A%2F%2Fswizec.ngrok.io%2Fapi%2Flogin%22%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20%22POST%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20headers%3A%20this.headers%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20body%3A%20JSON.stringify(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20user%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20email%3A%20%22admin%40localhost.com%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20password%3A%20%22Password1!%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20).then(res%20%3D%3E%20res.json())%3B%0A%0A%20%20%20%20%2F%2F%20add%20login%20stuff%20to%20headers%20for%20other%20methods%0A%20%20%20%20this.headers%20%3D%20%7B%0A%20%20%20%20%20%20%20%20...this.headers%2C%0A%20%20%20%20%20%20%20%20%22X-Has-User-Account%22%3A%20%22true%22%2C%0A%20%20%20%20%20%20%20%20%22X-User-Known-Key%22%3A%20response.identifier%2C%0A%20%20%20%20%20%20%20%20%22X-User-Authentication-Token%22%3A%20response.access_token%0A%20%20%20%20%7D%3B%0A%7D)
 
-My login method also is quite ratchet. It uses a demo user&#x27;s email/pass combination to fake logging into the server. 🤣
+You'll need to figure this part out for yourself. Authentication depends on your backend implementation. You might not even need it for some requests.
 
+## And that's how you wrap your REST API in a GraphQL
 
+1.  GraphQL server
+2.  Turn payloads into schema
+3.  Map queries to endpoints
 
-[![Click through for source](./img/techletter.app-screenshot-1584029348257.png)](https://carbon.now.sh/?bg=rgba(255,255,255,1)&amp;t=seti&amp;l=typescript&amp;ds=true&amp;wc=true&amp;wa=true&amp;pv=48px&amp;ph=32px&amp;ln=false&amp;code=async%20login()%20%7B%0A%20%20%20%20if%20(this.headers%5B%22X-Has-User-Account%22%5D)%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20already%20logged%20in%2C%20keep%20going%0A%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20const%20response%3A%20LoginResponse%20%3D%20await%20fetch(%0A%20%20%20%20%20%20%20%20%22https%3A%2F%2Fswizec.ngrok.io%2Fapi%2Flogin%22%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20%22POST%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20headers%3A%20this.headers%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20body%3A%20JSON.stringify(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20user%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20email%3A%20%22admin%40localhost.com%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20password%3A%20%22Password1!%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20).then(res%20%3D%3E%20res.json())%3B%0A%0A%20%20%20%20%2F%2F%20add%20login%20stuff%20to%20headers%20for%20other%20methods%0A%20%20%20%20this.headers%20%3D%20%7B%0A%20%20%20%20%20%20%20%20...this.headers%2C%0A%20%20%20%20%20%20%20%20%22X-Has-User-Account%22%3A%20%22true%22%2C%0A%20%20%20%20%20%20%20%20%22X-User-Known-Key%22%3A%20response.identifier%2C%0A%20%20%20%20%20%20%20%20%22X-User-Authentication-Token%22%3A%20response.access_token%0A%20%20%20%20%7D%3B%0A%7D)
-
-
-
-You&#x27;ll need to figure this part out for yourself. Authentication depends on your backend implementation. You might not even need it for some requests.
-
-
-
-## And that&#x27;s how you wrap your REST API in a GraphQL
-
-
-
-1. GraphQL server
-2. Turn payloads into schema
-3. Map queries to endpoints
-
-
-
-Where it gets tricky is preserving end-user authentication. You&#x27;d need to get cookie/token information from the client or run the login process through your proxy.
-
-
+Where it gets tricky is preserving end-user authentication. You'd need to get cookie/token information from the client or run the login process through your proxy.
 
 Large POST requests could look weird too.
 
-
-
 We have some endpoints that accept a JSON blob with tens of parameters. Several kilobytes of data. Stuffing all of that into mutation arguments feels funny.
-
-
 
 Maybe you could have 1 parameter that accepts a JSON string 🤔
 
-
-
-If you decide to go down this route, expect a schlep followed by _&quot;Yay we have GraphQL now&quot;_ from everyone else on your team. You&#x27;ll be their hero.
-
-
+If you decide to go down this route, expect a schlep followed by _"Yay we have GraphQL now"_ from everyone else on your team. You'll be their hero.
 
 ![hero giphy](./img/media-ek4CUx2FONgHaMz9V5-giphy-downsized-medium.gif)
 
-
-
-I think it&#x27;s worth it.
-
-
+I think it's worth it.
 
 Cheers,  
 ~Swizec

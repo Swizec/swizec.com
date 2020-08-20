@@ -7,7 +7,8 @@ redirect_from:
 categories: "Argument, Callback, Function (mathematics), JavaScript, Languages, Programming, Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
-Yesterday I was playing around with javascript trtying to find the cleanest way to implement [callbacks](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)") in [functions](http://en.wikipedia.org/wiki/Function_%28mathematics%29 "Function (mathematics)"). Primarily I wanted a readable way to make certain the last argument passed is a callback, withut having to rely on knowing how many [arguments](http://en.wikipedia.org/wiki/Argument "Argument") there are and so on. Instead I stumbled upon a pretty cool feature of how javascript handles function arguments. But let&#x27;s look at some code. This is the usual way people use functions, it&#x27;s nicely standard and works pretty much the same way in most languages
+
+Yesterday I was playing around with javascript trtying to find the cleanest way to implement [callbacks](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)") in [functions](http://en.wikipedia.org/wiki/Function_%28mathematics%29 "Function (mathematics)"). Primarily I wanted a readable way to make certain the last argument passed is a callback, withut having to rely on knowing how many [arguments](http://en.wikipedia.org/wiki/Argument "Argument") there are and so on. Instead I stumbled upon a pretty cool feature of how javascript handles function arguments. But let's look at some code. This is the usual way people use functions, it's nicely standard and works pretty much the same way in most languages
 
 ```javascript
 function example(arg1, arg2, arg3) {
@@ -17,7 +18,7 @@ function example(arg1, arg2, arg3) {
 example(1, 2, 3);
 ```
 
-Nothing too spectacular here, but javascript has another way to access function arguments - the magical arguments object; granted, a lot of languages have something like this, but it&#x27;s always a less than obvious feature people often forget about:
+Nothing too spectacular here, but javascript has another way to access function arguments - the magical arguments object; granted, a lot of languages have something like this, but it's always a less than obvious feature people often forget about:
 
 ```javascript
 function example() {
@@ -28,7 +29,7 @@ function example() {
 example(1, 2, 3);
 ```
 
-Ok, nothing too major, perhaps the biggest surprise is that arguments is an object, not a list or an array and strangely enough that the keys are strings despite being just numbers. Also pretty cool is that you don&#x27;t have to specify any arguments at all, it just magically works. In python for example you at least have to say \*args or something like that. But things really start to heat up when we mix both ways of using function arguments in javascript:
+Ok, nothing too major, perhaps the biggest surprise is that arguments is an object, not a list or an array and strangely enough that the keys are strings despite being just numbers. Also pretty cool is that you don't have to specify any arguments at all, it just magically works. In python for example you at least have to say \*args or something like that. But things really start to heat up when we mix both ways of using function arguments in javascript:
 
 ```javascript
 function example(arg) {
@@ -60,7 +61,7 @@ function example(arg) {
 example(1, 2, 3);
 ```
 
-The slightly strange thing here is that arguments the function takes explicitly are only references to the positions in the arguments object rather than variables of their own. Trying to make them a new variable doesn&#x27;t work unless you give them a different name. However despite these being just pointers, you can&#x27;t make them cross-reference each other because when you assign them to the arguments object a copy is performed and further changes are not reflected in both arguments properties. But is it a deep or a [shallow copy](http://en.wikipedia.org/wiki/Object_copy "Object copy")? Let&#x27;s try:
+The slightly strange thing here is that arguments the function takes explicitly are only references to the positions in the arguments object rather than variables of their own. Trying to make them a new variable doesn't work unless you give them a different name. However despite these being just pointers, you can't make them cross-reference each other because when you assign them to the arguments object a copy is performed and further changes are not reflected in both arguments properties. But is it a deep or a [shallow copy](http://en.wikipedia.org/wiki/Object_copy "Object copy")? Let's try:
 
 ```javascript
 function isitdeep(arg1, arg2) {
@@ -92,16 +93,16 @@ function isitdeep(arg1, arg2) {
 isitdeep({ a: { b: "c" }, d: { e: "f" } }, { g: "h" });
 ```
 
-Interesting, turns out it&#x27;s a shallow copy and you can still poke arguments in strange ways ... but maybe/probably that&#x27;s just how javascript performs in general, the = operator being a shallow copy mechanism. Anyhow, I&#x27;m sure this knowledge will come in handy some day, I&#x27;m just nicely tickled by having found it. Actually ... it&#x27;s kind of horrible, this sort of obscure language features should never be used in [production code](http://en.wikipedia.org/wiki/Motion_Picture_Production_Code "Motion Picture Production Code") :)
+Interesting, turns out it's a shallow copy and you can still poke arguments in strange ways ... but maybe/probably that's just how javascript performs in general, the = operator being a shallow copy mechanism. Anyhow, I'm sure this knowledge will come in handy some day, I'm just nicely tickled by having found it. Actually ... it's kind of horrible, this sort of obscure language features should never be used in [production code](http://en.wikipedia.org/wiki/Motion_Picture_Production_Code "Motion Picture Production Code") :)
 
 ###### Related articles
 
-- [You Don&#x27;t Know JavaScript](http://www.w2lessons.com/2011/04/you-dont-know-javascript.html) (w2lessons.com)
-- [Fast JavaScript Max/Min](http://ejohn.org/blog/fast-javascript-maxmin/) (ejohn.org)
-- [Amb in JavaScript](http://mihai.bazon.net/blog/amb-in-javascript) (mihai.bazon.net)
-- [Three Routes to Spaghetti-Free Javascript](http://zef.me/3715/three-routes-to-spaghetti-free-javascript) (zef.me)
-- [JavaScript interview questions and answers](http://venkatb4me.wordpress.com/2011/03/23/javascript-interview-questions-and-answers/) (venkatb4me.wordpress.com)
-- [&quot;JavaScript: The Good Parts&quot;, You Owe Me An Apology](http://sayyouresorryforwhatyouvedone.blogspot.com/2011/04/douglas-crockford-for-javascript-good.html) (sayyouresorryforwhatyouvedone.blogspot.com)
-- [Will the Rise of Javascript Mean the End of LAMP?](http://www.infoq.com/news/2011/04/javascript-lamp) (infoq.com)
+-   [You Don't Know JavaScript](http://www.w2lessons.com/2011/04/you-dont-know-javascript.html) (w2lessons.com)
+-   [Fast JavaScript Max/Min](http://ejohn.org/blog/fast-javascript-maxmin/) (ejohn.org)
+-   [Amb in JavaScript](http://mihai.bazon.net/blog/amb-in-javascript) (mihai.bazon.net)
+-   [Three Routes to Spaghetti-Free Javascript](http://zef.me/3715/three-routes-to-spaghetti-free-javascript) (zef.me)
+-   [JavaScript interview questions and answers](http://venkatb4me.wordpress.com/2011/03/23/javascript-interview-questions-and-answers/) (venkatb4me.wordpress.com)
+-   ["JavaScript: The Good Parts", You Owe Me An Apology](http://sayyouresorryforwhatyouvedone.blogspot.com/2011/04/douglas-crockford-for-javascript-good.html) (sayyouresorryforwhatyouvedone.blogspot.com)
+-   [Will the Rise of Javascript Mean the End of LAMP?](http://www.infoq.com/news/2011/04/javascript-lamp) (infoq.com)
 
 [![Enhanced by Zemanta](http://img.zemanta.com/zemified_e.png?x-id=1f7fa21d-b33c-4405-9a6f-c5c9e51030ef)](http://www.zemanta.com/ "Enhanced by Zemanta")

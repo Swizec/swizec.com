@@ -7,6 +7,7 @@ redirect_from:
 categories: "Front End, Livecoding, Technical"
 hero: ./img/blog-wp-content-uploads-2016-08-Screen-Shot-2016-08-21-at-17.32.42.png
 ---
+
 _This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding ?. Always under 500 words and with pictures. You can follow my channel, [here](https://livecoding.tv/swizec). New content almost **every Sunday at 2pm PDT**. There’s live chat, come say hai ?_
 
 Today we battled with a fearsome error, an error of odd implications and no clear solutions. `Uncaught TypeError: Super expression must either be null or function`
@@ -15,7 +16,7 @@ What does that even mean!? ?
 
 Well, it means that when you `import TransitionableComponent from 'react-transitionable-component'`, you get an object instead of a function. We confirmed the problem with some console.log calls. After importing `TransitionableComponent` is an object.
 
-![It&#x27;s an object!](./img/blog-wp-content-uploads-2016-08-Screen-Shot-2016-08-21-at-17.32.42.png)
+![It's an object!](./img/blog-wp-content-uploads-2016-08-Screen-Shot-2016-08-21-at-17.32.42.png)
 
 It looks just like a React component is supposed to. There’s a constructor method, a bunch of default object methods, and – I assume – all the `Component` methods as well. That’s great when you want to use a component in your `render()` function. Not so great when you want to use it as a parent class.
 

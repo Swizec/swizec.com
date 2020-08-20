@@ -7,11 +7,12 @@ redirect_from:
 categories: "animations, d3js, Front End, react, react+d3js, svg, Technical, transitions"
 hero: ../../../defaultHero.jpg
 ---
+
 # ![alphabet_2](./img/blog-wp-content-uploads-2016-04-alphabet_2.gif)
 
 One of d3’s biggest selling points is the general update pattern. Add some function calls and voila – animated visualization with transitions. You can see it in action in Mike Bostock’s [General Update Pattern 4.0](https://bl.ocks.org/mbostock/a8a5baa4c4a470cda598) where he animates an alphabet. Update the alphabet and old letters transition out, new letters transition in, updated letters transition into a new position. It works like magic. D3 always works like magic …
 
-https://twitter.com/lmatteis/status/721351646907863040
+<https://twitter.com/lmatteis/status/721351646907863040>
 
 You totally _can_ achieve the same result with React. Yes, even if you use React to render SVG. Yes, you can use d3’s powerful transitions API too. The React version is easier to understand, too. Keep reading and you’ll see why.
 
@@ -19,8 +20,8 @@ You totally _can_ achieve the same result with React. Yes, even if you use React
 
 We’re going to build that same animated alphabet. To keep things short, this tutorial focuses on the alphabet itself and ignores all the config and parent components. The code is based on React 15 and D3 4.0.0-alpha.29. Don’t worry, it works with the stable version of D3. I’ll explain the subtle differences. To make an animated alphabet, we need two components:
 
-- `Alphabet`, which creates random lists of letters every 1.5 seconds, then maps through them to render `Letter` components
-- `Letter`, which renders an SVG text element, and takes care of its enter/update/exit transitions
+-   `Alphabet`, which creates random lists of letters every 1.5 seconds, then maps through them to render `Letter` components
+-   `Letter`, which renders an SVG text element, and takes care of its enter/update/exit transitions
 
 We’re going to use React to render SVG elements, and d3 for transitions, intervals, and some maths. You can see the full code on GitHub [here](https://github.com/Swizec/react-d3-enter-exit-transitions).
 
@@ -237,9 +238,9 @@ We return an SVG `<text>` element rendered at an `(x, y)` position with a `class
 
 Boom. We’re done.  We have an `Alphabet` component that declaratively renders an animated alphabet. Letters transition in and out and jump left and right. All you need now is a skeleton setup that renders an SVG element and uses the `Alphabet` component. The key take aways are:
 
-- use d3 for transitions
-- use React to manage SVG elements
-- use ReactTransitionGroup to get more lifecycle events
-- mimic d3’s enter/update/exit pattern
+-   use d3 for transitions
+-   use React to manage SVG elements
+-   use ReactTransitionGroup to get more lifecycle events
+-   mimic d3’s enter/update/exit pattern
 
 You can learn more about properly integration React and d3js from my book, [React+d3js ES6](http://swizec.com/reactd3js).

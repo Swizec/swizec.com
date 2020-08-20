@@ -7,17 +7,18 @@ redirect_from:
 categories: "coding, JavaScript, Technical"
 hero: ./img/N1i7cv6.png
 ---
+
 Spurred by debate on [A Puzzle in JavaScript objects](https://swizec.com/blog/a-puzzle-in-javascript-objects/swizec/7014), I wanted to find the best way to clone objects in JavaScript. In this scenario, “best” means “fastest on average”.
 
 I’m using the dataset from [this visualization on H1B salaries](http://swizec.github.io/h1b-software-salaries/#2014-ca-engineer) as a quick way to build many objects. The dataset contains 81,123 objects with 9 keys each.
 
 The experiment is set up like this:
 
-- load &amp; parse data
-- run clone experiments in series
-- each experiment makes 10 deep copies of the dataset
-- “deep” is allowed to mean just the 2 levels required (objects in array don’t contain more objects)
-- present average runtime of each clone
+-   load & parse data
+-   run clone experiments in series
+-   each experiment makes 10 deep copies of the dataset
+-   “deep” is allowed to mean just the 2 levels required (objects in array don’t contain more objects)
+-   present average runtime of each clone
 
 Each individual experiment uses this runner:
 

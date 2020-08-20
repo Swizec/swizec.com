@@ -7,93 +7,50 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
+
 ![Stepper component built with CSS-in-JS](./img/mCL3XaJ.gif)
 
-
-
-Modern CSS-in-JS is the best thing that&#x27;s happened to the web since components. Hands down. Let me explain. 👇
-
-
+Modern CSS-in-JS is the best thing that's happened to the web since components. Hands down. Let me explain. 👇
 
 First we had the `style` prop and that sucked. I hated CSS-in-JS and thought it was stupid. You can pry my CSS from my dead cold hands! _shakes fist_
 
-
-
 Then came experiments.
-
-
 
 Can we make the style prop easier to use? Can we still use class names to style with BEM like we used to? What about CSS files with fat semantic classes? Scoped styles maybe?
 
-
-
 None of it quite worked. Everything was awkward in some way.
-
-
 
 The style prop is great for individual components and breaks down when you want to change your general font size.
 
-
-
-Class names give you all the power of CSS and BEM (tiny classes like .font1 .bold .bla). And it breaks down when you reuse components like building blocks. A component has the color defined and if you want to overwrite that you need something that understands classes and decides which one takes power and ugh don&#x27;t get me started.
-
-
+Class names give you all the power of CSS and BEM (tiny classes like .font1 .bold .bla). And it breaks down when you reuse components like building blocks. A component has the color defined and if you want to overwrite that you need something that understands classes and decides which one takes power and ugh don't get me started.
 
 I may have once tried to make that work ...
 
-
-
-Scoped CSS is better. That&#x27;s what Vue uses. But it still sucks, if you ask me. You get a weird mix of global styles with local overwrites and mixing BEM and semantic classes and it gets messy fast. Leads to weird code too.
-
-
+Scoped CSS is better. That's what Vue uses. But it still sucks, if you ask me. You get a weird mix of global styles with local overwrites and mixing BEM and semantic classes and it gets messy fast. Leads to weird code too.
 
 But then, then some beautiful soul came up with [styled-components](https://www.styled-components.com/). I was in love.
 
-
-
 All the simplicity of scoped CSS with the power of the style prop. You write CSS, yes, _but you can inject JavaScript too_.
-
-
 
 ![](./img/media-26FLdmIp6wJr91JAI-giphy.gif)
 
-
-
 ## Why styled-components are win, an example
-
-
 
 The best way to make my argument is with an example. I recently implemented a colorful React stepper component for a client project.
 
-
-
 Styled components and a couple libraries [@Diegohaz](https://twitter.com/diegohaz) built on top made it so easy it feels like cheating.
 
-
-
-https://twitter.com/Swizec/status/1090146315361636352?ref_src=twsrc%5Etfw
-
-
+<https://twitter.com/Swizec/status/1090146315361636352?ref_src=twsrc%5Etfw>
 
 You have 9 steps. Each a different color once done. Blank with a grey outline otherwise.
 
+Here's a CodeSandbox you can try.
 
+<https://codesandbox.io/s/vy3ll0220>
 
-Here&#x27;s a CodeSandbox you can try.
+Pretty isn't it? I think it is.
 
-
-
-https://codesandbox.io/s/vy3ll0220
-
-
-
-Pretty isn&#x27;t it? I think it is.
-
-
-
-Here&#x27;s all the component code 👇
-
-
+Here's all the component code 👇
 
 ```undefined
 <code lang="javascript">const Step = ({ index, done, last }) => (
@@ -112,47 +69,25 @@ export default ({ step, maxSteps }) => (
 </code>
 ```
 
-
-
-Yep that&#x27;s it. 12 lines of code.
-
-
+Yep that's it. 12 lines of code.
 
 A `<Stepper>` component, the default export, takes the current `step` and max number of steps, `maxSteps`. It renders a `<Steps>` component which deals with layouting. Inside goes an array of `<Step>`s.
 
-
-
-Each `<Step>` gets an index, a flag saying whether it&#x27;s `last`, and whether it&#x27;s been `done` yet. Highlighted vs. unhighlighted state.
-
-
+Each `<Step>` gets an index, a flag saying whether it's `last`, and whether it's been `done` yet. Highlighted vs. unhighlighted state.
 
 Steps render a `<Circle>` component, pass-in the props, and inside goes either a number or a star emoji. Star is last.
 
-
-
 ## All style logic goes in styles
-
-
 
 Moving your _visual_ UI logic out of your components and into styles is where CSS-in-JS shines. Focus your components on business logic, user experience, and hierarchy. Let your styles take care of your styling.
 
-
-
 Just like our [CSS Garden](http://www.csszengarden.com/) forebears envisioned. Remember CSS Gardens?
 
-
-
-You might be too young. The world has moved on. CSS&#x27;s initial promise is that we would completely decouple styling from document hierarchy and live a Zen stress free life.
-
-
+You might be too young. The world has moved on. CSS's initial promise is that we would completely decouple styling from document hierarchy and live a Zen stress free life.
 
 Now look at us.
 
-
-
 BUT ALL IS NOT LOST! Look at this beauty.
-
-
 
 ```undefined
 <code class="javascript">import { Box, Flex, Heading, styled } from "reakit";
@@ -165,27 +100,15 @@ const Steps = styled(Flex)`
 </code>
 ```
 
+I'm using Diegohaz's [reakit](https://reakit.io/) for base CSS stuff. He built a bunch of components on top of styled-components that have sane defaults and great composability.
 
-
-I&#x27;m using Diegohaz&#x27;s [reakit](https://reakit.io/) for base CSS stuff. He built a bunch of components on top of styled-components that have sane defaults and great composability.
-
-
-
-No styles, just some basics. `Flex`, for example, is a `div` with `display: flex`. That&#x27;s all.
-
-
+No styles, just some basics. `Flex`, for example, is a `div` with `display: flex`. That's all.
 
 `<Steps>` then is a flexbox div that centers its children and adds a `40px` padding on top.
 
-
-
 Easy 👌
 
-
-
 And then comes the `<Circle>` component. The individual steps.
-
-
 
 ```undefined
 <code class="javascript">import { theme, palette, withProp, ifProp } from "styled-tools";
@@ -219,40 +142,24 @@ const Circle = styled(Box)`
 </code>
 ```
 
-
-
 ![](./img/media-xT0xeJpnrWC4XWblEk-giphy.gif)
-
-
 
 A few things are happening here. Let me explain.
 
+1.  I'm using another of Diegohaz's libraries [styled-tools](https://github.com/diegohaz/styled-tools). It's a suite of helper functions that make it easier to use component props from your CSS-in-JS styles
+2.  I'm using a _theme_ behind the scenes. A concept built into Reakit that lets you define global styles. Things like UI colors, font sizes, stuff like that.
+3.  **ALL** of my visual logic is in this style
 
-
-1. I&#x27;m using another of Diegohaz&#x27;s libraries [styled-tools](https://github.com/diegohaz/styled-tools). It&#x27;s a suite of helper functions that make it easier to use component props from your CSS-in-JS styles
-2. I&#x27;m using a _theme_ behind the scenes. A concept built into Reakit that lets you define global styles. Things like UI colors, font sizes, stuff like that.
-3. **ALL** of my visual logic is in this style
-
-
-
-Let&#x27;s break it down.
-
-
+Let's break it down.
 
 We start with a `Box`, which is just a `div`.
-
-
 
 ```undefined
 <code class="javascript">const Circle = styled(Box)`
 </code>
 ```
 
-
-
 Then we turn it into a circle with a border.
-
-
 
 ```undefined
 <code class="css">    border-radius: 100%;
@@ -260,11 +167,7 @@ Then we turn it into a circle with a border.
 </code>
 ```
 
-
-
 Border and background color come from our `theme`, based on the combination of `index` and `done` props.
-
-
 
 ```undefined
 <code class="javascript">    border-color: ${ifProp(
@@ -280,41 +183,25 @@ Border and background color come from our `theme`, based on the combination of `
 </code>
 ```
 
+Here's how you read that:
 
-
-Here&#x27;s how you read that:
-
-
-
-1. If prop `done` is true, get first argument, otherwise the second.
-2. With prop `index` run method.
-3. Get the `steps` palette from theme and take the `index` color.
-4. Otherwise, get the `grey` palette and take the `2`nd color
-
-
+1.  If prop `done` is true, get first argument, otherwise the second.
+2.  With prop `index` run method.
+3.  Get the `steps` palette from theme and take the `index` color.
+4.  Otherwise, get the `grey` palette and take the `2`nd color
 
 Palettes are arrays in your theme object. Pure JavaScript. You can see it in the CodeSandbox above.
 
-
-
 A similar process gives you the font color.
-
-
 
 ```undefined
 <code class="javascript">    color: ${ifProp("done", "white", palette("grey", 2))};
 </code>
 ```
 
-
-
 If step is `done`, color is `white`, otherwise the 2nd color from the `grey` palette.
 
-
-
 Then we have font size, bold fonts, widths and heights, and other normal CSS stuff to round off each step.
-
-
 
 ```undefined
 <code class="javascript">    font-size: ${palette("size", 1)};
@@ -332,36 +219,20 @@ Then we have font size, bold fonts, widths and heights, and other normal CSS stu
 </code>
 ```
 
-
-
-You can still use CSS nesting and meta classes just like you&#x27;re used to. `&:last-child` matches the last `<Step>` and removes its margin so it doesn&#x27;t mess with the layout.
-
-
+You can still use CSS nesting and meta classes just like you're used to. `&:last-child` matches the last `<Step>` and removes its margin so it doesn't mess with the layout.
 
 👌
 
-
-
 ## Conclusion
 
-
-
-This flavor of CSS-in-JS is _the_ best most ridiculously easy way I&#x27;ve ever seen to style modern JavaScript components. I pray that it works for Vue as well as it does for React because I want to get my frontend peeps at the dayjob excited about it.
-
-
+This flavor of CSS-in-JS is _the_ best most ridiculously easy way I've ever seen to style modern JavaScript components. I pray that it works for Vue as well as it does for React because I want to get my frontend peeps at the dayjob excited about it.
 
 To recap:
 
-
-
-1. Components deal with business logic and UX
-2. Styles handle all visual logic
-3. Global theme handles generics
-
-
+1.  Components deal with business logic and UX
+2.  Styles handle all visual logic
+3.  Global theme handles generics
 
 Yes that means you ca rebrand your whole app just by changing `theme.js`.
-
-
 
 ![](./img/media-l0MYw6Cu1TfY3gsWk-giphy.gif)

@@ -7,13 +7,14 @@ redirect_from:
 categories: "backbone, backbonejs, Front End, react, reactjs, Technical"
 hero: ../../../defaultHero.jpg
 ---
+
 I did it! ?? I figured out a way to reliably interop between modern unidirectional data flow React components and old Backbone views. It ain’t pretty, but it works.
 
 There are three components in that page:
 
-- a `CurrentCount` component that shows current counter state; it’s pure React
-- a `ButtonWrapper` component that shows counter state and does `+1` on click; it’s a wrapped Backbone view
-- a `ReactButton` component that does `+10` on click; it’s _also_ pure React
+-   a `CurrentCount` component that shows current counter state; it’s pure React
+-   a `ButtonWrapper` component that shows counter state and does `+1` on click; it’s a wrapped Backbone view
+-   a `ReactButton` component that does `+10` on click; it’s _also_ pure React
 
 I know this is a trivial example, but it shows a powerful concept. That `+1` button is still the same [Backbone view from Tuesday](https://swizec.com/blog/backbone-react-step-1/swizec/7042). It stores state in a local Backbone Model, it uses a Handlebars template, and it remains the same idiomatic Backbone View it’s always been. Yet it interops with the React app, blissfully unaware that something fucky’s going on.
 
@@ -53,7 +54,7 @@ class CounterStore {
 
 MobX saves you from writing that logic yourself, and it adds a bunch of smartness to make it fast and efficient. I don’t really know how the engine works, but after reading the docs and some of Michel Weststrate’s Medium posts, I’m convinced it’s amaze.
 
-https://twitter.com/mweststrate/status/718444275239882753
+<https://twitter.com/mweststrate/status/718444275239882753>
 
 So that’s the store - no boilerplate involved. The two pure React components don’t involve much boilerplate either.
 
@@ -91,7 +92,7 @@ The `@observer` decorator comes from MobX’s React bindings. It automagically m
 
 **This is key**. It’s what makes MobX fast. It’s also what leads to confusion when you’re doing things that are not idiomatic React, like inserting Backbone views into React components.
 
-https://twitter.com/Swizec/status/778666202457440256
+<https://twitter.com/Swizec/status/778666202457440256>
 
 Thanks to Michel Weststrate for helping me out. His tip about using `autorun` saved the day ??
 
@@ -150,22 +151,22 @@ Like I said, it ain’t pretty ?
 
 It works like this:
 
-- React renders an anchor `div`
+-   React renders an anchor `div`
 
-- on component mount or update, it runs Backbone view rendering in `_render`
+-   on component mount or update, it runs Backbone view rendering in `_render`
 
-- on component unmount, it cleans up Backbone’s DOM event listeners
+-   on component unmount, it cleans up Backbone’s DOM event listeners
 
-- inside `_render` it:
+-   inside `_render` it:
 
-  - cleans up Backbone DOM event listeners
-  - instantiates a new Backbone view with `_init`
-  - tells the view to render inside that anchor `<div>`
+    -   cleans up Backbone DOM event listeners
+    -   instantiates a new Backbone view with `_init`
+    -   tells the view to render inside that anchor `<div>`
 
-- when initializing the view in `_init` it:
+-   when initializing the view in `_init` it:
 
-  - creates a new `BackboneButton` instance and gives it the _value_ of `N` from our store
-  - listens for changes to `N` on the view’s internal state and communicates them upstream with a MobX action
+    -   creates a new `BackboneButton` instance and gives it the _value_ of `N` from our store
+    -   listens for changes to `N` on the view’s internal state and communicates them upstream with a MobX action
 
 This approach is a leaky abstraction. The `_init` method has to know intimate details about the Backbone view you’re wrapping. There’s no way to get around that because MobX needs those getters and setters to observe state changes.
 

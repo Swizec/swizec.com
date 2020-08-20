@@ -7,7 +7,8 @@ redirect_from:
 categories: "flux, Front End, HTML, JavaScript, jQuery, react, Technical"
 hero: ./img/comics-automation.png
 ---
-\[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;404&quot;]![XKCD Automation](./img/comics-automation.png) XKCD Automation\[/caption] I waste almost 15 minutes a week on an annoying little task. Every email I send to an email list gets a link that says, _&quot;Click here to share with a friend.&quot;_ Clicking the link opens a filled-in email message. Add an address or two, click send, and you&#x27;re done. You share interesting information with your friends and my emails don&#x27;t become one of those &quot;Fwd: fwd: re: fwd: kids do the darnedest things!&quot; disasters. Nobody likes a forward, but everyone likes a direct share. It&#x27;s different. Making a direct share link, is as easy as using `mailto:?subject=some%20subject&body=some%20very%20long%20body`. This type of URL makes a magic email link containing the subject `some subject` and the body `some very long body`. One downside is that the subject and body are URL encoded. Finding an online URL encoder, pasting things in, and copying things out is a long process. Every time you want to change the body or fix a typo in the subject, you have to repeat the process all over again. Another downside is that the body doesn&#x27;t support HTML. You must strip it out or change it to Markdown. This task was annoying me so much that I decided to build [ShareThisEmail](http://sharethisemail.com), a tiny tool that takes a subject and a body, and returns a mailto: link. Simple, right?
+
+\[caption id="" align="alignnone" width="404"]![XKCD Automation](./img/comics-automation.png) XKCD Automation\[/caption] I waste almost 15 minutes a week on an annoying little task. Every email I send to an email list gets a link that says, _"Click here to share with a friend."_ Clicking the link opens a filled-in email message. Add an address or two, click send, and you're done. You share interesting information with your friends and my emails don't become one of those "Fwd: fwd: re: fwd: kids do the darnedest things!" disasters. Nobody likes a forward, but everyone likes a direct share. It's different. Making a direct share link, is as easy as using `mailto:?subject=some%20subject&body=some%20very%20long%20body`. This type of URL makes a magic email link containing the subject `some subject` and the body `some very long body`. One downside is that the subject and body are URL encoded. Finding an online URL encoder, pasting things in, and copying things out is a long process. Every time you want to change the body or fix a typo in the subject, you have to repeat the process all over again. Another downside is that the body doesn't support HTML. You must strip it out or change it to Markdown. This task was annoying me so much that I decided to build [ShareThisEmail](http://sharethisemail.com), a tiny tool that takes a subject and a body, and returns a mailto&#x3A; link. Simple, right?
 
 ## Doing it simply
 
@@ -26,7 +27,7 @@ function the_thing (subject, body) {
     },
 ```
 
-Well okay, _nine_ lines with good formatting. With this function, you encode the subject, encode the body, put the two together, and return the link. Dom Christie made an awesome [JavaScript markdown converter](https://github.com/domchristie/to-markdown) that makes this function easy. You can use jQuery and a _&quot;Do The Thing&quot;_ button, to drive this function with one line of code:
+Well okay, _nine_ lines with good formatting. With this function, you encode the subject, encode the body, put the two together, and return the link. Dom Christie made an awesome [JavaScript markdown converter](https://github.com/domchristie/to-markdown) that makes this function easy. You can use jQuery and a _"Do The Thing"_ button, to drive this function with one line of code:
 
 ```javascript
 $("#do-the-thing").click(function () {
@@ -34,15 +35,15 @@ $("#do-the-thing").click(function () {
 });
 ```
 
-That&#x27;s the JavaScript. Slap together some HTML and you&#x27;re done. An hour after you started, the utility works, you push it online, and never have to be annoyed by the annoying task again. And it only took so long because you had to look something up, opened Imgur by reflex, and spent twenty minutes clicking next.
+That's the JavaScript. Slap together some HTML and you're done. An hour after you started, the utility works, you push it online, and never have to be annoyed by the annoying task again. And it only took so long because you had to look something up, opened Imgur by reflex, and spent twenty minutes clicking next.
 
 ## Doing it reactifluxily
 
-On the other hand, maybe you&#x27;re like me. Maybe you thought to yourself, _&quot;I can use Flux and React and play with new stuff!&quot;_. This version took me two hours to build and at least an hour to get custom domains working with Github pages. Because this needs a domain of its own. Naturally. But! It makes a great _simple_ example for how to use Flux. The basic kind, at least; I haven&#x27;t played with all the fancy alternatives yet. Let&#x27;s build our utility from the bottom up: start with input fields, add the data store, write the output component, and finally a component that puts it all together.
+On the other hand, maybe you're like me. Maybe you thought to yourself, _"I can use Flux and React and play with new stuff!"_. This version took me two hours to build and at least an hour to get custom domains working with Github pages. Because this needs a domain of its own. Naturally. But! It makes a great _simple_ example for how to use Flux. The basic kind, at least; I haven't played with all the fancy alternatives yet. Let's build our utility from the bottom up: start with input fields, add the data store, write the output component, and finally a component that puts it all together.
 
 ### Fluxy input fields
 
-The utility we&#x27;re building makes a `mailto:` link with a `subject` and a `body`. That means we need two inputs - an `input` for the subject, and a `textarea` for the body. It takes 19 lines of nicely formatted JSX to build the subject input field:
+The utility we're building makes a `mailto:` link with a `subject` and a `body`. That means we need two inputs - an `input` for the subject, and a `textarea` for the body. It takes 19 lines of nicely formatted JSX to build the subject input field:
 
 ```javascript
 // src/Subject.jsx
@@ -84,7 +85,7 @@ const Actions = {
 };
 ```
 
-Just an object with some functions. When our component calls `update_subject`, it dispatches a new event on the dispatcher singleton with the correct `actionType`, and the new value. We&#x27;ll look at what happens after dispatching in the next subheading. It involves setting the `value` property to `this.props.value`, so don&#x27;t forget about that. Great, we&#x27;ve got the `Subject` component. The `Body` component looks the same, except it&#x27;s a `textarea`:
+Just an object with some functions. When our component calls `update_subject`, it dispatches a new event on the dispatcher singleton with the correct `actionType`, and the new value. We'll look at what happens after dispatching in the next subheading. It involves setting the `value` property to `this.props.value`, so don't forget about that. Great, we've got the `Subject` component. The `Body` component looks the same, except it's a `textarea`:
 
 ```javascript
 // src/Body.jsx
