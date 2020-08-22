@@ -7,24 +7,23 @@ redirect_from:
 categories: "d3, Front End, react, Technical"
 hero: ./img/blog-wp-content-uploads-2018-04-carbon-945x1024.png
 ---
-
 The new React 16.3 brings some changes to the ecosystem that change how we go about integrating React and D3 to build data visualizations.`componentWillReceiveProps`, `componentWillUpdate` and `compnentWillMount` are on their way out. They were great for making [React and D3](https://swizec.com/reactd3js) happy together, but they cause issues with the async rendering that the React team is planning for React 17.
 
-You tend to use those now-deprecated lifecycle methods to update D3 objects' internal state. Things like setting scale domains and ranges, updating complex D3 layouts, setting up transitions, etc.
+You tend to use those now-deprecated lifecycle methods to update D3 objects&#x27; internal state. Things like setting scale domains and ranges, updating complex D3 layouts, setting up transitions, etc.
 
-But you don't need to! You can do it all with the new lifecycle API.
+But you don&#x27;t need to! You can do it all with the new lifecycle API.
 
-Here's a small example of building a transition with React 16.3. Using only approved lifecycle callbacks and the new `ref` API.
+Here&#x27;s a small example of building a transition with React 16.3. Using only approved lifecycle callbacks and the new `ref` API.
 
-<https://www.youtube.com/watch?v=dipl9j1gpM8>
+https://www.youtube.com/watch?v=dipl9j1gpM8
 
 You can play with it on CodeSandbox 👇
 
-<https://codesandbox.io/s/618mr9r6nr>
+https://codesandbox.io/s/618mr9r6nr
 
 ## How it works
 
-The core issue we're working around is that when you pass new props into a component, React re-renders. This happens instantly. Because the re-render is instant, you don't have time to show a nice transition going into the new state.
+The core issue we&#x27;re working around is that when you pass new props into a component, React re-renders. This happens instantly. Because the re-render is instant, you don&#x27;t have time to show a nice transition going into the new state.
 
 You can solve this by rendering your component from `state` instead of props and keeping that state in sync.
 
@@ -54,15 +53,15 @@ componentDidUpdate() {
   }
 ```
 
-React calls `componentDidUpdate` whenever we change our component's props.
+React calls `componentDidUpdate` whenever we change our component&#x27;s props.
 
 We use `d3.select()` to give D3 control of the DOM node, run a transition that lasts `1000` milliseconds, define an easing function, and change the `cx` attribute to the new value we got from props.
 
 Right now, `state` holds the old position and `props` hold the new desired position.
 
-When our transition ends, we update state to match the new reality. This ensures React doesn't get upset with us.
+When our transition ends, we update state to match the new reality. This ensures React doesn&#x27;t get upset with us.
 
-At the very end, we have our `render()` function. It returns an SVG circle. Don't forget to set the `ref` to `this.circleRef`.
+At the very end, we have our `render()` function. It returns an SVG circle. Don&#x27;t forget to set the `ref` to `this.circleRef`.
 
 ## Declarative 💪
 
@@ -87,4 +86,4 @@ If we flip positions _during_ a transition, D3 is smart enough to stop the previ
 
 Try it. 🏀
 
-_PS: I'm thinking about updating [my React+D3v4 book](https://swizec.com/reactd3js) for React 16.3 and D3v5. Would that interest you? [Tell me on Twitter](http://twitter.com/home?status=Yo%20@swizec%20you%20should%20update%20your%20React+D3v4%20book)._
+_PS: I&#x27;m thinking about updating [my React+D3v4 book](https://swizec.com/reactd3js) for React 16.3 and D3v5. Would that interest you? [Tell me on Twitter](http://twitter.com/home?status=Yo%20@swizec%20you%20should%20update%20your%20React+D3v4%20book)._

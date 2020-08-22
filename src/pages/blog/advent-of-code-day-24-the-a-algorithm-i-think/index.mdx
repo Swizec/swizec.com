@@ -7,14 +7,13 @@ redirect_from:
 categories: "Haskell, Technical"
 hero: ./img/blog-wp-content-uploads-2017-12-advent-of-code-day-24-graph.jpg
 ---
-
-On Day 24 of Advent of Code we had to build a path finding algorithm. We're given a set of nodes and a heuristic and have to find the best possible path.<https://twitter.com/Swizec/status/945176148358524929The> puzzle uses different phrasing, but that's what it is.
+On Day 24 of Advent of Code we had to build a path finding algorithm. We&#x27;re given a set of nodes and a heuristic and have to find the best possible path.https://twitter.com/Swizec/status/945176148358524929The puzzle uses different phrasing, but that&#x27;s what it is.
 
 > Build a bridge out of the magnetic components strewn about nearby.
 >
 > Each component has two ports, one on each end. The ports come in all different types, and only matching types can be connected. You take an inventory of the components by their port types (your puzzle input). Each port is identified by the number of pins it uses; more pins mean a stronger connection for your bridge. A 3/7 component, for example, has a type-3 port on one side, and a type-7 port on the other.
 >
-> Your side of the pit is metallic; a perfect surface to connect a magnetic, zero-pin port. Because of this, the first port you use must be of type 0. It doesn't matter what type of port you end with; your goal is just to make the bridge as strong as possible.
+> Your side of the pit is metallic; a perfect surface to connect a magnetic, zero-pin port. Because of this, the first port you use must be of type 0. It doesn&#x27;t matter what type of port you end with; your goal is just to make the bridge as strong as possible.
 >
 > The strength of a bridge is the sum of the port types in each component. For example, if your bridge is made of components 0/3, 3/7, and 7/4, your bridge has a strength of 0 3 3 7 7 4 = 24.
 
@@ -22,7 +21,7 @@ You can model this as a graph path finding algorithm.
 
 Each component is a node. It connects to all other components with matching pin numbers. Our job is to find the most expensive path in this imaginary graph.
 
-Let's take the test input:
+Let&#x27;s take the test input:
 
 ```undefined
 0/2
@@ -39,7 +38,7 @@ With those nodes, our graph of connections looks like this 👇
 
 ![](./img/blog-wp-content-uploads-2017-12-advent-of-code-day-24-graph.jpg)![](graph)
 
-Sorry that's not laid out the best and I don't have my usual colourful markers on me right now. But that's our graph.
+Sorry that&#x27;s not laid out the best and I don&#x27;t have my usual colourful markers on me right now. But that&#x27;s our graph.
 
 The correct solution in this case is: `0/1--10/1--9/10` for a total strength of `31`.
 
@@ -49,9 +48,9 @@ The correct solution in this case is: `0/1--10/1--9/10` for a total strength of 
 
 To find that solution we can use the famous [A\* algorithm](https://en.wikipedia.org/wiki/A*_search_algorithm), which is itself an improvement on the even more famous [Dijkstra algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm). This is the stuff I used to nerd out on in college. 😇
 
-Now I can't promise my algorithm is a true implementation of A\* _or_ of Dijkstra's algorithm. I used what I remembered from college as inspiration and derived the search algorithm from scratch all on my own.
+Now I can&#x27;t promise my algorithm is a true implementation of A\* _or_ of Dijkstra&#x27;s algorithm. I used what I remembered from college as inspiration and derived the search algorithm from scratch all on my own.
 
-![A\* search algorithm visualization](./img/wikipedia-commons-5-5d-Astar_progress_animation.gif)
+![A* search algorithm visualization](./img/wikipedia-commons-5-5d-Astar_progress_animation.gif)
 
 A\* search algorithm visualization
 
@@ -73,18 +72,18 @@ heuristic::[(Int, Int)] -> Int
 heuristic links = sum [a b | (a, b) <- links]
 ```
 
-That's not the prettiest Haskell code. Here's what it means:
+That&#x27;s not the prettiest Haskell code. Here&#x27;s what it means:
 
--   `buildBridge` is a function that takes a number, two lists of `(number, number)` tuples, and returns a list of `(number, number)` tuples. The number is the `port` we're trying to build bridges for, the first list is a `pool` of available components, and the 3rd list is the current `bridge` we're extending.
--   if the `pool` of available components is empty, return the `bridge`
--   build a list of `candidates` for the next component and put it in `opts`
--   if `opts` has a length greater than zero, return the best bridge where you `buildBridge` for each candidate component
--   if there are no available candidates, return the `bridge`
--   the `heuristic` function sums all ports in the bridge
+- `buildBridge` is a function that takes a number, two lists of `(number, number)` tuples, and returns a list of `(number, number)` tuples. The number is the `port` we&#x27;re trying to build bridges for, the first list is a `pool` of available components, and the 3rd list is the current `bridge` we&#x27;re extending.
+- if the `pool` of available components is empty, return the `bridge`
+- build a list of `candidates` for the next component and put it in `opts`
+- if `opts` has a length greater than zero, return the best bridge where you `buildBridge` for each candidate component
+- if there are no available candidates, return the `bridge`
+- the `heuristic` function sums all ports in the bridge
 
-Each time we go into a recursion, we take components out of the component pool that's passed into `buildBridge`. That guarantees we don't accidentally use a component multiple times.
+Each time we go into a recursion, we take components out of the component pool that&#x27;s passed into `buildBridge`. That guarantees we don&#x27;t accidentally use a component multiple times.
 
-I find it difficult to visualize how this algorithm works. 😅 It's something between a breadth first search and Dijkstra's algorithm. Not actually sure it's A\* after all 🤔
+I find it difficult to visualize how this algorithm works. 😅 It&#x27;s something between a breadth first search and Dijkstra&#x27;s algorithm. Not actually sure it&#x27;s A\* after all 🤔
 
 ## How it works
 
@@ -133,7 +132,7 @@ Step 5
 
 At each step of unwinding, we can discard low value alternatives when they share the same bridge root. Eventually we end up with a single possibility.
 
-This _sounds_ a lot like the description of A_, but I'm honestly not sure that my algorithm is A_. 😕
+This _sounds_ a lot like the description of A*, but I&#x27;m honestly not sure that my algorithm is A*. 😕
 
 ## The helper functions
 
@@ -150,13 +149,13 @@ candidates port pool acc
           nextPool = poolWithout link pool
 ```
 
-This function takes a `port` we're connecting to, a `pool` of components, and the current known list of results, `acc`.
+This function takes a `port` we&#x27;re connecting to, a `pool` of components, and the current known list of results, `acc`.
 
-We use `findNext` to find the next component we can use, called `link`. Link because it's going to be a link in the bridge. We take it out of the `nextPool` of components passed into recursion using `poolWithout`.
+We use `findNext` to find the next component we can use, called `link`. Link because it&#x27;s going to be a link in the bridge. We take it out of the `nextPool` of components passed into recursion using `poolWithout`.
 
 If the `link` was found, we expand our known list of candidates, `acc`, with the new link and a call to `candidates` with the remaining pool.
 
-You may be wondering why we're spending so much time passing ports around instead of nodes. It's because each node is made out of two ports and each port can only be used once. We try to keep track of that.
+You may be wondering why we&#x27;re spending so much time passing ports around instead of nodes. It&#x27;s because each node is made out of two ports and each port can only be used once. We try to keep track of that.
 
 For instance when we look for candidates to connect to `(0, 1)` we know that `0` is already used. So we look for anything that can connect to `1`. When we find `(1,2)` and `(3,1)` we have to note that `1` is used up so the next node will have to connect to either `2` or `3`.
 
@@ -177,7 +176,7 @@ findNext port pool
 
 When the `port` matches either `left` or `right` side of the component, we return that component and the next port it can match to. If `left` matched, we return `(right, (component))`, if `right` matched, then we return `(left, (component))`.
 
-If nothing matched and there's still stuff in the pool, we return whatever `findNext` finds in the pool without the first element. Because we checked the first element just now.
+If nothing matched and there&#x27;s still stuff in the pool, we return whatever `findNext` finds in the pool without the first element. Because we checked the first element just now.
 
 Recursion 🤙
 
@@ -190,7 +189,7 @@ poolWithout link pool = filter (\x -> link /= x) pool
 
 ## And that works
 
-That mass of recursion that's hard to visualize in your mind works. It really does. I'm kinda surprised. It feels like magic.
+That mass of recursion that&#x27;s hard to visualize in your mind works. It really does. I&#x27;m kinda surprised. It feels like magic.
 
 I mean, I wrote the algorithm. I derived it from scratch. And when I try to think about how it works my mind just goes
 

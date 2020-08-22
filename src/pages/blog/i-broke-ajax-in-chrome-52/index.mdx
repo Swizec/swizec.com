@@ -7,7 +7,6 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
-
 [This strange bug from yesterday](https://swizec.com/blog/js-object-optimization-bug-in-chrome-52/swizec/6908) won’t let me sleep. _Why_ does Chrome 52 sometimes behave like different instances of a class are the same object?
 
 Backbone’s fetch method triggers the bug. But maybe that’s not the real issue? I’d hate to submit a bug report to Chrome project only to be told _“Fool, that’s a Backbone issue.”_
@@ -126,7 +125,7 @@ request.get("bla.json").end(() => {
 
 Yeeeeep.
 
-Now you might think: _“A-ha! Every even Ajax call to the same URL fails.”_ I tried that, too -> it doesn’t. If you make requests in a loop, they all work.
+Now you might think: _“A-ha! Every even Ajax call to the same URL fails.”_ I tried that, too -&gt; it doesn’t. If you make requests in a loop, they all work.
 
 The bug only happens, if you make the same AJAX request in the callback. You can extend a chain like this forever:
 

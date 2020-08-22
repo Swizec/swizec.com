@@ -7,14 +7,13 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/Tm1Bmdw.png
 ---
-
-Yes it's new, I just [open sourced it](https://github.com/Swizec/useDimensions) 😛
+Yes it&#x27;s new, I just [open sourced it](https://github.com/Swizec/useDimensions) 😛
 
 The other day I wanted to measure some DOM nodes. This is useful when you have to align items, or respond to browser width, or ... lots of reasons okay.
 
-I had to align a curvy line with elements that aren't under my control. This little stepper component uses flexbox to evenly space circles, CSS layouting aligns the title, and you see where this is going.
+I had to align a curvy line with elements that aren&#x27;t under my control. This little stepper component uses flexbox to evenly space circles, CSS layouting aligns the title, and you see where this is going.
 
-<https://twitter.com/Swizec/status/1105494223011241984?ref_src=twsrc%5Etfw>
+https://twitter.com/Swizec/status/1105494223011241984?ref_src=twsrc%5Etfw
 
 SVG in the background detects position of itself, positions of the title and circle, and uses those to define the `start` and `end` line of my curve. 👌
 
@@ -22,11 +21,11 @@ Many ways you can do this.
 
 @lavrton linked to [a list of existing NPM packages](https://www.npmjs.com/search?q=hook%20size) that sort of do it. @mcalus shared how [he uses `react-sizeme`](https://github.com/mcalus3/open-fraksl/blob/master/src/components/DomainComponents/DrawingComponents/FractalStage.tsx) to get it done.
 
-All great, but I wanted something even simpler. I also didn't know about them and kind of just wanted to make my own.
+All great, but I wanted something even simpler. I also didn&#x27;t know about them and kind of just wanted to make my own.
 
-Here's an approach I found works great
+Here&#x27;s an approach I found works great
 
-<https://twitter.com/Swizec/status/1105494221232910336?ref_src=twsrc%5Etfw>
+https://twitter.com/Swizec/status/1105494221232910336?ref_src=twsrc%5Etfw
 
 ## useDimensions hook
 
@@ -36,17 +35,17 @@ This seemed like a neat approach so I turned it into [an open source React Hook]
 
 useDimensions source
 
-Yep that's it. It really is that simple.
+Yep that&#x27;s it. It really is that simple.
 
 👉 [GitHub link](https://github.com/Swizec/useDimensions)
 
--   `useRef` creates a React.ref, lets you access the DOM
--   `useState` gives you place to store/read the result
--   `useLayoutEffect` runs before browser paint but after all is known
--   `getClientBoundingRect()` measures a DOM node. Width, height, x, y, etc
--   `toJSON` turns a DOMRect object into a plain object so you can destructure
+- `useRef` creates a React.ref, lets you access the DOM
+- `useState` gives you place to store/read the result
+- `useLayoutEffect` runs before browser paint but after all is known
+- `getClientBoundingRect()` measures a DOM node. Width, height, x, y, etc
+- `toJSON` turns a DOMRect object into a plain object so you can destructure
 
-Here's how to use it in your project 👇
+Here&#x27;s how to use it in your project 👇
 
 First, add `useDimensions` to your project
 
@@ -77,7 +76,7 @@ const MyComponent = () => {
 
 `useDimensions` returns a 2-element array. First the `ref`, second the dimensions.
 
-This is so multiple `useDimensions` hooks in the same component don't step on each others' toes. Create as many refs and measurement objects as you'd like.
+This is so multiple `useDimensions` hooks in the same component don&#x27;t step on each others&#x27; toes. Create as many refs and measurement objects as you&#x27;d like.
 
 ```undefined
 <code class="javascript">const MyComponent = () => {
@@ -99,8 +98,8 @@ This is so multiple `useDimensions` hooks in the same component don't step on ea
 
 MIT License of course.
 
-Consider retweeting if you think it's neat
+Consider retweeting if you think it&#x27;s neat
 
-<https://twitter.com/Swizec/status/1105868919129030656?ref_src=twsrc%5Etfw>
+https://twitter.com/Swizec/status/1105868919129030656?ref_src=twsrc%5Etfw
 
 Enjoy ✌️ ~Swizec

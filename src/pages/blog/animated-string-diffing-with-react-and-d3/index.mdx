@@ -7,7 +7,6 @@ redirect_from:
 categories: "d3.js, d3js, Front End, react, react+d3js, reacts, Technical"
 hero: ./img/iknWGlq.jpg
 ---
-
 ![](./img/sAr4q3L.gif)
 
 I turned [my animated alphabet example](http://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797) into an animation of what you’re typing. New characters drop in from above, old characters drop down, and any white space gets squeezed out. Pretty cool, huh? Try it out: Maybe I’m a weirdo nerd, but I could play with that for days. Well, okay, minutes. At least 30 seconds! What I like about this demo is that it’s a great example of declarative transitions built with React. Each letter handles its own animation, so all that the main component has to do is go through a list of characters in a loop and render a `Letter` component for each, like this:
@@ -49,9 +48,9 @@ Waaaait a minute. That’s no good! Appending new characters to the end looks gr
 
 The full longest common subsequence problem is a hairy beast with decades of research behind it. Efficient solutions are used in everything from version control systems to bioinformatics. A few assumptions make it easier in our case:
 
--   changes only happen at the caret
--   there is only 1 caret
--   there will only ever be 1 change
+- changes only happen at the caret
+- there is only 1 caret
+- there will only ever be 1 change
 
 A linear-complexity algorithm will do :)
 
@@ -59,10 +58,10 @@ A linear-complexity algorithm will do :)
 
 Assuming there’s only one change at a time works even when you take copy/paste into account. Users can’t copy/paste disparate chunks of text at the same time. It has to be connected. So even if the change uses the same text, it acts as a big remove followed by an insert. Our game plan is thus:
 
--   assign a unique ID to each new character
--   maintain `(char, id)` pairs for the same portion
--   create or drop `(char, id)` pairs for the changed portion
--   shift `(char, id)` pairs to new indexes for the shifted portion
+- assign a unique ID to each new character
+- maintain `(char, id)` pairs for the same portion
+- create or drop `(char, id)` pairs for the changed portion
+- shift `(char, id)` pairs to new indexes for the shifted portion
 
 The implementation took me 55 lines of code. You can see it in its entirety at the [github repository](https://github.com/Swizec/react-d3-enter-exit-transitions/blob/master/src/components/FancyText.jsx). There are 7 steps.
 

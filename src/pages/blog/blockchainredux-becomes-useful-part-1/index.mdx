@@ -7,35 +7,34 @@ redirect_from:
 categories: "blockchain, Front End, Livecoding, redux, Technical"
 hero: ./img/blog-wp-content-uploads-2018-04-Screen-Shot-on-2018-04-03-at-124014.png
 ---
+https://www.youtube.com/watch?v=D3WH5nI9Nj4Remember my [blockchain-redux](https://swizec.com/blog/blockchain-redux-experiment-part-2/swizec/8055) project from December? Probably not.
 
-<https://www.youtube.com/watch?v=D3WH5nI9Nj4Remember> my [blockchain-redux](https://swizec.com/blog/blockchain-redux-experiment-part-2/swizec/8055) project from December? Probably not.
+I&#x27;m building a library that lets anyone who can build a webapp build a blockchain. No, not an Etherium-distributed app or a crypto currency. Altho you could…
 
-I'm building a library that lets anyone who can build a webapp build a blockchain. No, not an Etherium-distributed app or a crypto currency. Altho you could…
-
-No, I'm exploring the idea that you can use blockchains as generic validated data storage. Got some state you wanna save and share? `.dispatch` an action. Your state is hashed, shared, and saved to _a_ blockchain.
+No, I&#x27;m exploring the idea that you can use blockchains as generic validated data storage. Got some state you wanna save and share? `.dispatch` an action. Your state is hashed, shared, and saved to _a_ blockchain.
 
 Every other app or client attached to the same blockchain can read your state, use it, and add to it.
 
 ![](./img/media-krhB8ydCQiYZq-giphy.gif)
 
-Ideally, you shouldn't have to know _how_ it works.
+Ideally, you shouldn&#x27;t have to know _how_ it works.
 
 My ultimate goal is to give you this 👇
 
-1.  `import { createStore } from 'blockchain-redux'`
-2.  `blockchain = createStore(rootReducer)`
-3.  `blockchain.dispatch()` and `blockchain.getState()`
-4.  You have a globally distributed validated data store
+1. `import { createStore } from 'blockchain-redux'`
+2. `blockchain = createStore(rootReducer)`
+3. `blockchain.dispatch()` and `blockchain.getState()`
+4. You have a globally distributed validated data store
 
 This weekend, we got very close.
 
 ## First usable proof of concept
 
-To prove that blockchains are useful for more than crypto speculation, I'm making my [interactive DOM benchmark](https://swizec.com/blog/building-interactive-dom-benchmark-preliminary-results/swizec/8219) collaborative. You can try it here: [dom-benchmark.now.sh](http://dom-benchmark.now.sh/)
+To prove that blockchains are useful for more than crypto speculation, I&#x27;m making my [interactive DOM benchmark](https://swizec.com/blog/building-interactive-dom-benchmark-preliminary-results/swizec/8219) collaborative. You can try it here: [dom-benchmark.now.sh](http://dom-benchmark.now.sh/)
 
-There's a few kinks left to resolve before I can publish the collaborative version.
+There&#x27;s a few kinks left to resolve before I can publish the collaborative version.
 
-The goal is to store and share measurements from anyone who plays with the benchmark and show them as live-updating graphs and charts. We can finally find out how fast various web frameworks are in the real world on real people's computers. Won't that be fun? 🤘
+The goal is to store and share measurements from anyone who plays with the benchmark and show them as live-updating graphs and charts. We can finally find out how fast various web frameworks are in the real world on real people&#x27;s computers. Won&#x27;t that be fun? 🤘
 
 Right now, on [my local machine](https://www.youtube.com/watch?v=D3WH5nI9Nj4&feature=youtu.be&t=3345), each click adds a block to the blockchain, and every other instance has to reload the page to fetch the updates. I want to make this work live.
 
@@ -75,15 +74,15 @@ Saving benchmark data to the blockchain revealed a few bugs in [blockchain-redux
 
 When the bugs were resolved, integration boiled down to this 👇
 
-1.  In `App.js`, we initialize the blockchain store
-2.  We subscribe to changes on the blockchain
-3.  We use the React 16.3 context API to share the store with child components
-4.  We render the blockchain length counter in `<IntroCopy />`
-5.  We dispatch block additions on every benchmark interaction
+1. In `App.js`, we initialize the blockchain store
+2. We subscribe to changes on the blockchain
+3. We use the React 16.3 context API to share the store with child components
+4. We render the blockchain length counter in `<IntroCopy />`
+5. We dispatch block additions on every benchmark interaction
 
 ### Initialize and subscribe
 
-First 2 steps aren't too hard:
+First 2 steps aren&#x27;t too hard:
 
 ```javascript
 // App.js
@@ -181,7 +180,7 @@ export default () => (
 
 We wrap a paragraph in a `BlockchainContext.Consumer`, which takes a function as children. That function gets the context `value` as its argument, which lets us call `getWholeChain()` on our blockchain to read its length.
 
-Another approach would be the traditional connected component pattern. We'd make a new `BlockchainLength` component, subscribe it to blockchain changes, and render values.
+Another approach would be the traditional connected component pattern. We&#x27;d make a new `BlockchainLength` component, subscribe it to blockchain changes, and render values.
 
 Just like Redux 🤓
 
@@ -220,9 +219,9 @@ addToBenchmark = ({ name, type, value }) => {
 };
 ```
 
-Looks familiar, doesn't it? It's just like Redux. You dispatch an action and reducers handle calculating the new state.
+Looks familiar, doesn&#x27;t it? It&#x27;s just like Redux. You dispatch an action and reducers handle calculating the new state.
 
-Our reducer for this example doesn't do much more than concat values to arrays. Like this:
+Our reducer for this example doesn&#x27;t do much more than concat values to arrays. Like this:
 
 ```javascript
 const benchmarkReducer = function (name) {
@@ -251,7 +250,7 @@ export default combineReducers({
 });
 ```
 
-All our reducers are the same, but they use different names. `benchmarkReducer` is a function that takes a name and returns a generic benchmark reducer. It appends values to the specified type's list of measurements.
+All our reducers are the same, but they use different names. `benchmarkReducer` is a function that takes a name and returns a generic benchmark reducer. It appends values to the specified type&#x27;s list of measurements.
 
 Just like Redux 🤓
 
@@ -261,13 +260,13 @@ Unlike just Redux, magic happens, and a new block is added to the blockchain.
 
 ![](./img/blog-wp-content-uploads-2018-04-screenshot-gif.gif)
 
-And you thought it wasn't useful. Ha!
+And you thought it wasn&#x27;t useful. Ha!
 
 ## What next?
 
-Next step for this particular example is to render some graphs and launch the collaborative benchmark. We'll see what happens.
+Next step for this particular example is to render some graphs and launch the collaborative benchmark. We&#x27;ll see what happens.
 
-On the [blockchain-redux](https://github.com/Swizec/blockchain-redux) front, I'm most probably giving a lightning talk about it at [Frontier Conf](https://www.frontiersf.com/) in April and a more proper talk at [WeAreDevelopers](wearedevelopers.com/congress/) in May.
+On the [blockchain-redux](https://github.com/Swizec/blockchain-redux) front, I&#x27;m most probably giving a lightning talk about it at [Frontier Conf](https://www.frontiersf.com/) in April and a more proper talk at [WeAreDevelopers](wearedevelopers.com/congress/) in May.
 
 Fun times. No pressure. 😅
 

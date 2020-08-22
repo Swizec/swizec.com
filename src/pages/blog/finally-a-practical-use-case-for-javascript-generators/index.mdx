@@ -7,10 +7,9 @@ redirect_from:
 categories: "Front End, Livecoding, Technical"
 hero: ../../../defaultHero.jpg
 ---
+JavaScript generators are amazing. A brilliant concept infinitely useful on paper.They let you write infinite loops that terminate. Yield values from functions before they finish. Build lazy data structures. Lazy evaluation programming!A functional programmer&#x27;s wet dream. 😍And I bet you&#x27;ve never used a JavaScript generator even once did you? Do you even know the syntax?I bet you don&#x27;t.Turns out generators aren&#x27;t very useful in practice. 😢But yesterday, after years of knowing about generators, years of itching to use them, years of ... I FOUND A USE! A real world practical use-case where generators _actually_ make your code better. 😱
 
-JavaScript generators are amazing. A brilliant concept infinitely useful on paper.They let you write infinite loops that terminate. Yield values from functions before they finish. Build lazy data structures. Lazy evaluation programming!A functional programmer's wet dream. 😍And I bet you've never used a JavaScript generator even once did you? Do you even know the syntax?I bet you don't.Turns out generators aren't very useful in practice. 😢But yesterday, after years of knowing about generators, years of itching to use them, years of ... I FOUND A USE! A real world practical use-case where generators _actually_ make your code better. 😱
-
-<https://youtu.be/XSHwIQUrD8E?t=1411>
+https://youtu.be/XSHwIQUrD8E?t=1411
 
 We were adding automatic linking of twitter usernames to my [TechLetterApp](https://techletter.app) project. Find a piece of text, parse out `@username` instances, turn into links.
 
@@ -20,7 +19,7 @@ I thought so too. Complications around inserting complex nodes into an abstract 
 
 Unless you use generators 😛
 
-## Here's how we did it 👇
+## Here&#x27;s how we did it 👇
 
 First, you create a regex that matches `@` followed by a series of word symbols.
 
@@ -49,9 +48,9 @@ We have a `*getUsernames` generator that takes a `string`. The asterisk notation
 
 Inside, a loop runs as long as `match` has a value. Assigned on each iteration as a `UserRegex.exec` call.
 
-We `yield` existing values on every loop iteration. Last one will be `null` and we don't want to return those.
+We `yield` existing values on every loop iteration. Last one will be `null` and we don&#x27;t want to return those.
 
-Yield is how you return values from generators. Notice that even after returning a value, the generator keeps running. That's the generator magic 🧙‍♀️
+Yield is how you return values from generators. Notice that even after returning a value, the generator keeps running. That&#x27;s the generator magic 🧙‍♀️
 
 You can now find all usernames in a string with a loop.
 
@@ -75,8 +74,8 @@ That outputs
 
 ![](./img/media-12NUbkX6p4xOO4-giphy.gif)
 
-Here's a CodeSandbox you can play with
+Here&#x27;s a CodeSandbox you can play with
 
-<https://codesandbox.io/s/lr800pko5m>
+https://codesandbox.io/s/lr800pko5m
 
 Cheers, ~Swizec

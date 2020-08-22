@@ -7,16 +7,15 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ./img/o9Z0rYC.png
 ---
-
 When was the last time you had to make sure your app works on weird browsers like Microsoft Edge?Me, I had to do it earlier this week. My experience building websites for a web agency back in high school meant I knew what I was getting into.
 
-<https://twitter.com/Swizec/status/1107895195163451393?ref_src=twsrc%5Etfw>
+https://twitter.com/Swizec/status/1107895195163451393?ref_src=twsrc%5Etfw
 
 ![](./img/media-116a8zosxwA0SI-giphy.gif)
 
 Microsoft Edge did not disappoint.
 
-`Array.flat()` doesn't work on Edge. On _every other browser_ it flattens nested arrays. On Edge it blows up and says the method doesn't exist.
+`Array.flat()` doesn&#x27;t work on Edge. On _every other browser_ it flattens nested arrays. On Edge it blows up and says the method doesn&#x27;t exist.
 
 ![CanIuse for Array.flat](./img/o9Z0rYC.png)
 
@@ -26,7 +25,7 @@ Okay not _every_ browser. Only the ones that people use.
 
 You can solve that with a polyfill right? An npm package that loads itself up and makes Array.flat work.
 
-Yep, makes the error go away. Doesn't behave the way it does on other browsers. 🤦‍♂️
+Yep, makes the error go away. Doesn&#x27;t behave the way it does on other browsers. 🤦‍♂️
 
 So I had to replace every `.flat()` with my own hack like this: `.reduce((arr, vals) => [...arr, ...vals], [])`. Sigh
 
@@ -34,21 +33,21 @@ In this project I was also using [chroma-js](https://gka.github.io/chroma.js/) t
 
 Except on Edge this created invalid hex values. Colors no work at all.
 
-Had to hack it together like this `` `rgba(${chroma(color).alpha(0.5).rgba().join(',')})``
+Had to hack it together like this `` `rgba(${chroma(color).alpha(0.5).rgba().join(',')}) ``
 
 🤨
 
 You thought that was bad? It gets even better!
 
-<https://twitter.com/Swizec/status/1107905401276624900?ref_src=twsrc%5Etfw>
+https://twitter.com/Swizec/status/1107905401276624900?ref_src=twsrc%5Etfw
 
-`.getBoundingClientRect()` doesn't work on Edge. Well it does but it returns a `ClientRect` instead of a `DOMRect`. They work the same except when they don't.
+`.getBoundingClientRect()` doesn&#x27;t work on Edge. Well it does but it returns a `ClientRect` instead of a `DOMRect`. They work the same except when they don&#x27;t.
 
 For example DOMRect has `x` and `y` coordinates. `ClientRect` only has `top` and `left`. Oh and ClientRect only exists on Edge. Of course.
 
 This meant I had to fix my [`useDimensions`](https://github.com/Swizec/useDimensions) library. Project relies on it a lot to measure stuff and build responsive data visualizations.
 
-Oh and flexbox doesn't work correctly. Instead of spacing evenly it bunches everything on the left. Of course.
+Oh and flexbox doesn&#x27;t work correctly. Instead of spacing evenly it bunches everything on the left. Of course.
 
 ![](./img/media-26ufcVAp3AiJJsrIs-giphy.gif)
 
@@ -58,9 +57,9 @@ Despite all this pain, there is a silver lining 👉 [BrowserStack](https://www.
 
 Well the testing itself was painful and the results made me cry but _I could test_.
 
-I'm a Mac kind of guy you see. I don't have Edge. I don't have a Windows machine. I have zero interest in VirtualBox and futzing around with images and installing Windows on a partition and whatever else it used to take to test on weird browsers.
+I&#x27;m a Mac kind of guy you see. I don&#x27;t have Edge. I don&#x27;t have a Windows machine. I have zero interest in VirtualBox and futzing around with images and installing Windows on a partition and whatever else it used to take to test on weird browsers.
 
-With BrowserStack I was able to run Edge in a Chrome tab. That's right. A Chrome tab emulated an entire operating system running a full screen browser.
+With BrowserStack I was able to run Edge in a Chrome tab. That&#x27;s right. A Chrome tab emulated an entire operating system running a full screen browser.
 
 Edge probably runs on their servers and streams an image to the tab. Still, feels like magic.
 
@@ -70,20 +69,20 @@ BrowserStack open screen
 
 BrowserStack really does support all browsers 👌
 
-You can use it for free for 15 minutes I think. I needed more so I ponied up a whopping \\$19 for a freelancer plan. That gave me 100 minutes.
+You can use it for free for 15 minutes I think. I needed more so I ponied up a whopping \$19 for a freelancer plan. That gave me 100 minutes.
 
 ![](./img/GqIcx7k.png)
 
 You can even run things from localhost. No idea how they made that work. Type `http://localhost:3000` into the URL bar and it actually goes to your localhost.
 
-Just don't type `localhost:3000` because Edge doesn't know how to deal with that and says it can't reach the URL. 🤦‍♂️
+Just don&#x27;t type `localhost:3000` because Edge doesn&#x27;t know how to deal with that and says it can&#x27;t reach the URL. 🤦‍♂️
 
-And here's proof. Edge running inside Chrome showing my homepage.
+And here&#x27;s proof. Edge running inside Chrome showing my homepage.
 
 ![](./img/9yvIsIG.png)
 
 Amazing.
 
-Lucky for us Microsoft is replacing the Edge browser engine with Chrome some time soon. Maybe then we won't need this anymore 🤞
+Lucky for us Microsoft is replacing the Edge browser engine with Chrome some time soon. Maybe then we won&#x27;t need this anymore 🤞
 
 Cheers, ~Swizec

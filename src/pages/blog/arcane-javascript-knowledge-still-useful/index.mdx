@@ -7,18 +7,17 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
-
 ES6 has been with us for 2 years. [ES2016 and ES2017](https://es2017.io) are standard practice. ES2018 is just around the corner.
 
-And yet, sometimes you still need JavaScript practices so arcane you've almost forgotten they exist. Such was the case with a production bug we discovered after a performance optimization.
+And yet, sometimes you still need JavaScript practices so arcane you&#x27;ve almost forgotten they exist. Such was the case with a production bug we discovered after a performance optimization.
 
-<https://twitter.com/Swizec/status/928761345750605825>
+https://twitter.com/Swizec/status/928761345750605825
 
-Every once in a while, you would refresh [our webapp](https://www.yup.com) and stare at the loading animation forever. Yes, we have one of those because we're cool.
+Every once in a while, you would refresh [our webapp](https://www.yup.com) and stare at the loading animation forever. Yes, we have one of those because we&#x27;re cool.
 
 ![](./img/blog-wp-content-uploads-2017-11-yuploader.gif)
 
-We worked hard on it, and it looks great. But we don't want you to be stuck staring at it never getting to the page.
+We worked hard on it, and it looks great. But we don&#x27;t want you to be stuck staring at it never getting to the page.
 
 We traced the problem down to a JavaScript error during app initialization. Sometimes Webpack would try to execute modules before they were ready.
 
@@ -38,7 +37,7 @@ modules[moduleId].call(module.exports, module, module.exports, __webpack_require
 </code>
 ```
 
-Now `manifest.js` is a generated file, so there isn't much you can do to fix it. In fact, you shouldn't have to fix it. Or even consider modifying it. Ever.
+Now `manifest.js` is a generated file, so there isn&#x27;t much you can do to fix it. In fact, you shouldn&#x27;t have to fix it. Or even consider modifying it. Ever.
 
 Webpack generates this file when you compile your code and uses it to bootstrap your code. It builds a list of modules inside that `modules` dictionary and executes them when you run `import` or `require()`.
 
@@ -46,7 +45,7 @@ Usually, this either always works or never works.
 
 It always works when your code is correct. It never works when you forget to `export` your module.
 
-But it's never supposed to get into such a situation that it _sometimes_ works and sometimes doesn't. That is right out.
+But it&#x27;s never supposed to get into such a situation that it _sometimes_ works and sometimes doesn&#x27;t. That is right out.
 
 So I started to dig.
 
@@ -56,11 +55,11 @@ And dig some more.
 
 Our bug stymied even grandmaster TheLarkInn.
 
-<https://twitter.com/TheLarkInn/status/928789785124016128>
+https://twitter.com/TheLarkInn/status/928789785124016128
 
 I dug for an hour. Then two. Then five.
 
-I tried everything. I added console logs into manifest.js to track which module exactly was causing a problem. I used [Webpack's official analyze tool](https://webpack.github.io/analyse/) to inspect our builds and associate `moduleId`s with specific code files.
+I tried everything. I added console logs into manifest.js to track which module exactly was causing a problem. I used [Webpack&#x27;s official analyze tool](https://webpack.github.io/analyse/) to inspect our builds and associate `moduleId`s with specific code files.
 
 At up to 3 minutes per compile, it was slow going.
 
@@ -76,7 +75,7 @@ In it, he explained that scripts dynamically inserted into the DOM were `async` 
 
 Why does that matter? Because our performance optimization made our scripts `preload` then injected them into the DOM when the files were loaded.
 
-This meant that _sometimes_ our `main_code.js` would start executing _before_ our `main_code_vendor.js` file was loaded. As a result, core libraries our code depends on weren't loaded yet by the time our code tried to use them.
+This meant that _sometimes_ our `main_code.js` would start executing _before_ our `main_code_vendor.js` file was loaded. As a result, core libraries our code depends on weren&#x27;t loaded yet by the time our code tried to use them.
 
 Ha!
 
@@ -84,15 +83,15 @@ Ha!
 
 Let me give you some background.
 
-We use [Webpack to split our app into multiple files](https://swizec.com/blog/dirty-hack-took-30percent-off-webpack-size/swizec/7657). Libraries go into an `app_vendor.js` file, and our code goes into an `app.js` file. Most of our apps also have chunks that Webpack loads asynchronously when they're needed.
+We use [Webpack to split our app into multiple files](https://swizec.com/blog/dirty-hack-took-30percent-off-webpack-size/swizec/7657). Libraries go into an `app_vendor.js` file, and our code goes into an `app.js` file. Most of our apps also have chunks that Webpack loads asynchronously when they&#x27;re needed.
 
 So you need to load at least 3 JavaScript files to make any of our apps work
 
-1.  manifest.js
-2.  app_vendor.js
-3.  app.js
+1. manifest.js
+2. app_vendor.js
+3. app.js
 
-Loading scripts as `async` is an old technique to make webapps faster. You write `<script src="bla" async></script>` and the browser doesn't wait for JavaScript to load before moving on to rendering the rest of your DOM.
+Loading scripts as `async` is an old technique to make webapps faster. You write `<script src="bla" async></script>` and the browser doesn&#x27;t wait for JavaScript to load before moving on to rendering the rest of your DOM.
 
 This is great, but it leads to problems. Scripts might execute in random order.
 
@@ -100,9 +99,9 @@ So instead, we used `defer` for a long time. This downloads scripts without wait
 
 Wonderful.
 
-But preloading is even better 👉 `<link rel="preload" href="bla" onload="loadJsFiles(this.href) />`. With preloading, you're loading scripts without waiting for them, potentially before the user even opens your site, then executing a callback to say _"Ok we got the script, now what?"_
+But preloading is even better 👉 `<link rel="preload" href="bla" onload="loadJsFiles(this.href) />`. With preloading, you&#x27;re loading scripts without waiting for them, potentially before the user even opens your site, then executing a callback to say _&quot;Ok we got the script, now what?&quot;_
 
-In our case, the _"now what"_ part would create a `script` DOM node and insert it into the page. That makes it execute.
+In our case, the _&quot;now what&quot;_ part would create a `script` DOM node and insert it into the page. That makes it execute.
 
 ```javascript
 function loadJsFile(file) {
@@ -121,11 +120,11 @@ Keep track of all scripts that were loaded, insert them into the DOM, and trigge
 
 ## The solution
 
-This _"Preload as much as possible, insert into DOM when all is ready"_ works great.
+This _&quot;Preload as much as possible, insert into DOM when all is ready&quot;_ works great.
 
-Except when it doesn't.
+Except when it doesn&#x27;t.
 
-_Sometimes_ they would execute in the wrong order. Our business code would start executing before our vendor code and discover that the libraries it needs weren't there.
+_Sometimes_ they would execute in the wrong order. Our business code would start executing before our vendor code and discover that the libraries it needs weren&#x27;t there.
 
 💩
 

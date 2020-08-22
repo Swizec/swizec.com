@@ -7,7 +7,6 @@ redirect_from:
 categories: "Livecoding, Startups, Technical"
 hero: ./img/E5JakQs.png
 ---
-
 _This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding ?. Always under 500 words and with pictures. You can follow my channel, [here](https://livecoding.tv/swizec). New streams almost **every Sunday at 2pm PDT**. There’s live chat, come say hai ?_
 
 Aaaaaalmost hacked together a Slack bot that can answer the door. There’s one last step to figure out and then we are ready to rock. ??
@@ -18,14 +17,14 @@ It’s perfect for the home. It’s _really_ annoying for anyone stuck with buzz
 
 A Slack bot can do that for us. Here’s the idea:
 
--   give the buzzer a Twilio phone number
--   build a small node.js server to answer the phone
--   send Slack message with an _“I am so and so”_ audio clip
--   offer `Deny` and `Let them in` buttons
--   anyone can buzz anyone in
--   profit.
+- give the buzzer a Twilio phone number
+- build a small node.js server to answer the phone
+- send Slack message with an _“I am so and so”_ audio clip
+- offer `Deny` and `Let them in` buttons
+- anyone can buzz anyone in
+- profit.
 
-The profit part comes if Slack lets me release this as a, say, \\$10/month service. We’ll see. ?
+The profit part comes if Slack lets me release this as a, say, \$10/month service. We’ll see. ?
 
 You can also play with it as an [open source project on Github](https://github.com/Swizec/door-answer-slackbot). But it’s not really ready for prime-time yet. The code is a mess, and there’s no README file to tell you how to set it up.
 
@@ -108,8 +107,8 @@ This is what you get on Slack:
 
 Now comes the part I haven’t figured out yet:
 
-1.  Build the API for those Slack buttons – it always throws an error ?
-2.  Figure out how to continue sending to a Twilio call outside of the original webhoook, if I know the original call ID.
+1. Build the API for those Slack buttons – it always throws an error ?
+2. Figure out how to continue sending to a Twilio call outside of the original webhoook, if I know the original call ID.
 
 The first bit is just a matter of figuring out my config. Slack gives clear instructions for doing that; I just gave up too soon.
 

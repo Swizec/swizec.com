@@ -7,34 +7,33 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
-
 <!-- wp:html -->
 
-There's no hook emoji… croissants look like hooks, right?
+There&#x27;s no hook emoji… croissants look like hooks, right?
 
 Mmmm… croissants with some sort of nut cream filling. Get it, hooks in a nutshell? Ha
 
-Maybe I'm hungry 🤔
+Maybe I&#x27;m hungry 🤔
 
-So anyway, React hooks took the React world by storm this weekend. They're not even out yet! And yet here we are.
+So anyway, React hooks took the React world by storm this weekend. They&#x27;re not even out yet! And yet here we are.
 
-JavaScript lyfe: New thing comes out, rocks the world, everyone says it's the next best thing since jQuery and will definitely make all your code better and all your knowledge obsolete. Time to learn stuff!
+JavaScript lyfe: New thing comes out, rocks the world, everyone says it&#x27;s the next best thing since jQuery and will definitely make all your code better and all your knowledge obsolete. Time to learn stuff!
 
 Untrue.
 
-React hooks are neat. They look useful. They don't deprecate anything. Please don't rewrite your apps in hooks. Yet.
+React hooks are neat. They look useful. They don&#x27;t deprecate anything. Please don&#x27;t rewrite your apps in hooks. Yet.
 
-I watched [Ryan's talk 90% cleaner with hooks](https://www.youtube.com/watch?v=wXLf18DsV-I) last night, [Dan's and Sophie's talk announcing hooks](https://www.youtube.com/watch?v=V-QO-KO90iQ) this morning, read all the docs, and watched Twitter like a disinterested hawk all weekend.
+I watched [Ryan&#x27;s talk 90% cleaner with hooks](https://www.youtube.com/watch?v=wXLf18DsV-I) last night, [Dan&#x27;s and Sophie&#x27;s talk announcing hooks](https://www.youtube.com/watch?v=V-QO-KO90iQ) this morning, read all the docs, and watched Twitter like a disinterested hawk all weekend.
 
 Hours of research condensed into the next 200 words because I love you. ❤️
 
-## Here's what you need to know about hooks right now 👇
+## Here&#x27;s what you need to know about hooks right now 👇
 
 You can try them out.
 
-1.  `create-react-app look-ma-no-classes`
-2.  Open package.json, change `react` and `react-dom` to `next`
-3.  `yarn install`
+1. `create-react-app look-ma-no-classes`
+2. Open package.json, change `react` and `react-dom` to `next`
+3. `yarn install`
 
 ![Try out hooks](./img/media-5eF7npmWqLwuECXPNT-giphy.gif)
 
@@ -82,13 +81,13 @@ Less code to write and understand.
 
 In a class component, you:
 
--   set a default value
--   create an `onChange` callback that fires `setState`
--   read value from state before rendering etc.
+- set a default value
+- create an `onChange` callback that fires `setState`
+- read value from state before rendering etc.
 
 Without modern fat arrow syntax, you might run into trouble with binds.
 
-The hook approach moves that boilerplate to React's plate. You call `useState`. It takes a default value and returns a getter and a setter.
+The hook approach moves that boilerplate to React&#x27;s plate. You call `useState`. It takes a default value and returns a getter and a setter.
 
 You call that setter in your change handler.
 
@@ -96,7 +95,7 @@ Behind the scenes, React subscribed your component to that change. Your componen
 
 ### useEffect
 
-`useEffect` replaces the `componentDidMount`, `componentDidUpdate`, `shouldComponentUpdate`, `componentWillUnmount` quadfecta. It's like a trifecta, but four.
+`useEffect` replaces the `componentDidMount`, `componentDidUpdate`, `shouldComponentUpdate`, `componentWillUnmount` quadfecta. It&#x27;s like a trifecta, but four.
 
 Say you want a side-effect when your component updates, like make an API call. Gotta run it on mount and update. Want to subscribe to a DOM event? Gotta unsubscribe on unmount.
 
@@ -175,7 +174,7 @@ useEffect(() => {
 
 Neat 👌
 
-Waiting for the day we can use this to do naughty DOM stuff in functional components. Limiting factor right now is that we can't have refs I think.
+Waiting for the day we can use this to do naughty DOM stuff in functional components. Limiting factor right now is that we can&#x27;t have refs I think.
 
 ### useContext
 
@@ -199,11 +198,11 @@ Context becomes just a value in your function. React auto subscribes you to all 
 
 `useReducer` is like React got Redux built in now. Whoa.
 
-You don't really have to know this one. But it comes by default and it's kinda neat. Although I think using it for realz will lead to your components becoming way too big and bloated.
+You don&#x27;t really have to know this one. But it comes by default and it&#x27;s kinda neat. Although I think using it for realz will lead to your components becoming way too big and bloated.
 
-You should [watch Ryan's talk](https://youtu.be/wXLf18DsV-I?t=1457) to learn more about this one. Too long to explain in a nutshell 🥐 post.
+You should [watch Ryan&#x27;s talk](https://youtu.be/wXLf18DsV-I?t=1457) to learn more about this one. Too long to explain in a nutshell 🥐 post.
 
-<https://youtu.be/wXLf18DsV-I?t=1538>
+https://youtu.be/wXLf18DsV-I?t=1538
 
 <!-- /wp:html -->
 
@@ -215,13 +214,13 @@ You should [watch Ryan's talk](https://youtu.be/wXLf18DsV-I?t=1457) to learn mor
 
 <!-- wp:paragraph -->
 
-Will hooks change the way you write React forever? We'll see. The internet is excited.
+Will hooks change the way you write React forever? We&#x27;ll see. The internet is excited.
 
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 
-You can write your own hooks. Repositories of hooks are popping up like crazy. I'm sure your internet will be full of them for the next while.
+You can write your own hooks. Repositories of hooks are popping up like crazy. I&#x27;m sure your internet will be full of them for the next while.
 
 <!-- /wp:paragraph -->
 
@@ -233,14 +232,14 @@ Most importantly 👇
 
 <!-- wp:paragraph -->
 
-You can write your own hooks and re-use functionality between components. It's just a function.
+You can write your own hooks and re-use functionality between components. It&#x27;s just a function.
 
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 
 Dan and Sophie say this is the future of React. All functional. No classes.  
-But right now, it's just a Request For Comments. So comment away.
+But right now, it&#x27;s just a Request For Comments. So comment away.
 
 <!-- /wp:paragraph -->
 

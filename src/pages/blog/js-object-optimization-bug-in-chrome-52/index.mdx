@@ -7,8 +7,7 @@ redirect_from:
 categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
-
-<https://twitter.com/Swizec/status/761722056681545729>
+https://twitter.com/Swizec/status/761722056681545729
 
 That was on Friday. I still don’t know _why_ the bug happens, but I can reproduce it. Evidence says it’s a Chrome 52 bug, not a general JavaScript bug. Neither Safari nor Firefox make it happen.
 
@@ -18,11 +17,11 @@ Sometimes when you call `.fetch()` on a Backbone model, callbacks don’t fire. 
 
 You need:
 
--   Webpack
--   Babel 6
--   Backbone (maybe Backbone is doing it wrong?)
--   A server that can serve JSON files
--   14 lines of code
+- Webpack
+- Babel 6
+- Backbone (maybe Backbone is doing it wrong?)
+- A server that can serve JSON files
+- 14 lines of code
 
 I used `create-react-app` to set up a basic environment, ejected with `npm run eject` and added some config to Webpack to allow jQuery. Backbone depends on it. This part is not _that_ relevant.
 

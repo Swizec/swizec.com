@@ -7,25 +7,24 @@ redirect_from:
 categories: "Back End, Front End, Technical"
 hero: ./img/techletter.app-screenshot-1596818805047.png
 ---
-
-_"He's a frontend guy, is this even a fair question to ask?"_
+_&quot;He&#x27;s a frontend guy, is this even a fair question to ask?&quot;_
 
 The head of engineering was worried about our systems design question. Part of the standard process:
 
--   test algorithms
--   ask about systems
--   pair program on a skills-based test
--   culture
+- test algorithms
+- ask about systems
+- pair program on a skills-based test
+- culture
 
 I went through this in June. The algorithms question destroyed me and I thought about it for days 😅
 
 The systems design question was fun though.
 
-You design a social network newsfeed thingy. How would you store data? Which servers to use? What about caching? Where's the SQL? Schema design? Querying? Security?
+You design a social network newsfeed thingy. How would you store data? Which servers to use? What about caching? Where&#x27;s the SQL? Schema design? Querying? Security?
 
 ![computers giphy](./img/media-26BGIqWh2R1fi6JDa-giphy.gif)
 
-Fair question if that's the work. Everyone's been doing everything. Small team.
+Fair question if that&#x27;s the work. Everyone&#x27;s been doing everything. Small team.
 
 But will that stay true? Would you ask that question of someone who spent the last N years in a big company writing client JavaScript? 🤔
 
@@ -33,9 +32,9 @@ But will that stay true? Would you ask that question of someone who spent the la
 
 [![Click through for source](./img/techletter.app-screenshot-1596818805047.png)](https://twitter.com/Swizec/status/1291495546557931520)
 
-Growing up in the early 2000's, there was no frontend and backend.
+Growing up in the early 2000&#x27;s, there was no frontend and backend.
 
-You write PHP? Okay you're a web developer.
+You write PHP? Okay you&#x27;re a web developer.
 
 You write HTML? Yep, web developer.
 
@@ -59,17 +58,17 @@ The work was visual in nature. Main goal was creating a nice user experience and
 
 As JavaScript apps became more complex the frontend world developed a split 👉 infrastructure vs. UI.
 
-You build a design system and there's no UI work left.
+You build a design system and there&#x27;s no UI work left.
 
-Design system ensures everything looks great. It's got a whole team. They write the CSS, the core design atoms, and self-contained interactive components.
+Design system ensures everything looks great. It&#x27;s got a whole team. They write the CSS, the core design atoms, and self-contained interactive components.
 
-You don't think _"Hm, how do I make a date widget?"_ or _"I wonder how to add this animation and pleasant interaction on the type-ahead field"_
+You don&#x27;t think _&quot;Hm, how do I make a date widget?&quot;_ or _&quot;I wonder how to add this animation and pleasant interaction on the type-ahead field&quot;_
 
 Heck no!
 
 You slap a `<DateInput />` or a `<Input typeahead={true} />` in there and move on. 💪
 
-What you're left with is the **frontend infrastructure work**.
+What you&#x27;re left with is the **frontend infrastructure work**.
 
 How do you design the data models? Where do the API calls go? How do you cache requests? How do you architect your app for speed _and_ good developer experience? How does a widget bottom-left get state from top-right?
 
@@ -81,7 +80,7 @@ You create a backend of the frontend.
 
 The data layer that handles business logic, talks to the API, handles performance, and tells your UI layer how to act.
 
-You can go days, weeks, entire projects, without touching UI code. But you're working on the frontend. Writing JavaScript that runs in the browser.
+You can go days, weeks, entire projects, without touching UI code. But you&#x27;re working on the frontend. Writing JavaScript that runs in the browser.
 
 🤯
 
@@ -89,21 +88,21 @@ Then you run this code on the server to create server-side rendering. Or on your
 
 ![wtf giphy](./img/media-aZ3LDBs1ExsE8-giphy.gif)
 
-What gives? Where's the backend?
+What gives? Where&#x27;s the backend?
 
-The _true_ backend is no longer your data model and your business logic. It's that API you're calling.
+The _true_ backend is no longer your data model and your business logic. It&#x27;s that API you&#x27;re calling.
 
 _You_ treat the API as backend developers of old treated their database. GraphQL makes this even more obvious.
 
-But _somebody_ builds that API. Makes it work. Makes it talk to other services. Ensures data's consistent. Deals with caching at scale.
+But _somebody_ builds that API. Makes it work. Makes it talk to other services. Ensures data&#x27;s consistent. Deals with caching at scale.
 
-That's **The Deep Backend**. The folks who live their lives in data pipelines, JSON validations, API schemas, databases, and server monitoring software.
+That&#x27;s **The Deep Backend**. The folks who live their lives in data pipelines, JSON validations, API schemas, databases, and server monitoring software.
 
-It's hard work. Mind-bending work. Plagued with [fundamental Two General paradoxes](https://serverlesshandbook.dev/robust-backend-design).
+It&#x27;s hard work. Mind-bending work. Plagued with [fundamental Two General paradoxes](https://serverlesshandbook.dev/robust-backend-design).
 
 Imagine if Redux or useState had a 1% failure rate. 1% chance that you call an action and nothing happens. Oops.
 
-That's Deep Backend work.
+That&#x27;s Deep Backend work.
 
 ## DevOps
 
@@ -115,11 +114,11 @@ You provision a server, create a database, run scripts on the command line, writ
 
 You live and die by your monitoring metrics and alarms.
 
-Site goes down on Black Friday it's your fault we're losing millions per minute.
+Site goes down on Black Friday it&#x27;s your fault we&#x27;re losing millions per minute.
 
 ![gulp giphy](./img/media-13YroVUrUrLCec-giphy-downsized-medium.gif)
 
-I don't know anybody who _likes_ doing DevOps. But being an SRE – site reliability engineer – is _the_ highest paid position in software engineering right now.
+I don&#x27;t know anybody who _likes_ doing DevOps. But being an SRE – site reliability engineer – is _the_ highest paid position in software engineering right now.
 
 ## The future
 
@@ -133,13 +132,13 @@ Let AWS deal with servers. Let X deal with hosting. Let junior developers deal w
 
 And hey with serverless, [writing server code is like the JavaScript work you know and love](https://serverlesshandbook.dev).
 
-It's a JavaScript function. Platform handles the rest. ✌️
+It&#x27;s a JavaScript function. Platform handles the rest. ✌️
 
 ## What did I tell the head of engineering?
 
-That's the wrong question. Ask them an app architecture question. Like you're interviewing an iOS developer.
+That&#x27;s the wrong question. Ask them an app architecture question. Like you&#x27;re interviewing an iOS developer.
 
-Our Express "backend" is frontend even if runs on the server.
+Our Express &quot;backend&quot; is frontend even if runs on the server.
 
 ![think giphy](./img/media-d3mlE7uhX8KFgEmY-giphy.gif)
 
@@ -148,6 +147,6 @@ Happy Friday ❤️
 Cheers,  
 ~Swizec
 
-PS: [79% votes for "this is frontend", 20% for "backend"](https://twitter.com/Swizec/status/1291495546557931520) ✌️
+PS: [79% votes for &quot;this is frontend&quot;, 20% for &quot;backend&quot;](https://twitter.com/Swizec/status/1291495546557931520) ✌️
 
 PPS: all of the above is why I created [Serverless Handbook – modern backend for frontend engineers](https://serverlesshandbook.dev/)

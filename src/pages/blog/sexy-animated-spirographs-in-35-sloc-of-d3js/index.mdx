@@ -7,16 +7,15 @@ redirect_from:
 categories: "Animation, d3.js, JavaScript, Spirograph, Uncategorized"
 hero: ./img/blog-wp-content-uploads-2013-03-0007_04_04.png
 ---
+You probably remember spirographs as kid&#x27;s toys from your youth. I had a simple set that was just a collection of plastic sprockets with holes for pencils. Endless amounts of fun when I was two or three years old. I think ... I don&#x27;t really remember much from that time, but I remember having those thingies and loving playing with them. One of my earliest memories even! \[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;560&quot;]![Spirograph](http://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Spirograph3.jpg/800px-Spirograph3.jpg "Spirograph") [Spirograph](http://en.wikipedia.org/wiki/Spirograph "Spirograph")\[/caption] Last night I was making an animation example for the d3.js book I&#x27;m writing and ended up with the idea of progressively drawing out cool looking parametric equations. Little did I know, those are actually spirographs! Learned something while I was learning something.
 
-You probably remember spirographs as kid's toys from your youth. I had a simple set that was just a collection of plastic sprockets with holes for pencils. Endless amounts of fun when I was two or three years old. I think ... I don't really remember much from that time, but I remember having those thingies and loving playing with them. One of my earliest memories even! \[caption id="" align="alignnone" width="560"]![Spirograph](http://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Spirograph3.jpg/800px-Spirograph3.jpg "Spirograph") [Spirograph](http://en.wikipedia.org/wiki/Spirograph "Spirograph")\[/caption] Last night I was making an animation example for the d3.js book I'm writing and ended up with the idea of progressively drawing out cool looking parametric equations. Little did I know, those are actually spirographs! Learned something while I was learning something.
+https://twitter.com/krofdrakula/status/309348085983756288
 
-<https://twitter.com/krofdrakula/status/309348085983756288>
-
-My failure in common knowledge aside, it's possible to animate the drawing of parametric equations with just a few lines of [d3.js](http://d3js.org) code. What I'm about to show you has a pretty big problem, but produces cool looking results "in the lab". Try to guess what the problem is.
+My failure in common knowledge aside, it&#x27;s possible to animate the drawing of parametric equations with just a few lines of [d3.js](http://d3js.org) code. What I&#x27;m about to show you has a pretty big problem, but produces cool looking results &quot;in the lab&quot;. Try to guess what the problem is.
 
 ## Animating spirographs
 
-\[caption id="attachment_6059" align="alignnone" width="486"][![After a few steps](./img/After-a-few-stepsbf8j6e.png "After a few steps")](./img/blog-wp-content-uploads-2013-03-0007_04_04.png) After a few steps\[/caption] We'll make an animation timer and for each tick we'll draw a new step of the spirograph. After the spirograph is finished, we'll stop the timer. To make the animation more interesting to watch, we'll also fake a brush flying around (just a black dot). We start with some basic html:
+\[caption id=&quot;attachment_6059&quot; align=&quot;alignnone&quot; width=&quot;486&quot;][![After a few steps](http://swizec.com/blog/wp-content/uploads/2013/03/0007_04_04.png "After a few steps")](./img/blog-wp-content-uploads-2013-03-0007_04_04.png) After a few steps\[/caption] We&#x27;ll make an animation timer and for each tick we&#x27;ll draw a new step of the spirograph. After the spirograph is finished, we&#x27;ll stop the timer. To make the animation more interesting to watch, we&#x27;ll also fake a brush flying around (just a black dot). We start with some basic html:
 
 ```html
 <title></title>
@@ -39,7 +38,7 @@ var width = 600,
     .attr({ width: width, height: height });
 ```
 
-I found the parametric function in the wikipedia's article on parametric equations. We'll be giving it a simple parameter calculated from the animation timer and it will return a two dimensional position.
+I found the parametric function in the wikipedia&#x27;s article on parametric equations. We&#x27;ll be giving it a simple parameter calculated from the animation timer and it will return a two dimensional position.
 
 ```javascript
 var position = function (t) {
@@ -55,7 +54,7 @@ var position = function (t) {
 };
 ```
 
-Tweaking the _a_, _b_, c, and _d_ parameters will change the final shape. Next we're going to define some scales to help us translate between maths space and our drawing space.
+Tweaking the _a_, _b_, c, and _d_ parameters will change the final shape. Next we&#x27;re going to define some scales to help us translate between maths space and our drawing space.
 
 ```javascript
 var t_scale = d3.scale
@@ -100,19 +99,19 @@ var step = function (time) {
 };
 ```
 
-This is our [step function](http://en.wikipedia.org/wiki/Step_function "Step function"). It draws every consecutive step of the animation by moving the brush and putting a line between the current and previous position. The animation will stop when this function returns _true_ so we make sure the _time_ parameter doesn't go beyond _t_scales_'s domain. Finally, we simply start the timer.
+This is our [step function](http://en.wikipedia.org/wiki/Step_function "Step function"). It draws every consecutive step of the animation by moving the brush and putting a line between the current and previous position. The animation will stop when this function returns _true_ so we make sure the _time_ parameter doesn&#x27;t go beyond _t_scales_&#x27;s domain. Finally, we simply start the timer.
 
 ```javascript
 var timer = d3.timer(step, 500);
 ```
 
-The timer will start running after 500 milliseconds and repeatedly call the _step \_function until it returns \_true._ You can check the animation out via [the magic of github pages](http://swizec.github.com/d3.js-book-examples/ch4/timers.html). The final spirograph looks like this: \[caption id="attachment_6055" align="alignnone" width="555"][![A parametric equation visualised](./img/A-parametric-equation-visualisedhf2180.png "A parametric equation visualised")](./img/blog-wp-content-uploads-2013-03-0007_04_05.png) A parametric equation visualised\[/caption] Figured out the problem yet? The problem with this approach is that I'm using the animation timer itself as a parameter to the function, which means point density depends on how long you're willing to let the animation run. It will always draw the complete function because of how d3 scales work, but it might look \_very_ approximate. Think squares for circles approximate. Another problem is that using a slower computer, or doing anything that lags the CPU even a little bit while the animation is running will ruin the final picture. For instance, this is what happens when I switch desktops around while the browser is drawing. \[caption id="attachment_6057" align="alignnone" width="546"][![Glitchy spirograph](./img/Glitchy-spirograph9c7if1.png "Glitchy spirograph")](./img/blog-wp-content-uploads-2013-03-glitchy-spirograph.png) Glitchy spirograph\[/caption]
+The timer will start running after 500 milliseconds and repeatedly call the _step \_function until it returns \_true._ You can check the animation out via [the magic of github pages](http://swizec.github.com/d3.js-book-examples/ch4/timers.html). The final spirograph looks like this: \[caption id=&quot;attachment*6055&quot; align=&quot;alignnone&quot; width=&quot;555&quot;][![A parametric equation visualised](http://swizec.com/blog/wp-content/uploads/2013/03/0007_04_05.png "A parametric equation visualised")](./img/blog-wp-content-uploads-2013-03-0007_04_05.png) A parametric equation visualised\[/caption] Figured out the problem yet? The problem with this approach is that I&#x27;m using the animation timer itself as a parameter to the function, which means point density depends on how long you&#x27;re willing to let the animation run. It will always draw the complete function because of how d3 scales work, but it might look \_very* approximate. Think squares for circles approximate. Another problem is that using a slower computer, or doing anything that lags the CPU even a little bit while the animation is running will ruin the final picture. For instance, this is what happens when I switch desktops around while the browser is drawing. \[caption id=&quot;attachment_6057&quot; align=&quot;alignnone&quot; width=&quot;546&quot;][![Glitchy spirograph](http://swizec.com/blog/wp-content/uploads/2013/03/glitchy-spirograph.png "Glitchy spirograph")](./img/blog-wp-content-uploads-2013-03-glitchy-spirograph.png) Glitchy spirograph\[/caption]
 
 ###### Related articles
 
--   [![](http://i.zemanta.com/148486923_80_80.jpg)](http://www.universetoday.com/100325/the-vela-pulsar-as-a-spirograph/)[The Vela Pulsar as a Spirograph](http://www.universetoday.com/100325/the-vela-pulsar-as-a-spirograph/)
--   [![](http://i.zemanta.com/147121686_80_80.jpg)](http://hackaday.com/2013/02/21/laser-spirograph/)[Laser Spirograph](http://hackaday.com/2013/02/21/laser-spirograph/)
--   [![](http://i.zemanta.com/148806266_80_80.jpg)](http://www.gizmodo.co.uk/2013/02/watch-the-universe-draw-an-awesome-spirograph-in-the-sky/)[Watch the Universe Draw an Awesome Spirograph in the Sky](http://www.gizmodo.co.uk/2013/02/watch-the-universe-draw-an-awesome-spirograph-in-the-sky/)
--   [![](http://i.zemanta.com/148576796_80_80.jpg)](http://phys.org/news/2013-02-fermi-motion-spirograph.html)[Fermi's motion produces a study in spirograph](http://phys.org/news/2013-02-fermi-motion-spirograph.html)
+- [![](http://i.zemanta.com/148486923_80_80.jpg)](http://www.universetoday.com/100325/the-vela-pulsar-as-a-spirograph/)[The Vela Pulsar as a Spirograph](http://www.universetoday.com/100325/the-vela-pulsar-as-a-spirograph/)
+- [![](http://i.zemanta.com/147121686_80_80.jpg)](http://hackaday.com/2013/02/21/laser-spirograph/)[Laser Spirograph](http://hackaday.com/2013/02/21/laser-spirograph/)
+- [![](http://i.zemanta.com/148806266_80_80.jpg)](http://www.gizmodo.co.uk/2013/02/watch-the-universe-draw-an-awesome-spirograph-in-the-sky/)[Watch the Universe Draw an Awesome Spirograph in the Sky](http://www.gizmodo.co.uk/2013/02/watch-the-universe-draw-an-awesome-spirograph-in-the-sky/)
+- [![](http://i.zemanta.com/148576796_80_80.jpg)](http://phys.org/news/2013-02-fermi-motion-spirograph.html)[Fermi&#x27;s motion produces a study in spirograph](http://phys.org/news/2013-02-fermi-motion-spirograph.html)
 
 [![Enhanced by Zemanta](http://img.zemanta.com/zemified_e.png?x-id=fb22a411-7098-4367-b54c-e6363f006ad9)](http://www.zemanta.com/?px "Enhanced by Zemanta")
