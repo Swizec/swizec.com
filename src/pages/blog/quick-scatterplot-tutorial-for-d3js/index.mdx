@@ -8,7 +8,7 @@ categories: "d3.js, Github, Graphics, HTML, Scatter plot, Uncategorized, Vector"
 hero: ./img/blog-wp-content-uploads-2012-09-scatterplot-finished.png
 ---
 
-\[caption id="attachment_5341" align="alignnone" width="591" caption="When I code"][![When I code](./img/When-I-code61bf6d.png "When I code")](./img/blog-wp-content-uploads-2012-09-scatterplot-finished.png)\[/caption] One of the many interesting things [Github](http://github.com "GitHub") does are punchcards for repositories that can tell you when people work on their code. Unfortunately, they're only per-repository and I was interested in [per-user Github punchcards](http://nightowls.swizec.com). So I made my own. Collecting the data was fairly straightforward, finding a simple tutorial/example of a [scatterplot](http://en.wikipedia.org/wiki/Scatter_plot "Scatter plot") in [d3.js](http://d3js.org/) proved to be less than trivial.
+\[caption id="attachment_5341" align="alignnone" width="591" caption="When I code"][![When I code](./img/When-I-code6j5hj4.png "When I code")](./img/blog-wp-content-uploads-2012-09-scatterplot-finished.png)\[/caption] One of the many interesting things [Github](http://github.com "GitHub") does are punchcards for repositories that can tell you when people work on their code. Unfortunately, they're only per-repository and I was interested in [per-user Github punchcards](http://nightowls.swizec.com). So I made my own. Collecting the data was fairly straightforward, finding a simple tutorial/example of a [scatterplot](http://en.wikipedia.org/wiki/Scatter_plot "Scatter plot") in [d3.js](http://d3js.org/) proved to be less than trivial.
 
 ## Scatterplotting
 
@@ -100,7 +100,7 @@ svg
   .call(yAxis);
 ```
 
-[![Scatterplot simple axes](./img/Scatterplot-simple-axes6166bi.png "Scatterplot simple axes")](./img/blog-wp-content-uploads-2012-09-scatterplot-simple-axes.png) As you can see, d3 was nice enough to figure out on its own how many ticks to draw and where to put them. This usually makes graphs more readable, but in our case we do want all the ticks. All it takes is telling the axes how many ticks we want and while we're at it let's improve the labels as well.
+[![Scatterplot simple axes](./img/Scatterplot-simple-axes30je7g.png "Scatterplot simple axes")](./img/blog-wp-content-uploads-2012-09-scatterplot-simple-axes.png) As you can see, d3 was nice enough to figure out on its own how many ticks to draw and where to put them. This usually makes graphs more readable, but in our case we do want all the ticks. All it takes is telling the axes how many ticks we want and while we're at it let's improve the labels as well.
 
 ```javascript
 var xAxis = d3.svg
@@ -130,7 +130,7 @@ var xAxis = d3.svg
     });
 ```
 
-The _.tickFormat_ method allows us to give d3 a function that calculates what a label should look like and we used _.ticks_ to specify how many ticks we want. [![Nicely  labeled scatterplot](./img/Nicely-labeled-scatterplot6dih84.png "Nicely  labeled scatterplot")](./img/blog-wp-content-uploads-2012-09-scatterplot-labeled-axes.png) Much better, but since we'll be loading the data asynchronously, let's tell the user what's going on by placing _"Loading ..."_ roughly in the middle of the plot.
+The _.tickFormat_ method allows us to give d3 a function that calculates what a label should look like and we used _.ticks_ to specify how many ticks we want. [![Nicely  labeled scatterplot](./img/Nicely-labeled-scatterplot103j6b.png "Nicely  labeled scatterplot")](./img/blog-wp-content-uploads-2012-09-scatterplot-labeled-axes.png) Much better, but since we'll be loading the data asynchronously, let's tell the user what's going on by placing _"Loading ..."_ roughly in the middle of the plot.
 
 ```javascript
 svg
@@ -145,7 +145,7 @@ svg
   });
 ```
 
-[![Scatterplot loading ...](./img/Scatterplot-loading-fg7449.png "Scatterplot loading ...")](./img/blog-wp-content-uploads-2012-09-scatterplot-loading.png) Loading the data can be done with one of d3's many data loading functions.
+[![Scatterplot loading ...](./img/Scatterplot-loading-b8hah3.png "Scatterplot loading ...")](./img/blog-wp-content-uploads-2012-09-scatterplot-loading.png) Loading the data can be done with one of d3's many data loading functions.
 
 ```javascript
 d3.json(Data_url, function (punchcard_data) {
@@ -192,7 +192,7 @@ svg
   });
 ```
 
-After removing the _"Loading ..." \_we gave d3 our data, then said that for each datum a \_circle_ should be appended to the graph and given attributes _cx, cy_ and _r_ that determine where this circle will be displayed and how big it's going to be. Notice we're using functions to compute these values, but because we're lazy we just rely on d3 doing all of the actual calculations with the _x, y_ and _r_ scales we defined earlier. [![The final scatterplot](./img/The-final-scatterplota491ih.png "The final scatterplot")](./img/blog-wp-content-uploads-2012-09-scatterplot-finished1.png) On pictures everything looks great now, but the circles appear very suddenly. Wouldn't it be nice if there was a sexy transition going on? To do that we shove a ._transition()_ and a _.delay(800)_ before defining the radius.
+After removing the _"Loading ..." \_we gave d3 our data, then said that for each datum a \_circle_ should be appended to the graph and given attributes _cx, cy_ and _r_ that determine where this circle will be displayed and how big it's going to be. Notice we're using functions to compute these values, but because we're lazy we just rely on d3 doing all of the actual calculations with the _x, y_ and _r_ scales we defined earlier. [![The final scatterplot](./img/The-final-scatterplot73fe7i.png "The final scatterplot")](./img/blog-wp-content-uploads-2012-09-scatterplot-finished1.png) On pictures everything looks great now, but the circles appear very suddenly. Wouldn't it be nice if there was a sexy transition going on? To do that we shove a ._transition()_ and a _.delay(800)_ before defining the radius.
 
 ```javascript
 svg

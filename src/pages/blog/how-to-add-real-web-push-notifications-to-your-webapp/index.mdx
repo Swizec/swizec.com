@@ -61,7 +61,7 @@ So… a service worker is just a JavaScript file. Nothing fancy going on. You us
 function showNotification(event) {
     return new Promise(resolve => {
         const { body, title, tag } = JSON.parse(event.data.text());
-     
+
         self.registration
             .getNotifications({ tag })
             .then(existingNotifications => { // close? ignore? })
@@ -222,18 +222,18 @@ def send_web_push_notification(user_id)
         body: "This is the message body",
         tag: "new-message"
     }
- 
+
     unless subscription.nil?
         Webpush.payload_send(
             message: JSON.generate(message),
-            endpoint: subscription["endpoint"], 
-            p256dh: subscription["keys"]["p256dh"], 
-            auth: subscription["keys"]["auth"], 
-            ttl: 15, 
-            vapid: { 
-                subject: 'mailto:admin@example.com', 
-          public_key: Rails.application.config.webpush_keys[:public_key], 
-          private_key: Rails.application.config.webpush_keys[:private_key] 
+            endpoint: subscription["endpoint"],
+            p256dh: subscription["keys"]["p256dh"],
+            auth: subscription["keys"]["auth"],
+            ttl: 15,
+            vapid: {
+                subject: 'mailto:admin@example.com',
+          public_key: Rails.application.config.webpush_keys[:public_key],
+          private_key: Rails.application.config.webpush_keys[:private_key]
         }
         )
     end

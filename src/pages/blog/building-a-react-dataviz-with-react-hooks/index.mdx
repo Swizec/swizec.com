@@ -100,7 +100,7 @@ First, you need this bit in your `App` function. It renders ``in an SVG, if `dat
       value={valueFunction}
     ></verticalbarchart>
   )}
-</svg>;
+</svg>
 ```
 
 That `data && ...` is a common trick. The return value of `true && something` is something, return value of `false && something` is nothing. Means when `data` is defined, we render; otherwise, we don't.

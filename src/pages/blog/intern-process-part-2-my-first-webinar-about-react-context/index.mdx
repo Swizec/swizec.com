@@ -50,12 +50,12 @@ class ContextualThing extends React.Component {
 
         return (
             <div>
-                 This is a lock 
+                 This is a lock
                 <p style={{ fontsize: "2em" }}>
                     {locked ? <b>Locked!</b> : "Open"}
                 </p>
                 <lockcontext class="provider" value={{ locked, togglelock: this.togglelock }}>
-                    
+
                         {[1, 2, 3, 2, 1].map(n => <togglerow n={n}>)}
                     </togglerow><table></table>
                 </lockcontext>

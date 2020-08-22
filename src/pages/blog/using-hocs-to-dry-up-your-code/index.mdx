@@ -110,11 +110,11 @@ class Backbone extends WrappedComponent {
         autorun(this._render.bind(this));
     }
 
-    componentDidUpdate() { 
+    componentDidUpdate() {
         if (super.componentDidUpdate) {
               super.componentDidUpdate();
         }
-        this._render(); 
+        this._render();
         }
     componentDidMount() {
         this._render();
@@ -122,7 +122,7 @@ class Backbone extends WrappedComponent {
             super.componentDidMount();
         }
     }
-    componentWillUnmount() { 
+    componentWillUnmount() {
         if (super.componentWillUnmount) {
                 super.componentWillUnmount();
         }

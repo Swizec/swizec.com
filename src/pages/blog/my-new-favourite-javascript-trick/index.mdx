@@ -80,7 +80,7 @@ var server = function (port) {
 
     return function (callback) {
         server.on("listening", callback);
-        server.listen(port);        
+        server.listen(port);
         return server;
     };
 };

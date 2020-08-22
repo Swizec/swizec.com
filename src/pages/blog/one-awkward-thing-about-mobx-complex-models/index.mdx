@@ -79,17 +79,17 @@ Let's have a `mainStore` that looks a lot like the `User` model above. It may lo
 ```javascript
 const MainStore {
     @observable currentUser = null;
- 
+
     constructor() {
         fetch('/api/environment_data')
             .then(response => response.json())
             .then(this.setData);
     }
- 
+
     @action setData(json) {
         this.currentUser = new User(this, json.currentUser.id);
         delete json.currentUser;
-     
+
         extendObservable(this, json);
     }
 }
@@ -205,12 +205,12 @@ Anyway, in `MainStore`, we now do something like this:
     @action setData(json) {
         this.currentUser = new User(this, json.currentUser.id);
         delete json.currentUser;
-     
+
         this.subjects = json.subjects.map(
             s => new Subject(this.currentUser, s)
         );
         delete json.subjects;
-     
+
         extendObservable(this, json);
     }
 ```

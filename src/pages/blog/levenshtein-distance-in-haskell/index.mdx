@@ -17,7 +17,7 @@ When you have to figure out the difference between two strings your best bet is 
 Levenshtein distance also happens to be a great case for learning about dynamic programming, because one of the simplest implementations involves nothing more than keeping track of the already known distances and deciding whether you should increase that number for the next character. Doing this in a 2D array is trivially simple because it lest you travel through the distance space very efficiently without forgetting that _kitten_ and _kiten_ only have a levenshtein distance of 1. The meat of the algorithm goes like this:
 
 ```pseudo
-      if s[i] = t[j] then  
+      if s[i] = t[j] then
         d[i, j] := d[i-1, j-1]       // no operation required
       else
         d[i, j] := minimum

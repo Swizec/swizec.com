@@ -43,16 +43,16 @@ Node {
   type: 'File',
   start: 0,
   end: 1,
-  loc: 
+  loc:
    SourceLocation {
      start: Position { line: 1, column: 0 },
      end: Position { line: 2, column: 0 } },
-  program: 
+  program:
    Node {
      type: 'Program',
      start: 0,
      end: 1,
-     loc: 
+     loc:
       SourceLocation {
         start: Position { line: 1, column: 0 },
         end: Position { line: 2, column: 0 } },
@@ -60,9 +60,9 @@ Node {
      body: [],
      directives: [] },
   comments: [],
-  tokens: 
+  tokens:
    [ Token {
-       type: 
+       type:
         TokenType {
           label: 'eof',
           keyword: undefined,
@@ -78,7 +78,7 @@ Node {
        value: undefined,
        start: 1,
        end: 1,
-       loc: 
+       loc:
         SourceLocation {
           start: Position { line: 2, column: 0 },
           end: Position { line: 2, column: 0 } } } ] }
@@ -89,12 +89,12 @@ That doesn't tell you much, does it? It doesn't tell me anything. Most of it is 
 Here's the part we care about:
 
 ```javascript
-  program: 
+  program:
    Node {
      type: 'Program',
      start: 0,
      end: 1,
-     loc: 
+     loc:
       SourceLocation {
         start: Position { line: 1, column: 0 },
         end: Position { line: 2, column: 0 } },
@@ -122,42 +122,42 @@ let a = 5;
 That outputs a bigger AST. I'm going to snip out some of the details to make this readable.
 
 ```javascript
-program: 
+program:
    Node {
      type: 'Program',
      start: 0,
      end: 12,
-     loc: 
+     loc:
       SourceLocation {},
      sourceType: 'script',
-     body: 
+     body:
       [ Node {
           type: 'VariableDeclaration',
           start: 1,
           end: 11,
-          loc: 
+          loc:
            SourceLocation {},
-          declarations: 
+          declarations:
            [ Node {
                type: 'VariableDeclarator',
                start: 5,
                end: 10,
-               loc: 
+               loc:
                 SourceLocation {},
-               id: 
+               id:
                 Node {
                   type: 'Identifier',
                   start: 5,
                   end: 6,
-                  loc: 
+                  loc:
                    SourceLocation {},
                   name: 'a' },
-               init: 
+               init:
                 Node {
                   type: 'NumericLiteral',
                   start: 9,
                   end: 10,
-                  loc: 
+                  loc:
                    SourceLocation {},
                   extra: { rawValue: 5, raw: '5' },
                   value: 5 } } ],
@@ -178,9 +178,9 @@ An AST talks about what the code does, not what it is.
 There's a list of tokens if you want to know what the code says:
 
 ```javascript
-tokens: 
+tokens:
    [ Token {
-       type: 
+       type:
         KeywordTokenType {
           label: 'let',
           keyword: 'let',
@@ -196,10 +196,10 @@ tokens:
        value: 'let',
        start: 1,
        end: 4,
-       loc: 
+       loc:
         SourceLocation {},
      Token {
-       type: 
+       type:
         TokenType {
           label: 'name',
           keyword: undefined,
@@ -215,10 +215,10 @@ tokens:
        value: 'a',
        start: 5,
        end: 6,
-       loc: 
+       loc:
         SourceLocation {},
      Token {
-       type: 
+       type:
         TokenType {
           label: '=',
           keyword: undefined,
@@ -234,10 +234,10 @@ tokens:
        value: '=',
        start: 7,
        end: 8,
-       loc: 
+       loc:
         SourceLocation { },
      Token {
-       type: 
+       type:
         TokenType {
           label: 'num',
           keyword: undefined,
@@ -253,10 +253,10 @@ tokens:
        value: 5,
        start: 9,
        end: 10,
-       loc: 
+       loc:
         SourceLocation {},
      Token {
-       type: 
+       type:
         TokenType {
           label: ';',
           keyword: undefined,
@@ -272,10 +272,10 @@ tokens:
        value: undefined,
        start: 10,
        end: 11,
-       loc: 
+       loc:
         SourceLocation {},
      Token {
-       type: 
+       type:
         TokenType {
           label: 'eof',
           keyword: undefined,
@@ -291,7 +291,7 @@ tokens:
        value: undefined,
        start: 12,
        end: 12,
-       loc: 
+       loc:
         SourceLocation { } ]
 ```
 
@@ -301,7 +301,7 @@ For example, let's say our parser encounters the `a` token. Just like you, it re
 
 ```javascript
 Token {
-   type: 
+   type:
     TokenType {
       label: 'name',
       keyword: undefined,
@@ -325,7 +325,7 @@ The parser keeps going. It doesn't know yet what this new expression is going to
 So it finds the `=` sign.
 
 ```javascript
-type: 
+type:
 TokenType {
   label: '=',
   keyword: undefined,

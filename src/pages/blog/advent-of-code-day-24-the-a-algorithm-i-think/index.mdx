@@ -64,11 +64,11 @@ The core of my solution is the recursive `buildBridge` function. It builds bridg
 buildBridge::Int -> [(Int, Int)] -> [(Int, Int)] -> [(Int, Int)]
 buildBridge port [] bridge = bridge
 buildBridge port pool bridge
-    | length opts > 0 = maximumBy (comparing heuristic) $ map (\(nextPort, link) -> 
+    | length opts > 0 = maximumBy (comparing heuristic) $ map (\(nextPort, link) ->
         buildBridge nextPort (poolWithout link pool) (bridge ++ [link])) opts
     | otherwise = bridge
     where opts = candidates port pool []
-    
+
 heuristic::[(Int, Int)] -> Int
 heuristic links = sum [a b | (a, b) <- links]
 ```
@@ -207,7 +207,7 @@ For Star 2, we had to find the longest possible bridge with the best score. Same
 ```haskell
 heuristic2::[(Int, Int)] -> [(Int, Int)] -> Ordering
 heuristic2 a b
-        | la > lb = LT 
+        | la > lb = LT
         | la > lb = GT
         | la == lb = compare (heuristic a) (heuristic b)
         where la = length a

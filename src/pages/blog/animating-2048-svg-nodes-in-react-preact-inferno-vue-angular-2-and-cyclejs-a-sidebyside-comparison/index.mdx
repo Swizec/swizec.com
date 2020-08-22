@@ -127,7 +127,7 @@ class App extends Component {
     // ...
     render() {
         // ..
-        
+
     }
 ```
 
@@ -203,14 +203,14 @@ It's hard for me to tell what he changed because of TypeScript and what's differ
 ```javascript
 export function App(sources: Sources): Sinks {
     const factorAndLean$ = sources.DOM.select('#the-svg') //...
- 
+
     const args$ = xs.combine(factorAndLean$, xs.periodic(500) //...
- 
+
     const pythagoras$ = Pythagoras(args$);
- 
+
     const vtree$ = pythagoras$.map(x =>
         div(Styles.App, [ // ...
-        
+
     return {
         DOM: vtree$
     };

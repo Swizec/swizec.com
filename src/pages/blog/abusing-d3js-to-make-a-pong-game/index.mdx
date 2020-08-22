@@ -8,7 +8,7 @@ categories: "Cascading Style Sheets, CSS, d3.js, Graphics, HTML, Scalable Vector
 hero: ../../../defaultHero.jpg
 ---
 
-D3.js is a data visualization library first and foremost. That's what people use it for. To make shiny things that blow everyone's minds. But D3 is more than that. It's a powerful [SVG](http://www.w3.org/Graphics/SVG/ "Scalable Vector Graphics") manipulation library. Yes, some people would say _"But you don't need an SVG manipulation library! You can just write SVG like you do [HTML](http://en.wikipedia.org/wiki/HTML "HTML")"_. Those people are silly and probably write their own time manipulation functions as well. Recently I made a simple game of [Pong](http://en.wikipedia.org/wiki/Pong "Pong") using D3. Nothing fancy, just two paddles that you can drag around, a ball that bounces to and fro, two score counters, and reacting to orientation changes on mobile devices. There isn't even a start or stop button.  You can play the game [here](http://swizec.github.io/d3-pong/), and see the code [here](https://github.com/Swizec/d3-pong). It was a quick project though, so it doesn't work on Firefox because of a weird SVG canvas sizing bug (I needed it to spread the whole screen) and some people have told me dragging the paddles doesn't work on desktop. Worked for me. _shrug_
+D3.js is a data visualization library first and foremost. That's what people use it for. To make shiny things that blow everyone's minds. But D3 is more than that. It's a powerful [SVG](http://www.w3.org/Graphics/SVG/ "Scalable Vector Graphics") manipulation library. Yes, some people would say _"But you don't need an SVG manipulation library! You can just write SVG like you do [HTML](http://en.wikipedia.org/wiki/HTML "HTML")"_. Those people are silly and probably write their own time manipulation functions as well. Recently I made a simple game of [Pong](http://en.wikipedia.org/wiki/Pong "Pong") using D3. Nothing fancy, just two paddles that you can drag around, a ball that bounces to and fro, two score counters, and reacting to orientation changes on mobile devices. There isn't even a start or stop button. You can play the game [here](http://swizec.github.io/d3-pong/), and see the code [here](https://github.com/Swizec/d3-pong). It was a quick project though, so it doesn't work on Firefox because of a weird SVG canvas sizing bug (I needed it to spread the whole screen) and some people have told me dragging the paddles doesn't work on desktop. Worked for me. _shrug_
 
 ## Putting it together
 
@@ -131,7 +131,7 @@ Because fingers are fat and paddles are thin, we defined an `area` that's bigger
                             height = Screen().height*0.1;
 
                         update(parse(paddle.attr("x")),
-                               Math.max(margin.top, 
+                               Math.max(margin.top,
                                         Math.min(parse(paddle.attr("y"))+d3.event.dy,
                                                  Screen().height-margin.bottom-height)));
 
@@ -258,7 +258,7 @@ The last part of the `Paddle` function is the function that performs an animatio
 return function f(left, right, delta_t) {
                 var screen = Screen(),
                     // this should pretend we have 100 fps
-                    fps = delta_t > 0 ? (delta_t/1000)/100 : 1; 
+                    fps = delta_t > 0 ? (delta_t/1000)/100 : 1;
 
                 ball.attr({
                     cx: parse(ball.attr("cx"))+vector.x*speed*fps,

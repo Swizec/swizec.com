@@ -140,7 +140,7 @@ def generate_key_if_needed
         # round to 1/100s precision
         timestamp = sent_at.to_f.round(2)
         hash = Digest::MurmurHash3_x86_32.hexdigest(text)
- 
+
         self.key = "#{chat_id}:#{sent_from}:#{timestamp}:#{hash}"
     end
 end

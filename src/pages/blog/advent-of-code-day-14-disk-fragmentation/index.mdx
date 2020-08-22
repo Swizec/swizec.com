@@ -50,7 +50,7 @@ def knot_1round(pos, skip, lengths, input):
 
         nums = input[pos:pos+length] + input[:wrap]
         nums = list(reversed(nums))
-        
+
         if wrap > 0:
             input = nums[-wrap:] + input[wrap:pos] + nums[:-wrap] + input[pos+length:]
         else:
@@ -81,10 +81,10 @@ def knot(input):
     pos = 0
     skip = 0
     numbers = range(0, 256)
-    
+
     for i in xrange(64):
         pos, skip, numbers = knot_1round(pos, skip, lengths, numbers)
-        
+
     blocks = [reduce(lambda b, n: b^n, numbers[i:i+16]) for i in xrange(0, len(numbers), 16)]
 
     print numbers[0:16]

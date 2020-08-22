@@ -90,11 +90,11 @@ Every subrouter is instantiated on initialize. If we want to change our views wh
 ```javascript
         __listenToSubrouters: function () {
             _.keys(this.subrouters).map(_.bind(function (router) {
-                this.listenTo(this.subrouters[router], 
-                              "route", 
-                              _.bind(function () { 
-                                  this.step(router, "", 
-                                                 {dont_navigate: true}); 
+                this.listenTo(this.subrouters[router],
+                              "route",
+                              _.bind(function () {
+                                  this.step(router, "",
+                                                 {dont_navigate: true});
                               }, this));
             }, this));
         },

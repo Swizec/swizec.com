@@ -19,9 +19,9 @@ Luckily, that's a very simple fix:
 [{0:"fizzbuzz"}.get(x%(3*5),{0:"fizz"}.get(x%3,{0:"buzz"}.get(x%5,x)))for x in range(101)]
 
 # slightly more readable:
-[{0: "fizzbuzz"}.get(x%(3*5), 
-                     {0: "fizz"}.get(x%3, 
-                                     {0: "buzz"}.get(x%5, x))) 
+[{0: "fizzbuzz"}.get(x%(3*5),
+                     {0: "fizz"}.get(x%3,
+                                     {0: "buzz"}.get(x%5, x)))
  for x in range(101)]
 ```
 

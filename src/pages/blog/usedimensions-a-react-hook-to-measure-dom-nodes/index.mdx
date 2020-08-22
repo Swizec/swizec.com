@@ -65,7 +65,7 @@ import useDimensions from 'react-use-dimensions';
 
 const MyComponent = () => {
     const [ref, { x, y, width }] = useDimensions();
-    
+
     return (
         <div ref={ref}>
             This is the element you'll measure
@@ -83,10 +83,10 @@ This is so multiple `useDimensions` hooks in the same component don't step on ea
 <code class="javascript">const MyComponent = () => {
     const [stepRef, stepSize] = useDimensions();
     const [titleRef, titleSize] = useDimensions();
-    
+
     console.log("Step is at X: ", stepSize.x);
     console.log("Title is", titleSize.width, "wide");
-    
+
     return (
         <div>
             <div ref={stepRef}>This is a step</div>

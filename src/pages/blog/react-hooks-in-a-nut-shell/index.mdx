@@ -53,14 +53,14 @@ The `useState` hook replaces pairs of state getters and setters.
     state = {
       value: 'default'
     }
-    
+
     handleChange = (e) => this.setState({
       value: e.target.value
     })
-    
+
     render() {
       const { value } = this.state;
-      
+
       return <input value={value} onchange={handleChange}>
     }
 }
@@ -71,9 +71,9 @@ The `useState` hook replaces pairs of state getters and setters.
 ```javascript
 const myComponent = () => {
   const [value, setValue] = useState('default');
-  
+
   const handleChange = (e) => setValue(e.target.value)
-  
+
   return <input value={value} onchange={handleChange}>
 }
 ```
@@ -109,29 +109,29 @@ class myComp extends Component {
   state = {
       value: 'default'
     }
-    
+
     handleChange = (e) => this.setState({
       value: e.target.value
     })
-    
+
     saveValue = () => fetch('/my/endpoint', {
         method: 'POST'
         body: this.state.value
     })
-    
+
     componentDidMount() {
         this.saveValue();
     }
-    
+
     componentDidUpdate(prevProps, prevState) {
         if (prevState.value !== this.state.value) {
             this.saveValue()
         }
     }
-    
+
     render() {
       const { value } = this.state;
-      
+
       return <input value={value} onchange={handleChange}>
     }
 }
@@ -142,15 +142,15 @@ class myComp extends Component {
 ```javascript
 const myComponent = () => {
   const [value, setValue] = useState('default');
-  
+
   const handleChange = (e) => setValue(e.target.value)
   const saveValue = () => fetch('/my/endpoint', {
         method: 'POST'
         body: this.state.value
     })
-    
+
     useEffect(saveValue, [value]);
-  
+
   return <input value={value} onchange={handleChange}>
 }
 ```

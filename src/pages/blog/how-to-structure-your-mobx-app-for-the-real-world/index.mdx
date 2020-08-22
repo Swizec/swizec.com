@@ -205,14 +205,14 @@ const If = ({ cond, children }) => cond ? children : null;
 
 const Box = inject('mainStore')(observer(({ mainStore }) => {
     const box = mainStore.box;
- 
+
     return (
     <div>
         <sealedoropened box={box}>
         <if cond={box.canOpen}>
             <button onclick={box.open.bind(box)}>Open box</button>
         </if>
-     
+
         <if cond={box.opened}>
             <ul>
                 {box.kakis.map(kaki => <kaki>)}

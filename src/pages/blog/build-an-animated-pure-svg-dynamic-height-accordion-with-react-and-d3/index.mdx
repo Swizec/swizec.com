@@ -114,7 +114,7 @@ Rendering our dataviz is meant to be simple 👇
 // index.js render method
 <svg width="600" height="2240">
   <accordionflow data={flowData}></accordionflow>
-</svg>;
+</svg>
 ```
 
 Svg is very tall to make room for expanding. We _could_ wrap `AccordionFlow` in additional callbacks and make svg height dynamic, but this is a proof of concept :)
@@ -327,8 +327,8 @@ lass DynamicContent extends React.Component {
           {spinner && (
             <spinner name="cube-grid" color="green" fadein="none" style={{ margin: "0 auto" }}>
           )}
-        
-      
+
+
     );
   }
 }

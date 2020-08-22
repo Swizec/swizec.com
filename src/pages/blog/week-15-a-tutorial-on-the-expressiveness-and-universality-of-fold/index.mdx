@@ -70,7 +70,7 @@ h (fold g w (x:xs)) = f x (h (fold g w xs))
 Which we simplify with two calculations: ![](./img/images-8947.png) To get: \[caption id="" align="alignnone" width="875"]![Conditions for equivalence](./img/images-8948.png "Conditions for equivalence") Conditions for equivalence\[/caption] Which basically says that, if the conditions on the left are met, then our composition of an arbitrary function and fold behaves exactly as a fold would. Now we can greatly simplify our proof of the sum equation:
 
 ```haskell
-(+1) . sum = fold (+) 1 
+(+1) . sum = fold (+) 1
 =>
 (+1) . fold (+) 0 = fold (+) 1
 ```

@@ -10,7 +10,7 @@ hero: ../../../defaultHero.jpg
 
 Yesterday I tried [Svelte](https://svelte.dev/) to see what all the fuss is about. Version 3.0.0 came out recently and it smells like Svelte is ready for the big time.
 
-[![](./img/zontalsvg21335c.svg)](https://svelte.dev/)
+[![](./img/zontalsvgh169a9.svg)](https://svelte.dev/)
 
 You can watch the livestream here 👇
 
@@ -219,7 +219,7 @@ const Style = styled.div`
   grid-template-columns: 1fr;
   grid-template-rows: 0.1fr 400px 1.1fr;
   grid-template-areas: "title" "thumbnail" "description";
-  
+
   h2 {
     text-align: center;
     grid-area: title;
@@ -247,13 +247,13 @@ const Style = styled.div`
 const Movie = ({ title, description, image, yearOut }) => (
     <Style>
       <h2>{title}</h2>
-    
+
       <div class="thumbnail">
         <img src={image} alt={`${title} movie thumbnail`} />
       </div>
-    
+
       <p>{description}</p>
-    
+
     </Style>
 )
 </code>

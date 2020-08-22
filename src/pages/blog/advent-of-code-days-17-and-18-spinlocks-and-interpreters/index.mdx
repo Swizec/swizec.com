@@ -78,7 +78,7 @@ For Star 2, they wanted us to find the value after `0` when 50,000,000 iteration
 star2::Int -> Int
 star2 steps = buffer!!(zeroAt+1)
     where (pos, buffer) = spinlock [0] steps 0 1 50000000
-          zeroAt = Data.Maybe.fromJust $ elemIndex 0 buffer 
+          zeroAt = Data.Maybe.fromJust $ elemIndex 0 buffer
 ```
 
 The idea is simple: Iterate 50 million times, look for the `0`, return the value after it.

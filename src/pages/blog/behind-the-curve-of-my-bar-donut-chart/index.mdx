@@ -38,7 +38,7 @@ You can _combine the two approaches to animation_ I teach in [React for Data Vis
 
 React for Data Visualization and my workshop teach you about two ways to animate in dataviz:
 
-1) **The game loop approach.** Borrows ideas from the gaming industry. Call `this.setState` 60 times per second and your React component animates. Wonderful.
+1.  **The game loop approach.** Borrows ideas from the gaming industry. Call `this.setState` 60 times per second and your React component animates. Wonderful.
 
 2) **The D3 transition approach.** You take a React component, use props as a staging area, render from state, and use `componentDidMount` or `useEffect` to hand rendering control over to D3. D3 runs its transition, manipulates the DOM directly, then hands control back to React.
 

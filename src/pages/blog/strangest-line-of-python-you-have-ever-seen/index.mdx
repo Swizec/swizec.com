@@ -43,10 +43,10 @@ object NKA extends App {
     val gates = new HashMap[(String,Char), ListBuffer[String]]
     val lines = io.Source.fromFile("avtomat.txt").getLines.toSeq
     val (init,finals) = (lines(0).split(" ")(1),lines(1).split(" ").tail)
-    lines.tail.tail.map(_.split(" ")).foreach 
+    lines.tail.tail.map(_.split(" ")).foreach
         {s => gates.getOrElseUpdate((s(0),s(1)(0)), ListBuffer()) += s(3)}
 
-    def crawl(state:String, input:String):Boolean = 
+    def crawl(state:String, input:String):Boolean =
         (input!="" && (false /: gates.getOrElse((state,input(0)), return false))
             {_ || crawl(_, input.tail)}) || (input=="" & finals.contains(state))
 

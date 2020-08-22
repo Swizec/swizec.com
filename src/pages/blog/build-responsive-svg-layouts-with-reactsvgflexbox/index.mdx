@@ -168,7 +168,7 @@ class App extends Component {
     };
 
     svgRef = React.createRef();
-    
+
     componentDidMount() {
         window.addEventListener("resize", this.updateSize);
     }
@@ -180,10 +180,10 @@ class App extends Component {
     updateSize = () => {
         this.setState({ width: this.svgRef.current.clientWidth });
     };
-    
+
     render() {
         // ...
-        
+
         <svg 1024="" style={{ width: "100%", height: }} ref={this.svgRef}>
             <flexbox 1024="" style={{ flexdirection: "row", justifycontent: "flex-start", flexwrap: "wrap", width: this.state.width, height: }}>
     }

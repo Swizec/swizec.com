@@ -23,7 +23,7 @@ class Thing extends Backbone.View {
 			"click button": "toggleActive"
 		}
 	}
-	
+
 	toggleActive() {
 		if (checkSomething) {
 			this.$('button').addClass('active');
@@ -50,14 +50,14 @@ class Thing extends Backbone.View {
 		}
 		this.model = new Backbone.Model({active: false});
 		this.listenTo(this.model, 'change', this.render);
-		
+
 		this.template = Handlebars.compile('<button class={{#if active}}active{{/if}}>Button</button>');
 	}
-	
+
 	toggleActive() {
 		this.model.set('active', !this.model.get('active'));
 	}
-	
+
 	render() {
 		this.$el.html(this.template(this.model.attributes));
 	}

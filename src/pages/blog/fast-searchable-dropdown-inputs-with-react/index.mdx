@@ -86,11 +86,11 @@ const field = ({ options }) => (
 We added a filterOptions prop to Select, which specifies a custom filter implementation, and we used createFilterOptions to instantiate that implementation. No need to worry about how it actually works because It Just Works™.Looks good, works good. Faster even than the vanilla browser implementation ?The only gotcha is that you have to pass the same options to both Select and createFilterOptions. Dynamically generating { value, label } objects from an array won't work.The good news is that the memoization MobX does for @computed values is good enough, so you can do something like this:
 class FormData {
     @observable universities = ['Stanford', 'UVA', ...];
- 
+
     @computed get options() {
         return this.universities.map(name => ({ value: name, label: name }));
     }
- 
+
     @computed get filterOptions() {
         const options = this.options;
         return createFilterOptions({ options });

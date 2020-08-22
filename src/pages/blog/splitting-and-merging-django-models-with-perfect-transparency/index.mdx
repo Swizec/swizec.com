@@ -117,7 +117,7 @@ The pUserManager should have a few more functions that do essentially the same t
 
 		user.delicious_set.create(username="test", password="test")
 		fixture = user2.delicious_set.create(username="test", password="test")
-		
+
 		norm = UserNormalisation.objects.all()
 
 		Concepts.relate(user=user2, concept1="tag1", concept2="tag2")

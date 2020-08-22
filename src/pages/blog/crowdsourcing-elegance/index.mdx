@@ -30,7 +30,7 @@ A saner (only core) solution in Clojure supposedly looks like this
 (defn tails [xs]
   (take-while not-empty (iterate rest xs)))
 
-(defn pairs [xs]                                            
+(defn pairs [xs]
   (mapcat (partial map vector) (map repeat xs) (rest (tails xs))))
 ```
 
@@ -74,7 +74,7 @@ function pairs(set) {
 }
 ```
 
-## C#
+## C
 
 For some reason I didn't think C# would even make it to such a debate, but [Strilanc](http://news.ycombinator.com/user?id=Strilanc) makes it quite elegant.
 
@@ -100,14 +100,14 @@ let rec pairs = function
     | [] -> []
 ```
 
-## F#
+## F
 
 According to [@demisbellot](http://twitter.com/demisbellot) it would look like this in F#
 
 ```F
-let rec pairs = function 
-| h :: t -> List.append [ for i in t -> [h; i] ] (pairs t) 
-| _ -> []  
+let rec pairs = function
+| h :: t -> List.append [ for i in t -> [h; i] ] (pairs t)
+| _ -> []
 
 ["A"; "B"; "C"; "D"] |> pairs
 ```
@@ -119,7 +119,7 @@ Scala by XxXX
 ```scala
  def pair(l : List[String]): List[Tuple2[String, String]] = l.size match {
  case 1 => Nil
- case _ => l.tail.flatMap { e => List((l.head, e)) } ++ pair(l.tail) 
+ case _ => l.tail.flatMap { e => List((l.head, e)) } ++ pair(l.tail)
 }
 ```
 

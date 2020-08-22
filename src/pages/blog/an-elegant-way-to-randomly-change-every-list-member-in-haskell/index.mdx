@@ -26,7 +26,6 @@ main = do
 While this approach is great for changing a single value, it breaks down when you try to randomly change a whole list:
 
 ```haskell
-  
   print $ map (snd . (addRand generator)) [1,1,1,1]
   -- prints [11,11,11,11]
 ```
@@ -47,7 +46,6 @@ addRand' gen (x:xs) = let (gen', x') = addRand gen x
 This works. Every number in the list is different! But the code is somewhat terrible and difficult to reason about. Luckily, Haskell has got us covered and comes with a standard function called _mapAccumL_, which is a combination of a fold and a map:
 
 ```haskell
-  
   print $ snd $ mapAccumL addRand generator [1,1,1,1]
   -- prints [11,3,13,14]
 ```

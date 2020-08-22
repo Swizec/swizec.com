@@ -47,7 +47,7 @@ loaders: [
                     plugins: ['transform-runtime'],
                     presets: ['es2015']
                 }
-            },            
+            },
 ```
 
 Easy enough. The code transpiled without error, the app loaded fine, and it even worked in Safari. Yass! _"Yo, when you check my PR, make sure you click around a bit,"_ I said to my coworker as I submitted a pull request. _"It should be fine really. The only way something broke is if there was a bug in Babel 5 that we were unknowingly relying on to make our code work. I don't foresee any issues, really. Compilers usually don't have bugs."_ He didn't click around. It wasn't fine. An hour after he closed my pull request, the intern started complaining on Slack: _"Hey, my code doesn't work anymore. I don't know what happened. I try to test this thing and it just doesn't load."_ That's … odd. That really shouldn't be broken. _"Did you update from latest master?"_ He did. The error was short and cryptic:

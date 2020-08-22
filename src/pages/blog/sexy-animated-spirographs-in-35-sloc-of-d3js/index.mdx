@@ -16,7 +16,7 @@ My failure in common knowledge aside, it's possible to animate the drawing of pa
 
 ## Animating spirographs
 
-\[caption id="attachment_6059" align="alignnone" width="486"][![After a few steps](./img/After-a-few-steps315gba.png "After a few steps")](./img/blog-wp-content-uploads-2013-03-0007_04_04.png) After a few steps\[/caption] We'll make an animation timer and for each tick we'll draw a new step of the spirograph. After the spirograph is finished, we'll stop the timer. To make the animation more interesting to watch, we'll also fake a brush flying around (just a black dot). We start with some basic html:
+\[caption id="attachment_6059" align="alignnone" width="486"][![After a few steps](./img/After-a-few-stepsbf8j6e.png "After a few steps")](./img/blog-wp-content-uploads-2013-03-0007_04_04.png) After a few steps\[/caption] We'll make an animation timer and for each tick we'll draw a new step of the spirograph. After the spirograph is finished, we'll stop the timer. To make the animation more interesting to watch, we'll also fake a brush flying around (just a black dot). We start with some basic html:
 
 ```html
 <title></title>
@@ -87,16 +87,14 @@ var step = function (time) {
     pos = position(t);
 
   brush.attr({ cx: x(pos.x), cy: y(pos.y) });
-  svg
-    .append("line")
-    .attr({
-      x1: x(previous.x),
-      y1: y(previous.y),
-      x2: x(pos.x),
-      y2: y(pos.y),
-      stroke: "steelblue",
-      "stroke-width": 1.3,
-    });
+  svg.append("line").attr({
+    x1: x(previous.x),
+    y1: y(previous.y),
+    x2: x(pos.x),
+    y2: y(pos.y),
+    stroke: "steelblue",
+    "stroke-width": 1.3,
+  });
 
   previous = pos;
 };
@@ -108,7 +106,7 @@ This is our [step function](http://en.wikipedia.org/wiki/Step_function "Step fun
 var timer = d3.timer(step, 500);
 ```
 
-The timer will start running after 500 milliseconds and repeatedly call the _step \_function until it returns \_true._ You can check the animation out via [the magic of github pages](http://swizec.github.com/d3.js-book-examples/ch4/timers.html). The final spirograph looks like this: \[caption id="attachment_6055" align="alignnone" width="555"][![A parametric equation visualised](./img/A-parametric-equation-visualised4i49i5.png "A parametric equation visualised")](./img/blog-wp-content-uploads-2013-03-0007_04_05.png) A parametric equation visualised\[/caption] Figured out the problem yet? The problem with this approach is that I'm using the animation timer itself as a parameter to the function, which means point density depends on how long you're willing to let the animation run. It will always draw the complete function because of how d3 scales work, but it might look \_very_ approximate. Think squares for circles approximate. Another problem is that using a slower computer, or doing anything that lags the CPU even a little bit while the animation is running will ruin the final picture. For instance, this is what happens when I switch desktops around while the browser is drawing. \[caption id="attachment_6057" align="alignnone" width="546"][![Glitchy spirograph](./img/Glitchy-spirograph3i81ee.png "Glitchy spirograph")](./img/blog-wp-content-uploads-2013-03-glitchy-spirograph.png) Glitchy spirograph\[/caption]
+The timer will start running after 500 milliseconds and repeatedly call the _step \_function until it returns \_true._ You can check the animation out via [the magic of github pages](http://swizec.github.com/d3.js-book-examples/ch4/timers.html). The final spirograph looks like this: \[caption id="attachment_6055" align="alignnone" width="555"][![A parametric equation visualised](./img/A-parametric-equation-visualisedhf2180.png "A parametric equation visualised")](./img/blog-wp-content-uploads-2013-03-0007_04_05.png) A parametric equation visualised\[/caption] Figured out the problem yet? The problem with this approach is that I'm using the animation timer itself as a parameter to the function, which means point density depends on how long you're willing to let the animation run. It will always draw the complete function because of how d3 scales work, but it might look \_very_ approximate. Think squares for circles approximate. Another problem is that using a slower computer, or doing anything that lags the CPU even a little bit while the animation is running will ruin the final picture. For instance, this is what happens when I switch desktops around while the browser is drawing. \[caption id="attachment_6057" align="alignnone" width="546"][![Glitchy spirograph](./img/Glitchy-spirograph9c7if1.png "Glitchy spirograph")](./img/blog-wp-content-uploads-2013-03-glitchy-spirograph.png) Glitchy spirograph\[/caption]
 
 ###### Related articles
 

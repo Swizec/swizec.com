@@ -16,11 +16,11 @@ One of my favorite features is this:
 
 ````ruby
 > "next sunday".to_date
- => Sun, 26 Mar 2017 
+ => Sun, 26 Mar 2017
 ```
 ```ruby
 > 2.2.0 :003 > "last sunday".to_date
- => Sun, 26 Mar 2017 
+ => Sun, 26 Mar 2017
 ````
 
 Wait a minute… `next sunday` and `last sunday` are the same date? O.o
@@ -33,7 +33,7 @@ Ok, that's weird. But what if we change `Date.now` to Monday? Let's try that.
 2.2.0 :008 > Timecop.freeze("April 3rd, 2017".to_datetime) do
 2.2.0 :009 >     Date.today
 2.2.0 :010?>   end
- => Sun, 02 Apr 2017  
+ => Sun, 02 Apr 2017
 ```
 
 ?
@@ -55,7 +55,7 @@ Ah. `to_datetime` without a time of day sets time to midnight in UTC. Then when 
 2.2.0 :014 > Timecop.freeze("April 3rd, 2017 1pm".to_datetime) do
 2.2.0 :015 >     DateTime.now
 2.2.0 :016?>   end
- => Mon, 03 Apr 2017 07:00:00 -0700  
+ => Mon, 03 Apr 2017 07:00:00 -0700
 ```
 
 Okay, that's better. Does `"next Sunday"` work now?
@@ -64,7 +64,7 @@ Okay, that's better. Does `"next Sunday"` work now?
 2.2.0 :020 > Timecop.freeze("Mar 27, 2017 1pm".to_datetime) do
 2.2.0 :021 >     "next sunday".to_datetime
 2.2.0 :022?>   end
- => Sun, 26 Mar 2017 00:00:00 +0000  
+ => Sun, 26 Mar 2017 00:00:00 +0000
 ```
 
 Nope. Doesn't even react to current time being mocked. _That_'s intuitive.
@@ -73,12 +73,12 @@ Turns out, if you want to find next Sunday, you have to use `Date.today.sunday`.
 
 ```ruby
 2.2.0 :023 > Date.today.sunday
- => Sun, 02 Apr 2017 
- 
+ => Sun, 02 Apr 2017
+
 2.2.0 :024 > Timecop.freeze("April 3rd, 2017 1pm".to_datetime) do
 2.2.0 :025 >     Date.today.sunday
 2.2.0 :026?>   end
- => Sun, 09 Apr 2017 
+ => Sun, 09 Apr 2017
 ```
 
 Excellent! That worked. Today, we get next Sunday. On Monday, we get next next Sunday. Just what you'd expect!

@@ -51,10 +51,10 @@ The App component needs only a `render` method that returns an SVG.
                   .range([0, width])
                   .padding(5)
                   .round(true);
-    
+
     return (
       <svg width="600" height="600">
-        {d3.range(N).map(x => 
+        {d3.range(N).map(x =>
            d3.range(N).map(y =>
              <dot x={pos(x)} y={pos(y)} key={`${x}-${y}`} maxpos={width}></dot>
         ))}
@@ -81,23 +81,23 @@ The Dot component has a few more moving parts. It needs a `constructor`, a trans
 class Dot extends Component {
   constructor(props) {
     super(props);
-    
-    this.state = Object.assign({}, 
+
+    this.state = Object.assign({},
                                props,
                                {r: 5});
   }
-  
+
   flash() {
         // transition code
   }
-  
+
   get color() {
     // color calculation
   }
-  
+
   render() {
     const { x, y, r, colorize } = this.state;
-    
+
     return <circle cx={x} cy={y} r={r} ref="circle" onmouseover={this.flash.bind(this)} style="{{fill:" colorize="" ?="" this.color="" :="" 'black'}}="">
   }
 }
@@ -123,7 +123,7 @@ When you mouse over one of the dots, its `flash()` method gets called as an even
 ```javascript
   flash() {
     let node = d3.select(this.refs.circle);
-    
+
     this.setState({colorize: true});
 
     node.transition()
@@ -168,11 +168,11 @@ Calibrate a linear scale to translate between `[0, maxR^2]` and `[0, 1]`, then f
 ```javascript
   get color() {
     const { x, y, maxPos } = this.state;
-    
+
     const t = d3.scaleLinear()
                 .domain([0, 1.2*maxPos**2])
                 .range([0, 1]);
-    
+
     return d3.interpolateWarm(t(x**2 + y**2));
   }
 ```

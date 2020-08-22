@@ -58,7 +58,7 @@ First avenue of attack is to debounce user input. Update your UI asynchronously 
 
 Two ways you can approach this:
 
-1) Turn your `<input>` into a component, use local state to drive its value, call the global `onChange` callback every few milliseconds. This works but increases complexity.
+1.  Turn your `<input>` into a component, use local state to drive its value, call the global `onChange` callback every few milliseconds. This works but increases complexity.
 
 2) Use React time slicing and make `this.setState` itself asynchronous. Can't remember which version of React this came with, maybe 16.4 ... it works real good.
 
@@ -68,7 +68,7 @@ Two ways you can approach this:
   values = [...values];
   values.push(value);
   values[0] = value;
-  
+
   this.setState({ values });
 }
 </code>

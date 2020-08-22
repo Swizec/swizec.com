@@ -253,7 +253,7 @@ const ShareThisEmail = React.createClass({
     componentWillUnmount: function () {
         Store.removeChangeListener(this._onChange);
     },
-        
+
     _onChange: function () {
         this.setState(Store.getState());
     }
