@@ -49,6 +49,9 @@ module.exports = {
             },
           },
           {
+            resolve: "gatsby-remark-privacy-embeds",
+          },
+          {
             resolve: "gatsby-remark-images",
             options: {
               markdownCaptions: true,
@@ -72,7 +75,7 @@ module.exports = {
           {
             resolve: "gatsby-remark-embedder",
             options: {
-              customTransformers: [YoutubeTransformer],
+              //   customTransformers: [YoutubeTransformer],
             },
           },
         ],
