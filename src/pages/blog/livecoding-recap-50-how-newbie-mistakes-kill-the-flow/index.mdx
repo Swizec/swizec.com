@@ -1,12 +1,13 @@
 ---
-title: 'Livecoding Recap 50: How newbie mistakes kill the flow'
+title: "Livecoding Recap 50: How newbie mistakes kill the flow"
 description: ""
 published: 2017-11-06
-redirect_from: 
-            - /blog/livecoding-recap-50-how-newbie-mistakes-kill-flow/swizec/7901
+redirect_from:
+  - /blog/livecoding-recap-50-how-newbie-mistakes-kill-flow/swizec/7901
 categories: "Livecoding, Technical"
 hero: ../../../defaultHero.jpg
 ---
+
 _This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should follow [My Youtube](https://www.youtube.com/TheSwizec) channel to catch me live._
 
 https://www.youtube.com/watch?v=7PVF41QHIK0
@@ -21,7 +22,7 @@ The first difficulty was [using VSCode](https://swizec.com/blog/wont-be-switchin
 
 Also, this killer feature looks cool and I want it.
 
-https://twitter.com/\_developit/status/926509015672160256
+https://twitter.com/_developit/status/926509015672160256
 
 I&#x27;ll talk more about VSCode after I use it some more.
 
@@ -49,20 +50,20 @@ This is the function we&#x27;re tweaking by the way 👇
 
 ```javascript
 async function getTableOfContents(markdownNode) {
-  const cachedToc = await cache.get(tableOfContentsCacheKey(markdownNode));
+  const cachedToc = await cache.get(tableOfContentsCacheKey(markdownNode))
   if (cachedToc) {
-    return cachedToc;
+    return cachedToc
   } else {
-    const ast = await getAST(markdownNode);
-    const tocAst = mdastToToc(ast);
-    let toc;
+    const ast = await getAST(markdownNode)
+    const tocAst = mdastToToc(ast)
+    let toc
     if (tocAst.map) {
-      toc = hastToHTML(toHAST(tocAst.map));
+      toc = hastToHTML(toHAST(tocAst.map))
     } else {
-      toc = ``;
+      toc = ``
     }
-    cache.set(tableOfContentsCacheKey(markdownNode), toc);
-    return toc;
+    cache.set(tableOfContentsCacheKey(markdownNode), toc)
+    return toc
   }
 }
 ```
