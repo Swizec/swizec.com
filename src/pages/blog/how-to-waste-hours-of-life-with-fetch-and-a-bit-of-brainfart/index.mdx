@@ -1,13 +1,14 @@
 ---
-title: 'How to waste hours of life with fetch() and a bit of brainfart'
+title: "How to waste hours of life with fetch() and a bit of brainfart"
 description: ""
 published: 2016-11-01
-redirect_from: 
-            - /blog/waste-hours-fetch-brainfart/swizec/7173
+redirect_from:
+  - /blog/waste-hours-fetch-brainfart/swizec/7173
 categories: "Technical"
 hero: ../../../defaultHero.jpg
 ---
-Today, I had a dumb idea: _&quot;Nested superagent calls sure look messy… maybe I should use fetch() instead…”_
+
+Today, I had a dumb idea: _"Nested superagent calls sure look messy… maybe I should use fetch() instead…”_
 
 What happened next was a little bit of this:
 
@@ -17,13 +18,13 @@ Followed by a lot of this:
 
 ![](./img/media-X83Y7r03T6uty-giphy.gif)
 
-In case you don&#x27;t know, [superagent](https://github.com/visionmedia/superagent) is a popular library for executing AJAX requests in JavaScript. Clean API, works well, makes life easy. I&#x27;ve been a fan for years.
+In case you don't know, [superagent](https://github.com/visionmedia/superagent) is a popular library for executing AJAX requests in JavaScript. Clean API, works well, makes life easy. I've been a fan for years.
 
-[fetch()](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) is a new JavaScript API for the same. Clean API, Promise-based interface, solves a problem you thought was solved. Not yet an official standard, but supported in all modern browsers. You can use it in production code, if you&#x27;re compiling with Babel and enable `babel-polyfill`.
+[fetch()](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) is a new JavaScript API for the same. Clean API, Promise-based interface, solves a problem you thought was solved. Not yet an official standard, but supported in all modern browsers. You can use it in production code, if you're compiling with Babel and enable `babel-polyfill`.
 
 Both superagent and fetch() enable you to talk to a server. The first produces clean code that gets nesty if you need many things. The second produces clean code that is Promis-y and sometimes cumbersome.
 
-For example, to get a JSON object with superagent, you&#x27;d do this:
+For example, to get a JSON object with superagent, you'd do this:
 
 ```javascript
 superagent.get('/api/some.json')
@@ -77,11 +78,11 @@ fetch("/api/some.json", { headers: { Accept: "application/json" } })
 
 The promises approach _does_ look cleaner ?
 
-## But there&#x27;s a catch with fetch()
+## But there's a catch with fetch()
 
 See the `Accept` header? Superagent sends it as an `Accept` header. Fetch sends it as `accept`.
 
-Your clean code stops working. You&#x27;re doing everything right: you send the `Accept` header, you send the `Authorization` header for your API&#x27;s token-based authentication, and yet…
+Your clean code stops working. You're doing everything right: you send the `Accept` header, you send the `Authorization` header for your API's token-based authentication, and yet…
 
 https://twitter.com/Swizec/status/793197010664824832
 
@@ -89,21 +90,21 @@ You fall into a rabbit hole…
 
 https://twitter.com/Swizec/status/793200932485894144
 
-You read through all of the relevant questions and answers on StackOverflow. You google and google. You spelunk through Rails&#x27;s code on Github.
+You read through all of the relevant questions and answers on StackOverflow. You google and google. You spelunk through Rails's code on Github.
 
 You abandon all hope…
 
 https://twitter.com/Swizec/status/793210701175148544
 
-You&#x27;re about ready to start throwing things. Nothing makes sense, this is dumb, everything sucks, all you wanted was to Do The Right Thing™ and now you&#x27;re stuck debugging huge frameworks.
+You're about ready to start throwing things. Nothing makes sense, this is dumb, everything sucks, all you wanted was to Do The Right Thing™ and now you're stuck debugging huge frameworks.
 
 ?
 
-By the way, Devise is a library for user authentication, and Warden is the core authentication library it wraps. No, I don&#x27;t know why this happens in two libraries. Maybe historical reasons.
+By the way, Devise is a library for user authentication, and Warden is the core authentication library it wraps. No, I don't know why this happens in two libraries. Maybe historical reasons.
 
-And then it hits you. You&#x27;re being an idiot.
+And then it hits you. You're being an idiot.
 
-The difference between superagent and fetch() isn&#x27;t that one sends your headers as-given and the other lowercases their names. The difference is that superagent sends a cookie and fetch() doesn&#x27;t!
+The difference between superagent and fetch() isn't that one sends your headers as-given and the other lowercases their names. The difference is that superagent sends a cookie and fetch() doesn't!
 
 https://twitter.com/Swizec/status/793215715939463168
 
@@ -134,4 +135,4 @@ fetch("/api/some.json", {
 
 In real code, I suggest wrapping fetch() in a helper function that always adds API-specific options like `Accept` and `Authorization` headers and `credentials`. Your future self will thank you.
 
-No, I don&#x27;t know why fetch() breaks the 20-year old convention that cookies are automatically included in requests.
+No, I don't know why fetch() breaks the 20-year old convention that cookies are automatically included in requests.

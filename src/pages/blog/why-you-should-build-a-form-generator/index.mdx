@@ -1,31 +1,32 @@
 ---
-title: 'Why you should build a form generator'
+title: "Why you should build a form generator"
 description: ""
 published: 2020-04-27
-redirect_from: 
-            - /blog/why-you-should-build-a-form-generator/swizec/9394
+redirect_from:
+  - /blog/why-you-should-build-a-form-generator/swizec/9394
 categories: "Front End, Technical"
 hero: ./img/techletter.app-screenshot-1588001432438.png
 ---
-How many forms have you built? 1? 2? 5 bazillion?Lemme guess, every project involves 1 or 2 forms and they&#x27;re all the friggen same. You got forms coming out the wazoo.Render fields. Connect to state. Add field validation. Detect submit. Add form validation. Send fetch request. Repeat.![shoot_me giphy](./img/media-JtQc9M7l1KUGQ-giphy.gif)
 
-How many times can you go through that mind-numbing software bureaucracy before you say **&quot;Enough already!&quot;**
+How many forms have you built? 1? 2? 5 bazillion?Lemme guess, every project involves 1 or 2 forms and they're all the friggen same. You got forms coming out the wazoo.Render fields. Connect to state. Add field validation. Detect submit. Add form validation. Send fetch request. Repeat.![shoot_me giphy](./img/media-JtQc9M7l1KUGQ-giphy.gif)
 
-And no, that doesn&#x27;t mean _&quot;Give it to the most junior engineer on the team coz they still think it&#x27;s exciting&quot;_ either. That&#x27;s shitty. (and yes every company does it)
+How many times can you go through that mind-numbing software bureaucracy before you say **"Enough already!"**
+
+And no, that doesn't mean _"Give it to the most junior engineer on the team coz they still think it's exciting"_ either. That's shitty. (and yes every company does it)
 
 ## Build a form generator
 
-Here&#x27;s what you do instead my friend, you notice a pattern and you solve it once and for all. For every future project. For every engineer on the team. For yourself.
+Here's what you do instead my friend, you notice a pattern and you solve it once and for all. For every future project. For every engineer on the team. For yourself.
 
-That&#x27;s how you level up.
+That's how you level up.
 
 [![Click through for source](./img/techletter.app-screenshot-1588001432438.png)](https://twitter.com/Swizec/status/1251180097538678785)
 
-**Next time you&#x27;re building a form, grab some extra time, turn it into a library.**
+**Next time you're building a form, grab some extra time, turn it into a library.**
 
-Sure, libraries like [formik](https://github.com/jaredpalmer/formik) and [react-form](https://github.com/tannerlinsley/react-form) and [redux-form](https://github.com/redux-form/redux-form) exist. There&#x27;s a bunch for every frontend framework.
+Sure, libraries like [formik](https://github.com/jaredpalmer/formik) and [react-form](https://github.com/tannerlinsley/react-form) and [redux-form](https://github.com/redux-form/redux-form) exist. There's a bunch for every frontend framework.
 
-And they&#x27;re not what I&#x27;m talking about.
+And they're not what I'm talking about.
 
 What you need is a form _generator_. A piece of code that takes JSON configuration and spits out a form.
 
@@ -35,11 +36,11 @@ A form that looks like _your_ forms. Follows _your_ design system, has _your_ va
 
 Take a basic form for example. Name and email.
 
-https://codesandbox.io/s/relaxed-moore-rl1lh?fontsize=14&amp;hidenavigation=1&amp;theme=dark
+https://codesandbox.io/s/relaxed-moore-rl1lh?fontsize=14&hidenavigation=1&theme=dark
 
 Handles 2 input fields, validates email as you type, verifies both fields are filled out before submitting.
 
-58 lines of boring code and there&#x27;s a bunch of cases I didn&#x27;t cover.
+58 lines of boring code and there's a bunch of cases I didn't cover.
 
 [![Click through for source](./img/techletter.app-screenshot-1588001432001.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20Form%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5Bname%2C%20setName%5D%20%3D%20useState(%22%22)%3B%0A%20%20const%20%5Bemail%2C%20setEmail%5D%20%3D%20useState(%22%22)%3B%0A%20%20const%20%5BemailValidation%2C%20setEmailValidation%5D%20%3D%20useState(%22%22)%3B%0A%20%20const%20%5BformValidation%2C%20setFormValidation%5D%20%3D%20useState(%22%22)%3B%0A%0A%20%20function%20changeName(event)%20%7B%0A%20%20%20%20setName(event.target.value)%3B%0A%20%20%20%20setFormValidation(%22%22)%3B%0A%20%20%7D%0A%0A%20%20function%20changeEmail(event)%20%7B%0A%20%20%20%20const%20email%20%3D%20event.target.value%3B%0A%20%20%20%20setEmail(email)%3B%0A%0A%20%20%20%20if%20(!isValidEmail(email))%20%7B%0A%20%20%20%20%20%20setEmailValidation(%22Not%20valid%20email%22)%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20setEmailValidation(%22%22)%3B%0A%20%20%20%20%7D%0A%20%20%20%20setFormValidation(%22%22)%3B%0A%20%20%7D%0A%0A%20%20function%20onSubmit(event)%20%7B%0A%20%20%20%20event.preventDefault()%3B%0A%0A%20%20%20%20if%20(isValidEmail(email)%20%26%26%20name.length%20%3E%200)%20%7B%0A%20%20%20%20%20%20%2F%2F%20submit%0A%20%20%20%20%20%20setFormValidation(%22%22)%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20setFormValidation(%22Missing%20fields%22)%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20return%20(%0A%20%20%20%20%3Cform%20onSubmit%3D%7BonSubmit%7D%3E%0A%20%20%20%20%20%20%3Clabel%3E%0A%20%20%20%20%20%20%20%20Name%20%3Cinput%20type%3D%22text%22%20value%3D%7Bname%7D%20onChange%3D%7BchangeName%7D%20%2F%3E%0A%20%20%20%20%20%20%3C%2Flabel%3E%0A%20%20%20%20%20%20%3Cbr%20%2F%3E%0A%20%20%20%20%20%20%3Clabel%3E%0A%20%20%20%20%20%20%20%20Email%20%3Cinput%20type%3D%22email%22%20value%3D%7Bemail%7D%20onChange%3D%7BchangeEmail%7D%20%2F%3E%0A%20%20%20%20%20%20%3C%2Flabel%3E%0A%20%20%20%20%20%20%3Cp%3E%7BemailValidation%7D%3C%2Fp%3E%0A%20%20%20%20%20%20%3Cp%3E%7BformValidation%7D%3C%2Fp%3E%0A%20%20%20%20%20%20%3Cbutton%20type%3D%22submit%22%3ESubmit%3C%2Fbutton%3E%0A%20%20%20%20%3C%2Fform%3E%0A%20%20)%3B%0A%7D%3B>)
 
@@ -49,9 +50,9 @@ This is how they feel 👇
 
 ![groan giphy](./img/media-6y038xO1p06He-giphy.gif)
 
-Wouldn&#x27;t you?
+Wouldn't you?
 
-Here&#x27;s what you do after _someone_ ;) builds a form generator for your team:
+Here's what you do after _someone_ ;) builds a form generator for your team:
 
 [![Click through for source](./img/techletter.app-screenshot-1588001432307.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20fields%20%3D%20%5B%0A%09%7Bname%3A%20'name'%2C%20label%3A%20'Name'%2C%20validate%3A%20val%20%3D%3E%20val.length%20%3E%200%7D%2C%0A%09%7Bname%3A%20'email'%2C%20label%3A%20'Email'%2C%20validate%3A%20isValidEmail%7D%0A%5D%0A%0A%2F%2F%20...%0A%0A%3CForm%20fields%3D%7Bfields%7D%20onSubmit%3D%7BonSubmit%7D%20%2F%3E>)
 
@@ -59,17 +60,17 @@ Here&#x27;s what you do after _someone_ ;) builds a form generator for your team
 
 ## How you build a form generator
 
-A form generator doesn&#x27;t have to be complicated my friend, it just needs to get the job done.
+A form generator doesn't have to be complicated my friend, it just needs to get the job done.
 
-You&#x27;ll need 3 parts:
+You'll need 3 parts:
 
-1. A generic `<Field>` component
-2. A generic `<Form>` component
-3. Couple of loops
+1.  A generic `<Field>` component
+2.  A generic `<Form>` component
+3.  Couple of loops
 
-Here&#x27;s a basic example that supports text fields only.
+Here's a basic example that supports text fields only.
 
-https://codesandbox.io/s/staging-frog-cmcgr?fontsize=14&amp;hidenavigation=1&amp;theme=dark
+https://codesandbox.io/s/staging-frog-cmcgr?fontsize=14&hidenavigation=1&theme=dark
 
 ###
 
@@ -79,7 +80,7 @@ You start with a `<Field>` component like this.
 
 This component handles a complete field. Renders an input with a label, stores state, and performs validation as you type. Even renders errors.
 
-You can use render props for more flexibility. But that&#x27;s often _too_ flexible. Aim to build a generator that spits out perfect forms for _your_ company. Every time.
+You can use render props for more flexibility. But that's often _too_ flexible. Aim to build a generator that spits out perfect forms for _your_ company. Every time.
 
 ###
 

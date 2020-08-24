@@ -1,17 +1,18 @@
 ---
-title: 'Amdahl''s law in action - 27s to 0.03s by changing a function'
+title: "Amdahl's law in action - 27s to 0.03s by changing a function"
 description: ""
 published: 2012-08-17
-redirect_from: 
-            - /blog/amdahls-law-in-action-27s-to-0-03s-by-changing-a-function/swizec/5106
+redirect_from:
+  - /blog/amdahls-law-in-action-27s-to-0-03s-by-changing-a-function/swizec/5106
 categories: "Amdahl, Amdahl's law, Evolutionary algorithm, Haskell, Hello world program, PHP, Reddit, SQL, Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
-Perhaps the most important lesson I&#x27;ve learned while studying computer science is that of [Amdahl&#x27;s law](http://en.wikipedia.org/wiki/Amdahl%27s_law "Amdahl's law"). \[caption id=&quot;&quot; align=&quot;alignright&quot; width=&quot;300&quot; caption=&quot;Graph Illustrating Amdahl&#x27;s Law (Photo credit: Wikipedia)&quot;][![Graph Illustrating Amdahl's Law](http://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/AmdahlsLaw.png/300px-AmdahlsLaw.png "Graph Illustrating Amdahl's Law")](http://commons.wikipedia.org/wiki/File:AmdahlsLaw.png)\[/caption] ![Amdahl's law](http://upload.wikimedia.org/wikipedia/en/math/8/9/6/89638a25639297d701f9298b68ee9cec.png "Amdahl's law") Amdahl&#x27;s law is generally used to predict the maximum speedup by improving a single component of a system (say, a function or a database). But the implications are simple: _Improve the thing that will **actually** help._ As programmers, however, we would rather contemplate just what is [the fastest way to concatenate a string](http://www.codinghorror.com/blog/2009/01/the-sad-tragedy-of-micro-optimization-theater.html). Or whether [PHP](http://www.php.net "PHP") is much faster than Ruby. And just how much more traffic you can handle with 5 or 10 fcgi workers. And so on. The internet is riddled with these questions. And let&#x27;s not forget the age old debate of speed improvements by using raw [SQL](http://www.iso.org/iso/catalogue_detail.htm?csnumber=45498 "SQL") instead of an [ORM](http://en.wikipedia.org/wiki/Object-relational_mapping "Object-relational mapping"). Once upon a time I even wrote a web framework where I made sure to _always use the fastest pattern of doing X in PHP_. I knew databases were slow, so I did a lot of the work regarding JOINs and such in PHP. Yeah.
+
+Perhaps the most important lesson I've learned while studying computer science is that of [Amdahl's law](http://en.wikipedia.org/wiki/Amdahl%27s_law "Amdahl's law"). \[caption id="" align="alignright" width="300" caption="Graph Illustrating Amdahl's Law (Photo credit: Wikipedia)"][![Graph Illustrating Amdahl's Law](http://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/AmdahlsLaw.png/300px-AmdahlsLaw.png "Graph Illustrating Amdahl's Law")](http://commons.wikipedia.org/wiki/File:AmdahlsLaw.png)\[/caption] ![Amdahl's law](http://upload.wikimedia.org/wikipedia/en/math/8/9/6/89638a25639297d701f9298b68ee9cec.png "Amdahl's law") Amdahl's law is generally used to predict the maximum speedup by improving a single component of a system (say, a function or a database). But the implications are simple: _Improve the thing that will **actually** help._ As programmers, however, we would rather contemplate just what is [the fastest way to concatenate a string](http://www.codinghorror.com/blog/2009/01/the-sad-tragedy-of-micro-optimization-theater.html). Or whether [PHP](http://www.php.net "PHP") is much faster than Ruby. And just how much more traffic you can handle with 5 or 10 fcgi workers. And so on. The internet is riddled with these questions. And let's not forget the age old debate of speed improvements by using raw [SQL](http://www.iso.org/iso/catalogue_detail.htm?csnumber=45498 "SQL") instead of an [ORM](http://en.wikipedia.org/wiki/Object-relational_mapping "Object-relational mapping"). Once upon a time I even wrote a web framework where I made sure to _always use the fastest pattern of doing X in PHP_. I knew databases were slow, so I did a lot of the work regarding JOINs and such in PHP. Yeah.
 
 ## Optimizing where it matters
 
-The other day I finally assembled all the bits and pieces for an [evolutionary algorithm](http://en.wikipedia.org/wiki/Evolutionary_algorithm "Evolutionary algorithm") in [Haskell](http://haskell.org "Haskell (programming language)"). I&#x27;m trying to print _[Hello World](http://en.wikipedia.org/wiki/Hello_world_program "Hello world program")_ by performing random changes on a population of strings - eventually I want to create an extensible framework for evolutionary algorithms that will let me [write poetry programmatically](http://swizec.github.com/Le-Thesis/). It took **27 seconds** to go 5 epochs. Just five generations.
+The other day I finally assembled all the bits and pieces for an [evolutionary algorithm](http://en.wikipedia.org/wiki/Evolutionary_algorithm "Evolutionary algorithm") in [Haskell](http://haskell.org "Haskell (programming language)"). I'm trying to print _[Hello World](http://en.wikipedia.org/wiki/Hello_world_program "Hello world program")_ by performing random changes on a population of strings - eventually I want to create an extensible framework for evolutionary algorithms that will let me [write poetry programmatically](http://swizec.github.com/Le-Thesis/). It took **27 seconds** to go 5 epochs. Just five generations.
 
 ```log
   INIT    time    0.00s  (  0.00s elapsed)
@@ -25,7 +26,7 @@ The other day I finally assembled all the bits and pieces for an [evolutionary a
   Productivity  97.7% of total user, 95.8% of total elapsed
 ```
 
-Okay, it&#x27;s definitely not a problem with memory access. 97.7% of the time is spent in computation, this is good, but slightly worrying. Let&#x27;s do some profiling!
+Okay, it's definitely not a problem with memory access. 97.7% of the time is spent in computation, this is good, but slightly worrying. Let's do some profiling!
 
 ```log
 COST CENTRE   MODULE           %time %alloc
@@ -34,7 +35,7 @@ levenshtein   Evaluators.Basic  91.5  100.0
 levenshtein.d Evaluators.Basic   8.5    0.0
 ```
 
-The [levenshtein distance function I implemented](http://swizec.com/blog/levenshtein-distance-in-haskell/swizec/4801 "Levenshtein distance in Haskell") costs 100% of [computation time](http://en.wikipedia.org/wiki/Time_complexity "Time complexity")! After replacing my function with [the implementation suggested by Reddit](http://www.reddit.com/r/programming/comments/w4gs6/levenshtein_distance_in_haskell/c5a6jjz) life instantly became much easier. It now takes just 0.03 seconds to compute 5 epochs of the algorithm. **27 seconds -&gt; 0.03 seconds by changing a single function.** The problem I have now is anything larger than ~25 epochs makes my computer decide something funny is going and kill the program, which says I&#x27;m doing something terrible with memory. Then again, there _are_ 480195 population members at the 25th epoch ... I probably don&#x27;t need that many. By the way, it&#x27;s still not a memory problem per se (for 20 epochs):
+The [levenshtein distance function I implemented](http://swizec.com/blog/levenshtein-distance-in-haskell/swizec/4801 "Levenshtein distance in Haskell") costs 100% of [computation time](http://en.wikipedia.org/wiki/Time_complexity "Time complexity")! After replacing my function with [the implementation suggested by Reddit](http://www.reddit.com/r/programming/comments/w4gs6/levenshtein_distance_in_haskell/c5a6jjz) life instantly became much easier. It now takes just 0.03 seconds to compute 5 epochs of the algorithm. **27 seconds -> 0.03 seconds by changing a single function.** The problem I have now is anything larger than ~25 epochs makes my computer decide something funny is going and kill the program, which says I'm doing something terrible with memory. Then again, there _are_ 480195 population members at the 25th epoch ... I probably don't need that many. By the way, it's still not a memory problem per se (for 20 epochs):
 
 ```log
   Total   time   10.72s  ( 10.80s elapsed)
@@ -62,7 +63,7 @@ lev'''.xa      Evaluators.Basic   1.1    0.6
 ###### Related articles
 
 - [![](http://i.zemanta.com/98768579_80_80.jpg)](http://swizec.com/blog/levenshtein-distance-in-haskell/swizec/4801)[Levenshtein distance in Haskell](http://swizec.com/blog/levenshtein-distance-in-haskell/swizec/4801)
-- [![](http://i.zemanta.com/97318522_80_80.jpg)](http://blog.pdark.de/2012/06/29/jazoon-2012-divideconquer-efficient-java-for-multicore-world/)[Jazoon 2012: Divide&amp;Conquer: Efficient Java for Multicore World](http://blog.pdark.de/2012/06/29/jazoon-2012-divideconquer-efficient-java-for-multicore-world/)
+- [![](http://i.zemanta.com/97318522_80_80.jpg)](http://blog.pdark.de/2012/06/29/jazoon-2012-divideconquer-efficient-java-for-multicore-world/)[Jazoon 2012: Divide&Conquer: Efficient Java for Multicore World](http://blog.pdark.de/2012/06/29/jazoon-2012-divideconquer-efficient-java-for-multicore-world/)
 - [![](http://i.zemanta.com/106367996_80_80.jpg)](http://swizec.com/blog/an-elegant-way-to-randomly-change-every-list-member-in-haskell/swizec/5060)[An elegant way to randomly change every list member in Haskell](http://swizec.com/blog/an-elegant-way-to-randomly-change-every-list-member-in-haskell/swizec/5060)
 - [![](http://i.zemanta.com/100761108_80_80.jpg)](http://blog.kejser.org/2012/07/16/how-vertical-partitioning-and-deep-joins-kill-parallelism/)[How Vertical Partitioning and Deep Joins Kill Parallelism](http://blog.kejser.org/2012/07/16/how-vertical-partitioning-and-deep-joins-kill-parallelism/)
 - [![](http://i.zemanta.com/97839111_80_80.jpg)](http://plumbr.eu/blog/let-them-talk)[Let them talk](http://plumbr.eu/blog/let-them-talk)

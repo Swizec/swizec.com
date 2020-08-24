@@ -1,19 +1,20 @@
 ---
-title: 'The surprising performance boost from changing gif embeds'
+title: "The surprising performance boost from changing gif embeds"
 description: ""
 published: 2020-04-06
-redirect_from: 
-            - /blog/the-surprising-performance-boost-from-changing-gif-embeds/swizec/9365
+redirect_from:
+  - /blog/the-surprising-performance-boost-from-changing-gif-embeds/swizec/9365
 categories: "Front End, Technical"
 hero: ./img/J26iwxB.png
 ---
+
 wanna hear something cool?You can 2x your Lighthouse performance score just by changing how you embed 8 gifs on a gigantic 6000 word page with 130 requests and 16megs of data.![Change in Lighthouse score after change](./img/J26iwxB.png)
 
 ![whoa giphy](./img/media-3o6gDPXMNxFhvHdcf6-giphy.gif)
 
 ## How I found out
 
-On the internet, ain&#x27;t nobody got time to read 3 paragraphs of emotion setting. You&#x27;d find it boring.
+On the internet, ain't nobody got time to read 3 paragraphs of emotion setting. You'd find it boring.
 
 So we use gifs.
 
@@ -51,7 +52,7 @@ Now you can use it too ❤️
 
 Configure via `gatsby-config.js` and the plugin changes how it transforms markdown nodes.
 
-Here&#x27;s what happens.
+Here's what happens.
 
 At build time, gatsby-remark-giphy visits each markdown image node whose URL starts with `giphy:`, pings the [Giphy API](https://developers.giphy.com/), and runs 1 of 3 functions:
 
@@ -73,7 +74,7 @@ This is the slowest.
 
 ![](./img/9543257d7dd2cbf88a0009844cbe7e2900309101-68747470733a2f2f692e696d6775722e636f6d2f6c6852647169452e706e67.png)
 
-You&#x27;re loading the gif as soon as the page renders. Whether it&#x27;s visible or not. And you have to wait for the whole gif to download before it plays.
+You're loading the gif as soon as the page renders. Whether it's visible or not. And you have to wait for the whole gif to download before it plays.
 
 ### embedVideo
 
@@ -83,7 +84,7 @@ Here we change the node into HTML and tell markdown exactly what to do. The gif 
 
 Adding `autoplay loop muted playsinline` makes it behave like a gif. But with one crucial difference 👉 mp4 is optimized for streaming.
 
-That means your browser can play the video _while it&#x27;s downloading_. **And** the filesize is smaller.
+That means your browser can play the video _while it's downloading_. **And** the filesize is smaller.
 
 2.29MB gif vs. 1.09MB mp4 for our surprise example. 🤯
 
@@ -91,7 +92,7 @@ This is the fastest.
 
 ![](./img/f04e81be56821573c3b13431282e080864c48c94-68747470733a2f2f692e696d6775722e636f6d2f6e305a32536c562e706e67.png)
 
-But this result is suspicious, we&#x27;ll get to that.
+But this result is suspicious, we'll get to that.
 
 ### embedIframe
 
@@ -107,23 +108,23 @@ The result is an iframe with some annoying Giphy branding on mouseover and a nic
 
 ![](./img/8719b20c378309194a227a90f89c1788112c1a16-68747470733a2f2f692e696d6775722e636f6d2f514935426152702e706e67.png)
 
-What&#x27;s interesting is that Giphy&#x27;s iframe embeds a `webp` version of the gif that&#x27;s just 880KB for our surprise example. 🤨
+What's interesting is that Giphy's iframe embeds a `webp` version of the gif that's just 880KB for our surprise example. 🤨
 
 So iframe should be fastest, right?
 
-## loading=&quot;lazy&quot;
+## loading="lazy"
 
-`loading="lazy"` is a [new native implementation of lazy loading](https://addyosmani.com/blog/lazy-loading/). Mark something as lazy and the browser avoids loading it until it&#x27;s visible.
+`loading="lazy"` is a [new native implementation of lazy loading](https://addyosmani.com/blog/lazy-loading/). Mark something as lazy and the browser avoids loading it until it's visible.
 
-I think it&#x27;s only supported on Chrome right now, but that&#x27;s where we measure Lighthouse scores isn&#x27;t it? Also what Google cares about when determining page speed for that sweet sweet SEO boost 😛
+I think it's only supported on Chrome right now, but that's where we measure Lighthouse scores isn't it? Also what Google cares about when determining page speed for that sweet sweet SEO boost 😛
 
 Lazy loading will almost always give you a speed boost and improve user experience.
 
 Where my results get tricky is that the `<video>` element _does not support loading=lazy_. And yet it still gave me a Lighthouse performance boost. From 44 to 63 ...
 
-Maybe it&#x27;s a Lighthouse bug? 🤔
+Maybe it's a Lighthouse bug? 🤔
 
-Either way, `<video>` is much better than `<img>` and I don&#x27;t like the overlays and extra tracking that comes with `<iframe>`.
+Either way, `<video>` is much better than `<img>` and I don't like the overlays and extra tracking that comes with `<iframe>`.
 
 ![shrug giphy](./img/media-JRhS6WoswF8FxE0g2R-giphy.gif)
 

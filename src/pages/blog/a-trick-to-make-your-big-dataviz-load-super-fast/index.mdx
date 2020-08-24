@@ -1,19 +1,20 @@
 ---
-title: 'A trick to make your big dataviz load super fast'
+title: "A trick to make your big dataviz load super fast"
 description: ""
 published: 2016-10-17
-redirect_from: 
-            - /blog/trick-make-big-dataviz-load-super-fast/swizec/7126
+redirect_from:
+  - /blog/trick-make-big-dataviz-load-super-fast/swizec/7126
 categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
+
 Big datasets are fun. The bigger, the better, _especially_ when you let people explore them live in their browser.
 
 But there’s a catch: big datasets are slow to load.
 
 Even with modern content delivery networks (CDNs), gzip compression, and high internet speeds, it can take a few seconds to load and parse a dataset. In my [H1B salaries visualization](https://swizec.github.io/h1b-software-salaries/), downloading data takes 1.7 seconds, parsing takes another 2 seconds, and rendering takes maybe a full second because some things are done stupidly.
 
-That’s a full 4 to 5 seconds before a user sees anything more than a _&quot;Loading, please wait”_ message. Users are going to leave before they play with your dataset. Yes, even though it’s _so cool_ and the data is amazing and awesome, users don’t give a shit. It’s sad. ☹️
+That’s a full 4 to 5 seconds before a user sees anything more than a _"Loading, please wait”_ message. Users are going to leave before they play with your dataset. Yes, even though it’s _so cool_ and the data is amazing and awesome, users don’t give a shit. It’s sad. ☹️
 
 But there’s a trick to keep them around → show them an image first!
 
@@ -63,9 +64,9 @@ The easiest way to get this is to first build your real dataviz, then screenshot
 
 That’s about it, really:
 
-1. render an image
-2. wait for data to load
-3. replace image with dynamic dataviz
+1.  render an image
+2.  wait for data to load
+3.  replace image with dynamic dataviz
 
 It sounds dumb, but increases user satisfaction 341324%.
 

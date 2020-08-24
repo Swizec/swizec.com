@@ -1,21 +1,22 @@
 ---
-title: 'Slack lied to me'
+title: "Slack lied to me"
 description: ""
 published: 2016-08-25
-redirect_from: 
-            - /blog/slack-lied-to-me/swizec/6974
+redirect_from:
+  - /blog/slack-lied-to-me/swizec/6974
 categories: "Back End, Ruby, Ruby (programming language), slack, Technical, user documentation"
 hero: ./img/bqiWYiL.png
 ---
+
 I built my first Slack bot today.
 
 It has one job: to report a specific type of error, and to do so while impersonating the office dog. It might get more jobs in the future, but you have to start somewhere.
 
 Adding a Slack bot to your Rails app happens in three steps:
 
-1. Set up [new custom integration](https://slack.com/apps/new/A0F7YS25R-bots).
-2. Add [slack-ruby-client](https://github.com/slack-ruby/slack-ruby-client) to your setup.
-3. Fiddle around until you reach the desired flexibility and feature set.
+1.  Set up [new custom integration](https://slack.com/apps/new/A0F7YS25R-bots).
+2.  Add [slack-ruby-client](https://github.com/slack-ruby/slack-ruby-client) to your setup.
+3.  Fiddle around until you reach the desired flexibility and feature set.
 
 When you’re done with the first step, Slack promises that your bot’s messages will have a friendly avatar and username.
 
@@ -30,7 +31,6 @@ And so it begins. Outdated documentation. ?
 Basic API spec says that you should post messages with an `as_user: true` flag, which makes the bot use its default settings from Step 1.
 
 ```ruby
-
 #Setup stuff, goes in a global file somewhere. config/initializers/slack.rb for instance
 
 <p>Slack.configure do |config|</p>

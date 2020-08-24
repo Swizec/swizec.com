@@ -1,12 +1,13 @@
 ---
-title: 'Animating with React, Redux, and d3'
+title: "Animating with React, Redux, and d3"
 description: ""
 published: 2016-03-11
-redirect_from: 
-            - /blog/animating-with-react-redux-and-d3/swizec/6775
+redirect_from:
+  - /blog/animating-with-react-redux-and-d3/swizec/6775
 categories: "d3js, Front End, HTML element, JavaScript, react, Scalable Vector Graphics, Technical"
 hero: ../../../defaultHero.jpg
 ---
+
 That’s a particle generator. It makes tiny circles fly out of where you click. Hold down your mouse and move around. The particles keep flying out of your cursor. On mobile and only have a finger? That works, too. I’m a nerd, so this is what I consider fun. Your mileage may vary. Please do click in the embed and look at those circles fly. Ain’t it cool?
 
 ## Here’s how it works
@@ -229,9 +230,9 @@ export default AppContainer;
 
 We import stuff, then we define `AppContainer` as a proper React `Component`. We need to use lifecycle methods, which aren’t available in stateless components. There are three important parts in this code:
 
-1. We wire up the store in `componentDidMount` and `componentWillUnmount`. Subscribe to data changes on mount, unsubscribe on unmount.
-2. When rendering, we assume the store is our context, use `getState()`, then render the component we’re wrapping. In this case, we render the `App` component.
-3. To get the store as our context, we _have to_ define `contextTypes`. It won’t work otherwise. This is deep React magic.
+1.  We wire up the store in `componentDidMount` and `componentWillUnmount`. Subscribe to data changes on mount, unsubscribe on unmount.
+2.  When rendering, we assume the store is our context, use `getState()`, then render the component we’re wrapping. In this case, we render the `App` component.
+3.  To get the store as our context, we _have to_ define `contextTypes`. It won’t work otherwise. This is deep React magic.
 
 Contexts are nice because they let us implicitly pass properties. The context can be anything, but Redux prefers it be the store. That contains _everything_ about application state – both UI and business data. That’s where the monad comparison comes from … my foray into Haskell may have broken me. I see monads everywhere. In case you were wondering, that `{::this.startTicker}` syntax comes from ES2016. It’s equivalent to `{this.startTicker.bind(this)}`. Enable `stage-0` in your Babel config to use it.
 
@@ -282,8 +283,8 @@ That’s boilerplate. The action function gives us that `{type: ..}` object, and
 
 Oof. Don’t worry if you don’t “get” this immediately. It took me a few hours to create. This drives our animation loop. Some might call it the game loop. It dispatches the `tickTime` action on every `requestAnimationFrame`. Every time the browser is ready to render, we get a chance to update our Redux data store. In theory, that’s 60 times a second, but it depends on many factors. Look it up. `startTicker` updates the store in two steps:
 
-1. Check `tickerStarted` flag and only start the ticker if it hasn’t been started yet. This way we don’t try to run multiple animation frames per render frame. As a result, we can be naive about binding `startTicker` to `onMouseDown`.
-2. Create a `ticker` function that generates particles, dispatches the `tickTime` action, and recursively calls itself on every `requestAnimationFrame`. We check the `tickerStarted` flag every time so we can potentially stop time.
+1.  Check `tickerStarted` flag and only start the ticker if it hasn’t been started yet. This way we don’t try to run multiple animation frames per render frame. As a result, we can be naive about binding `startTicker` to `onMouseDown`.
+2.  Create a `ticker` function that generates particles, dispatches the `tickTime` action, and recursively calls itself on every `requestAnimationFrame`. We check the `tickerStarted` flag every time so we can potentially stop time.
 
 Yes, that means we are asynchronously dispatching redux actions. It’s okay; that sort of Just Working (tm) is one of the main benefits of immutable data. The `maybeCreateParticles` function itself isn’t too interesting. It gets `(x, y)` coordinates from `store.mousePos`, checks the `generateParticles` flag, and dispatches the `createParticles` action. That’s the container. [83 lines of code](https://github.com/Swizec/react-particles-experiment/blob/master/src/containers/AppContainer.jsx).
 
@@ -405,11 +406,11 @@ That looks like a bunch of code. Sort of. It’s spread out. The first part – 
 
 Building this particle generator in React and Redux, I made three important discoveries:
 
-1. **Redux is much faster than I thought**. You’d think creating a new copy of the state tree on each animation loop was crazy, but it works well. We’re probably creating only a shallow copy for the most part, which explains the speed.
-2. **Adding to JavaScript arrays is slow**. Once we hit about 300 particles, adding new ones becomes visibly slow. Stop adding particles and you get smooth animation. This indicates that something about creating particles is slow: either adding to the array, or creating React component instances, or creating SVG DOM nodes.
-3. **SVG is also slow**. To test the above hypothesis, I made the generator create 3000 particles on first click. The animation speed is _terrible_ at first and becomes okayish at around 1000 particles. This suggests that shallow copying big arrays and moving existing SVG nodes around is faster than adding new stuff. Here’s a gif:
+1.  **Redux is much faster than I thought**. You’d think creating a new copy of the state tree on each animation loop was crazy, but it works well. We’re probably creating only a shallow copy for the most part, which explains the speed.
+2.  **Adding to JavaScript arrays is slow**. Once we hit about 300 particles, adding new ones becomes visibly slow. Stop adding particles and you get smooth animation. This indicates that something about creating particles is slow: either adding to the array, or creating React component instances, or creating SVG DOM nodes.
+3.  **SVG is also slow**. To test the above hypothesis, I made the generator create 3000 particles on first click. The animation speed is _terrible_ at first and becomes okayish at around 1000 particles. This suggests that shallow copying big arrays and moving existing SVG nodes around is faster than adding new stuff. Here’s a gif:
 
-\[caption id=&quot;&quot; align=&quot;alignnone&quot; width=&quot;832&quot;]![](./img/ug478Me.gif) 3000 particles is too many\[/caption]
+\[caption id="" align="alignnone" width="832"]![](./img/ug478Me.gif) 3000 particles is too many\[/caption]
 
 # Fin
 

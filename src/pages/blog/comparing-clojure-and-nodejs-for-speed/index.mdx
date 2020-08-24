@@ -1,35 +1,35 @@
 ---
-title: 'Comparing clojure and node.js for speed'
+title: "Comparing clojure and node.js for speed"
 description: ""
 published: 2011-04-07
-redirect_from: 
-            - /blog/comparing-clojure-and-node-js-for-speed/swizec/1593
+redirect_from:
+  - /blog/comparing-clojure-and-node-js-for-speed/swizec/1593
 categories: "Uncategorized"
 hero: ./img/tumblr_lja8awZaYe1qekjngo1_500.jpg
 ---
-For the longest of whiles I&#x27;ve been working on a speed comparison between Node.js and Clojure. Today I had some time in a place with unreliable internets and finally gave it a whirl since there was nothing better to do, I certainly wasn&#x27;t going to merely enjoy the sun.
+
+For the longest of whiles I've been working on a speed comparison between Node.js and Clojure. Today I had some time in a place with unreliable internets and finally gave it a whirl since there was nothing better to do, I certainly wasn't going to merely enjoy the sun.
 
 ![](./img/tumblr_lja8awZaYe1qekjngo1_500.jpg "Sun at Rimski Zid")The comparison I chose to go for is hard computation - namely calculating a list of primes up to a certain number. Why this test? Because primes are awesome!
 
-I did my best to implement the same algorithm in both. It creates a list of numbers from 3 to N, then filters it of anything that isn&#x27;t a prime. Through a bit of trial and error this turned out to be the quickest approach, possibly because it means we can run prime-ness tests in parallel on several numbers.
+I did my best to implement the same algorithm in both. It creates a list of numbers from 3 to N, then filters it of anything that isn't a prime. Through a bit of trial and error this turned out to be the quickest approach, possibly because it means we can run prime-ness tests in parallel on several numbers.
 
-For node.js I also implemented a bit different algorithm that builds a list of known primes and iterates through that instead of everything under the square root of the target. It can&#x27;t run in parallel, but turns out it&#x27;s faster ... couldn&#x27;t figure out how to implement it in clojure to be fast as you can see from my post on [prime searching in clojure](http://swizec.com/blog/checking-for-primes-dumber-algorithm-is-faster-algorithm/swizec/1580).
+For node.js I also implemented a bit different algorithm that builds a list of known primes and iterates through that instead of everything under the square root of the target. It can't run in parallel, but turns out it's faster ... couldn't figure out how to implement it in clojure to be fast as you can see from my post on [prime searching in clojure](http://swizec.com/blog/checking-for-primes-dumber-algorithm-is-faster-algorithm/swizec/1580).
 
 As far as initial observations go there were a few interesting things I discovered:
 
-1. Node is super fast for heavy but small calculations and seems to break down for large datasets.
-2. Clojure really benefits from native implementations of filter and such. I suspect that they are running in parallel because it is consistently burning 15+ threads.
-3. Jacking up the max N to 100,000,000 caused a memory allocation error in the classic node.js algorithm, but worked fine with the cutesier one.
-4. Both Node and Clojure were burning around 600 megs of RAM when doing the 1M test
+1.  Node is super fast for heavy but small calculations and seems to break down for large datasets.
+2.  Clojure really benefits from native implementations of filter and such. I suspect that they are running in parallel because it is consistently burning 15+ threads.
+3.  Jacking up the max N to 100,000,000 caused a memory allocation error in the classic node.js algorithm, but worked fine with the cutesier one.
+4.  Both Node and Clojure were burning around 600 megs of RAM when doing the 1M test
 
-The computer I was testing on is my trusty MBP with 4gigs of RAM and a 2.4gig core2duo. To avoid as much artefacts as possible each test was run five times and the average runtime was calculated. Just in case it&#x27;s relevant, the computer was running on battery at the time, there&#x27;s a slight chance this means the CPU was clocked down.
+The computer I was testing on is my trusty MBP with 4gigs of RAM and a 2.4gig core2duo. To avoid as much artefacts as possible each test was run five times and the average runtime was calculated. Just in case it's relevant, the computer was running on battery at the time, there's a slight chance this means the CPU was clocked down.
 
 ## The code
 
-This is the basic implementation in node.js, the more cutesy algorithm just uses a global array of known primes and iterates over those, but otherwise the code is the same so it&#x27;d be silly to post it twice.
+This is the basic implementation in node.js, the more cutesy algorithm just uses a global array of known primes and iterates over those, but otherwise the code is the same so it'd be silly to post it twice.
 
 ```javascript
-
 var async = require('async');
 
 var isPrime = function (n, callback) {

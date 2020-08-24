@@ -1,22 +1,22 @@
 ---
-title: 'A for loop is not a for loop is not a for loop'
+title: "A for loop is not a for loop is not a for loop"
 description: ""
 published: 2011-10-19
-redirect_from: 
-            - /blog/a-for-loop-is-not-a-for-loop-is-not-a-for-loop/swizec/2667
+redirect_from:
+  - /blog/a-for-loop-is-not-a-for-loop-is-not-a-for-loop/swizec/2667
 categories: "Uncategorized"
 hero: ./img/blog-wp-content-uploads-2011-10-6260572607_be8dca7de4_m2.jpg
 ---
-\[caption id=&quot;&quot; align=&quot;alignright&quot; width=&quot;240&quot; caption=&quot;Image by Phliar via Flickr&quot;][![IMG_1675](./img/blog-wp-content-uploads-2011-10-6260572607_be8dca7de4_m2.jpg "IMG_1675")](http://www.flickr.com/photos/56861611@N00/6260572607)\[/caption]
 
-For loops are kind of a big deal. So big in fact that it&#x27;s virtually impossible to code any sizeable chunk of code without running into some sort of [for loop](http://en.wikipedia.org/wiki/For_loop "For loop") ... sure, there&#x27;s such awesome things as pure [functional languages](http://en.wikipedia.org/wiki/Functional_programming "Functional programming") where for loops don&#x27;t look like for loops. But I&#x27;m fairly certain most of those eventually turn into some sort of for loop deep down in the bowels of assembler and machine code. It is therefore fairly easy to assert that everyone needs to know for loops like the back of their hand. But how well do you really know them? A few days ago I ran into a silly thing with a couple of friends. We somehow got reminded that C counts the head of a for loop as part of the loop&#x27;s scope, which means variables defined therein don&#x27;t really affect anyone outside the loop. But at the same time, it seems like many (most?) other languages don&#x27;t behave like this. It seemed only reasonable to go write a for loop in many languages and see what happens.
+\[caption id="" align="alignright" width="240" caption="Image by Phliar via Flickr"][![IMG_1675](./img/blog-wp-content-uploads-2011-10-6260572607_be8dca7de4_m2.jpg "IMG_1675")](http://www.flickr.com/photos/56861611@N00/6260572607)\[/caption]
+
+For loops are kind of a big deal. So big in fact that it's virtually impossible to code any sizeable chunk of code without running into some sort of [for loop](http://en.wikipedia.org/wiki/For_loop "For loop") ... sure, there's such awesome things as pure [functional languages](http://en.wikipedia.org/wiki/Functional_programming "Functional programming") where for loops don't look like for loops. But I'm fairly certain most of those eventually turn into some sort of for loop deep down in the bowels of assembler and machine code. It is therefore fairly easy to assert that everyone needs to know for loops like the back of their hand. But how well do you really know them? A few days ago I ran into a silly thing with a couple of friends. We somehow got reminded that C counts the head of a for loop as part of the loop's scope, which means variables defined therein don't really affect anyone outside the loop. But at the same time, it seems like many (most?) other languages don't behave like this. It seemed only reasonable to go write a for loop in many languages and see what happens.
 
 <!--more-->
 
 ## C
 
 ```C
-
 #include<stdio class="h">
 
 int main() {
@@ -77,8 +77,6 @@ public class For {
 ## Scala
 
 ```scala
-
-
 object forVarReuse extends App {
        var i=5;
 
@@ -93,7 +91,6 @@ object forVarReuse extends App {
 ## Perl
 
 ```perl
-
 $i = 5;
 
 for (local $i=0; $i<2; $i++) {
@@ -115,7 +112,6 @@ print "after:$i\n"; # prints 5
 ## Ruby
 
 ```ruby
-
 i = 5
 
 for $i in 1..2
@@ -149,7 +145,6 @@ console.log("after:" + i); // prints 2
 ## CoffeeScript
 
 ```coffeescript
-
 i = 5
 
 console.log i for i in [0,1] # prints 0, 1
@@ -168,7 +163,6 @@ console.log i # prints 1
 ## Python
 
 ```python
-
 i = 5
 
 for i in range(2):
@@ -185,11 +179,11 @@ print "after:", i
 
 ## Conclusion
 
-The interesting part is how differently languages of the curly-braces family behave. Some consider the for loop its own scope, many don&#x27;t. It&#x27;s interesting to compare JavaScript and Perl. They both have a way to tell a variable to be defined in the local scope, but JavaScript simply doesn&#x27;t let you do that with fors, apparently only functions have scope of their own. Ruby is similar to Perl in this regard. That little dollar sign can change the scope and that&#x27;s what let us pull off the trick since loops are important enough to warrant scope at all. The biggest disappointment is Python. I was honestly expecting the [list comprehension](http://en.wikipedia.org/wiki/List_comprehension "List comprehension") to have its own scope, but alas.
+The interesting part is how differently languages of the curly-braces family behave. Some consider the for loop its own scope, many don't. It's interesting to compare JavaScript and Perl. They both have a way to tell a variable to be defined in the local scope, but JavaScript simply doesn't let you do that with fors, apparently only functions have scope of their own. Ruby is similar to Perl in this regard. That little dollar sign can change the scope and that's what let us pull off the trick since loops are important enough to warrant scope at all. The biggest disappointment is Python. I was honestly expecting the [list comprehension](http://en.wikipedia.org/wiki/List_comprehension "List comprehension") to have its own scope, but alas.
 
 ###### Related articles
 
-- [Eli Bendersky: Perl&#x27;s &quot;guess if file is text or binary&quot; implemented in Python](http://eli.thegreenplace.net/2011/10/19/perls-guess-if-file-is-text-or-binary-implemented-in-python/) (eli.thegreenplace.net)
+- [Eli Bendersky: Perl's "guess if file is text or binary" implemented in Python](http://eli.thegreenplace.net/2011/10/19/perls-guess-if-file-is-text-or-binary-implemented-in-python/) (eli.thegreenplace.net)
 - [Turn your nose up at Dart and instead smell the CoffeeScript](http://r.zemanta.com/?u=http%3A//www.infoworld.com/t/javascript/turn-your-nose-dart-and-instead-smell-the-coffeescript-176361&a=58844108&rid=eb2fce30-bdf3-42c1-b2c4-99be7c2b2888&e=592da843a0319c02f51fddfdf273c138) (infoworld.com)
 - [This is CoffeeScript](http://robots.thoughtbot.com/post/9251081564/coffeescript-spartan-javascript) (robots.thoughtbot.com)
 - [Feature: JavaScript has problems. Do we need Dart to solve them?](http://arstechnica.com/business/news/2011/10/javascript-has-problems-can-googles-dart-solve-them.ars) (arstechnica.com)

@@ -1,13 +1,14 @@
 ---
-title: 'How to Make a Piechart using React and d3'
+title: "How to Make a Piechart using React and d3"
 description: ""
 published: 2016-04-15
-redirect_from: 
-            - /blog/how-to-make-a-piechart-using-react-and-d3/swizec/6785
+redirect_from:
+  - /blog/how-to-make-a-piechart-using-react-and-d3/swizec/6785
 categories: "d3js, Front End, react, react+d3js, reactjs, Technical"
 hero: ./img/blog-wp-content-uploads-2016-04-Screen-Shot-2016-04-12-at-02.08.11-300x122.png
 ---
-Piecharts might be the single most mocked chart in the world, but they’re great. Is there a better way to show proportions? Of course, it all breaks down when you have more than a couple data points. And yes, it’s impossible to gauge the difference between 24% and 26% on a piechart. Not to mention the accessibility issues when the charts rely on colors to distinguish slices. If you google &quot;never use a piechart”, 597,000 results show up. That’s a bunch of hate for the poor piechart. **But** they’re easy and fun to make. They’re perfect for showing overwhelming proportions, and there’s nothing like a piechart to make an enterprise presentation more enterprisey. Especially if you make it 3D. When I say that a piechart is easy to make, I mean that with 86 lines of very beautiful and readable code, you can make one that looks great. 86 lines might sound like a lot for a piechart, but 33 of those are empty lines or closing braces. That’s 38%. Let me show you with a piechart :) ![Screen Shot 2016-04-12 at 02.08.11](./img/blog-wp-content-uploads-2016-04-Screen-Shot-2016-04-12-at-02.08.11-300x122.png) See, piecharts _work_. To build this, we’re going to:
+
+Piecharts might be the single most mocked chart in the world, but they’re great. Is there a better way to show proportions? Of course, it all breaks down when you have more than a couple data points. And yes, it’s impossible to gauge the difference between 24% and 26% on a piechart. Not to mention the accessibility issues when the charts rely on colors to distinguish slices. If you google "never use a piechart”, 597,000 results show up. That’s a bunch of hate for the poor piechart. **But** they’re easy and fun to make. They’re perfect for showing overwhelming proportions, and there’s nothing like a piechart to make an enterprise presentation more enterprisey. Especially if you make it 3D. When I say that a piechart is easy to make, I mean that with 86 lines of very beautiful and readable code, you can make one that looks great. 86 lines might sound like a lot for a piechart, but 33 of those are empty lines or closing braces. That’s 38%. Let me show you with a piechart :) ![Screen Shot 2016-04-12 at 02.08.11](./img/blog-wp-content-uploads-2016-04-Screen-Shot-2016-04-12-at-02.08.11-300x122.png) See, piecharts _work_. To build this, we’re going to:
 
 - use a d3 layout to calculate a piechart
 - use React stuff to render the piechart
@@ -23,9 +24,9 @@ At the end of this tutorial, you’ll have piechart component that you can use l
 
 Pretty great, huh? We’re going to build 3 components:
 
-1. `Piechart` - the piechart itself
-2. `Arc` - each of the slices
-3. `LabeledArc` - a slice with some text
+1.  `Piechart` - the piechart itself
+2.  `Arc` - each of the slices
+3.  `LabeledArc` - a slice with some text
 
 ## Piechart
 
@@ -143,8 +144,8 @@ export default Arc;
 
 We start by importing React and d3. Then, we define an `Arc` class which extends `Component`. In this case, we can’t use functional stateless components for two reasons:
 
-1. We need component lifecycle functions to update the internal state of our arc generator. I’ll show you that in a bit.
-2. You can’t extend a function. We _could_ play with functional composition, but in my experience, that sort of code, in JavaScript at least, is hard to read 2 months later. And it causes interesting issues when debugging.
+1.  We need component lifecycle functions to update the internal state of our arc generator. I’ll show you that in a bit.
+2.  You can’t extend a function. We _could_ play with functional composition, but in my experience, that sort of code, in JavaScript at least, is hard to read 2 months later. And it causes interesting issues when debugging.
 
 The `Arc` component has four methods: the constructor, the lifecycle hooks to call `updateD3`, the method that updates d3 internals’ state, and the render method. All the constructor has to do is instantiate a new `d3.svg.arc` generator. That looks like this:
 

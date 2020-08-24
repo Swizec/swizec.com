@@ -1,21 +1,22 @@
 ---
-title: 'I built a node app to thaw my favorite snack 🥕'
+title: "I built a node app to thaw my favorite snack 🥕"
 description: ""
 published: 2018-10-11
-redirect_from: 
-            - /blog/i-built-a-node-app-to-thaw-my-favorite-snack-%f0%9f%a5%95/swizec/8660
+redirect_from:
+  - /blog/i-built-a-node-app-to-thaw-my-favorite-snack-%f0%9f%a5%95/swizec/8660
 categories: "Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
+
 <!-- wp:paragraph -->
 
-The office fridge hates me and keeps freezing my carrots. I love carrots. They&#x27;re the perfect low calorie crunchy snack for those afternoons when you&#x27;re chasing an errant semicolon for two hours and your code isn&#x27;t working.
+The office fridge hates me and keeps freezing my carrots. I love carrots. They're the perfect low calorie crunchy snack for those afternoons when you're chasing an errant semicolon for two hours and your code isn't working.
 
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 
-But they&#x27;re not very tasty frozen. In fact they&#x27;re disgusting when frozen.
+But they're not very tasty frozen. In fact they're disgusting when frozen.
 
 <!-- /wp:paragraph -->
 
@@ -39,13 +40,13 @@ https://twitter.com/Swizec/status/1050142413468000256?ref_src=twsrc%5Etfw
 
 <!-- wp:paragraph -->
 
-But sometimes that doesn&#x27;t work. Maybe you&#x27;re chasing that errant semicolon for so long that your computer cools down. Maybe webpack is actually fast for once. Maybe even VSCode and Chrome and XCode aren&#x27;t doing the job.
+But sometimes that doesn't work. Maybe you're chasing that errant semicolon for so long that your computer cools down. Maybe webpack is actually fast for once. Maybe even VSCode and Chrome and XCode aren't doing the job.
 
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 
-Never thought I&#x27;d say this, but sometimes macs just don&#x27;t wanna get hot no matter what you do.
+Never thought I'd say this, but sometimes macs just don't wanna get hot no matter what you do.
 
 <!-- /wp:paragraph -->
 
@@ -81,13 +82,13 @@ Install globally with npm or yarn – `npm install -g thaw-carrots`, run with yo
 
 <!-- wp:heading -->
 
-## Here&#x27;s how it works 👇
+## Here's how it works 👇
 
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 
-With just 14 dependencies this might be the smallest node app you&#x27;ve ever seen. Thanks to [@lukeed05](https://twitter.com/lukeed05) and his obsession with zero dependency code.
+With just 14 dependencies this might be the smallest node app you've ever seen. Thanks to [@lukeed05](https://twitter.com/lukeed05) and his obsession with zero dependency code.
 
 <!-- /wp:paragraph -->
 
@@ -166,7 +167,7 @@ We read the current CPU temperature, pre-fill our running tally of 3 measurement
 
 <!-- wp:paragraph -->
 
-The loop checks an average of the last 3 temperatures and decides what to do. If we have to warm up, we fork a new subprocess using the `eat-cpu` file. If it&#x27;s time to cool off, we kill one of the forks.
+The loop checks an average of the last 3 temperatures and decides what to do. If we have to warm up, we fork a new subprocess using the `eat-cpu` file. If it's time to cool off, we kill one of the forks.
 
 <!-- /wp:paragraph -->
 
@@ -190,25 +191,25 @@ Update our running array of temperature measurements, print current values to th
 
 <!-- wp:paragraph -->
 
-To warm a CPU, you have to make it work. Like an athlete at the gym, the CPU gets warm when it&#x27;s working hard.
+To warm a CPU, you have to make it work. Like an athlete at the gym, the CPU gets warm when it's working hard.
 
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 
-But what&#x27;s hard for a CPU?
+But what's hard for a CPU?
 
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 
-You want a process that&#x27;s heavy on CPU and light on memory. Easy to spin up and down, make harder or easier. You want fine grained control over that temperature and you&#x27;re fighting everything your OS was designed to prevent.
+You want a process that's heavy on CPU and light on memory. Easy to spin up and down, make harder or easier. You want fine grained control over that temperature and you're fighting everything your OS was designed to prevent.
 
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 
-The low memory requirement disqualifies calculating primes, playing with big numbers, mining bitcoin, or running Slack. You&#x27;d be surprised how many people recommended I just run Slack or Chrome or Hangouts to thaw my carrots.
+The low memory requirement disqualifies calculating primes, playing with big numbers, mining bitcoin, or running Slack. You'd be surprised how many people recommended I just run Slack or Chrome or Hangouts to thaw my carrots.
 
 <!-- /wp:paragraph -->
 
@@ -220,19 +221,19 @@ Those fools!
 
 <!-- wp:paragraph -->
 
-My first attempt was using the [collatz conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture). Finite calculation, lots of addition and division and multiplication, handles big numbers okay, can run for a long time to find the full chain. No need to keep anything in memory while you&#x27;re running.
+My first attempt was using the [collatz conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture). Finite calculation, lots of addition and division and multiplication, handles big numbers okay, can run for a long time to find the full chain. No need to keep anything in memory while you're running.
 
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 
-But my CPU was too good at that. Didn&#x27;t warm up for shit. And when the numbers got really high, Collatz fast became too slow to compute. Didn&#x27;t have the fine grained control.
+But my CPU was too good at that. Didn't warm up for shit. And when the numbers got really high, Collatz fast became too slow to compute. Didn't have the fine grained control.
 
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 
-Then I found [this little gem from @sqren](https://gist.github.com/sqren/5083d73f184acae0c5b7). A gist called &quot;cpu-intensive.js&quot;. Perfect!
+Then I found [this little gem from @sqren](https://gist.github.com/sqren/5083d73f184acae0c5b7). A gist called "cpu-intensive.js". Perfect!
 
 <!-- /wp:paragraph -->
 
@@ -263,13 +264,13 @@ mySlowFunction(3);
 
 <!-- wp:paragraph -->
 
-I don&#x27;t know what it&#x27;s doing. It&#x27;s some sort of maths. But it runs good and strong with small inputs. It&#x27;s easy to spin up and down. And doesn&#x27;t keep anything in memory.
+I don't know what it's doing. It's some sort of maths. But it runs good and strong with small inputs. It's easy to spin up and down. And doesn't keep anything in memory.
 
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 
-One wasn&#x27;t enough so I&#x27;m running up to 10 in parallel 🔥
+One wasn't enough so I'm running up to 10 in parallel 🔥
 
 <!-- /wp:paragraph -->
 
@@ -287,7 +288,7 @@ You can see [thaw-carrots on GitHub](https://github.com/Swizec/thaw-carrots). In
 
 <!-- wp:paragraph -->
 
-Can&#x27;t wait to try it at the office today. Nom!
+Can't wait to try it at the office today. Nom!
 
 <!-- /wp:paragraph -->
 

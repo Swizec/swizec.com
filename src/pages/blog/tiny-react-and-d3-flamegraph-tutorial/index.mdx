@@ -1,30 +1,31 @@
 ---
-title: 'Tiny React & D3 flamegraph tutorial'
+title: "Tiny React & D3 flamegraph tutorial"
 description: ""
 published: 2018-06-06
-redirect_from: 
-            - /blog/tiny-react-d3-flamegraph-tutorial/swizec/8440
+redirect_from:
+  - /blog/tiny-react-d3-flamegraph-tutorial/swizec/8440
 categories: "Front End, Livecoding, Technical"
 hero: ../../../defaultHero.jpg
 ---
-_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should [subscribe to ￼My Youtube￼ channel](http://youtube.com/user/theswizec)(https://www.youtube.com/user/theswizec) to catch me live._
+
+_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should [subscribe to ￼My Youtube￼ channel](http://youtube.com/user/theswizec)(<https://www.youtube.com/user/theswizec>) to catch me live._
 
 https://www.youtube.com/watch?v=eOenovuDHxE
 
-[Flamegraphs](http://brendangregg.com/flamegraphs.html) are great. They show you when you&#x27;ve been bad and made the CPU cry.
+[Flamegraphs](http://brendangregg.com/flamegraphs.html) are great. They show you when you've been bad and made the CPU cry.
 
-Here is a flamegraph built with React &amp; D3. It shows some stack data I stole from [the internet](https://github.com/spiermar/d3-flame-graph/blob/master/examples/stacks.json):
+Here is a flamegraph built with React & D3. It shows some stack data I stole from [the internet](https://github.com/spiermar/d3-flame-graph/blob/master/examples/stacks.json):
 
 https://twitter.com/Swizec/status/1003402982552002560
 
 You can try it out [here](https://dist-wnnnpntytb.now.sh/), and see the [code on GitHub](https://github.com/Swizec/react-d3-flamegraph). Consider it a work in progress. Releasing as open source once the animation works smoothly :)
 
-## Here&#x27;s how it works 👇
+## Here's how it works 👇
 
 You have two components:
 
-1. `<Flamegraph>`, which recursively renders the data tree
-2. `<FlameRect>`, which renders a particular rectangle and its label
+1.  `<Flamegraph>`, which recursively renders the data tree
+2.  `<FlameRect>`, which renders a particular rectangle and its label
 
 ### Flamegraph
 
@@ -67,13 +68,13 @@ Our `render` method takes a bunch of params out of `props`, creates a linear D3 
 
 Inside that element, we loop through the `data`, and for each entry, we create a new `<React.Fragment>`. The fragment contains `<FlameRect>` which represents the current datapoint, and a `<Flamegraph>` which renders all the child nodes.
 
-We decide each element&#x27;s `x` position based on the sum of all node values up to the current one. And we make sure the child `<Flamegraph>` uses the same width as the current node. This creates the neat stacking effect.
+We decide each element's `x` position based on the sum of all node values up to the current one. And we make sure the child `<Flamegraph>` uses the same width as the current node. This creates the neat stacking effect.
 
 ![](./img/blog-wp-content-uploads-2018-06-flamegraph-screenshot.png)
 
 ###
 
-The `<FlameRect>` component takes care of choosing a random color on initial render, highlighting when clicked, and displaying a label if there&#x27;s enough space.
+The `<FlameRect>` component takes care of choosing a random color on initial render, highlighting when clicked, and displaying a label if there's enough space.
 
 It looks like this:
 
@@ -129,21 +130,21 @@ We use the ref callback to dynamically detect the size of our label and hide it 
 
 `onClick`, we flip the selected state.
 
-And well, that&#x27;s it. You can think of this component as a basic toggle component. Uses all the same logic, just renders as a colorful rectangle instead of a button.
+And well, that's it. You can think of this component as a basic toggle component. Uses all the same logic, just renders as a colorful rectangle instead of a button.
 
 ## Fin
 
-That&#x27;s the basic `<Flamegraph>` component. Uses recursion to render a tree data structure and lets you highlight individual elements.
+That's the basic `<Flamegraph>` component. Uses recursion to render a tree data structure and lets you highlight individual elements.
 
 Where it gets tricky is adding animation that lets users explore their data. Turns out deeply nested React elements are hard to animate smoothly.
 
 https://twitter.com/Swizec/status/1003904212755857408
 
-The worst part is how long it takes before React even propagates `prop` updates through the tree before the animation even starts. Once the animation is running, it&#x27;s smooth as silk.
+The worst part is how long it takes before React even propagates `prop` updates through the tree before the animation even starts. Once the animation is running, it's smooth as silk.
 
 But getting it started, ho boy.
 
-This warrants further research. I&#x27;ll be back :)
+This warrants further research. I'll be back :)
 
 https://www.youtube.com/watch?v=MLchhOfiOwM
 

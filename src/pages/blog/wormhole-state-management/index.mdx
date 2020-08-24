@@ -1,33 +1,34 @@
 ---
-title: 'Wormhole state management'
+title: "Wormhole state management"
 description: ""
 published: 2020-06-29
-redirect_from: 
-            - /blog/wormhole-state-management/swizec/9442
+redirect_from:
+  - /blog/wormhole-state-management/swizec/9442
 categories: "Front End, Technical"
 hero: ./img/5ooOfMY.png
 ---
-Engineers often jump into Redux, MobX, XState, or Recoil before they really need to. That&#x27;s what large orgs use so it must be right.You are not Google, Facebook, Amazon, or Uber. You&#x27;re shooting yourself in the foot by blindly following their patterns. Probably.[![](./img/5ooOfMY.png)](https://www.youtube.com/watch?v=62AMy1QIpzk)
+
+Engineers often jump into Redux, MobX, XState, or Recoil before they really need to. That's what large orgs use so it must be right.You are not Google, Facebook, Amazon, or Uber. You're shooting yourself in the foot by blindly following their patterns. Probably.[![](./img/5ooOfMY.png)](https://www.youtube.com/watch?v=62AMy1QIpzk)
 
 _This article is based on my talk at Reactive Conf Meetup #4 in May_ 👆
 
 The Wormhole State Management pattern stems from a single idea: use the least complex machinery that solves your problem.
 
-That&#x27;s why it&#x27;s a pattern, not a library.
+That's why it's a pattern, not a library.
 
 _You_ have control to make it as simple or complex as fits the problem. _You_ can scale it from small examples to large codebases.
 
-It&#x27;s the pattern behind libraries like [useAuth](https://github.com/Swizec/useAuth) and every React app – big or small – that I&#x27;ve built in the past 18 months. And now it has a name ✌️
+It's the pattern behind libraries like [useAuth](https://github.com/Swizec/useAuth) and every React app – big or small – that I've built in the past 18 months. And now it has a name ✌️
 
-Here&#x27;s how it works
+Here's how it works
 
 ## Keep local state local
 
 ![](./img/aUec58X.png)
 
-What&#x27;s the smallest amount of sharing you can get away with?
+What's the smallest amount of sharing you can get away with?
 
-Keep your state there. As close to where it&#x27;s used as possible.
+Keep your state there. As close to where it's used as possible.
 
 If a single component cares, use that. If a few components care, share it with props. If many components care, put it in context.
 
@@ -39,15 +40,15 @@ Leverage custom hooks to make this easy.
 
 ![](./img/ukioN5r.png)
 
-What&#x27;s the simplest state you can get away with?
+What's the simplest state you can get away with?
 
 Do that. You can always change it later.
 
-You can always make a simple codebase complex, but you can&#x27;t make a complex codebase simple.
+You can always make a simple codebase complex, but you can't make a complex codebase simple.
 
 Your code becomes easier to understand, too.
 
-Imagine stepping into a component you haven&#x27;t seen in 2 years. What happens?
+Imagine stepping into a component you haven't seen in 2 years. What happens?
 
 First you read the component code. It kind of makes sense.
 
@@ -57,7 +58,7 @@ Then you travel 5 files into a different directory and learn about how its state
 
 Another 10 files away are all the side-effects from who knows what.
 
-Before you know it, you&#x27;ve read most of the codebase and you&#x27;re still not sure how this component works. You try to isolate it to run some tests and realize it needs the whole state management jungle to work.
+Before you know it, you've read most of the codebase and you're still not sure how this component works. You try to isolate it to run some tests and realize it needs the whole state management jungle to work.
 
 You wanted a banana. You got [a gorilla holding the banana and the entire jungle](https://www.johndcook.com/blog/2011/07/19/you-wanted-banana/).
 
@@ -69,7 +70,7 @@ Follow along as I build a contrived click counter. The Wormhole State Management
 
 ### step 1
 
-We start with `useState` because it&#x27;s the simplest.
+We start with `useState` because it's the simplest.
 
 [![Click through for source](./img/techletter.app-screenshot-1593447834993.png)](https://codesandbox.io/s/wormhole-state-pattern-1-8i1zv?file=/src/App.js)
 
@@ -79,7 +80,7 @@ We start with `useState` because it&#x27;s the simplest.
 
 Simple enough.
 
-Presentation isn&#x27;t the prettiest though. Let&#x27;s improve it with a custom button component and some nesting.
+Presentation isn't the prettiest though. Let's improve it with a custom button component and some nesting.
 
 ### step 2
 
@@ -107,7 +108,7 @@ You can keep complex values in your state. Works great.
 
 [![Click through for source](./img/techletter.app-screenshot-1593447820654.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20ClickCounter%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5Bcount%2C%20setCount%5D%20%3D%20useState(%7B%20A%3A%200%2C%20B%3A%200%20%7D)%3B%0A%0A%20%20function%20onClickA()%20%7B%0A%20%20%20%20setCount(count%20%3D%3E%20%7B%0A%20%20%20%20%20%20return%20%7B%20...count%2C%20A%3A%20count.A%20%2B%201%20%7D%3B%0A%20%20%20%20%7D)%3B%0A%20%20%7D%0A%0A%20%20function%20onClickB()%20%7B%0A%20%20%20%20setCount(count%20%3D%3E%20%7B%0A%20%20%20%20%20%20return%20%7B%20...count%2C%20B%3A%20count.B%20%2B%201%20%7D%3B%0A%20%20%20%20%7D)%3B%0A%20%20%7D%0A%0A%20%20return%20(%0A%20%20%20%20%3C%3E%0A%20%20%20%20%20%20%3Cp%3E%0A%20%20%20%20%20%20%20%20You%20have%20clicked%20buttons%20A%3A%20%7Bcount.A%7D%2C%20B%3A%20%7Bcount.B%7D%20times%0A%20%20%20%20%20%20%3C%2Fp%3E%0A%20%20%20%20%20%20%3Cdiv%20style%3D%7B%7B%20textAlign%3A%20%22right%22%20%7D%7D%3E%0A%20%20%20%20%20%20%20%20%3CPrettyButton%20onClick%3D%7BonClickA%7D%3EA%20%2B1%3C%2FPrettyButton%3E%0A%20%20%20%20%20%20%20%20%26nbsp%3B%0A%20%20%20%20%20%20%20%20%3CPrettyButton%20onClick%3D%7BonClickB%7D%3EB%20%2B1%3C%2FPrettyButton%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2F%3E%0A%20%20)%3B%0A%7D%3B>)
 
-We&#x27;ve split `count` into an object – `{ A, B }`.
+We've split `count` into an object – `{ A, B }`.
 
 Now a single piece of state can hold multiple values. Separate counts for separate button clicks.
 
@@ -133,9 +134,9 @@ You can pass both the `count` and `setCount` to your components as props. But th
 
 [![Click through for source](./img/techletter.app-screenshot-1593447820337.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20AlternativeClick%20%3D%20(%7B%20count%2C%20setCount%20%7D)%20%3D%3E%20%7B%0A%20%20function%20onClick()%20%7B%0A%20%20%20%20setCount(count%20%3D%3E%20%7B%0A%20%20%20%20%20%20return%20%7B%20...count%2C%20B%3A%20count.B%20%2B%201%20%7D%3B%0A%20%20%20%20%7D)%3B%0A%20%20%7D%0A%0A%20%20return%20(%0A%20%20%20%20%3Cdiv%20style%3D%7B%7B%20textAlign%3A%20%22left%22%20%7D%7D%3E%0A%20%20%20%20%20%20You%20can%20also%20update%20B%20here%0A%20%20%20%20%20%20%3Cbr%20%2F%3E%0A%20%20%20%20%20%20%3CPrettyButton%20onClick%3D%7BonClick%7D%3EB%20%2B1%3C%2FPrettyButton%3E%0A%20%20%20%20%20%20%3Cp%3EIt's%20%7Bcount.B%7D%20btw%3C%2Fp%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20)%3B%0A%7D%3B>)
 
-We&#x27;ve created a component that&#x27;s hard to move and needs to understand too much of parent logic. Concerns are split, abstractions are weird, and we&#x27;ve created a mess.
+We've created a component that's hard to move and needs to understand too much of parent logic. Concerns are split, abstractions are weird, and we've created a mess.
 
-You can fix it a little by passing just the parts of state it needs and a more customized `setCount`. But that&#x27;s a lot of work.
+You can fix it a little by passing just the parts of state it needs and a more customized `setCount`. But that's a lot of work.
 
 ### step 5
 
@@ -147,7 +148,7 @@ You now have 2 independent components sharing state. Put them anywhere in your c
 
 Need to access shared state somewhere else? Add the `useSharedCount` hook and voila.
 
-Here&#x27;s how this part works.
+Here's how this part works.
 
 We have a context provider with some machinery inside:
 
@@ -181,25 +182,25 @@ Gets `count` and `incB` from custom hook. Uses them.
 
 ## What about performance?
 
-It&#x27;s good.
+It's good.
 
 Share state as little as possible. Use different context providers for different parts of your app.
 
-Don&#x27;t make it global unless it needs to be global. Wrap the smallest part of your tree that you can get away with.
+Don't make it global unless it needs to be global. Wrap the smallest part of your tree that you can get away with.
 
-Yes even though it&#x27;s easier to always wrap everything.
+Yes even though it's easier to always wrap everything.
 
 ## What about complexity?
 
-What complexity? Keep it small. Don&#x27;t stuff shit in there that you don&#x27;t need.
+What complexity? Keep it small. Don't stuff shit in there that you don't need.
 
-That&#x27;s where the foot shooting starts. When folks put _everything_ in global state.
+That's where the foot shooting starts. When folks put _everything_ in global state.
 
 Also why apps get slow 😉
 
 ## I hate managing my own state, bleh
 
-That&#x27;s fair. Did you know that this same pattern works with many state management libraries?
+That's fair. Did you know that this same pattern works with many state management libraries?
 
 See that part in our `SharedCountProvider` that deals with state changes? This part:
 
@@ -207,7 +208,7 @@ See that part in our `SharedCountProvider` that deals with state changes? This p
 
 You can use XState for that. Or a reducer. Or even Redux, if you really want to.
 
-Altho if you&#x27;re using Redux you might as well go all the way 😛
+Altho if you're using Redux you might as well go all the way 😛
 
 ## Does this really scale up and down all sorts of apps?
 

@@ -1,17 +1,18 @@
 ---
-title: 'How to DDoS yourself with analytics –– a war story'
+title: "How to DDoS yourself with analytics –– a war story"
 description: ""
 published: 2017-11-29
-redirect_from: 
-            - /blog/ddos-yourself-analytics/swizec/7940
+redirect_from:
+  - /blog/ddos-yourself-analytics/swizec/7940
 categories: "Front End, Startups, Technical"
 hero: ./img/blog-wp-content-uploads-2017-11-Screen-Shot-2017-11-28-at-23.44.45.png
 ---
-*&quot;Application error is preventing tutors from ending their shifts *😞&quot;
+
+*"Application error is preventing tutors from ending their shifts *😞"
 
 ...
 
-_&quot;Tutors in sessions are noticing that it says they are offline!&quot;_
+_"Tutors in sessions are noticing that it says they are offline!"_
 
 ...
 
@@ -21,9 +22,9 @@ I saw the message by accident. Good thing I was up 😅
 
 ![](./img/blog-wp-content-uploads-2017-11-Screen-Shot-2017-11-28-at-23.44.45.png)
 
-\*&quot;@sharon looks like everything is down and our servers are on fire. I restarted the server, can you see if that helped?&quot;
+\*"@sharon looks like everything is down and our servers are on fire. I restarted the server, can you see if that helped?"
 
-Average API response time → 30 seconds. Usually, it&#x27;s 0.3 seconds.
+Average API response time → 30 seconds. Usually, it's 0.3 seconds.
 
 Restarting helped. Restarting a Rails server always helps. I went to bed.
 
@@ -42,24 +43,24 @@ We suspected analytics, deployed a quick patch to disable the workers, restarted
 > Saving blobs of JSON into an array is hard
 >
 > ~Swizec
-
-> LoL it&#x27;s just an array with some objects how hard can it be
+>
+> LoL it's just an array with some objects how hard can it be
 >
 > ~The Internet
 
 So how does a server melt on the lowest week of traffic for the entire year? And how does it start melting again just a few hours later even though it was fine for many months before that?
 
-The problem with exponential problems is that you don&#x27;t see them coming until it&#x27;s too late.
+The problem with exponential problems is that you don't see them coming until it's too late.
 
 API response times grow millisecond by millisecond, getting ever so much larger. “Nothing alarming, normal fluctuation,” you say to yourself.
 
-Then BAM! Response times are 30 seconds and Heroku force timeouts all your requests. Now you&#x27;re in trouble.
+Then BAM! Response times are 30 seconds and Heroku force timeouts all your requests. Now you're in trouble.
 
-That&#x27;s why it happened so much faster the 2nd time. And even faster the 3rd time.
+That's why it happened so much faster the 2nd time. And even faster the 3rd time.
 
 But _why_?
 
-Because saving a bunch of JSON blobs reliably is hard. The &quot;reliably&quot; part is what gets you.
+Because saving a bunch of JSON blobs reliably is hard. The "reliably" part is what gets you.
 
 How do you make sure clients can send analytics events and ensure none of them get dropped?
 
@@ -75,19 +76,19 @@ Congratulations, you just created an API that can lead to your clients [DDoSing]
 
 A DDoS is a distributed denial of service attack, by the way. It happens when so many clients send your server so many requests that it crumples under the pressure.
 
-Similar in principle to the Reddit or HackerNews [hug of death](https://en.wikipedia.org/wiki/Slashdot_effect). That&#x27;s when a link gets so popular that the flood of traffic melts servers.
+Similar in principle to the Reddit or HackerNews [hug of death](https://en.wikipedia.org/wiki/Slashdot_effect). That's when a link gets so popular that the flood of traffic melts servers.
 
 ## Why storing, retrying, and batching requests spells trouble
 
-You see, there is nothing wrong with storing failed requests and retrying them. Or with batching multiple small requests into one being one. It&#x27;s the smart thing to do even.
+You see, there is nothing wrong with storing failed requests and retrying them. Or with batching multiple small requests into one being one. It's the smart thing to do even.
 
-It&#x27;s when your backend has bugs that it leads to trouble.
+It's when your backend has bugs that it leads to trouble.
 
 What happens if you send a batch of 10 events and the server fails to process 1 of them? Say, because an error happens when attaching additional properties?
 
-The server says _&quot;Hey, I couldn&#x27;t process this batch.”_
+The server says _"Hey, I couldn't process this batch.”_
 
-So you say, _&quot;Oh, it failed. I&#x27;ll try again later.”_
+So you say, _"Oh, it failed. I'll try again later.”_
 
 Later comes. You have some new events, too. So you send a batch of 20 events.
 
@@ -95,9 +96,9 @@ The same event fails. Next time, you send 30.
 
 See what that leads to yet?
 
-That&#x27;s right. Eventually, you&#x27;re sending so many events at the same time that the server has trouble processing them all within a single request. This begins to impact other clients&#x27; requests.
+That's right. Eventually, you're sending so many events at the same time that the server has trouble processing them all within a single request. This begins to impact other clients' requests.
 
-The server is busy processing. Other clients say _&quot;Yo, here&#x27;s my stuff”,_ and get denied.
+The server is busy processing. Other clients say _"Yo, here's my stuff”,_ and get denied.
 
 Failures happen with no rhyme or reason. It depends completely on who is currently using the service and whether their client has a large backlog of events to send.
 
@@ -107,7 +108,7 @@ The more clients experience an issue, the more clients have large backlogs, the 
 
 ![](./img/media-NQTttAGByybAI-giphy.gif)
 
-Eventually, your server melts, and nobody can&#x27;t do nothing no more.
+Eventually, your server melts, and nobody can't do nothing no more.
 
 ## The fix?
 
@@ -115,7 +116,7 @@ A preprocessing queue.
 
 When a client sends a request with some events, just store the raw payload somewhere and deal with it later.
 
-Requests almost always succeed, so events don&#x27;t pile up on clients. Saving the raw payload is also fast, which makes overall performance faster for the clients, too.
+Requests almost always succeed, so events don't pile up on clients. Saving the raw payload is also fast, which makes overall performance faster for the clients, too.
 
 Processing offline also gives you more time. Instead of having to do everything in 30 seconds, you can spend many minutes on a big request if you have to.
 

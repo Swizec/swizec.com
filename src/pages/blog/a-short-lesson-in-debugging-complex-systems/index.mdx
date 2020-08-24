@@ -1,13 +1,14 @@
 ---
-title: 'A short lesson in debugging complex systems'
+title: "A short lesson in debugging complex systems"
 description: ""
 published: 2019-07-26
-redirect_from: 
-            - /blog/a-short-lesson-in-debugging-complex-systems/swizec/9166
+redirect_from:
+  - /blog/a-short-lesson-in-debugging-complex-systems/swizec/9166
 categories: "Technical"
 hero: ./img/techletter.app-screenshot-1564157906257.png
 ---
-Hello friend 👋 Today I wanted to share a quick lesson in debugging complex systems. It&#x27;s from my upcoming course on building modern React apps with GraphQL, Serverless, and such. Currently a live video series :)On Tuesday we hit a snag that derailed the whole session. Unfortunate yes, but I think it produced a great teachable moment. How _do_ you debug complex systems and figure out what&#x27;s wrong?
+
+Hello friend 👋 Today I wanted to share a quick lesson in debugging complex systems. It's from my upcoming course on building modern React apps with GraphQL, Serverless, and such. Currently a live video series :)On Tuesday we hit a snag that derailed the whole session. Unfortunate yes, but I think it produced a great teachable moment. How _do_ you debug complex systems and figure out what's wrong?
 
 enjoy ❤️
 
@@ -23,11 +24,11 @@ It was a great lesson in systematically debugging complex systems. And in the en
 
 As Nico later said
 
-> Even though we didn&#x27;t make a lot of measurable progress this evening, I still feel like I learned a lot about the troubleshooting side of things 🙂 Notably, creating the basic apollo server was 👌. You explained how to narrow down where the issue could be via simplification, and that thought process might not exist for audience members that don&#x27;t have an Ops or DevOps background.
+> Even though we didn't make a lot of measurable progress this evening, I still feel like I learned a lot about the troubleshooting side of things 🙂 Notably, creating the basic apollo server was 👌. You explained how to narrow down where the issue could be via simplification, and that thought process might not exist for audience members that don't have an Ops or DevOps background.
 
 Thanks Nico ❤️
 
-Here&#x27;s how it all went down 👇
+Here's how it all went down 👇
 
 ## Add userId to the allWidget query
 
@@ -35,11 +36,11 @@ We wanted to display per user widget lists on the homepage.
 
 ![](./img/UilWIZl.png)
 
-That shows `email` and `video` widgets which is a fine list, but check this out: They&#x27;re from two different users.
+That shows `email` and `video` widgets which is a fine list, but check this out: They're from two different users.
 
 ![](./img/sT9HUBd.png)
 
-Best way to fix that is changing our `allWidget` query so it accepts a `userId` and returns a list of widgets just for that user. It&#x27;s important this filtering happens on the backend so data the user shouldn&#x27;t see never reaches their browser.
+Best way to fix that is changing our `allWidget` query so it accepts a `userId` and returns a list of widgets just for that user. It's important this filtering happens on the backend so data the user shouldn't see never reaches their browser.
 
 [![Click through for source](./img/techletter.app-screenshot-1564157796906.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20backend%2Fsrc%2Fgraphql.ts%0A%0Atype%20Query%20%7B%0A%20%20%20%20widget(widgetId%3A%20String!)%3A%20Widget%0A%20%20%20%20allWidget(userId%3A%20String)%3A%20%5BWidget%5D%0A%7D>)
 
@@ -49,9 +50,9 @@ Passing a few extra arguments into the `scanItems` query in our resolver makes t
 
 [![Click through for source](./img/techletter.app-screenshot-1564157796857.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20backend%2Fsrc%2Fqueries.ts%0A%0Aexport%20const%20allWidget%20%3D%20async%20(_%3A%20any%2C%20%7B%20userId%20%7D%3A%20%7B%20userId%3A%20string%20%7D)%20%3D%3E%20%7B%0A%20%20%20%20const%20result%20%3D%20await%20scanItems(%7B%0A%20%20%20%20%20%20%20%20FilterExpression%3A%20%22%23user%20%3D%20%3AuserId%22%2C%0A%20%20%20%20%20%20%20%20ExpressionAttributeNames%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%23user%22%3A%20%22userId%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20ExpressionAttributeValues%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%3AuserId%22%3A%20userId%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D)%3B>)
 
-DynamoDB scan queries can be cumbersome. Getting a list of everything is easy – no arguments – a specific list takes 3 arguments. That&#x27;s a lot 🤨
+DynamoDB scan queries can be cumbersome. Getting a list of everything is easy – no arguments – a specific list takes 3 arguments. That's a lot 🤨
 
-- `FilterExpression` says what we&#x27;re filtering by. Equality with `userId` in our case
+- `FilterExpression` says what we're filtering by. Equality with `userId` in our case
 - `ExpressionAttributeNames` maps filter attributes to table columns
 - `ExpressionAttributeValues` maps filter value placeholders to real values
 
@@ -61,7 +62,7 @@ We decided to test our new query in Apollo Playground first. This would let us f
 
 ![](./img/8pADxrw.png)
 
-And that&#x27;s when all hell broke loose.
+And that's when all hell broke loose.
 
 Server unreachable. Console full of `Forbidden: 403` errors. Gatsby local server crashed out on us. Everything died.
 
@@ -69,19 +70,19 @@ Server unreachable. Console full of `Forbidden: 403` errors. Gatsby local server
 
 ## Narrow down the problem
 
-Something was clearly very wrong. But we didn&#x27;t change anything that could cause this did we? 🤔
+Something was clearly very wrong. But we didn't change anything that could cause this did we? 🤔
 
-**Zeroth step** check the logs, but there were no useful errors there. This is a sign you&#x27;re about to go on a wild ride.
+**Zeroth step** check the logs, but there were no useful errors there. This is a sign you're about to go on a wild ride.
 
-**First step** make sure we didn&#x27;t change something.
+**First step** make sure we didn't change something.
 
 Git checkout the old version of our server. Deploy the lambdas. Try our playground again. If this works, we know some code change on our end broke the server.
 
-Still didn&#x27;t work.
+Still didn't work.
 
 Okay **second step** try to remember what was wrong last time something like this happened.
 
-We had a problem a few sessions ago where our lambda wasn&#x27;t configured to accept POST requests. Looking at `serverless.yml` confirmed that POST requests are in fact configured.
+We had a problem a few sessions ago where our lambda wasn't configured to accept POST requests. Looking at `serverless.yml` confirmed that POST requests are in fact configured.
 
 **Third step** is Serverless messing up somehow and misconfiguring AWS APIGateway?
 
@@ -91,9 +92,9 @@ Looked into the AWS dashboard. Spelunked through the UI and found a configuratio
 
 Okay what else can we try?
 
-**Fourth step** try deploying to a new stage. Maybe we clicked something in the UI that broke things in a way Serverless can&#x27;t correct.
+**Fourth step** try deploying to a new stage. Maybe we clicked something in the UI that broke things in a way Serverless can't correct.
 
-So we ran `sls deploy -s dev2` to create a whole new AWS setup for our service. Everything fresh and from scratch. Make sure the environment isn&#x27;t the problem.
+So we ran `sls deploy -s dev2` to create a whole new AWS setup for our service. Everything fresh and from scratch. Make sure the environment isn't the problem.
 
 Nope. Still broken.
 
@@ -111,7 +112,7 @@ That was a dead end too. Now what ...
 
 **Seventh step** start googling. Has anyone else had this problem before?
 
-We found an old github issue on Apollo&#x27;s repository. Something about Apollo playground using the wrong server URL ...
+We found an old github issue on Apollo's repository. Something about Apollo playground using the wrong server URL ...
 
 ## The facepalm 🤦‍♀️
 
@@ -121,7 +122,7 @@ That was it. Apollo was using the wrong server URL.
 
 Change the target URL to `/dev/graphql` and everything works. Everything.
 
-It wasn&#x27;t a change that we made breaking things at all. And to make matters worse: Gatsby crashed because of a completely unrelated problem but it confirmed our fears that the server is broken 🤦‍♀️
+It wasn't a change that we made breaking things at all. And to make matters worse: Gatsby crashed because of a completely unrelated problem but it confirmed our fears that the server is broken 🤦‍♀️
 
 ![facepalm giphy](./img/media-ADr35Z4TvATIc-giphy.gif)
 
@@ -133,13 +134,13 @@ We have to make the query work with _and_ without `userId`.
 
 [![Click through for source](./img/techletter.app-screenshot-1564157797079.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20backend%2Fsrc%2Fqueries.ts%0A%0Aexport%20const%20allWidget%20%3D%20async%20(_%3A%20any%2C%20%7B%20userId%20%7D%3A%20%7B%20userId%3F%3A%20string%20%7D)%20%3D%3E%20%7B%0A%20%20%20%20%2F%2F%20Query%20by%20userId%20if%20passed-in%2C%20otherwise%20return%20all%20widgets%0A%20%20%20%20const%20result%20%3D%20await%20scanItems(%0A%20%20%20%20%20%20%20%20userId%0A%20%20%20%20%20%20%20%20%20%20%20%20%3F%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20FilterExpression%3A%20%22%23user%20%3D%20%3AuserId%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ExpressionAttributeNames%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22%23user%22%3A%20%22userId%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ExpressionAttributeValues%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22%3AuserId%22%3A%20userId%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%3A%20%7B%7D%0A%20%20%20%20)%3B>)
 
-Make the `userId` optional, pass arguments into `scanItems` based on whether it&#x27;s available.
+Make the `userId` optional, pass arguments into `scanItems` based on whether it's available.
 
 And just like that everything works again. That was fun.
 
 ## To recap
 
-We used what I&#x27;ve heard referred to as the Sherlock method 👉 make a hypothesis, find clues, follow every clue to its end. Repeat until solved.
+We used what I've heard referred to as the Sherlock method 👉 make a hypothesis, find clues, follow every clue to its end. Repeat until solved.
 
 You can tackle any debugging problem this way.
 

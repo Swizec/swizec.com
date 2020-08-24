@@ -1,21 +1,22 @@
 ---
-title: 'Use ref callbacks to measure React component size'
+title: "Use ref callbacks to measure React component size"
 description: ""
 published: 2018-06-07
-redirect_from: 
-            - /blog/ref-callbacks-measure-react-component-size/swizec/8444
+redirect_from:
+  - /blog/ref-callbacks-measure-react-component-size/swizec/8444
 categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
-You can use ref callbacks to measure the rendered size of React components, did you know? It&#x27;s a neat little trick.
+
+You can use ref callbacks to measure the rendered size of React components, did you know? It's a neat little trick.
 
 https://codesandbox.io/s/71vx2q5r76
 
-Here&#x27;s how it works 👇 1. React renders your component 2. Browser layout engine does its thing 3. ref callback fires 4. Use `getBoundingClientRect` to measure element size 5. Use this info for whatever you want
+Here's how it works 👇 1. React renders your component 2. Browser layout engine does its thing 3. ref callback fires 4. Use `getBoundingClientRect` to measure element size 5. Use this info for whatever you want
 
-We used this trick in this [Dynamic SVG accordion example](https://swizec.com/blog/build-animated-accordion-react-d3/swizec/8418) and in this [Tiny React &amp; D3 flamegraph tutorial](https://swizec.com/blog/tiny-react-d3-flamegraph-tutorial/swizec/8440). That&#x27;s because layouting in SVG is hard, and you have to do everything yourself.
+We used this trick in this [Dynamic SVG accordion example](https://swizec.com/blog/build-animated-accordion-react-d3/swizec/8418) and in this [Tiny React & D3 flamegraph tutorial](https://swizec.com/blog/tiny-react-d3-flamegraph-tutorial/swizec/8440). That's because layouting in SVG is hard, and you have to do everything yourself.
 
-Using ref callbacks to measure your elements is a little less useful in the modern HTML + CSS world. You can use flexbox and css-grid so you never need to know what you&#x27;re dealing with.
+Using ref callbacks to measure your elements is a little less useful in the modern HTML + CSS world. You can use flexbox and css-grid so you never need to know what you're dealing with.
 
 And yet when push comes to shove, sometimes you just really need your code to know the size of an element.
 
@@ -60,13 +61,13 @@ All sorts of useful info!
 
 ## So why not just use `componentDidMount`?
 
-Yes, that works too. But it&#x27;s less elegant because you have to save the `ref` first. The `refCallback` API calls your function with a nice reference already packaged in.
+Yes, that works too. But it's less elegant because you have to save the `ref` first. The `refCallback` API calls your function with a nice reference already packaged in.
 
 However, you might still have to do that if your component size changes _after_ initial render. Observe 👇
 
 https://codesandbox.io/s/v6m4o48zl
 
-Clicking the `shuffle` button doesn&#x27;t report new sizing information up the hierarchy. That&#x27;s not good 🤔
+Clicking the `shuffle` button doesn't report new sizing information up the hierarchy. That's not good 🤔
 
 If your component changes size without re-mounting, you have to re-measure its size in `componentDidUpdate` as well. But that way lies trouble… you can fall into the infinite recursion trap.
 
@@ -101,7 +102,7 @@ shuffle = () => {
   }
 ```
 
-Oof, not pretty. Setting a `this.elementRef` in our callback, messing around with class properties for flags. Pretty sure we could&#x27;ve just used the new `React.createRef()` API in combination with `componentDidMount` and `componentDidUpdate`.
+Oof, not pretty. Setting a `this.elementRef` in our callback, messing around with class properties for flags. Pretty sure we could've just used the new `React.createRef()` API in combination with `componentDidMount` and `componentDidUpdate`.
 
 Would still need the flag to prevent infinite loops, however.
 

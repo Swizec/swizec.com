@@ -1,28 +1,29 @@
 ---
-title: 'Scraping with Mechanize and BeautifulSoup'
+title: "Scraping with Mechanize and BeautifulSoup"
 description: ""
 published: 2012-08-10
-redirect_from: 
-            - /blog/scraping-with-mechanize-and-beautifulsoup/swizec/5039
+redirect_from:
+  - /blog/scraping-with-mechanize-and-beautifulsoup/swizec/5039
 categories: "BeautifulSoup, Clients, Cross-site request forgery, HTML, HTTP cookie, Uncategorized, User agent"
 hero: ../../../defaultHero.jpg
 ---
+
 ![Scraping](http://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Parma_-_scraping_the_deck.jpg/800px-Parma_-_scraping_the_deck.jpg "Scraping")
 
-Scraping is one of those annoying little things that will never be solved for the general case. Sometimes you want to [extract articles](http://www.zemanta.com/fruitblog/the-uncanny-valley-of-web-scraping/), other times you&#x27;re looking for data in organized tables ... and sometimes it&#x27;s all hidden behind a form with [cross-site request forgery](http://en.wikipedia.org/wiki/Cross-site_request_forgery "Cross-site request forgery")protection (csrf). And it&#x27;s never _actually_ organized. Even with the best of websites, I don&#x27;t think I&#x27;ve ever encountered a scraping job that couldn&#x27;t be described as _&quot;A small and simple general model with heaps upon piles of annoying little exceptions&quot;_ At best scraping a bunch of data from a website is a somewhat fiddly job, at worst you&#x27;ll be wishing you&#x27;d done it manually and be done with it. When you&#x27;re done, you will lie awake at night, praying to the gods of the internets, hoping nobody sneezes at the [HTML](http://en.wikipedia.org/wiki/HTML "HTML") of that page.
+Scraping is one of those annoying little things that will never be solved for the general case. Sometimes you want to [extract articles](http://www.zemanta.com/fruitblog/the-uncanny-valley-of-web-scraping/), other times you're looking for data in organized tables ... and sometimes it's all hidden behind a form with [cross-site request forgery](http://en.wikipedia.org/wiki/Cross-site_request_forgery "Cross-site request forgery")protection (csrf). And it's never _actually_ organized. Even with the best of websites, I don't think I've ever encountered a scraping job that couldn't be described as _"A small and simple general model with heaps upon piles of annoying little exceptions"_ At best scraping a bunch of data from a website is a somewhat fiddly job, at worst you'll be wishing you'd done it manually and be done with it. When you're done, you will lie awake at night, praying to the gods of the internets, hoping nobody sneezes at the [HTML](http://en.wikipedia.org/wiki/HTML "HTML") of that page.
 
 ## Mechanize
 
-You won&#x27;t get away from the fiddliness, but there&#x27;s a lot you can do to make the job more palatable. For starters - ditch manually taking care of submitting forms, hauling cookies around, holding history, sending referrers, using a good user-agent, following redirects and so on and on. Submitting a form usually goes like this:
+You won't get away from the fiddliness, but there's a lot you can do to make the job more palatable. For starters - ditch manually taking care of submitting forms, hauling cookies around, holding history, sending referrers, using a good user-agent, following redirects and so on and on. Submitting a form usually goes like this:
 
-1. Go to page
-2. View source
-3. Find form
-4. Note the _action_ url
-5. Make a note of the field names
-6. Make sure honeypot fields will be handled properly
-7. Write a few lines of code to prepare data for submission
-8. Submit to the correct url
+1.  Go to page
+2.  View source
+3.  Find form
+4.  Note the _action_ url
+5.  Make a note of the field names
+6.  Make sure honeypot fields will be handled properly
+7.  Write a few lines of code to prepare data for submission
+8.  Submit to the correct url
 
 Then you discover the website uses csrf protection and you have to make a script that will go to the form address, parse the form, find the csrf field, hold the proper cookie and so on ... Pain in the ass.
 
@@ -41,12 +42,12 @@ response = urllib2.urlopen(req)
 
 With [Mechanize](http://wwwsearch.sourceforge.net/mechanize/development.html) the process is much simpler:
 
-1. Go to page
-2. View source
-3. Find form
-4. Note an identifier for the form
-5. Decide which fields you want to manipulate
-6. Write some code
+1.  Go to page
+2.  View source
+3.  Find form
+4.  Note an identifier for the form
+5.  Decide which fields you want to manipulate
+6.  Write some code
 
 The beautiful thing is, mechanize will automatically handle csrf fields and most other popular forms of preventing bots doing their dirty business all over a website.
 
@@ -64,11 +65,11 @@ browser.submit()
 # or browser.response() to get the raw response
 ```
 
-Now isn&#x27;t that much easier and cleaner? The cool thing about Mechanize is that it also lets you do a lot of browsing around. _browser.links_ gives you all the links on a page, _browser.forms_ all the forms and so on. You can even use _browser.follow_link_ to naturally walk around the whole website like a user might. Which is very useful when you&#x27;re handling websites that either don&#x27;t want or don&#x27;t expect bots.
+Now isn't that much easier and cleaner? The cool thing about Mechanize is that it also lets you do a lot of browsing around. _browser.links_ gives you all the links on a page, _browser.forms_ all the forms and so on. You can even use _browser.follow_link_ to naturally walk around the whole website like a user might. Which is very useful when you're handling websites that either don't want or don't expect bots.
 
 ## BeautifulSoup
 
-Ok, now we can get to the data. But how do we get the data itself? Unfortunately this is the fiddly part of the process and there isn&#x27;t much you can do about that. Your best bet is using BeautifulSoup to at least make the process of handling poorly written HTML without a big fuss. It will even make sure everything is unicode. Win! At least [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/) makes browsing [DOM](http://en.wikipedia.org/wiki/Document_Object_Model "Document Object Model") a breeze:
+Ok, now we can get to the data. But how do we get the data itself? Unfortunately this is the fiddly part of the process and there isn't much you can do about that. Your best bet is using BeautifulSoup to at least make the process of handling poorly written HTML without a big fuss. It will even make sure everything is unicode. Win! At least [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/) makes browsing [DOM](http://en.wikipedia.org/wiki/Document_Object_Model "Document Object Model") a breeze:
 
 ```python
 from bs4 import BeautifulSoup
@@ -82,7 +83,7 @@ logo_img = soup.find('header').find('div', id="logo").img
 # and so on depending on what you need
 ```
 
-That&#x27;s it. The next time you have to scrape some data off a website I suggest using Mechanize and BeautifulSoup. That way you can worry about the fiddly bits, not the infrastructure.
+That's it. The next time you have to scrape some data off a website I suggest using Mechanize and BeautifulSoup. That way you can worry about the fiddly bits, not the infrastructure.
 
 ###### Related articles
 

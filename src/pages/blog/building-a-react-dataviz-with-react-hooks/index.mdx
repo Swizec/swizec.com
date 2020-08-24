@@ -1,12 +1,13 @@
 ---
-title: 'Building a React dataviz with React hooks'
+title: "Building a React dataviz with React hooks"
 description: ""
 published: 2018-12-06
-redirect_from: 
-            - /blog/building-a-react-dataviz-with-react-hooks/swizec/8801
+redirect_from:
+  - /blog/building-a-react-dataviz-with-react-hooks/swizec/8801
 categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
+
 This is a crosspost from the [#ReactVizHoliday](https://reactviz.holiday) project where I livecode a new dataviz every day until Christmas. Thought you might be interested ✌️
 
 [Click this to get the daily email 💌](https://reactviz.holiday)
@@ -25,7 +26,7 @@ Styled components for styling, D3 for scales and data loading and parsing, hooks
 
 I looked around for a good data-loading hook. None could be found. So we made our own 💪
 
-Not that hard, as it turns out. You need a dash of `useState` to save the data you load, a bit of `useEffect` to run data loading on component mount aaaand… that&#x27;s it. Goes in your `App` function.
+Not that hard, as it turns out. You need a dash of `useState` to save the data you load, a bit of `useEffect` to run data loading on component mount aaaand… that's it. Goes in your `App` function.
 
 ```javascript
 function App() {
@@ -64,9 +65,9 @@ Movie box office revenue follows a pretty clear power law distribution. The high
 
 But how does age factor into this?
 
-Home Alone has had 28 years to make its revenue. Daddy&#x27;s Home 2 is only a year old.
+Home Alone has had 28 years to make its revenue. Daddy's Home 2 is only a year old.
 
-I decided to add a button to switch modes. From total `box_office` to `per_year` revenue. And boy, does it change the story. Altho maybe I&#x27;m being unfair because how long are theater runs anyway? 🤔
+I decided to add a button to switch modes. From total `box_office` to `per_year` revenue. And boy, does it change the story. Altho maybe I'm being unfair because how long are theater runs anyway? 🤔
 
 Driving that logic with React hooks looks like this 👇
 
@@ -81,9 +82,9 @@ const valueFunction = perYear ? d => d.per_year : d => d.box_office
 </button>
 ```
 
-A `useState` hook gives us current state and a setter. We use the state, `perYear`, to define a value accessor function, and a butto&#x27;s `onClick` method to toggle the value.
+A `useState` hook gives us current state and a setter. We use the state, `perYear`, to define a value accessor function, and a butto's `onClick` method to toggle the value.
 
-We&#x27;re going to use that value accessor to render our graph. Makes the switch feel seamless.
+We're going to use that value accessor to render our graph. Makes the switch feel seamless.
 
 ## Render
 
@@ -102,7 +103,7 @@ First, you need this bit in your `App` function. It renders ``in an SVG, if `dat
 </svg>
 ```
 
-That `data && ...` is a common trick. The return value of `true && something` is something, return value of `false && something` is nothing. Means when `data` is defined, we render; otherwise, we don&#x27;t.
+That `data && ...` is a common trick. The return value of `true && something` is something, return value of `false && something` is nothing. Means when `data` is defined, we render; otherwise, we don't.
 
 Oh, and `Svg` is a styled SVG component. Gets a nice gif background when `showKevin` is set to true 😛
 
@@ -135,15 +136,15 @@ const VerticalBarchart = ({ data, width, height, value }) => {
 }
 ```
 
-We can define our D3 scales right in the render function. Means we re-define them from scratch on every render and sometimes, that&#x27;s okay. Particularly when data is small and calculating domains and ranges is easy.
+We can define our D3 scales right in the render function. Means we re-define them from scratch on every render and sometimes, that's okay. Particularly when data is small and calculating domains and ranges is easy.
 
-Once we have a `scaleBand` for the vertical axis and a `scaleLinear` for widths, it&#x27;s a matter of iterating over our data and rendering styled `and`components.
+Once we have a `scaleBand` for the vertical axis and a `scaleLinear` for widths, it's a matter of iterating over our data and rendering styled `and`components.
 
 Notice that we use the `value` accessor function every time we need the value of a datapoint. To find the max value for our domain and to grab each individual width.
 
 Makes our chart automatically adapt to flicking that `perYear` toggle 👌
 
-That smooth width transition effect? That&#x27;s just CSS.
+That smooth width transition effect? That's just CSS.
 
 ```javascript
 const Bar = styled.rect`
@@ -158,6 +159,6 @@ React hooks really do make life easy 🎣
 
 - the `useState` React hook
 - the `useEffect` React hook
-- that it&#x27;s okay to define D3 stuff in the render method; sometimes
+- that it's okay to define D3 stuff in the render method; sometimes
 
 Cheers, ~Swizec

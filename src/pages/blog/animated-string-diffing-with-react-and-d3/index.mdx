@@ -1,12 +1,13 @@
 ---
-title: 'Animated string diffing with React and D3'
+title: "Animated string diffing with React and D3"
 description: ""
 published: 2016-08-22
-redirect_from: 
-            - /blog/animated-string-diffing-with-react-and-d3/swizec/6952
+redirect_from:
+  - /blog/animated-string-diffing-with-react-and-d3/swizec/6952
 categories: "d3.js, d3js, Front End, react, react+d3js, reacts, Technical"
 hero: ./img/iknWGlq.jpg
 ---
+
 ![](./img/sAr4q3L.gif)
 
 I turned [my animated alphabet example](http://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797) into an animation of what you’re typing. New characters drop in from above, old characters drop down, and any white space gets squeezed out. Pretty cool, huh? Try it out: Maybe I’m a weirdo nerd, but I could play with that for days. Well, okay, minutes. At least 30 seconds! What I like about this demo is that it’s a great example of declarative transitions built with React. Each letter handles its own animation, so all that the main component has to do is go through a list of characters in a loop and render a `Letter` component for each, like this:

@@ -1,15 +1,16 @@
 ---
-title: 'Configuring your JAMStack app for prod vs. dev'
+title: "Configuring your JAMStack app for prod vs. dev"
 description: ""
 published: 2020-03-26
-redirect_from: 
-            - /blog/configuring-your-jamstack-app-for-prod-vs-dev/swizec/9357
+redirect_from:
+  - /blog/configuring-your-jamstack-app-for-prod-vs-dev/swizec/9357
 categories: "Back End, Front End, Technical"
 hero: ./img/techletter.app-screenshot-1585240252506.png
 ---
-You should always keep development and production separate my friend, but how do you pull that off when everyone has your back and tries to keep your app secure?wait what 🤨Here&#x27;s the problem 👉You&#x27;ve built a cool app. Static JAM on the frontend, Serverless functions on the backend, nearly free to host, super fast to load. It&#x27;s amazing and you&#x27;re proud as heck.Time to show off!![show_off giphy](./img/media-QugrBeDxEFuDfooN11-giphy.gif)
 
-You know dev and production should be separate. Wouldn&#x27;t want users to see a bug next time you mess around with code. Sure as heck don&#x27;t want to mix test and production data.
+You should always keep development and production separate my friend, but how do you pull that off when everyone has your back and tries to keep your app secure?wait what 🤨Here's the problem 👉You've built a cool app. Static JAM on the frontend, Serverless functions on the backend, nearly free to host, super fast to load. It's amazing and you're proud as heck.Time to show off!![show_off giphy](./img/media-QugrBeDxEFuDfooN11-giphy.gif)
+
+You know dev and production should be separate. Wouldn't want users to see a bug next time you mess around with code. Sure as heck don't want to mix test and production data.
 
 ## Prod vs. Dev on your serverless backend
 
@@ -27,7 +28,7 @@ Change that to `stage: dev` to `stage: prod`, run `yarn deploy`, and you get a w
 
 ### Making your stage easy to change
 
-Changing serverless.yml on deploy is tedious. You&#x27;ll commit the wrong version to git, too.
+Changing serverless.yml on deploy is tedious. You'll commit the wrong version to git, too.
 
 Define your stage with command line arguments instead!
 
@@ -35,7 +36,7 @@ Like this:
 
 [![Click through for source](./img/techletter.app-screenshot-1585240252762.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=yaml&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=provider%3A%0A%20%20%20%20stage%3A%20%24%7Bopt%3Astage%7D>)
 
-Now you can add a helpful little bash script – because I couldn&#x27;t figure out how to do this with Node and Bash is just fine. 😇
+Now you can add a helpful little bash script – because I couldn't figure out how to do this with Node and Bash is just fine. 😇
 
 [![Click through for source](./img/techletter.app-screenshot-1585240252694.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=bash&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%23%20deploy.sh%0A%0ASTAGE%3D%24%7B1%3A-dev%7D%0Ayarn%20build%0ANODE_ENV%3D%24STAGE%20sls%20deploy%20--stage%20%24STAGE>)
 
@@ -51,7 +52,7 @@ Wonderful.
 
 Separating production and development on the JAM is easy in theory 👉 push to a branch and you get a deploy preview. Press a button or push to a special branch and you get production.
 
-Both Netlify and Zeit do that. I&#x27;m sure others do, too.
+Both Netlify and Zeit do that. I'm sure others do, too.
 
 That was easy.
 
@@ -59,9 +60,9 @@ Now, how do you tell your app that production data lives on `...amazonaws.com/pr
 
 ![think_hard giphy](./img/media-26n7brbdOADCBDfUs-giphy-downsized-medium.gif)
 
-That&#x27;s where it gets tricky.
+That's where it gets tricky.
 
-I&#x27;ve found 3 approaches with varying levels of success and different tradeoffs.
+I've found 3 approaches with varying levels of success and different tradeoffs.
 
 ### 1. The Gatsby way
 
@@ -95,11 +96,11 @@ The Gatsby way breaks down when you deploy.
 
 ![](./img/FJlMtA7.png)
 
-Both Zeit and Netlify helpfully strip your `.env` files during deploy. Wouldn&#x27;t want to store secrets in plaintext on their servers.
+Both Zeit and Netlify helpfully strip your `.env` files during deploy. Wouldn't want to store secrets in plaintext on their servers.
 
 This is great from a security perspective.
 
-And it breaks Gatsby support for .env files. They aren&#x27;t available during build. 🤦‍♂️
+And it breaks Gatsby support for .env files. They aren't available during build. 🤦‍♂️
 
 ### 2. The Zeit way
 
@@ -129,22 +130,22 @@ But it works. Sort of
 
 #### The tradeoff
 
-Notice there&#x27;s no prod vs. dev. You get _a_ config and that&#x27;s it. Zeit says they&#x27;ll have native support for environments soon.
+Notice there's no prod vs. dev. You get _a_ config and that's it. Zeit says they'll have native support for environments soon.
 
 [![Click through for source](./img/techletter.app-screenshot-1585240253445.png)](https://twitter.com/zeit_support/status/1242094643002642432)
 
-The other tradeoff is that these configs aren&#x27;t available at runtime. You get them when compiling and can&#x27;t use them in the browser.
+The other tradeoff is that these configs aren't available at runtime. You get them when compiling and can't use them in the browser.
 
-And you can&#x27;t `import 'now.json'` either. Zeit deletes that file ☹️
+And you can't `import 'now.json'` either. Zeit deletes that file ☹️
 
 ### 3. The way that actually works
 
-In the end, here&#x27;s what works best:
+In the end, here's what works best:
 
-1. Put your configs in JSON files
-2. Import in gatsby-config.js
-3. Add to `siteMetadata`
-4. Access via static queries
+1.  Put your configs in JSON files
+2.  Import in gatsby-config.js
+3.  Add to `siteMetadata`
+4.  Access via static queries
 
 Kinda bonkers but it works.
 
@@ -160,7 +161,7 @@ Import in `gatsby-config.js`
 
 Use the configs directly in your build-time code via `config.X`. Works just fine.
 
-You can import JSON files in the browser, sure, but you won&#x27;t know which environment. Put them in `siteMetadata.myConfig` instead, so you can get configs with static queries anywhere in your app.
+You can import JSON files in the browser, sure, but you won't know which environment. Put them in `siteMetadata.myConfig` instead, so you can get configs with static queries anywhere in your app.
 
 Like this
 
@@ -174,15 +175,15 @@ And you get ...
 
 #### The tradeoff
 
-You&#x27;re storing configs in version control. In plaintext. They better not be secret 😉
+You're storing configs in version control. In plaintext. They better not be secret 😉
 
-And you&#x27;ll have to re-deploy any time you change a value.
+And you'll have to re-deploy any time you change a value.
 
 But hey at least it works.
 
 ## In conclusion
 
-There&#x27;s no perfect solution here yet, I&#x27;m afraid. The JSON approach combined with static queries seems best for now. If you&#x27;ve found something better, I&#x27;d love to know.
+There's no perfect solution here yet, I'm afraid. The JSON approach combined with static queries seems best for now. If you've found something better, I'd love to know.
 
 Happy hacking ✌️
 
@@ -190,4 +191,4 @@ Cheers,
 
 ~Swizec
 
-PS: I like to use AWS SecretsManager on the backend for real secrets, maybe there&#x27;s an API you could use from the browser 🤔
+PS: I like to use AWS SecretsManager on the backend for real secrets, maybe there's an API you could use from the browser 🤔

@@ -1,13 +1,14 @@
 ---
-title: 'useReducer + useContext for easy global state without libraries'
+title: "useReducer + useContext for easy global state without libraries"
 description: ""
 published: 2019-08-12
-redirect_from: 
-            - /blog/usereducer-usecontext-for-easy-global-state-without-libraries/swizec/9182
+redirect_from:
+  - /blog/usereducer-usecontext-for-easy-global-state-without-libraries/swizec/9182
 categories: "Front End, Technical"
 hero: ./img/techletter.app-screenshot-1565626955164.png
 ---
-Since [useAuth](https://github.com/Swizec/useAuth) is taking off, I wanted to talk about the global state management technique that makes it work. You might find it useful too, or think it&#x27;s obvious, I was pretty excited when it clicked :)
+
+Since [useAuth](https://github.com/Swizec/useAuth) is taking off, I wanted to talk about the global state management technique that makes it work. You might find it useful too, or think it's obvious, I was pretty excited when it clicked :)
 
 And when I say useAuth is taking off ...
 
@@ -15,13 +16,13 @@ And when I say useAuth is taking off ...
 
 Yep 🔥
 
-Ok so global state management, how do you do it? You grab [Redux](https://github.com/reduxjs/redux) or [MobX](https://github.com/mobxjs/mobx), or maybe [Unstated](https://github.com/jamiebuilds/unstated) or [Constate](https://github.com/diegohaz/constate) and you&#x27;re done. Right?
+Ok so global state management, how do you do it? You grab [Redux](https://github.com/reduxjs/redux) or [MobX](https://github.com/mobxjs/mobx), or maybe [Unstated](https://github.com/jamiebuilds/unstated) or [Constate](https://github.com/diegohaz/constate) and you're done. Right?
 
 All those libraries give you a global store to put your data, allow every component to access that state, and manage re-renders. You get some way of updating that state and life is good.
 
-Sometimes there&#x27;s extra features.
+Sometimes there's extra features.
 
-But what if you don&#x27;t want to learn yet another library? You just wanna share some state between a bunch of components. What then?
+But what if you don't want to learn yet another library? You just wanna share some state between a bunch of components. What then?
 
 ## Global state without the hassle
 
@@ -29,23 +30,23 @@ The simplest approach is to put global state in your top-level component. Pass i
 
 Works great and gets out of hand real fast. Passing props is cumbersome and you can create a situation where every little update re-renders your entire app.
 
-Here&#x27;s a better solution 👉 You can share the `state` and `dispatch` from `useReducer` through context and access them with a hook.
+Here's a better solution 👉 You can share the `state` and `dispatch` from `useReducer` through context and access them with a hook.
 
 ![mind blown](./img/ChfELcI.gif)
 
-I&#x27;ll explain using [useAuth](https://github.com/Swizec/useAuth) as an example, but the same approach works for anything.
+I'll explain using [useAuth](https://github.com/Swizec/useAuth) as an example, but the same approach works for anything.
 
-There&#x27;s 3 parts to this story:
+There's 3 parts to this story:
 
-1. A context provider component
-2. A reducer for state
-3. A hook providing our API
+1.  A context provider component
+2.  A reducer for state
+3.  A hook providing our API
 
 Users render the context provider somewhere close to the root of their app. Similar to a theme provider, Apollo provider, etc.
 
 The provider feeds state from our reducer into the context. When you fire actions on the reducer, state in the context changes, and every component using the `useAuth` hook re-renders with new data.
 
-It&#x27;s pretty great.
+It's pretty great.
 
 ## AuthProvider
 
@@ -53,13 +54,13 @@ It&#x27;s pretty great.
 
 [![Click through for source](./img/techletter.app-screenshot-1565626956122.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2FAuthProvider.js%0A%0Aconst%20AuthContext%20%3D%20React.createContext(null)%0A%0Aexport%20const%20AuthProvider%20%3D%20(%7B%20children%20%7D)%20%3D%3E%20%7B%0A%20%20const%20auth0%20%3D%20new%20Auth0.WebAuth(%7B%0A%20%20%20%20%2F%2F%20initialization%20stuff%0A%20%20%7D)%0A%0A%20%20const%20%5Bstate%2C%20dispatch%5D%20%3D%20useReducer(authReducer%2C%20%7B%0A%20%20%20%20%2F%2F%20initial%20state%0A%20%20%7D)%0A%0A%20%20return%20(%0A%20%20%20%20%3CAuthContext.Provider%20value%3D%7B%5Bstate%2C%20dispatch%2C%20auth0%5D%7D%3E%0A%20%20%20%20%20%20%7Bchildren%7D%0A%20%20%20%20%3C%2FAuthContext.Provider%3E%0A%20%20)%0A%7D>)
 
-That&#x27;s our context provider.
+That's our context provider.
 
-The provider initializes `auth0` using Auth0&#x27;s API and configures some properties. Full version supports a bunch of config via props, overwriting defaults, etc.
+The provider initializes `auth0` using Auth0's API and configures some properties. Full version supports a bunch of config via props, overwriting defaults, etc.
 
 We call `useReducer` to get a state object and the action dispatch function. Initialize state from local storage if you want persistence, or keep it empty to start with.
 
-I recommend defining initial values so your code doesn&#x27;t have to deal with undefineds.
+I recommend defining initial values so your code doesn't have to deal with undefineds.
 
 Our provider renders `AuthContext.Provider` and as its value uses the `state` object, `dispatch` function, and `auth0` object.
 
@@ -79,7 +80,7 @@ The auth reducer takes care of state transitions. [full file](https://github.com
 
 [![Click through for source](./img/techletter.app-screenshot-1565626956251.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20frontend%2Fsrc%2Fauth.js%0A%0Afunction%20authReducer(state%2C%20action)%20%7B%0A%20%20switch%20(action.type)%20%7B%0A%20%20%20%20case%20%22login%22%3A%0A%20%20%20%20%20%20const%20%7B%20authResult%2C%20user%20%7D%20%3D%20action%0A%20%20%20%20%20%20const%20expiresAt%20%3D%20authResult.expiresIn%20*%201000%20%2B%20new%20Date().getTime()%0A%0A%20%20%20%20%20%20localStorage.setItem(%22expires_at%22%2C%20JSON.stringify(expiresAt))%0A%20%20%20%20%20%20localStorage.setItem(%22user%22%2C%20JSON.stringify(user))%0A%0A%20%20%20%20%20%20return%20%7B%20user%2C%20expiresAt%20%7D%0A%20%20%20%20case%20%22logout%22%3A%0A%20%20%20%20%20%20localStorage.removeItem(%22expires_at%22)%0A%20%20%20%20%20%20localStorage.removeItem(%22user%22)%0A%0A%20%20%20%20%20%20return%20%7B%20user%3A%20%7B%7D%2C%20expiresAt%3A%20null%20%7D%0A%20%20%20%20default%3A%0A%20%20%20%20%20%20return%20state%0A%20%20%7D%0A%7D>)
 
-If you&#x27;re not familiar with reducers: it&#x27;s a function that takes the current state and an action, and calculates the next state. Always returning a fresh object.
+If you're not familiar with reducers: it's a function that takes the current state and an action, and calculates the next state. Always returning a fresh object.
 
 In our case the `login` and `logout` actions handle the user model and cookie expiration time. Both actions also save data to local storage so it persists across page reloads.
 
@@ -95,7 +96,7 @@ That gives any component that uses `useAuth` access to the same shared state.
 
 You could use `useContext` directly. I prefer using a custom hook because it makes your code easier to read.
 
-What&#x27;s better, doing this everywhere you want to access some shared state:
+What's better, doing this everywhere you want to access some shared state:
 
 [![Click through for source](./img/techletter.app-screenshot-1565626956742.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20SomeContext%20from%20'...'%0A%0Aconst%20MyThing%20%3D%20()%20%3D%3E%20%7B%0A%09const%20%5Bstate%2C%20dispatch%5D%20%3D%20useContext(SomeContext)%0A%0A%09%2F%2F%20...%0A%7D>)
 
@@ -105,11 +106,11 @@ Or this
 
 I know what I prefer :)
 
-With a custom hook you can use `dispatch` with carefully controlled values internally. Nobody needs to know what&#x27;s going on. All they need to remember is your convenient API.
+With a custom hook you can use `dispatch` with carefully controlled values internally. Nobody needs to know what's going on. All they need to remember is your convenient API.
 
 ## ✌️
 
-So that&#x27;s how you can use React hooks to build powerful abstractions on top of global state shared by all.
+So that's how you can use React hooks to build powerful abstractions on top of global state shared by all.
 
 What do you think?
 

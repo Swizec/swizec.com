@@ -1,12 +1,13 @@
 ---
-title: 'Livecoding #38 - A faux AI that writes JavaScript'
+title: "Livecoding #38 - A faux AI that writes JavaScript"
 description: ""
 published: 2017-05-22
-redirect_from: 
-            - /blog/livecoding-38-faux-ai-writes-javascript/swizec/7607
+redirect_from:
+  - /blog/livecoding-38-faux-ai-writes-javascript/swizec/7607
 categories: "Livecoding, Technical"
 hero: ../../../defaultHero.jpg
 ---
+
 _This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should follow [My Youtube](https://www.youtube.com/channel/UCoyHgaeLLI7Knp7LDHOwZMw) channel to catch me live._
 
 https://www.youtube.com/watch?v=N_k1c0sed_w
@@ -15,39 +16,39 @@ https://twitter.com/Swizec/status/865295043162021889
 
 Think about how a product manager writes code.
 
-They define some features, come up with constraints, and unleash a team of engineers. A few days pass while stuff they don&#x27;t understand goes on, and voilà! New features with working code and business metrics twitching to and fro as users respond to new goodies.
+They define some features, come up with constraints, and unleash a team of engineers. A few days pass while stuff they don't understand goes on, and voilà! New features with working code and business metrics twitching to and fro as users respond to new goodies.
 
 Great, huh?
 
 Now think about how a software engineer writes code.
 
-They talk to the product manager and get a _&quot;This is what it should do&quot;_ spec, then they agree on _&quot;This is how much it should cost in time/resources to build&quot;_. Then the engineer looks at existing code and gets a _&quot;This is the code the new stuff should fit into&quot;_. Then they come up with a set of tests, automated or otherwise, that answer the question, _&quot;Does it work yet?&quot;_
+They talk to the product manager and get a _"This is what it should do"_ spec, then they agree on _"This is how much it should cost in time/resources to build"_. Then the engineer looks at existing code and gets a _"This is the code the new stuff should fit into"_. Then they come up with a set of tests, automated or otherwise, that answer the question, _"Does it work yet?"_
 
-With tests in hand, the engineer sets to work. Painstakingly manipulating characters on screen, typing and typing and running and testing and eventually they have code that is syntactically correct and doesn&#x27;t break existing stuff and implements the new stuff. Hooray!
+With tests in hand, the engineer sets to work. Painstakingly manipulating characters on screen, typing and typing and running and testing and eventually they have code that is syntactically correct and doesn't break existing stuff and implements the new stuff. Hooray!
 
 Great, huh?… kinda tedious 🤔
 
-Your core value add as an engineer is to help the product manager come up with sensible constraints. To help them include the new stuff into the existing stuff. To suggest constraints they didn&#x27;t think of. And to add constraints they shouldn&#x27;t have to worry about.
+Your core value add as an engineer is to help the product manager come up with sensible constraints. To help them include the new stuff into the existing stuff. To suggest constraints they didn't think of. And to add constraints they shouldn't have to worry about.
 
 All that code writing stuff… meh.
 
-I know, it&#x27;s not just typing. It takes smarts and experience, and it&#x27;s really hard to do well. But if you had good tests and infinite memory and infinite time, you could keep generating random strings until one of them happened to make the tests pass. You&#x27;d call that string The Code.
+I know, it's not just typing. It takes smarts and experience, and it's really hard to do well. But if you had good tests and infinite memory and infinite time, you could keep generating random strings until one of them happened to make the tests pass. You'd call that string The Code.
 
 Similar idea as the [monkeys with typewriters](https://en.wikipedia.org/wiki/Monkey_typewriter_theory) thought experiment and the [random sort algorithm](https://en.wikipedia.org/wiki/Bogosort). Do random stuff until requirements are met.
 
 Expected running time: Infinity.
 
-Because you&#x27;re smart and experienced and a grizzled veteran or an eager newbie, it takes you less than infinity to write that code. You use smart heuristics like _&quot;not typing random stuff&quot;_ and _&quot;actually thinking about what to do&quot;_.
+Because you're smart and experienced and a grizzled veteran or an eager newbie, it takes you less than infinity to write that code. You use smart heuristics like _"not typing random stuff"_ and _"actually thinking about what to do"_.
 
 Although I often just keep trying random things when things get really tough. 😇
 
-Wouldn&#x27;t it be cool if someone could do that for you? I mean, if [computers can write news](https://www.wired.com/2015/10/this-news-writing-bot-is-now-free-for-everyone/), why not the code that makes computers write news?
+Wouldn't it be cool if someone could do that for you? I mean, if [computers can write news](https://www.wired.com/2015/10/this-news-writing-bot-is-now-free-for-everyone/), why not the code that makes computers write news?
 
-Here&#x27;s the idea: You write the tests, AI makes them pass.
+Here's the idea: You write the tests, AI makes them pass.
 
 ## Experiment 1 - failed
 
-I&#x27;m calling this first experiment “faux AI” because it doesn&#x27;t know what it&#x27;s doing. The current approach is at the _&quot;Paste random characters and fingers crossed&quot;_ stage.
+I'm calling this first experiment “faux AI” because it doesn't know what it's doing. The current approach is at the _"Paste random characters and fingers crossed"_ stage.
 
 We tried an [evolutionary algorithm](https://en.wikipedia.org/wiki/Evolutionary_algorithm) based on manipulating code as character strings. This did not work.
 
@@ -95,7 +96,7 @@ const Conditions = [
 
 The `fitness` function takes a piece of code and walks through a set of `conditions`. We test each condition and multiply the result with its weight. A syntactically valid piece of code gets `10`, an invalid one gets `0`. One that produces the correct result gets`8`, an invalid result gets `0`, etc.
 
-We&#x27;re looking for code that is shorter than `4` characters, isn&#x27;t `4` or `"4"`, and returns `4`. A good solution would be, say, `2+2`, or `1+3`. Even `a = 4` works. Or maybe `"afwaelfjlkwefj"; 4`.
+We're looking for code that is shorter than `4` characters, isn't `4` or `"4"`, and returns `4`. A good solution would be, say, `2+2`, or `1+3`. Even `a = 4` works. Or maybe `"afwaelfjlkwefj"; 4`.
 
 The tricky part of evolutionary algorithms is that even when they work, their results are weird. Best things in the world at finding loopholes in your conditions.
 
@@ -126,11 +127,11 @@ function* generation({ population, fitness, N }) {
 }
 ```
 
-That&#x27;s a generator, by the way. Call `.next()` to get the next generation from the current population. Call it as many times as you want; it keeps working :)
+That's a generator, by the way. Call `.next()` to get the next generation from the current population. Call it as many times as you want; it keeps working :)
 
 Each `generation` starts with an existing `population`, which is ranked by the `fitness` function. We make pairs out of the best 50% of the specimens, breed them, and add their offspring to the population.
 
-The new population is again ranked, and if there&#x27;s more specimen than we have room for, the bottom few are thrown away. They&#x27;re useless.
+The new population is again ranked, and if there's more specimen than we have room for, the bottom few are thrown away. They're useless.
 
 You can see how the `breedPairs` and `rank` functions work [on Github](https://github.com/Swizec/faux-js-ai).
 
@@ -141,9 +142,9 @@ This current approach did not produce a single working piece of code. This was t
 </code>
 ```
 
-At least it&#x27;s syntactically valid 🤔
+At least it's syntactically valid 🤔
 
-This field of research is known as [genetic programming](https://en.wikipedia.org/wiki/Genetic_programming). I don&#x27;t think anyone has gotten it to the point of replacing software engineers yet, but I remember a cool project from my high school days by some Slovenian person called [Critticall](http://www.critticall.com/). It was able to invent novel sorting algorithms.
+This field of research is known as [genetic programming](https://en.wikipedia.org/wiki/Genetic_programming). I don't think anyone has gotten it to the point of replacing software engineers yet, but I remember a cool project from my high school days by some Slovenian person called [Critticall](http://www.critticall.com/). It was able to invent novel sorting algorithms.
 
 ## Next steps
 
@@ -151,8 +152,8 @@ The experiment failed, and the code is slow.
 
 Maybe we should switch to Python? Or parallelize the generation generator. Evolution is, after all, highly parallelizable and there _are_ 4 cores in my computer…
 
-Fundamentally, we&#x27;re gonna have to change the level of abstraction. You cannot evolve code as if it was a random series of characters. Maybe if our algorithm could understand syntax, or at least JavaScript symbols, and evolve an [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), then it might work.
+Fundamentally, we're gonna have to change the level of abstraction. You cannot evolve code as if it was a random series of characters. Maybe if our algorithm could understand syntax, or at least JavaScript symbols, and evolve an [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), then it might work.
 
-I think there&#x27;s also room for neural nets and deep learning in the evolution step. 🤔
+I think there's also room for neural nets and deep learning in the evolution step. 🤔
 
 Ideas very welcome. I will continue to dabble with this as time allows.

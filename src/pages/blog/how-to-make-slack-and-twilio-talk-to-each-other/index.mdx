@@ -1,22 +1,23 @@
 ---
-title: 'How to make Slack and Twilio talk to each other'
+title: "How to make Slack and Twilio talk to each other"
 description: ""
 published: 2016-10-18
-redirect_from: 
-            - /blog/make-slack-twilio-talk/swizec/7128
+redirect_from:
+  - /blog/make-slack-twilio-talk/swizec/7128
 categories: "Technical"
 hero: ./img/lFiUoxb.png
 ---
+
 Why? Because it’s cool.And in some cases, you can make a bot that answers the door. Like I [started here](https://swizec.com/blog/livecoding-22-a-door-answering-slackbot/swizec/7038) and [continued here](https://swizec.com/blog/livecoding-23-slackbots-oauth/swizec/7065). This isn’t a series. Don’t worry :)
 
 You should start by setting up a [Twilio account](https://www.twilio.com/) and a [Slack app](https://api.slack.com/slack-apps). We’re going to build a node.js server running [Express](http://expressjs.com/) that:
 
-1. Takes a phone call
-2. Records what the caller says
-3. Puts the caller on hold
-4. Posts a message with buttons on Slack
-5. Tells caller which button was pressed
-6. Hangs up
+1.  Takes a phone call
+2.  Records what the caller says
+3.  Puts the caller on hold
+4.  Posts a message with buttons on Slack
+5.  Tells caller which button was pressed
+6.  Hangs up
 
 Let’s assume you’ve already set up an Express project. It’s easy to do from scratch, and if you already have an existing one that you’re adding Slack and Twilio to, then you don’t need this step.
 

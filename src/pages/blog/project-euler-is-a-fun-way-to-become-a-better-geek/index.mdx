@@ -1,15 +1,16 @@
 ---
-title: 'Project euler is a fun way to become a better geek'
+title: "Project euler is a fun way to become a better geek"
 description: ""
 published: 2011-03-08
-redirect_from: 
-            - /blog/project-euler-is-a-fun-way-to-become-a-better-geek/swizec/1570
+redirect_from:
+  - /blog/project-euler-is-a-fun-way-to-become-a-better-geek/swizec/1570
 categories: "Clojure, Computer Science, Fibonacci number, Mathematics, Prime factor, Prime number, Project Euler, Technical"
 hero: ../../../defaultHero.jpg
 ---
-\[caption id=&quot;&quot; align=&quot;alignright&quot; width=&quot;219&quot; caption=&quot;Image via Wikipedia&quot;][![By 1772, Leonhard Euler had proved that 2,147,...](http://upload.wikimedia.org/wikipedia/commons/d/d7/Leonhard_Euler.jpg "By 1772, Leonhard Euler had proved that 2,147,...")](http://commons.wikipedia.org/wiki/File:Leonhard_Euler.jpg)\[/caption]
 
-Yesterday I was a bit bored at the Theoretical Basis Of Computer Science class and the obvious solution was to try doing a bit of coding on an algorithm I&#x27;m trying to develop that aims to learn the proper [syllabification](http://en.wikipedia.org/wiki/Syllabification "Syllabification") for a language by reading it. Because I&#x27;m all sorts of cool I want to develop this thing in [Clojure](http://clojure.org "Clojure"). Naturally, the moment I started my severe lack of proficiency in clojure started showing through and I found myself spending more time online than coding. Somehow I ended up on stackoverflow where some guy suggested to another guy they go through the [Project Euler](http://projecteuler.net/ "Project Euler") problem set to get better at Clojure. And so I did just that. Have only managed to solve the first three problems so far, but by god this crap is fun. Maybe I&#x27;m just being way too dorky, but it&#x27;s #WINNING! Me being me, I&#x27;ve decided to motivate myself to solving these by posting a solution on this blog every time I solve a problem. Here are the first three, probably less than elegant, but they&#x27;re mine and I love them!
+\[caption id="" align="alignright" width="219" caption="Image via Wikipedia"][![By 1772, Leonhard Euler had proved that 2,147,...](http://upload.wikimedia.org/wikipedia/commons/d/d7/Leonhard_Euler.jpg "By 1772, Leonhard Euler had proved that 2,147,...")](http://commons.wikipedia.org/wiki/File:Leonhard_Euler.jpg)\[/caption]
+
+Yesterday I was a bit bored at the Theoretical Basis Of Computer Science class and the obvious solution was to try doing a bit of coding on an algorithm I'm trying to develop that aims to learn the proper [syllabification](http://en.wikipedia.org/wiki/Syllabification "Syllabification") for a language by reading it. Because I'm all sorts of cool I want to develop this thing in [Clojure](http://clojure.org "Clojure"). Naturally, the moment I started my severe lack of proficiency in clojure started showing through and I found myself spending more time online than coding. Somehow I ended up on stackoverflow where some guy suggested to another guy they go through the [Project Euler](http://projecteuler.net/ "Project Euler") problem set to get better at Clojure. And so I did just that. Have only managed to solve the first three problems so far, but by god this crap is fun. Maybe I'm just being way too dorky, but it's #WINNING! Me being me, I've decided to motivate myself to solving these by posting a solution on this blog every time I solve a problem. Here are the first three, probably less than elegant, but they're mine and I love them!
 
 ```lisp
 ;If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
@@ -81,7 +82,7 @@ Yesterday I was a bit bored at the Theoretical Basis Of Computer Science class a
 (println (factor 600851475143 [] (n-primes 1)))
 ```
 
-The third one took particularly long to figure out because I was going about it all wrong. What I later realized was that I don&#x27;t at all have to spend time finding the next prime for the sequence of already known primes because factorization doesn&#x27;t have to be that complicated. Could just have gone through the number and anything it would divide by would already be a guaranteed prime.
+The third one took particularly long to figure out because I was going about it all wrong. What I later realized was that I don't at all have to spend time finding the next prime for the sequence of already known primes because factorization doesn't have to be that complicated. Could just have gone through the number and anything it would divide by would already be a guaranteed prime.
 
 ###### Related articles
 

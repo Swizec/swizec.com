@@ -1,25 +1,26 @@
 ---
-title: 'My favorite lessons from Pragmatic Programmer'
+title: "My favorite lessons from Pragmatic Programmer"
 description: ""
 published: 2020-03-28
-redirect_from: 
-            - /blog/my-favorite-lessons-from-pragmatic-programmer/swizec/9361
+redirect_from:
+  - /blog/my-favorite-lessons-from-pragmatic-programmer/swizec/9361
 categories: "Learning, Personal"
 hero: ./img/i2LW3tC.png
 ---
-Pragmatic Programmer is a book everyone should read at the start of their career. The earlier the better. Don&#x27;t be like me and wait until every lesson is a _&quot;Oh yeah, learned that the hard way&quot;_ ... _&quot;Hah yes! That was a fun and painful lesson&quot;_ ... _&quot;ooo good one! I remember a project just like that. Fuck that hurt&quot;_
+
+Pragmatic Programmer is a book everyone should read at the start of their career. The earlier the better. Don't be like me and wait until every lesson is a _"Oh yeah, learned that the hard way"_ ... _"Hah yes! That was a fun and painful lesson"_ ... _"ooo good one! I remember a project just like that. Fuck that hurt"_
 
 [![](./img/i2LW3tC.png)](https://pragprog.com/book/tpp20/the-pragmatic-programmer-20th-anniversary-edition)
 
 And if you _are_ like me, I suggest reading Pragmatic Programmer anyway.
 
-David Thomas and Andrew Hunt put into words a lot of those little feelings inside your gut that you can&#x27;t quite verbalize.
+David Thomas and Andrew Hunt put into words a lot of those little feelings inside your gut that you can't quite verbalize.
 
-When you say _&quot;No, we shouldn&#x27;t do it that way.&quot;_ and someone asks why and you&#x27;re like _&quot;I don&#x27;t know. It just doesn&#x27;t feel right.&quot;_
+When you say _"No, we shouldn't do it that way."_ and someone asks why and you're like _"I don't know. It just doesn't feel right."_
 
-&quot;it doesn&#x27;t feel right&quot; is no argument, so your team does it _that_ way anyway. 6 months later the codebase goes to shit and you&#x27;re like _&quot;See! That&#x27;s why&quot;_.
+"it doesn't feel right" is no argument, so your team does it _that_ way anyway. 6 months later the codebase goes to shit and you're like _"See! That's why"_.
 
-But now it&#x27;s too late.
+But now it's too late.
 
 ## The Cat Ate My Source Code
 
@@ -27,39 +28,39 @@ But now it&#x27;s too late.
 
 ## Good-Enough Software
 
-Building software is about trade-offs. Perfect software doesn&#x27;t exist and the more you chase perfection, the more off target you&#x27;ll be.
+Building software is about trade-offs. Perfect software doesn't exist and the more you chase perfection, the more off target you'll be.
 
-Good enough doesn&#x27;t mean &quot;sloppy&quot;. It means good enough to fulfill _all_ requirements, but no better.
+Good enough doesn't mean "sloppy". It means good enough to fulfill _all_ requirements, but no better.
 
-Don&#x27;t waste time and effort on things nobody needs.
+Don't waste time and effort on things nobody needs.
 
 ## DRY—The Evils of Duplication
 
-DRY – do not repeat yourself, is a maxim of the software industry. Touted as a basic wisdom, it&#x27;s caused more harm than good over the years.
+DRY – do not repeat yourself, is a maxim of the software industry. Touted as a basic wisdom, it's caused more harm than good over the years.
 
 The beginner thinks DRY and bends over backwards to avoid duplicating her code.
 
 The expert thinks DRY and copy pastes code to avoid duplicating the architecture.
 
-Duplicate your code, not your intent. Just because it looks the same doesn&#x27;t mean it is the same.
+Duplicate your code, not your intent. Just because it looks the same doesn't mean it is the same.
 
 ## Tracer Bullets
 
-It&#x27;s hard to hit your target. Especially when you can&#x27;t see the target.
+It's hard to hit your target. Especially when you can't see the target.
 
-That&#x27;s why machine gunners use tracer bullets – glow-in-the-dark bullets loaded as every 5th on the reel. They help you see where you&#x27;re shooting.
+That's why machine gunners use tracer bullets – glow-in-the-dark bullets loaded as every 5th on the reel. They help you see where you're shooting.
 
 The same works for software.
 
-Build a working happy path version of your program first. That&#x27;s your tracer bullet.
+Build a working happy path version of your program first. That's your tracer bullet.
 
-Users see if you&#x27;re going the right way, you and your team get a skeleton to hang edge cases off of. This is not a prototype. This is part of your real code.
+Users see if you're going the right way, you and your team get a skeleton to hang edge cases off of. This is not a prototype. This is part of your real code.
 
 ## Prototypes and Post-it Notes
 
 Prototypes are throwaway. You build them to explore a new idea, technology, or architecture.
 
-Do not refactor a prototype into production code. Stay away from shipping a prototype _as_ production code. Despite the business folks protestations of _&quot;But it already works!&quot;_
+Do not refactor a prototype into production code. Stay away from shipping a prototype _as_ production code. Despite the business folks protestations of _"But it already works!"_
 
 Best build your prototypes with post-it notes instead of code. Removes temptation.
 
@@ -73,15 +74,15 @@ Keep a notebook. Write down your thoughts and ideas. When you get distracted, yo
 
 As the old proverb from the balkans says: _Budala pamti, pametan piše_. The fool remembers, the clever one writes.
 
-## Don&#x27;t Outrun Your Headlights
+## Don't Outrun Your Headlights
 
 Build only as much as you can test. Run your code early, run it often.
 
-Don&#x27;t code for 2 hours then see if it works. You&#x27;ll find it&#x27;s hard to tell which change broke your program.
+Don't code for 2 hours then see if it works. You'll find it's hard to tell which change broke your program.
 
 Test your code after every significant change.
 
-What&#x27;s significant depends on many factors. When you&#x27;re new to a codebase you&#x27;ll make smaller steps than when it all fits in your head.
+What's significant depends on many factors. When you're new to a codebase you'll make smaller steps than when it all fits in your head.
 
 ## Transforming Programming
 
@@ -99,7 +100,7 @@ Are you using inheritance to share code? Try mixins or traits.
 
 Are you using inheritance to build types? The real world never fits a clean taxonomy. Try interfaces instead.
 
-&quot;Can do X&quot; trumps &quot;Is a X&quot;.
+"Can do X" trumps "Is a X".
 
 ## Shared State Is Incorrect State
 
@@ -113,19 +114,19 @@ Immutable shared state and mutable local state are your friends. Avoid relying o
 
 Do you know _why_ your code works?
 
-If not, it might be a coincidence. Code that works for the wrong reason is worse than code that doesn&#x27;t work.
+If not, it might be a coincidence. Code that works for the wrong reason is worse than code that doesn't work.
 
-Verify until you&#x27;re certain.
+Verify until you're certain.
 
-## Coconuts Don&#x27;t Cut It
+## Coconuts Don't Cut It
 
-Do what works, not what&#x27;s fashionable.
+Do what works, not what's fashionable.
 
 You are not Google. You are not Facebook, Amazon, Netflix, Apple, or Spotify either. What works for them will not work for you.
 
 Listen to the trends, try their ideas, judge for yourself.
 
-What works for Google in 2020 wouldn&#x27;t work for Google in 2010. Every team is different. Find what works for you now. Change when it stops working.
+What works for Google in 2020 wouldn't work for Google in 2010. Every team is different. Find what works for you now. Change when it stops working.
 
 ## Delight Your Users
 
@@ -141,7 +142,7 @@ Their goal is not the tool, their goal is what your tool enables them to do.
 
 ---
 
-And remember, programming is not meant to be safe. It&#x27;s a life-long lesson in building wisdom and tradeoffs.
+And remember, programming is not meant to be safe. It's a life-long lesson in building wisdom and tradeoffs.
 
 ![](./img/tTHHdPk.png)
 

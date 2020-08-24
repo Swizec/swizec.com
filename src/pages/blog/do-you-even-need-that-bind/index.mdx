@@ -1,9 +1,9 @@
 ---
-title: 'Do you even need that bind?'
+title: "Do you even need that bind?"
 description: ""
 published: 2016-11-29
-redirect_from: 
-            - /blog/do-you-even-need-that-bind/swizec/7247
+redirect_from:
+  - /blog/do-you-even-need-that-bind/swizec/7247
 categories: "Technical"
 hero: ./img/blog-wp-content-uploads-2016-11-3_hours_later.jpg
 ---
@@ -91,7 +91,7 @@ Well, that didn't work. ?
 
 The error reads `Uncaught TypeError: Cannot read property 'clicks' of undefined`. Looks like `this` isn't defined inside our callback.
 
-Good ol' [dynamic scoping](https://en.wikipedia.org/wiki/Scope_(computer_science)#Dynamic_scoping), unintuitive as always. If that Wikipedia article doesn't tell you much, don't worry. It's _basically_ comp sci soup.
+Good ol' [dynamic scoping](<https://en.wikipedia.org/wiki/Scope_(computer_science)#Dynamic_scoping>), unintuitive as always. If that Wikipedia article doesn't tell you much, don't worry. It's _basically_ comp sci soup.
 
 The gist of their 800-word explanation is this: with dynamic scoping, functions are scoped to where they're called, not where they're defined. It doesn't matter that `inc` is defined inside `Store`; it matters how React calls it.
 

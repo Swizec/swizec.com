@@ -1,12 +1,13 @@
 ---
-title: 'Declarative D3 charts with React 16.3'
+title: "Declarative D3 charts with React 16.3"
 description: ""
 published: 2018-04-27
-redirect_from: 
-            - /blog/declarative-d3-charts-react-16-3/swizec/8353
+redirect_from:
+  - /blog/declarative-d3-charts-react-16-3/swizec/8353
 categories: "d3, Front End, react, react+d3js, Technical"
 hero: ./img/blog-wp-content-uploads-2018-04-d3react16.3-699x1024.png
 ---
+
 The new React 16.3 brings some changes to the ecosystem that change how we go about integrating [React and D3](https://swizec.com/reactd3js) to build data visualizations. I previously wrote about this in [Declarative D3 transitions with React 16.3](https://swizec.com/blog/declarative-d3-transitions-react/swizec/8323)
 
 `componentWillReceiveProps`, `componentWillUpdate` and `componentWillMount` are on their way out. They were great for making [React and D3](https://swizec.com/reactd3js) happy together, but they cause issues with async rendering that the React team is planning for React 17.
@@ -25,21 +26,21 @@ https://codesandbox.io/s/lq0yr1lnq?module=%2Fsrc%2FBarChart.js
 
 ## How it works
 
-The core problem we&#x27;re solving is that D3 objects like to keep internal state and React doesn&#x27;t like that. We have to update D3 objects whenever our React component gets new props.
+The core problem we're solving is that D3 objects like to keep internal state and React doesn't like that. We have to update D3 objects whenever our React component gets new props.
 
 You have to update a scale mapping data to x-axis pixels whenever either data or width change. Traditionally you would do that in `componentWillReceiveProps`.
 
-React docs recommend replacing `componentWillReceiveProps` with `componentDidUpdate`, but that leads to rendering stale charts. If you update your D3 scales _after_ your component re-renders, that&#x27;s too late.
+React docs recommend replacing `componentWillReceiveProps` with `componentDidUpdate`, but that leads to rendering stale charts. If you update your D3 scales _after_ your component re-renders, that's too late.
 
 Instead, we can move our scales into `state` and use `getDerivedStateFromProps`. 🤯
 
 ![d3 react 16.3](./img/blog-wp-content-uploads-2018-04-d3react16.3-699x1024.png)
 
-That&#x27;s right, you can have complex objects in state now. It&#x27;s totally safe.
+That's right, you can have complex objects in state now. It's totally safe.
 
 https://twitter.com/ryanflorence/status/984513942696296448?ref_src=twsrc%5Etfw
 
-Here&#x27;s the gist of it 👇
+Here's the gist of it 👇
 
 ### D3 in state
 
@@ -80,7 +81,7 @@ You then use `getDerivedStateFromProps` to keep those scales up to date when you
 </code>
 ```
 
-It&#x27;s a static method, which means no `this` keyword for you, you&#x27;re running on the class, not an instance. You get the new props and the current state.
+It's a static method, which means no `this` keyword for you, you're running on the class, not an instance. You get the new props and the current state.
 
 Take `widthScale` and `heightScale` out of props, update their domains, put them back. Probably should update their ranges too.
 
@@ -108,12 +109,12 @@ Get chart coordinates, `data`, and `height` from props. Grab `widthScale` and `h
 
 Each rectangle is rendered in a loop and takes its coordinates and dimensions from our scales.
 
-The result after a splash of color: A BarChart of random numbers where height and color correlate to the value. [![Simple chart in D3 and React 16.3](./img/blog-wp-content-uploads-2018-04-chart-screenshot.png)](https://codesandbox.io/s/lq0yr1lnq) I also made a button that lets you add random values to the chart. That way you can see that it&#x27;s updating perfectly declaratively. Update props and the chart updates. No need to understand implementation details.
+The result after a splash of color: A BarChart of random numbers where height and color correlate to the value. [![Simple chart in D3 and React 16.3](./img/blog-wp-content-uploads-2018-04-chart-screenshot.png)](https://codesandbox.io/s/lq0yr1lnq) I also made a button that lets you add random values to the chart. That way you can see that it's updating perfectly declaratively. Update props and the chart updates. No need to understand implementation details.
 
 You can [play with it on CodeSandbox](https://codesandbox.io/s/lq0yr1lnq).
 
 ## Pushing it too far
 
-You can render 100,000 SVG nodes in CodeSandbox if you&#x27;re patient. Then you can&#x27;t edit your code anymore.
+You can render 100,000 SVG nodes in CodeSandbox if you're patient. Then you can't edit your code anymore.
 
 https://twitter.com/Swizec/status/989909019463630848?ref_src=twsrc%5Etfw

@@ -1,12 +1,13 @@
 ---
-title: 'Livecoding #21: Use Babel for libraries, not Webpack'
+title: "Livecoding #21: Use Babel for libraries, not Webpack"
 description: ""
 published: 2016-08-29
-redirect_from: 
-            - /blog/livecoding-21-use-babel-for-libraries-not-webpack/swizec/6982
+redirect_from:
+  - /blog/livecoding-21-use-babel-for-libraries-not-webpack/swizec/6982
 categories: "d3js, Front End, Livecoding, Technical"
 hero: ./img/w4lK3BY.png
 ---
+
 _This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding ?. Always under 500 words and with pictures. You can follow my channel, [here](https://livecoding.tv/swizec). New streams almost **every Sunday at 2pm PDT**. There’s live chat, come say hai ?_
 
 ![](./img/uDDcJq5.gif)
@@ -21,11 +22,13 @@ But animated it is, and the flickering and the wobbling and the color changing i
 
 Before today’s stream, I tried a few more things:
 
-- upgrade node to 4.5 LTS —&gt; nope ??
-- upgrade node to latest 6.4 —&gt; nope ??
-- import from script path directly —&gt; nope ?
+- upgrade node to 4.5 LTS —> nope ??
+- upgrade node to latest 6.4 —> nope ??
+- import from script path directly —> nope ?
+
+
   ?
-- extend `TransitionableComponent.constructor` —&gt; lol, nope ??
+- extend `TransitionableComponent.constructor` —> lol, nope ??
 
 Nothing worked. It was hopeless. The stream was starting, and I was still stuck at the same point where we’d left off the week before. People joined, people dropped.
 
@@ -33,7 +36,7 @@ Desperate, I said _“Fuck it, let’s avoid Webpack”_. This was a last ditch 
 
 Lo and behold: it worked. ?
 
-Of course _then_ a bunch of people in the chat said, _&quot;Oh yeah, I totally knew that would work”_.
+Of course _then_ a bunch of people in the chat said, _"Oh yeah, I totally knew that would work”_.
 
 Well then, why the fuck didn’t you say so? …
 

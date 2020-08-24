@@ -1,13 +1,14 @@
 ---
-title: 'Closure and currying magic for cleaner javascript'
+title: "Closure and currying magic for cleaner javascript"
 description: ""
 published: 2012-03-14
-redirect_from: 
-            - /blog/closure-and-currying-magic-for-cleaner-javascript/swizec/3981
+redirect_from:
+  - /blog/closure-and-currying-magic-for-cleaner-javascript/swizec/3981
 categories: "closures, functions, JavaScript, jQuery, Languages, Plug-in (computing), Programming, Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
-Sometimes you find a piece of [javascript](http://en.wikipedia.org/wiki/JavaScript "JavaScript"), a perfect piece of javascript, it does _exactly_ what you need! Perfect! You could spend hours, even days, getting something to work and someone&#x27;s already done it, shared the code on the internets even! Hooray! But ... the code looks something like this:
+
+Sometimes you find a piece of [javascript](http://en.wikipedia.org/wiki/JavaScript "JavaScript"), a perfect piece of javascript, it does _exactly_ what you need! Perfect! You could spend hours, even days, getting something to work and someone's already done it, shared the code on the internets even! Hooray! But ... the code looks something like this:
 
 ```javascript
 // to populate later
@@ -31,11 +32,11 @@ function update() {
 }
 ```
 
-The code works ... if you only need to use it once. What if you need two independent widgets? Well, you could take the time to recode all of that so it becomes [purely functional](http://en.wikipedia.org/wiki/Purely_functional "Purely functional"). But that&#x27;s going to be a problem - the code heavily relies on state. Ok maybe object oriented? Object oriented kind of sucks in javascript and you&#x27;d have to recode all of that, have to perfectly understand it etc. Pain in the arse!
+The code works ... if you only need to use it once. What if you need two independent widgets? Well, you could take the time to recode all of that so it becomes [purely functional](http://en.wikipedia.org/wiki/Purely_functional "Purely functional"). But that's going to be a problem - the code heavily relies on state. Ok maybe object oriented? Object oriented kind of sucks in javascript and you'd have to recode all of that, have to perfectly understand it etc. Pain in the arse!
 
 ## Closure magic
 
-There&#x27;s a better way - put it in a closure.
+There's a better way - put it in a closure.
 
 ```javascript
 var my_widget = function (data_function) {
@@ -65,11 +66,11 @@ var my_widget = function (data_function) {
 };
 ```
 
-Now you get to create the widget with a simple function call. Hooray! And the function returns its own update function so you can run an update whenever you need. All the state and weirdness is neatly packaged inside the closure, the code itself doesn&#x27;t need to know anything about the outside state. By changing the update function a little bit you can even affect the internal state of the closure by calling the [curried function](http://en.wikipedia.org/wiki/Currying "Currying").
+Now you get to create the widget with a simple function call. Hooray! And the function returns its own update function so you can run an update whenever you need. All the state and weirdness is neatly packaged inside the closure, the code itself doesn't need to know anything about the outside state. By changing the update function a little bit you can even affect the internal state of the closure by calling the [curried function](http://en.wikipedia.org/wiki/Currying "Currying").
 
 ## Closures upon [closures](http://en.wikipedia.org/wiki/Closure_%28computer_science%29 "Closure (computer science)")
 
-Here&#x27;s where it gets even more magical. Stacking closures to achieve true greatness. Code is the best way to explain what I mean ...
+Here's where it gets even more magical. Stacking closures to achieve true greatness. Code is the best way to explain what I mean ...
 
 ```javascript
 // these functions are used to slice up data

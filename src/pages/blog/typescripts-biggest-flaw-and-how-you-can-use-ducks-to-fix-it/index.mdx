@@ -1,17 +1,18 @@
 ---
-title: 'TypeScript''s biggest flaw and how you can use ducks to fix it'
+title: "TypeScript's biggest flaw and how you can use ducks to fix it"
 description: ""
 published: 2019-06-17
-redirect_from: 
-            - /blog/typescripts-biggest-flaw-and-how-you-can-use-ducks-to-fix-it/swizec/9122
+redirect_from:
+  - /blog/typescripts-biggest-flaw-and-how-you-can-use-ducks-to-fix-it/swizec/9122
 categories: "Computer Science, Front End, Technical"
 hero: ./img/3It1RzR.png
 ---
-TypeScript is wonderful. Been using it more and more and I love it. 🥰There&#x27;s something magical about useful autocomplete suggestions, object blobs with property hints, and auto imports. That&#x27;s right, auto imports.![](./img/3It1RzR.png)
+
+TypeScript is wonderful. Been using it more and more and I love it. 🥰There's something magical about useful autocomplete suggestions, object blobs with property hints, and auto imports. That's right, auto imports.![](./img/3It1RzR.png)
 
 Press enter and VSCode adds `import { FieldTypes } from './types'` at the top.
 
-And check this out: I got a form builder that takes JavaScript blobs as configuration. VSCode is smart enough to tell me when they&#x27;re wrong. 👌
+And check this out: I got a form builder that takes JavaScript blobs as configuration. VSCode is smart enough to tell me when they're wrong. 👌
 
 This works:
 
@@ -21,7 +22,7 @@ Got a field with a `name` and a `placeholder`. Remove one and o-oh.
 
 ![](./img/ulnjYvE.png)
 
-The error is cryptic type vomit. You get used to that. Means that one of your blobs doesn&#x27;t match any known field type.
+The error is cryptic type vomit. You get used to that. Means that one of your blobs doesn't match any known field type.
 
 But get this, add `type: "email"` and no need for a placeholder 😮
 
@@ -31,7 +32,7 @@ Whoa
 
 ![whoa giphy](./img/media-DyvyiFFXF1Yli-giphy.gif)
 
-So what&#x27;s going on here? What&#x27;s TypeScript doing to support this? And why do we need a `type` property if we&#x27;re using a typed language?
+So what's going on here? What's TypeScript doing to support this? And why do we need a `type` property if we're using a typed language?
 
 ## Static analysis
 
@@ -45,21 +46,21 @@ Everything from autocompletion, hints on object properties, and squiggly lines w
 
 TypeScript with VSCode brings all that to JavaScript.
 
-You get a better coding experience most of the time. Sometimes you fight the type system, but it&#x27;s got your back ... mostly. Great for large teams and large codebases.
+You get a better coding experience most of the time. Sometimes you fight the type system, but it's got your back ... mostly. Great for large teams and large codebases.
 
 Know your code has at least a remote chance of being correct without running every single line? Love it ❤️
 
 ## Dynamic analysis
 
-In contrast to static analysis you have [dynamic analysis](https://en.wikipedia.org/wiki/Dynamic_program_analysis). That&#x27;s JavaScript&#x27;s normal mode.
+In contrast to static analysis you have [dynamic analysis](https://en.wikipedia.org/wiki/Dynamic_program_analysis). That's JavaScript's normal mode.
 
 > Dynamic program analysis is the analysis of computer software that is performed by executing programs on a real or virtual processor. For dynamic program analysis to be effective, the target program must be executed with sufficient test inputs to produce interesting behavior.
 
-To analyze a dynamic language, you gotta run it. That&#x27;s where test driven development comes in.
+To analyze a dynamic language, you gotta run it. That's where test driven development comes in.
 
-You don&#x27;t have a static type system saving your butt for some classes of errors. You gotta run the thing and see if it works. And you better make sure you run every line of code.
+You don't have a static type system saving your butt for some classes of errors. You gotta run the thing and see if it works. And you better make sure you run every line of code.
 
-If you don&#x27;t, I promise your users will 😉
+If you don't, I promise your users will 😉
 
 ## Duck typing
 
@@ -71,13 +72,13 @@ If you don&#x27;t, I promise your users will 😉
 
 The duck test 🦆
 
-You&#x27;re duck typing every time you write code like `if (object.property && object.property.value === 'something')`
+You're duck typing every time you write code like `if (object.property && object.property.value === 'something')`
 
 Verify the object is a duck, has a `property`, then use it like a duck.
 
 ## Type guards in TypeScript
 
-That brings us to TypeScript&#x27;s biggest flaw.
+That brings us to TypeScript's biggest flaw.
 
 From [TypeScript Design Goals](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals)
 
@@ -87,7 +88,7 @@ TypeScript is a static analysis tool only. No types at runtime. No type checking
 
 Great for program size and understandability. Not great for useful type system.
 
-Say you&#x27;ve got a form builder with two field types like I mentioned before.
+Say you've got a form builder with two field types like I mentioned before.
 
 [![Click through for source](./img/techletter.app-screenshot-1560790608889.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20A%20union%20type%20for%20field%20types%0Aexport%20type%20FieldTypes%20%3D%20TextFieldProps%20%7C%20EmailFieldProps%3B%0A%0A%2F%2F%20All%20fields%20share%20some%20properties%0Aexport%20interface%20CoreFieldProps%20%7B%0A%20%20%20%20name%3A%20string%3B%0A%20%20%20%20initialValue%3F%3A%20string%3B%0A%7D%0A%0A%2F%2F%20Text%20fields%20require%20a%20placeholder%0A%2F%2F%20type%20is%20%60text%60%20by%20default%0Aexport%20interface%20TextFieldProps%20extends%20CoreFieldProps%20%7B%0A%20%20%20%20type%3F%3A%20%22text%22%3B%0A%20%20%20%20placeholder%3A%20string%3B%0A%7D%0A%0A%2F%2F%20Email%20fields%20don't%20require%20a%20placeholder%0Aexport%20interface%20EmailFieldProps%20extends%20CoreFieldProps%20%7B%0A%20%20%20%20type%3A%20%22email%22%3B%0A%20%20%20%20placeholder%3F%3A%20string%3B%0A%7D>)
 
@@ -97,32 +98,32 @@ Then we got a `CoreFieldProps` interface that defines properties all fields shar
 
 Specific field types extend the core props and add their own. Most importantly they add the `type` field.
 
-That&#x27;s how TypeScript knows what you mean when you write
+That's how TypeScript knows what you mean when you write
 
 [![Click through for source](./img/techletter.app-screenshot-1560790608727.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%3CForm%0A%20%20%20%20onSubmit%3D%7Bvalues%20%3D%3E%20alert(JSON.stringify(values%2C%20null%2C%202))%7D%0A%20%20%20%20fields%3D%7B%5B%0A%20%20%20%20%20%20%20%20%7B%20name%3A%20%22firstName%22%2C%20placeholder%3A%20%22First%20Name%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%20name%3A%20%22lastName%22%2C%20placeholder%3A%20%22Last%20Name%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%20name%3A%20%22email%22%2C%20type%3A%20%22email%22%20%7D%0A%20%20%20%20%5D%7D%20%2F%3E>)
 
-Looks at the first two blobs, sees they match `TextFieldProps`. They&#x27;ve got a name and a placeholder, no type.
+Looks at the first two blobs, sees they match `TextFieldProps`. They've got a name and a placeholder, no type.
 
-The last blob uses `type: "email"` so TypeScript knows it&#x27;s okay that there&#x27;s no placeholder. Optional in emails.
+The last blob uses `type: "email"` so TypeScript knows it's okay that there's no placeholder. Optional in emails.
 
 ## Duck typing at runtime
 
 Static analysis worked great in the editor. What about when you want to render different fields based on their type?
 
-You&#x27;re using a typed language right, how hard can it be.
+You're using a typed language right, how hard can it be.
 
 [![Click through for source](./img/techletter.app-screenshot-1560797141465.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20RenderField%20%3D%20(props%3A%20FieldTypes)%20%3D%3E%20%7B%0A%09if%20(typeof%20props%20%3D%3D%20TextFieldProps)%20%7B%0A%09%09%2F%2F%20render%20a%20text%20field%0A%09%7Delse%20if%20(typeof%20props%20%3D%3D%20EmailFieldProps)%20%7B%0A%09%09%2F%2F%20render%20an%20email%20field%0A%09%7D%0A%7D>)
 
 Not so fast buster.
 
-JavaScript has no idea about your types. `typeof props` evaluates to `object`. That&#x27;s not gonna match your artisanally crafted types you worked so hard to build 😉
+JavaScript has no idea about your types. `typeof props` evaluates to `object`. That's not gonna match your artisanally crafted types you worked so hard to build 😉
 
-Instead, you&#x27;ll have to use [TypeScript Type Guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types)
+Instead, you'll have to use [TypeScript Type Guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types)
 
 Two types of guards prove useful in the wild:
 
-1. Duck typing
-2. Explicit `type` property
+1.  Duck typing
+2.  Explicit `type` property
 
 ### Duck typing
 
@@ -134,7 +135,7 @@ An animal is a duck if it can both swim and fly. The `in` operator checks for th
 
 ### Explicit type property
 
-The other approach works best in an object blob situation. You provide a `type` attribute, define types with hardcoded values, then make sure they&#x27;re defined.
+The other approach works best in an object blob situation. You provide a `type` attribute, define types with hardcoded values, then make sure they're defined.
 
 Use those values at runtime to decide what to do
 
@@ -148,7 +149,7 @@ But I prefer blobs for passing data and use duck typing when dealing with actual
 
 ![](./img/kr3gtct.png)
 
-And that&#x27;s how you can use ducks to solve TypeScript&#x27;s biggest flaw – lack of type support at runtime.
+And that's how you can use ducks to solve TypeScript's biggest flaw – lack of type support at runtime.
 
 Hope this was useful ✌️
 
