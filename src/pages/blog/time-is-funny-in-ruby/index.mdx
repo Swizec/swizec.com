@@ -125,7 +125,7 @@ And I'm having trouble finding the `parse` method. It shows up in [107 rails sou
 
 It is!
 
-[Deep inside Ruby's C source code](https://github.com/ruby/ruby/blob/d8bf1785316c55e3befac9db0981180bd1432b49/ext/date/date_core.c), the `DateTime` class is defined. You'd think Ruby used the [bootstrapping compiler](<https://en.wikipedia.org/wiki/Bootstrapping%5C_(compilers)>) approach and was written in Ruby, but nope. It looks like it's done in C. Who knew… ¯\_(ツ)\_/¯
+[Deep inside Ruby's C source code](https://github.com/ruby/ruby/blob/d8bf1785316c55e3befac9db0981180bd1432b49/ext/date/date_core.c), the `DateTime` class is defined. You'd think Ruby used the [bootstrapping compiler](<https://en.wikipedia.org/wiki/Bootstrapping%5C_(compilers)>) approach and was written in Ruby, but nope. It looks like it's done in C. Who knew… ¯*(ツ)*/¯
 
 To the best of my understanding, this is the code that becomes `.parse` once Ruby is compiled and looks like Ruby.
 
