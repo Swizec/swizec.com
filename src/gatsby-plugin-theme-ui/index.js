@@ -8,6 +8,7 @@ export default merge(preset, {
   colors: {
     text: "#000",
     background: "#fff",
+    copyBackground: "#f9fafb",
     primary: "#B37FFF",
     secondary: "#6C19D9",
     accent: "#f0a",
@@ -18,6 +19,7 @@ export default merge(preset, {
       lite: {
         text: "#000",
         background: "#fff",
+        copyBackground: "#f9fafb",
         primary: "#33e",
         secondary: "#a0c",
         accent: "#f0a",
@@ -28,6 +30,7 @@ export default merge(preset, {
       dark: {
         text: "#fff",
         background: "#000",
+        copyBackground: "hsl(167, 6%, 42%)",
         primary: "#0ff",
         secondary: "#b0f",
         accent: "#f0b",
@@ -38,6 +41,7 @@ export default merge(preset, {
       gray: {
         text: "#fff",
         background: "hsl(270, 30%, 14%)",
+        copyBackground: "hsl(171, 18%, 38%)",
         primary: "hsl(180, 100%, 60%)",
         secondary: "hsl(270, 100%, 60%)",
         accent: "hsl(300, 100%, 60%)",
@@ -48,6 +52,7 @@ export default merge(preset, {
       hack: {
         text: "hsl(120, 100%, 75%)",
         background: "hsl(120, 20%, 10%)",
+        copyBackground: "hsl(0, 6%, 38%)",
         primary: "hsl(120, 100%, 40%)",
         secondary: "hsl(120, 50%, 40%)",
         accent: "hsl(120, 100%, 90%)",
@@ -58,6 +63,7 @@ export default merge(preset, {
       pink: {
         text: "hsl(350, 80%, 10%)",
         background: "hsl(350, 100%, 90%)",
+        copyBackground: "hsl(352, 22%, 60%)",
         primary: "hsl(350, 100%, 50%)",
         secondary: "hsl(280, 100%, 50%)",
         accent: "hsl(280, 100%, 20%)",

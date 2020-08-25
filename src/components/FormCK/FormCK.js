@@ -8,6 +8,7 @@ import styled from "@emotion/styled"
 import DefaultBeforeCopy from "./DefaultBeforeCopy"
 import DefaultLeftCopy from "./DefaultLeftCopy"
 import ThankYou from "./ThankYou"
+import BouncingLoader from "../BouncingLoader"
 
 const FormCK = ({ copyBefore, submitText, formId, children }) => {
   const { register, errors, handleSubmit, formState, reset } = useForm()
@@ -69,7 +70,13 @@ const FormCK = ({ copyBefore, submitText, formId, children }) => {
           </Box>
         ) : (
           <>
-            <div className="copy-left">{children}</div>
+            <Box sx={{
+              bg: "copyBackground",
+              textAlign: "center",
+              padding: '2rem'
+            }}>
+              {children}
+            </Box>
             <Flex
               as="form"
               onSubmit={handleSubmit(onSubmit)}
@@ -121,7 +128,10 @@ const FormCK = ({ copyBefore, submitText, formId, children }) => {
                 placeholder="Your address here"
               />
               <Button type="submit" disabled={formState.isSubmitting}>
-                {submitText}
+                {formState.isSubmitting ? 
+                 (<BouncingLoader /> )
+                 : (submitText)
+                }
               </Button>
               {submitError && (
                 <p dangerouslySetInnerHTML={{ __html: submitError }}></p>
@@ -215,10 +225,12 @@ const FormCkWrapper = styled.div`
         border-radius: 24px;
         color: #fff;
         cursor: pointer;
+        height: 64px;
         font-size: 1rem;
         font-weight: 700;
         margin-top: 1rem;
-        padding: 1rem 2rem;
+        padding: 0.5rem 1rem;
+        outline: none !important;
       }
     }
   }
