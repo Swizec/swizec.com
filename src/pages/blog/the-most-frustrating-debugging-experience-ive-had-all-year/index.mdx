@@ -5,10 +5,10 @@ published: 2018-08-28
 redirect_from:
   - /blog/frustrating-debugging-journey-ive-year/swizec/8588
 categories: "Technical"
-hero: ./img/blog-wp-content-uploads-2018-08-CleanShot-2018-08-28-at-09.27.06@2x-772x1024.png
+hero: ../../../defaultHero.jpg
 ---
 
-\[caption id="attachment_8595" align="aligncenter" width="177"]![](./img/blog-wp-content-uploads-2018-08-email-debugging.gif) 57 debugging iterations\[/caption]
+![](https://swizec.com/blog/wp-content/uploads/2018/08/email-debugging.gif)
 
 Building emails sucks.
 
@@ -22,7 +22,7 @@ Wonderful. Look at us being a responsible team and avoiding all the hard finicky
 
 I look at the template and think _"Ok, central body area, some optional pre_body stuff, some optional post_body stuff. Body made out of a few basic widgets."_
 
-\[caption id="attachment_8589" align="aligncenter" width="580"]![](./img/blog-wp-content-uploads-2018-08-CleanShot-2018-08-28-at-09.27.06@2x-772x1024.png) What we built in BeePro\[/caption]
+![](https://swizec.com/blog/wp-content/uploads/2018/08/CleanShot-2018-08-28-at-09.27.06@2x-772x1024.png)
 
 To avoid bloating up our codebase and make it easier to build many different emails that look just like this, I cut it up into a few Ruby on Rails partials. A basic layout for the email with hooks for pre and post body stuff, a header partial, a title partial, an information row partial, stuff like that.
 
@@ -30,11 +30,11 @@ All my partials were built through careful copy and paste. Inspect the exported 
 
 Here's what the emails looked like in my test environment. Opening as a browser tab instead of sending via SMTP. 👇
 
-\[caption id="attachment_8590" align="aligncenter" width="1920"]![](./img/blog-wp-content-uploads-2018-08-kapture_2018-08-24_at_14.37.34.gif) How the email looked in test\[/caption]
+![](https://swizec.com/blog/wp-content/uploads/2018/08/kapture_2018-08-24_at_14.37.34.gif)
 
 And here's what that same email looked like in GMail when my QA team tried it out.
 
-\[caption id="attachment_8592" align="aligncenter" width="1920"]![](./img/blog-wp-content-uploads-2018-08-kapture_2018-08-24_at_14.34.37.gif) Same code, but in GMail\[/caption]
+![](https://swizec.com/blog/wp-content/uploads/2018/08/kapture_2018-08-24_at_14.34.37.gif)
 
 ...
 
@@ -44,13 +44,13 @@ The problem is that BeePro builds weird HTML that I had to tweak a little and th
 
 You see BeePro doesn't think in boxes like you and I do. It thinks in full width divs and fakes containers.
 
-\[caption id="attachment_8593" align="aligncenter" width="580"]![BeePro fakes containers](./img/blog-wp-content-uploads-2018-08-CleanShot-2018-08-28-at-09.33.17@2x-994x1024.png) BeePro fakes containers\[/caption]
+![BeePro fakes containers](https://swizec.com/blog/wp-content/uploads/2018/08/CleanShot-2018-08-28-at-09.33.17@2x-994x1024.png)
 
 Tweaked a few things, moved some CSS around, copy pastad some more HTML. Fixed the email yay!
 
 Looks great in GMail on the desktop. Surely it's fine everywhere.
 
-\[caption id="attachment_8594" align="aligncenter" width="576"]![](./img/blog-wp-content-uploads-2018-08-image_from_ios-576x1024.png) My fix for containers broke mobile layout\[/caption]
+![](https://swizec.com/blog/wp-content/uploads/2018/08/image_from_ios-576x1024.png)
 
 ![](./img/media-IYIlvuWc21U4g-giphy.gif)
 
@@ -88,7 +88,7 @@ Sometimes you take things out to see if they're pushing stuff around. Binary sea
 
 It took me 57 iterations. Here's a gif. Enjoy 👇
 
-\[caption id="attachment_8595" align="aligncenter" width="355"]![](./img/blog-wp-content-uploads-2018-08-email-debugging.gif) 57 debugging iterations\[/caption]
+![](https://swizec.com/blog/wp-content/uploads/2018/08/email-debugging.gif)
 
 I may have lost my sanity, I may have begged on twitter for a bullet to the head, but by joe I got it done. The email is damn well perfect.
 

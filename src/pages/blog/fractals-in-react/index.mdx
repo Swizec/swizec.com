@@ -16,7 +16,7 @@ That's not the article you're getting. It _started_ as that article, then I spen
 
 Who the hell accidentally spends all night building fractals? Me… I guess.
 
-![](./img/blog-wp-content-uploads-2016-11-growing-pythagoras-tree.gif)
+![](https://swizec.com/blog/wp-content/uploads/2016/11/growing-pythagoras-tree.gif)
 
 Pretty, innit? Built with React, and it's going to stop working when I `npm run build`. Still don't know why. I'll figure _that_ out next week.
 
@@ -99,7 +99,7 @@ To draw the rectangle, we:
 
 And that's how you build a fractal in React. It won't work in production, but it sure looks pretty on your localhost.
 
-![](./img/blog-wp-content-uploads-2016-11-growing-pythagoras-tree-1.gif)
+![](https://swizec.com/blog/wp-content/uploads/2016/11/growing-pythagoras-tree-1.gif)
 
 The animation is done in [App.js](https://github.com/Swizec/react-fractals/blob/master/src/App.js) with a timer that updates the `maxlvl` prop every 500ms. Calling the root node of `Pythagoras` looks like this:
 
@@ -121,7 +121,7 @@ Yes, I tried. The naive algorithm isn't good enough. You could optimize by takin
 
 Look at [Andrew Hoyer's](http://andrew-hoyer.com/experiments/fractals/) Pythagoras tree. That thing is beautiful and flexible and dances like tree-shaped worm.
 
-![](./img/blog-wp-content-uploads-2016-11-andrew-hoyer-tree.gif)
+![](https://swizec.com/blog/wp-content/uploads/2016/11/andrew-hoyer-tree.gif)
 
 ?
 
@@ -129,7 +129,7 @@ I can't figure out how to calculate those angles and rectangle sizes. I know tha
 
 You can change the ratio by using a `.3` and `.7` factor for each side. Then it stops working with `45` degree angles yeah.
 
-![](./img/blog-wp-content-uploads-2016-11-broken-tree.gif)
+![](https://swizec.com/blog/wp-content/uploads/2016/11/broken-tree.gif)
 
 Ok, that was expected. Since you know all the sides, you should be able to apply the [Law of Sines](https://en.wikipedia.org/wiki/Law_of_sines) to calculate the angle.
 
@@ -141,7 +141,7 @@ const nextLeft = 0.3 * Factor * w,
   B = Math.degrees(Math.asin(nextLeft / d));
 ```
 
-![](./img/blog-wp-content-uploads-2016-11-broken-tree2.gif)
+![](https://swizec.com/blog/wp-content/uploads/2016/11/broken-tree2.gif)
 
 I can't figure it out. I'm pretty sure I'm applying the Law of Sines correctly, but the numbers it throws out are wrong.
 

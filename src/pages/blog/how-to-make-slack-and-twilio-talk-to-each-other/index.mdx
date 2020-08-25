@@ -8,7 +8,9 @@ categories: "Technical"
 hero: ./img/lFiUoxb.png
 ---
 
-Why? Because it’s cool.And in some cases, you can make a bot that answers the door. Like I [started here](https://swizec.com/blog/livecoding-22-a-door-answering-slackbot/swizec/7038) and [continued here](https://swizec.com/blog/livecoding-23-slackbots-oauth/swizec/7065). This isn’t a series. Don’t worry :)
+Why? Because it’s cool.
+
+And in some cases, you can make a bot that answers the door. Like I [started here](https://swizec.com/blog/livecoding-22-a-door-answering-slackbot/swizec/7038) and [continued here](https://swizec.com/blog/livecoding-23-slackbots-oauth/swizec/7065). This isn’t a series. Don’t worry :)
 
 You should start by setting up a [Twilio account](https://www.twilio.com/) and a [Slack app](https://api.slack.com/slack-apps). We’re going to build a node.js server running [Express](http://expressjs.com/) that:
 
@@ -82,7 +84,7 @@ router.get("/handle_slack_callback", (req, res) => {
 
 Now you can go to `https://swizec.ngrok.io/connect/slack` and do the dance.
 
-![oauth-dance](./img/blog-wp-content-uploads-2016-10-oauth-dance.gif)
+![oauth-dance](http://swizec.com/blog/wp-content/uploads/2016/10/oauth-dance.gif)
 
 Save that `access_token`. It lets you post to Slack as an app.
 

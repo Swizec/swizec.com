@@ -5,18 +5,18 @@ published: 2013-03-07
 redirect_from:
   - /blog/sexy-animated-spirographs-in-35-sloc-of-d3-js/swizec/6052
 categories: "Animation, d3.js, JavaScript, Spirograph, Uncategorized"
-hero: ./img/blog-wp-content-uploads-2013-03-0007_04_04.png
+hero: ../../../defaultHero.jpg
 ---
 
-You probably remember spirographs as kid's toys from your youth. I had a simple set that was just a collection of plastic sprockets with holes for pencils. Endless amounts of fun when I was two or three years old. I think ... I don't really remember much from that time, but I remember having those thingies and loving playing with them. One of my earliest memories even! \[caption id="" align="alignnone" width="560"]![Spirograph](http://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Spirograph3.jpg/800px-Spirograph3.jpg "Spirograph") [Spirograph](http://en.wikipedia.org/wiki/Spirograph "Spirograph")\[/caption] Last night I was making an animation example for the d3.js book I'm writing and ended up with the idea of progressively drawing out cool looking parametric equations. Little did I know, those are actually spirographs! Learned something while I was learning something.
+![Spirograph](http://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Spirograph3.jpg/800px-Spirograph3.jpg "Spirograph")![]()
 
-\>tweet gone missing&lt;
+https://twitter.com/krofdrakula/status/309348085983756288
 
 My failure in common knowledge aside, it's possible to animate the drawing of parametric equations with just a few lines of [d3.js](http://d3js.org) code. What I'm about to show you has a pretty big problem, but produces cool looking results "in the lab". Try to guess what the problem is.
 
 ## Animating spirographs
 
-\[caption id="attachment_6059" align="alignnone" width="486"][![After a few steps](http://swizec.com/blog/wp-content/uploads/2013/03/0007_04_04.png "After a few steps")](./img/blog-wp-content-uploads-2013-03-0007_04_04.png) After a few steps\[/caption] We'll make an animation timer and for each tick we'll draw a new step of the spirograph. After the spirograph is finished, we'll stop the timer. To make the animation more interesting to watch, we'll also fake a brush flying around (just a black dot). We start with some basic html:
+![After a few steps](http://swizec.com/blog/wp-content/uploads/2013/03/0007_04_04.png "After a few steps")
 
 ```html
 <title></title>
@@ -106,7 +106,7 @@ This is our [step function](http://en.wikipedia.org/wiki/Step_function "Step fun
 var timer = d3.timer(step, 500);
 ```
 
-The timer will start running after 500 milliseconds and repeatedly call the _step \_function until it returns \_true._ You can check the animation out via [the magic of github pages](http://swizec.github.com/d3.js-book-examples/ch4/timers.html). The final spirograph looks like this: \[caption id="attachment*6055" align="alignnone" width="555"][![A parametric equation visualised](http://swizec.com/blog/wp-content/uploads/2013/03/0007_04_05.png "A parametric equation visualised")](./img/blog-wp-content-uploads-2013-03-0007_04_05.png) A parametric equation visualised\[/caption] Figured out the problem yet? The problem with this approach is that I'm using the animation timer itself as a parameter to the function, which means point density depends on how long you're willing to let the animation run. It will always draw the complete function because of how d3 scales work, but it might look \_very* approximate. Think squares for circles approximate. Another problem is that using a slower computer, or doing anything that lags the CPU even a little bit while the animation is running will ruin the final picture. For instance, this is what happens when I switch desktops around while the browser is drawing. \[caption id="attachment_6057" align="alignnone" width="546"][![Glitchy spirograph](http://swizec.com/blog/wp-content/uploads/2013/03/glitchy-spirograph.png "Glitchy spirograph")](./img/blog-wp-content-uploads-2013-03-glitchy-spirograph.png) Glitchy spirograph\[/caption]
+\_**\_![]()![A parametric equation visualised](http://swizec.com/blog/wp-content/uploads/2013/03/0007_04_05.png "A parametric equation visualised")**![Glitchy spirograph](http://swizec.com/blog/wp-content/uploads/2013/03/glitchy-spirograph.png "Glitchy spirograph")
 
 ###### Related articles
 

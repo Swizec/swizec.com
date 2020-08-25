@@ -5,12 +5,12 @@ published: 2018-07-31
 redirect_from:
   - /blog/creating-perfect-rounded-edge-d3-curves/swizec/8543
 categories: "Front End, Technical"
-hero: ./img/blog-wp-content-uploads-2018-07-tree-with-rounded-edges.png
+hero: ./img/d3-d3-shape-master-img-cardinal.png
 ---
 
 A coaching client showed me this design and asked: _Ok, how do I build this?_
 
-\[caption id="attachment_8541" align="alignnone" width="1426"]![Tree structure with rounded edges](./img/blog-wp-content-uploads-2018-07-tree-with-rounded-edges.png) Tree structure with rounded edges\[/caption]
+![Tree structure with rounded edges](https://swizec.com/blog/wp-content/uploads/2018/07/tree-with-rounded-edges.jpg)
 
 Well hmm… it's a tree of some sort. Each icon is a node, and each line is an edge. Nodes can have multiple children. I think 🤔
 
@@ -98,7 +98,7 @@ We take `start` and `end` coordinates, and the desired `radius`. Similar to CSS 
 
 Experimentally, I discovered that for best results, you have to place 2 points between the two endpoints. One on each side of the rounded corner you want.
 
-![](./img/blog-wp-content-uploads-2018-07-sketch.jpg)
+![](https://swizec.com/blog/wp-content/uploads/2018/07/sketch.jpg)
 
 Then you have to use the `curveBundle` generator with the `beta` factor set to `1`. I honestly don't know what that means but it works.
 

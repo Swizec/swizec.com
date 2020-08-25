@@ -5,10 +5,12 @@ published: 2018-02-28
 redirect_from:
   - /blog/seamlessly-render-preact-component-react-project/swizec/8224
 categories: "Front End, preact, react, Technical"
-hero: ./img/blog-wp-content-uploads-2018-02-react-wrap-preact.png
+hero: ../../../defaultHero.jpg
 ---
 
-<https://www.youtube.com/watch?v=sdxz_1A8zFkHave> you ever wanted to render a [Preact](https://preactjs.com/) component inside a React project?
+https://www.youtube.com/watch?v=sdxz_1A8zFk
+
+Have you ever wanted to render a [Preact](https://preactjs.com/) component inside a React project?
 
 It's hard, right? First of all, why? [Because](https://swizec.com/blog/building-interactive-dom-benchmark-preliminary-results/swizec/8219). Second of all, how do you reconcile the two different implementations of JSX?
 
@@ -38,7 +40,7 @@ https://twitter.com/_developit/status/968143181694033921?ref_src=twsrc%5Etfw
 
 Here's how it looks in code 👇
 
-![](./img/blog-wp-content-uploads-2018-02-react-wrap-preact.png)
+![](https://swizec.com/blog/wp-content/uploads/2018/02/react-wrap-preact.png)
 
 There are 4 parts to this:
 
@@ -67,6 +69,6 @@ The JSX compiles into Preact's `h()` calls because we didn't mess with the setti
 
 You can now compare React and Preact side-by-side in my [interactive DOM benchmark](https://dom-benchmark.now.sh/). I think it's a fair comparison because Preact handles its own internals.
 
-![](./img/blog-wp-content-uploads-2018-02-preact-dom.gif)
+![](https://swizec.com/blog/wp-content/uploads/2018/02/preact-dom.gif)
 
 Numbers are kinda high though. Preact is supposed to be faster than React because it's closer to the metal. I wonder if it's running in dev mode 🤔

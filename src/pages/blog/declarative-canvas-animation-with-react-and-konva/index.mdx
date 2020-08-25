@@ -5,7 +5,7 @@ published: 2017-02-16
 redirect_from:
   - /blog/declarative-canvas-animation-react-konva/swizec/7443
 categories: "Technical"
-hero: ./img/blog-wp-content-uploads-2017-02-sprite.jpg
+hero: ../../../defaultHero.jpg
 ---
 
 https://www.youtube.com/watch?v=oli1qacE-wo?ecver=2
@@ -16,7 +16,7 @@ In theory, this combination has better performance than SVG+React but worse perf
 
 If that sounds complicated… it probably is. I barely know how to use it, and I have no idea how it _actually_ works.
 
-![](./img/blog-wp-content-uploads-2017-02-bouncing-marbles-1.gif)
+![](https://swizec.com/blog/wp-content/uploads/2017/02/bouncing-marbles-1.gif)
 
 We're building a marble simulation. You can pick up a marble and throw it, and it bounces around until it stops. I wanted to add collision detection as well, but [N-body collisions are hard](https://en.wikipedia.org/wiki/N-body_problem). Next time!
 
@@ -66,7 +66,7 @@ We're rendering a `<Circle>` element at position `(x, y)` and giving it a radius
 
 Here's where it gets crazy. To get the marble look, we use `fillPattern*` props and use a `sprite` for the background. We reposition and scale it to get the sprite to fit and make marbles look different.
 
-![](./img/blog-wp-content-uploads-2017-02-sprite.jpg)
+![](https://swizec.com/blog/wp-content/uploads/2017/02/sprite.png)
 
 For the shine effect, we use `shadow*` props. Shadows get a color that matches each marble (I used Photoshop), some blur, and an opacity. This gives each marble a glow that makes the marbles look shiny.
 

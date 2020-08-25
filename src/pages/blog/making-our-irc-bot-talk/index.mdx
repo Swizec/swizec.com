@@ -8,13 +8,13 @@ categories: "Artificial intelligence, Facebook, Internet Relay Chat, Markov chai
 hero: ./img/images-irobot1.jpg
 ---
 
-> \[18:21:38] &amp;lt;HairyFotr> \_chatty-botko\_ we desire to hear moar of you're infinite wisdom \[18:21:38] &amp;lt;\_chatty-botko\_> know it broken ? \_chatty-botko\_ doesn't though gets
+> \[18:21:38] &lt;HairyFotr> \_chatty-botko\_ we desire to hear moar of you're infinite wisdom \[18:21:38] &lt;\_chatty-botko\_> know it broken ? \_chatty-botko\_ doesn't though gets
 
-[IRC](http://en.wikipedia.org/wiki/Internet_Relay_Chat "Internet Relay Chat") might seem quaint and outdated, but for keeping in touch with a group of friends it beats [Twitter](http://twitter.com "Twitter"), Facebook and Google+ hands down. \[caption id="" align="alignright" width="360" caption="Robot"]![Robot](./img/images-irobot1.jpg "Robot")\[/caption] There's a bunch of _others_ on those things. With IRC there's just us ... and a robot overlord. Mostly **botko** makes sure to mention when we repost links and keeps irc logs for us. But as soon as [@smotko](https://twitter.com/#!/smotko) added random phrases to make keeping us in place more interesting. We wanted more. We wanted our bot to speak. It's been ages since I coded just for fun, so last night I made **botko** talk.
+![]()![]()![Robot](./img/images-irobot1.jpg "Robot")\_**\_![]()**
 
 ## What to say?
 
-> \[18:03:13] &amp;lt;\_chatty-botko\_> \_botko\_ probably feels left out \[18:12:45] &amp;lt;\_chatty-botko\_> auto complete :D whoa! mind = blown
+> \[18:03:13] &lt;\_chatty-botko\_> \_botko\_ probably feels left out \[18:12:45] &lt;\_chatty-botko\_> auto complete :D whoa! mind = blown
 
 So how do you make a robot speak? Natural language generation is a _huge_ field, hell I'm doing [my thesis](http://swizec.github.com/Le-Thesis/) in that general vicinity. For this project I just wanted to have a little fun, not invent a monster -> [markov chain](http://en.wikipedia.org/wiki/Markov_chain "Markov chain") [text generation](http://en.wikipedia.org/wiki/Natural_language_generation "Natural language generation")! The way a markov chain text generator works is basically:
 
@@ -87,7 +87,7 @@ Pretty cool right?
 
 ## When to speak?
 
-Okay, that takes care of generating the text. But when should \_\_botko\_\_ speak anyway? \[caption id="" align="alignright" width="240" caption="How Should You Act on IRC (Internet Relay Chatroom)? (Photo credit: Chris Pirillo)"][![How Should You Act on IRC (Internet Relay Chat...](./img/3246-2866792711_027e60dd7e_m.jpg "How Should You Act on IRC (Internet Relay Chat...")](http://www.flickr.com/photos/49503157467@N01/2866792711)\[/caption] You certainly don't want the bot to spam everyone. But you don't want him to be completely quiet most of the time. Speaking every X amount of events is simply too predictable and boring ... Ideally you'd want him to speak more when the chatroom is busier and less when it's a bit quiet. When it's been quiet for a long time and it suddenly becomes very busy, that's also a good time to speak. Sort of like a greeting. I ended up using a combination of chat velocity and the rate of chat acceleration change to determine the probability of speaking, which is then still left up to [randomness](http://en.wikipedia.org/wiki/Randomness "Randomness"). Velocity is measured as the ratio between the timespan of the last 10 messages and the timespan of the last 60. This basically measures how densely the messages are coming into the chatroom right now.
+\_\_![How Should You Act on IRC (Internet Relay Chat...](./img/3246-2866792711_027e60dd7e_m.jpg "How Should You Act on IRC (Internet Relay Chat...")![]()
 
 ```python
 velocity_rate = (now - 10_messages_ago_time)/(now - 60_messages_ago_time)

@@ -5,14 +5,14 @@ published: 2012-02-27
 redirect_from:
   - /blog/unit-testing-is-for-lazy-people/swizec/3752
 categories: "Debugging, Integration testing, Programming, Test, Test automation, TestUnit, Uncategorized"
-hero: ./img/blog-wp-content-uploads-2012-02-fallen-building.jpg
+hero: ../../../defaultHero.jpg
 ---
 
-The other day I was talking to a guy about a possible freelancing gig and he said how wonderful it was that I should bring up the topic of unit/[automated testing](http://en.wikipedia.org/wiki/Test_automation "Test automation")without being asked. Said that most (many?) developers don't have the level of rigor to use automated testing. \[caption id="attachment*3790" align="alignright" width="363" caption="Oops building"][![Oops building](http://swizec.com/blog/wp-content/uploads/2012/02/fallen-building.jpg "Oops building")](./img/blog-wp-content-uploads-2012-02-fallen-building.jpg)\[/caption] My reaction was one of disbelief *"Rigor!? But automated testing is one of the laziest things a developer can do! It speeds stuff up _so_ much!"_ As luck would have it, last night I was hit over the head with my own words and nearly died [debugging](http://en.wikipedia.org/wiki/Debugging "Debugging") a single function. I was working on Stripe webhooks and for security reasons decided not to use the event data sent in request body. Makes sense right? Take the event id from request body, then fetch the actual event from Stripe. It's the only way to be certain you aren't responding to bogus events sent by an evil person trying to make you look bad (nothing \_actually_ bad can happen, at worst a customer would get extra paid invoice emails). Due to poor decoupling - I didn't really want to decouple a 6 line function into two functions - everything was now difficult to test. I can't create events on Stripe's servers with [unit tests](http://en.wikipedia.org/wiki/Unit_testing "Unit testing") and without actual events existing I can't test the function works as it's supposed to. How many bugs can you put in a 6 line function anyway?
+![]()![Oops building](http://swizec.com/blog/wp-content/uploads/2012/02/fallen-building.jpg "Oops building")_\*\*_![]()\*\*![]()
 
 ## A lot of bugs!
 
-When the client tested on staging ... it didn't work. Invoice email wasn't sent and Stripe complained of a [500 error](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes "List of HTTP status codes"). \[caption id="" align="alignright" width="300" caption="Image via Wikipedia"][![English: British Army Signals Trials Unit test...](./img/blog-wp-content-uploads-2012-02-300px-Army_Camp-sml.jpg "English: British Army Signals Trials Unit test...")](http://commons.wikipedia.org/wiki/File:Army_Camp-sml.JPG)\[/caption] It took me almost two hours to fix all the bugs because my testing cycle looked like this:
+![]()![English: British Army Signals Trials Unit test...](http://swizec.com/blog/wp-content/uploads/2012/02/300px-Army_Camp-sml.jpg "English: British Army Signals Trials Unit test...")
 
 1.  change code
 2.  commit to _develop branch_

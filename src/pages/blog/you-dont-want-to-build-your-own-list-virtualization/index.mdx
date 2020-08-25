@@ -5,10 +5,16 @@ published: 2018-02-01
 redirect_from:
   - /blog/build-list-virtualization/swizec/8167
 categories: "Front End, Technical"
-hero: ./img/blog-wp-content-uploads-2018-02-Image-uploaded-from-iOS-1-1-1024x768.jpg
+hero: ../../../defaultHero.jpg
 ---
 
-Chatroom is slow? I know, I'll just use list virtualization!Well now you have two problems.<https://twitter.com/Swizec/status/958840988495093760List> virtualization is hard, dear reader. _So_ hard. “Pfft, I can build that in an hour,” I thought until I tried.
+Chatroom is slow? I know, I'll just use list virtualization!
+
+Well now you have two problems.
+
+https://twitter.com/Swizec/status/958840988495093760
+
+List virtualization is hard, dear reader. _So_ hard. “Pfft, I can build that in an hour,” I thought until I tried.
 
 It's been 3 days. Last night, I dreamed scrollbars and mouse wheel events.
 
@@ -28,13 +34,13 @@ Instead of keeping the whole hundreds-of-messages chatroom rendered, you render 
 
 And that gives you a performance boost. Fewer DOM nodes to deal with, faster rendering times. Especially on slow computers.
 
-The problem may have become a problem because of the [Spectre and Meltdown fixes that hit Intel processors with up to 30% slowdowns](https://techcrunch.com/2018/01/03/a-major-kernel-vulnerability-is-going-to-slow-down-all-intel-processors-2/). When you're already using a slow \\\\\$300 computer… yeah.
+The problem may have become a problem because of the [Spectre and Meltdown fixes that hit Intel processors with up to 30% slowdowns](https://techcrunch.com/2018/01/03/a-major-kernel-vulnerability-is-going-to-slow-down-all-intel-processors-2/). When you're already using a slow \\\$300 computer… yeah.
 
 ## How to virtualize a list, in theory
 
 So, how do you virtualize a list?
 
-![](./img/blog-wp-content-uploads-2018-02-Image-uploaded-from-iOS-1-1-1024x768.jpg)
+![](https://swizec.com/blog/wp-content/uploads/2018/02/Image-uploaded-from-iOS-1-1-1024x768.jpg)
 
 Virtualizing a list is simple in theory. You maintain a window and move it around your list.
 
@@ -110,4 +116,4 @@ https://twitter.com/Swizec/status/959151765185691650?ref_src=twsrc%5Etfw
 
 Wasn't that complicated after all. Just a bunch of maths with magic numbers.
 
-![](./img/blog-wp-content-uploads-2018-02-carbon-2-1024x1013.png)
+![](https://swizec.com/blog/wp-content/uploads/2018/02/carbon-2-1024x1013.png)

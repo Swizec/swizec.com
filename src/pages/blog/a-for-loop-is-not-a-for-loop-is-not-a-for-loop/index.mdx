@@ -5,10 +5,10 @@ published: 2011-10-19
 redirect_from:
   - /blog/a-for-loop-is-not-a-for-loop-is-not-a-for-loop/swizec/2667
 categories: "Uncategorized"
-hero: ./img/blog-wp-content-uploads-2011-10-6260572607_be8dca7de4_m2.jpg
+hero: ../../../defaultHero.jpg
 ---
 
-\[caption id="" align="alignright" width="240" caption="Image by Phliar via Flickr"][![IMG_1675](./img/blog-wp-content-uploads-2011-10-6260572607_be8dca7de4_m2.jpg "IMG_1675")](http://www.flickr.com/photos/56861611@N00/6260572607)\[/caption]
+![IMG_1675](http://swizec.com/blog/wp-content/uploads/2011/10/6260572607_be8dca7de4_m2.jpg "IMG_1675")
 
 For loops are kind of a big deal. So big in fact that it's virtually impossible to code any sizeable chunk of code without running into some sort of [for loop](http://en.wikipedia.org/wiki/For_loop "For loop") ... sure, there's such awesome things as pure [functional languages](http://en.wikipedia.org/wiki/Functional_programming "Functional programming") where for loops don't look like for loops. But I'm fairly certain most of those eventually turn into some sort of for loop deep down in the bowels of assembler and machine code. It is therefore fairly easy to assert that everyone needs to know for loops like the back of their hand. But how well do you really know them? A few days ago I ran into a silly thing with a couple of friends. We somehow got reminded that C counts the head of a for loop as part of the loop's scope, which means variables defined therein don't really affect anyone outside the loop. But at the same time, it seems like many (most?) other languages don't behave like this. It seemed only reasonable to go write a for loop in many languages and see what happens.
 

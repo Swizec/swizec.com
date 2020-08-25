@@ -5,10 +5,16 @@ published: 2018-04-10
 redirect_from:
   - /blog/blockchain-redux-shares-blocks-between-clients-real-time/swizec/8320
 categories: "blockchain, Front End, Livecoding, react, redux"
-hero: ./img/blog-wp-content-uploads-2018-04-firebase-blockchain-init.png
+hero: ../../../defaultHero.jpg
 ---
 
-<https://www.youtube.com/watch?v=N9YIInvZZEUSunday> was fun. We built a thing! 🎉Well… we added a thing to the You Can Use Blockchain To Store And Share UI State proof of concept I've been livecoding on. I'd share a live link with you, but… err… the app broke._This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should subscribe to [My Youtube](https://www.youtube.com/TheSwizec) channel to catch me live._
+https://www.youtube.com/watch?v=N9YIInvZZEU
+
+Sunday was fun. We built a thing! 🎉
+
+Well… we added a thing to the You Can Use Blockchain To Store And Share UI State proof of concept I've been livecoding on. I'd share a live link with you, but… err… the app broke.
+
+_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should subscribe to [My Youtube](https://www.youtube.com/TheSwizec) channel to catch me live._
 
 It was working, you see. Then it wasn't. Infinite loop on page load.
 
@@ -32,13 +38,13 @@ In part that's because there's no _real_ consensus algorithm. Any valid block is
 
 You may have seen [how blockchain initialization works](https://swizec.com/blog/blockchain-redux-experiment-part-2/swizec/8055) before. We read the whole chain from Firebase and replace the local chain stub.
 
-\[caption id="attachment_8319" align="alignnone" width="1564"]![Initializing the blockchain from Firebase](./img/blog-wp-content-uploads-2018-04-firebase-blockchain-init.png) Initializing the blockchain from Firebase\[/caption]
+![Initializing the blockchain from Firebase](https://swizec.com/blog/wp-content/uploads/2018/04/firebase-blockchain-init.png)
 
 You can read more [details about this code in a previous blogpost](https://swizec.com/blog/blockchain-redux-experiment-part-2/swizec/8055).
 
 The part that's new is calling `listenForNextBlock` after replacing the local chain.
 
-\[caption id="attachment_8318" align="alignnone" width="1498"]![Listen for the next block](./img/blog-wp-content-uploads-2018-04-wait-for-next-block.png) Listen for the next block\[/caption]
+![Listen for the next block](https://swizec.com/blog/wp-content/uploads/2018/04/wait-for-next-block.png)
 
 We have a local chain and want to make sure we catch the next block that shows up. So we fetch the latest index with `store.getLastBlock().index`, increment by 1, and listen for changes on `blockchain/${nextIndex}`.
 

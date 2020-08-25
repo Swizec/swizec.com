@@ -12,7 +12,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 This Sunday, we built a zoomable pannable map with React and D3. We also added animation to our migration curves. Now people can see what they mean.
 
-\[caption id="attachment_7454" align="alignnone" width="1291"][![Click on the map to see a live example](./img/blog-wp-content-uploads-2017-02-uk-migrations.gif)](https://swizec.github.io/migrations-map/) Click on the map to see a live example\[/caption]
+![Click on the map to see a live example](http://swizec.com/blog/wp-content/uploads/2017/02/uk-migrations.gif)
 
 See? It zooms and it pans and the circles follow their curves. Just like the color, the amount of circles on each line signifies migration intensity. ?
 
@@ -88,7 +88,7 @@ We call `_transform` on every circle in our component. Each gets a different `de
 
 `delayDither` ensures the circles for each line start with a random offset, which also helps fight the burstiness. Here's what the map looks like without `delayDither` and with a constant delay between circles regardless how many there are.
 
-![](./img/blog-wp-content-uploads-2017-02-bursty-map-1.gif)
+![](https://swizec.com/blog/wp-content/uploads/2017/02/bursty-map-1.gif)
 
 See? No good.
 
@@ -106,7 +106,7 @@ In the old days, the standard approach was to `.call()` zoom on an `<svg>` eleme
 
 We tried that approach with hilarious results:
 
-![](./img/blog-wp-content-uploads-2017-02-drag-1.gif)
+![](https://swizec.com/blog/wp-content/uploads/2017/02/drag-1.gif)
 
 First, it was moving in the wrong direction, then it was jumping around. Changing the geo projection to achieve zoom and pan was _not_ the answer. Something was amiss.
 
@@ -144,7 +144,7 @@ Get `d3.event.transform`, save it in `state` or a data store of some sort, re-re
 
 Voila, zooming and panning. ?
 
-\[caption id="attachment_7454" align="alignnone" width="1291"][![Click on the map to see a live example](./img/blog-wp-content-uploads-2017-02-uk-migrations.gif)](https://swizec.github.io/migrations-map/) Click on the map to see a live example\[/caption]
+![Click on the map to see a live example](http://swizec.com/blog/wp-content/uploads/2017/02/uk-migrations.gif)
 
 You can see the [full `World` component on Github](https://github.com/Swizec/migrations-map/blob/de8800aecca4484f8c5827a82c8a746127264143/src/Maps.js#L69).
 

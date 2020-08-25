@@ -5,10 +5,10 @@ published: 2011-09-28
 redirect_from:
   - /blog/measuring-vocabulary-richness-with-python/swizec/2528
 categories: "Uncategorized"
-hero: ./img/blog-wp-content-uploads-2011-09-6192586527_c36407222c_m7.jpg
+hero: ../../../defaultHero.jpg
 ---
 
-\[caption id="" align="alignright" width="240" caption="Image by asterix611 via Flickr"][![Pillowfights 51](./img/blog-wp-content-uploads-2011-09-6192586527_c36407222c_m7.jpg "Pillowfights 51")](http://www.flickr.com/photos/28722563@N05/6192586527)\[/caption]
+![Pillowfights 51](http://swizec.com/blog/wp-content/uploads/2011/09/6192586527_c36407222c_m7.jpg "Pillowfights 51")
 
 In preparation for a blogpost I'm going to make some time this week I found myself wanting to somehow parametrize [vocabulary](http://en.wikipedia.org/wiki/Vocabulary "Vocabulary") richness in a piece of text. _btw, Code at bottom ;)_ It's an interesting problem because when you read something, it's pretty easy to see when an author is using rich vocabulary, but trying to reduce this observation to a simple number turns out to be a bit of a brainfuck. It's obviously somehow related to word frequencies and it seems obvious that what we want to measure is the distribution shape of word frequencies. Luckily googling around for about an hour turned up a clue. Way back in 1944 a statistician called [G.U. Yule](http://en.wikipedia.org/wiki/Udny_Yule) cracked this problem in a paper titled _[The statistical study of literary vocabulary](http://scholar.google.si/scholar?q=The+statistical+study+of+literary+vocabulary+&hl=sl&btnG=Iskanje)_. What he came up with is the so called Yule's K characteristic. Wikipedia is scarce on these things, so we know we're treading strange strange ground here. Persistent searching with google scholar turned up a version of the paper that wasn't paywalled to oblivion. However since it was on google books it was missing some key pages. Luckily what looks like a random homework for R explains perfectly how to implement Yule's K value:
 

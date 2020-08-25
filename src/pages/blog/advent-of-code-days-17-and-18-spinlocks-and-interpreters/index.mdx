@@ -5,10 +5,12 @@ published: 2017-12-18
 redirect_from:
   - /blog/advent-code-days-17-18-spinlocks-interpreters/swizec/7977
 categories: "Haskell, Technical"
-hero: ./img/blog-wp-content-uploads-2017-12-carbon-spinlock.png
+hero: ../../../defaultHero.jpg
 ---
 
-<https://www.youtube.com/watch?v=3Eee0va5t0ADays> 17 and 18 both defeated me. Star 1 was easy, Star 2 was not. Both were pretty quick to solve for the first star, though, so let's look at that.
+https://www.youtube.com/watch?v=3Eee0va5t0A
+
+Days 17 and 18 both defeated me. Star 1 was easy, Star 2 was not. Both were pretty quick to solve for the first star, though, so let's look at that.
 
 ## Day 17 – Spinlock
 
@@ -16,7 +18,7 @@ For Advent of Code Day 17, we had to implement a [spinlock](https://en.wikipedia
 
 > In software engineering, a spinlock is a lock which causes a thread trying to acquire it to simply wait in a loop ("spin") while repeatedly checking if the lock is available. Since the thread remains active but is not performing a useful task, the use of such a lock is a kind of busy waiting.
 
-\[caption id="attachment_7975" align="alignnone" width="1528"]![A naive spinlock implementation in Haskell](./img/blog-wp-content-uploads-2017-12-carbon-spinlock.png) A naive spinlock implementation in Haskell\[/caption]
+![A naive spinlock implementation in Haskell](https://swizec.com/blog/wp-content/uploads/2017/12/carbon-spinlock.png)
 
 There's no video for Day 17 because I was doing it in bed and yes, I did fall asleep while waiting for Star 2 to finish computing. It never did; my algorithm was too slow.
 
@@ -91,7 +93,7 @@ _shrug_
 
 ## Day 18 – A programming language interpreter
 
-\[caption id="attachment_7976" align="alignnone" width="1356"]![The gist of a simple interpreter built in JavaScript](./img/blog-wp-content-uploads-2017-12-carbon-interpreter.png) The gist of a simple interpreter built in JavaScript\[/caption]
+![The gist of a simple interpreter built in JavaScript](https://swizec.com/blog/wp-content/uploads/2017/12/carbon-interpreter.png)
 
 On Day 18 of our Advent of Code, we had to build an interpreter for a simple programming language. There are 7 commands that take 1 or 2 arguments. Arguments can be registers or values.
 

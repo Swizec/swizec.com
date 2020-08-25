@@ -8,7 +8,9 @@ categories: "AngularJS, cyclejs, inferno, preact, react, Technical, vue"
 hero: ../../../defaultHero.jpg
 ---
 
-Ever wondered which front-end framework is smoothest to animate 2048 SVG nodes? Here are some GIFs.Same [dancing pythagorean tree fractal](https://swizec.com/blog/dancing-tree-fractal-react/swizec/7288), same mid-2012 retina MacBook Pro. All recorded with LICEcap in a normal, everyday setting running Chrome, Spotify, Emacs, etc. Click on a GIF to see its code.
+Ever wondered which front-end framework is smoothest to animate 2048 SVG nodes? Here are some GIFs.
+
+Same [dancing pythagorean tree fractal](https://swizec.com/blog/dancing-tree-fractal-react/swizec/7288), same mid-2012 retina MacBook Pro. All recorded with LICEcap in a normal, everyday setting running Chrome, Spotify, Emacs, etc. Click on a GIF to see its code.
 
 \--- _Angular 2 and CycleJS added on Dec 23rd_ ---
 
@@ -16,17 +18,17 @@ People have been asking _why_ this test is important, _why_ should they care, _w
 
 Many of the gifs have live versions linked from their github. Play with them. Maybe even clone the repo and run it locally. It's fun.
 
-\[caption id="attachment_7315" align="aligncenter" width="852"][![Implementation: mine](./img/blog-wp-content-uploads-2016-12-react-tree-small.gif)](https://github.com/Swizec/react-fractals) Implementation: mine\[/caption]
+![Implementation: mine](http://swizec.com/blog/wp-content/uploads/2016/12/react-tree-small.gif)
 
-\[caption id="attachment_7313" align="aligncenter" width="852"][![preact-tree-small](./img/blog-wp-content-uploads-2016-12-preact-tree-small.gif)](https://github.com/developit/preact-fractals) Implementation: Jason Miller, creator of Preact\[/caption]
+![preact-tree-small](http://swizec.com/blog/wp-content/uploads/2016/12/preact-tree-small.gif)
 
-\[caption id="attachment_7312" align="aligncenter" width="852"][![Implementation: Dominic Gannaway, creator of Inferno](./img/blog-wp-content-uploads-2016-12-inferno-tree-small.gif)](https://github.com/trueadm/inferno-fractals) Implementation: Dominic Gannaway, creator of Inferno\[/caption]
+![Implementation: Dominic Gannaway, creator of Inferno](http://swizec.com/blog/wp-content/uploads/2016/12/inferno-tree-small.gif)
 
-\[caption id="attachment_7314" align="aligncenter" width="852"][![Implementation: Evan You, creator of Vue](./img/blog-wp-content-uploads-2016-12-vue-tree-small.gif)](https://github.com/yyx990803/vue-fractal) Implementation: Evan You, creator of Vue\[/caption]
+![Implementation: Evan You, creator of Vue](http://swizec.com/blog/wp-content/uploads/2016/12/vue-tree-small.gif)
 
-\[caption id="attachment_7324" align="aligncenter" width="852"][![Implementation: Tero Parviainen, JavaScript consultant](./img/blog-wp-content-uploads-2016-12-ng2-tree-small.gif)](https://github.com/teropa/ng-fractals) Implementation: Tero Parviainen, JavaScript consultant\[/caption]
+![Implementation: Tero Parviainen, JavaScript consultant](http://swizec.com/blog/wp-content/uploads/2016/12/ng2-tree-small.gif)
 
-\[caption id="attachment_7325" align="aligncenter" width="852"][![Implementation: Wayne Maurer, founder of Lambda IT](./img/blog-wp-content-uploads-2016-12-cyclejs-tree-small-1.gif)](https://github.com/wmaurer/cyclejs-fractals) Implementation: Wayne Maurer, founder of Lambda IT\[/caption]
+![Implementation: Wayne Maurer, founder of Lambda IT](http://swizec.com/blog/wp-content/uploads/2016/12/cyclejs-tree-small-1.gif)
 
 Thanks to Jason, Dominic, and Evan for building the forks. You guys rock!
 
@@ -36,7 +38,7 @@ Let's look at the code. For an in-depth explanation of how it works, go [here](h
 
 ## React
 
-[![react-tree-small](./img/blog-wp-content-uploads-2016-12-react-tree-small.gif)](https://github.com/Swizec/react-fractals)
+[![react-tree-small](http://swizec.com/blog/wp-content/uploads/2016/12/react-tree-small.gif)](https://github.com/Swizec/react-fractals)
 
 Based on Jason's and Evan's tips, I added mouse event throttling to my demo to make it faster. Turns out my original tree wasn't so slow because React is slow. It was slow because I was slamming the rendering engine with so many requests per refresh cycle.
 
@@ -63,7 +65,7 @@ It might stop working when React Fiber is out. I think. ¯\\_(ツ)_/¯
 
 ## Preact
 
-[![preact-tree-small](./img/blog-wp-content-uploads-2016-12-preact-tree-small.gif)](https://github.com/developit/preact-fractals)
+[![preact-tree-small](http://swizec.com/blog/wp-content/uploads/2016/12/preact-tree-small.gif)](https://github.com/developit/preact-fractals)
 
 Jason used the `preact-compat` layer to make Preact pretend that it's React. This might impact performance.
 
@@ -106,7 +108,7 @@ My favorite part is that you can use Preact as a drop-in replacement for React a
 
 ## Inferno
 
-[![inferno-tree-small](./img/blog-wp-content-uploads-2016-12-inferno-tree-small.gif)](https://github.com/trueadm/inferno-fractals)
+[![inferno-tree-small](http://swizec.com/blog/wp-content/uploads/2016/12/inferno-tree-small.gif)](https://github.com/trueadm/inferno-fractals)
 
 You _can_ use Inferno as a drop-in replacement for React, and at first I did. Dominic says that impacts performance though, so he made a proper fork. You can see the [diff on github](https://github.com/Swizec/react-fractals/compare/master...trueadm:master).
 
@@ -137,7 +139,7 @@ According to [this issue](https://github.com/trueadm/inferno/issues/565) from 8 
 
 ## Vue
 
-[![vue-tree-small](./img/blog-wp-content-uploads-2016-12-vue-tree-small.gif)](https://github.com/yyx990803/vue-fractal)
+[![vue-tree-small](http://swizec.com/blog/wp-content/uploads/2016/12/vue-tree-small.gif)](https://github.com/yyx990803/vue-fractal)
 
 This… this took a lot of work. Kudos to Evan and the original forker Phan An!
 
@@ -159,7 +161,7 @@ Curious ?
 
 ## Angular 2
 
-[![Implementation: Tero Parviainen, JavaScript consultant](./img/blog-wp-content-uploads-2016-12-ng2-tree-small.gif)](https://github.com/teropa/ng-fractals)
+[![Implementation: Tero Parviainen, JavaScript consultant](http://swizec.com/blog/wp-content/uploads/2016/12/ng2-tree-small.gif)](https://github.com/teropa/ng-fractals)
 
 I've never been a fan of Angular, but this looks pretty good. Although it did feel extremely janky on my machine.
 
@@ -192,7 +194,7 @@ Smells like a framework optimized for very large teams. I've never been a part o
 
 ## CycleJS
 
-[![Implementation: Wayne Maurer, founder of Lambda IT](./img/blog-wp-content-uploads-2016-12-cyclejs-tree-small-1.gif)](https://github.com/wmaurer/cyclejs-fractals)
+[![Implementation: Wayne Maurer, founder of Lambda IT](http://swizec.com/blog/wp-content/uploads/2016/12/cyclejs-tree-small-1.gif)](https://github.com/wmaurer/cyclejs-fractals)
 
 Now this… this was smooth on my machine. Maybe it just feels smooth because I looked at it right after the Angular version, but damn.
 

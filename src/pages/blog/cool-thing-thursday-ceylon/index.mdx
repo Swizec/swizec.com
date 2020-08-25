@@ -22,7 +22,7 @@ The brain child of [Red Hat](http://www.redhat.com "Red Hat"), Ceylon promises t
 
 ## Why's it cool?
 
-\[caption id="" align="alignright" width="370" caption="Ceylon"]![Ceylon](./img/ceylon-ceylon-lang.org-master-images-ceylon_homebanner_elephant.png "Ceylon")\[/caption] Leaving aside for a moment it compiles to two different intermediate codes (java bytecode and javascript) and just how astoundingly _awesome_ that is, I also have a soft spot for anything JavaScript. Really, though, the most striking feature is **Ceylon's [type system](http://en.wikipedia.org/wiki/Type_system "Type system")**. First of all, there are no [primitive types](http://en.wikipedia.org/wiki/Primitive_data_type "Primitive data type"), everything is magically pulled out of thin air by something called _principal typing._ Apparently that means it can understand how types work straight from their descriptions, rather than relying on some arcane knowledge.
+![Ceylon](./img/ceylon-ceylon-lang.org-master-images-ceylon_homebanner_elephant.png "Ceylon")\***\*![]()**![]()\*\*
 
 > For every expression, a unique, most specific type may be determined, without the need to analyze the rest of the expression in which it appears. And all types used internally by the compiler are _denotable_ - that is, they can be expressed within the language itself.
 
@@ -34,7 +34,7 @@ Person|Organization personOrOrganization = ... ;
 Printable&Sized&Persistent printableSizedPersistent = ... ;
 ```
 
-You can essentially tell the compiler some value will be either a _string_ or an _integer_ or even both and it won't even bat an eyelid. Add a sprinkling of local type inference and you get something very powerful indeed. A thing can have _two+_ types. Strictly typed. Let that sink in for a bit. Now think how useful this can be when you want to have a list of items that will be of different types. Yep, pretty awesome. There's also **typesafe null and &amp;lt;stuff>**, known to readers of this blog as _[That thing Swizec can't for the life of him understand](http://swizec.com/blog/monads-monads-monads-monads/swizec/5206 "Monads, monads, monads, monads")._
+You can essentially tell the compiler some value will be either a _string_ or an _integer_ or even both and it won't even bat an eyelid. Add a sprinkling of local type inference and you get something very powerful indeed. A thing can have _two+_ types. Strictly typed. Let that sink in for a bit. Now think how useful this can be when you want to have a list of items that will be of different types. Yep, pretty awesome. There's also **typesafe null and &lt;stuff>**, known to readers of this blog as _[That thing Swizec can't for the life of him understand](http://swizec.com/blog/monads-monads-monads-monads/swizec/5206 "Monads, monads, monads, monads")._
 
 ```ceylon
 String? name = ...

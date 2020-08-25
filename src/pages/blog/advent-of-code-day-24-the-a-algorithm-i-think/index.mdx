@@ -5,10 +5,14 @@ published: 2017-12-25
 redirect_from:
   - /blog/advent-code-day-24-algorithm-think/swizec/7998
 categories: "Haskell, Technical"
-hero: ./img/blog-wp-content-uploads-2017-12-advent-of-code-day-24-graph.jpg
+hero: ../../../defaultHero.jpg
 ---
 
-On Day 24 of Advent of Code we had to build a path finding algorithm. We're given a set of nodes and a heuristic and have to find the best possible path.<https://twitter.com/Swizec/status/945176148358524929The> puzzle uses different phrasing, but that's what it is.
+On Day 24 of Advent of Code we had to build a path finding algorithm. We're given a set of nodes and a heuristic and have to find the best possible path.
+
+https://twitter.com/Swizec/status/945176148358524929
+
+The puzzle uses different phrasing, but that's what it is.
 
 > Build a bridge out of the magnetic components strewn about nearby.
 >
@@ -37,7 +41,7 @@ Let's take the test input:
 
 With those nodes, our graph of connections looks like this 👇
 
-![](./img/blog-wp-content-uploads-2017-12-advent-of-code-day-24-graph.jpg)![](graph)
+![](https://swizec.com/blog/wp-content/uploads/2017/12/advent-of-code-day-24-graph.jpg)![](graph)
 
 Sorry that's not laid out the best and I don't have my usual colourful markers on me right now. But that's our graph.
 
@@ -51,7 +55,7 @@ To find that solution we can use the famous [A\* algorithm](https://en.wikipedia
 
 Now I can't promise my algorithm is a true implementation of A\* _or_ of Dijkstra's algorithm. I used what I remembered from college as inspiration and derived the search algorithm from scratch all on my own.
 
-![A* search algorithm visualization](./img/wikipedia-commons-5-5d-Astar_progress_animation.gif)
+![A* search algorithm visualization](https://upload.wikimedia.org/wikipedia/commons/5/5d/Astar_progress_animation.gif)
 
 A\* search algorithm visualization
 

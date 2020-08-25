@@ -20,7 +20,7 @@ The easiest places to look at issues arising from ad-hoc polymorphism are arithm
 
 ## Type classes
 
-Let's say we want to overload `(+)`, `(*)`, and `negate` on `Int` and `Float`. We can do this by introducing a _type class_ called `Num` that says _"a type `a` belongs to `Num` if `(+)`, \\\`(_)`, and`negate\\\` in appropriate types are defined on it"\*. Now we can define type instances such as `Num Int` and specify which functions to translate the overloaded symbols into. We assume things like `addInt` and `mulInt` are defined by default.
+Let's say we want to overload `(+)`, `(*)`, and `negate` on `Int` and `Float`. We can do this by introducing a _type class_ called `Num` that says _"a type `a` belongs to `Num` if `(+)`, \`(_)`, and`negate\` in appropriate types are defined on it"\*. Now we can define type instances such as `Num Int` and specify which functions to translate the overloaded symbols into. We assume things like `addInt` and `mulInt` are defined by default.
 
 ```undefined
 class Num a where

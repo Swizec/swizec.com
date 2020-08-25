@@ -30,7 +30,7 @@ Indeed. It's also fun to build. You can play with the final solution in this [li
 
 Here is my first attempt ?
 
-![](./img/blog-wp-content-uploads-2017-03-base-collision.gif)
+![](https://swizec.com/blog/wp-content/uploads/2017/03/base-collision.gif)
 
 ? Hmmmm… the two marbles do bounce off each other, but that's not quite right. They come too close together before bouncing.
 
@@ -38,19 +38,19 @@ On my second attempt, I used [D3v4's quadtree](https://github.com/d3/d3-quadtree
 
 With some finagling, we can use a quadtree to reduce our n-body collision problem to a series of 2-body collision problems. Each item collides only with its nearest neighbor.
 
-![](./img/blog-wp-content-uploads-2017-03-quadtree-collision.gif)
+![](https://swizec.com/blog/wp-content/uploads/2017/03/quadtree-collision.gif)
 
 Better. Mr. Quadtree catches the collision when it happens and both marbles bounce off. After the collision, they travel in the opposite direction of where they were going before.
 
 But a collision should deflect marbles, not just bounce them. So I used a [dot product](https://en.wikipedia.org/wiki/Dot_product) to calculate new vectors. Thanks to [@air_hadoken](https://twitter.com/air_hadoken/status/837363064005623810) for showing me some of his old code. It helped a lot ^\_^
 
-![](./img/blog-wp-content-uploads-2017-03-dotproduct-collision.gif)
+![](https://swizec.com/blog/wp-content/uploads/2017/03/dotproduct-collision.gif)
 
 Marvelous! Direction vectors get deflected, marbles bounce off each other, and something is still wrong. My collision correction algorithm doesn't account for mass.
 
 Real marbles have mass. To make life easier, I decided all marbles should have the same mass. This means each marble involved in a collision gets half the combined speed involved in the impact.
 
-![](./img/blog-wp-content-uploads-2017-03-mass-collision.gif)
+![](https://swizec.com/blog/wp-content/uploads/2017/03/mass-collision.gif)
 
 ?… hmmm… I don't think marbles are that sticky.
 
@@ -64,7 +64,7 @@ Turns out, speed is definitely not additive. That looks more like a fission simu
 
 After some more tweaking, I think I got it:
 
-![](./img/blog-wp-content-uploads-2017-03-better-collisions.gif)
+![](https://swizec.com/blog/wp-content/uploads/2017/03/better-collisions.gif)
 
 _In general_, marbles bounce off each other, have their vectors deflected, slow down due to friction, and share mass in a collision. I don't know if it's a physically correct simulation, but it looks good enough to me.
 
@@ -84,7 +84,7 @@ The 2nd case is unsolvable when using quadtrees for collision detection.
 
 The 3rd case can be solved by applying the collision step until all collisions are resolved. This _might_ help with the 2nd case too ?
 
-![](./img/blog-wp-content-uploads-2017-03-iterative-application.gif)
+![](https://swizec.com/blog/wp-content/uploads/2017/03/iterative-application.gif)
 
 Well… there's no stickiness… but no.
 
@@ -272,4 +272,4 @@ Two marbles traveling towards each other in exactly opposite directions with exa
 
 The end result is a decent-looking simulation of billiards.
 
-[![](./img/blog-wp-content-uploads-2017-03-better-collisions-1.gif)](https://swizec.github.io/declarative-canvas-react-konva/)
+[![](https://swizec.com/blog/wp-content/uploads/2017/03/better-collisions-1.gif)](https://swizec.github.io/declarative-canvas-react-konva/)

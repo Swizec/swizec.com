@@ -8,7 +8,9 @@ categories: "Front End, Technical"
 hero: ./img/techletter.app-screenshot-1547049367743.png
 ---
 
-Remark plugins are a little esoteric, and with the rise of Gatsby, they’re becoming more and more important.[Remark](https://github.com/remarkjs/remark) is a markdown parser built in JavaScript. "Parser" doesn't do Remark justice. Remark is a whole compiler ecosystem built on plugins.
+Remark plugins are a little esoteric, and with the rise of Gatsby, they’re becoming more and more important.
+
+[Remark](https://github.com/remarkjs/remark) is a markdown parser built in JavaScript. "Parser" doesn't do Remark justice. Remark is a whole compiler ecosystem built on plugins.
 
 It's the backbone of all Gatsby magic that involves converting markdown into HTML.
 
@@ -30,7 +32,7 @@ My `markdown-to-tweet` does 4 things:
 
 1.  It converts `**bold**` text into utf8 bolds: 𝗯𝗼𝗹𝗱
 2.  `_italic_` text into utf8 italics: 𝘪𝘵𝘢𝘭𝘪𝘤
-3.  `\`code\\\`\\\` text into monospace: 𝚌𝚘𝚍𝚎
+3.  `\`code\`\` text into monospace: 𝚌𝚘𝚍𝚎
 4.  Code blocks into carbon.now.sh screenshots
 
 ![](./img/techletter.app-screenshot-1547049367743.png)
@@ -51,7 +53,7 @@ https://www.youtube.com/watch?v=X7mZAsfwYng
 
 Like I said, you can think of Remark as a compiler ecosystem. If you look at the [traditional compiler architecture](https://en.wikipedia.org/wiki/Compiler) from Wikipedia…
 
-![Compiler architecture](./img/Compiler-architecture1jd89b.png)
+![Compiler architecture](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Compiler.svg/1920px-Compiler.svg.png)
 
 …your plugin sits squarely in that _"middle code generation"_ part.
 

@@ -5,7 +5,7 @@ published: 2012-06-15
 redirect_from:
   - /blog/making-statsd-talk-directly-to-a-browser/swizec/4649
 categories: "Uncategorized"
-hero: ./img/blog-wp-content-uploads-2012-06-cubismjs-shiny-timeseries.png
+hero: ../../../defaultHero.jpg
 ---
 
 [StatsD](https://github.com/etsy/statsd) is "_A network daemon that runs on the [Node.js](http://nodejs.org/) platform and listens for statistics, like counters and timers, sent over [UDP](http://en.wikipedia.org/wiki/User_Datagram_Protocol) and sends aggregates to one or more pluggable backend services"_ I've previously mentioned StatsD in _[Your startup needs a dashboard](http://www.zemanta.com/fruitblog/your-startup-needs-a-dashboard/)_ over at Zemanta's fruitblog. The idea behind StatsD is this:
@@ -14,7 +14,7 @@ hero: ./img/blog-wp-content-uploads-2012-06-cubismjs-shiny-timeseries.png
 2.  Send metrics of "stuff" to a central service (StatsD)
 3.  StatsD acts as a buffer, forwards aggregated metrics every X seconds
 
-Your architecture now has a central service that collects all of your metrics, then pushes them to appropriate software, that doesn't need to handle too much traffic and is guaranteed data will come from a single source in a sanitized format. \[caption id="" align="alignnone" width="367" caption="A software architect's dream"]![A software architect's dream](http://distilleryimage0.instagram.com/1d60c314b6de11e1a9f71231382044a1_7.jpg "A software architect's dream")\[/caption]
+![A software architect's dream](http://distilleryimage0.instagram.com/1d60c314b6de11e1a9f71231382044a1_7.jpg "A software architect's dream")
 
 ## Straight from the browser?
 
@@ -50,7 +50,7 @@ Ok, so now we can collect data from the browser ... but I want to send it direct
 
 ## The goal?
 
-If all goes well, I will soon be able to use cubism.js to draw a pretty timeseries of the traffic on this blog. And hey, who knows what else I can think of to add to a personal dashboard of my life ... I now have the basic framework. Time to start using it. [![Cubism.js makes shiny timeseries](./img/blog-wp-content-uploads-2012-06-cubismjs-shiny-timeseries.png "Cubism.js makes shiny timeseries")](http://square.github.com/cubism/)
+If all goes well, I will soon be able to use cubism.js to draw a pretty timeseries of the traffic on this blog. And hey, who knows what else I can think of to add to a personal dashboard of my life ... I now have the basic framework. Time to start using it. [![Cubism.js makes shiny timeseries](http://swizec.com/blog/wp-content/uploads/2012/06/cubismjs-shiny-timeseries.png "Cubism.js makes shiny timeseries")](http://square.github.com/cubism/)
 
 ###### Related articles
 

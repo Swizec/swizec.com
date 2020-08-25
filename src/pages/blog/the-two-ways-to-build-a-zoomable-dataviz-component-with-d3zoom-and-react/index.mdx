@@ -18,7 +18,7 @@ Then you have a choice to make. Do you want to zoom your whole component like it
 
 In a side-by-side comparison, the two zoom effects look like this 👇
 
-![Two ways to zoom with React and d3.zoom](./img/blog-wp-content-uploads-2017-08-two-different-zooms.gif)![](two-zoom.gif)
+![Two ways to zoom with React and d3.zoom](https://swizec.com/blog/wp-content/uploads/2017/08/two-different-zooms.gif)![](two-zoom.gif)
 
 Both scatterplots use the same random data. Left side zooms like an image, right side zooms the space between datapoints. It even works on a phone, look.
 
@@ -30,9 +30,9 @@ You'll need: - 2 React components - 2 D3 scales - 1 D3 zoom - 1 D3 random number
 
 Here we go 🤘
 
-\[codepen_embed height="426" theme_id="0" slug_hash="XaBrym" default_tab="js,result" user="swizec" editable="true" preview="true" data-preview="true" data-editable="true"]See the Pen [Two different zooms with D3 and React](https://codepen.io/swizec/pen/XaBrym/) by Swizec Teller ([@swizec](https://codepen.io/swizec)) on [CodePen](https://codepen.io).\[/codepen_embed]
+See the Pen [Two different zooms with D3 and React](https://codepen.io/swizec/pen/XaBrym/) by Swizec Teller ([@swizec](https://codepen.io/swizec)) on [CodePen](https://codepen.io).
 
-## &amp;lt;Chart /> component talks to d3.zoom
+## &lt;Chart /> component talks to d3.zoom
 
 Our `<Chart />` component renders two scatterplots and talks to `d3.zoom` to zoom them. This way we can use a single zoom behavior for the entire SVG, which makes the scatterplots zoom in unison.
 
@@ -108,7 +108,7 @@ Our chart component breaks down into 4 parts:
 3.  The `zoomed` function is our zoom event callback. We update component state with `d3.event.transform`, which is where D3 puts the information we need to zoom our chart.
 4.  Our `render` method draws two `<Scatterplot />` components inside an `<svg>` element and gives them some props.
 
-## &amp;lt;Scatterplot /> component draws datapoints and zooms itself
+## &lt;Scatterplot /> component draws datapoints and zooms itself
 
 The `<Scatterplot />` component follows the full integration approach I outline in [React+D3v4](https://www.swizec.com/reactd3js). We have D3 stuff in an `updateD3` function and we call it when props change to update the internal states of D3 objects.
 
@@ -180,6 +180,6 @@ Even if we're not zooming, we still `translate()` the chart so that we can move 
 
 You can play with this example on CodePen.
 
-\[codepen_embed height="426" theme_id="0" slug_hash="XaBrym" default_tab="js,result" user="swizec" editable="true" preview="true" data-preview="true" data-editable="true"]See the Pen [Two different zooms with D3 and React](https://codepen.io/swizec/pen/XaBrym/) by Swizec Teller ([@swizec](https://codepen.io/swizec)) on [CodePen](https://codepen.io).\[/codepen_embed]
+See the Pen [Two different zooms with D3 and React](https://codepen.io/swizec/pen/XaBrym/) by Swizec Teller ([@swizec](https://codepen.io/swizec)) on [CodePen](https://codepen.io).
 
 To learn more about putting React and D3v4 together, [check out my new book, React+D3v4](https://www.swizec.com/reactd3js)

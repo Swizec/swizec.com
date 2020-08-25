@@ -5,10 +5,16 @@ published: 2019-01-23
 redirect_from:
   - /blog/gatsby-auth0/swizec/8895
 categories: "Front End, Technical"
-hero: ./img/blog-wp-content-uploads-2019-01-dashboard-screenshot.png
+hero: ../../../defaultHero.jpg
 ---
 
-In my quest never to set up a server ever again, I discovered Auth0 – a serverless authentication service. You give them keys to the kingdom, and they keep you and your users secure.You don't even have to store anything. 👌Since Gatsby is my favorite way to build new React apps with server-side rendering and super-fast performance, I decided to combine the two. Easy in theory, but turns out tricky in practice.Took me 3 livecoding sessions to figure out. [Luke Oliff's article on Gatsby v1 + Auth0](https://auth0.com/blog/building-a-blog-with-gatsby-react-and-webtask/) article helped a lot, as did [Auth0's React SPA setup guide](https://auth0.com/docs/quickstart/spa/react/01-login).
+In my quest never to set up a server ever again, I discovered Auth0 – a serverless authentication service. You give them keys to the kingdom, and they keep you and your users secure.
+
+You don't even have to store anything. 👌
+
+Since Gatsby is my favorite way to build new React apps with server-side rendering and super-fast performance, I decided to combine the two. Easy in theory, but turns out tricky in practice.
+
+Took me 3 livecoding sessions to figure out. [Luke Oliff's article on Gatsby v1 + Auth0](https://auth0.com/blog/building-a-blog-with-gatsby-react-and-webtask/) article helped a lot, as did [Auth0's React SPA setup guide](https://auth0.com/docs/quickstart/spa/react/01-login).
 
 You can think of this article as a distillation of those guides and these 3 hours of coding 👇
 
@@ -26,7 +32,7 @@ Right now, a free account will hold you over up to 7,000 active users. I don't k
 
 See, it's just me on this one
 
-\[caption id="attachment_8894" align="alignnone" width="1882"]![Auth0 dashboard screenshot](./img/blog-wp-content-uploads-2019-01-dashboard-screenshot.png) Auth0 dashboard screenshot\[/caption]
+![Auth0 dashboard screenshot](https://swizec.com/blog/wp-content/uploads/2019/01/dashboard-screenshot.png)
 
 ## Step 2: Create an app, get domain and client id
 
@@ -46,7 +52,7 @@ For your safety, callback URLs must be whitelisted. There's an `Allowed Callback
 
 Add `http://localhost:8000/auth0_callback`. I like to prefix callbacks with a service name because you never know how many you'll need.
 
-\[caption id="attachment_8893" align="alignnone" width="1222"]![Callback config](./img/blog-wp-content-uploads-2019-01-callback-screenshot-1.png) Callback config\[/caption]
+![Callback config](https://swizec.com/blog/wp-content/uploads/2019/01/callback-screenshot-1.png)
 
 ## Step 4: Start a new Gatsby project
 

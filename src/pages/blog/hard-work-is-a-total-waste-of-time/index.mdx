@@ -5,10 +5,10 @@ published: 2010-09-22
 redirect_from:
   - /blog/hard-work-is-a-total-waste-of-time/swizec/1458
 categories: "AppEngine, Google App Engine, Java, JavaScript, Node.js, Programming, Uncategorized"
-hero: ./img/blog-wp-content-uploads-2010-09-300px-SteacieLibrary.jpg
+hero: ../../../defaultHero.jpg
 ---
 
-- [![Steacie Science and Engineering Library at Yor...](./img/blog-wp-content-uploads-2010-09-300px-SteacieLibrary.jpg "Steacie Science and Engineering Library at Yor...")](http://commons.wikipedia.org/wiki/File:SteacieLibrary.jpg)
+- [![Steacie Science and Engineering Library at Yor...](http://swizec.com/blog/wp-content/uploads/2010/09/300px-SteacieLibrary.jpg "Steacie Science and Engineering Library at Yor...")](http://commons.wikipedia.org/wiki/File:SteacieLibrary.jpg)
 
   Image via [Wikipedia](http://commons.wikipedia.org/wiki/File:SteacieLibrary.jpg)
 
@@ -18,7 +18,7 @@ Sometimes a series of great decisions can lead to a place where the best decisio
 
 One of the first decisions we made was to run everything on Google's [App Engine](http://code.google.com/appengine/ "Google App Engine"). Mostly because we saw what a pain it was keeping a [web service](http://en.wikipedia.org/wiki/Web_service "Web service") running realiably and we are expecting there to be quite a heavy load when we have to parse a lot of articles and stuff. Then somewhere in the middle of August it was time to start performing proper article [scraping](http://en.wikipedia.org/wiki/Web_scraping "Web scraping") - taking a link and returning the main text without all the ads and navigation and other crap. After a few attempts with different services ranging from AlchemyAPI to a few different homebrew solutions we decided on Boilerpipe. Boilerpipe is a Java library that does one thing and does it well - it extracts text from links. Great, java, so it runs on AppEngine and does what we need. Fast forward two weeks and we realise that maybe this Boilerpipe thing isn't that great after all. Everything it does is return text. But we need to know when an article has 5 pictures in it, or subtitles, links ... stuff like that.
 
-- [![The logo of the Node.js Project from the offic...](./img/blog-wp-content-uploads-2010-09-300px-NodeJS.png "The logo of the Node.js Project from the offic...")](http://commons.wikipedia.org/wiki/File:NodeJS.png)
+- [![The logo of the Node.js Project from the offic...](http://swizec.com/blog/wp-content/uploads/2010/09/300px-NodeJS.png "The logo of the Node.js Project from the offic...")](http://commons.wikipedia.org/wiki/File:NodeJS.png)
 
   Image via [Wikipedia](http://commons.wikipedia.org/wiki/File:NodeJS.png)
 

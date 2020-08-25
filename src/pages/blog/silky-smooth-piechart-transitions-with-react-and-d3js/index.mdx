@@ -8,7 +8,7 @@ categories: "d3, Front End, react, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
-\[caption id="attachment_8254" align="alignnone" width="1024"]![A pie streaming in some data](./img/blog-wp-content-uploads-2018-03-transition-pie.gif) A pie streaming in some data\[/caption]
+![A pie streaming in some data](https://swizec.com/blog/wp-content/uploads/2018/03/transition-pie.gif)
 
 Today, I finally figured out how to build smooth D3 arc transitions. 🎉
 
@@ -43,7 +43,7 @@ You're dealing with a bunch of numbers that have to move just right. Change them
 
 Or an error. 😬
 
-\[caption id="attachment_8256" align="alignnone" width="1024"]![Naively implemented transition. Notice the arcs change shape sometimes](./img/blog-wp-content-uploads-2018-03-naive-transition-d3-pie.gif) Naively implemented transition. Notice the arcs change shape sometimes\[/caption]
+![Naively implemented transition. Notice the arcs change shape sometimes](https://swizec.com/blog/wp-content/uploads/2018/03/naive-transition-d3-pie.gif)
 
 ![](./img/media-sDZhdjNDsIq1q-giphy.gif)
 
@@ -55,7 +55,7 @@ The idea is to move from blindly transitioning path definitions to transitioning
 
 Tweening functions are what makes transitions work, by the way. They take an argument, `t`, and return the value of your prop at that specific "time" of your transition.
 
-![](./img/blog-wp-content-uploads-2018-03-transition-sketch.png)
+![](https://swizec.com/blog/wp-content/uploads/2018/03/transition-sketch.png)
 
 Our tween generator is going to need:
 
@@ -268,7 +268,7 @@ Then we start an 80 millisecond transition that uses the `arcTween` generator we
 
 That might sound like a lot of renders, but it works okay. Don't worry about wasting resources, you're re-rendering a single `<path>` element. [The DOM is pretty fast](https://swizec.com/blog/building-interactive-dom-benchmark-preliminary-results/swizec/8219) ☺️
 
-\[caption id="attachment_8257" align="alignnone" width="1024"]![Our pie looks nice and smooth.](./img/blog-wp-content-uploads-2018-03-transition-pie-1.gif) Our pie looks nice and smooth.\[/caption]
+![Our pie looks nice and smooth.](https://swizec.com/blog/wp-content/uploads/2018/03/transition-pie-1.gif)
 
 ## Recap
 

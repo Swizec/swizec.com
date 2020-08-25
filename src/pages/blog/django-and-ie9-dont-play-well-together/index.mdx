@@ -8,7 +8,7 @@ categories: "Chrome, Compatibility mode, Data Formats, Firefox, Google Chrome, H
 hero: ./img/7054-6935959929_a80f9166c9_m.jpg
 ---
 
-You know those bugs that take* hours* to debug? And the fix is ... _moving a single line._ \[caption id="" align="alignright" width="240" caption="filming of the HTML music video (Photo credit: MadLabUK)"][![filming of the HTML music video](./img/7054-6935959929_a80f9166c9_m.jpg "filming of the HTML music video")](http://www.flickr.com/photos/43963088@N03/6935959929)\[/caption] That kind of bug is tripped up when you use django's csrf protection and someone comes to your site using [IE9](http://ie9.com "Internet Explorer 9"). It can easily happen that not only will form stylings not affect the elements, the form might even ignore any values entered! But it works perfectly on older versions of IE. The bug was insanely difficult to pinpoint because I don't have IE9 anywhere - only linux and mac around here, any windows box is so old IE7 is about the extent of its capabilities ... After installing some sort of windows 7 to a [virtual machine](http://en.wikipedia.org/wiki/Virtual_machine "Virtual machine") and getting IE9 working, I set to work.
+\_\_\_\_![filming of the HTML music video](./img/7054-6935959929_a80f9166c9_m.jpg "filming of the HTML music video")![]()![]()
 
 ## Symptoms
 
@@ -35,7 +35,7 @@ Usually I'd put the {% \_csrf_token %}\_ at the end. Not sure why, just the way 
 
 ## Le huh?
 
-\[caption id="" align="alignright" width="240" caption="filming of the HTML music video (Photo credit: MadLabUK)"][![filming of the HTML music video](./img/7204-6935959333_484df58faa_m.jpg "filming of the HTML music video")](http://www.flickr.com/photos/43963088@N03/6935959333)\[/caption] When the form is rendered that _{% csrf_token %}_ is replaced with an invisible [div tag](http://en.wikipedia.org/wiki/Span_and_div "Span and div"). For some reason this ticks off IE9's strictness and the rest of the form isn't considered to be a part of this element anymore. Something like this:
+![filming of the HTML music video](./img/7204-6935959333_484df58faa_m.jpg "filming of the HTML music video")\_\_![]()
 
 ```html
 <form method="POST" class="filter" style="display: none;">

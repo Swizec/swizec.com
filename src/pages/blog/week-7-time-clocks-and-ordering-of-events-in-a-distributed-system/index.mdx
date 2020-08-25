@@ -12,27 +12,27 @@ _\[This post is part of an ongoing challenge to understand 52 papers in 52 weeks
 
 ## The problem
 
-Our lives revolve around the notion that events have an inherent ordering. That some events happen _before_ other events. An airline ticket booking should only be granted if it happens _before_ the flight departs. It's 3:15 if the clock doesn't read 3:16 yet and so on. But in a distributed system the idea of "happened before" fast becomes hazy. When you have spatially separated processes that can only communicate through messages, they can't tell what in the system happened before something else. We usually look at the clock to decide whether _a_ happened before _b_, but a well defined system can only rely only on information within the system. That's why Lamport defined "happened before" without using real clocks. \[caption id="" align="alignnone" width="545"]![Distributed system](./img/images-4760.png "Distributed system") Distributed system\[/caption] In the image, each line represents a process, a dot is an event and a squiggly line is a message being sent between two processes. Sending a message and receiving a message are both events as well. Time as we think of it goes from bottom to top, but isn't strictly defined. In this picture you can't compare relative positions of dots in separate processes to determine order. The relation "happened before", or → for short, between a set of events is the smallest relation that satisfies three rules:
+**\_\_\_\_**![Distributed system](./img/images-4760.png "Distributed system")
 
 1.  If _a_ and _b_ are in the same process and _a_ comes before _b_, then _a → b_
 2.  If _a_ is sending a message and _b_ is receiving it, then _a → b_
 3.  If _a → b_ and _b → c_, then _a → c_
 
-We assume events can't happen before themselves because that doesn't make sense in our physical reality (although it could in others, but it'd break a bunch of other stuff as well). Using these rules, you can follow the progress of time by following process and message lines. If you draw time borders with a dashed line, you'll get a diagram like this: \[caption id="" align="alignnone" width="549"]![Diagram with time](./img/images-4761.png "Diagram with time") Diagram with time\[/caption] You can look at → through the lense of causality: _a_ happens before _b_, if it can affect _b_. In this case, process _P_ at time _p3_, can't know what _Q_ is doing in _q3_ until the message from _q5_ is received in _p4_. It can only guess what _Q_ intends to do. This goes right at the gist of our problem: it is not immediately obvious how one can put events in correct order without an external observer.
+![Diagram with time](./img/images-4761.png "Diagram with time")**\*\*\*\***\_\_\_\_**\*\*\*\***
 
 ## Logical clocks solution
 
 To elegantly solve the problem Lamport introduces logical clocks, now known as [Lamport timestamps](http://en.wikipedia.org/wiki/Lamport_timestamps "Lamport timestamps"). Simple counters that assign numbers to events. Every process _Pi_ is going to have its own clock function _Ci_ that assigns a number _Ci(a)_ to any event in that process. We assume these clocks aren't tied to the physical concept of time, so all it takes to make this system of clocks correct are a few rules.
 
-1.  If _a_ and _b_ are events in _Pi_ and _a_ comes before _b_, then _Ci(a) &amp;lt; Ci(b)_
-2.  If _a_ is sending a message from _Pi_ to _b_ in _Pj_, then _Ci(a) &amp;lt; Cj(b)_
+1.  If _a_ and _b_ are events in _Pi_ and _a_ comes before _b_, then _Ci(a) &lt; Ci(b)_
+2.  If _a_ is sending a message from _Pi_ to _b_ in _Pj_, then _Ci(a) &lt; Cj(b)_
 
-You'll notice these two rules are essentially saying that if _a → b_ (a happened before b), then _C(a) &amp;lt; C(b)_ (its timestamp is lower than b's). This is called the Clock Condition. It doesn't take much to create a system of clocks that satisfies these rules. And that's just what Lamport's timestamp algorithm is, simple.
+You'll notice these two rules are essentially saying that if _a → b_ (a happened before b), then _C(a) &lt; C(b)_ (its timestamp is lower than b's). This is called the Clock Condition. It doesn't take much to create a system of clocks that satisfies these rules. And that's just what Lamport's timestamp algorithm is, simple.
 
 1.  A process _Pi_ advances its clock _Ci_ between successive events
 2.  Every message must contain a timestamp _Tm_ of when it was sent and when a process receives the message, it advances its clock to be greater than _Tm_
 
-And that's it. A system of clocks that ensures you can always tell the order of two events in the system. When two events can't influence each other through messages they are considered concurrent despite their ordering in [physical time](http://en.wikipedia.org/wiki/Time "Time"). We can now use these timestamps to order all events in the system using an arbitrary ordering when timestamps are ambiguous. It's important to note that while the [partial ordering](http://en.wikipedia.org/wiki/Partially_ordered_set "Partially ordered set") from before is unique, the [total ordering](http://en.wikipedia.org/wiki/Total_order "Total order") depends on clock choice and the arbitrariness of ordering events where no [causal link](http://en.wikipedia.org/wiki/Causality "Causality") exists. Lamport then goes on to describe how to use clocks to design a system that can organise itself without relying on external data to order events. But this part isn't so interesting, and you can figure out your own example well enough. The important part is that a distributed algorithm can execute the events in its state machine in the correct order, because each process is meticulous about updating the timestamps that define event and message ordering. \[caption id="" align="alignnone" width="536"]![A more organised diagram](./img/images-4773.png "A more organised diagram") A more organised diagram\[/caption]
+![]()![]()![]()![]()![A more organised diagram](./img/images-4773.png "A more organised diagram")
 
 ## Anomalous behaviour
 
@@ -42,8 +42,8 @@ Despite our best efforts, the system can have anomalies where events are ordered
 
 Adding physical clocks to the mix looks simple. Just replace the logical timestamps from before with readings from a clock that measures physical time. The problem, however, is that you can never have a perfect clock and without synchronization clocks in separate processes are going to drift further and further apart until the system becomes useless. Physical clocks must satisfy two conditions:
 
-1.  There exists a constant _k &amp;lt;&amp;lt; 1_ such that for all i: _|dCi(t)/dt -1| &amp;lt; k_
-2.  For all i, j: _|Ci(t) - Cj(t)| &amp;lt; ε_
+1.  There exists a constant _k &lt;&lt; 1_ such that for all i: _|dCi(t)/dt -1| &lt; k_
+2.  For all i, j: _|Ci(t) - Cj(t)| &lt; ε_
 
 That is, the derivative of a clock's period must always be smaller than a very small constant (the clock is precise) and the absolute difference between any two clocks must always be smaller than ε (the clocks are synchronised). Because no two clocks will ever run at the same rate on their own, we need an algorithm that synchronises a process' clock with other clocks in the system. We derive it from the logical clocks algorithm, which means that a process never needs to know the state of any clocks other than its own and message timestamps. As always in this paper, we follow two rules:
 

@@ -20,7 +20,7 @@ It's a spectacular approach when you need fine-grained control like making a dra
 
 But TRAT is annoying when you don't want or need fine control. When you just want a tiny animation that does a thing and doesn't bother you with the details, it’s a bit cumbersome.
 
-![](./img/blog-wp-content-uploads-2017-02-colorful-dots.gif)
+![](https://swizec.com/blog/wp-content/uploads/2017/02/colorful-dots.gif)
 
 Pretty, isn't it? ?
 
@@ -32,7 +32,7 @@ Colors come from D3's [`interpolateWarm` scale](https://github.com/d3/d3-scale) 
 
 You can play with the code on CodePen, tweak params, try the dancing rainbow snake. I think it looks like a snake… also, I love emergent patterns like this. Transition each circle individually, and it looks like a connected blob.
 
-\[codepen_embed height="659" theme_id="0" slug_hash="QdVoOg" default_tab="js,result" user="swizec" editable="true" data-editable="true"]See the Pen [React D3 transition animation - rainbow field](http://codepen.io/swizec/pen/QdVoOg/) by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).\[/codepen_embed]
+See the Pen [React D3 transition animation - rainbow field](http://codepen.io/swizec/pen/QdVoOg/) by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).
 
 We have two components: `App` and `Dot`. App sets up the grid of dots, and `Dot` handles each circle's transitions and coloration.
 
@@ -157,7 +157,7 @@ Colorization doesn't have anything to do with transitions, but I want to explain
 
 Here's what the colored grid looks like:
 
-![](./img/blog-wp-content-uploads-2017-02-colored-grid.png)
+![](https://swizec.com/blog/wp-content/uploads/2017/02/colored-grid.png)
 
 Colors follow a radial pattern even though `d3.interpolateWarm` takes a single argument in the `[0, 1]` range. We achieve the pattern using circle parametrization.
 
@@ -181,7 +181,7 @@ We calibrate the `t` scale to `1.2*maxPos**2` for two reasons. First, you want t
 
 For example, here it is with a factor of 0.05:
 
-![](./img/blog-wp-content-uploads-2017-02-weird-color-scale.png)
+![](https://swizec.com/blog/wp-content/uploads/2017/02/weird-color-scale.png)
 
 Play around and try different color scales, too. :)
 

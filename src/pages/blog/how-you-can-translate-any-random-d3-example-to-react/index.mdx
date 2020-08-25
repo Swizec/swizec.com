@@ -5,10 +5,14 @@ published: 2017-08-31
 redirect_from:
   - /blog/translate-random-d3-example-react/swizec/7765
 categories: "d3js, Front End, react, Technical"
-hero: ./img/blog-wp-content-uploads-2017-08-2017-08-31-at-3.17-PM.png
+hero: ../../../defaultHero.jpg
 ---
 
-<https://youtu.be/pzMTVChKvjoYou> and I both know that when it's time to code some D3, the easiest approach is to find an example that does something similar, copy its code, and tweak it a bit.But a lot of those examples are in old versions of D3, and what if you're using React or something and can't just plop code into your project like nobody's business? Here's what you do:
+https://youtu.be/pzMTVChKvjo
+
+You and I both know that when it's time to code some D3, the easiest approach is to find an example that does something similar, copy its code, and tweak it a bit.
+
+But a lot of those examples are in old versions of D3, and what if you're using React or something and can't just plop code into your project like nobody's business? Here's what you do:
 
 1.  Find the example
 2.  Split it up into styling, data calc, and rendering
@@ -16,7 +20,7 @@ hero: ./img/blog-wp-content-uploads-2017-08-2017-08-31-at-3.17-PM.png
 
 Let's do that for this example of [113th Congressional District](https://bl.ocks.org/mbostock/4657115) from March 2016.
 
-![](./img/blog-wp-content-uploads-2017-08-2017-08-31-at-3.17-PM.png)
+![](https://swizec.com/blog/wp-content/uploads/2017/08/2017-08-31-at-3.17-PM.png)
 
 The code starts with the usual HTML declarations, loading scripts, and a block of `<style>` stuff. Assuming we started our React app with `create-react-app`, we copy all the style info into `App.css`. That way we never have to worry about it again.
 
@@ -223,4 +227,4 @@ I think that sort of code is easier to understand.
 
 You can play with this example on Codepen 👇
 
-\[codepen_embed height="265" theme_id="0" slug_hash="GvPexr" default_tab="js,result" user="swizec" editable="true" data-editable="true"]See the Pen [113th congressional districts D3 example moved into React](https://codepen.io/swizec/pen/GvPexr/) by Swizec Teller ([@swizec](https://codepen.io/swizec)) on [CodePen](https://codepen.io).\[/codepen_embed]
+See the Pen [113th congressional districts D3 example moved into React](https://codepen.io/swizec/pen/GvPexr/) by Swizec Teller ([@swizec](https://codepen.io/swizec)) on [CodePen](https://codepen.io).

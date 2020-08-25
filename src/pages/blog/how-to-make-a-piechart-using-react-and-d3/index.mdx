@@ -5,10 +5,10 @@ published: 2016-04-15
 redirect_from:
   - /blog/how-to-make-a-piechart-using-react-and-d3/swizec/6785
 categories: "d3js, Front End, react, react+d3js, reactjs, Technical"
-hero: ./img/blog-wp-content-uploads-2016-04-Screen-Shot-2016-04-12-at-02.08.11-300x122.png
+hero: ../../../defaultHero.jpg
 ---
 
-Piecharts might be the single most mocked chart in the world, but they’re great. Is there a better way to show proportions? Of course, it all breaks down when you have more than a couple data points. And yes, it’s impossible to gauge the difference between 24% and 26% on a piechart. Not to mention the accessibility issues when the charts rely on colors to distinguish slices. If you google "never use a piechart”, 597,000 results show up. That’s a bunch of hate for the poor piechart. **But** they’re easy and fun to make. They’re perfect for showing overwhelming proportions, and there’s nothing like a piechart to make an enterprise presentation more enterprisey. Especially if you make it 3D. When I say that a piechart is easy to make, I mean that with 86 lines of very beautiful and readable code, you can make one that looks great. 86 lines might sound like a lot for a piechart, but 33 of those are empty lines or closing braces. That’s 38%. Let me show you with a piechart :) ![Screen Shot 2016-04-12 at 02.08.11](./img/blog-wp-content-uploads-2016-04-Screen-Shot-2016-04-12-at-02.08.11-300x122.png) See, piecharts _work_. To build this, we’re going to:
+Piecharts might be the single most mocked chart in the world, but they’re great. Is there a better way to show proportions? Of course, it all breaks down when you have more than a couple data points. And yes, it’s impossible to gauge the difference between 24% and 26% on a piechart. Not to mention the accessibility issues when the charts rely on colors to distinguish slices. If you google "never use a piechart”, 597,000 results show up. That’s a bunch of hate for the poor piechart. **But** they’re easy and fun to make. They’re perfect for showing overwhelming proportions, and there’s nothing like a piechart to make an enterprise presentation more enterprisey. Especially if you make it 3D. When I say that a piechart is easy to make, I mean that with 86 lines of very beautiful and readable code, you can make one that looks great. 86 lines might sound like a lot for a piechart, but 33 of those are empty lines or closing braces. That’s 38%. Let me show you with a piechart :) ![Screen Shot 2016-04-12 at 02.08.11](http://swizec.com/blog/wp-content/uploads/2016/04/Screen-Shot-2016-04-12-at-02.08.11-300x122.png) See, piecharts _work_. To build this, we’re going to:
 
 - use a d3 layout to calculate a piechart
 - use React stuff to render the piechart
@@ -188,7 +188,7 @@ Can you guess what happens here? We update our arc’s inner and outer radius. T
     }
 ```
 
-As I hinted earlier, we render an SVG path element. The shape definition – `d` – comes from `this.arc` and some data, and the color comes from `this.props.color`. You can render a piechart now. Wonderful, isn’t it? :) ![Screen Shot 2016-04-12 at 02.08.26](./img/blog-wp-content-uploads-2016-04-Screen-Shot-2016-04-12-at-02.08.26-300x118.png)
+As I hinted earlier, we render an SVG path element. The shape definition – `d` – comes from `this.arc` and some data, and the color comes from `this.props.color`. You can render a piechart now. Wonderful, isn’t it? :) ![Screen Shot 2016-04-12 at 02.08.26](http://swizec.com/blog/wp-content/uploads/2016/04/Screen-Shot-2016-04-12-at-02.08.26-300x118.png)
 
 ## LabeledArc
 
@@ -215,7 +215,7 @@ class LabeledArc extends Arc {
 export { LabeledArc };
 ```
 
-We calculate `labelX` and `labelY` with `this.arc.centroid(data)`. This gives us the center point of an arc. I don’t know how the math works. All I know is that it works and that I’m happy somebody made it for me. Notice how we can use `this.arc` as if it was defined inside `LabeledArc`. Subclassing is great like that. Don’t go overboard and become an [architecture astronaut](https://www.google.com/search?q=architecture+astronaut&oq=architecture+astronaut&aqs=chrome..69i57j0l5.2833j0j1&sourceid=chrome&ie=UTF-8). Next, we put these coordinates into the usual SVG `translate` transformation and render a grouping element with an arc and a label. We get the arc itself with `super.render()`, which calls the parent render function, and the label as a `text` element. I know using `this.props.data.data.label` to get the text looks weird, but that’s how it works. `this.props.data` is a single datapoint in the entire piechart, its `.data` property is where d3’s pie layout puts original data, and `.label` is how our base data defined labels. It works. Our piechart’s code profile piechart looks like this: ![Screen Shot 2016-04-12 at 02.08.11](./img/blog-wp-content-uploads-2016-04-Screen-Shot-2016-04-12-at-02.08.11-300x122.png) Wonderful.
+We calculate `labelX` and `labelY` with `this.arc.centroid(data)`. This gives us the center point of an arc. I don’t know how the math works. All I know is that it works and that I’m happy somebody made it for me. Notice how we can use `this.arc` as if it was defined inside `LabeledArc`. Subclassing is great like that. Don’t go overboard and become an [architecture astronaut](https://www.google.com/search?q=architecture+astronaut&oq=architecture+astronaut&aqs=chrome..69i57j0l5.2833j0j1&sourceid=chrome&ie=UTF-8). Next, we put these coordinates into the usual SVG `translate` transformation and render a grouping element with an arc and a label. We get the arc itself with `super.render()`, which calls the parent render function, and the label as a `text` element. I know using `this.props.data.data.label` to get the text looks weird, but that’s how it works. `this.props.data` is a single datapoint in the entire piechart, its `.data` property is where d3’s pie layout puts original data, and `.label` is how our base data defined labels. It works. Our piechart’s code profile piechart looks like this: ![Screen Shot 2016-04-12 at 02.08.11](http://swizec.com/blog/wp-content/uploads/2016/04/Screen-Shot-2016-04-12-at-02.08.11-300x122.png) Wonderful.
 
 ## Voilà
 

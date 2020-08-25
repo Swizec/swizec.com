@@ -5,7 +5,7 @@ published: 2018-06-01
 redirect_from:
   - /blog/build-animated-accordion-react-d3/swizec/8418
 categories: "Front End, Technical"
-hero: ./img/blog-wp-content-uploads-2018-06-githubscreenshot.png
+hero: ../../../defaultHero.jpg
 ---
 
 https://codesandbox.io/s/r02j7p45w4
@@ -20,7 +20,7 @@ The goal was to have an event flow visualization where icons represent different
 
 It’s inspired by how GitHub visualizes the PR process but is intended for richer graphics. Hence why it has to be in SVG.
 
-\[caption id="attachment_8417" align="alignnone" width="896"]![GitHub shows the PR process using connected event icons with descriptions](./img/blog-wp-content-uploads-2018-06-githubscreenshot.png) GitHub shows the PR process using connected event icons with descriptions\[/caption]
+![GitHub shows the PR process using connected event icons with descriptions](https://swizec.com/blog/wp-content/uploads/2018/06/githubscreenshot.jpg)
 
 ## Problems to solve / gotchas to catch
 
@@ -38,7 +38,7 @@ But it’s terrible when you can't know the size of some elements. Like the heig
 
 My client tried several approaches and finally settled on a component structure a little like this 👇
 
-\[caption id="attachment_8415" align="alignnone" width="1078"]![Almost good enough structure](./img/blog-wp-content-uploads-2018-06-component-structure1.png) Almost good enough structure\[/caption]
+![Almost good enough structure](https://swizec.com/blog/wp-content/uploads/2018/06/component-structure1.jpg)
 
 Each row is a `div` that contains an `svg` on the left and a `div` on the right. The SVG renders our icon and the vertical line. The `div` contains potentially expanding descriptions.
 
@@ -62,7 +62,7 @@ Render everything inside an SVG, use `foreignObject` to support auto text layout
 
 In a nutshell 👇
 
-![](./img/blog-wp-content-uploads-2018-06-accordionflow-sketch.png)
+![](https://swizec.com/blog/wp-content/uploads/2018/06/accordionflow-sketch.jpg)
 
 - `<AccordionFlow>` renders rows
 - `<AccordionFlow>` holds an array of known or default row heights, used for vertical positioning

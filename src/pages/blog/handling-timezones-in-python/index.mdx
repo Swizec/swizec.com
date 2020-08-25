@@ -5,10 +5,10 @@ published: 2011-11-02
 redirect_from:
   - /blog/handling-timezones-in-python/swizec/2835
 categories: "Coordinated Universal Time, Daylight saving time, Lists of time zones, Telstar Logistics, timezone, Uncategorized, UTC"
-hero: ./img/blog-wp-content-uploads-2011-11-433029904_27dd44a95a_m3.jpg
+hero: ../../../defaultHero.jpg
 ---
 
-\[caption id="" align="alignright" width="240" caption="Image by Telstar Logistics via Flickr"][![Time Selector](./img/blog-wp-content-uploads-2011-11-433029904_27dd44a95a_m3.jpg "Time Selector")](http://www.flickr.com/photos/49502995517@N01/433029904)\[/caption]
+![Time Selector](http://swizec.com/blog/wp-content/uploads/2011/11/433029904_27dd44a95a_m3.jpg "Time Selector")
 
 A couple of days ago I started refactoring some code to handle [timezones](http://en.wikipedia.org/wiki/Lists_of_time_zones "Lists of time zones") better. The problem manifests as a single time appearing at different times in different parts of the application. Granted, a lot of it is more of a UX problem along the lines of my rant on why [computers don't handle timezones intuitively](http://swizec.com/blog/why-dont-computers-understand-timezones/swizec/2288 "Why don’t computers understand timezones?"). But there's a deeper issue with the fact that the codebase is handling timezones rather naively. Until a week ago I would have done it exactly the same way.
 

@@ -119,4 +119,4 @@ def primes():
             yield n
 ```
 
-points to note \\\`yield 2\\\` and \\\`n>=x\*x\\\` ensure that it terminates by ensuring the racursive calls require smaller maximum results \\\`n=f\*2+1\\\` helps efficiency, but \\\`n=f+2\\\` would also work. after \\\`yield 2\\\` we need to start searching at 3. It's still horribly inefficient uncomment the \\\`print()\\\` calls to see why. Perhaps this can be fixed by storing the found results in a dict and yielding those first before looping over the generator.
+points to note \`yield 2\` and \`n>=x\*x\` ensure that it terminates by ensuring the racursive calls require smaller maximum results \`n=f\*2+1\` helps efficiency, but \`n=f+2\` would also work. after \`yield 2\` we need to start searching at 3. It's still horribly inefficient uncomment the \`print()\` calls to see why. Perhaps this can be fixed by storing the found results in a dict and yielding those first before looping over the generator.

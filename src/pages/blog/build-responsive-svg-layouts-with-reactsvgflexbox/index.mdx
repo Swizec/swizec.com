@@ -5,10 +5,12 @@ published: 2018-08-17
 redirect_from:
   - /blog/build-easier-responsive-svg-layout-react-svg-flexbox/swizec/8577
 categories: "Front End, react, svg, Technical"
-hero: ./img/blog-wp-content-uploads-2018-08-react-d3-scatterplot-dashboard.png
+hero: ../../../defaultHero.jpg
 ---
 
-SVG is great. Best way to build scalable graphics on the web. SVG can do everything from simple logos to data visualization and even animation.The best part is, you can manipulate SVG with both CSS _and_ JavaScript. It's an image that's part of your DOM. 🤯
+SVG is great. Best way to build scalable graphics on the web. SVG can do everything from simple logos to data visualization and even animation.
+
+The best part is, you can manipulate SVG with both CSS _and_ JavaScript. It's an image that's part of your DOM. 🤯
 
 Look at this animated fire example. Isn't it neat? No animated image required, just some SVG elements and a bit of JavaScript.
 
@@ -22,7 +24,7 @@ Absolutely terrible. There's no layout support at all. You get absolute position
 
 ## Absolute positioning hell
 
-\[caption id="attachment_8574" align="alignnone" width="2792"]![A React + D3 dashboard of scatterplots](./img/blog-wp-content-uploads-2018-08-react-d3-scatterplot-dashboard.png) A React + D3 dashboard of scatterplots\[/caption]
+![A React + D3 dashboard of scatterplots](https://swizec.com/blog/wp-content/uploads/2018/08/react-d3-scatterplot-dashboard.png)
 
 Say you're building a small dashboard. Like of different scatterplots looking at a dataset about dog breeds.
 
@@ -86,11 +88,11 @@ SVG itself offers zero help.
 
 Want to resize your scatterplots? Here's what happens 👇
 
-\[caption id="attachment_8575" align="alignnone" width="2660"]![Smaller scatterplots, gotta update positions](./img/blog-wp-content-uploads-2018-08-scatterplots-spaced-out.png) Smaller scatterplots, gotta update positions\[/caption]
+![Smaller scatterplots, gotta update positions](https://swizec.com/blog/wp-content/uploads/2018/08/scatterplots-spaced-out.png)
 
 Want to resize your browser? Here's what happens 👇
 
-\[caption id="attachment_8576" align="alignnone" width="1396"]![Resized browser cuts off visualization](./img/blog-wp-content-uploads-2018-08-not-responsive-at-all.png) Resized browser cuts off visualization\[/caption]
+![Resized browser cuts off visualization](https://swizec.com/blog/wp-content/uploads/2018/08/not-responsive-at-all.png)
 
 Ugh.
 
@@ -136,17 +138,17 @@ We take `<Flexbox>` out of `react-svg-flexbox`, use flexbox styles to say we wan
 
 Note that react-svg-flexbox passes `x` and `y` props into our components, so we had to take out manual positioning. Our dashboard now uses up all the space it can 👇
 
-\[caption id="attachment_8571" align="alignnone" width="2612"]![Scatterplots rendered in a flexbox row](./img/blog-wp-content-uploads-2018-08-scatterplots-in-a-row.png) Scatterplots rendered in a flexbox row\[/caption]
+![Scatterplots rendered in a flexbox row](https://swizec.com/blog/wp-content/uploads/2018/08/scatterplots-in-a-row.png)
 
 Something's funky with our vertical positioning, but it's an easy fix. Offset `y` coordinates by a few pixels. ¯\_(ツ)\_/¯ it's not happening in the official examples, so it must be something we're doing inside those scatterplots.
 
 The axes are still poking outside our `width` bounds, but this looks better already.
 
-\[caption id="attachment_8572" align="alignnone" width="2774"]![Scatterplots with a vertical offset](./img/blog-wp-content-uploads-2018-08-scatterplots-vertical-offset.png) Scatterplots with a vertical offset\[/caption]
+![Scatterplots with a vertical offset](https://swizec.com/blog/wp-content/uploads/2018/08/scatterplots-vertical-offset.png)
 
 Even if we make one of them bigger, everything still works. No changes to positioning required! o/
 
-\[caption id="attachment_8573" align="alignnone" width="2588"]![One big scatterplot](./img/blog-wp-content-uploads-2018-08-one-big-scatterplot.png) One big scatterplot\[/caption]
+![One big scatterplot](https://swizec.com/blog/wp-content/uploads/2018/08/one-big-scatterplot.png)
 
 ## Responsive layout with react-svg-flexbox
 

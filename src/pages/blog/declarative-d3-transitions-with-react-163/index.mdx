@@ -5,10 +5,12 @@ published: 2018-04-12
 redirect_from:
   - /blog/declarative-d3-transitions-react/swizec/8323
 categories: "d3, Front End, react, Technical"
-hero: ./img/blog-wp-content-uploads-2018-04-carbon-945x1024.png
+hero: ../../../defaultHero.jpg
 ---
 
-The new React 16.3 brings some changes to the ecosystem that change how we go about integrating React and D3 to build data visualizations.`componentWillReceiveProps`, `componentWillUpdate` and `compnentWillMount` are on their way out. They were great for making [React and D3](https://swizec.com/reactd3js) happy together, but they cause issues with the async rendering that the React team is planning for React 17.
+The new React 16.3 brings some changes to the ecosystem that change how we go about integrating React and D3 to build data visualizations.
+
+`componentWillReceiveProps`, `componentWillUpdate` and `compnentWillMount` are on their way out. They were great for making [React and D3](https://swizec.com/reactd3js) happy together, but they cause issues with the async rendering that the React team is planning for React 17.
 
 You tend to use those now-deprecated lifecycle methods to update D3 objects' internal state. Things like setting scale domains and ranges, updating complex D3 layouts, setting up transitions, etc.
 
@@ -30,7 +32,7 @@ You can solve this by rendering your component from `state` instead of props and
 
 Something like this 👇
 
-![](./img/blog-wp-content-uploads-2018-04-carbon-945x1024.png)
+![](https://swizec.com/blog/wp-content/uploads/2018/04/carbon-945x1024.png)
 
 We define a `Ball` class-based component. Its state has a single attribute, `x`, which is set to the `props.x` value by default. That way our Ball component starts off rendered at the position the caller wants.
 

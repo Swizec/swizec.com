@@ -5,10 +5,12 @@ published: 2018-02-08
 redirect_from:
   - /blog/3-key-insights-make-d3-js-easy-learn/swizec/8179
 categories: "Front End, Technical"
-hero: ./img/blog-wp-content-uploads-2018-02-barchartcode.png
+hero: ./img/wikipedia-commons-thumb-d-df-Function_color_example_3.svg-440px-Function_color_example_3.svg.png
 ---
 
-The other day somebody asked me how to learn D3.js from scratch. I quipped that it took me writing a book to really learn it. It's one hell ofa library.Most people don't go that far. They don't have to. Most people start with a problem, find similar examples, do some copy pasta, tweak until it works and end up with a working visualization they don't understand. You'd be surprised how few people actually understand how their D3 dataviz works.
+The other day somebody asked me how to learn D3.js from scratch. I quipped that it took me writing a book to really learn it. It's one hell ofa library.
+
+Most people don't go that far. They don't have to. Most people start with a problem, find similar examples, do some copy pasta, tweak until it works and end up with a working visualization they don't understand. You'd be surprised how few people actually understand how their D3 dataviz works.
 
 https://twitter.com/Swizec/status/961448920600604672?ref_src=twsrc%5Etfw
 
@@ -26,11 +28,11 @@ Let's take an example from [D3's docs](https://github.com/d3/d3/wiki/Gallery), a
 
 Mike Bostock, the creator of D3, built this chart in 43 lines of code. Here they are 👇
 
-![Bar Chart codea](./img/blog-wp-content-uploads-2018-02-barchartcode.png)
+![Bar Chart codea](https://swizec.com/blog/wp-content/uploads/2018/02/barchartcode.png)
 
 There are two parts to this code: Data manipulation and DOM manipulation.
 
-[![Bar chart data manipulation code](./img/blog-wp-content-uploads-2018-02-barchartcode-data.png)](Bar)
+[![Bar chart data manipulation code](https://swizec.com/blog/wp-content/uploads/2018/02/barchartcode-data.png)](Bar)
 
 Bostock here first prepares his data:
 
@@ -41,7 +43,7 @@ Bostock here first prepares his data:
 
 In the DOM manipulation part, he puts shapes and objects into an SVG. This is the part you then see in the browser.
 
-![Bar chart DOM manipulation code](./img/blog-wp-content-uploads-2018-02-barchart-dom.png)
+![Bar chart DOM manipulation code](https://swizec.com/blog/wp-content/uploads/2018/02/barchart-dom.png)
 
 DOM manipulation in D3 happens via D3 selections. They're a lot like jQuery `$(something)`. Personally I like to do this part with React as described in my book, [React+D3v4](https://swizec.com/reactd3js).
 

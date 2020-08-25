@@ -5,7 +5,7 @@ published: 2018-01-04
 redirect_from:
   - /blog/blockchain-redux-experiment-part-2/swizec/8055
 categories: "Livecoding, Technical"
-hero: ./img/blog-wp-content-uploads-2018-01-carbon-feature-parity.png
+hero: ../../../defaultHero.jpg
 ---
 
 The [blockchain-redux](https://github.com/Swizec/blockchain-redux) experiment continues. State is now shared and preserved.
@@ -27,7 +27,7 @@ That has now been fixed.
 
 ## Feature parity with Redux
 
-\[caption id="attachment_8053" align="alignnone" width="1506"]![Basically this is it, this is Redux](./img/blog-wp-content-uploads-2018-01-carbon-feature-parity.png) Basically this is it, this is Redux\[/caption]
+![Basically this is it, this is Redux](https://swizec.com/blog/wp-content/uploads/2018/01/carbon-feature-parity.png)
 
 We [reached Redux feature parity](https://www.youtube.com/watch?v=CREqFkX%5C_r1o)… I think. We added the ability to subscribe to changes and to use middleware.
 
@@ -133,7 +133,7 @@ We'll solve the centralization problem next.
 
 Here's how the Firebase middleware works 👇
 
-\[caption id="attachment_8054" align="alignnone" width="1606"]![Sharing the chain between nodes using Firebase](./img/blog-wp-content-uploads-2018-01-carbon-firebase-blockchain-sharing.png) Sharing the chain between nodes using Firebase\[/caption]
+![Sharing the chain between nodes using Firebase](https://swizec.com/blog/wp-content/uploads/2018/01/carbon-firebase-blockchain-sharing.png)
 
 Our middleware exports a function that takes an initialized FirebaseApp as its argument. This made it easier to have multiple instances of the store sharing the same Firebase when testing.
 

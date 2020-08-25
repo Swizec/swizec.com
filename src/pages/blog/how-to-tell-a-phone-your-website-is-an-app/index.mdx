@@ -5,10 +5,10 @@ published: 2012-11-05
 redirect_from:
   - /blog/how-to-tell-a-phone-your-website-is-an-app/swizec/5503
 categories: "Address bar, HTML, IPhone, Meta element, Uncategorized, Website"
-hero: ./img/blog-wp-content-uploads-2012-11-default-bootstrap-example.png
+hero: ../../../defaultHero.jpg
 ---
 
-I don't always get to work on mobile projects, but when I do they're websites pretending to be apps. \[caption id="attachment_5506" align="alignright" width="184"][![Default bootstrap example - zoomable etc.](http://swizec.com/blog/wp-content/uploads/2012/11/default-bootstrap-example.png "Default bootstrap example - zoomable etc.")](./img/blog-wp-content-uploads-2012-11-default-bootstrap-example.png) Default bootstrap example - zoomable etc.\[/caption] So the question is: If your schedule is too tight to get a simple phonegap application through the approval process, how do you deliver a great mobile experience to users on launch day? Responsive design will only get you so far. Which is to say not very far at all. Take Bootstrap, use all the responsive features and you are left with a website that looks a bit different on a phone than it does on a computer or a tablet. But it's no app.
+![Default bootstrap example - zoomable etc.](http://swizec.com/blog/wp-content/uploads/2012/11/default-bootstrap-example.png "Default bootstrap example - zoomable etc.")
 
 - renders super small despite the _initial-scale=1.0_ [meta tag](http://en.wikipedia.org/wiki/Meta_element "Meta element")
 - scrolls all over the place
@@ -41,7 +41,7 @@ window.addEventListener("load", function () {
 });
 ```
 
-Marvelous! You even get an extra 60 pixels of room to play with. Just keep in mind that you _must_ use those 60 pixels, otherwise the address bar won't hide because there's nothing to scroll up. \[caption id="attachment_5509" align="alignnone" width="269"][![Final result - an app-like website](http://swizec.com/blog/wp-content/uploads/2012/11/app-like-bootstrap-example.png "Final result - an app-like website")](./img/blog-wp-content-uploads-2012-11-app-like-bootstrap-example.png) Final result - an app-like website\[/caption]
+\_\_![Final result - an app-like website](http://swizec.com/blog/wp-content/uploads/2012/11/app-like-bootstrap-example.png "Final result - an app-like website")
 
 ###### Related articles
 
