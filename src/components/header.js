@@ -106,6 +106,7 @@ export default ({ nav, menu, setMenu, style, showBanner }) => {
           height: 32,
           p: 1,
           borderRadius: 99999,
+          cursor: "pointer"
         }}
         onClick={cycleMode}
       >

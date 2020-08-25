@@ -1,21 +1,24 @@
 import React from 'react'
 import styled from "@emotion/styled";
+import { Styled } from 'theme-ui';
+import { Box } from 'rebass';
 
 const TwitterButton = ({ onButtonClick }) => {
     return (
-        <TwitterButtonWrapper >
-            <h3>I love @swizec's thoughtful letters. <span role="img" aria-label="letter">💌</span> He's helping me become a better engineer. Check it out <span role="img" aria-label="finger-right">👉</span> https://swizec.com/letters</h3>
-            <a onClick={onButtonClick} target="_blank" rel="noreferrer" href="http://twitter.com/intent/tweet?text=I+love+%40swizec%27s+thoughtful+letters.+%F0%9F%92%8C+He%27s+helping+me+become+a+better+engineer.+Check+it+out+%F0%9F%91%89+https%3A%2F%2Fswizec.com%2Fletters">
-                <img src={'/twitter.png'} alt="twitter" />
-                <span>Tweet</span>
-            </a>
-        </TwitterButtonWrapper>
+        <Box
+            sx={{ bg: "copyBackground" }}>
+            <TwitterButtonWrapper >
+                <Styled.h3>I love @swizec's thoughtful letters. <span role="img" aria-label="letter">💌</span> He's helping me become a better engineer. Check it out <span role="img" aria-label="finger-right">👉</span> https://swizec.com/letters</Styled.h3>
+                <a onClick={onButtonClick} target="_blank" rel="noreferrer" href="http://twitter.com/intent/tweet?text=I+love+%40swizec%27s+thoughtful+letters.+%F0%9F%92%8C+He%27s+helping+me+become+a+better+engineer.+Check+it+out+%F0%9F%91%89+https%3A%2F%2Fswizec.com%2Fletters">
+                    <img src={'/twitter.png'} alt="twitter" />
+                    <span>Tweet</span>
+                </a>
+            </TwitterButtonWrapper>
+        </Box>
     )
 }
 
 const TwitterButtonWrapper = styled.div`
-
-    background-color: #f6f8fa;
     border: 1px solid #d2e1db;
     border-radius: 5px;
     margin-bottom: 1rem;
