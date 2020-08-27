@@ -8033,10 +8033,10 @@ gatsby-remark-embedder@^3.0.0:
     node-fetch "^2.6.0"
     unist-util-visit "^2.0.3"
 
-gatsby-remark-giphy@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-giphy/-/gatsby-remark-giphy-1.0.4.tgz#a7e78a5e4d89c9fbfbb768722b8d0908b1697c6c"
-  integrity sha512-U1kSswpN1LSZxxJz/xcX6U0mbYfao84/LgcE53t92gipvH4yBdWCYEKAMkDIHR/UBuf8SU2etpYm/gGDUeOs4A==
+gatsby-remark-giphy@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-giphy/-/gatsby-remark-giphy-1.1.0.tgz#1592d0fc0000de72bc60501444fa26a908dad6b2"
+  integrity sha512-LEShTAnyUp3QhecK6HRHYZBjjNYZrrz+0DdgiL7mKRH73AiGORaz5z3/9VNvMu0t9fRkpXPBS875xMmZcYnpGw==
   dependencies:
     giphy-api "^2.0.1"
     unist-util-visit "^2.0.2"
