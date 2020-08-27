@@ -11,7 +11,7 @@ import ThankYou from "./ThankYou"
 import BouncingLoader from "../BouncingLoader"
 
 const FormCK = ({ copyBefore, submitText, formId, children }) => {
-  const { register, errors, handleSubmit, formState, reset } = useForm()
+  const { register, errors, handleSubmit, formState } = useForm({ mode: 'onBlur' })
   const [submitError, setSubmitError] = useState()
   const [formSuccess, setFormSuccess] = useState(false)
 
