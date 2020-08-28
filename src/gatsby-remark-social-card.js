@@ -22,7 +22,7 @@ module.exports = async ({ markdownNode, markdownAST, getNode }) => {
     const ext = heroPath.split(".").pop()
     const slugTitle = slugify(frontmatter.title, {
       remove: /[*+~.()'"!?/:@,]/g,
-    })
+    }).toLowerCase()
     const filename = `${slugTitle}.${ext}`
 
     const newPath = path.join(process.cwd(), "public", "social-cards", filename)
