@@ -23,7 +23,7 @@ hero: ../../../defaultHero.jpg
 <img title="${the_title}" src="${url_var}" alt="" />
 ```
 
-Everything marked as a variable gets replaced with its value and everyone can be happy. Try to guess what happens with that _src="\\\\\${url_var}"_ bit in there. Yep, the browser tries to load it. Firing a request to something that always returns at least a 404 after wordpress decides that, hey, this isn't something I know of! This means that the url is _never_ cached either server-side \_or \_client-side! Turns out my blog was firing two such requests every time somebody came to the page. Every. Single. Time! In the latest case this meant 8 useless request per second at its peak. To the point most of my site just started throwing a 500 error and only that one redirected static page was still up ... All I have to do now is find a permanent solution. Any ideas?
+Everything marked as a variable gets replaced with its value and everyone can be happy. Try to guess what happens with that _src="\\\\\\\${url_var}"_ bit in there. Yep, the browser tries to load it. Firing a request to something that always returns at least a 404 after wordpress decides that, hey, this isn't something I know of! This means that the url is _never_ cached either server-side \_or \_client-side! Turns out my blog was firing two such requests every time somebody came to the page. Every. Single. Time! In the latest case this meant 8 useless request per second at its peak. To the point most of my site just started throwing a 500 error and only that one redirected static page was still up ... All I have to do now is find a permanent solution. Any ideas?
 
 ###### Related articles
 
