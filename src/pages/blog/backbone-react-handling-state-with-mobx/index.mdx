@@ -159,14 +159,16 @@ It works like this:
 
 - inside `_render` it:
 
-  - cleans up Backbone DOM event listeners
-  - instantiates a new Backbone view with `_init`
-  - tells the view to render inside that anchor `<div>`
+* cleans up Backbone DOM event listeners
 
-- when initializing the view in `_init` it:
+* instantiates a new Backbone view with `_init`
 
-  - creates a new `BackboneButton` instance and gives it the _value_ of `N` from our store
-  - listens for changes to `N` on the view’s internal state and communicates them upstream with a MobX action
+* tells the view to render inside that anchor `<div>`
+
+* when initializing the view in `_init` it:
+
+- creates a new `BackboneButton` instance and gives it the _value_ of `N` from our store
+- listens for changes to `N` on the view’s internal state and communicates them upstream with a MobX action
 
 This approach is a leaky abstraction. The `_init` method has to know intimate details about the Backbone view you’re wrapping. There’s no way to get around that because MobX needs those getters and setters to observe state changes.
 

@@ -154,7 +154,7 @@ So much less code ?
 That's because a lot of it is now in a different file called `postcss.config.js`. That one is a copypaste of the detailed config for postcss itself:
 
 ```javascript
-const webpack = require("webpack");
+const webpack = require("webpack")
 
 module.exports = {
   plugins: [
@@ -168,7 +168,7 @@ module.exports = {
     require("cssnano")({ zindex: false }),
     // end UglifyJSPlugin fix
   ],
-};
+}
 ```
 
 I don't know if the `UglifyJS` bug we're working around still exists, so I left the config as I found it. Just to be safe.
@@ -223,7 +223,7 @@ rules: [
     },
     loader: "babel-loader",
   },
-];
+]
 // ...
 plugins: [
   new webpack.optimize.UglifyJsPlugin({
@@ -243,7 +243,7 @@ plugins: [
       comments: false,
     },
   }),
-];
+]
 ```
 
 See that `{modules: false}` in the `babel-loader` config? That's new. You can specify options when defining Babel plugins and presets.

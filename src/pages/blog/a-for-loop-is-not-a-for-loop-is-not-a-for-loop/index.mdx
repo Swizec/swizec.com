@@ -10,7 +10,15 @@ hero: ../../../defaultHero.jpg
 
 ![IMG_1675](http://swizec.com/blog/wp-content/uploads/2011/10/6260572607_be8dca7de4_m2.jpg "IMG_1675")
 
-For loops are kind of a big deal. So big in fact that it's virtually impossible to code any sizeable chunk of code without running into some sort of [for loop](http://en.wikipedia.org/wiki/For_loop "For loop") ... sure, there's such awesome things as pure [functional languages](http://en.wikipedia.org/wiki/Functional_programming "Functional programming") where for loops don't look like for loops. But I'm fairly certain most of those eventually turn into some sort of for loop deep down in the bowels of assembler and machine code. It is therefore fairly easy to assert that everyone needs to know for loops like the back of their hand. But how well do you really know them? A few days ago I ran into a silly thing with a couple of friends. We somehow got reminded that C counts the head of a for loop as part of the loop's scope, which means variables defined therein don't really affect anyone outside the loop. But at the same time, it seems like many (most?) other languages don't behave like this. It seemed only reasonable to go write a for loop in many languages and see what happens.
+For loops are kind of a big deal.
+
+So big in fact that it's virtually impossible to code any sizeable chunk of code without running into some sort of [for loop](http://en.wikipedia.org/wiki/For_loop "For loop") ... sure, there's such awesome things as pure [functional languages](http://en.wikipedia.org/wiki/Functional_programming "Functional programming") where for loops don't look like for loops. But I'm fairly certain most of those eventually turn into some sort of for loop deep down in the bowels of assembler and machine code.
+
+It is therefore fairly easy to assert that everyone needs to know for loops like the back of their hand. But how well do you really know them?
+
+A few days ago I ran into a silly thing with a couple of friends. We somehow got reminded that C counts the head of a for loop as part of the loop's scope, which means variables defined therein don't really affect anyone outside the loop. But at the same time, it seems like many (most?) other languages don't behave like this.
+
+It seemed only reasonable to go write a for loop in many languages and see what happens.
 
 <!--more-->
 
@@ -34,7 +42,7 @@ int main() {
 ## PHP
 
 ```php
-<!--?php
+<!--?php<p-->
 
 $i = 5;
 
@@ -53,7 +61,7 @@ for ($j=0; $j<2; $j++) {
 
 echo "after:$i\n"; // prints 2
 
-?-->
+?>
 ```
 
 ## Java
@@ -179,7 +187,11 @@ print "after:", i
 
 ## Conclusion
 
-The interesting part is how differently languages of the curly-braces family behave. Some consider the for loop its own scope, many don't. It's interesting to compare JavaScript and Perl. They both have a way to tell a variable to be defined in the local scope, but JavaScript simply doesn't let you do that with fors, apparently only functions have scope of their own. Ruby is similar to Perl in this regard. That little dollar sign can change the scope and that's what let us pull off the trick since loops are important enough to warrant scope at all. The biggest disappointment is Python. I was honestly expecting the [list comprehension](http://en.wikipedia.org/wiki/List_comprehension "List comprehension") to have its own scope, but alas.
+The interesting part is how differently languages of the curly-braces family behave. Some consider the for loop its own scope, many don't. It's interesting to compare JavaScript and Perl. They both have a way to tell a variable to be defined in the local scope, but JavaScript simply doesn't let you do that with fors, apparently only functions have scope of their own.
+
+Ruby is similar to Perl in this regard. That little dollar sign can change the scope and that's what let us pull off the trick since loops are important enough to warrant scope at all.
+
+The biggest disappointment is Python. I was honestly expecting the [list comprehension](http://en.wikipedia.org/wiki/List_comprehension "List comprehension") to have its own scope, but alas.
 
 ###### Related articles
 
