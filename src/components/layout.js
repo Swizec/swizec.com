@@ -138,12 +138,16 @@ export default (props) => {
             overflow: hidden;
             margin: 0 auto;
             width: 100%;
-            height: 0;
-            padding-bottom: 56.25%;
+            height: 300px;
+
+            iframe {
+              height: 100%;
+            }
 
             @media (min-width: 960px) {
               width: 80%;
               margin: 0 auto;
+              height: 400px;
             }
           }
         `}
