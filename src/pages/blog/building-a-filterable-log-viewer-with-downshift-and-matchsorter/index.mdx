@@ -49,13 +49,10 @@ Then we split our log on a regex using the provided match.
 
 The result is an array of log fragments like this
 
-```undefined
-<code>match = 'cat'
-log = 'my cat is grumpy'
+    match = 'cat'
+    log = 'my cat is grumpy'
 
-chunks --> ['my ', 'cat', ' is grumpy']
-</code>
-```
+    chunks --> ['my ', 'cat', ' is grumpy']
 
 When you split on regex and wrap your split point in parenthesis, `()`, it's preserved in your output. Perfect 👌 for our purposes and pretty fast too.
 
@@ -63,13 +60,10 @@ Rendering is a matter of looping through our `chunks` array and returning either
 
 The `<Highlighted>` component is simplistic because I'm no designer.
 
-```undefined
-<code>const Highlight = styled.span`
-    color: red;
-    background: yellow;
-`;
-</code>
-```
+    const Highlight = styled.span`
+        color: red;
+        background: yellow;
+    `;
 
 Red color, yellow background. High contrast.
 

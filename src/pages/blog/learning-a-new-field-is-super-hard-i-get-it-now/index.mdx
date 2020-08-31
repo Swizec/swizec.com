@@ -134,36 +134,30 @@ Yeah no I had no idea.
 
 This was an example in docs:
 
-```undefined
-<code class="kotlin">class MyTests : StringSpec({
-  "length should return size of string" {
-    "hello".length shouldBe 5
-  }
-  "startsWith should test for a prefix" {
-    "world" should startWith("wor")
-  }
-})
-</code>
-```
+    <code class="kotlin">class MyTests : StringSpec({
+      "length should return size of string" {
+        "hello".length shouldBe 5
+      }
+      "startsWith should test for a prefix" {
+        "world" should startWith("wor")
+      }
+    })
 
 The file you _actually_ need to write looks like this:
 
-```undefined
-<code class="kotlin">package your.stuff
+    <code class="kotlin">package your.stuff
 
-import io.kotlintest.specs.StringSpec
-import io.kotlintest.shouldBe
+    import io.kotlintest.specs.StringSpec
+    import io.kotlintest.shouldBe
 
-class MyTests : StringSpec({
-  "length should return size of string" {
-    "hello".length shouldBe 5
-  }
-  "startsWith should test for a prefix" {
-    "world" should startWith("wor")
-  }
-})
-</code>
-```
+    class MyTests : StringSpec({
+      "length should return size of string" {
+        "hello".length shouldBe 5
+      }
+      "startsWith should test for a prefix" {
+        "world" should startWith("wor")
+      }
+    })
 
 Banged my head against that wall for an hour. Such a small thing, so hard to figure out on your own.
 

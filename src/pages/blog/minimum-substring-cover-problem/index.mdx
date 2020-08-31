@@ -18,19 +18,15 @@ There are actually a lot of cover problems, the most famous being Minimum [Set C
 
 For an example consider this:
 
-```undefined
-S = ['a', 'aab', 'aba']
-C(S) = ['a', 'b', 'aa', 'ab', 'ba', 'aab', 'aba']
-```
+    S = ['a', 'aab', 'aba']
+    C(S) = ['a', 'b', 'aa', 'ab', 'ba', 'aab', 'aba']
 
 We can easily see that _C(S)_ is a set of all the possible coverings of S - using a combination of strings from C we can construct every string in S. This part isn't very difficult to calculate.
 
 Everything gets slightly hairier when you look for minimum covers:
 
-```undefined
-C_1 = ['a', 'b']  # 3-cover (need 3 strings to cover the longest string in S)
-C_2 = ['a', 'ab'] # 2-cover (need 2 strings to cover the longest string in S)
-```
+    C_1 = ['a', 'b']  # 3-cover (need 3 strings to cover the longest string in S)
+    C_2 = ['a', 'ab'] # 2-cover (need 2 strings to cover the longest string in S)
 
 Depending on how you choose the weight, both C*1 and C_2 are \_minimum substring covers* of S. Considering "least" to mean _least amount of strings_ then both are of weight 2, but if you consider "least" to mean _the total length of strings_ then C_1 is better.
 
@@ -72,11 +68,9 @@ From what I can understand this algorithm approaches the problem with the idea t
 
 According to this section, the minimum substring cover can be formulated using the following integer linear program:
 
-```undefined
-min    SUM_(c in C(s)) w(c)x_c
-s.t.   SUM_(f in F_l(s)) y_f >= 1          every s in S
-       SUM_(c in f in F_l(s)) y_f
-```
+    min    SUM_(c in C(s)) w(c)x_c
+    s.t.   SUM_(f in F_l(s)) y_f >= 1          every s in S
+           SUM_(c in f in F_l(s)) y_f
 
 Then there are a bunch of proofs that this algorithm works and is indeed very awesome ... but by this time my eyes started glazing over and the September deadline for my thesis started looking _very_ near.
 

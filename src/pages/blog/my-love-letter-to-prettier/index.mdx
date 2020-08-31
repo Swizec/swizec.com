@@ -78,14 +78,11 @@ For example, right now when I write `"string'` (mismatched quotes), Prettier com
 
 Or when I get sloppy with closing my parens in a long function chain, what if Prettier could fix it instead of complaining?
 
-```undefined
-<code>export default withRouter(
-connect(state => ({
-items: state.shoppingCart.items
-}))(ShoppingCart)
-);
-</code>
-```
+    export default withRouter(
+    connect(state => ({
+    items: state.shoppingCart.items
+    }))(ShoppingCart)
+    );
 
 See all those little parens that have to be just right? Wouldn't it be great if Prettier could just figure it out for us and close them as necessary? 😛
 

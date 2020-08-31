@@ -74,13 +74,11 @@ After we have a new population, these are then evaluated for correctness and the
 
 The authors go into little detail about assessing the different poetic structures, mostly because they have not yet cracked how to implement all of them. Detecting rhythm seems to be where they've made the most progress and a solution is suggested where we give the algorithm a target [phonetic form](http://en.wikipedia.org/wiki/Phonetic_form "Phonetic form"), like this _limerick_:
 
-```undefined
-w,s,w,w,s,w,w,s(a)
-w,s,w,w,s,w,w,s(a)
-  w,s,w,w,s(b)
-  w,s,w,w,s(b)
-w,s,w,w,s,w,w,s(a)
-```
+    w,s,w,w,s,w,w,s(a)
+    w,s,w,w,s,w,w,s(a)
+      w,s,w,w,s(b)
+      w,s,w,w,s(b)
+    w,s,w,w,s,w,w,s(a)
 
 Where _w_ means a weak stress syllable and _s_ means a strong one. In parentheses the rhyming structure is described.
 
@@ -92,30 +90,22 @@ Here is an example of what their algorithm can produce:
 
 **Target semantics**
 
-```undefined
-{john(1),mary(2), dog(3), bottle(4), love(5,6,7), slow(8), smile(9,10)}
-```
+    {john(1),mary(2), dog(3), bottle(4), love(5,6,7), slow(8), smile(9,10)}
 
 **Target Form**
 
-```undefined
-w,s,w,w,s,w,w,s,
-w,s,w,w,s,w,w,s
-```
+    w,s,w,w,s,w,w,s,
+    w,s,w,w,s,w,w,s
 
 **Surface**
 
-```undefined
-the bottle was loved by Luke
-a bottle was loved by a dog
-```
+    the bottle was loved by Luke
+    a bottle was loved by a dog
 
 **Stress**
 
-```undefined
-w,s,w,w,s,w,s,
-w,s,w,w,s,w,w,s
-```
+    w,s,w,w,s,w,s,
+    w,s,w,w,s,w,w,s
 
 ###### Related articles
 

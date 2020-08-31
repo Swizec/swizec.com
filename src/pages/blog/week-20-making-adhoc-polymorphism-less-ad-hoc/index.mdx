@@ -58,21 +58,19 @@ Let's say we want to overload `(+)`, `(*)`, and `negate` on `Int` and `Float`. W
 
 Now we can define type instances such as `Num Int` and specify which functions to translate the overloaded symbols into. We assume things like `addInt` and `mulInt` are defined by default.
 
-```undefined
-class Num a where
-  (+), (*) :: a -> a -> a
-  negate   :: a -> a
+    class Num a where
+      (+), (*) :: a -> a -> a
+      negate   :: a -> a
 
-instance Num Int where
-  (+)    = addInt
-  (*)    = mulInt
-  negate = negInt
+    instance Num Int where
+      (+)    = addInt
+      (*)    = mulInt
+      negate = negInt
 
-instance Num Float where
-  (+)    = addFloat
-  (*)    = mulFloat
-  negate = negFloat
-```
+    instance Num Float where
+      (+)    = addFloat
+      (*)    = mulFloat
+      negate = negFloat
 
 This lets us define both the `square` and `squares` functions from before, but with a well-defined type at compile time.
 

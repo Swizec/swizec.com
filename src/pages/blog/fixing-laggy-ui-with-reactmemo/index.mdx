@@ -47,10 +47,7 @@ The underlying reason why each keystroke leads to a full re-render is that I'm t
 
 JavaScript compares objects by reference.
 
-```undefined
-<code class="javascript">{foo: 'bar'} === {foo: 'bar'} // false
-</code>
-```
+    <code class="javascript">{foo: 'bar'} === {foo: 'bar'} // false
 
 Great for making sure your whole UI is always up to date. Bad for performance.
 
@@ -64,31 +61,25 @@ Two ways you can approach this:
 
 2) Use React time slicing and make `this.setState` itself asynchronous. Can't remember which version of React this came with, maybe 16.4 ... it works real good.
 
-```undefined
-<code class="javascript">onChange: value => {
-  let { values } = this.state;
-  values = [...values];
-  values.push(value);
-  values[0] = value;
+    <code class="javascript">onChange: value => {
+   let { values } = this.state;
+   values = [...values];
+   values.push(value);
+   values[0] = value;
 
-  this.setState({ values });
-}
-</code>
-```
+   this.setState({ values });
+   }
 
 👇
 
-```undefined
-<code class="javascript">onChange: value => {
-  let { values } = this.state;
-  values = [...values];
-  values.push(value);
-  values[0] = value;
+    <code class="javascript">onChange: value => {
+      let { values } = this.state;
+      values = [...values];
+      values.push(value);
+      values[0] = value;
 
-  window.requestIdleCallback(() => this.setState({ values }));
-}
-</code>
-```
+      window.requestIdleCallback(() => this.setState({ values }));
+    }
 
 Instead of immediately updating our state, we wait for a browser idle callback. Basically saying _"Yo browser, do this when you got some time will ya?"_
 
@@ -108,16 +99,13 @@ It's a lot like `useEffect` but for entire components. You tell React exactly wh
 
 Like this
 
-```undefined
-<code class="javascript">export const MemoRecursive = React.memo(
-  ({ values }) => {
-    // render values
-  },
-  (prevProps, nextProps) =>
-    JSON.stringify(prevProps) === JSON.stringify(nextProps)
-);
-</code>
-```
+    <code class="javascript">export const MemoRecursive = React.memo(
+      ({ values }) => {
+        // render values
+      },
+      (prevProps, nextProps) =>
+        JSON.stringify(prevProps) === JSON.stringify(nextProps)
+    );
 
 First argument is a functional component. When rendering, React.memo calls your comparison function, the second argument, and if that returns `true`, it updates your component.
 

@@ -22,15 +22,12 @@ Hundreds of these systems have been developed by thousands of developers. You're
 
 The core of your system is a `send_next_message` function. Something like this 👇
 
-```undefined
-<code>def send_next_message(lead)
-    campaign = lead.campaign
-    Twilio.send_message(lead, campaign.message)
-    CRM.update_data(lead)
-    campaign.advance_to_next_message
-end
-</code>
-```
+    def send_next_message(lead)
+        campaign = lead.campaign
+        Twilio.send_message(lead, campaign.message)
+        CRM.update_data(lead)
+        campaign.advance_to_next_message
+    end
 
 It makes sense, right? You take the drip campaign, send the current message with Twilio, update some metadata on your CRM, then advance your campaign to the next message.
 
@@ -38,14 +35,11 @@ Works perfect 👌
 
 You run it in a cronjob once a day. Like this:
 
-```undefined
-<code>def send_campaigns
-    Lead.active.each do |lead|
-        send_next_message.perform_async(lead)
+    def send_campaigns
+        Lead.active.each do |lead|
+            send_next_message.perform_async(lead)
+        end
     end
-end
-</code>
-```
 
 You go through active leads, pick their campaign, and spawn a new background worker with `perform_async`. Eventually, your queue will run the code and send your campaign.
 
@@ -57,15 +51,12 @@ Even better, if something goes wrong while sending the campaign, you can retry t
 
 Let's review our `send_next_message` code.
 
-```undefined
-<code>def send_next_message(lead)
-    campaign = lead.campaign
-    Twilio.send_message(lead, campaign.message)
-    CRM.update_data(lead)
-    campaign.advance_to_next_message
-end
-</code>
-```
+    def send_next_message(lead)
+        campaign = lead.campaign
+        Twilio.send_message(lead, campaign.message)
+        CRM.update_data(lead)
+        campaign.advance_to_next_message
+    end
 
 An error can happen at any point here.
 
@@ -89,16 +80,13 @@ Your lead just got a bazillion messages, and they're upset.
 
 Here's what you should do instead 👇
 
-```undefined
-<code>def send_next_message(lead)
-    campaign = lead.campaign
-    message = campaign.message
-    CRM.update_data(lead)
-    campaign.advance_to_next_message
-    Twilio.send_message(lead, campaign.message)
-end
-</code>
-```
+    def send_next_message(lead)
+        campaign = lead.campaign
+        message = campaign.message
+        CRM.update_data(lead)
+        campaign.advance_to_next_message
+        Twilio.send_message(lead, campaign.message)
+    end
 
 Fetch campaign, save the message in a local variable. _Then_ update data in your CRM. Now if updating the CRM fails, you can keep retrying until it succeeds.
 

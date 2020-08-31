@@ -30,19 +30,15 @@ But ... dear Nginx, I'm using server_name things, you were supposed to treat eac
 
 Turns out in all config files I had this:
 
-```undefined
-server {
-	listen 80;
-        server_name hipstervision.org;
-```
+    server {
+    	listen 80;
+            server_name hipstervision.org;
 
 But on that particular site I had:
 
-```undefined
-server {
-	listen my-ip:80;
-        server_name something.something;
-```
+    server {
+    	listen my-ip:80;
+            server_name something.something;
 
 Not sure why that was the case, but apparently Nginx pushes all requests to the most specific _listen_ rule first and only worries about domains and server names later.
 

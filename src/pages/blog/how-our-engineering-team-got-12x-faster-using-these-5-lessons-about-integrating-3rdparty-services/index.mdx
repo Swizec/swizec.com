@@ -90,12 +90,9 @@ When a call does go wrong, it's important that it doesn't break the rest of the 
 
 A common problem is when you decide to process a bunch of entries in a loop.
 
-```undefined
-<code>for entry in queue
-    thirdParty(entry)
-end
-</code>
-```
+    for entry in queue
+        thirdParty(entry)
+    end
 
 If that `thirdParty` call fails, the queue stops processing. When you try again, it fails at the same spot. Your queue never processes, and it keeps growing.
 

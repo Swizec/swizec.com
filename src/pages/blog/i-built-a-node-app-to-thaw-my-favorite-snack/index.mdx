@@ -123,39 +123,36 @@ The approach is simple:
 
 <!-- wp:code -->
 
-```undefined
-<code>async function thawMyCarrots(targetTemp) {
-    let temp = await readTemp(),
-        temps = [temp, temp, temp],
-        children = [];
+    async function thawMyCarrots(targetTemp) {
+        let temp = await readTemp(),
+            temps = [temp, temp, temp],
+            children = [];
 
-    while (1) {
-        if (avg(temps) < targetTemp) {
-            if (children.length < 10) {
-                children.push(fork(`${__dirname}/eat-cpu`));
+        while (1) {
+            if (avg(temps) < targetTemp) {
+                if (children.length < 10) {
+                    children.push(fork(`${__dirname}/eat-cpu`));
+                }
+            } else if (avg(temps) > targetTemp) {
+                if (children.length > 0) {
+                    children.pop().kill();
+                }
             }
-        } else if (avg(temps) > targetTemp) {
-            if (children.length > 0) {
-                children.pop().kill();
-            }
+
+            temp = await readTemp();
+            temps.shift();
+            temps.push(temp);
+
+            sll(
+                "Current temp",
+                kleur.bold.red(temp.main.toFixed(2)),
+                "\nCores at",
+                kleur.bold.gray(temp.cores),
+                `\nChildren: ${children.length}`
+            );
+            sleep.msleep(500);
         }
-
-        temp = await readTemp();
-        temps.shift();
-        temps.push(temp);
-
-        sll(
-            "Current temp",
-            kleur.bold.red(temp.main.toFixed(2)),
-            "\nCores at",
-            kleur.bold.gray(temp.cores),
-            `\nChildren: ${children.length}`
-        );
-        sleep.msleep(500);
     }
-}
-</code>
-```
 
 <!-- /wp:code -->
 
@@ -245,20 +242,17 @@ Looks like this:
 
 <!-- wp:code -->
 
-```undefined
-<code>function mySlowFunction(baseNumber) {
-    console.time('mySlowFunction');
-    var result = 0;
-    for (var i = Math.pow(baseNumber, 10); i >= 0; i--) {
-        result += Math.atan(i) * Math.tan(i);
-    };
-    console.timeEnd('mySlowFunction');
-    return result;
-}
+    function mySlowFunction(baseNumber) {
+        console.time('mySlowFunction');
+        var result = 0;
+        for (var i = Math.pow(baseNumber, 10); i >= 0; i--) {
+            result += Math.atan(i) * Math.tan(i);
+        };
+        console.timeEnd('mySlowFunction');
+        return result;
+    }
 
-mySlowFunction(3);
-</code>
-```
+    mySlowFunction(3);
 
 <!-- /wp:code -->
 

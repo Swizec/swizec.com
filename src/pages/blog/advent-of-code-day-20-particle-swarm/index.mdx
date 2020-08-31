@@ -28,17 +28,14 @@ This makes sense when you think about it. No matter the initial position or velo
 
 Say a particle starts at `p = <3,0,0>` and is moving away from center at `v = <3,0,0>`, but its acceleration is towards center – `a = <-1,0,0>`. If we iterate through each tick of the simulation, you'll see what I mean 👇
 
-```undefined
-<code>p = <3,0,0>  v=<3,0,0>  a = <-1,0,0>
-p = <5,0,0>  v=<2,0,0>  a = <-1,0,0>
-p = <6,0,0>  v=<1,0,0>  a = <-1,0,0>
-p = <6,0,0>  v=<0,0,0>  a = <-1,0,0>
-p = <5,0,0>  v=<-1,0,0> a = <-1,0,0>
-p = <3,0,0>  v=<-2,0,0> a = <-1,0,0>
-p = <0,0,0>  v=<-3,0,0> a = <-1,0,0>
-...
-</code>
-```
+    p = <3,0,0>  v=<3,0,0>  a = <-1,0,0>
+    p = <5,0,0>  v=<2,0,0>  a = <-1,0,0>
+    p = <6,0,0>  v=<1,0,0>  a = <-1,0,0>
+    p = <6,0,0>  v=<0,0,0>  a = <-1,0,0>
+    p = <5,0,0>  v=<-1,0,0> a = <-1,0,0>
+    p = <3,0,0>  v=<-2,0,0> a = <-1,0,0>
+    p = <0,0,0>  v=<-3,0,0> a = <-1,0,0>
+    ...
 
 On each tick of the simulation, we add acceleration to velocity, then add velocity to the current position. Our particle that started life flying away from center first slows down, then stops, then hurtles towards center.
 

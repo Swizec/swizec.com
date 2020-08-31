@@ -46,21 +46,18 @@ Here's the gist of it 👇
 
 Defining D3 objects as component properties used to be best. Now you should do it in your component `state`.
 
-```undefined
-<code>class BarChart extends React.Component {
-  state = {
-    widthScale: d3
-      .scaleBand()
-      .domain(d3.range(0, this.props.data.length))
-      .range([0, this.props.width]),
+    class BarChart extends React.Component {
+      state = {
+        widthScale: d3
+          .scaleBand()
+          .domain(d3.range(0, this.props.data.length))
+          .range([0, this.props.width]),
 
-    heightScale: d3
-      .scaleLinear()
-      .domain([0, d3.max(this.props.data)])
-      .range([0, this.props.height])
-  };
-</code>
-```
+        heightScale: d3
+          .scaleLinear()
+          .domain([0, d3.max(this.props.data)])
+          .range([0, this.props.height])
+      };
 
 We define a `widthScale` and a `heightScale`. Each has a `domain` and a `range` that both depend on `this.props`. Yes you can do that in [JavaScript class fields](http://2ality.com/2017/07/class-fields.html) syntax.
 
@@ -68,18 +65,15 @@ We define a `widthScale` and a `heightScale`. Each has a `domain` and a `range` 
 
 You then use `getDerivedStateFromProps` to keep those scales up to date when your component updates.
 
-```undefined
-<code>  static getDerivedStateFromProps(nextProps, prevState) {
-    let { widthScale, heightScale } = prevState;
+      static getDerivedStateFromProps(nextProps, prevState) {
+        let { widthScale, heightScale } = prevState;
 
-    widthScale.domain(d3.range(0, nextProps.data.length));
-    heightScale.domain([0, d3.max(nextProps.data)]);
+        widthScale.domain(d3.range(0, nextProps.data.length));
+        heightScale.domain([0, d3.max(nextProps.data)]);
 
-    prevState = { ...prevState, widthScale, heightScale };
-    return prevState;
-  }
-</code>
-```
+        prevState = { ...prevState, widthScale, heightScale };
+        return prevState;
+      }
 
 It's a static method, which means no `this` keyword for you, you're running on the class, not an instance. You get the new props and the current state.
 
@@ -89,21 +83,18 @@ Take `widthScale` and `heightScale` out of props, update their domains, put them
 
 Now that your scales are always up to date, you can render your chart. Same as usual, D3 for props, React for rendering.
 
-```undefined
-<code>  render() {
-    const { x, y, data, height } = this.props,
-      { widthScale, heightScale } = this.state;
+      render() {
+        const { x, y, data, height } = this.props,
+          { widthScale, heightScale } = this.state;
 
-    return (
-      <g transform="{`translate(${x}," ${y})`}="">
-        {data.map((d, i) => (
-          <rect x={widthScale(i)} y="{height" -="" heightscale(d)}="" width={widthScale.bandwidth()} height={heightScale(d)}>
-        ))}
-      </rect></g>
-    );
-  }
-</code>
-```
+        return (
+          <g transform="{`translate(${x}," ${y})`}="">
+            {data.map((d, i) => (
+              <rect x={widthScale(i)} y="{height" -="" heightscale(d)}="" width={widthScale.bandwidth()} height={heightScale(d)}>
+            ))}
+          </rect></g>
+        );
+      }
 
 Get chart coordinates, `data`, and `height` from props. Grab `widthScale` and `heightScale`. Return a `<g>` element full of rectangles.
 

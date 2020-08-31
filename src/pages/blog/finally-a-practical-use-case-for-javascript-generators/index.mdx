@@ -36,26 +36,20 @@ Unless you use generators 😛
 
 First, you create a regex that matches `@` followed by a series of word symbols.
 
-```undefined
-<code class="javascript">const UserRegex = new RegExp(/@(\w+)/, "g");
-</code>
-```
+    <code class="javascript">const UserRegex = new RegExp(/@(\w+)/, "g");
 
 Then you create a generator that runs this regex in a loop. Each `UserRegex.exec()` returns the next match.
 
-```undefined
-<code class="javascript">function* getUsernames(string) {
-    let match = null;
+    <code class="javascript">function* getUsernames(string) {
+        let match = null;
 
-    do {
-        match = UserRegex.exec(string);
-        if (match) {
-            yield match;
-        }
-    } while (match);
-}
-</code>
-```
+        do {
+            match = UserRegex.exec(string);
+            if (match) {
+                yield match;
+            }
+        } while (match);
+    }
 
 We have a `*getUsernames` generator that takes a `string`. The asterisk notation changes a function to a generator.
 
@@ -67,23 +61,17 @@ Yield is how you return values from generators. Notice that even after returning
 
 You can now find all usernames in a string with a loop.
 
-```undefined
-<code class="javascript">const string = "this is a test with @swizec and @kyleshevlin, maybe @lukeed05"
+    <code class="javascript">const string = "this is a test with @swizec and @kyleshevlin, maybe @lukeed05"
 
-for (const username of getUsernames(string)) {
-  console.log(username)
-}
-</code>
-```
+    for (const username of getUsernames(string)) {
+      console.log(username)
+    }
 
 That outputs
 
-```undefined
-<code>["@swizec", "swizec"]
-["@kyleshevlin", "kyleshevlin"]
-["@lukeed05", "lukeed05"]
-</code>
-```
+    ["@swizec", "swizec"]
+    ["@kyleshevlin", "kyleshevlin"]
+    ["@lukeed05", "lukeed05"]
 
 ![](./img/media-12NUbkX6p4xOO4-giphy.gif)
 

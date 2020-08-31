@@ -53,17 +53,14 @@ Ok, so here's what you do when setting up a new React app:
 
 **4)** Open `package.json`, find the `"babel"` section (line 78 for me), and add 4 lines so it looks like this:
 
-```undefined
-<code>"babel": {
-"plugins": [
-"transform-decorators-legacy"
-],
-"presets": [
-"react-app"
-]
-},
-</code>
-```
+    "babel": {
+    "plugins": [
+    "transform-decorators-legacy"
+    ],
+    "presets": [
+    "react-app"
+    ]
+    },
 
 **5)** Run `npm install --save mobx mobx-react`. This installs MobX.
 

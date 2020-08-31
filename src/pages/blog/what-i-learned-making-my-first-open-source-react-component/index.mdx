@@ -42,10 +42,7 @@ Point is, you are trying to publish an isolated component. You still need _some_
 
 [Use `nwb` instead](https://github.com/insin/nwb/blob/master/docs/guides/ReactComponents.md#developing-react-components-and-libraries-with-nwb).
 
-```undefined
-<code>nwb new react-component react-bla
-</code>
-```
+    nwb new react-component react-bla
 
 This sets you up. A `src` folder for your code, a `demo` folder for your demo app (plus dev server and hot loading, yay\\o/), a `test` folder that you should use and I didn't, some build stuff for shipping…
 
@@ -92,17 +89,11 @@ They prefer `import { FadeIn } from 'react-lazyload-fadein'`? They can do that, 
 
 Wanna use function as children, my favorite? Yep, it works.
 
-```undefined
-<code><FadeIn>{onload => <MyThing onLoad={onload} />}</FadeIn>
-</code>
-```
+    <FadeIn>{onload => <MyThing onLoad={onload} />}</FadeIn>
 
 Using render props in your codebase? That works too.
 
-```undefined
-<code><FadeIn render={onload => <MyThing onLoad={onload} />} />
-</code>
-```
+    <FadeIn render={onload => <MyThing onLoad={onload} />} />
 
 You shouldn't have to compromise your code style to use my component. My job isn't to encourage this or that pattern. My job is to give you a tool that you can use to make your life easier.
 

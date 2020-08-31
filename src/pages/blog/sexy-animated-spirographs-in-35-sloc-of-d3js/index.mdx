@@ -16,7 +16,7 @@ Endless amounts of fun when I was two or three years old. I think ... I don't re
 
 Last night I was making an animation example for the d3.js book I'm writing and ended up with the idea of progressively drawing out cool looking parametric equations. Little did I know, those are actually spirographs! Learned something while I was learning something.
 
-&lt;tweet gone missing&gt;
+&lt;tweet gone missing>
 
 My failure in common knowledge aside, it's possible to animate the drawing of parametric equations with just a few lines of [d3.js](http://d3js.org) code. What I'm about to show you has a pretty big problem, but produces cool looking results "in the lab". Try to guess what the problem is.
 
@@ -43,7 +43,10 @@ Then we hop into the javascript to flesh out the actual code.
 ```javascript
 var width = 600,
   height = 600,
-  svg = d3.select("#graph").append("svg").attr({ width: width, height: height })
+  svg = d3
+    .select("#graph")
+    .append("svg")
+    .attr({ width: width, height: height });
 ```
 
 I found the parametric function in the wikipedia's article on parametric equations. We'll be giving it a simple parameter calculated from the animation timer and it will return a two dimensional position.
@@ -53,13 +56,13 @@ var position = function (t) {
   var a = 80,
     b = 1,
     c = 1,
-    d = 80
+    d = 80;
 
   return {
     x: Math.cos(a * t) - Math.pow(Math.cos(b * t), 3),
     y: Math.sin(c * t) - Math.pow(Math.sin(d * t), 3),
-  }
-}
+  };
+};
 ```
 
 Tweaking the _a_, _b_, c, and _d_ parameters will change the final shape.
@@ -78,10 +81,10 @@ var t_scale = d3.scale
   y = d3.scale
     .linear()
     .domain([-2, 2])
-    .range([height - 100, 100])
+    .range([height - 100, 100]);
 
 var brush = svg.append("circle").attr({ r: 4 }),
-  previous = position(0)
+  previous = position(0);
 ```
 
 The _t_scale_ is going to translate time into a parameter, _x_ and _y_ calculate proper positions on the final image using the coordinates returned by the position function.
@@ -91,13 +94,13 @@ We also put a simple circle on the image - this will represent the brush - and w
 ```javascript
 var step = function (time) {
   if (time > t_scale.domain()[1]) {
-    return true
+    return true;
   }
 
   var t = t_scale(time),
-    pos = position(t)
+    pos = position(t);
 
-  brush.attr({ cx: x(pos.x), cy: y(pos.y) })
+  brush.attr({ cx: x(pos.x), cy: y(pos.y) });
   svg.append("line").attr({
     x1: x(previous.x),
     y1: y(previous.y),
@@ -105,10 +108,10 @@ var step = function (time) {
     y2: y(pos.y),
     stroke: "steelblue",
     "stroke-width": 1.3,
-  })
+  });
 
-  previous = pos
-}
+  previous = pos;
+};
 ```
 
 This is our [step function](http://en.wikipedia.org/wiki/Step_function "Step function"). It draws every consecutive step of the animation by moving the brush and putting a line between the current and previous position. The animation will stop when this function returns _true_ so we make sure the _time_ parameter doesn't go beyond _t_scales_'s domain.
@@ -116,7 +119,7 @@ This is our [step function](http://en.wikipedia.org/wiki/Step_function "Step fun
 Finally, we simply start the timer.
 
 ```javascript
-var timer = d3.timer(step, 500)
+var timer = d3.timer(step, 500);
 ```
 
 The timer will start running after 500 milliseconds and repeatedly call the _step \_function until it returns \_true._

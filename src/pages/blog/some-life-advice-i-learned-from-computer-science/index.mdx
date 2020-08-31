@@ -70,21 +70,15 @@ She was a bad ass computer scientist. Built some of the first compilers and cham
 
 In the context of computer science, her quote kind of describes exception-based error handling. You try something, and if it doesn't work, clean up after yourself. If it does work, you just saved the time it would take to check.
 
-```undefined
-<code>try:
-    read file
-except NoFile:
-    oops
-</code>
-```
+    try:
+        read file
+    except NoFile:
+        oops
 
 Versus
 
-```undefined
-<code>if file_exist
-    read file
-</code>
-```
+    if file_exist
+        read file
 
 Depending on complexity of your `if` statement, the exception approach can be faster. I often find it cleaner to work with bubbling exceptions as well, but implicit versus explicit error handling is a huge can of worms and a topic of much debate.
 
@@ -183,7 +177,7 @@ Much of computer science deals with [computational complexity](https://en.wikipe
 
 Problems fall into multiple [complexity classes](https://en.wikipedia.org/wiki/Complexity_class) ranging from easy-to-solve, to problems where we can't find an answer but can validate a guess, to completely unsolvable.
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Complexity_subsets_pspace.svg/500px-Complexity_subsets_pspace.svg.png)
+![](./img/wikipedia-commons-thumb-6-6e-Complexity_subsets_pspace.svg-500px-Complexity_subsets_pspace.svg.png)
 
 When you're waiting for a process to finish, for example, you can never know whether it's still going or it got stuck and will never finish. You could wait for forever and never find out. Or it could spit out an answer in 5 seconds and you'll know it wasn't stuck
 

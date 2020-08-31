@@ -35,10 +35,7 @@ You can start using it right now. All you need is an expensive laptop, my [Touch
 
 Then run installation:
 
-```undefined
-<code>$ npm install
-</code>
-```
+    $ npm install
 
 Now you have my progress indicator. It can talk to your Touchbar when the app from step 1 is running.
 
@@ -72,35 +69,32 @@ The native app runs a web server built with [Swifter](https://github.com/httpswi
 
 We added these lines to what looks like the most important Nyan cat file – `NyanCatCanvas.swift`.
 
-```undefined
-<code class="swift">// NyanCatCanvas.swift
+    <code class="swift">// NyanCatCanvas.swift
 
-func downloadImage() {
-    // stuff that downloads nyan gif
+    func downloadImage() {
+        // stuff that downloads nyan gif
 
-    server["/progress/:progress"] = updateProgress()
-    do {
-        try server.start(12345)
-    } catch {
-        print(error)
+        server["/progress/:progress"] = updateProgress()
+        do {
+            try server.start(12345)
+        } catch {
+            print(error)
+        }
     }
-}
 
-func updateProgress() -> ((HttpRequest) -> HttpResponse) {
-    return { r in
-    let progress : NSNumber? = NumberFormatter().number(from: r.params.first!.value)
+    func updateProgress() -> ((HttpRequest) -> HttpResponse) {
+        return { r in
+        let progress : NSNumber? = NumberFormatter().number(from: r.params.first!.value)
 
-    if progress != nil {
-        self.xPosition = -680 + 6.8 * CGFloat(progress!)
+        if progress != nil {
+            self.xPosition = -680 + 6.8 * CGFloat(progress!)
 
-        return .ok(.html("Progress: \(self.xPosition)"))
-    }else{
-        return .ok(.html("No progress"))
+            return .ok(.html("Progress: \(self.xPosition)"))
+        }else{
+            return .ok(.html("No progress"))
+        }
+        }
     }
-    }
-}
-</code>
-```
 
 We start the server listening on port `12345` with `server.start(12345)` and add a route for `/progress/:progress`. We're listening to GET request on `localhost:12345/progress/<number>`. Those call `updateProgress()`.
 

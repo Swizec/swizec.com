@@ -74,31 +74,28 @@ It was… not the first thing I thought of. 😅
 
 Here's a dump from a debugging session on my localhost 👇 Student messages are doubled; that's easy to see. The part that's hard to see is that each student message is saved with two different `sent_at` timestamps.
 
-```undefined
-<code>2.2.0 :001 > puts Session.last.messages.pluck(:sent_from, :sent_at, :text).to_yaml
-- - student
-  - 2017-07-04 23:00:02.786000000 Z
-  - Bdbr
-- - student
-  - 2017-07-04 23:00:02.786581000 Z
-  - Bdbr
-- - tutor
-  - 2017-07-04 23:00:14.032999000 Z
-  - fawefaw
-- - tutor
-  - 2017-07-04 23:00:14.857000000 Z
-  - afeaw
-- - student
-  - 2017-07-04 23:00:17.053721000 Z
-  - Hsj
-- - student
-  - 2017-07-04 23:00:17.052999000 Z
-  - Hsj
-- - system alert
-  - 2017-07-04 23:00:19.403000000 Z
-  - Student ended session
-</code>
-```
+    2.2.0 :001 > puts Session.last.messages.pluck(:sent_from, :sent_at, :text).to_yaml
+    - - student
+      - 2017-07-04 23:00:02.786000000 Z
+      - Bdbr
+    - - student
+      - 2017-07-04 23:00:02.786581000 Z
+      - Bdbr
+    - - tutor
+      - 2017-07-04 23:00:14.032999000 Z
+      - fawefaw
+    - - tutor
+      - 2017-07-04 23:00:14.857000000 Z
+      - afeaw
+    - - student
+      - 2017-07-04 23:00:17.053721000 Z
+      - Hsj
+    - - student
+      - 2017-07-04 23:00:17.052999000 Z
+      - Hsj
+    - - system alert
+      - 2017-07-04 23:00:19.403000000 Z
+      - Student ended session
 
 Who sent a message, when, what it was. Pay attention to the timestamps. `2017-07-04 23:00:02.786000000 Z` vs. `2017-07-04 23:00:02.786581000 Z`, for example.
 
@@ -116,11 +113,8 @@ message.set({
 
 Don't believe me? Watch this.
 
-```undefined
-<code>> moment("2017-07-04 23:00:02.786581000 Z").format('YYYY-MM-DDTHH:mm:ss.SSSSSSS')
-"2017-07-04T16:00:02.7860000"
-</code>
-```
+    > moment("2017-07-04 23:00:02.786581000 Z").format('YYYY-MM-DDTHH:mm:ss.SSSSSSS')
+    "2017-07-04T16:00:02.7860000"
 
 😁
 

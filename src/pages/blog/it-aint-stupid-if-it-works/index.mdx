@@ -14,12 +14,9 @@ How do you send your friendly neighborhood data scientist 1,571,043 messages to 
 
 Well, the easiest would be something like this:
 
-```undefined
-<code>username: MR_SCIENTIST
-password: PLEASE_DONT_FUCK_UP_OUR_PRODUCTION_DATABASE
-url: postgres://user:pass@ec2-54-225-230-243.compute-1.amazonaws.com:5432/somepath
-</code>
-```
+    username: MR_SCIENTIST
+    password: PLEASE_DONT_FUCK_UP_OUR_PRODUCTION_DATABASE
+    url: postgres://user:pass@ec2-54-225-230-243.compute-1.amazonaws.com:5432/somepath
 
 Excellent! It took you 30 seconds to find the credentials and 2 minutes to write an email. Now all The Scientist has to do is connect to your database, learn an undocumented schema of 114 tables, run some queries, and make absolutely certain that he doesn't mess anything up. He also have to be careful because this is production data and if something goes wrong here, the latest untested backup is 8 hours old.
 

@@ -151,16 +151,14 @@ Scales are D3's most versatile concept. They help you translate between two diff
 
 Scales work like the mathematical functions you learned about in school. A domain maps to a range using some sort of formula.
 
-![](./img/wikipedia-commons-thumb-d-df-Function_color_example_3.svg-440px-Function_color_example_3.svg.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Function_color_example_3.svg/440px-Function_color_example_3.svg.png)
 
 Colored shapes in the domain map to colors in the range. No formula for this one, which makes it an ordinal scale.
 
-```undefined
-<code>let shapes = d3.scaleOrdinal()
-    .domain(['triangle', 'rectangle', ...)
-    .range(['red', 'orange', ...)
-</code>
-```
+    <code>let shapes = d3.scaleOrdinal()
+        .domain(['triangle', 'rectangle', ...)
+        .range(['red', 'orange', ...)
+    </code>
 
 Once you have this scale, you can use it to translate from shapes to colors. `shapes('triangle')` returns `'red'`, rectangle is orange, etc..
 
@@ -184,12 +182,10 @@ Here's a key insight about layouts: _Layouts are the data part._
 
 You take a `forceLayout` and feed it your data. It returns an object with a `tick` event callback.
 
-```undefined
-var simulation = d3.forceSimulation()
-    .force("link", d3.forceLink().id(function(d) { return d.id; }))
-    .force("charge", d3.forceManyBody())
-    .force("center", d3.forceCenter(width / 2, height / 2));
-```
+    var simulation = d3.forceSimulation()
+        .force("link", d3.forceLink().id(function(d) { return d.id; }))
+        .force("charge", d3.forceManyBody())
+        .force("center", d3.forceCenter(width / 2, height / 2));
 
 This `simulation` now handles everything about rendering nodes. Changes their positions on every tick callback.
 

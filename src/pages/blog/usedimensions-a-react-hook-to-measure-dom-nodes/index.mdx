@@ -50,52 +50,43 @@ Here's how to use it in your project 👇
 
 First, add `useDimensions` to your project
 
-```undefined
-<code>$ yarn add react-use-dimensions
-or
-$ npm install --save react-use-dimensions
-</code>
-```
+    $ yarn add react-use-dimensions
+    or
+    $ npm install --save react-use-dimensions
 
 Using it in a component looks like this
 
-```undefined
-<code class="javascript">import React from 'react';
-import useDimensions from 'react-use-dimensions';
+    <code class="javascript">import React from 'react';
+    import useDimensions from 'react-use-dimensions';
 
-const MyComponent = () => {
-    const [ref, { x, y, width }] = useDimensions();
+    const MyComponent = () => {
+        const [ref, { x, y, width }] = useDimensions();
 
-    return (
-        <div ref={ref}>
-            This is the element you'll measure
-        </div>
-    )
-}
-</code>
-```
+        return (
+            <div ref={ref}>
+                This is the element you'll measure
+            </div>
+        )
+    }
 
 `useDimensions` returns a 2-element array. First the `ref`, second the dimensions.
 
 This is so multiple `useDimensions` hooks in the same component don't step on each others' toes. Create as many refs and measurement objects as you'd like.
 
-```undefined
-<code class="javascript">const MyComponent = () => {
-    const [stepRef, stepSize] = useDimensions();
-    const [titleRef, titleSize] = useDimensions();
+    <code class="javascript">const MyComponent = () => {
+        const [stepRef, stepSize] = useDimensions();
+        const [titleRef, titleSize] = useDimensions();
 
-    console.log("Step is at X: ", stepSize.x);
-    console.log("Title is", titleSize.width, "wide");
+        console.log("Step is at X: ", stepSize.x);
+        console.log("Title is", titleSize.width, "wide");
 
-    return (
-        <div>
-            <div ref={stepRef}>This is a step</div>
-            <h1 ref={titleRef}>The title</h1>
-        </div>
-    )
-}
-</code>
-```
+        return (
+            <div>
+                <div ref={stepRef}>This is a step</div>
+                <h1 ref={titleRef}>The title</h1>
+            </div>
+        )
+    }
 
 MIT License of course.
 

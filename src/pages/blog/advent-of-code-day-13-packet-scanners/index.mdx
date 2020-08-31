@@ -34,15 +34,12 @@ On Day 13, we had to fly through a firewall without getting found by the scanner
 
 Visually that looks like this:
 
-```undefined
-<code>Picosecond 0:
- 0   1   2   3   4   5   6
-[S] [S] ... ... [S] ... [S]
-[ ] [ ]         [ ]     [ ]
-[ ]             [ ]     [ ]
-                [ ]     [ ]
-</code>
-```
+    Picosecond 0:
+     0   1   2   3   4   5   6
+    [S] [S] ... ... [S] ... [S]
+    [ ] [ ]         [ ]     [ ]
+    [ ]             [ ]     [ ]
+                    [ ]     [ ]
 
 Vertical columns are the firewall layers, `S` symbols are the packet scanners. Each picosecond they move down by `1`. At the bottom, they bounce back.
 
@@ -59,17 +56,14 @@ Rather than simulate the firewall and our travel through it, we can rely on two 
 
 Finding the series formula for #2 was the tricky part because I suck at finding series formulas by inference. This is the pattern 👇
 
-```undefined
-<code>A scanner with range 1, is at 0 every 1 picosecond.
+    A scanner with range 1, is at 0 every 1 picosecond.
 
-With range 2, every 2 picoseconds
-3, every 4 picoseconds
-4, every 6 picoseconds
-5, every 8
-6, every 10
-...
-</code>
-```
+    With range 2, every 2 picoseconds
+    3, every 4 picoseconds
+    4, every 6 picoseconds
+    5, every 8
+    6, every 10
+    ...
 
 You might find it obvious, but it wrinkled my brain six ways to Sunday. A scanner returns to 0 every `range*2-2` picoseconds.
 

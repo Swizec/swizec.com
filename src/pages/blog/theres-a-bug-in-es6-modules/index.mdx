@@ -27,20 +27,18 @@ After an hour of figuring out why Babel won't compile my code, I spent another h
 
 Babel throws a syntax error like this:
 
-```undefined
-Version: webpack 1.11.0
-Time: 662ms
-   [0] multi main 40 bytes {0} [built] [1 error]
-    + 7 hidden modules
+    Version: webpack 1.11.0
+    Time: 662ms
+       [0] multi main 40 bytes {0} [built] [1 error]
+        + 7 hidden modules
 
-ERROR in ./src/components/H1BGraph/Meta/index.jsx
-Module build failed: SyntaxError: /Users/Swizec/Documents/random-coding/react-d3js-experiment/src/components/H1BGraph/Meta/index.jsx: Unexpected token (7:18)
-   5 | import Title from './Title';
-   6 |
->  7 | export Title;
-     |             ^
-   8 |
-```
+    ERROR in ./src/components/H1BGraph/Meta/index.jsx
+    Module build failed: SyntaxError: /Users/Swizec/Documents/random-coding/react-d3js-experiment/src/components/H1BGraph/Meta/index.jsx: Unexpected token (7:18)
+       5 | import Title from './Title';
+       6 |
+    >  7 | export Title;
+         |             ^
+       8 |
 
 This is not a helpful error. Not only is this a reasonable thing to do, it's also a very common thing to do in other languages with native module support. For example, when your organize files into a directory.
 
@@ -163,9 +161,7 @@ While this isn't the cleanest code, it \*_should_\* work. But take a look at the
 
 If we don’t tell the code what to export as, how will it know? It won't. Without a name, the compiled code would look like this:
 
-```undefined
-exports = __webpack_require__(8);
-```
+    exports = __webpack_require__(8);
 
 With that, we can only re-export a single module's worth of code. Which does work by the way, you can always write `export default X`.
 

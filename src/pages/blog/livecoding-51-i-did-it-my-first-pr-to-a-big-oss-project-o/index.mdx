@@ -22,29 +22,23 @@ Previous attempts failed first because I couldn't get my dev environment to work
 
 The bug was more of a feature, really. When Remark generates a table of contents out of your markdown headers, it uses relative links. Like this 👇
 
-```undefined
-<code># Heading
+    # Heading
 
-## Subheading 1
+    ## Subheading 1
 
-## Subheading 2
+    ## Subheading 2
 
-### Subsubheading
+    ### Subsubheading
 
-## Subheading 3
-</code>
-```
+    ## Subheading 3
 
 That turns into an HTML list with `#heading`, `#subheading-1` (etc) links. Nesting at all.
 
-```undefined
-<code>- Heading (#heading)
-  - Subheading 1 (#subheading-1)
-  - Subheading 2 (#subheading-2)
-    - Subsubheading (#subsubheading)
-  - Subheading 3 (#subheading-3)
-</code>
-```
+    - Heading (#heading)
+      - Subheading 1 (#subheading-1)
+      - Subheading 2 (#subheading-2)
+        - Subsubheading (#subsubheading)
+      - Subheading 3 (#subheading-3)
 
 Imagine all of that is HTML with `<ul>` and `<li>` and `<a>` tags. Laying it out like this is easier to read.
 

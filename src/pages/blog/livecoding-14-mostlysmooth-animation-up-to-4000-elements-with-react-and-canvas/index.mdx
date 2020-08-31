@@ -24,35 +24,32 @@ It’s a garbage collection problem in a way. Animation works well the first tim
 
 The meat of our code looks like this:
 
-```undefined
-<code class="javascript">componentDidUpdate() {
-        let layer = this.refs.the_thing,
-            particles = this.props.particles,
-        for (let i = 0; i < particles.length; i++) {
-            let { id, x, y } = particles[i];
+    <code class="javascript">componentDidUpdate() {
+            let layer = this.refs.the_thing,
+                particles = this.props.particles,
+            for (let i = 0; i < particles.length; i++) {
+                let { id, x, y } = particles[i];
 
-            if (this._particles[id]) {
-                // move particle
-                this._particles[id].position({
-                    x: x,
-                    y: y
-                });
-            }else{
-                // create new particle
-                let c = new Circle({
-                    radius: 1.8,
-                    x: x,
-                    y: y,
-                    fill: 'black'
-                });
-                this._particles[id] = c;
-                layer.add(c);
-            }
-        };
+                if (this._particles[id]) {
+                    // move particle
+                    this._particles[id].position({
+                        x: x,
+                        y: y
+                    });
+                }else{
+                    // create new particle
+                    let c = new Circle({
+                        radius: 1.8,
+                        x: x,
+                        y: y,
+                        fill: 'black'
+                    });
+                    this._particles[id] = c;
+                    layer.add(c);
+                }
+            };
 
-        layer.batchDraw();
-</code>
-```
+            layer.batchDraw();
 
 Lovely. `new Circle` creates a particle, `.position` updates its position. `layer.batchDraw` does drawing stuff with the [Konva](http://konvajs.github.io/) library.
 

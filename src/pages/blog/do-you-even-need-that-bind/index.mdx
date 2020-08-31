@@ -10,12 +10,9 @@ hero: ../../../defaultHero.jpg
 
 **Codereviewer:** _"Why is this binding necessary?"_
 
-```undefined
-<code><Modal show={viewStore.modal.show}
-       closeOnOuterClick={true}
-       onClose={viewStore.closeModal.bind(viewStore)}
-</code>
-```
+    <Modal show={viewStore.modal.show}
+           closeOnOuterClick={true}
+           onClose={viewStore.closeModal.bind(viewStore)}
 
 > This code follows my [Simple MobX-driven modals](https://swizec.com/blog/simple-mobx-driven-modals/swizec/7166) approach.
 

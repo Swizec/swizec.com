@@ -24,19 +24,13 @@ We traced the problem down to a JavaScript error during app initialization. Some
 
 This shows up as a cryptic error 👇
 
-```undefined
-<code>Uncaught TypeError: Cannot read property 'call' of undefined
-    at __webpack_require__
-</code>
-```
+    Uncaught TypeError: Cannot read property 'call' of undefined
+        at __webpack_require__
 
 It happens on this line inside `manifest.js` 👇
 
-```undefined
-<code>// Execute the module function
-modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-</code>
-```
+    // Execute the module function
+    modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 
 Now `manifest.js` is a generated file, so there isn't much you can do to fix it. In fact, you shouldn't have to fix it. Or even consider modifying it. Ever.
 
