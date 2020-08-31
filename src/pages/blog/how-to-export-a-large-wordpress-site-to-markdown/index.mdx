@@ -1,6 +1,6 @@
 ---
-title: "How to export a large Wordpress site to Markdown" 
-description: "Migrating from Wordpress to Markdown sounds easy. Mention it to any developer and they'll say "Pfft, an afternoon of work at worst". Suddenly it's 6months later and you're losing your mind." 
+title: "How to export a large Wordpress site to Markdown"
+description: 'Migrating from Wordpress to Markdown sounds easy. Mention it to any developer and they''ll say "Pfft, an afternoon of work at worst". Suddenly it''s 6months later and you''re losing your mind.'
 published: 2020-08-31
 hero: ./img/screenshot-1598892576169.png
 ---
@@ -51,15 +51,15 @@ And that's where the fun begins.
 
 You're looking for a script that builds a processing pipeline:
 
-1. Parse XML
-2. Iterate through posts
-3. Create a `/out/<slug>` directory
-4. Create a `/out/<slug>/img` directory for images
-5. Extract metadata into Markdown frontmatter
-6. Download images into the `/img` directory
-7. Hacks to convert Wordpress HTML into almost valid HTML
-8. Parse said HTML into a Markdown Abstract Syntax Tree (AST)
-9. Fix edge cases in your AST
+1.  Parse XML
+2.  Iterate through posts
+3.  Create a `/out/<slug>` directory
+4.  Create a `/out/<slug>/img` directory for images
+5.  Extract metadata into Markdown frontmatter
+6.  Download images into the `/img` directory
+7.  Hacks to convert Wordpress HTML into almost valid HTML
+8.  Parse said HTML into a Markdown Abstract Syntax Tree (AST)
+9.  Fix edge cases in your AST
 10. Output clean Markdown with frontmatter into `/out/<slug>/index.md`
 
 You can see this setup in my [wordpress-to-markdown script](https://github.com/Swizec/wordpress-to-markdown).
@@ -98,15 +98,15 @@ Parses the XML, iterates through `<item>` entries, and runs `processPost` on eac
 I wanted to create full frontmatter without manual edits. That means:
 
 ```
----
-title: 'Always put side effects last'
-description: ""
-published: 2018-01-10
-redirect_from:
-            - /blog/always-put-side-effects-last/swizec/8057
-categories: "Startups, Technical"
-hero: ./img/wp-content-uploads-2016-10-salesforce-tower-panorama-1024x358.jpg
----
+    ---
+    title: 'Always put side effects last'
+    description: ""
+    published: 2018-01-10
+    redirect_from:
+                - /blog/always-put-side-effects-last/swizec/8057
+    categories: "Startups, Technical"
+    hero: ./img/wp-content-uploads-2016-10-salesforce-tower-panorama-1024x358.jpg
+    ---
 ```
 
 Title from post title, description based on meta data, a publish date, keep old URL for redirects, combine categories and tags into categories, find a good hero/social image.
@@ -304,13 +304,13 @@ Fixing this is tricky and I won't share the full code here. You can see it in [a
 
 The process goes like this:
 
-1. Find code blocks
-2. Grab language definition
-3. Replace children with a `<code>` element
-4. Fix JSX object props in child nodes
-5. Stringify block into HTML
-6. Clean HTML with gnarly regex buffoonery
-7. Run result through Prettier
+1.  Find code blocks
+2.  Grab language definition
+3.  Replace children with a `<code>` element
+4.  Fix JSX object props in child nodes
+5.  Stringify block into HTML
+6.  Clean HTML with gnarly regex buffoonery
+7.  Run result through Prettier
 
 ```javascript
 for (let block of codeBlocks) {
@@ -377,11 +377,11 @@ Site generator can take this and turn it into an embed. When it starts as a bloc
 
 Basic idea is that:
 
-1. You find all blockquote nodes
-2. All iframe nodes
-3. All paragraph nodes
-4. Filter for potential embeds
-5. Fix the AST for each embed you want to support
+1.  You find all blockquote nodes
+2.  All iframe nodes
+3.  All paragraph nodes
+4.  Filter for potential embeds
+5.  Fix the AST for each embed you want to support
 
 Taking Twitter as an example, you get this:
 
@@ -451,9 +451,9 @@ It's a shortcode tag with an image and a link. You want to get a clean Markdown 
 
 You fix this mess by:
 
-1. Finding all paragraphs
-2. Seeing if they contain shortcodes
-3. Cleaning it up with Regex
+1.  Finding all paragraphs
+2.  Seeing if they contain shortcodes
+3.  Cleaning it up with Regex
 
 Core structure is an AST traversal with a loop over candidates:
 
@@ -476,7 +476,7 @@ function cleanupShortcodes() {
 
 Inside the loop you then:
 
-1. Turn embed shortcodes into plain URLs with regex
+1.  Turn embed shortcodes into plain URLs with regex
 
 ```javascript
 // preserve embed shortcodes as plain URLs
@@ -485,7 +485,7 @@ if (node.value.match(embedShortCode)) {
 }
 ```
 
-2. Turn `[caption]` shortcodes into image nodes
+2.  Turn `[caption]` shortcodes into image nodes
 
 ```javascript
 // turn [caption] shortcodes into clean images
@@ -505,7 +505,7 @@ if (node.value.match(captionShortCode)) {
 
 This changes the parent paragraph node into an image and deletes all children text nodes.
 
-3. Remove other shortcodes
+3.  Remove other shortcodes
 
 ```javascript
 // remove other shortcodes
@@ -523,7 +523,7 @@ This one was frustrating. Embed links can include underscores, like when you emb
 Markdown stringification escapes underscores because it thinks they're emphasis and doesn't understand that some text nodes are link nodes despite not being links.
 
 ```markdown
-https://twitter.com/\_developit/status/1300154097170083842
+https://twitter.com/_developit/status/1300154097170083842
 ```
 
 That breaks your embed machinery. 🤪
@@ -542,22 +542,22 @@ The reverse lookup with `(?<=)` ensures you don't touch escaped underscores anyw
 You can use my script 👉 [github/Swizec/wordpress-to-markdown](https://github.com/Swizec/wordpress-to-markdown)
 
 ```
-$ git clone https://github.com/Swizec/wordpress-to-markdown
+    $ git clone https://github.com/Swizec/wordpress-to-markdown
 
-# download your wordpress xml
-# change filename on convert.js line 27
+    # download your wordpress xml
+    # change filename on convert.js line 27
 
-$ yarn
-$ yarn convert
+    $ yarn
+    $ yarn convert
 
-# sip margaritas
+    # sip margaritas
 ```
 
 Deals with every edge case described above, produces clean markdown output. Even runs it through Prettier ✌️
 
 PRs welcome.
 
-Cheers,<br>
+Cheers,<br/>
 ~Swizec
 
 [^1] the look-behind and look-ahead support in PCRE regexes means they are technically more powerful than regular languages. On the level of pushdown automata I think.

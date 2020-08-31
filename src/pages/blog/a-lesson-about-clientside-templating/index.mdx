@@ -45,7 +45,7 @@ To achieve this I'm using jquery template, it's a bit archaic and I may have sta
 
 Everything marked as a variable gets replaced with its value and everyone can be happy.
 
-Try to guess what happens with that _src="\\\${url_var}"_ bit in there. Yep, the browser tries to load it. Firing a request to something that always returns at least a 404 after wordpress decides that, hey, this isn't something I know of!
+Try to guess what happens with that _src="\\\\\${url_var}"_ bit in there. Yep, the browser tries to load it. Firing a request to something that always returns at least a 404 after wordpress decides that, hey, this isn't something I know of!
 
 This means that the url is _never_ cached either server-side \_or \_client-side!
 

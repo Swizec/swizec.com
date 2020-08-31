@@ -62,6 +62,7 @@ Two ways you can approach this:
 2) Use React time slicing and make `this.setState` itself asynchronous. Can't remember which version of React this came with, maybe 16.4 ... it works real good.
 
     <code class="javascript">onChange: value => {
+
    let { values } = this.state;
    values = [...values];
    values.push(value);
