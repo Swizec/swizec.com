@@ -26,6 +26,7 @@ glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
       const parentDirectory = path.dirname(file)
 
       const mdxFile = await read(file)
+      let shouldWriteFile = false
 
       //I process the file to get the AST
       const contents = await new Promise((resolve, reject) => {
@@ -68,6 +69,7 @@ glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
                         `Image ${slugTitle}.${fileInfo.extension} downloaded in ${imagesPath}`
                       )
                       node.url = `./img/${slugTitle}.${fileInfo.extension}`
+                      shouldWriteFile = true
                     })
                     .catch((err) =>
                       console.log(
@@ -103,10 +105,12 @@ glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
           })
       })
 
-      await write({
-        path: file,
-        contents,
-      })
+      if (shouldWriteFile) {
+        await write({
+          path: file,
+          contents,
+        })
+      }
     })
   )
   console.log("Done.")
