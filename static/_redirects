@@ -1,1 +1,2 @@
-/reactd3js https://reactfordataviz.com
+/reactd3js  https://reactfordataviz.com
+/blog/wp-content/*  /wp-content/:splat
