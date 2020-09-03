@@ -8,6 +8,10 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
+    siteUrl: "https://swizec.com",
+    title: "swizec.com",
+    description:
+      "Swizec shows you how to become a better JavaScript engineer with books, articles, talks, and workshops",
     convertkit: {
       defaultFormId: "826419",
     },
@@ -124,6 +128,66 @@ module.exports = {
         theme_color: "#FF002B",
         display: "standalone",
         icon: "./static/favicon.png",
+      },
+    },
+    {
+      resolve: "gatsby-plugin-advanced-sitemap",
+      options: {
+        createLinkInHead: true,
+        addUncaughtPages: true,
+        exclude: ["/404"],
+      },
+    },
+    {
+      resolve: "gatsby-plugin-feed",
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            output: "/rss.xml",
+            title: "swizec.com RSS Feed",
+            match: "^/blog/",
+            query: `
+              {
+                allSitePage(
+                    filter: { path: { regex: "/blog/.+/" } }
+                    sort: { fields: context___frontmatter___published, order: DESC }
+                ) {
+                    nodes {
+                        path
+                        context {
+                            frontmatter {
+                                title
+                                description
+                                published
+                            }
+                        }
+                    }
+                }
+            }
+              `,
+            serialice: ({ query: { site, allSitePage } }) => {
+              return allSitePage.nodes.map((node) => {
+                return Object.assign({}, node.context.frontmatter, {
+                  date: node.context.frontmatter.published,
+                  url: site.siteMetadata.siteUrl + node.path,
+                  guid: site.siteMetadata.siteUrl + node.path,
+                })
+              })
+            },
+          },
+        ],
       },
     },
 
