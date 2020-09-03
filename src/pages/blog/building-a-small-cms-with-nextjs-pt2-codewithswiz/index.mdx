@@ -2,7 +2,7 @@
 title: "Building a small CMS with NextJS, pt2 – CodeWithSwiz"
 description: "You're the computer, the CMS is your script. Starting small, trying NextJS, comparing microbundle vs. parcel for extracting libraries out of projects."
 published: 2020-09-03
-hero: ./img/screenshot-1599145893288.png
+hero: ./img/screenshot-1599145852676.png
 categories: "CodeWithSwiz, Livecoding, Technical"
 ---
 
@@ -27,11 +27,11 @@ This is a baby CMS and relies on humans to do the work. Means ~~you~~ I can star
 You're the computer, the CMS is your script.
 
 ```javascript
-import slugify from "slugify";
+import slugify from "slugify"
 
 export const CLICopyPasta = ({ title }) => {
   // creates the slug, hooray libraries
-  const slug = slugify(title).toLowerCase();
+  const slug = slugify(title).toLowerCase()
 
   return (
     <pre>{`
@@ -40,8 +40,8 @@ mkdir src/pages/blog/${slug}
 mkdir src/pages/blog/${slug}/img
 touch src/pages/blog/${slug}/index.mdx
             `}</pre>
-  );
-};
+  )
+}
 ```
 
 Yep, simple component. Open source [slugify](https://www.npmjs.com/package/slugify) makes our slug and we write the instructions. Once is better than always.
@@ -68,7 +68,7 @@ Following my [Wormhole state management](https://swizec.com/blog/wormhole-state-
 ```javascript
 // components/SocialCardImage
 export function useSocialCardQuery(title) {
-  return useQuery(["social-card", title], fetchSocialCard);
+  return useQuery(["social-card", title], fetchSocialCard)
 }
 ```
 
