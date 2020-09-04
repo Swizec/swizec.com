@@ -126,6 +126,7 @@ module.exports = {
         icon: "./static/favicon.png",
       },
     },
+    "gatsby-plugin-remove-fingerprints",
 
     // "gatsby-plugin-offline",
   ],
