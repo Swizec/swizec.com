@@ -177,7 +177,7 @@ module.exports = {
                 }
             }
               `,
-            serialice: ({ query: { site, allSitePage } }) => {
+            serialize: ({ query: { site, allSitePage } }) => {
               return allSitePage.nodes.map((node) => {
                 return Object.assign({}, node.context.frontmatter, {
                   date: node.context.frontmatter.published,
