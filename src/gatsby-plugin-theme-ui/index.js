@@ -1,8 +1,12 @@
 import preset from "@rebass/preset"
 import merge from "lodash.merge"
 import prism from "@theme-ui/prism/presets/theme-ui"
+import { toTheme } from "@theme-ui/typography"
+import typography from "typography-theme-parnassus"
+import "typeface-merriweather"
+import "typeface-merriweather-sans"
 
-export default merge(preset, {
+export default merge(preset, toTheme(typography), {
   initialColorMode: "themed",
   useCustomProperties: true,
   colors: {
@@ -162,7 +166,7 @@ export default merge(preset, {
     },
     blockquote: {
       mx: 0,
-      p: "1em",
+      pl: "1em",
       color: "#6a737d",
       fontSize: 3,
       borderLeft: ".25em solid #dfe2e5",
@@ -203,13 +207,6 @@ export default merge(preset, {
       py: 2,
       textAlign: "left",
       borderBottom: (t) => `1px solid ${t.colors.muted}`,
-    },
-    p: {
-      img: {
-        maxWidth: "100%",
-        margin: "auto auto",
-      },
-      fontSize: [1, 2, 3],
     },
   },
   forms: {

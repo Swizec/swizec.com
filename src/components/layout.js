@@ -96,9 +96,10 @@ const Content = (props) => {
             <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
             <Box
               sx={{
+                mt: [2, 3, 3],
                 ml: [0, "-32px", "-32px"],
                 mr: [0, "-32px", "-32px"],
-                mb: [2, 3, 5],
+                mb: [2, 3, 3],
               }}
             >
               <FormCK />
