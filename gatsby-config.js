@@ -11,7 +11,7 @@ module.exports = {
     siteUrl: "https://swizec.com",
     title: "swizec.com",
     description:
-      "Swizec shows you how to become a better JavaScript engineer with books, articles, talks, and workshops",
+      "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
     convertkit: {
       defaultFormId: "826419",
     },
