@@ -10,15 +10,16 @@ import DefaultLeftCopy from "./DefaultLeftCopy"
 import ThankYou from "./ThankYou"
 import BouncingLoader from "../BouncingLoader"
 
-const FormCK = ({ copyBefore, submitText, formId, children }) => {
-  const { register, errors, handleSubmit, formState } = useForm({ mode: 'onBlur' })
+const FormCK = ({ copyBefore, submitText, formName, children }) => {
+  const { register, errors, handleSubmit, formState } = useForm({
+    mode: "onBlur",
+  })
   const [submitError, setSubmitError] = useState()
   const [formSuccess, setFormSuccess] = useState(false)
 
-  const data = useStaticQuery(getDefaultFormId)
-  if (!formId) {
-    formId = data.site.siteMetadata.convertkit.defaultFormId
-  }
+  const ckForms = useStaticQuery(getCKForms)
+  const formId =
+    ckForms.site.siteMetadata.convertkit[formName || "defaultFormId"]
 
   const uniqueId = `${new Date().getTime()}`
 
@@ -70,11 +71,13 @@ const FormCK = ({ copyBefore, submitText, formId, children }) => {
           </Box>
         ) : (
           <>
-            <Box sx={{
-              bg: "copyBackground",
-              textAlign: "center",
-              padding: '2rem'
-            }}>
+            <Box
+              sx={{
+                bg: "copyBackground",
+                textAlign: "center",
+                padding: "2rem",
+              }}
+            >
               {children}
             </Box>
             <Flex
@@ -128,10 +131,7 @@ const FormCK = ({ copyBefore, submitText, formId, children }) => {
                 placeholder="Your address here"
               />
               <Button type="submit" disabled={formState.isSubmitting}>
-                {formState.isSubmitting ? 
-                 (<BouncingLoader /> )
-                 : (submitText)
-                }
+                {formState.isSubmitting ? <BouncingLoader /> : submitText}
               </Button>
               {submitError && (
                 <p dangerouslySetInnerHTML={{ __html: submitError }}></p>
@@ -157,12 +157,13 @@ FormCK.defaultProps = {
   submitText: "Subscribe & Get your cheatsheet 💌",
 }
 
-const getDefaultFormId = graphql`
+const getCKForms = graphql`
   query {
     site {
       siteMetadata {
         convertkit {
           defaultFormId
+          serverlessHandbookFormId
         }
       }
     }

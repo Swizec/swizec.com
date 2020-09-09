@@ -14,6 +14,7 @@ module.exports = {
       "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
     convertkit: {
       defaultFormId: "826419",
+      serverlessHandbookFormId: "1655570",
     },
   },
   plugins: [
