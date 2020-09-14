@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { Box, Flex, Button } from "rebass"
 import { useForm } from "react-hook-form"
@@ -19,7 +19,7 @@ const FormCK = ({ copyBefore, submitText, formName, children }) => {
 
   const ckForms = useStaticQuery(getCKForms)
   const formId =
-    ckForms.site.siteMetadata.convertkit[formName || "defaultFormId"]
+    ckForms.site.siteMetadata.convertkit[`${formName}FormId` || "defaultFormId"]
 
   const uniqueId = `${new Date().getTime()}`
 
@@ -57,104 +57,114 @@ const FormCK = ({ copyBefore, submitText, formName, children }) => {
   }
 
   return (
-    <FormCkWrapper>
-      {copyBefore}
-      <div className="copy-content">
-        {formSuccess ? (
-          <Box
-            px={4}
-            style={{
-              textAlign: "center",
-            }}
-          >
-            <ThankYou />
-          </Box>
-        ) : (
-          <>
+    <Box
+      sx={{
+        mt: [2, 3, 3],
+        ml: [0, "-32px", "-32px"],
+        mr: [0, "-32px", "-32px"],
+        mb: [2, 3, 3],
+      }}
+    >
+      <FormCkWrapper>
+        {copyBefore}
+        <div className="copy-content">
+          {formSuccess ? (
             <Box
-              sx={{
-                bg: "copyBackground",
+              px={4}
+              style={{
                 textAlign: "center",
-                padding: "2rem",
               }}
             >
-              {children}
+              <ThankYou />
             </Box>
-            <Flex
-              as="form"
-              onSubmit={handleSubmit(onSubmit)}
-              sx={{ justifyContent: "center" }}
-            >
-              <Label htmlFor={`${uniqueId}-name`}>Your Name</Label>
-              <Input
-                id={`${uniqueId}-name`}
-                type="text"
-                name="name"
-                ref={register({ required: true })}
-                placeholder="Your name"
-              />
-              {errors.name && (
-                <span>
-                  <span role="img" aria-label="danger">
-                    ⚠️
-                  </span>{" "}
-                  Name is required
-                </span>
-              )}
-              <Label htmlFor={`${uniqueId}-email`}>Your Email</Label>
-              <Input
-                id={`${uniqueId}-email`}
-                type="email"
-                name="email"
-                ref={register({
-                  required: "⚠️ E-mail is required",
-                  pattern: {
-                    value:
-                      "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$",
-                    message: "⚠️ Invalid email address",
-                  },
-                })}
-                placeholder="Your email address"
-              />
-              {errors.email && <span>{errors.email.message}</span>}
+          ) : (
+            <>
+              <Box
+                sx={{
+                  bg: "copyBackground",
+                  textAlign: "center",
+                  padding: "2rem",
+                }}
+              >
+                {children}
+              </Box>
+              <Flex
+                as="form"
+                onSubmit={handleSubmit(onSubmit)}
+                sx={{ justifyContent: "center" }}
+              >
+                <Label htmlFor={`${uniqueId}-name`}>Your Name</Label>
+                <Input
+                  id={`${uniqueId}-name`}
+                  type="text"
+                  name="name"
+                  ref={register({ required: true })}
+                  placeholder="Your name"
+                />
+                {errors.name && (
+                  <span>
+                    <span role="img" aria-label="danger">
+                      ⚠️
+                    </span>{" "}
+                    Name is required
+                  </span>
+                )}
+                <Label htmlFor={`${uniqueId}-email`}>Your Email</Label>
+                <Input
+                  id={`${uniqueId}-email`}
+                  type="email"
+                  name="email"
+                  ref={register({
+                    required: "⚠️ E-mail is required",
+                    pattern: {
+                      value:
+                        "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$",
+                      message: "⚠️ Invalid email address",
+                    },
+                  })}
+                  placeholder="Your email address"
+                />
+                {errors.email && <span>{errors.email.message}</span>}
 
-              <Label htmlFor={`${uniqueId}-address`} className="required">
-                Your Address
-              </Label>
-              <input
-                className="required"
-                autoComplete="nope"
-                type="text"
-                id={`${uniqueId}-address`}
-                name="address"
-                ref={register}
-                placeholder="Your address here"
-              />
-              <Button type="submit" disabled={formState.isSubmitting}>
-                {formState.isSubmitting ? <BouncingLoader /> : submitText}
-              </Button>
-              {submitError && (
-                <p dangerouslySetInnerHTML={{ __html: submitError }}></p>
-              )}
-              <p>
-                Join over 10,000 engineers just like you already improving their
-                JS careers with my letters, workshops, courses, and talks.{" "}
-                <span role="img" aria-label="ok">
-                  ✌️
-                </span>
-              </p>
-            </Flex>
-          </>
-        )}
-      </div>
-    </FormCkWrapper>
+                <Label htmlFor={`${uniqueId}-address`} className="required">
+                  Your Address
+                </Label>
+                <input
+                  className="required"
+                  autoComplete="nope"
+                  type="text"
+                  id={`${uniqueId}-address`}
+                  name="address"
+                  ref={register}
+                  placeholder="Your address here"
+                />
+                <Button type="submit" disabled={formState.isSubmitting}>
+                  {formState.isSubmitting ? <BouncingLoader /> : submitText}
+                </Button>
+                {submitError && (
+                  <p dangerouslySetInnerHTML={{ __html: submitError }}></p>
+                )}
+                <p style={{ fontSize: "0.8em" }}>
+                  Join over 10,000 engineers just like you already improving
+                  their JS careers with my letters, workshops, courses, and
+                  talks.{" "}
+                  <span role="img" aria-label="ok">
+                    ✌️
+                  </span>
+                </p>
+              </Flex>
+            </>
+          )}
+        </div>
+      </FormCkWrapper>
+    </Box>
   )
 }
 
 FormCK.defaultProps = {
   children: <DefaultLeftCopy />,
   copyBefore: <DefaultBeforeCopy />,
-  submitText: "Subscribe & Get your cheatsheet 💌",
+  submitText: "Subscribe & Become an expert 💌",
 }
 
 const getCKForms = graphql`

@@ -70,6 +70,21 @@ const Sidebar = (props) => {
   )
 }
 
+const ArticleFoot = (props) => {
+  const contentUpgrade = props.pageContext.frontmatter.content_upgrade
+  const CustomForm =
+    contentUpgrade && require("./FormCK/ContentUpgrades")[contentUpgrade]
+
+  return (
+    <>
+      <Reactions page={props.uri} />
+      <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
+      {CustomForm ? <CustomForm footer={true} /> : <FormCK />}
+      <BlogFooter />
+    </>
+  )
+}
+
 const Content = (props) => {
   const isArticle =
     props.pageContext.frontmatter && props.pageContext.frontmatter.title
@@ -90,23 +105,7 @@ const Content = (props) => {
 
       <main id="content">
         {props.children}
-        {isArticle && (
-          <>
-            <Reactions page={props.uri} />
-            <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
-            <Box
-              sx={{
-                mt: [2, 3, 3],
-                ml: [0, "-32px", "-32px"],
-                mr: [0, "-32px", "-32px"],
-                mb: [2, 3, 3],
-              }}
-            >
-              <FormCK />
-            </Box>
-            <BlogFooter />
-          </>
-        )}
+        {isArticle && <ArticleFoot {...props} />}
       </main>
     </Sidebar>
   ) : (
