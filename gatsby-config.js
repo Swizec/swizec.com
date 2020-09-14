@@ -56,7 +56,7 @@ module.exports = {
           {
             resolve: "gatsby-remark-images",
             options: {
-              markdownCaptions: true,
+              markdownCaptions: false,
               maxWidth: 890,
               linkImagestoOriginal: false,
               showCaptions: ["title", "alt"],
@@ -68,6 +68,7 @@ module.exports = {
                 turdSize: 100,
                 turnPolicy: "TURNPOLICY_MAJORITY",
               },
+              loading: "lazy",
             },
           },
 
