@@ -19,7 +19,7 @@ const FormCK = ({ copyBefore, submitText, formName, children }) => {
 
   const ckForms = useStaticQuery(getCKForms)
   const formId =
-    ckForms.site.siteMetadata.convertkit[`${formName}FormId` || "defaultFormId"]
+    ckForms.site.siteMetadata.convertkit[`${formName || "default"}FormId`]
 
   const uniqueId = `${new Date().getTime()}`
 
