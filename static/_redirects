@@ -1,6 +1,7 @@
 /reactd3js  https://reactfordataviz.com
 /blog/wp-content/*  /wp-content/:splat
 /blog/i-built-a-node-app-to-thaw-my-favorite-snack-🥕/swizec/8660  /blog/i-built-a-node-app-to-thaw-my-favorite-snack/
+
 /blog/experimenting-with-the-new-react-concurrent-mode/swizec/9231  https://reactfordataviz.com/articles/experimenting-with-the-new-react-concurrent-mode
 /blog/build-easier-responsive-svg-layout-react-svg-flexbox/swizec/8577  https://reactfordataviz.com/articles/build-responsive-svg-layouts-reactsvgflexbox
 /blog/declarative-d3-transitions-react/swizec/8323  https://reactfordataviz.com/articles/declarative-d3-transitions-with-react-163/
@@ -22,3 +23,5 @@
 /blog/javascripts-most-popular-dataviz-library/swizec/8962  https://reactfordataviz.com/articles/javascripts-most-popular-dataviz-library/
 /blog/why-dataviz-does-better-for-your-career-than-todoapps/swizec/8971  https://reactfordataviz.com/articles/why-dataviz-does-better-for-your-career-than-todoapps/
 /blog/creating-perfect-rounded-edge-d3-curves/swizec/8543  https://reactfordataviz.com/articles/creating-the-perfect-rounded-edge-with-d3-curves/
+
+/blog/feed  /rss.xml
