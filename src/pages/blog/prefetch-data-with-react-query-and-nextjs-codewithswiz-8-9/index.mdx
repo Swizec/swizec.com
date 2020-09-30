@@ -3,7 +3,7 @@ title: "Prefetch data with React Query and NextJS – CodeWithSwiz 8, 9"
 description: "Prefetching lets you start React apps without loading spinners. Gatsby introduced this concept with `staticQuery`, react-query and NextJS make the pattern easier 😍"
 published: 2020-09-30
 categories: "CodeWithSwiz, Technical, NextJS, Livecoding"
-hero: ./img/screenshot-1601482922767
+hero: ./img/screenshot-1601482922767.png
 ---
 
 Prefetching lets you start React apps without loading spinners. Gatsby introduced this concept with `staticQuery`, react-query and NextJS make the pattern easier 😍
@@ -22,14 +22,14 @@ We're building towards a headless CMS. The component that needs prefetching is a
 
 ```javascript
 export const SocialCardImage = ({ title }) => {
-  const cardQuery = useSocialCardQuery(title);
+  const cardQuery = useSocialCardQuery(title)
 
   if (cardQuery.isLoading) {
-    return <Spinner />;
+    return <Spinner />
   }
 
-  return <Image src={cardQuery.data.url} />;
-};
+  return <Image src={cardQuery.data.url} />
+}
 ```
 
 The `SocialCardImage` component uses a query to create a social card for a title. When the query `isLoading`, we show a spinner, when it's done, we show the image.
@@ -42,7 +42,7 @@ We built the `useSocialQuery` custom hook [in a past CodeWithSwiz episode](https
 export function useSocialCardQuery(title) {
   return useQuery(["social-card", title], fetchSocialCard, {
     staleTime: 5000,
-  });
+  })
 }
 ```
 
@@ -55,11 +55,11 @@ async function fetchSocialCard(key, title) {
   if (title) {
     const res = await fetch(
       `https://pifc233qp6.execute-api.us-east-1.amazonaws.com/dev/social-card?title=${title}`
-    );
+    )
 
-    return res.json();
+    return res.json()
   } else {
-    return null;
+    return null
   }
 }
 ```
@@ -155,7 +155,7 @@ Here's what you do instead:
 ```javascript
 // pages/_app.js
 
-const queryCache = new QueryCache();
+const queryCache = new QueryCache()
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -166,7 +166,7 @@ function MyApp({ Component, pageProps }) {
         </ThemeProvider>
       </Hydrate>
     </ReactQueryCacheProvider>
-  );
+  )
 }
 ```
 
@@ -176,26 +176,26 @@ Then prefetch your queries:
 
 ```javascript
 async function prefetchQueries(article) {
-  const queryCache = new QueryCache();
+  const queryCache = new QueryCache()
   await queryCache.prefetchQuery(
     ["social-card", article.title],
     fetchSocialCard
-  );
+  )
 
-  return dehydrate(queryCache);
+  return dehydrate(queryCache)
 }
 
 export async function getServerSideProps(context) {
-  const { slug } = context.params;
+  const { slug } = context.params
 
-  const article = magicallyReadArticle(slug);
+  const article = magicallyReadArticle(slug)
 
   return {
     props: {
       dehydratedState: await prefetchQueries(article),
       article,
     },
-  };
+  }
 }
 ```
 
