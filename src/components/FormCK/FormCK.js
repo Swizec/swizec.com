@@ -174,6 +174,7 @@ const getCKForms = graphql`
         convertkit {
           defaultFormId
           serverlessHandbookFormId
+          seniorMindsetFormId
         }
       }
     }

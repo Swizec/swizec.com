@@ -15,6 +15,7 @@ module.exports = {
     convertkit: {
       defaultFormId: "826419",
       serverlessHandbookFormId: "1655570",
+      seniorMindsetFormId: "1712642",
     },
   },
   plugins: [
