@@ -146,8 +146,7 @@ const FormCK = ({ copyBefore, submitText, formName, children }) => {
                 )}
                 <p style={{ fontSize: "0.8em" }}>
                   Join over 10,000 engineers just like you already improving
-                  their JS careers with my letters, workshops, courses, and
-                  talks.{" "}
+                  their careers with my letters, workshops, courses, and talks.{" "}
                   <span role="img" aria-label="ok">
                     ✌️
                   </span>
