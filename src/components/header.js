@@ -51,7 +51,7 @@ const Dot = (props) => (
 )
 
 export default ({ nav, menu, setMenu, style, showBanner }) => {
-  const [mode, setMode] = useColorMode()
+  const [mode, setMode] = useColorMode(modes[0])
 
   const cycleMode = (e) => {
     const i = (modes.indexOf(mode) + 1) % modes.length
@@ -106,7 +106,7 @@ export default ({ nav, menu, setMenu, style, showBanner }) => {
           height: 32,
           p: 1,
           borderRadius: 99999,
-          cursor: "pointer"
+          cursor: "pointer",
         }}
         onClick={cycleMode}
       >
