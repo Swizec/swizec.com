@@ -1,3 +1,4 @@
+import { useStaticQuery } from "gatsby"
 import React from "react"
 import { Helmet } from "react-helmet"
 import slugify from "slugify"
@@ -18,6 +19,18 @@ function getSocialCard({ title, hero }) {
 
 export default (props) => {
   const { frontmatter } = props.pageContext
+  const { site } = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+          description
+          author
+          siteUrl
+        }
+      }
+    }
+  `)
 
   const title = [frontmatter?.title || props.title, "Swizec Teller"]
     .filter(Boolean)
@@ -26,11 +39,11 @@ export default (props) => {
   const description =
     frontmatter?.description ||
     props.description ||
-    "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops"
+    site.siteMetadata.description
 
   const socialImage = getSocialCard(frontmatter)
-  const image = `https://swizec.com${socialImage || defaultHero}`
-  const url = `https://swizec.com${props.location.pathname}`
+  const image = `${site.siteMetadata.siteUrl}${socialImage || defaultHero}`
+  const url = `${site.siteMetadata.siteUrl}${props.location.pathname}`
 
   return (
     <Helmet
@@ -38,19 +51,20 @@ export default (props) => {
         lang: "en-us",
       }}
     >
-      <title> {title} </title>
+      <title>{title}</title>
       <link rel="icon" href="/icon.png" />
       <meta name="description" content={description} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@swizec" />
-      <meta name="twitter:title" content={title} />{" "}
-      <meta name="twitter:description" content={description} />{" "}
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
-      <meta property="og:title" content={title} />{" "}
-      <meta property="og:description" content={description} />{" "}
-      <meta property="og:type" content="article" />{" "}
-      <meta property="og:url" content={url} />{" "}
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:type" content="article" />
+      <meta property="og:url" content={url} />
       <meta property="og:image" content={image} />
+      <link href={url} rel="canonical" />
     </Helmet>
   )
 }
