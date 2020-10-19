@@ -10,7 +10,7 @@ hero: ../../../defaultHero.jpg
 
 A major part of [my thesis](https://github.com/Swizec/Le-Thesis)involves finding an algorithm to discover a good substring cover of text in order to properly syllabify said text. But what is the substring cover problem anyway and what does it entail?
 
-![algorithms doodle](http://swizec.com/blog/wp-content/uploads/2012/01/11259239_fe6b60af02_m5.jpg "algorithms doodle")
+![algorithms doodle](https://swizec.com/blog/wp-content/uploads/2012/01/11259239_fe6b60af02_m5.jpg "algorithms doodle")
 
 [The Minimum Substring Cover Problem](http://cs.haifa.ac.il/~dhermeli/Publications/WAOA2007.pdf) paper from Hermelin, Rawitz, Rizzi and Vialette dating back to 2007 (judging by the filename) serves as a good entry point into this topic.
 
@@ -18,15 +18,15 @@ There are actually a lot of cover problems, the most famous being Minimum [Set C
 
 For an example consider this:
 
-    S = ['a', 'aab', 'aba']
-    C(S) = ['a', 'b', 'aa', 'ab', 'ba', 'aab', 'aba']
+S = ['a', 'aab', 'aba']
+C(S) = ['a', 'b', 'aa', 'ab', 'ba', 'aab', 'aba']
 
 We can easily see that _C(S)_ is a set of all the possible coverings of S - using a combination of strings from C we can construct every string in S. This part isn't very difficult to calculate.
 
 Everything gets slightly hairier when you look for minimum covers:
 
-    C_1 = ['a', 'b']  # 3-cover (need 3 strings to cover the longest string in S)
-    C_2 = ['a', 'ab'] # 2-cover (need 2 strings to cover the longest string in S)
+C_1 = ['a', 'b'] # 3-cover (need 3 strings to cover the longest string in S)
+C_2 = ['a', 'ab'] # 2-cover (need 2 strings to cover the longest string in S)
 
 Depending on how you choose the weight, both C*1 and C_2 are \_minimum substring covers* of S. Considering "least" to mean _least amount of strings_ then both are of weight 2, but if you consider "least" to mean _the total length of strings_ then C_1 is better.
 
@@ -68,9 +68,9 @@ From what I can understand this algorithm approaches the problem with the idea t
 
 According to this section, the minimum substring cover can be formulated using the following integer linear program:
 
-    min    SUM_(c in C(s)) w(c)x_c
-    s.t.   SUM_(f in F_l(s)) y_f >= 1          every s in S
-           SUM_(c in f in F_l(s)) y_f
+min SUM*(c in C(s)) w(c)x_c
+s.t. SUM*(f in F*l(s)) y_f >= 1 every s in S
+SUM*(c in f in F_l(s)) y_f
 
 Then there are a bunch of proofs that this algorithm works and is indeed very awesome ... but by this time my eyes started glazing over and the September deadline for my thesis started looking _very_ near.
 
@@ -84,4 +84,4 @@ Then there are a bunch of proofs that this algorithm works and is indeed very aw
 - [Top ten algorithms preprints of 2011](http://11011110.livejournal.com/238766.html) (11011110.livejournal.com)
 - [Efficiently replace a fixed position substring with a string of equal or larger length](http://stackoverflow.com/questions/8456010/efficiently-replace-a-fixed-position-substring-with-a-string-of-equal-or-larger) (stackoverflow.com)
 
-[![Enhanced by Zemanta](http://img.zemanta.com/zemified_e.png?x-id=a0995159-d508-465f-9dd9-b53632d16b06)](http://www.zemanta.com/ "Enhanced by Zemanta")
+[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=a0995159-d508-465f-9dd9-b53632d16b06)](http://www.zemanta.com/ "Enhanced by Zemanta")

@@ -44,7 +44,7 @@ function doWeirdness(bug) {
 }
 ```
 
-![2 fetches, 1 callback](http://swizec.com/blog/wp-content/uploads/2016/08/chrome-eats-objects.gif)
+![2 fetches, 1 callback](https://swizec.com/blog/wp-content/uploads/2016/08/chrome-eats-objects.gif)
 
 If you press Cmd+R, the bug happens. If you press Cmd+Shift+R, it does not. That’s a new clue that points at either Chrome’s speed optimizations, or worse, the network stack. Can we call it a network stack? I guess Chrome _is_ almost an operating system at this point …
 
@@ -78,7 +78,7 @@ Outside the wrapper, we defer to `sync` to actually talk to the server.
 
 If I copy this method to my own model definition, we can inspect where it fails.
 
-![Success wrapper doesn't fire](http://swizec.com/blog/wp-content/uploads/2016/08/success-wrapper.gif)
+![Success wrapper doesn't fire](https://swizec.com/blog/wp-content/uploads/2016/08/success-wrapper.gif)
 
 The success wrapper doesn’t fire. ?
 
@@ -101,13 +101,13 @@ $.ajax({
 });
 ```
 
-![Bug without Backbone](http://swizec.com/blog/wp-content/uploads/2016/08/purer-bug.gif)
+![Bug without Backbone](https://swizec.com/blog/wp-content/uploads/2016/08/purer-bug.gif)
 
 ? It worked! 8 lines of code reproduce the bug. ?
 
 And yes, both requests happen without error.
 
-![Network calls do happen](http://swizec.com/blog/wp-content/uploads/2016/08/bug-network.gif)
+![Network calls do happen](https://swizec.com/blog/wp-content/uploads/2016/08/bug-network.gif)
 
 It might be safe to say that jQuery is battle tested enough that this couldn’t be a jQuery bug. But let’s try superagent to make sure. It’s a great library for making requests and it’s implemented independently of jQuery.
 
@@ -122,7 +122,7 @@ request.get("bla.json").end(() => {
 });
 ```
 
-![Superagent repros too](http://swizec.com/blog/wp-content/uploads/2016/08/superagent-bug.gif)
+![Superagent repros too](https://swizec.com/blog/wp-content/uploads/2016/08/superagent-bug.gif)
 
 Yeeeeep.
 

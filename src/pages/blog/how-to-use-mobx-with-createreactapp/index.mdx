@@ -8,7 +8,7 @@ categories: "Front End, react, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
-![](http://swizec.com/blog/wp-content/uploads/2016/10/react-eject.png)
+![](https://swizec.com/blog/wp-content/uploads/2016/10/react-eject.png)
 
 `create-react-app` is the best thing that's happened to the React ecosystem since React 14 gave us functional components. No more messing around with random boilerplates or manual headaches around setting up your project from scratch.
 
@@ -53,14 +53,12 @@ Ok, so here's what you do when setting up a new React app:
 
 **4)** Open `package.json`, find the `"babel"` section (line 78 for me), and add 4 lines so it looks like this:
 
-    "babel": {
-    "plugins": [
-    "transform-decorators-legacy"
-    ],
-    "presets": [
-    "react-app"
-    ]
-    },
+"babel": {"plugins": [
+"transform-decorators-legacy"
+],
+"presets": [
+"react-app"
+]},
 
 **5)** Run `npm install --save mobx mobx-react`. This installs MobX.
 

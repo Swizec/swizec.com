@@ -10,7 +10,7 @@ hero: ../../../defaultHero.jpg
 
 Let's say you have a large piece of text and a dictionary of keywords. How do you quickly locate all the keywords?
 
-![Aho-Corasick algorithm diagram](http://upload.wikimedia.org/wikipedia/commons/thumb/9/90/A_diagram_of_the_Aho-Corasick_string_search_algorithm.svg/424px-A_diagram_of_the_Aho-Corasick_string_search_algorithm.svg.png "Aho-Corasick algorithm diagram")
+![Aho-Corasick algorithm diagram](https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/A_diagram_of_the_Aho-Corasick_string_search_algorithm.svg/424px-A_diagram_of_the_Aho-Corasick_string_search_algorithm.svg.png "Aho-Corasick algorithm diagram")
 
 Well, there are many ways really, you could even iterate through the whole thing and compare words to keywords. But it turns out that's going to be very slow. At least _O(N_keywords \* N_words)_ complexity. Essentially you're making as many passes over the text as your dictionary is big.
 
@@ -26,7 +26,7 @@ Yep, _printing_.
 
 At the core of this algorithm are three functions:
 
-![The three functions of aho-corasick algorithm](http://swizec.com/blog/wp-content/uploads/2012/10/aho-corasick-algorithm.png "The three functions of aho-corasick algorithm")
+![The three functions of aho-corasick algorithm](https://swizec.com/blog/wp-content/uploads/2012/10/aho-corasick-algorithm.png "The three functions of aho-corasick algorithm")
 
 - a parser based on a state machine, which maps _(state, char)_ pairs to states and occasionally emits an output. This is called the _Goto_ function
 - a _Failure_ function, which tells the _Goto_ function which state to jump into when the character it just read doesn't match anything
@@ -158,10 +158,10 @@ You can see the whole code on github [here](https://github.com/Swizec/random-cod
 
 ###### Related articles
 
-- [![](http://i.zemanta.com/103612506_80_80.jpg)](http://debasishg.blogspot.com/2012/07/does-category-theory-make-you-better.html)[Does category theory make you a better programmer ?](http://debasishg.blogspot.com/2012/07/does-category-theory-make-you-better.html)
-- [![](http://i.zemanta.com/noimg_106_80_80.jpg)](http://swizec.com/blog/markov-chain-poem-trainergenerator-in-29-sloc-of-haskell/swizec/5310)[Show HN: Markov chain poem trainer+generator in 29 sloc of Haskell](http://swizec.com/blog/markov-chain-poem-trainergenerator-in-29-sloc-of-haskell/swizec/5310)
-- [![](http://i.zemanta.com/noimg_84_80_80.jpg)](http://www.zemanta.com/fruitblog/downloading-the-internet-with-a-single-machine/)[Downloading the Internet with a single machine](http://www.zemanta.com/fruitblog/downloading-the-internet-with-a-single-machine/)
-- [![](http://i.zemanta.com/noimg_57_80_80.jpg)](http://dave.fayr.am/posts/2012-10-4-finding-fizzbuzz.html)[FizzBuzz, A Deep Navel to Gaze Into](http://dave.fayr.am/posts/2012-10-4-finding-fizzbuzz.html)
-- [![](http://i.zemanta.com/115768156_80_80.jpg)](http://hughewilliams.com/2012/10/01/five-myths-about-hash-tables/)[Five Myths about Hash Tables](http://hughewilliams.com/2012/10/01/five-myths-about-hash-tables/)
+- [![](https://i.zemanta.com/103612506_80_80.jpg)](http://debasishg.blogspot.com/2012/07/does-category-theory-make-you-better.html)[Does category theory make you a better programmer ?](http://debasishg.blogspot.com/2012/07/does-category-theory-make-you-better.html)
+- [![](https://i.zemanta.com/noimg_106_80_80.jpg)](http://swizec.com/blog/markov-chain-poem-trainergenerator-in-29-sloc-of-haskell/swizec/5310)[Show HN: Markov chain poem trainer+generator in 29 sloc of Haskell](http://swizec.com/blog/markov-chain-poem-trainergenerator-in-29-sloc-of-haskell/swizec/5310)
+- [![](https://i.zemanta.com/noimg_84_80_80.jpg)](http://www.zemanta.com/fruitblog/downloading-the-internet-with-a-single-machine/)[Downloading the Internet with a single machine](http://www.zemanta.com/fruitblog/downloading-the-internet-with-a-single-machine/)
+- [![](https://i.zemanta.com/noimg_57_80_80.jpg)](http://dave.fayr.am/posts/2012-10-4-finding-fizzbuzz.html)[FizzBuzz, A Deep Navel to Gaze Into](http://dave.fayr.am/posts/2012-10-4-finding-fizzbuzz.html)
+- [![](https://i.zemanta.com/115768156_80_80.jpg)](http://hughewilliams.com/2012/10/01/five-myths-about-hash-tables/)[Five Myths about Hash Tables](http://hughewilliams.com/2012/10/01/five-myths-about-hash-tables/)
 
-[![Enhanced by Zemanta](http://img.zemanta.com/zemified_e.png?x-id=3131b59c-b284-43ea-b672-99bdad7199c4)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=3131b59c-b284-43ea-b672-99bdad7199c4)](http://www.zemanta.com/?px "Enhanced by Zemanta")

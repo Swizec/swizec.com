@@ -58,19 +58,19 @@ Let's say we want to overload `(+)`, `(*)`, and `negate` on `Int` and `Float`. W
 
 Now we can define type instances such as `Num Int` and specify which functions to translate the overloaded symbols into. We assume things like `addInt` and `mulInt` are defined by default.
 
-    class Num a where
-      (+), (*) :: a -> a -> a
-      negate   :: a -> a
+class Num a where
+(+), (\*) :: a -> a -> a
+negate :: a -> a
 
-    instance Num Int where
-      (+)    = addInt
-      (*)    = mulInt
-      negate = negInt
+instance Num Int where
+(+) = addInt
+(\*) = mulInt
+negate = negInt
 
-    instance Num Float where
-      (+)    = addFloat
-      (*)    = mulFloat
-      negate = negFloat
+instance Num Float where
+(+) = addFloat
+(\*) = mulFloat
+negate = negFloat
 
 This lets us define both the `square` and `squares` functions from before, but with a well-defined type at compile time.
 
@@ -199,4 +199,4 @@ The rest of the paper deals with formalising this intuitive definition of type c
 
 That said, I finally understand how Haskell's type system works. Now if only I could find more excuses to actually _use_ Haskell.
 
-[![Enhanced by Zemanta](http://img.zemanta.com/zemified_e.png?x-id=39dd8c31-06b9-4031-8054-29577e252e96)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=39dd8c31-06b9-4031-8054-29577e252e96)](http://www.zemanta.com/?px "Enhanced by Zemanta")

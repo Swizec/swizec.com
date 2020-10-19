@@ -8,7 +8,7 @@ categories: "d3.js, Github, Graphics, HTML, Scatter plot, Uncategorized, Vector"
 hero: ../../../defaultHero.jpg
 ---
 
-![When I code](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-finished.png "When I code")
+![When I code](https://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-finished.png "When I code")
 
 One of the many interesting things [Github](http://github.com "GitHub") does are punchcards for repositories that can tell you when people work on their code. Unfortunately, they're only per-repository and I was interested in [per-user Github punchcards](http://nightowls.swizec.com).
 
@@ -118,7 +118,7 @@ svg
   .call(yAxis);
 ```
 
-[![Scatterplot simple axes](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-simple-axes.png "Scatterplot simple axes")](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-simple-axes.png)
+[![Scatterplot simple axes](https://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-simple-axes.png "Scatterplot simple axes")](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-simple-axes.png)
 
 As you can see, d3 was nice enough to figure out on its own how many ticks to draw and where to put them. This usually makes graphs more readable, but in our case we do want all the ticks.
 
@@ -154,7 +154,7 @@ var xAxis = d3.svg
 
 The _.tickFormat_ method allows us to give d3 a function that calculates what a label should look like and we used _.ticks_ to specify how many ticks we want.
 
-[![Nicely  labeled scatterplot](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-labeled-axes.png "Nicely  labeled scatterplot")](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-labeled-axes.png)
+[![Nicely  labeled scatterplot](https://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-labeled-axes.png "Nicely  labeled scatterplot")](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-labeled-axes.png)
 
 Much better, but since we'll be loading the data asynchronously, let's tell the user what's going on by placing _"Loading ..."_ roughly in the middle of the plot.
 
@@ -171,7 +171,7 @@ svg
   });
 ```
 
-[![Scatterplot loading ...](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-loading.png "Scatterplot loading ...")](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-loading.png)
+[![Scatterplot loading ...](https://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-loading.png "Scatterplot loading ...")](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-loading.png)
 
 Loading the data can be done with one of d3's many data loading functions.
 
@@ -230,7 +230,7 @@ After removing the _"Loading ..." \_we gave d3 our data, then said that for each
 
 Notice we're using functions to compute these values, but because we're lazy we just rely on d3 doing all of the actual calculations with the _x, y_ and _r_ scales we defined earlier.
 
-[![The final scatterplot](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-finished1.png "The final scatterplot")](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-finished1.png)
+[![The final scatterplot](https://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-finished1.png "The final scatterplot")](http://swizec.com/blog/wp-content/uploads/2012/09/scatterplot-finished1.png)
 
 On pictures everything looks great now, but the circles appear very suddenly. Wouldn't it be nice if there was a sexy transition going on?
 
@@ -371,9 +371,9 @@ d3.json(Data_url, function (punchcard_data) {
 
 ###### Related articles
 
-- [![](http://i.zemanta.com/109208243_80_80.jpg)](http://www.r-bloggers.com/more-on-exploring-correlations-in-r/)[More on Exploring Correlations in R](http://www.r-bloggers.com/more-on-exploring-correlations-in-r/)
-- [![](http://i.zemanta.com/noimg_2_80_80.jpg)](http://css.dzone.com/articles/html5-render-urban-population)[HTML5: Render Urban Population Growth on a 3D World Globe With Three.js and Canvas](http://css.dzone.com/articles/html5-render-urban-population)
-- [![](http://i.zemanta.com/noimg_52_80_80.jpg)](http://economistsview.typepad.com/economistsview/2011/03/striking-scatterplot-unemployment-and-investment.html)[Striking Scatterplot: Unemployment and Investment](http://economistsview.typepad.com/economistsview/2011/03/striking-scatterplot-unemployment-and-investment.html)
-- [![](http://i.zemanta.com/109034267_80_80.jpg)](http://net.tutsplus.com/tutorials/javascript-ajax/building-and-testing-a-backbone-app/)[Building and Testing a Backbone App](http://net.tutsplus.com/tutorials/javascript-ajax/building-and-testing-a-backbone-app/)
+- [![](https://i.zemanta.com/109208243_80_80.jpg)](http://www.r-bloggers.com/more-on-exploring-correlations-in-r/)[More on Exploring Correlations in R](http://www.r-bloggers.com/more-on-exploring-correlations-in-r/)
+- [![](https://i.zemanta.com/noimg_2_80_80.jpg)](http://css.dzone.com/articles/html5-render-urban-population)[HTML5: Render Urban Population Growth on a 3D World Globe With Three.js and Canvas](http://css.dzone.com/articles/html5-render-urban-population)
+- [![](https://i.zemanta.com/noimg_52_80_80.jpg)](http://economistsview.typepad.com/economistsview/2011/03/striking-scatterplot-unemployment-and-investment.html)[Striking Scatterplot: Unemployment and Investment](http://economistsview.typepad.com/economistsview/2011/03/striking-scatterplot-unemployment-and-investment.html)
+- [![](https://i.zemanta.com/109034267_80_80.jpg)](http://net.tutsplus.com/tutorials/javascript-ajax/building-and-testing-a-backbone-app/)[Building and Testing a Backbone App](http://net.tutsplus.com/tutorials/javascript-ajax/building-and-testing-a-backbone-app/)
 
-[![Enhanced by Zemanta](http://img.zemanta.com/zemified_e.png?x-id=8f16ed4f-3c27-43f6-9df9-c5797a6b4fb8)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=8f16ed4f-3c27-43f6-9df9-c5797a6b4fb8)](http://www.zemanta.com/?px "Enhanced by Zemanta")

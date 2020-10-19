@@ -37,12 +37,14 @@ glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
             let nodes = []
 
             visit(tree, ["image"], async (node) => {
-              if (
-                node.url &&
-                node.url.startsWith("http") &&
-                !node.url.includes("swizec.com/blog/wp-content")
-              ) {
-                nodes.push(node)
+              if (node.url && node.url.startsWith("http")) {
+                if (!node.url.startsWith("https")) {
+                  node.url = node.url.replace(/^http/, "https")
+                  shouldWriteFile = true
+                }
+                if (!node.url.includes("swizec.com/blog/wp-content")) {
+                  nodes.push(node)
+                }
               }
             })
 

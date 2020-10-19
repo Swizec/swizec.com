@@ -80,11 +80,11 @@ instance FromJSON Ticker where
                          v .: "ask"
 ```
 
-If I understand this correctly, those strange symbols are applicatives. The _.: \_does ... something ... and the _&lt;\\\\\$> _and _&lt;\*> _do something else. The whole bit is about defining how to convert a key in the JSON string into a value in the \_Ticker_ type. I think.
+If I understand this correctly, those strange symbols are applicatives. The _.: \_does ... something ... and the _&lt;\\\\\\\$> _and _&lt;\*> _do something else. The whole bit is about defining how to convert a key in the JSON string into a value in the \_Ticker_ type. I think.
 
 Right, let's make a function that will talk to the server and return a \_Ticker \_object. Maybe. If all goes well.
 
-https://twitter.com/k0001/status/326972349196926977
+[https://twitter.com/k0001/status/326972349196926977](https://twitter.com/k0001/status/326972349196926977)
 
 ```haskell
 ticker::(MonadIO m) => m (Maybe Ticker)
@@ -115,4 +115,4 @@ Messy messy internet.
 
 But hey! Got Haskell to talk to a [REST API](http://en.wikipedia.org/wiki/Representational_state_transfer "Representational state transfer"). How cool is that!?
 
-[![Enhanced by Zemanta](http://img.zemanta.com/zemified_e.png?x-id=5492ac2c-3abf-45a3-9680-dd8c31c07973)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=5492ac2c-3abf-45a3-9680-dd8c31c07973)](http://www.zemanta.com/?px "Enhanced by Zemanta")
