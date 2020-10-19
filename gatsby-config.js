@@ -21,6 +21,7 @@ module.exports = {
   plugins: [
     "gatsby-plugin-slug",
     "gatsby-plugin-netlify",
+    "gatsby-plugin-remove-trailing-slashes",
     {
       resolve: "gatsby-source-filesystem",
       options: {

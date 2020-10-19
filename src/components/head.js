@@ -25,7 +25,6 @@ export default (props) => {
         siteMetadata {
           title
           description
-          author
           siteUrl
         }
       }
