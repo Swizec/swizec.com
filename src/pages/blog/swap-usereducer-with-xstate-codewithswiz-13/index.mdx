@@ -1,6 +1,6 @@
 ---
-title: "Swap useReducer with XState – CodeWithSwiz 13" 
-description: "In Refactoring a useReducer to XState we talked about a 5 step process to turn a reducer into an XState state machine. Today answers *"Ok now what?"*" 
+title: "Swap useReducer with XState – CodeWithSwiz 13"
+description: 'In Refactoring a useReducer to XState we talked about a 5 step process to turn a reducer into an XState state machine. Today answers "Ok now what?"'
 categories: "CodeWithSwiz, Technical, XState, Livecoding"
 published: 2020-10-22
 hero: ./img/screenshot-1603379415789.png
@@ -42,7 +42,7 @@ export const AuthContext = createContext<AuthContextState>({
   callback_domain: "http://localhost:8000",
   customPropertyNamespace: "http://localhost:8000",
   navigate: (path: string) => {},
-});
+})
 ```
 
 This creates a new context with default values. `state` is the application state we're managing, `dispatch` is the changer method, the rest is meta data and configuration. Values we need everywhere that don't change.
@@ -54,7 +54,7 @@ This creates a new context with default values. `state` is the application state
 const [state, dispatch] = useReducer<React.Reducer<AuthState, AuthAction>>(
   authReducer,
   getDefaultState()
-);
+)
 
 const [contextValue, setContextValue] = useState<AuthContextState>({
   state,
@@ -63,7 +63,7 @@ const [contextValue, setContextValue] = useState<AuthContextState>({
   callback_domain: callbackDomain,
   customPropertyNamespace,
   navigate,
-});
+})
 
 // Update context value and trigger re-render
 // This patterns avoids unnecessary deep renders
@@ -72,8 +72,8 @@ useEffect(() => {
   setContextValue((contextValue: AuthContextState) => ({
     ...contextValue,
     state,
-  }));
-}, [state]);
+  }))
+}, [state])
 ```
 
 The provider instantiates a new reducer and gets access to current `state` and a `dispatch` method. These and the config metadata are shoved into a new `useState`.
