@@ -81,6 +81,11 @@ module.exports = {
             resolve: "gatsby-remark-embedder",
             options: {
               customTransformers: [YoutubeTransformer],
+              services: {
+                Instagram: {
+                  accessToken: process.env.INSTAGRAM_OEMBED_TOKEN,
+                },
+              },
             },
           },
         ],
