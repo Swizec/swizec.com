@@ -1,0 +1,93 @@
+---
+title: "The mistake that strangles engineering teams"
+description: "You work hard on a feature. Weeks of back and forth with designers, product managers, tech leads, and the rest of your team. Your feature is amazing and you're proud as heck! But then ..."
+published: 2020-10-26
+hero: ./img/screenshot-1603726194318.png
+---
+
+Does this sound familiar?
+
+You work hard on a feature. Weeks of back and forth with designers, product managers, tech leads, and the rest of your team. Your feature is amazing and you're proud as heck!
+
+![](giphy:proud)
+
+Time to show off. Make it live on the staging environment, ask the QA team to play around, tell the PM to verify, show it off to the sales team ... Everyone must know! 🤘
+
+_"Sorry the Thingamabob Team is using staging this week, they're on a critical deadline and can't afford any interruptions"_
+
+No staging for you.
+
+Okay fine. You set up a demo with the PM and run them through the feature using localhost. They can't try it themselves but better than nothing.
+
+QA and sales will have to wait. It's not going out this week anyway.
+
+Next week rolls around and you're ready to show off. _"Couple more days"_ says the Thingamabob Team. Running behind, found a bug.
+
+By Wednesday, staging is ready for you. Wide and open. All it needs is your wonderful code.
+
+Oh wait no, critical production bug. Gonna need staging to verify before shipping because the fix might break a payment form.
+
+![](giphy:ffs)
+
+## How engineering teams get here
+
+I've seen this at every growing company my friend. You're not alone.
+
+You start as a small team. A scrappy band of miscreants building the future. And you ship straight to production 🤘
+
+Then someone causes a problem. Production goes down, a sale is lots, a customer is pissed.
+
+Time for process.
+
+You'll need a development environment. A place where everyone can push their reviewed code and see how it works in a live environment. Integrated with the backend, hosted on servers, static files on CDN, the works.
+
+Development changes a lot. Hourly sometimes. Minute by minute even. You never know what you're gonna get.
+
+![](giphy:forest_gump_box_of_chocolates)
+
+You'll need a staging environment. Like a more stable development where you can test.
+
+QA can trust the system won't fall apart under their feet. Product managers know engineers tested these features and are certain it all works.
+
+Not production, but ready to show off.
+
+Production is production. You don't touch that unless you're certain the code won't break.
+
+You ship, but carefully.
+
+Production falls weeks or months behind development and staging. Long projects, gotta make sure they're perfect. 🤞
+
+## And then the team starts to grow
+
+The production-staging-development split works great. You have a solid product, happy users, and everyone knows you as a reliable team that doesn't break things.
+
+Not like those other companies who move fast and break things. Ew.
+
+With your success the team grows. What used to be 5 folks becomes 10, 15, 30, 50 ... wow 😍
+
+But 10 is where trouble starts.
+
+You work on 2 or 3 projects, maybe 4, not just 1. You have different goals. You're moving in separate directions.
+
+The frontend team wants to ship fast and test with users. The backend team is swamped with API changes and database schemas. The infrastructure team ... who knows what the infrastructure team does.
+
+You start stepping on each other's toes.
+
+You can't test while Thingamabob is testing. They can't test while you're testing. Who knows what might break.
+
+You plead with the infrastructure team to give you more environments. This is ridiculous how can you ship anything on time if you keep getting stuck waiting in line?
+
+_"Sorry"_, says infra, _"we can't. Took us 2 weeks to create these environments, we don't have time to make more"_
+
+You sigh and get to work on the next project. At least you can work on the future while the present waits to ship.
+
+Crap! You just used a method Bob from the Thingamajigger project that Bob merged to develop. Now you gotta wait for that whole project to be ready before you can ship.
+
+![](giphy:ugh)
+
+Sound familiar? Hit reply
+
+Cheers,<br/>
+~Swizec
+
+PS: tomorrow I'll show you a way out of this mess I've seen work in the past
