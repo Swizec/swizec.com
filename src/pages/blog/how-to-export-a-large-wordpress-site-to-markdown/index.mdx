@@ -1,0 +1,563 @@
+---
+title: "How to export a large Wordpress site to Markdown"
+description: 'Migrating from Wordpress to Markdown sounds easy. Mention it to any developer and they''ll say "Pfft, an afternoon of work at worst". Suddenly it''s 6months later and you''re losing your mind.'
+published: 2020-08-31
+hero: ./img/screenshot-1598892501072.png
+---
+
+This is a technical followup to [Lessons from migrating a 14 year old blog with 1500 posts to Gatsby](https://swizec.com/blog/lessons-from-migrating-a-14-year-old-blog-with-1500-posts-to-gatsby/).
+
+Migrating from Wordpress to Markdown sounds easy. Mention it to any developer and they'll say _"Pfft, an afternoon of work at worst"_
+
+- take a Wordpress export from admin tools – 10min
+- find a script that converts to markdown – 20min
+- sip margaritas while the script runs – 1h
+
+Suddenly it's 6months later and you're losing your mind.
+
+[When I started migrating in September 2019](https://swizec.com/blog/moving-13-years-of-wordpress-blog-to-gatsby-markdown/), there were no good scripts. Best I could find was somebody's 7 year old college project – [wordpress-to-markdown](https://github.com/DengYiping/wordpress-to-markdown).
+
+Complete with bugs, old JavaScript, and gnarly edge cases on my humongous site. Your site accumulates lots of cruft in 14 years 😅
+
+https://twitter.com/Swizec/status/1298308910072307713
+
+Nowadays you have [wordpress-export-to-markdown](https://github.com/lonekorean/wordpress-export-to-markdown) from @lonekorean. Works better and is easier to use.
+
+https://twitter.com/kyleshevlin/status/1298309307587424256
+
+But the output isn't what I wanted. Great for simple cases, doesn't deal with all the edge cases on a large technical site.
+
+## The challenge
+
+The core challenge is two-fold: The easy part and the hard part.
+
+**The easy part** is that Worpdress outputs valid XML that you have to parse. Tons of good libraries for this, problem solved.
+
+You also want to download images.
+
+Wordpress likes to use linked `<img>` tags. Sometimes 3rd party, sometimes part of the site.
+
+Gatsby, NextJS, Hugo, and other Markdown-based site generators prefer that you keep images part of your source code. Lets you do fun transformations, hosting via CDN, and ensures you don't lose your images.
+
+I lost many images to [link rot](https://en.wikipedia.org/wiki/Link_rot) ☹️
+
+**The hard part** is that Wordpress HTML is not valid HTML.
+
+And that's where the fun begins.
+
+![](giphy:rock_on)
+
+## The basic setup
+
+You're looking for a script that builds a processing pipeline:
+
+1.  Parse XML
+2.  Iterate through posts
+3.  Create a `/out/<slug>` directory
+4.  Create a `/out/<slug>/img` directory for images
+5.  Extract metadata into Markdown frontmatter
+6.  Download images into the `/img` directory
+7.  Hacks to convert Wordpress HTML into almost valid HTML
+8.  Parse said HTML into a Markdown Abstract Syntax Tree (AST)
+9.  Fix edge cases in your AST
+10. Output clean Markdown with frontmatter into `/out/<slug>/index.md`
+
+You can see this setup in my [wordpress-to-markdown script](https://github.com/Swizec/wordpress-to-markdown).
+
+```javascript
+function processExport(file) {
+  const parser = new xml2js.Parser()
+
+  fs.readFile(file, function (err, data) {
+    if (err) {
+      return console.log("Error: " + err)
+    }
+
+    parser.parseString(data, function (err, result) {
+      if (err) {
+        return console.log("Error parsing xml: " + err)
+      }
+      console.log("Parsed XML")
+
+      const posts = result.rss.channel[0].item
+
+      fs.mkdir("out", function () {
+        posts
+          .filter((p) => p["wp:post_type"][0] === "post")
+          .forEach(processPost)
+      })
+    })
+  })
+}
+```
+
+Parses the XML, iterates through `<item>` entries, and runs `processPost` on each.
+
+### Metadata into Frontmatter
+
+I wanted to create full frontmatter without manual edits. That means:
+
+```
+    ---
+    title: 'Always put side effects last'
+    description: ""
+    published: 2018-01-10
+    redirect_from:
+                - /blog/always-put-side-effects-last/swizec/8057
+    categories: "Startups, Technical"
+    hero: ./img/wp-content-uploads-2016-10-salesforce-tower-panorama-1024x358.jpg
+    ---
+```
+
+Title from post title, description based on meta data, a publish date, keep old URL for redirects, combine categories and tags into categories, find a good hero/social image.
+
+Data comes from digging around Wordpress exports and figuring out what fits.
+
+```javascript
+const postTitle = typeof post.title === "string" ? post.title : post.title[0]
+console.log("Post title: " + postTitle)
+const postDate = isFinite(new Date(post.pubDate))
+  ? new Date(post.pubDate)
+  : new Date(post["wp:post_date"])
+console.log("Post Date: " + postDate)
+let postData = post["content:encoded"][0]
+console.log("Post length: " + postData.length + " bytes")
+const slug = slugify(postTitle, {
+  remove: /[^\w\s]/g,
+})
+  .toLowerCase()
+  .replace(/\*/g, "")
+console.log("Post slug: " + slug)
+
+// takes the longest description candidate
+const description = [
+  post.description,
+  ...post["wp:postmeta"].filter(
+    (meta) =>
+      meta["wp:meta_key"][0].includes("metadesc") ||
+      meta["wp:meta_key"][0].includes("description")
+  ),
+].sort((a, b) => b.length - a.length)[0]
+
+// Merge categories and tags into tags
+const categories = post.category && post.category.map((cat) => cat["_"])
+```
+
+Despite this, you'll notice lots of empty descriptions. Folks get lazy and don't write custom descriptions because Wordpress can guess from the article. I know I did 😇
+
+Should I add that guess-work or write 1500 descriptions by hand 🤔
+
+Finding the hero image is a matter of processing all images in your article and picking the first.
+
+Initial candidates come from your meta data.
+
+```javascript
+const heroURLs = post["wp:postmeta"]
+  .filter(
+    (meta) =>
+      meta["wp:meta_key"][0].includes("opengraph-image") ||
+      meta["wp:meta_key"][0].includes("twitter-image")
+  )
+  .map((meta) => meta["wp:meta_value"][0])
+  .filter((url) => url.startsWith("http"))
+```
+
+The rest come from your article body.
+
+```javascript
+let images = []
+if (heroURLs.length > 0) {
+  const url = heroURLs[0]
+  ;[postData, images] = await processImage({
+    url,
+    postData,
+    images,
+    directory,
+  })
+}
+
+// downloads images, changes each URL in article
+;[postData, images] = await processImages({ postData, directory })
+
+// finds first non-gif image
+heroImage = images.find((img) => !img.endsWith("gif"))
+```
+
+From all this metadata, frontmatter comes together with a bit of string concatenation.
+
+```javascript
+let frontmatter
+try {
+  frontmatter = [
+    "---",
+    `title: '${postTitle.replace(/'/g, "''")}'`,
+    `description: "${description}"`,
+    `published: ${format(postDate, "yyyy-MM-dd")}`,
+    `redirect_from: 
+        - ${redirect_from}`,
+  ]
+} catch (e) {
+  console.log("----------- BAD TIME", postTitle, postDate)
+  throw e
+}
+
+if (categories && categories.length > 0) {
+  frontmatter.push(`categories: "${categories.join(", ")}"`)
+}
+
+frontmatter.push(`hero: ${heroImage || "../../../defaultHero.jpg"}`)
+frontmatter.push("---")
+frontmatter.push("")
+```
+
+Okay that's the easy part.
+
+## Converting to Markdown and fixing edge cases
+
+Converting Wordpress's invalid HTML to Markdown is the fun part. Edge cases make it even better.
+
+You can choose 2 paths here:
+
+- [turndown](https://github.com/domchristie/turndown), which is a solid HTML to Markdown converter that I didn't know about when doing this
+- [UnifiedJS](https://unifiedjs.com/), which is a suite of tools for manipulating ASTs used by a lot of popular libraries
+
+I went with Unified.
+
+Core setup looks like a pipeline of plugins. You start with an input string, parse it as HTML, turn it into Markdown, output as text.
+
+```javascript
+const markdown = await new Promise((resolve, reject) => {
+  unified()
+    .use(parseHTML, {
+      fragment: true,
+      emitParseErrors: true,
+      duplicateAttribute: false,
+    })
+    .use(fixCodeBlocks) // edge case
+    .use(fixEmbeds) // edge case
+    .use(rehype2remark)
+    .use(cleanupShortcodes) // edge-ish case
+    .use(stringify, {
+      fences: true,
+      listItemIndent: 1,
+      gfm: false,
+      pedantic: false,
+    })
+    .process(fixBadHTML(postData), (err, markdown) => {
+      if (err) {
+        reject(err)
+      } else {
+        let content = markdown.contents
+        // edge case
+        content = content.replace(/(?<=https?:\/\/.*)\\_(?=.*\n)/g, "_")
+        // prettify
+        resolve(prettier.format(content, { parser: "mdx" }))
+      }
+    })
+})
+```
+
+### Edge case 1: Make your HTML parseable
+
+Wordpress HTML is pretty good. Plop it in an HTML parser and, like, it won't choke ... but it won't parse correctly either.
+
+You'll need to change double newlines to paragraph breaks. Wordpress doesn't wrap paragraphs in `<p></p>` tags
+
+```javascript
+function fixBadHTML(html) {
+  html = html.replace(/(\r?\n){2}/g, "<p></p>")
+  return html
+}
+```
+
+Yep, Regex for HTML fixing. Find double newlines, replace with empty paragraphs.
+
+### Edge case 2: Bad code blocks
+
+I wrote about fixing bad code blocks in my [You though computer science has no place in webdev? Here's a fun coding challenge](https://swizec.com/blog/you-though-computer-science-has-no-place-in-webdev-heres-a-fun-coding-challenge/) article.
+
+Your challenge is that this isn't valid HTML:
+
+```html
+<pre lang="javascript">
+class ReportSize extends React.Component {
+  refCallback = element => {
+    if (element) {
+      this.props.getSize(element.getBoundingClientRect());
+    }
+  };
+
+  render() {
+    return (
+      <div ref={this.refCallback} style={{ border: "1px solid red" }}>
+        {faker.lorem.paragraphs(Math.random() * 10)}
+      </div>
+    );
+  }
+}
+</pre>
+```
+
+JSX tags get parsed as HTML and break your code block. You want them to include a `<code></code>` tag as well. Otherwise Markdown stringifying doesn't work right.
+
+Fixing this is tricky and I won't share the full code here. You can see it in [articleCleanup.js line 77](https://github.com/Swizec/wordpress-to-markdown/blob/master/articleCleanup.js#L77). All 139 lines of it 🤘
+
+The process goes like this:
+
+1.  Find code blocks
+2.  Grab language definition
+3.  Replace children with a `<code>` element
+4.  Fix JSX object props in child nodes
+5.  Stringify block into HTML
+6.  Clean HTML with gnarly regex buffoonery
+7.  Run result through Prettier
+
+```javascript
+for (let block of codeBlocks) {
+  const lang = block.properties && block.properties.lang
+
+  block.children = [
+    {
+      type: "element",
+      tagName: "code",
+      properties: {
+        className: lang ? [`language-${lang}`] : null,
+      },
+      children: [
+        {
+          type: "text",
+          value: cleanBlockHTML(
+            toHTML(fixJsxObjectProps(block), settings),
+            block.properties && block.properties.lang
+          ),
+        },
+      ],
+    },
+  ]
+}
+```
+
+### Edge case 3: Fixing embeds
+
+Lots of ways to embed 3rd party content on a wordpress site. You can use plain old links pasted on their own line, shortcodes, and full HTML embeds.
+
+Markdown site generators like to use plain links.
+
+You want to change code like:
+
+```html
+<blockquote class="twitter-tweet">
+  <p lang="en" dir="ltr">
+    A script that converts Wordpress dumps into clean Markdown may have been the
+    dumbest project I ever took on. Sooooo many edge cases 😅
+    <a href="https://t.co/z8dPUMrBGk">pic.twitter.com/z8dPUMrBGk</a>
+  </p>
+  &mdash; Swizec Teller (@Swizec)
+  <a
+    href="https://twitter.com/Swizec/status/1298308910072307713?ref_src=twsrc%5Etfw"
+    >August 25, 2020</a
+  >
+</blockquote>
+<script
+  async
+  src="https://platform.twitter.com/widgets.js"
+  charset="utf-8"
+></script>
+```
+
+Into Markdown that's a link:
+
+```markdown
+https://twitter.com/Swizec/status/1298308910072307713
+```
+
+Site generator can take this and turn it into an embed. When it starts as a blockquote, you'll have trouble.
+
+[Another 106 lines of code](https://github.com/Swizec/wordpress-to-markdown/blob/master/articleCleanup.js#L220) that I won't share here.
+
+Basic idea is that:
+
+1.  You find all blockquote nodes
+2.  All iframe nodes
+3.  All paragraph nodes
+4.  Filter for potential embeds
+5.  Fix the AST for each embed you want to support
+
+Taking Twitter as an example, you get this:
+
+```javascript
+function fixEmbeds() {
+  function isTweet(blockquote) {
+    return (
+      blockquote.properties &&
+      blockquote.properties.className &&
+      blockquote.properties.className.includes("twitter-tweet")
+    )
+  }
+
+  return (tree) => {
+    const blockquotes = findRehypeNodes(tree, "blockquote")
+
+    for (let blockquote of blockquotes) {
+      if (isTweet(blockquote)) {
+        const link = findRehypeNodes(blockquote, "a").pop()
+        blockquote.type = "element"
+        blockquote.tagName = "p"
+        blockquote.children = [{ type: "text", value: link.properties.href }]
+      }
+    }
+
+    return tree
+  }
+}
+```
+
+### Edge case 4: Fixing shortcodes
+
+Shortcodes are a semi-standard system of snippets. Denoted by `[]` they give CMS users the ability to go beyond writing text.
+
+These were popular on internet forums of the late 2000's. Wordpress supports them to this day. Don't know about others.
+
+I wanted to get rid of most and preserve any embeds.
+
+You can identify an embed because it's a closed shortcode prefixed with the name of a service followed by a link.
+
+```html
+[tweet https://twitter.com/Swizec/status/1298308910072307713]
+```
+
+The gnarly ones are Wordpress's almost-html shortcodes. Big issue on my site were the `[caption][/caption]` shortcodes.
+
+```html
+[caption id="" align="alignnone" width="560"]<img
+  class=" "
+  title="Spirograph"
+  src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Spirograph3.jpg/800px-Spirograph3.jpg"
+  alt="Spirograph"
+  width="560"
+  height="420"
+/>
+<a
+  class="zem_slink"
+  title="Spirograph"
+  href="http://en.wikipedia.org/wiki/Spirograph"
+  rel="wikipedia"
+  target="_blank"
+  >Spirograph</a
+>[/caption]
+```
+
+It's a shortcode tag with an image and a link. You want to get a clean Markdown image out of this. 🤨
+
+You fix this mess by:
+
+1.  Finding all paragraphs
+2.  Seeing if they contain shortcodes
+3.  Cleaning it up with Regex
+
+Core structure is an AST traversal with a loop over candidates:
+
+```javascript
+function cleanupShortcodes() {
+  const shortCodeOpenTag = /\[\w+ .*\]/g
+  const shortCodeCloseTag = /\[\/\w+]/g
+  const embedShortCode = /\[\w+ (https?:\/\/.*)\]/g
+  const captionShortCode = /\[caption.*\]/g
+
+  return (tree) => {
+    visit(tree, "text", (node, index, parent) => {
+      if (parent.type === "paragraph" && node.value) {
+        // clean it up
+      }
+    })
+  }
+}
+```
+
+Inside the loop you then:
+
+1.  Turn embed shortcodes into plain URLs with regex
+
+```javascript
+// preserve embed shortcodes as plain URLs
+if (node.value.match(embedShortCode)) {
+  node.value = node.value.replace(embedShortCode, "$1")
+}
+```
+
+2.  Turn `[caption]` shortcodes into image nodes
+
+```javascript
+// turn [caption] shortcodes into clean images
+if (node.value.match(captionShortCode)) {
+  visit(parent, "text", (node) => {
+    node.value = ""
+  })
+  visit(parent, "link", (node) => {
+    node.type = "image"
+    node.title = node.children[0].title
+    node.alt = node.children[0].alt
+    node.url = node.children[0].url
+    node.children = []
+  })
+}
+```
+
+This changes the parent paragraph node into an image and deletes all children text nodes.
+
+3.  Remove other shortcodes
+
+```javascript
+// remove other shortcodes
+node.value = node.value
+  .replace(shortCodeOpenTag, "")
+  .replace(shortCodeCloseTag, "")
+```
+
+I couldn't find a use for them ✌️
+
+### Edge case 5: Underscores in links
+
+This one was frustrating. Embed links can include underscores, like when you embed a tweet from `@_developit`.
+
+Markdown stringification escapes underscores because it thinks they're emphasis and doesn't understand that some text nodes are link nodes despite not being links.
+
+```markdown
+https://twitter.com/_developit/status/1300154097170083842
+```
+
+That breaks your embed machinery. 🤪
+
+You can fix it with a dirty regex hack:
+
+```javascript
+let content = markdown.contents
+content = content.replace(/(?<=https?:\/\/.*)\\_(?=.*\n)/g, "_")
+```
+
+The reverse lookup with `(?<=)` ensures you don't touch escaped underscores anywhere other than links.[^1]
+
+## The solution
+
+You can use my script 👉 [github/Swizec/wordpress-to-markdown](https://github.com/Swizec/wordpress-to-markdown)
+
+```
+    $ git clone https://github.com/Swizec/wordpress-to-markdown
+
+    # download your wordpress xml
+    # change filename on convert.js line 27
+
+    $ yarn
+    $ yarn convert
+
+    # sip margaritas
+```
+
+Deals with every edge case described above, produces clean markdown output. Even runs it through Prettier ✌️
+
+PRs welcome.
+
+Cheers,<br/>
+~Swizec
+
+[^1] the look-behind and look-ahead support in PCRE regexes means they are technically more powerful than regular languages. On the level of pushdown automata I think.

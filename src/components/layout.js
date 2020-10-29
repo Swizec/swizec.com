@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react"
-import { Global } from "@emotion/core"
-import { Box, Flex, Text } from "rebass"
+import { Global, css } from "@emotion/core"
+import { Box, Flex } from "rebass"
 import { Sidenav, Pagination } from "@theme-ui/sidenav"
 
 import Head from "./head"
@@ -8,10 +8,11 @@ import SkipLink from "./skip-link"
 import Header from "./header"
 import Footer from "./footer"
 import Nav from "./nav"
-import BlogFooter from './blogFooter';
+import BlogFooter from "./blogFooter"
 import { ArticleMetaData } from "./ArticleMetaData"
 import { currentLocation } from "../util"
 import { Title } from "../components/blocks"
+import FormCK from "../components/FormCK"
 
 import Reactions from "./reactions"
 
@@ -58,8 +59,6 @@ const Sidebar = (props) => {
       >
         {props.children}
 
-        <Reactions page={props.uri} />
-
         <Nav
           pathname={props.location.pathname}
           components={{
@@ -71,34 +70,51 @@ const Sidebar = (props) => {
   )
 }
 
-const Content = (props) => {
-
-  const isArticle = props.pageContext.frontmatter && props.pageContext.frontmatter.title;
+const ArticleFoot = (props) => {
+  const contentUpgrade = props.pageContext.frontmatter.content_upgrade
+  const CustomForm =
+    contentUpgrade && require("./FormCK/ContentUpgrades")[contentUpgrade]
 
   return (
-    !props.fullwidth || props.menu ? (
-      <Sidebar
-        {...props}
-        nav={props.nav}
-        open={props.menu}
-        setMenu={props.setMenu}
-      >
-        <Head {...props} />
-        {isArticle && <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title> }
+    <>
+      <Reactions page={props.uri} />
+      <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
+      {CustomForm ? <CustomForm footer={true} /> : <FormCK />}
+      <BlogFooter />
+    </>
+  )
+}
 
-        <main id="content">
-          {props.children}
-          {isArticle && <BlogFooter /> }
-          <ArticleMetaData frontmatter={props.pageContext.frontmatter} />
-        </main>
-      </Sidebar>
-    ) : (
-      <>
-        <Head {...props} />
-        <main id="content">{props.children}</main>
-      </>
-    )
-)}
+const Content = (props) => {
+  const isArticle =
+    props.pageContext.frontmatter && props.pageContext.frontmatter.title
+
+  return !props.fullwidth || props.menu ? (
+    <Sidebar
+      {...props}
+      nav={props.nav}
+      open={props.menu}
+      setMenu={props.setMenu}
+    >
+      <Head {...props} />
+      {isArticle && (
+        <>
+          <Title uri={props.uri}>{props.pageContext.frontmatter.title}</Title>
+        </>
+      )}
+
+      <main id="content">
+        {props.children}
+        {isArticle && <ArticleFoot {...props} />}
+      </main>
+    </Sidebar>
+  ) : (
+    <>
+      <Head {...props} />
+      <main id="content">{props.children}</main>
+    </>
+  )
+}
 
 export default (props) => {
   const fullwidth = currentLocation(props) === "/"
@@ -113,9 +129,28 @@ export default (props) => {
     >
       <SkipLink />
       <Global
-        styles={{
-          body: { margin: 0 },
-        }}
+        styles={css`
+          body {
+            margin: 0;
+          }
+          .youtube-embed {
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            width: 100%;
+            height: 300px;
+
+            iframe {
+              height: 100%;
+            }
+
+            @media (min-width: 960px) {
+              width: 80%;
+              margin: 0 auto;
+              height: 400px;
+            }
+          }
+        `}
       />
       <Header fullwidth={fullwidth} menu={menu} setMenu={setMenu} nav={nav} />
 

@@ -1,7 +1,7 @@
 import React from "react"
 import { Flex, Box, Link, Button, Image } from "rebass"
 import { useColorMode } from "theme-ui"
-import swizecAvatar from "../images/swizec.png"
+import swizecAvatar from "../images/swizec-head-avatar.webp"
 
 const modes = ["themed", "lite", "dark", "gray", "hack", "pink"]
 
@@ -51,7 +51,7 @@ const Dot = (props) => (
 )
 
 export default ({ nav, menu, setMenu, style, showBanner }) => {
-  const [mode, setMode] = useColorMode()
+  const [mode, setMode] = useColorMode(modes[0])
 
   const cycleMode = (e) => {
     const i = (modes.indexOf(mode) + 1) % modes.length
@@ -68,7 +68,12 @@ export default ({ nav, menu, setMenu, style, showBanner }) => {
       bg="background"
       style={style}
     >
-      <Image src={swizecAvatar} width={35} />
+      <Image
+        src={swizecAvatar}
+        width={35}
+        alt="Swizec Teller - a geek with a hat"
+        title="Swizec Teller - a geek with a hat"
+      />
       {/* <Button
         title="Toggle Menu"
         sx={{
@@ -101,6 +106,7 @@ export default ({ nav, menu, setMenu, style, showBanner }) => {
           height: 32,
           p: 1,
           borderRadius: 99999,
+          cursor: "pointer",
         }}
         onClick={cycleMode}
       >

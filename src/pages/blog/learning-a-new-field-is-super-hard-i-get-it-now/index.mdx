@@ -1,0 +1,184 @@
+---
+title: "Learning a new field is super hard, I get it now 😅"
+description: ""
+published: 2019-03-11
+redirect_from:
+  - /blog/learning-a-new-field-is-super-hard-i-get-it-now-%f0%9f%98%85/swizec/8974
+categories: "Back End, Technical"
+hero: ../../../defaultHero.jpg
+---
+
+I could never understand why people keep asking me this one stupid question. A question with an answer so obvious it made no sense why _everyone kept asking_. EVERYONE.
+
+_"Hey Swiz, how do I structure my project?"_
+
+_"Hey Swiz, where do I put this code?"_
+
+_"Hey Swiz, do I use folders or not?"_
+
+_"Hey Swiz, how many components in a file?"_
+
+_"Hey Swiz, where do I put my styled components?"_
+
+![](./img/media-10o3Um2U3wa4DK-giphy.gif)
+
+_It. Doesn't. Matter. Put your stuff wherever! When it feels untidy, tidy it up._
+
+I keep structure flat for small projects. When projects get big I group things in folders. Stuff that works together goes together.
+
+## But I get it now, I get it
+
+But I get it now. I understand why everyone asks this.
+
+Last week I inherited a [Kotlin](<https://en.wikipedia.org/wiki/Kotlin_(programming_language)>) project at dayjob.exe. I knew it was coming, I just didn't prepare :P
+
+Kotlin, by the way, is a programming language that compiles to Java bytecode. Runs on the [JVM](https://en.wikipedia.org/wiki/Java_virtual_machine). Often used for Android development, we're trying it for AWS Lambdas.
+
+Got tired of Ruby and its loose approach to types, don't want to write raw Java because it's meh, consider Scala to be too much of a mess. That leaves Kotlin.
+
+NodeJS with JavaScript or TypeScript got disqualified I'm not sure why. Python too.
+
+¯\\\_(ツ)\_/¯
+
+https://twitter.com/Swizec/status/1103070682248704002?ref_src=twsrc%5Etfw
+
+## So here I am trying to learn Kotlin
+
+So here I am trying to learn Kotlin and ... ho boy it's been rough. Took me two days just to get my code to run locally.
+
+Being in a Lambda environment doesn't help.
+
+You [install Kotlin and set up VSCode](https://medium.com/@agavatar/programming-with-kotlin-in-visual-studio-code-1d745d6b4ad1) with Kotlin support. I tried IntelliJ's IDEA environment. Hated how it looks, hated how clunky it felt, didn't wanna use it.
+
+I'm told using VSCode will punish me in the future. It's already missing the jump-to-definition stuff it can do in JavaScript and even Ruby.
+
+Statically typed languages like Kotlin and Java are supposed to make that feature easier to implement ... ¯\\\_(ツ)\_/¯
+
+Syntax highlighting doesn't work great either. Oh well.
+
+Ok so I get that set up and after a painful run at installing Java I can run small examples right in my editor. Wonderful!
+
+https://twitter.com/Swizec/status/1103076169048420353?ref_src=twsrc%5Etfw
+
+https://twitter.com/Swizec/status/1103078534661074944?ref_src=twsrc%5Etfw
+
+How was I supposed to know the popup gives you the wrong thing?
+
+Blogs and articles about Kotlin don't tell you this because they all assume you're coming from a Java background and have everything running. Not me :D
+
+## And then it gets worse
+
+Then my instructions, from the lady who started this project, say that I have to run `./gradlew`. Gradle is some sort of better compiler for Kotlin. Using `kotlinc` directly is too hard?
+
+Gradle itself also isn't good enough so everyone uses gradle wrapper called `gradlew`.
+
+It's a bit like having `npm`. You specify dependencies and stuff in a `build.gradle`, which is written in [Groovy](https://en.wikipedia.org/wiki/Apache_Groovy), and when you run `./gradlew` it installs dependencies then compiles your code.
+
+Oh except running `gradlew` doesn't work because it needs a `.jar` file that is supposed to be part of your repository. But `.jar` files are in `.gitignore` because obviously you don't want compiled files in your git.
+
+Jar files are the compiled result of Java programs. It's like a package with compiled code and some other stuff.
+
+I forget what I had to run, but I had to compile my compile tool before I could compile my code.
+
+![](./img/media-3oz8xIiQkjAhhtorGU-giphy.gif)
+
+And then I learned about something called [SAM – Serverless Application Model](https://aws.amazon.com/serverless/sam/). It's an Amazon tool that lets you run cloud functions locally.
+
+Except it didn't work.
+
+Complained about Docker. Don't need to set up Docker, just have it on my computer. SAM uses that to simulate lambdas ... I think.
+
+Then SAM complained about my AWS configuration. Not that it told me this, Twitter told me this after seeing my error screenshot.
+
+AWS uses local config files in `~/.aws` to get your AWS credentials and stuff. I set those up as per my predecessor's instructions. Didn't work.
+
+Googled around and I needed some sort of `awscli` that has a `configure` command. Used two different ways to install, both succeeded, neither worked.
+
+https://twitter.com/Swizec/status/1103740088431697922?ref_src=twsrc%5Etfw
+
+Rebooting my computer made it work. No idea why. Yes I tried restarting terminal to pick up new binaries.
+
+By now it's been two days and learning Kotlin feels a lot like running through a brick wall.
+
+![](./img/media-mIvrv5Qe0kHlu-giphy.gif)
+
+But I could run my code locally 💪
+
+https://twitter.com/Swizec/status/1103759822837542912?ref_src=twsrc%5Etfw
+
+## And then ... I didn't know where to put my code 🙈
+
+I could run my code, I could deploy my code, I couldn't run my code in production because some Lambda wasn't giving permissions to another Lambda and it breaks.
+
+So I figured I'd start with unit tests.
+
+My predecessor didn't set that up and you want your backend code thoroughly tested. Manual QA only goes so far.
+
+I searched the internets. My results were bad.
+
+Training Google to give good results is a big part of learning a new language or technology. Takes a while. Takes a while to learn what to search for too. All the key phrases, technology names, the good websites ...
+
+https://twitter.com/Swizec/status/1104170641735933952?ref_src=twsrc%5Etfw
+
+After much reading and investigating I learned of a thing called [KotlinTest](https://github.com/kotlintest/kotlintest). It's a powerful framework for testing Kotlin that supports many different styles.
+
+One of them looks like Ruby RSpec tests I'm used to. 👌
+
+KotlinTest it is!
+
+Okay ... where do I put these files? How do I run them?
+
+Every guide and blog assumed I already know this. Oh you're trying to test your Kotlin code? _Obviously_ you know how to write a valid Kotlin file, where to put it, which imports to use, and how to run it.
+
+Yeah no I had no idea.
+
+This was an example in docs:
+
+    <code class="kotlin">class MyTests : StringSpec({
+      "length should return size of string" {
+        "hello".length shouldBe 5
+      }
+      "startsWith should test for a prefix" {
+        "world" should startWith("wor")
+      }
+    })
+
+The file you _actually_ need to write looks like this:
+
+    <code class="kotlin">package your.stuff
+
+    import io.kotlintest.specs.StringSpec
+    import io.kotlintest.shouldBe
+
+    class MyTests : StringSpec({
+      "length should return size of string" {
+        "hello".length shouldBe 5
+      }
+      "startsWith should test for a prefix" {
+        "world" should startWith("wor")
+      }
+    })
+
+Banged my head against that wall for an hour. Such a small thing, so hard to figure out on your own.
+
+Like, I resorted to reading KotlinTest source files to figure this out that's how bad all the guides are.
+
+And I still didn't know where to put it or how to run it.
+
+Figured that out after many more frustrating hours of banging my head through this damn brick wall. You put files in `src/test/your/stuff/test.kt` and run them with `./gradlew test`.
+
+After you set up a new `test {}` area in `build.gradle` of course. Super obvious.
+
+At least the guides told me how to configure Gradle ...
+
+## 😑
+
+So yeah I get it now, I understand why video courses are so popular (you can see what's happening and where things go), I see why people ask seemingly obvious questions.
+
+Learning very new stuff is hard. Everyone assumes you have background knowledge that you don't have. _sigh_
+
+Sorry if I ever do that. Please call me out on it.
+
+Cheers, ~Swizec
+
+PS: yes it's a balance. Otherwise you might as well explain how 1+1 works in every article ... 🤔

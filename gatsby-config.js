@@ -1,12 +1,27 @@
 const remarkPlugins = [require("remark-slug")]
 const fs = require("fs")
+const YoutubeTransformer = require("./src/YoutubeEmbedderTransformer.js")
 
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
 module.exports = {
+  siteMetadata: {
+    siteUrl: "https://swizec.com",
+    title: "swizec.com",
+    description:
+      "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
+    convertkit: {
+      defaultFormId: "826419",
+      serverlessHandbookFormId: "1655570",
+      seniorMindsetFormId: "1712642",
+    },
+  },
   plugins: [
+    "gatsby-plugin-slug",
+    "gatsby-plugin-netlify",
+    "gatsby-plugin-remove-trailing-slashes",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -14,14 +29,14 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    // {
-    //   resolve: "gatsby-source-filesystem",
-    //   options: {
-    //     name: "posts",
-    //     path: `${__dirname}/src/pages/blog`,
-    //   },
-    // },
-    
+
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "posts",
+        path: `${__dirname}/src/pages/blog`,
+      },
+    },
     "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",
     "gatsby-remark-images",
@@ -35,7 +50,7 @@ module.exports = {
           {
             resolve: "gatsby-remark-giphy",
             options: {
-              giphyApiKey: "tvyI1ARG6FOkW9PUzmgubJ3iY5P5rJmO",
+              giphyApiKey: process.env.GIPHY_API_KEY,
               useVideo: true,
               embedWidth: "80%",
             },
@@ -43,7 +58,7 @@ module.exports = {
           {
             resolve: "gatsby-remark-images",
             options: {
-              markdownCaptions: true,
+              markdownCaptions: false,
               maxWidth: 890,
               linkImagestoOriginal: false,
               showCaptions: ["title", "alt"],
@@ -55,17 +70,26 @@ module.exports = {
                 turdSize: 100,
                 turnPolicy: "TURNPOLICY_MAJORITY",
               },
+              loading: "lazy",
             },
           },
+
           {
             resolve: `${__dirname}/src/gatsby-remark-social-card`,
           },
           {
             resolve: "gatsby-remark-embedder",
-            options: {},
+            options: {
+              customTransformers: [YoutubeTransformer],
+              services: {
+                Instagram: {
+                  accessToken: process.env.INSTAGRAM_OEMBED_TOKEN,
+                },
+              },
+            },
           },
         ],
-        plugins: [{ resolve: "gatsby-remark-images"}],
+        plugins: [{ resolve: "gatsby-remark-images" }],
       },
     },
     // add a gatsby-source-filesystem entry for every article's images
@@ -98,7 +122,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-facebook-pixel",
       options: {
-        pixelId: "2634718133254322",
+        pixelId: "714190382013726",
       },
     },
     "gatsby-plugin-simple-analytics",
@@ -112,7 +136,68 @@ module.exports = {
         background_color: "#fff",
         theme_color: "#FF002B",
         display: "standalone",
-        icon: "./static/icon.png",
+        icon: "./static/favicon.png",
+      },
+    },
+    "gatsby-plugin-remove-fingerprints",
+    {
+      resolve: "gatsby-plugin-advanced-sitemap",
+      options: {
+        createLinkInHead: true,
+        addUncaughtPages: true,
+        exclude: ["/404"],
+      },
+    },
+    {
+      resolve: "gatsby-plugin-feed",
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            output: "/rss.xml",
+            title: "swizec.com RSS Feed",
+            match: "^/blog/",
+            query: `
+              {
+                allSitePage(
+                    filter: { path: { regex: "/blog/.+/" } }
+                    sort: { fields: context___frontmatter___published, order: DESC }
+                ) {
+                    nodes {
+                        path
+                        context {
+                            frontmatter {
+                                title
+                                description
+                                published
+                            }
+                        }
+                    }
+                }
+            }
+              `,
+            serialize: ({ query: { site, allSitePage } }) => {
+              return allSitePage.nodes.map((node) => {
+                return Object.assign({}, node.context.frontmatter, {
+                  date: node.context.frontmatter.published,
+                  url: site.siteMetadata.siteUrl + node.path,
+                  guid: site.siteMetadata.siteUrl + node.path,
+                })
+              })
+            },
+          },
+        ],
       },
     },
 

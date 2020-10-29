@@ -1,28 +1,33 @@
-import React from 'react'
-import Logo from './Logo'
+import React, { useState, useEffect } from "react"
+import { Heading, Flex, Image, Box, Text } from "rebass"
+import swizec from "../images/swizec.png"
 
-const photo = 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=2048&q=20'
+export default (props) => {
+  const [title, setTitle] = useState(props.title)
 
-export default props => ( <
-    div style = {
-        {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'black',
-            width: 1024,
-            height: 512
-        }
-    } >
-    <
-    Logo static text strokeWidth = {
-        4
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search)
+      setTitle(params.get("title"))
     }
-    size = {
-        512
-    } {
-        ...props
-    }
-    /> <
-    /div>
-)
+  }, [])
+
+  return (
+    <Flex
+      sx={{
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: 1024,
+        height: 512,
+        p: '0px 32px'
+      }}
+      id="social-card"
+    >
+      <Box sx={{ width: 1024 - 350 }}>
+        <Heading sx={{ fontSize: 6 }}>{title}</Heading>
+        <Text>Swizec Teller - A Geek With a Hat</Text>
+      </Box>
+      <Image src={swizec} sx={{ width: 350, height: 350 }} />
+    </Flex>
+  )
+}

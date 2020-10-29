@@ -1,0 +1,148 @@
+---
+title: "You though computer science has no place in webdev? Here's a fun coding challenge"
+description: ""
+published: 2020-08-21
+redirect_from:
+  - /blog/you-though-computer-science-has-no-place-in-webdev-heres-a-fun-coding-challenge/swizec/9484
+categories: "Computer Science, Front End, Technical"
+hero: ./img/techletter.app-screenshot-1598025292053.png
+---
+
+Friend, you don't often get to show off your leetcode skills at work. They get you through the whiteboard interview and vanish forever.
+
+Yesterday I ran into a rare challenge that let me use those skills. Thought I'd share ✌️
+
+You've got this string of buggy JSX.
+
+[![Click through for source](./img/techletter.app-screenshot-1598025292053.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=null&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%20%20%20%20%20%20%3Cdiv%20data-prop%3D%22hello%22%20ref%3D%22%7Bthis.refCallback%7D%22%20id%3D%22an-id%22%20style%3D%22%7B%7B%22%20border%3A%3D%22%22%20%26%2334%3B1px%3D%22%22%20solid%3D%22%22%20red%26%2334%3B%3D%22%22%20%7D%7D%3D%22%22%20keepme%3D%22%7Blol%7D%22%20href%3D%22a%20link%22%20objprop%3D%22%7B%7Btest%3A%26%2339%3Bnospace%26%2339%3B%7D%7D%22%20objprop2%3D%22%7B%7B%22%20test%3A%3D%22%22%20%26%2339%3Bleftspace%26%2339%3B%7D%7D%3D%22%22%20notobj%3D%22%7B%7B%22%3E%0A%20%20%20%20%20%20%20%20%7Bfaker.lorem.paragraphs(Math.random()%20*%2010)%7D%0A%20%20%20%20%20%20%3C%2Fdiv%3E>)
+
+JSX confused an HTML parser–stringifier and this is what happened. You can't put it back through a parser because now it's neither valid HTML nor valid JSX. 😅
+
+Here's the data model – part of an abstract syntax tree – that produces the above result:
+
+[![Click through for source](./img/techletter.app-screenshot-1598025292105.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%20%20%20%20%7B%0A%20%20%20%20%20%20type%3A%20'element'%2C%0A%20%20%20%20%20%20tagName%3A%20'div'%2C%0A%20%20%20%20%20%20properties%3A%20%7B%0A%20%20%20%20%20%20%20%20dataProp%3A%20'hello'%2C%0A%20%20%20%20%20%20%20%20ref%3A%20'%7Bthis.refCallback%7D'%2C%0A%20%20%20%20%20%20%20%20id%3A%20'an-id'%2C%0A%20%20%20%20%20%20%20%20style%3A%20'%7B%7B'%2C%0A%20%20%20%20%20%20%20%20'border%3A'%3A%20''%2C%0A%20%20%20%20%20%20%20%20'%221px'%3A%20''%2C%0A%20%20%20%20%20%20%20%20solid%3A%20''%2C%0A%20%20%20%20%20%20%20%20'red%22'%3A%20''%2C%0A%20%20%20%20%20%20%20%20'%7D%7D'%3A%20''%2C%0A%20%20%20%20%20%20%20%20keepme%3A%20'%7Blol%7D'%2C%0A%20%20%20%20%20%20%20%20href%3A%20'a%20link'%2C%0A%20%20%20%20%20%20%20%20objprop%3A%20%22%7B%7Btest%3A'nospace'%7D%7D%22%2C%0A%20%20%20%20%20%20%20%20objprop2%3A%20'%7B%7B'%2C%0A%20%20%20%20%20%20%20%20'test%3A'%3A%20''%2C%0A%20%20%20%20%20%20%20%20%22'leftspace'%7D%7D%22%3A%20''%2C%0A%20%20%20%20%20%20%20%20notobj%3A%20'%7B%7B'%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20children%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20type%3A%20'text'%2C%0A%20%20%20%20%20%20%20%20%20%20value%3A%20'%5Cn%20%20%20%20%20%20%20%20%7Bfaker.lorem.paragraphs(Math.random()%20*%2010)%7D%5Cn%20%20%20%20%20%20'%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D>)
+
+And here's the output you want:
+
+[![Click through for source](./img/techletter.app-screenshot-1598025292011.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%20%20%3Cdiv%20data-prop%3D%22hello%22%20ref%3D%7Bthis.refCallback%7D%20id%3D%22an-id%22%20style%3D%7B%7B%20border%3A%20%221px%20solid%20red%22%20%7D%7D%20keepme%3D%7Blol%7D%20href%3D%22a%20link%22%20objprop%3D%7B%7Btest%3A'nospace'%7D%7D%20objprop2%3D%7B%7B%20test%3A%20'leftspace'%7D%7D%3E%0A%20%20%20%20%7Bfaker.lorem.paragraphs(Math.random()%20*%2010)%7D%0A%20%20%3C%2Fdiv%3E>)
+
+The tools to stringify your AST exist 👉 `toHTML(tree)`
+
+But you need to:
+
+1.  avoid quotes around JSX props denoted by `{}`
+2.  avoid breaking JSX object props denoted by `{{ }}`
+
+Looks like the parser takes every space as a new attribute. The stringifier wraps every attribute in quotes.
+
+Have fun ❤️
+
+Here's a codesandbox I prepared, if you want to play around.
+
+[![Click through for source](./img/techletter.app-screenshot-1598025319641.png)](https://codesandbox.io/s/agitated-drake-9kclq)
+
+Give it a shot before you read on, at least a little think.
+
+---
+
+Did you finish the challenge? Had fun?
+
+I did :P
+
+[![XKCD Nerd Sniping](./img/comics-nerd_sniping.png)](https://xkcd.com/356/)
+
+You can solve this challenge in 2 parts.
+
+1.  fix quotes around JSX props denoted by `{}`
+2.  fix JSX object props denoted by `{{ }}`
+
+Each issue falls on a different level of computational solvability. That's a bad phrasing for a 2 semester class I took in college.
+
+In computer science you have [automata theory](https://en.wikipedia.org/wiki/Finite-state_machine). It teaches you the classes of approaches that can solve different classes of computational problems.
+
+[![](./img/rysvgpngjj594d.png)](https://en.wikipedia.org/wiki/Automata_theory)
+
+The other side of this coin are languages. [Regular languages](https://en.wikipedia.org/wiki/Regular_language), [context-free languages](https://en.wikipedia.org/wiki/Context-free_language), [context-sensitive languages](https://en.wikipedia.org/wiki/Context-sensitive_language). It goes on.
+
+Math gibberish for:
+
+- you can use finite state machines to parse regular languages
+- you can't for context-sensitive languages
+
+Easiest way to know which you're facing 👉 if you have to match open/close parentheses, you're dealing with context.
+
+## Fix quotes around `{}`
+
+You can solve the first part by [summoning Cthulhu](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454).
+
+[![Click through for source](/static/media/error.4c412ab4.png)](https://twitter.com/Swizec/status/1296481223859146752)
+
+Here's the bit that summons Cthulhu and solves our problem:
+
+[![Click through for source](./img/techletter.app-screenshot-1598035503830.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=while%20(html.match(%2F%5C%3C(.%2B%5Cw%2B)%3D%22%5C%7B(.*)%5C%7D%22(.*)%5C%3E%2F))%20%7B%0A%20%20%20%20html%20%3D%20html.replace(%2F%5C%3C(.%2B%5Cw%2B)%3D%22%5C%7B(.*)%5C%7D%22(.*)%5C%3E%2F%2C%20%22%3C%241%3D%7B%242%7D%243%3E%22)%3B%0A%7D>)
+
+This code uses regex to fix HTML even though HTML is not a regular language and is therefore not parseable by regex.
+
+Why does it work then? 🤨
+
+It works because it doesn't rely on matching open/close tags. Looks like it does, but it doesn't.
+
+This part here `/\<(.+\w+)="\{(.*)\}"(.*)\>/` asks for: _"Give me any pair of `"{ }"`, matched or not, that appears between any pair of `<>`, matched or not_
+
+The regex returns 3 matched groups:
+
+1.  everything before the pair
+2.  everything inside the pair
+3.  everything after the pair
+
+We use those groups to replace with a fixed string:
+
+[![Click through for source](./img/techletter.app-screenshot-1598035504022.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=html%20%3D%20html.replace(...%2C%20%22%3C%241%3D%7B%242%7D%243%3E%22)%3B>)
+
+Open `<`, first group, `={`, second group, `}`, third group, close `>`. Then repeat in a loop until no more candidates are found.
+
+Matching never matters and that's why this works.
+
+![magic giphy](./img/media-12NUbkX6p4xOO4-giphy.gif)
+
+## Fix broken `{{ }}` props
+
+The broken object props are harder. Here you _are_ dealing with a contextual language – you have to match the open `{{` to its nearest closing `}}`.
+
+If you don't, you'll get the wrong result.
+
+That means you have to solve this one _before_ stringification. When you still have access to the underlying AST.
+
+My idea was to iterate through the props and collect them into a new object. When you hit `{{`, start collecting values into a new prop, add to new object as full prop when you hit `}}`.
+
+Here's how:
+
+[![Click through for source](./img/techletter.app-screenshot-1598035504431.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=function%20fixJsxObjectProps(tree)%20%7B%0A%20%20%20%20if%20(tree.type%20%3D%3D%3D%20%22element%22%20%26%26%20tree.properties)%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20bad%20props%20start%20with%20a%20broken%20prop%3D'%7B%7B'%0A%20%20%20%20%20%20%20%20if%20(Object.values(tree.properties).some((val)%20%3D%3E%20val%20%3D%3D%3D%20%22%7B%7B%22))%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%20loop%20through%20props%20to%20fix%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20tree.properties%20%3D%20Object.fromEntries(props)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20if%20(tree.children)%20%7B%0A%20%20%20%20%20%20%20%20tree.children%20%3D%20tree.children.map(fixJsxObjectProps)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20return%20tree%3B%0A%7D>)
+
+This code sets up a method that recursively visits all children in a tree. Makes it useful in a more general case.
+
+Start the algorithm if you encounter an element with `{{` in its properties.
+
+[![Click through for source](./img/techletter.app-screenshot-1598035504297.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=let%20props%20%3D%20%5B%5D%3B%0Alet%20collecting%20%3D%20false%3B%0Alet%20prop%2C%20propVal%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%0Afor%20(let%20%5Bkey%2C%20val%5D%20of%20Object.entries(tree.properties))%20%7B%0A%20%20%20%20if%20(val%20%3D%3D%3D%20%22%7B%7B%22)%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20the%20next%20several%20props%20are%20part%20of%20the%20object%0A%20%20%20%20%20%20%20%20collecting%20%3D%20true%3B%0A%20%20%20%20%20%20%20%20prop%20%3D%20key%3B%0A%20%20%20%20%20%20%20%20propVal%20%3D%20%5Bval%5D%3B%0A%20%20%20%20%7D%20else%20if%20(collecting)%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20collect%20props%0A%20%20%20%20%20%20%20%20propVal.push(%60%24%7Bkey%7D%20%24%7Bval%7D%60)%3B%0A%0A%20%20%20%20%20%20%20%20if%20(key.includes(%22%7D%7D%22)%20%7C%7C%20val.includes(%22%7D%7D%22))%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%20stop%20collecting%20when%20done%0A%20%20%20%20%20%20%20%20%20%20%20%20props.push(%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20prop%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20propVal%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.join(%22%20%22)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.replace(%2F%5B%20%5D%7B2%2C%7D%2Fg%2C%20%22%20%22)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.trim()%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20collecting%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20props.push(%5Bkey%2C%20val%5D)%3B%0A%20%20%20%20%7D%0A%7D>)
+
+Prep a value for new props, a flag that says when you're collecting, and 2 variables to collect into.
+
+Then you iterate and:
+
+- if `{{` is encountered, start collecting
+- if you're collecting, add values to the current prop
+- if `}}` is encountered, stop collecting and create a new prop
+- push unchanged prop to new object normally
+
+Final `Object.fromEntries` call takes the generated array of `[key, value]` pairs and turns them into a properties object.
+
+Upon stringification, this gets wrapped in `"` quotes, but the Cthulhu summoning code fixes that.
+
+And you get the correct result. Here's a codesandbox for proof
+
+[![Click through for source](./img/techletter.app-screenshot-1598035520936.png)](https://codesandbox.io/s/happy-snowflake-97sp7)
+
+And you thought computer science was useless in web development. Ha!
+
+Cheers,  
+~Swizec
