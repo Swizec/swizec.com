@@ -40,7 +40,7 @@ You create pages like this in `gatsby-node.js`:
 
 ```javascript
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions;
+  const { createPage } = actions
 
   const result = await graphql(`
     query {
@@ -53,11 +53,11 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
     }
-  `);
+  `)
 
   result.data.widgetsapi.allWidget.forEach(
     ({ userId, widgetId, widgetType, followupQuestions }) => {
-      const votePath = path.resolve("./src/pages/vote.js");
+      const votePath = path.resolve("./src/pages/vote.js")
 
       createPage({
         path: `/${widgetId}/thumbsup`,
@@ -69,10 +69,10 @@ exports.createPages = async ({ graphql, actions }) => {
           widgetType,
           voteType: "thumbsup",
         },
-      });
+      })
     }
-  );
-};
+  )
+}
 ```
 
 The pattern you'll see is:
@@ -91,7 +91,7 @@ const VotePage = ({ pageContext }) => {
     voteType,
     followupQuestions,
     widgetType,
-  } = pageContext;
+  } = pageContext
 
   return (
     <FullScreen>
@@ -104,8 +104,8 @@ const VotePage = ({ pageContext }) => {
         widgetType={widgetType}
       />
     </FullScreen>
-  );
-};
+  )
+}
 ```
 
 Use props baked-in during deploy, render the page. No loading spinners.
@@ -128,7 +128,7 @@ With server side generation you generate the page on-demand. User makes a reques
 
 ```javascript
 export async function getServerSideProps({ params }) {
-  const { widgetId } = params;
+  const { widgetId } = params
   const { data } = await client.query({
     query: gql`
       query {
@@ -140,12 +140,12 @@ export async function getServerSideProps({ params }) {
         }
       }
     `,
-  });
+  })
 
   // TODO: support a query to fetch this directly
-  const widget = data.allWidget.find((w) => w.widgetId === widgetId) || {};
+  const widget = data.allWidget.find((w) => w.widgetId === widgetId) || {}
 
-  return { props: { widget } };
+  return { props: { widget } }
 }
 ```
 
@@ -155,7 +155,7 @@ Where it differs from websites of old, is that your app uses the same code to re
 
 ```javascript
 const VotePage = ({ widget }) => {
-  const { userId, widgetId, voteType, followupQuestions, widgetType } = widget;
+  const { userId, widgetId, voteType, followupQuestions, widgetType } = widget
 
   return (
     <Container sx={{ textAlign: "center" }}>
@@ -170,8 +170,8 @@ const VotePage = ({ widget }) => {
         widgetType={widgetType}
       />
     </Container>
-  );
-};
+  )
+}
 ```
 
 You get data from props and use it to render the page. No loading spinners.
