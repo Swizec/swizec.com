@@ -170,19 +170,19 @@ LISP's core is a system of translating S-expressions into list structures that c
 
 **Representing S-Expressions by a List Structure** can be visualised with a set of connected boxes. Each box is divided into two parts - the right being the _address field_ and the left being the _decrement field_. They contain the locations for subexpressions returned by _car_ and _cdr_ respectively.
 
-![List structure](http://swizec.com/blog/wp-content/uploads/2012/08/list-structure.png "List structure")
+![List structure](https://swizec.com/blog/wp-content/uploads/2012/08/list-structure.png "List structure")
 
 Substructures can be repeated, but cycles aren't allowed - the bottom-right example wouldn't fly. When subexpressions are repeated their in-memory representation depends mostly on the program's history, but luckily this doesn't affect the final result.
 
 The reason McCarthy prohibits circular structures is interesting - they might help with representing, say, recursive functions, but there are too many difficulties with printing them in a world with our topology.
 
-![((A · B) · (C · (E · F)))](http://swizec.com/blog/wp-content/uploads/2012/08/example-list-structure.png "((A · B) · (C · (E · F)))")
+![((A · B) · (C · (E · F)))](https://swizec.com/blog/wp-content/uploads/2012/08/example-list-structure.png "((A · B) · (C · (E · F)))")
 
 When storing atomic symbols an **association list** is used. These are used for anything from print names, to memory locations of values - the machine uses them for whatever low-level concept it needs to make the mathematical principles of LISP work.
 
 For example, to store the word _DIFFERENTIATE_ in an association list on a computer with 6-bit words a structure such as this is used:
 
-![Association list for "DIFFERENTIATE"](http://swizec.com/blog/wp-content/uploads/2012/08/association-list.png 'Association list for "DIFFERENTIATE"')
+![Association list for "DIFFERENTIATE"](https://swizec.com/blog/wp-content/uploads/2012/08/association-list.png 'Association list for "DIFFERENTIATE"')
 
 Even back then computers had more memory than a typical program would be using at all times, so a concept of a **free storage list** was introduced. At its core, the free storage list is simply a list structure that catalogs all the available free memory and starts with a pointer called _FREE_.
 
@@ -212,10 +212,10 @@ Now if only there weren't so many damn parentheses ... [I tried to learn LISP (c
 
 ###### Related articles
 
-- [![](http://i.zemanta.com/102977749_80_80.jpg)](http://passionsjustlikemine.wordpress.com/2012/07/27/john-mccarthy-in-the-literary-arena/)[John McCarthy in the Literary Arena](http://passionsjustlikemine.wordpress.com/2012/07/27/john-mccarthy-in-the-literary-arena/)
-- [![](http://i.zemanta.com/noimg_97_80_80.jpg)](http://blog.fogus.me/2012/07/25/some-lisp-books-and-then-some/)[Some Lisp books (and then some)](http://blog.fogus.me/2012/07/25/some-lisp-books-and-then-some/)
-- [![](http://i.zemanta.com/noimg_3_80_80.jpg)](http://nic.ferrier.me.uk/blog/2012_07/tips-and-tricks-for-emacslisp)[Tips and tricks with emacslisp for fun and profit](http://nic.ferrier.me.uk/blog/2012_07/tips-and-tricks-for-emacslisp)
-- [![](http://i.zemanta.com/101202848_80_80.jpg)](http://www.drdobbs.com/tools/developers-reading-list/240003875)[Developer's Reading List](http://www.drdobbs.com/tools/developers-reading-list/240003875)
-- [![](http://i.zemanta.com/noimg_46_80_80.jpg)](http://kresimirbojcic.com/2012/08/14/why-lisp-did-not-and-never-will-gain-enough-traction.html)[Why Lisp Did Not and Never Will Gain Enough Traction](http://kresimirbojcic.com/2012/08/14/why-lisp-did-not-and-never-will-gain-enough-traction.html)
+- [![](https://i.zemanta.com/102977749_80_80.jpg)](http://passionsjustlikemine.wordpress.com/2012/07/27/john-mccarthy-in-the-literary-arena/)[John McCarthy in the Literary Arena](http://passionsjustlikemine.wordpress.com/2012/07/27/john-mccarthy-in-the-literary-arena/)
+- [![](https://i.zemanta.com/noimg_97_80_80.jpg)](http://blog.fogus.me/2012/07/25/some-lisp-books-and-then-some/)[Some Lisp books (and then some)](http://blog.fogus.me/2012/07/25/some-lisp-books-and-then-some/)
+- [![](https://i.zemanta.com/noimg_3_80_80.jpg)](http://nic.ferrier.me.uk/blog/2012_07/tips-and-tricks-for-emacslisp)[Tips and tricks with emacslisp for fun and profit](http://nic.ferrier.me.uk/blog/2012_07/tips-and-tricks-for-emacslisp)
+- [![](https://i.zemanta.com/101202848_80_80.jpg)](http://www.drdobbs.com/tools/developers-reading-list/240003875)[Developer's Reading List](http://www.drdobbs.com/tools/developers-reading-list/240003875)
+- [![](https://i.zemanta.com/noimg_46_80_80.jpg)](http://kresimirbojcic.com/2012/08/14/why-lisp-did-not-and-never-will-gain-enough-traction.html)[Why Lisp Did Not and Never Will Gain Enough Traction](http://kresimirbojcic.com/2012/08/14/why-lisp-did-not-and-never-will-gain-enough-traction.html)
 
-[![Enhanced by Zemanta](http://img.zemanta.com/zemified_e.png?x-id=27a245ba-8da2-4b42-a319-61686149e5a2)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=27a245ba-8da2-4b42-a319-61686149e5a2)](http://www.zemanta.com/?px "Enhanced by Zemanta")

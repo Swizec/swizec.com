@@ -8,7 +8,7 @@ categories: "Client-side, Clients, JavaScript, jQuery, Server, Uncategorized, We
 hero: ../../../defaultHero.jpg
 ---
 
-![Preona Muffin Making](http://swizec.com/blog/wp-content/uploads/2011/12/4371042134_c7431995c4_m6.jpg "Preona Muffin Making")
+![Preona Muffin Making](https://swizec.com/blog/wp-content/uploads/2011/12/4371042134_c7431995c4_m6.jpg "Preona Muffin Making")
 
 The past few months have seen an explosion of [client-side](http://en.wikipedia.org/wiki/Client-side "Client-side") MVC frameworks. [Wikipedia lists _eleven_ of these things](http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#JavaScript)! And yet even a year ago the majority of developers was perfectly content with jQuery.
 
@@ -29,7 +29,7 @@ Since Thursday my blog has seen two months' worth of normal traffic - more about
 
 Well, actualy, no, it totally shouldn't have. There's all this fancy caching going on that what readers see are pretty much just static pages. There's no more PHP or server involved!
 
-![A stats screenie](http://swizec.com/blog/wp-content/uploads/2011/12/Screen-Shot-2011-12-16-at-1.53.20-PM-300x175.png "A stats screenie")
+![A stats screenie](https://swizec.com/blog/wp-content/uploads/2011/12/Screen-Shot-2011-12-16-at-1.53.20-PM-300x175.png "A stats screenie")
 
 But none of that helped. Even redirecting the [URL](http://en.wikipedia.org/wiki/Uniform_Resource_Locator "Uniform Resource Locator") with most traffic straight to the stored static page didn't help. Something strange was happening. Something strange happens _every single time this blog gets some traffic_. This time it was particularly bad so I investigated.
 
@@ -45,7 +45,7 @@ To achieve this I'm using jquery template, it's a bit archaic and I may have sta
 
 Everything marked as a variable gets replaced with its value and everyone can be happy.
 
-Try to guess what happens with that _src="\\\\\${url_var}"_ bit in there. Yep, the browser tries to load it. Firing a request to something that always returns at least a 404 after wordpress decides that, hey, this isn't something I know of!
+Try to guess what happens with that _src="\\\\\\${url_var}"_ bit in there. Yep, the browser tries to load it. Firing a request to something that always returns at least a 404 after wordpress decides that, hey, this isn't something I know of!
 
 This means that the url is _never_ cached either server-side \_or \_client-side!
 
@@ -59,4 +59,4 @@ All I have to do now is find a permanent solution. Any ideas?
 - [Web application architecture: Implementing MVC in the browser using a server as a repository of data and templates](http://stackoverflow.com/questions/5371763/web-application-architecture-implementing-mvc-in-the-browser-using-a-server-as-a) (stackoverflow.com)
 - [Apps and web apps and the future](http://inessential.com/2011/12/13/apps_and_web_apps_and_the_future) (inessential.com)
 
-[![Enhanced by Zemanta](http://img.zemanta.com/zemified_e.png?x-id=340db1bf-0c20-4550-b5c3-93a188eb8979)](http://www.zemanta.com/ "Enhanced by Zemanta")
+[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=340db1bf-0c20-4550-b5c3-93a188eb8979)](http://www.zemanta.com/ "Enhanced by Zemanta")
