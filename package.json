@@ -81,7 +81,7 @@
         "uuid": "^8.3.0"
     },
     "engines": {
-        "node": "14.x"
+        "node": "12.x || 14.x"
     },
     "devDependencies": {
         "chalk": "^4.1.0",
