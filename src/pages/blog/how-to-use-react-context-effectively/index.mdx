@@ -10,8 +10,6 @@ hero: ./img/profile_images-834049142515187713-cOtVTgLm_400x400.jpg
 
 Modern React Context has been with us for a while but I still see a lot of confusion about how to use it effectively.
 
-https://twitter.com/pugson/status/1079241306487091200
-
 A lot of people feel that no matter what, you still need _some_ form of state management. Either an existing library or you end up building your own anyway.
 
 Yes, sort of. But not in the way you think.
@@ -51,12 +49,12 @@ let obj = {
   pugson: {
     greet: "Hello",
   },
-};
+}
 
-let obj2 = { ...obj };
+let obj2 = { ...obj }
 
-obj2 == obj; // false
-obj2.pugson == obj.pugson; // true
+obj2 == obj // false
+obj2.pugson == obj.pugson // true
 ```
 
 Even though we made a copy of `obj`, their internal properties remained equal. The `pugson` object is shared between both.
@@ -81,11 +79,11 @@ This creates a convenient way for different components to share the same context
 
 ```javascript
 // GreetContext.js
-import React from "react";
+import React from "react"
 
-const { Provider, Consumer } = React.createContext();
+const { Provider, Consumer } = React.createContext()
 
-export { Provider, Consumer };
+export { Provider, Consumer }
 ```
 
 Create context and export its `Provider` and `Consumer`. Providers pass values down the tree of components, and consumers use them to do stuff.
@@ -100,7 +98,7 @@ class App extends React.Component {
   state = {
     greeting: "",
     setGreeting: ({ value }) => this.setState({ greeting: value }),
-  };
+  }
   render() {
     return (
       <div class="App">
@@ -110,7 +108,7 @@ class App extends React.Component {
           </form>
         </provider>
       </div>
-    );
+    )
   }
 }
 ```
@@ -131,9 +129,9 @@ Consuming your state is a matter of rendering a ``and using the values it provid
 
 ```javascript
 // Greeting.js
-import React from "react";
+import React from "react"
 
-import { Consumer } from "./GreetContext";
+import { Consumer } from "./GreetContext"
 
 export default () => (
   <consumer>
@@ -144,7 +142,7 @@ export default () => (
       </div>
     )}
   </consumer>
-);
+)
 ```
 
 See how keeping the context definition in a separate file makes it more convenient to use?
@@ -221,15 +219,15 @@ https://www.youtube.com/watch?v=MhmhfaJn0_U
 Yes, this approach works with hooks. Replace ``with `useContext`. Everything else stays the same.
 
 ```javascript
-import GreetingContext from "./GreetingContext";
+import GreetingContext from "./GreetingContext"
 export default () => {
-  const { greeting } = useContext(GreetingContext);
+  const { greeting } = useContext(GreetingContext)
 
   return (
     <div>
       <h3>Your greeting 👋</h3>
       {greeting}
     </div>
-  );
-};
+  )
+}
 ```
