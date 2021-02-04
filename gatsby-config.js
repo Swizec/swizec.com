@@ -6,30 +6,48 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
+// fs.readdirSync(`${__dirname}/src/pages/blog`)
+//       .map((path) => `${__dirname}/src/pages/blog/${path}`)
+//       .filter((path) => fs.lstatSync(path).isDirectory())
+//       .map((path) => `${path}/img`)
+//       .filter((path) => fs.existsSync(path) && fs.readdirSync(path).length > 0)
+      // .map((path) => console.log("===========PATHHHH========", path))
+
+
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://swizec.com",
     title: "swizec.com",
-    description:
-      "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
+    description: "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
+    author: `@swizec`,
+    coverImageStaticPath: "metaimage.png",
     convertkit: {
+      userId: "785fc7ef1f",
+      formId: "772ba7c9ba",
+      url: "https://pages.convertkit.com/785fc7ef1f/772ba7c9ba",
       defaultFormId: "826419",
       serverlessHandbookFormId: "1655570",
       seniorMindsetFormId: "1712642",
     },
+    // articles: {
+    //   title: `React for Dataviz`,
+    //   description: `
+    //     A monthly data visualization built with React, D3, and others.
+    //     Livecoded last Sunday of the month. 
+    //     <a href="https://www.youtube.com/channel/UCoyHgaeLLI7Knp7LDHOwZMw">
+    //       Join live
+    //     </a>
+    //     or subscribe to the newsletter 💌
+    //   `,
+    //   titleSeo: `React for Data Visualization Articles`,
+    //   descriptionSeo: `A monthly data visualization built with React, D3, and others`,
+    // },
+    siteUrl: "https://swizec.com",
   },
   plugins: [
-    "gatsby-plugin-slug",
+    "@swizec/gatsby-theme-course-platform",
+    // "gatsby-plugin-slug",
     "gatsby-plugin-netlify",
-    "gatsby-plugin-remove-trailing-slashes",
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "images",
-        path: `${__dirname}/src/images`,
-      },
-    },
-
+    // "gatsby-plugin-remove-trailing-slashes",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -37,46 +55,13 @@ module.exports = {
         path: `${__dirname}/src/pages/blog`,
       },
     },
-    "gatsby-transformer-sharp",
-    "gatsby-plugin-sharp",
-    "gatsby-remark-images",
     {
       resolve: "gatsby-plugin-mdx",
       options: {
         extensions: [".mdx", ".md"],
         remarkPlugins,
         gatsbyRemarkPlugins: [
-          "gatsby-remark-copy-linked-files",
-          {
-            resolve: "gatsby-remark-giphy",
-            options: {
-              giphyApiKey: process.env.GIPHY_API_KEY,
-              useVideo: true,
-              embedWidth: "80%",
-            },
-          },
-          {
-            resolve: "gatsby-remark-images",
-            options: {
-              markdownCaptions: false,
-              maxWidth: 890,
-              linkImagestoOriginal: false,
-              showCaptions: ["title", "alt"],
-              withWebp: true,
-              wrapperStyle: "text-align: center; font-style: italic",
-              tracedSVG: {
-                color: `lightgray`,
-                optTolerance: 0.4,
-                turdSize: 100,
-                turnPolicy: "TURNPOLICY_MAJORITY",
-              },
-              loading: "lazy",
-            },
-          },
-
-          {
-            resolve: `${__dirname}/src/gatsby-remark-social-card`,
-          },
+          
           {
             resolve: "gatsby-remark-embedder",
             options: {
@@ -89,63 +74,34 @@ module.exports = {
             },
           },
         ],
-        plugins: [{ resolve: "gatsby-remark-images" }],
       },
     },
     // add a gatsby-source-filesystem entry for every article's images
     // have to filter out empty folders for Zeit
-    ...fs
-      .readdirSync(`${__dirname}/src/pages/blog`)
-      .map((path) => `${__dirname}/src/pages/blog/${path}`)
-      .filter((path) => fs.lstatSync(path).isDirectory())
-      .map((path) => `${path}/img`)
-      .filter((path) => fs.existsSync(path) && fs.readdirSync(path).length > 0)
-      .map((path) => ({
-        resolve: "gatsby-source-filesystem",
-        options: {
-          path,
-        },
-      })),
-    "gatsby-plugin-catch-links",
-    "gatsby-plugin-theme-ui",
-    "gatsby-plugin-react-helmet",
-    "gatsby-plugin-twitter",
-    "gatsby-plugin-instagram-embed",
-    {
-      resolve: "gatsby-plugin-google-analytics",
-      options: {
-        trackingId: "UA-1464315-1",
-        anonymize: true,
-        respectDNT: true,
-      },
-    },
-    {
-      resolve: "gatsby-plugin-facebook-pixel",
-      options: {
-        pixelId: "714190382013726",
-      },
-    },
-    "gatsby-plugin-simple-analytics",
+    // ...fs
+    //   .readdirSync(`${__dirname}/src/pages/blog`)
+    //   .map((path) => `${__dirname}/src/pages/blog/${path}`)
+    //   .filter((path) => fs.lstatSync(path).isDirectory())
+    //   .map((path) => `${path}/img`)
+    //   .filter((path) => fs.existsSync(path) && fs.readdirSync(path).length > 0)
+    //   .map((path) => ({
+    //     resolve: "gatsby-source-filesystem",
+    //     options: {
+    //       path,
+    //     },
+    //   })),
+    // "gatsby-plugin-instagram-embed",
     {
       resolve: "gatsby-plugin-manifest",
       options: {
         name: "swizec.com",
         short_name: "swizec.com",
-        description: "",
+        description: "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
         start_url: "/",
         background_color: "#fff",
         theme_color: "#FF002B",
         display: "standalone",
         icon: "./static/favicon.png",
-      },
-    },
-    "gatsby-plugin-remove-fingerprints",
-    {
-      resolve: "gatsby-plugin-advanced-sitemap",
-      options: {
-        createLinkInHead: true,
-        addUncaughtPages: true,
-        exclude: ["/404"],
       },
     },
     {
@@ -200,7 +156,5 @@ module.exports = {
         ],
       },
     },
-
-    // "gatsby-plugin-offline",
   ],
 }
