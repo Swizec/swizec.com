@@ -1,26 +1,8 @@
 import React from "react"
-import { Flex, Box, Link, Button, Image } from "rebass"
-import { useColorMode } from "theme-ui"
+import { Flex, Box, Link, Button, Image, useColorMode } from "rebass"
 import swizecAvatar from "../images/swizec-head-avatar.webp"
 
 const modes = ["themed", "lite", "dark", "gray", "hack", "pink"]
-
-const Burger = ({ size = 24 }) => (
-  <Box
-    as="svg"
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    fill="currentcolor"
-    viewBox="0 0 24 24"
-    sx={{
-      display: "block",
-      margin: 0,
-    }}
-  >
-    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
-  </Box>
-)
 
 const Dot = (props) => (
   <svg
@@ -74,23 +56,6 @@ export default ({ nav, menu, setMenu, style, showBanner }) => {
         alt="Swizec Teller - a geek with a hat"
         title="Swizec Teller - a geek with a hat"
       />
-      {/* <Button
-        title="Toggle Menu"
-        sx={{
-          width: 32,
-          height: 32,
-          p: 1,
-        }}
-        variant="transparent"
-        onClick={(e) => {
-          setMenu(!menu)
-          if (menu || !nav.current) return
-          const navlink = nav.current.querySelector("a")
-          navlink.focus()
-        }}
-      >
-        <Burger />
-      </Button> */}
 
       <Link variant="nav" variant="nav" href="/">
         swizec.com

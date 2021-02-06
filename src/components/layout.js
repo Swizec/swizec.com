@@ -1,20 +1,15 @@
 import React, { useState, useRef } from "react"
 import { Global, css } from "@emotion/core"
-import { Box, Flex } from "rebass"
+import { Box, Flex } from "theme-ui"
 import { Sidenav, Pagination } from "@theme-ui/sidenav"
-import { SkipLink } from "@swizec/gatsby-theme-course-platform"
+import { Footer, FormCK, Header, Reactions, SkipLink } from "@swizec/gatsby-theme-course-platform"
 
 import Head from "./head"
-import Header from "./header"
-import Footer from "./footer"
 import Nav from "./nav"
 import BlogFooter from "./blogFooter"
 import { ArticleMetaData } from "./ArticleMetaData"
 import { currentLocation } from "../util"
 import { Title } from "../components/blocks"
-import FormCK from "../components/FormCK"
-
-import Reactions from "./reactions"
 
 const Sidebar = (props) => {
   return (

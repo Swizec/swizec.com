@@ -6,20 +6,13 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
-// fs.readdirSync(`${__dirname}/src/pages/blog`)
-//       .map((path) => `${__dirname}/src/pages/blog/${path}`)
-//       .filter((path) => fs.lstatSync(path).isDirectory())
-//       .map((path) => `${path}/img`)
-//       .filter((path) => fs.existsSync(path) && fs.readdirSync(path).length > 0)
-      // .map((path) => console.log("===========PATHHHH========", path))
-
-
 module.exports = {
   siteMetadata: {
     title: "swizec.com",
     description: "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
     author: `@swizec`,
     coverImageStaticPath: "metaimage.png",
+    hasAuthentication: false,
     convertkit: {
       userId: "785fc7ef1f",
       formId: "772ba7c9ba",
@@ -28,6 +21,11 @@ module.exports = {
       serverlessHandbookFormId: "1655570",
       seniorMindsetFormId: "1712642",
     },
+    reaction: {
+      title: "Did you enjoy this article?",
+      id: "aab01040-bb89-40d9-8a2e-92ede0f8d82b"
+    },
+    siteUrl: "https://swizec.com",
     // articles: {
     //   title: `React for Dataviz`,
     //   description: `
@@ -41,13 +39,10 @@ module.exports = {
     //   titleSeo: `React for Data Visualization Articles`,
     //   descriptionSeo: `A monthly data visualization built with React, D3, and others`,
     // },
-    siteUrl: "https://swizec.com",
   },
   plugins: [
     "@swizec/gatsby-theme-course-platform",
-    // "gatsby-plugin-slug",
     "gatsby-plugin-netlify",
-    // "gatsby-plugin-remove-trailing-slashes",
     {
       resolve: "gatsby-source-filesystem",
       options: {
