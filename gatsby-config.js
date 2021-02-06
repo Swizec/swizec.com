@@ -21,6 +21,16 @@ module.exports = {
       serverlessHandbookFormId: "1655570",
       seniorMindsetFormId: "1712642",
     },
+    articles: {
+      title: `Swizec - A geek with a hat`,
+      description: `
+        This is where some intro copy comes talking about why you should read these articles.
+
+        Also signup for the mailing list etc.
+      `,
+      titleSeo: `Swizec Teller`,
+      descriptionSeo: `Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops`,
+    },
     reaction: {
       title: "Did you enjoy this article?",
       id: "aab01040-bb89-40d9-8a2e-92ede0f8d82b"
