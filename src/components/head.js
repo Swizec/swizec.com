@@ -1,4 +1,4 @@
-import { useStaticQuery } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 import React from "react"
 import { Helmet } from "react-helmet"
 import slugify from "slugify"

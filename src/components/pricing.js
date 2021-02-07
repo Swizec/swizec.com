@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Button, Card, Heading, Text } from "rebass"
+import { Box, Button, Card, Heading, Text } from "theme-ui"
 
 const ProductPrice = ({ product, total, isFeatured }) => {
   const url = product.coupon

@@ -9,7 +9,7 @@ import Nav from "./nav"
 import BlogFooter from "./blogFooter"
 import { ArticleMetaData } from "./ArticleMetaData"
 import { currentLocation } from "../util"
-import { Title } from "../components/blocks"
+import { Title } from "./blocks"
 
 const Sidebar = (props) => {
   return (

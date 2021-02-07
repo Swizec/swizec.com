@@ -53,13 +53,13 @@ module.exports = {
   plugins: [
     "@swizec/gatsby-theme-course-platform",
     "gatsby-plugin-netlify",
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "posts",
-        path: `${__dirname}/src/pages/blog`,
-      },
-    },
+    // {
+    //   resolve: "gatsby-source-filesystem",
+    //   options: {
+    //     name: "posts",
+    //     path: `${__dirname}/src/pages/blog`,
+    //   },
+    // },
     {
       resolve: "gatsby-plugin-mdx",
       options: {
