@@ -1,6 +1,3 @@
-const remarkPlugins = [require("remark-slug")]
-const fs = require("fs")
-const YoutubeTransformer = require("./src/YoutubeEmbedderTransformer.js")
 
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
@@ -60,27 +57,27 @@ module.exports = {
     //     path: `${__dirname}/src/pages/blog`,
     //   },
     // },
-    {
-      resolve: "gatsby-plugin-mdx",
-      options: {
-        extensions: [".mdx", ".md"],
-        remarkPlugins,
-        gatsbyRemarkPlugins: [
+    // {
+    //   resolve: "gatsby-plugin-mdx",
+    //   options: {
+    //     extensions: [".mdx", ".md"],
+    //     remarkPlugins,
+    //     gatsbyRemarkPlugins: [
           
-          {
-            resolve: "gatsby-remark-embedder",
-            options: {
-              customTransformers: [YoutubeTransformer],
-              services: {
-                Instagram: {
-                  accessToken: process.env.INSTAGRAM_OEMBED_TOKEN,
-                },
-              },
-            },
-          },
-        ],
-      },
-    },
+    //       {
+    //         resolve: "gatsby-remark-embedder",
+    //         options: {
+    //           customTransformers: [YoutubeTransformer],
+    //           services: {
+    //             Instagram: {
+    //               accessToken: process.env.INSTAGRAM_OEMBED_TOKEN,
+    //             },
+    //           },
+    //         },
+    //       },
+    //     ],
+    //   },
+    // },
     // add a gatsby-source-filesystem entry for every article's images
     // have to filter out empty folders for Zeit
     // ...fs
