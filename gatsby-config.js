@@ -5,7 +5,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: "swizec.com",
+    title: "Swizec Teller",
     description: "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
     author: `@swizec`,
     coverImageStaticPath: "metaimage.png",
