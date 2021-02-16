@@ -10,8 +10,12 @@ const HeaderLogo = () => (
             alt="Swizec Teller - a geek with a hat"
             title="Swizec Teller - a geek with a hat"
         />
-
-        <Link variant="nav" variant="nav" href="/">
+        <Link 
+            sx={{
+                ml: 2,
+                variant: "header.nav"
+            }}
+            href="/">
             swizec.com
         </Link>
     </Flex>
