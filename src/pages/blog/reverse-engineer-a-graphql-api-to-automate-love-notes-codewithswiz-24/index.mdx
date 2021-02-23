@@ -153,14 +153,14 @@ Request works, next we gotta move into a Lambda. We used Prisma's minimalist [gr
 ```typescript
 // src/lovebox.ts
 
-import { request, gql, GraphQLClient } from "graphql-request";
+import { request, gql, GraphQLClient } from "graphql-request"
 
 const client = new GraphQLClient("https://app-api.loveboxlove.com/v1/graphql", {
   headers: {
     // TODO: figure out how to login
     Authorization: "Bearer ...",
   },
-});
+})
 
 // copypasta the variables
 const variables = {
@@ -171,7 +171,7 @@ const variables = {
     framesBase64: null,
     deviceId: "...",
   },
-};
+}
 
 export const sendNote = async () => {
   const res = await client.request(
@@ -179,10 +179,10 @@ export const sendNote = async () => {
             // copypasta the mutation
         `,
     variables
-  );
+  )
 
-  console.log(res);
-};
+  console.log(res)
+}
 ```
 
 `sendNote` is an async method invoked by AWS Lambda as a cloud function. It takes the initialized and authenticated `GraphQLClient`, feeds it the same mutation and variables we had before, prints the result.
@@ -228,7 +228,7 @@ It worked! 🥳
 
 Next episode we'll take this lambda, hook it up to an S3 bucket, and automate the shit out of my boyfriend duties.
 
-Cheers,
+Cheers,<br/>
 ~Swizec
 
 [sparkjoy|code-with-swiz-24-lovebox1]
