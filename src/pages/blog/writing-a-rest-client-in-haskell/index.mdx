@@ -80,9 +80,9 @@ instance FromJSON Ticker where
                          v .: "ask"
 ```
 
-If I understand this correctly, those strange symbols are applicatives. The `.:` does ... something ... and the `<$>` _and `<*>` do something else. The whole bit is about defining how to convert a key in the JSON string into a value in the \_Ticker_ type. I think.
+If I understand this correctly, those strange symbols are applicatives. The `.:` does ... something ... and the `<$>` \_and `<*>` do something else. The whole bit is about defining how to convert a key in the JSON string into a value in the `Ticker` type. I think.
 
-Right, let's make a function that will talk to the server and return a \_Ticker \_object. Maybe. If all goes well.
+Right, let's make a function that will talk to the server and return a `Ticker` object. Maybe. If all goes well.
 
 ```haskell
 ticker::(MonadIO m) => m (Maybe Ticker)
