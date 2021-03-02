@@ -3,7 +3,7 @@ title: "Variants – a quick tip for better React components"
 description: "Reusable components like to grow boolean props for different situations and complexity soon blows up. Variant props are the perfect solution."
 published: 2021-03-02
 categories: "Technical, React, Lessons"
-hero: ./img/screenshot-1614701159308
+hero: ./img/screenshot-1614701159308.png
 ---
 
 Say you're building a component that shows up in lots of places, like a header.
@@ -20,8 +20,8 @@ const Header = () => {
       <UserMessages />
       <UserProfile />
     </Box>
-  );
-};
+  )
+}
 ```
 
 Fantastic! You have a header that works everywhere.
@@ -49,8 +49,8 @@ const Header = (props: { showSignup: boolean }) => {
       {!props.showSignup && <UserProfile />}
       {props.showSignup && <SignupButton />}
     </Box>
-  );
-};
+  )
+}
 ```
 
 Cool, you've kept it DRY. Same header, same styling, signup yes or no.
@@ -71,9 +71,9 @@ Two booleans!
 
 ```typescript
 const Header = (props: {
-  showSignup: boolean;
-  hideMenu: boolean;
-  showClose: boolean;
+  showSignup: boolean
+  hideMenu: boolean
+  showClose: boolean
 }) => {
   return (
     <Box>
@@ -85,8 +85,8 @@ const Header = (props: {
       {props.showSignup && <SignupButton />}
       {props.showClose && <CloseButton />}
     </Box>
-  );
-};
+  )
+}
 ```
 
 Well that's not confusing at all. With 3 booleans, your header has 8 possible incantations.
@@ -123,14 +123,14 @@ Here's what you do 👉 turn those flags into a variant prop. Use TypeScript and
 
 ```typescript
 const Header = (props: { variant: "homepage" | "funnel" }) => {
-  let hideMenu, showClose, showSignup;
+  let hideMenu, showClose, showSignup
 
   switch (variant) {
     case "homepage":
-      showSignup = true;
+      showSignup = true
     case "funnel":
-      hideMenu = true;
-      showClose = true;
+      hideMenu = true
+      showClose = true
   }
 
   return (
@@ -143,8 +143,8 @@ const Header = (props: { variant: "homepage" | "funnel" }) => {
       {showSignup && <SignupButton />}
       {showClose && <CloseButton />}
     </Box>
-  );
-};
+  )
+}
 ```
 
 Now the rest of your team can use your header with ease: `<Header variant="..." />`. And thanks to TypeScript their IDE tells them what's available.
