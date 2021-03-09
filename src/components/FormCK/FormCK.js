@@ -174,6 +174,7 @@ const getCKForms = graphql`
           defaultFormId
           serverlessHandbookFormId
           seniorMindsetFormId
+          serverlessHandbookLaunchFormId
         }
       }
     }

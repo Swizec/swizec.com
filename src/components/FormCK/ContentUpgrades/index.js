@@ -5,6 +5,9 @@ import ServerlessHandbookLeftCopy from "./ServerlessHandbookLeftCopy"
 import SeniorMindsetBeforeCopy from "./SeniorMindsetBeforeCopy"
 import SeniorMindsetLeftCopy from "./SeniorMindsetLeftCopy.mdx"
 
+import ServerlessHandbookLaunchBeforeCopy from "./ServerlessHandbookLaunchBeforeCopy"
+import ServerlessHandbookLaunchLeftCopy from "./ServerlessHandbookLaunchLeftCopy"
+
 import FormCK from "../FormCK"
 
 export const ServerlessHandbook = ({ footer }) => {
@@ -27,6 +30,18 @@ export const SeniorMindset = ({ footer }) => {
       submitText="Get curated essays 💌"
     >
       <SeniorMindsetLeftCopy />
+    </FormCK>
+  )
+}
+
+export const ServerlessHandbookLaunch = ({ footer }) => {
+  return (
+    <FormCK
+      copyBefore={footer ? <ServerlessHandbookLaunchBeforeCopy /> : <></>}
+      formName="serverlessHandbookLaunch"
+      submitText="Be the first to know 💌"
+    >
+      <ServerlessHandbookLaunchLeftCopy />
     </FormCK>
   )
 }
