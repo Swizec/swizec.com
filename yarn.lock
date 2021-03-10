@@ -1990,20 +1990,6 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@rebass/forms@4.0.6":
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/@rebass/forms/-/forms-4.0.6.tgz#19a3af64f855baa65dec65aecadda5cd95a09dd7"
-  integrity sha512-20dHAlb5V0Na2HxCr73Jjoc4hD1ElimmlBpQtclXMoXUsjJ7ORdCNL1S9R54MX5f7iU2VrLGHU42eL7+nONNPQ==
-  dependencies:
-    reflexbox "^4.0.6"
-
-"@rebass/layout@4.0.6":
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/@rebass/layout/-/layout-4.0.6.tgz#5a744775b40698bc539c956001fda874f5e0cee7"
-  integrity sha512-C/PwG30FnP/vFWe6Qrbkv0zLGeXMSE3MwYFOdWlIQ1GuPtFza0aXYfCwBa9lxOYtCeq464QxX1mCg8dnhWXz9Q==
-  dependencies:
-    reflexbox "^4.0.6"
-
 "@rebass/preset@4.0.5":
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/@rebass/preset/-/preset-4.0.5.tgz#f4fb9bec85efa1eb658b92fc64fbb4250d0af2fb"
@@ -2156,16 +2142,14 @@
     "@styled-system/core" "^5.1.2"
     "@styled-system/css" "^5.1.5"
 
-"@swizec/gatsby-theme-course-platform@1.4.0-2":
-  version "1.4.0-2"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-1.4.0-2.tgz#cfb8643c6e60f8044bc483746988b209d062fe1c"
-  integrity sha512-jVJZ/xXxvSLYxguMk1H/Yu2lBswjNOgtgehDBHkUHaqdd9UdZd/CTeUuB0AyKjnXC/sOAPhvNkJJ9R9Z1o77xA==
+"@swizec/gatsby-theme-course-platform@^1.4.0-8":
+  version "1.4.0-8"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-1.4.0-8.tgz#fcddeec0fb968152eef8f32b5678c246bf65d654"
+  integrity sha512-t5Ym5JHdH53ooe5OOa5Xg3nzzlO/00jGGIP4rB2a9hcQzHSugQZRAnRUAY9TbV8ilXS29tffbBMxRwpsdMI9Yg==
   dependencies:
     "@jxnblk/react-live" "2.1.2-1"
     "@mdx-js/mdx" "^1.6.22"
     "@mdx-js/react" "^1.6.22"
-    "@rebass/forms" "4.0.6"
-    "@rebass/layout" "4.0.6"
     "@theme-ui/presets" "^0.3.5"
     "@theme-ui/prism" "^0.3.5"
     "@theme-ui/sidenav" "^0.3.5"
