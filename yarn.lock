@@ -2142,10 +2142,10 @@
     "@styled-system/core" "^5.1.2"
     "@styled-system/css" "^5.1.5"
 
-"@swizec/gatsby-theme-course-platform@^1.4.0-30":
-  version "1.4.0-30"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-1.4.0-30.tgz#13a504cbb787331a4ff1793bbafe6a5d5143c7cb"
-  integrity sha512-NuWtOsbMAV2twqaU9hFt8v6WAODESWJEr4GAXa1DhiOvEpcU4deY269gWIPmJzI1NnD3d7FvyDNXJkvGFWYHwQ==
+"@swizec/gatsby-theme-course-platform@^1.4.0-32":
+  version "1.4.0-32"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-1.4.0-32.tgz#5f0699c678a6d755d58ce77c8426e13682b6121f"
+  integrity sha512-D3Q5/skfIiJ75tRKWikYVVgmODxIQwsmB3CYqv/KQedAx4BeN8PQxRXxm3EnHMyNNFg5uEwNXOW8zA2Qa/80zQ==
   dependencies:
     "@jxnblk/react-live" "2.1.2-1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2177,6 +2177,7 @@
     gatsby-plugin-theme-ui "^0.3.5"
     gatsby-plugin-twitter "^2.7.0"
     gatsby-remark-copy-linked-files "^2.7.0"
+    gatsby-remark-copy-relative-linked-files "^1.3.0"
     gatsby-remark-embedder "^4.1.0"
     gatsby-remark-giphy "^1.1.2"
     gatsby-remark-images "^3.8.1"
@@ -5929,7 +5930,7 @@ domhandler@^2.3.0:
   dependencies:
     domelementtype "1"
 
-domhandler@^3.0.0:
+domhandler@^3.0.0, domhandler@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-3.3.0.tgz#6db7ea46e4617eb15cf875df68b2b8524ce0037a"
   integrity sha512-J1C5rIANUbuYK+FuFL98650rihynUOEzRLxW+90bKZRWB6A1X1Tf82GxR1qAWLyfNPRvjqfip3Q5tdYlmAa9lA==
@@ -5963,6 +5964,15 @@ domutils@^2.0.0, domutils@^2.4.3, domutils@^2.4.4:
   version "2.4.4"
   resolved "https://registry.yarnpkg.com/domutils/-/domutils-2.4.4.tgz#282739c4b150d022d34699797369aad8d19bbbd3"
   integrity sha512-jBC0vOsECI4OMdD0GC9mGn7NXPLb+Qt6KW1YDQzeQYRUFKmNG8lh7mO5HiELfr+lLQE7loDVI4QcAxV80HS+RA==
+  dependencies:
+    dom-serializer "^1.0.1"
+    domelementtype "^2.0.1"
+    domhandler "^4.0.0"
+
+domutils@^2.4.2:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/domutils/-/domutils-2.5.0.tgz#42f49cffdabb92ad243278b331fd761c1c2d3039"
+  integrity sha512-Ho16rzNMOFk2fPwChGh3D2D9OEHAfG19HgmRR2l+WLSsIstNsAYBzePH412bL0y5T44ejABIVfTHQ8nqi/tBCg==
   dependencies:
     dom-serializer "^1.0.1"
     domelementtype "^2.0.1"
@@ -7278,7 +7288,7 @@ fs-exists-cached@1.0.0, fs-exists-cached@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs-exists-cached/-/fs-exists-cached-1.0.0.tgz#cf25554ca050dc49ae6656b41de42258989dcbce"
   integrity sha1-zyVVTKBQ3EmuZla0HeQiWJidy84=
 
-fs-extra@9.1.0, fs-extra@^9.1.0:
+fs-extra@9.1.0, fs-extra@^9.0.1, fs-extra@^9.1.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-9.1.0.tgz#5954460c764a8da2094ba3554bf839e6b9a7c86d"
   integrity sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==
@@ -7767,6 +7777,15 @@ gatsby-remark-copy-linked-files@^2.7.0:
     path-is-inside "^1.0.2"
     probe-image-size "^6.0.0"
     unist-util-visit "^1.4.1"
+
+gatsby-remark-copy-relative-linked-files@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-copy-relative-linked-files/-/gatsby-remark-copy-relative-linked-files-1.3.0.tgz#21c001121c2bdae5d2c6d1437e02e8508f86a531"
+  integrity sha512-ZSRtiSu0GV6ue2r/O+fmcP3LoN4oqp8kevehbeKjOXou6fhlOYNaCqYb2/V91iiGnU6YMgOBnwEOSLKC7lyT/A==
+  dependencies:
+    fs-extra "^9.0.1"
+    htmlparser2 "^5.0.0"
+    unist-util-visit "^2.0.3"
 
 gatsby-remark-embedder@^4.1.0:
   version "4.1.0"
@@ -8916,6 +8935,16 @@ htmlparser2@^4.1.0:
     domelementtype "^2.0.1"
     domhandler "^3.0.0"
     domutils "^2.0.0"
+    entities "^2.0.0"
+
+htmlparser2@^5.0.0:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-5.0.1.tgz#7daa6fc3e35d6107ac95a4fc08781f091664f6e7"
+  integrity sha512-vKZZra6CSe9qsJzh0BjBGXo8dvzNsq/oGvsjfRdOrrryfeD9UOBEEQdeoqCRmKZchF5h2zOBMQ6YuQ0uRUmdbQ==
+  dependencies:
+    domelementtype "^2.0.1"
+    domhandler "^3.3.0"
+    domutils "^2.4.2"
     entities "^2.0.0"
 
 htmlparser2@^6.0.0:
