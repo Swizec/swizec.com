@@ -1,4 +1,3 @@
-
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
@@ -6,7 +5,8 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: "Swizec Teller",
-    description: "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
+    description:
+      "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
     author: `@swizec`,
     coverImageStaticPath: "metaimage.png",
     hasAuthentication: false,
@@ -15,7 +15,7 @@ module.exports = {
       formId: "772ba7c9ba",
       url: "https://pages.convertkit.com/785fc7ef1f/772ba7c9ba",
       defaultFormId: "826419",
-      serverlessHandbookFormId: "1655570",
+      serverlessHandbookFormId: "2103715",
       seniorMindsetFormId: "1712642",
     },
     articles: {
@@ -30,14 +30,14 @@ module.exports = {
     },
     reaction: {
       title: "Did you enjoy this article?",
-      id: "aab01040-bb89-40d9-8a2e-92ede0f8d82b"
+      id: "aab01040-bb89-40d9-8a2e-92ede0f8d82b",
     },
     siteUrl: "https://swizec.com",
     // articles: {
     //   title: `React for Dataviz`,
     //   description: `
     //     A monthly data visualization built with React, D3, and others.
-    //     Livecoded last Sunday of the month. 
+    //     Livecoded last Sunday of the month.
     //     <a href="https://www.youtube.com/channel/UCoyHgaeLLI7Knp7LDHOwZMw">
     //       Join live
     //     </a>
@@ -63,7 +63,7 @@ module.exports = {
     //     extensions: [".mdx", ".md"],
     //     remarkPlugins,
     //     gatsbyRemarkPlugins: [
-          
+
     //       {
     //         resolve: "gatsby-remark-embedder",
     //         options: {
@@ -98,7 +98,8 @@ module.exports = {
       options: {
         name: "swizec.com",
         short_name: "swizec.com",
-        description: "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
+        description:
+          "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
         start_url: "/",
         background_color: "#fff",
         theme_color: "#FF002B",

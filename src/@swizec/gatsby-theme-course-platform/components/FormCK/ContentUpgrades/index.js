@@ -12,7 +12,7 @@ export const ServerlessHandbook = ({ footer }) => {
     <FormCK
       copyBefore={footer ? <ServerlessHandbookBeforeCopy /> : <></>}
       formName="serverlessHandbook"
-      submitText="Learn modern backend 💌"
+      submitText="Send it to me! 💌"
     >
       <ServerlessHandbookLeftCopy />
     </FormCK>

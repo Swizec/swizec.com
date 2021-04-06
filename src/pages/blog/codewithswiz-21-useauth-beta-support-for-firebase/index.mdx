@@ -84,11 +84,11 @@ A conditional in `FirebaseUI` takes the params object and decides which path to 
 // src/providers/FirebaseUI.ts
 
 if (params.firebaseConfig) {
-  this.firebase = Firebase.initializeApp(params.firebaseConfig, "useAuth");
+  this.firebase = Firebase.initializeApp(params.firebaseConfig, "useAuth")
 } else if (params.firebaseApp) {
-  this.firebase = params.firebaseApp;
+  this.firebase = params.firebaseApp
 } else {
-  throw "Please provide firebaseConfig or initialized firebaseApp";
+  throw "Please provide firebaseConfig or initialized firebaseApp"
 }
 ```
 
@@ -198,7 +198,7 @@ This part.
 
 ```typescript
 // Auth state observer
-this.firebase.auth().onAuthStateChanged(this.onAuthStateChanged.bind(this));
+this.firebase.auth().onAuthStateChanged(this.onAuthStateChanged.bind(this))
 ```
 
 Bloody hell I can't remember the last time I had to manually bind a function to its object. Nice reminder that `class FirebaseUI {}` is syntax sugar for dark magic from 2010.
