@@ -1,13 +1,13 @@
 ---
-title: "Why serverless fits side-projects perfectly"
+title: "How serverless fits side-projects perfectly"
 description: "How do you provision servers for no load most days THEN ALL THE LOAD THIS MINUTE? That's how side-projects work and it's hard"
 categories: "Serverless, Technical"
-content_upgrade: ServerlessHandbookLaunch
+content_upgrade: ServerlessHandbook
 published: 2021-03-10
 hero: ./img/screenshot-1615394225790.png
 ---
 
-import { ServerlessHandbookLaunch } from "../../../components/FormCK/ContentUpgrades";
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 Friend, yesterday we talked about how a $12 AWS bill runs a $50k business. Today let's talk about _why_.
 
@@ -36,7 +36,7 @@ export default () => (
       </React.Fragment>
     )}
   </Consumer>
-);
+)
 ```
 
 **Every change triggers a re-render** of the `LetterRender` component. This detail is important.
@@ -44,8 +44,8 @@ export default () => (
 ```javascript
 // LetterRender.js
 export default React.forwardRef((props, ref) => {
-  const { markdown } = useContext(MarkdownContext);
-  const rendered = useRemark(markdown);
+  const { markdown } = useContext(MarkdownContext)
+  const rendered = useRemark(markdown)
 
   return (
     <div ref={ref}>
@@ -58,18 +58,18 @@ export default React.forwardRef((props, ref) => {
       </Heading>
       <Content>{rendered}</Content>
     </div>
-  );
-});
+  )
+})
 ```
 
-<ServerlessHandbookLaunch />
+<ContentUpgrades.ServerlessHandbook />
 
 ### useRemark() turns markdown into React
 
 See this line?
 
 ```javascript
-const rendered = useRemark(markdown);
+const rendered = useRemark(markdown)
 ```
 
 That's the frontend secret sauce.
@@ -79,27 +79,27 @@ A compiler that takes Markdown and uses a chain of open source and [custom remar
 ```javascript
 // Screenshot.js
 function Screenshot({ node }) {
-  const [image, setImage] = useState(loaderImg);
+  const [image, setImage] = useState(loaderImg)
 
   const reloadImage = async () => {
-    setImage(loaderImg);
+    setImage(loaderImg)
     try {
       const res = await fetch(node.url),
-        response = await res.json();
+        response = await res.json()
 
       if (response.status === "success") {
-        setImage(response.url);
+        setImage(response.url)
       } else {
-        throw "Screenshot error";
+        throw "Screenshot error"
       }
     } catch (e) {
-      setImage(errorImg);
+      setImage(errorImg)
     }
-  };
+  }
 
   useEffect(() => {
-    reloadImage();
-  }, [node]);
+    reloadImage()
+  }, [node])
 
   // display image
 }

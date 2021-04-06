@@ -4,10 +4,10 @@ description: "How *do* you build a JavaScript function that runs in the cloud se
 published: 2021-03-18
 hero: ./img/screenshot-1616081769208.png
 categories: "Serverless, Technical"
-content_upgrade: ServerlessHandbookLaunch
+content_upgrade: ServerlessHandbook
 ---
 
-import { ServerlessHandbookLaunch } from "../../../components/FormCK/ContentUpgrades";
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 Let's get tactical, how _do_ you build a JavaScript function that runs in the cloud serverlessly?
 
@@ -26,13 +26,13 @@ export const handler = async () => {
   return {
     statusCode: 200,
     body: "Hello 👋",
-  };
-};
+  }
+}
 ```
 
 And turn it into [a publicly accessible URL that says hi](https://z7pc0lqnw9.execute-api.us-east-1.amazonaws.com/dev/hello?name=Friend).
 
-<ServerlessHandbookLaunch />
+<ContentUpgrades.ServerlessHandbook />
 
 ![](./img/d0YNJMgifh7a8ca.jpeg)
 
@@ -47,13 +47,13 @@ Take a project built in a popular web framework like Create-react-app, Gatsby, V
 To make a cloud function, you use the `/api` directory.
 
 ```javascript
-/api/ehllo.js;
+;/api/ehllo.js
 
 module.exports = (req, res) => {
   // .status sets the status code
   // .send writes the response
-  return res.status(200).send("Hello 👋");
-};
+  return res.status(200).send("Hello 👋")
+}
 ```
 
 Vercel uses Express-like functions. Express is a popular backend framework in the JavaScript world.
@@ -91,8 +91,8 @@ exports.handler = async () => {
   return {
     statusCode: 200,
     body: "Hello 👋",
-  };
-};
+  }
+}
 ```
 
 Netlify acts as a thin wrapper on AWS Lambda and uses the same syntax. Huzzah 🙌
@@ -139,8 +139,8 @@ exports.hello = async () => {
   return {
     statusCode: 200,
     body: `Hello 👋`,
-  };
-};
+  }
+}
 ```
 
 And add a configuration file:

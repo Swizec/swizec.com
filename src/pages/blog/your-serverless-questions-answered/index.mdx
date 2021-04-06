@@ -1,23 +1,23 @@
 ---
-title: "Your serverless questions, answered" 
-description: "When talk comes to serverless, engineers have lots of questions. Here are some answers 😊" 
+title: "Your serverless questions, answered"
+description: "When talk comes to serverless, engineers have lots of questions. Here are some answers 😊"
 published: 2021-03-29
 hero: ./img/screenshot-1617032170720.png
 categories: "Serverless, Technical"
-content_upgrade: ServerlessHandbookLaunch
+content_upgrade: ServerlessHandbook
 ---
 
-import { ServerlessHandbookLaunch } from "../../../components/FormCK/ContentUpgrades";
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 When talk comes to serverless, engineers have lots of questions. Here are some answers 😊
 
 **What the heck is serverless?**
 
-Serverless is other people's servers running your code. The latest step in the evolution from full DoItYourself servers running on a machine you own towards *"I just want a piece of code to run when you hit a URL"*
+Serverless is other people's servers running your code. The latest step in the evolution from full DoItYourself servers running on a machine you own towards _"I just want a piece of code to run when you hit a URL"_
 
 The core innovation are virtual servers small and fast enough to wake up on every request. This enables perfect automatic scaling to your traffic.
 
-*PS: You can see me answer some of these in a recent video 👇*
+_PS: You can see me answer some of these in a recent video 👇_
 
 https://www.youtube.com/watch?v=WC-mEf4K9as
 
@@ -37,11 +37,13 @@ And when you outgrow Firebase's native way of doing things, or need anything cus
 
 I like AWS Lambda because it's basic 👉 plain JavaScript function running at a URL. Do what you want.
 
+<ContentUpgrades.ServerlessHandbook />
+
 **‌Can you talk about the pros and cons of freelancing with serverless as your specialty?**
 
 In freelancing and consulting circles this is called "positioning" or "niching down". Great terms to Google.
 
-A basic positioning statement would be *"I transition growing B2C startups to serverless so they can scale faster without downtime"*.
+A basic positioning statement would be _"I transition growing B2C startups to serverless so they can scale faster without downtime"_.
 
 The goal is to sell a business benefit and be known as The Person for your thing. Makes you easier to hire, easier to recommend, faster to remember.
 
@@ -49,7 +51,7 @@ The goal is to sell a business benefit and be known as The Person for your thing
 
 AWS Lambda can connect to any database. If there's a JavaScript library for your database of choice, you can use it.
 
-Dynamo is used in tutorials because it's quick to set up and unlike traditional databases, you need not worry about swamping your database with requests. 
+Dynamo is used in tutorials because it's quick to set up and unlike traditional databases, you need not worry about swamping your database with requests.
 
 But dynamo isn't great for typical application data.
 
@@ -83,13 +85,13 @@ With infrastructure-as-code you define your whole app in your code. Frontend, ba
 
 That means every pull request, every branch, every feature, can have its own deploy with its own infrastructure and custom URLs. Run as many as you want in parallel 🤘
 
-You get a fantastic integration experience. 
+You get a fantastic integration experience.
 
 Wanna automate the testing itself? Serverless is great at running code on demand ;)
 
 **How to handle more complex Database queries where you would normally use an ORM and models? How to share those between functions?**
 
-The JavaScript ecosystem for Object Relational Models (ORM) is kinda rough. 
+The JavaScript ecosystem for Object Relational Models (ORM) is kinda rough.
 
 Decent libraries exist from the Backbone era (circa 2012) but they feel weird in modern days. And it's hard to modernize when a lot of existing code depends on your library.
 
@@ -107,4 +109,3 @@ Cheers,<br/>
 ~Swizec
 
 PS: my new [Serverless Handbook](https://serverlesshandbook.dev/) launches on Wednesday and if you buy this week will have a chance to win a signed copy
-

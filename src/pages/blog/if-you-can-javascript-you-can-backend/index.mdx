@@ -4,10 +4,10 @@ description: "When you think of a backend or server developer, who comes to mind
 published: 2021-03-16
 hero: ./img/screenshot-1615906213154.png
 categories: "Serverless, Technical"
-content_upgrade: ServerlessHandbookLaunch
+content_upgrade: ServerlessHandbook
 ---
 
-import { ServerlessHandbookLaunch } from "../../../components/FormCK/ContentUpgrades";
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 When you think of a backend or server developer, who comes to mind? 🤔
 
@@ -21,7 +21,7 @@ They use weird technologies like Java and Go, wax poetic about Rust and never us
 
 ![](giphy:ah_phooey)
 
-<ServerlessHandbookLaunch />
+<ContentUpgrades.ServerlessHandbook />
 
 ## The modern backend is a JavaScript function
 
@@ -36,8 +36,8 @@ export const handler = async () => {
   return {
     statusCode: 200,
     body: "Hello 👋",
-  };
-};
+  }
+}
 ```
 
 Yep, that's backend code. A JavaScript function that runs in the cloud.
