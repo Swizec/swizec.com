@@ -2142,10 +2142,10 @@
     "@styled-system/core" "^5.1.2"
     "@styled-system/css" "^5.1.5"
 
-"@swizec/gatsby-theme-course-platform@^1.4.0-40":
-  version "1.4.0-40"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-1.4.0-40.tgz#007f700c2cc45c5d895bd84d6787c009c41c26be"
-  integrity sha512-VeMpyw0wRwr9rRziF7nbSTYADeoLhXAeekxaGQ0jc0ojvKYpUZIABx6H4cZ2ik06uYRiAIgzF6Ofp9ulsn/X3Q==
+"@swizec/gatsby-theme-course-platform@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-1.4.0.tgz#813619449114fd0111290af06aa0a377b5cb135d"
+  integrity sha512-1Lsk50KVVwDJfOP2WXIlcVvIA1DSe9BOrLEltZSYDO8isGVsa2WumA2a4m/7Ta+RvJtfpDF7CwOkZ3gRK69Adw==
   dependencies:
     "@jxnblk/react-live" "2.1.2-1"
     "@mdx-js/mdx" "^1.6.22"
@@ -15821,32 +15821,40 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typeface-merriweather-sans@0.0.72:
-  version "0.0.72"
-  resolved "https://registry.yarnpkg.com/typeface-merriweather-sans/-/typeface-merriweather-sans-0.0.72.tgz#7fe0c291f71a61050215d4c1c73b9b5556622a85"
-  integrity sha512-Mn1hvvDTXHx1nQVwJPM6Y5WIElzOMfH+UGOr98mGFTf+m90TdMjomc8Bh4t7rTaYM3/iGrtTaTOOjYeuDm7kjQ==
+typeface-cabin-condensed@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/typeface-cabin-condensed/-/typeface-cabin-condensed-1.1.13.tgz#06bb32a051a31047602c8ed4d23bb63c21af0be8"
+  integrity sha512-gp5ArR2iwfX9Q5/Y88uyiU2aC109Xa09N3n9DJFmCEOjI/GADPRv6TA0E9+0YGreHI5pl1nNb2Jf28QpxdvI8Q==
 
 typeface-merriweather-sans@^1.1.13:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/typeface-merriweather-sans/-/typeface-merriweather-sans-1.1.13.tgz#54f03cc4b5a83c35597397f4caaa7e3a951286c8"
   integrity sha512-VwAfgphwjVmnNuQ4pjwyBIdd1v6fJlDNwOAkiR7bbXR9aCyIIoHjENWADB/ROaD5HodKy2/AJwEoskFc8H78Xg==
 
-typeface-merriweather@0.0.72:
-  version "0.0.72"
-  resolved "https://registry.yarnpkg.com/typeface-merriweather/-/typeface-merriweather-0.0.72.tgz#2b990f5293252052d51d170c82d3892319ff0555"
-  integrity sha512-gO0+fcZ1fTyKUsYY1ltYOOTI6FmBGeEdyIfeQg9NL8aInndk0feiJJVJsKHm/DiyYrnQEezraAQhz/KQoqMGtw==
-
 typeface-merriweather@^1.1.13:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/typeface-merriweather/-/typeface-merriweather-1.1.13.tgz#c6f0564bc0346174f4da8daf282d27bfa802f06f"
   integrity sha512-ho6xe/y/uHIKVXsFtK+dJfRCD5KZqJCMYTCcXfuCwQHQbeQ83a7hVkxfRMTEIjZOSXw5SevOjnwJuZ5QgWEHiw==
+
+typeface-patua-one@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/typeface-patua-one/-/typeface-patua-one-1.1.13.tgz#90ac9353a0f02f67bed05263cdf114c52ea96f18"
+  integrity sha512-saSrk50uyEXOivmYRYxbJWNCmkrUj9ZedTMbavDPXWH+7FrVaxYReIN9brjzY7SLrP3v8G5auY3QAAvOIyuKRQ==
 
 typography-breakpoint-constants@^0.16.19:
   version "0.16.19"
   resolved "https://registry.yarnpkg.com/typography-breakpoint-constants/-/typography-breakpoint-constants-0.16.19.tgz#e0e89147749562cbb46ce76c47ff0f73372765e7"
   integrity sha512-vXjfV9hwAXIOf5+U5GN137ahBkK+sj1TJu/5ksmP+8XB/D80lmGb/m0nKviWaQ3t7HLrK848VGrFS+6E2vcmVg==
 
-typography-theme-parnassus@0.16.19, typography-theme-parnassus@^0.16.19:
+typography-theme-funston@^0.16.19:
+  version "0.16.19"
+  resolved "https://registry.yarnpkg.com/typography-theme-funston/-/typography-theme-funston-0.16.19.tgz#fe543c337cad4af67911cdb2004cb641045b92a9"
+  integrity sha512-0C6PAfgZju6is1Dys3sK06huefxFFhf+Y+1l+5G3TVXjJds27IrHSggdUDmTS/nxtTLo1v4zbNtu1Z1W5UNb/g==
+  dependencies:
+    gray-percentage "^2.0.0"
+    typography-breakpoint-constants "^0.16.19"
+
+typography-theme-parnassus@^0.16.19:
   version "0.16.19"
   resolved "https://registry.yarnpkg.com/typography-theme-parnassus/-/typography-theme-parnassus-0.16.19.tgz#d82f2abd3a15caf5ca3ed699191ec88370cadd70"
   integrity sha512-Gd3ar5wHNOnEeHlR4cVZy2JpnM4PKYGdJgr05HD+MbGKzj8/Nq2ddiBR7HEJxE9b0g18g/kc8vq2RXVVYucrfw==
