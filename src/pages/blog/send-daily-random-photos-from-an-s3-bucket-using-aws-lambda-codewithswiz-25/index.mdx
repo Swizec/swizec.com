@@ -2,11 +2,11 @@
 title: "Send daily random photos from an S3 bucket using AWS Lambda – CodeWithSwiz 25"
 description: "An experiment that sends daily photos from an S3 bucket to an IoT device using AWS Lambda"
 published: 2021-04-06
-content_upgrade: ServerlessHandbookLaunch
+content_upgrade: ServerlessHandbook
 hero: ./img/screenshot-1617727317273.png
 ---
 
-import { ServerlessHandbookLaunch } from "../../../components/FormCK/ContentUpgrades";
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 We did it! We finished the experiment from a few weeks ago and The Girl can stop making jokes that I stole her present 🎉
 
@@ -30,7 +30,7 @@ She waits no more! It's live
 
 You can [see the full code on GitHub](https://github.com/Swizec/lovebox-lambda). Here's what we built:
 
-<ServerlessHandbookLaunch />
+<ContentUpgrades.ServerlessHandbook />
 
 ## Secrets in secrets manager
 
@@ -43,20 +43,20 @@ Accessed in code like this:
 ```typescript
 // src/secrets.ts
 
-import { SecretsManager } from "aws-sdk";
+import { SecretsManager } from "aws-sdk"
 
 const ssm = new SecretsManager({
   region: "us-east-1", // make sure this matches your region
-});
+})
 
 export async function getBearerToken() {
   const secret = await ssm
     .getSecretValue({ SecretId: "loveboxBearerToken" })
-    .promise();
+    .promise()
 
-  const { BEARER_TOKEN } = JSON.parse(secret?.SecretString || "");
+  const { BEARER_TOKEN } = JSON.parse(secret?.SecretString || "")
 
-  return BEARER_TOKEN;
+  return BEARER_TOKEN
 }
 ```
 
@@ -86,11 +86,11 @@ We need the bearer token to authorize our GraphQL client with the API. Means we 
 But talking to SecretsManager is an API call itself and that could make our Lambda slow. The answer is memoization.
 
 ```typescript
-let graphQLClient: null | GraphQLClient = null;
+let graphQLClient: null | GraphQLClient = null
 
 async function createGraphQLClient() {
   if (graphQLClient === null) {
-    const token = await getBearerToken();
+    const token = await getBearerToken()
 
     graphQLClient = new GraphQLClient(
       "https://app-api.loveboxlove.com/v1/graphql",
@@ -99,10 +99,10 @@ async function createGraphQLClient() {
           Authorization: `Bearer ${token}`,
         },
       }
-    );
+    )
   }
 
-  return graphQLClient;
+  return graphQLClient
 }
 ```
 
@@ -141,20 +141,20 @@ Then we create a helper function that grabs a list of objects from S3. This part
 ```typescript
 // src/pictures.ts
 
-import { S3 } from "aws-sdk";
+import { S3 } from "aws-sdk"
 
 const s3 = new S3({
   apiVersion: "2006-03-01",
-});
+})
 
 async function listPictures() {
   const list = await s3
     .listObjects({
       Bucket: "lovebox-stash",
     })
-    .promise();
+    .promise()
 
-  return list.Contents;
+  return list.Contents
 }
 ```
 
@@ -168,10 +168,10 @@ Grabbing a random photo is a matter of maths and fetching an S3 object. Like thi
 // src/pictures.ts
 
 export async function getPicture() {
-  const pictures = await listPictures();
+  const pictures = await listPictures()
 
   if (pictures) {
-    const randomPic = pictures[Math.floor(Math.random() * pictures.length)];
+    const randomPic = pictures[Math.floor(Math.random() * pictures.length)]
 
     if (randomPic.Key) {
       const imageData = await s3
@@ -179,13 +179,13 @@ export async function getPicture() {
           Bucket: "lovebox-stash",
           Key: randomPic.Key,
         })
-        .promise();
+        .promise()
 
-      return imageData;
+      return imageData
     }
   }
 
-  return null;
+  return null
 }
 ```
 
@@ -199,9 +199,9 @@ The final `sendPicture` function looks like this:
 async function sendPicture(picture: S3.GetObjectOutput) {
   const base64 = `data:${picture.ContentType};base64,${picture.Body?.toString(
     "base64"
-  )}`;
-  const client = await createGraphQLClient();
-  const { recipient, deviceId } = await getRecipient();
+  )}`
+  const client = await createGraphQLClient()
+  const { recipient, deviceId } = await getRecipient()
 
   const res = await client.request(
     // query,
@@ -214,8 +214,8 @@ async function sendPicture(picture: S3.GetObjectOutput) {
         deviceId,
       },
     }
-  );
-  console.log(res);
+  )
+  console.log(res)
 }
 ```
 
