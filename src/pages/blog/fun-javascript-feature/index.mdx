@@ -1,14 +1,11 @@
 ---
-
 title: "Fun javascript feature"
 description: ""
 published: 2011-12-07
 redirect_from:
-
-- /blog/fun-javascript-feature/swizec/3141
-  categories: "Algorithm, JavaScript, Languages, Non-deterministic Turing machine, Programming, Turing machine, Uncategorized"
-  hero: ../../../defaultHero.jpg
-
+  - /blog/fun-javascript-feature/swizec/3141
+categories: "Algorithm, JavaScript, Languages, Non-deterministic Turing machine, Programming, Turing machine, Uncategorized"
+hero: ../../../defaultHero.jpg
 ---
 
 Not only was [my nondeterministic turing machine implementation](http://swizec.com/blog/nondeterministic-turing-machine-simulator-in-23-lines-of-javascript/swizec/3047 "Nondeterministic turing machine simulator in 23 lines of JavaScript")way too long at 20 lines, it was also wrong. Shortly after [@dionyziz](https://twitter.com/#!/dionyziz) reported a bug and it took me until last night to get around to fixing it.
@@ -32,19 +29,19 @@ var δ = function (S, s, e) {
     ι,
     Σ = _.size,
     β,
-    ψ;
-  if (π(s).indexOf(e) >= 0) return !0;
+    ψ
+  if (π(s).indexOf(e) >= 0) return !0
   for (k in s) {
-    (i = s[k][0]), (λ = s[k][1]), (ψ = S[k][λ[i]] || S[k].B);
+    ;(i = s[k][0]), (λ = s[k][1]), (ψ = S[k][λ[i]] || S[k].B)
     for (ι = 0; ψ, ι < Σ(ψ); ) {
-      (μ = ψ[ι++]),
+      ;(μ = ψ[ι++]),
         (β = _.clone(λ)),
         β.splice(i, 1, μ.w),
-        (Θ[μ.n] = [i + μ.m, β]);
+        (Θ[μ.n] = [i + μ.m, β])
     }
   }
-  return Σ(Θ) ? δ(S, Θ, e) : !!0;
-};
+  return Σ(Θ) ? δ(S, Θ, e) : !!0
+}
 ```
 
 Glorious 252 characters of nondeterministic turing machine right there! I'd say 252 bytes, but it's not, look at all those shiny unicode characters!
@@ -66,20 +63,20 @@ var δ = function (S, s, e) {
     ι,
     Σ = _.size,
     β,
-    ψ;
-  if (π(s).indexOf(e) >= 0) return !0;
+    ψ
+  if (π(s).indexOf(e) >= 0) return !0
   for (k in s) {
-    (i = s[k][0]), (λ = s[k][1]), (ψ = S[k][λ[i]] || S[k].B);
+    ;(i = s[k][0]), (λ = s[k][1]), (ψ = S[k][λ[i]] || S[k].B)
 
     for (ι = 0; ψ, ι < Σ(ψ); ) {
-      μ = ψ[ι++];
-      β = _.clone(λ);
-      β.splice(i, 1, μ.w);
-      Θ[μ.n] = [i + μ.m, β];
+      μ = ψ[ι++]
+      β = _.clone(λ)
+      β.splice(i, 1, μ.w)
+      Θ[μ.n] = [i + μ.m, β]
     }
   }
-  return Σ(Θ) ? δ(S, Θ, e) : !!0;
-};
+  return Σ(Θ) ? δ(S, Θ, e) : !!0
+}
 ```
 
 Before you ask, [machine instructions look like this](https://github.com/Swizec/random-coding/blob/master/machine2.json) and you can find a script for running all of this over at [my github](https://github.com/Swizec/random-coding/blob/master/turing.js).
