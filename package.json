@@ -7,9 +7,9 @@
     "scripts": {
         "start": "gatsby develop",
         "clean": "gatsby clean",
-        "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build",
+        "build": "gatsby build",
         "serve": "gatsby serve",
-        "fix-images": "node src/scripts/download-images.js",
+        "fix-images": "node src/scripts/download-images.mjs",
         "icon": "npx repng src/components/icon.js -d static -f icon.png -w 512 -h 512",
         "card": "npx repng src/components/twitter-card.js -d static -f card.png -w 1024 -h 512"
     },
@@ -41,6 +41,7 @@
         "mime-types": "^2.1.27",
         "node-fetch": "^2.6.0",
         "prettier": "^2.0.5",
+        "remark-frontmatter": "^3.0.0",
         "to-vfile": "^6.1.0",
         "unist-util-visit": "^3.0.0",
         "url": "^0.11.0"

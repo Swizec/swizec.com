@@ -1,18 +1,20 @@
-const fsExtra = require("fs-extra")
-const path = require("path")
-const chalk = require("chalk")
-const { read, write } = require("to-vfile")
-const remark = require("remark")
-const mdx = require("remark-mdx")
-var frontmatter = require("remark-frontmatter")
-const visit = require("unist-util-visit")
-var mime = require("mime-types")
-const slugify = require("slugify")
-const glob = require("glob")
-const fetch = require("node-fetch")
-const util = require("util")
-const streamPipeline = util.promisify(require("stream").pipeline)
-const prettier = require("prettier")
+import remark from "remark"
+import { visit } from "unist-util-visit"
+import fsExtra from "fs-extra"
+import path from "path"
+import chalk from "chalk"
+import vfile from "to-vfile"
+import mdx from "remark-mdx"
+import frontmatter from "remark-frontmatter"
+import mime from "mime-types"
+import glob from "glob"
+import fetch from "node-fetch"
+import util from "util"
+import prettier from "prettier"
+import stream from "stream"
+import slugify from "slugify"
+
+const streamPipeline = util.promisify(stream.pipeline)
 
 const articlesPath = "./src/pages/blog"
 
@@ -23,7 +25,7 @@ glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
     files.map(async (file) => {
       const parentDirectory = path.dirname(file)
 
-      const mdxFile = await read(file)
+      const mdxFile = await vfile.read(file)
       let shouldWriteFile = false
 
       //I process the file to get the AST
@@ -131,7 +133,7 @@ glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
       })
 
       if (shouldWriteFile) {
-        await write({
+        await vfile.write({
           path: file,
           contents,
         })
