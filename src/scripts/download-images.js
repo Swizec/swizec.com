@@ -47,30 +47,6 @@ glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
               }
             })
 
-            visit(tree, ["paragraph"], async (node) => {
-              if (node.children.find((x) => x.value === "\\")) {
-                const findIndex = node.children.findIndex(
-                  (x) => x.value === "\\"
-                )
-                if (
-                  node.children.length > findIndex + 1 &&
-                  node.children[findIndex + 1].value === "\\" &&
-                  node.children[findIndex + 2].value === "\\"
-                ) {
-                  node.children = node.children.filter((x) => x.value !== "\\")
-                  shouldWriteFile = true
-                  paragraphErrorsFixed++
-                }
-              }
-            })
-            if (paragraphErrorsFixed > 0) {
-              console.log(
-                `${chalk.green(
-                  `${paragraphErrorsFixed} '\\\\\\\\\\\\' errors corrected`
-                )} in  ${file}. `
-              )
-            }
-
             await Promise.all(
               nodes.map(async function (node) {
                 let title =
@@ -114,11 +90,33 @@ glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
                 }
               })
             )
+
+            visit(tree, ["paragraph"], async (node) => {
+              if (node.children.some((x) => x.value && x.value.includes("$"))) {
+                //Then it's a node that's probably to be fixed
+                node.children
+                  .filter((c) => c.value && c.value.includes("\\"))
+                  .forEach((c) => {
+                    c.value = c.value.replace(/\\/g, "")
+                    shouldWriteFile = true
+                  })
+
+                paragraphErrorsFixed++
+              }
+            })
+            if (paragraphErrorsFixed > 0) {
+              console.log(
+                `${chalk.green(
+                  `${paragraphErrorsFixed} '\\\\' errors corrected`
+                )} in  ${file}. `
+              )
+            }
           })
           .process(mdxFile, (err, markdown) => {
             if (err) {
               reject(err)
             } else {
+              console.log("CONTENT", markdown.contents)
               let content = markdown.contents
               content = content
                 .replace(/(?<=https?:\/\/.*)\\_(?=.*\n)/g, "_")

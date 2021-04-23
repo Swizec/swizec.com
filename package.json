@@ -1,6 +1,6 @@
 {
     "private": true,
-    "name": "swizec.com",
+    "name": "swizec",
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
@@ -42,6 +42,7 @@
         "mime-types": "^2.1.27",
         "node-fetch": "^2.6.0",
         "prettier": "^2.0.5",
+        "remark-frontmatter": "2.0.0",
         "to-vfile": "^6.1.0",
         "unist-util-visit": "^2.0.3",
         "url": "^0.11.0"
