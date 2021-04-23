@@ -21,8 +21,6 @@ const ACCEPTED_FILES = ["jpg", "jpeg", "png", "gif", "svg"]
 glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
   await Promise.all(
     files.map(async (file) => {
-      console.log(file)
-
       const parentDirectory = path.dirname(file)
 
       const mdxFile = await read(file)
@@ -35,6 +33,7 @@ glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
           .use(frontmatter)
           .use(() => async (tree) => {
             let nodes = []
+            let paragraphErrorsFixed = 0
 
             visit(tree, ["image"], async (node) => {
               if (node.url && node.url.startsWith("http")) {
@@ -91,6 +90,27 @@ glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
                 }
               })
             )
+
+            visit(tree, ["paragraph"], async (node) => {
+              if (node.children.some((x) => x.value && x.value.includes("$"))) {
+                //Then it's a node that's probably to be fixed
+                node.children
+                  .filter((c) => c.value && c.value.includes("\\"))
+                  .forEach((c) => {
+                    c.value = c.value.replace(/\\/g, "")
+                    shouldWriteFile = true
+                  })
+
+                paragraphErrorsFixed++
+              }
+            })
+            if (paragraphErrorsFixed > 0) {
+              console.log(
+                `${chalk.green(
+                  `${paragraphErrorsFixed} '\\\\' errors corrected`
+                )} in  ${file}. `
+              )
+            }
           })
           .process(mdxFile, (err, markdown) => {
             if (err) {
