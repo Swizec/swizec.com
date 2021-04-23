@@ -2035,6 +2035,11 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
+"@rebass/preset@^4.0.5":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@rebass/preset/-/preset-4.0.5.tgz#f4fb9bec85efa1eb658b92fc64fbb4250d0af2fb"
+  integrity sha512-RsNZ6r6GjJj7dvis7J+fniekpzqGh+tQ+slIbSX0vUjoB9XTJrRHPnNAf2fcWJHxVfCbZWY1JNsuq3Fcdj1oJA==
+
 "@sideway/address@^4.1.0":
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/@sideway/address/-/address-4.1.1.tgz#9e321e74310963fdf8eebfbee09c7bd69972de4d"
@@ -2182,10 +2187,10 @@
     "@styled-system/core" "^5.1.2"
     "@styled-system/css" "^5.1.5"
 
-"@swizec/gatsby-theme-course-platform@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-2.0.0.tgz#ce38782d7bc70d03966cdf1c17490b293b230030"
-  integrity sha512-t0msYgxiIgSTQInROhD8gaKbUzYUvQm4fG+XiN0TPp8JD3BWt3t41ze6qlxl19cqofdg5NNxLcbArS31WKSh3w==
+"@swizec/gatsby-theme-course-platform@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-2.0.1.tgz#d08af3fbeb046ceccdd8324820f4f089403bc589"
+  integrity sha512-irErWwpvzxdeQGr7fFGHwaNhDhi+GNp5J6Gxn7mBAW/KAx/2MyeizjhOA6IRN+fURzOYwt+Y+CHoU++H04miYQ==
   dependencies:
     "@mdx-js/mdx" "^1.6.22"
     "@mdx-js/react" "^1.6.22"
@@ -7497,7 +7502,7 @@ gatsby-plugin-simple-analytics@^1.0.3:
   resolved "https://registry.yarnpkg.com/gatsby-plugin-simple-analytics/-/gatsby-plugin-simple-analytics-1.0.3.tgz#8a051604c1f73cedf62ca4f8412bad2e396aaad2"
   integrity sha512-CAKVfAlN8EbOoNThXeDwC4Neh7G8V7zTBzrdZpO0S1k60rcr0gXjI1V8QS5QJ5TYQ9yRTSjSXYhL4q3oM04jIg==
 
-gatsby-plugin-slug@Swizec/gatsby-plugin-slug#gatsbyv3-support:
+"gatsby-plugin-slug@github:Swizec/gatsby-plugin-slug#gatsbyv3-support":
   version "1.1.1"
   resolved "https://codeload.github.com/Swizec/gatsby-plugin-slug/tar.gz/723e5e86a1affd398c84026be75351ab5b56a0a7"
 
