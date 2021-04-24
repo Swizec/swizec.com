@@ -88,7 +88,7 @@ Here's useAuth for example:
 
 ![Example changelog from useAuth](./img/Example-changelog-from-useAuth6eg56f.png)
 
-Treat libraries as real projects. Have an owner. _"I owned X library used by 5 products at \\\$Company"_ Looks great on your resumé [name|] 😉
+Treat libraries as real projects. Have an owner. _"I owned X library used by 5 products at \\\\$Company"_ Looks great on your resumé [name|] 😉
 
 ## Git branch – the poor man's private package
 
@@ -98,11 +98,9 @@ Your company likely uses private GitHub repositories. That means your build/CI/d
 
 Here's what you do:
 
-```
-npm install company/repo
-# or
-yarn add company/repo
-```
+    npm install company/repo
+    # or
+    yarn add company/repo
 
 You get a package.json entry like this: `github:company/repo`
 
@@ -138,10 +136,8 @@ I ran into issues using private NPM packages with Yarn. Errors out with packages
 
 You can fix that with a `.yarnrc` file in project root:
 
-```
-# .yarnrc
-"@swizec:registry" "https://registry.npmjs.org/"
-```
+    # .yarnrc
+    "@swizec:registry" "https://registry.npmjs.org/"
 
 You can commit this to git. Tells Yarn to look for `@swizec`-scoped packages on the NPM registry.
 
@@ -165,26 +161,20 @@ You'll need to create a [personal access token](https://docs.github.com/en/free-
 
 Then you add that token to your `~/.npmrc` file. This is the global .npmrc file, _not in the project_. Do not commit to git.
 
-```
-# ~/.npmrc
+    # ~/.npmrc
 
-//npm.pkg.github.com/:_authToken=TOKEN
-```
+    //npm.pkg.github.com/:_authToken=TOKEN
 
 Then you tell NPM to use the GitHub registry for your package scope. In a local `.npmrc` file that's added to git.
 
-```
-# .npmrc
-registry=https://registry.npmjs.org/
-@swizec:registry=https://npm.pkg.github.com/
-```
+    # .npmrc
+    registry=https://registry.npmjs.org/
+    @swizec:registry=https://npm.pkg.github.com/
 
 For Yarn that would be:
 
-```
-# .yarnrc
-"@swizec:registry" "https://registry.npmjs.org/"
-```
+    # .yarnrc
+    "@swizec:registry" "https://registry.npmjs.org/"
 
 You have to ensure your `repository` field in package.json matches your GitHub project:
 
@@ -212,7 +202,7 @@ You can go super private with a custom package registry.
 
 [Verdaccio](https://verdaccio.org/en/) looks promising as an on-premise registry host that you can run yourself. Gives you full control and whatnot.
 
-I took one look at the Verdaccio docs, 3 looks at GitHub docs, and paid \\\$7/mo for NPM. Ain't nobody got time for that.
+I took one look at the Verdaccio docs, 3 looks at GitHub docs, and paid $7/mo for NPM. Ain't nobody got time for that.
 
 Cheers,<br/>
 ~Swizec
