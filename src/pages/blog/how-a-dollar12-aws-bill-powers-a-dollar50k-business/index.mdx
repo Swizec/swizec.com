@@ -7,7 +7,7 @@ content_upgrade: ServerlessHandbook
 hero: ./img/screenshot-1615309454713.png
 ---
 
-import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform";
 
 Friend, ever seen this meme about the bloat of VC-backed startups?
 
@@ -19,15 +19,15 @@ Graybeard sysadmins chuckle.
 
 _"Lulz only five bazillion users?? I could run that from my PC in the basement. These people ... &lt;eyeroll>"_
 
-We'll talk about that on Friday. Today I wanted to talk about _my_ AWS bill. A whopping \$12 per month. 😛
+We'll talk about that on Friday. Today I wanted to talk about _my_ AWS bill. A whopping $12 per month. 😛
 
-[https://twitter.com/Swizec/status/1367503207803609090](https://twitter.com/Swizec/status/1367503207803609090)
+https://twitter.com/Swizec/status/1367503207803609090
 
 ## Serverless cost optimization
 
 > Value your time
 
-That's what an AWS billing expert had to say about optimizing for cost. If your bill is less than \$10k/mo, it's not worth optimizing.
+That's what an AWS billing expert had to say about optimizing for cost. If your bill is less than $10k/mo, it's not worth optimizing.
 
 🤯
 
@@ -47,7 +47,7 @@ I like the launch-and-forget approach.
 
 ![](giphy:perfection)
 
-Here's what my \$12 AWS bill solves:
+Here's what my $12 AWS bill solves:
 
 - enabling purchases
 - layouting emails
@@ -74,7 +74,7 @@ Here's what it does:
 7.  Creates user, if needed
 8.  Gives permission to access purchased course
 
-Took 2 hours to build, never had an outage. Processed ~\$50k in revenue, touched only to add new products ✌️
+Took 2 hours to build, never had an outage. Processed ~$50k in revenue, touched only to add new products ✌️
 
 ### Newsletter layouting
 
@@ -88,7 +88,7 @@ I loved my editor and he hated this part of his gig.
 
 Get a text file from Swiz, take a bunch of images, upload to Imgur, put into ConvertKit and into Wordpress. Hit 3 buttons. 🤮
 
-So I replaced him with a \$1/year piece of JavaScript and he got a more rewarding job at a big company.
+So I replaced him with a $1/year piece of JavaScript and he got a more rewarding job at a big company.
 
 ![TechLetter app being wonderful](./img/TechLetter-app-being-wonderfulh0djie.gif)
 
@@ -118,13 +118,13 @@ One of these days I'll rebuild the frontend to look nicer, but the serverless ba
 
 Friend, my point is that running server code on the web has become ridiculously cheap _and_ easy.
 
-My $12 bill runs all of the above, the biggest cost is serving images from S3 – $5 for hosting, \$3 for bandwidth. The smarts running on AWS Lambda are _way_ below the free tier.
+My $12 bill runs all of the above, the biggest cost is serving images from S3 – $5 for hosting, $3 for bandwidth. The smarts running on AWS Lambda are _way_ below the free tier.
 
 ![Lambda is free](./img/Lambda-is-freedf7cb4.png)
 
 18,000 requests per month is pretty cool 🚀
 
-To be fair, I offload frontend web traffic to Netlify and Vercel. A whopping \$25/mo ...
+To be fair, I offload frontend web traffic to Netlify and Vercel. A whopping $25/mo ...
 
 What do you think, got a problem you could solve with a small JavaScript function running in the cloud? Hit reply
 

@@ -42,7 +42,7 @@
         "mime-types": "^2.1.27",
         "node-fetch": "^2.6.0",
         "prettier": "^2.0.5",
-        "remark-frontmatter": "^3.0.0",
+        "remark-frontmatter": "2.0.0",
         "to-vfile": "^6.1.0",
         "unist-util-visit": "^3.0.0",
         "url": "^0.11.0"

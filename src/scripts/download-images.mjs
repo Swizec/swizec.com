@@ -116,6 +116,27 @@ glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
                 }
               })
             )
+
+            visit(tree, ["paragraph"], async (node) => {
+              if (node.children.some((x) => x.value && x.value.includes("$"))) {
+                //Then it's a node that's probably to be fixed
+                node.children
+                  .filter((c) => c.value && c.value.includes("\\"))
+                  .forEach((c) => {
+                    c.value = c.value.replace(/\\/g, "")
+                    shouldWriteFile = true
+                  })
+
+                paragraphErrorsFixed++
+              }
+            })
+            if (paragraphErrorsFixed > 0) {
+              console.log(
+                `${chalk.green(
+                  `${paragraphErrorsFixed} '\\\\' errors corrected`
+                )} in  ${file}. `
+              )
+            }
           })
           .process(mdxFile, (err, markdown) => {
             if (err) {
