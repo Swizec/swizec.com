@@ -56,27 +56,27 @@ A memoized function initializes the client.
 // src/StaticTwitterEmbed.js
 
 // Memoized twitter client instance
-let twitterClient = null;
+let twitterClient = null
 async function getAppClient() {
   if (twitterClient) {
-    return twitterClient;
+    return twitterClient
   }
 
   // init user-client
   const user = new Twitter({
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  });
+  })
 
   // create app-client with higher limits
-  const response = await user.getBearerToken();
+  const response = await user.getBearerToken()
   twitterClient = new Twitter({
     version: "2",
     extension: false,
     bearer_token: response.access_token,
-  });
+  })
 
-  return twitterClient;
+  return twitterClient
 }
 ```
 
@@ -92,7 +92,7 @@ With an initialized and logged-in client, we can get a tweet using its ID.
 // src/StaticTwitterEmbed.js
 // fetch tweet from API
 async function getTweet(tweetId) {
-  const client = await getAppClient();
+  const client = await getAppClient()
 
   try {
     const tweet = await client.get(`tweets/${tweetId}`, {
@@ -100,14 +100,14 @@ async function getTweet(tweetId) {
       expansions: "author_id,attachments.media_keys",
       "user.fields": "name,username,url,profile_image_url",
       "media.fields": "preview_image_url,url",
-    });
+    })
 
-    return tweet;
+    return tweet
   } catch (e) {
-    console.log(e);
+    console.log(e)
   }
 
-  return null;
+  return null
 }
 ```
 
@@ -169,17 +169,17 @@ Now we do this 👇
 ```javascript
 // src/StaticTwitterEmbed.js
 async function getHTML(url) {
-  const twitterUrl = url.replace("events", "moments");
-  const tweetId = twitterUrl.split("/").pop();
+  const twitterUrl = url.replace("events", "moments")
+  const tweetId = twitterUrl.split("/").pop()
 
-  const tweet = await getTweet(tweetId);
+  const tweet = await getTweet(tweetId)
 
   if (!tweet) {
-    console.log("TWEET NOT FOUND", twitterUrl, tweetId);
-    return "";
+    console.log("TWEET NOT FOUND", twitterUrl, tweetId)
+    return ""
   }
 
-  return buildTweetHTML(tweet);
+  return buildTweetHTML(tweet)
 }
 ```
 
@@ -206,7 +206,7 @@ And it's very procedural. Reads like a step-by-step recipe.
 // buildTweetHTML
 const author = tweet.includes.users.find(
   (user) => user.id === tweet.data.author_id
-);
+)
 ```
 
 You can't guarantee author is the first user in the list. Gotta find by id.
@@ -216,7 +216,7 @@ You can't guarantee author is the first user in the list. Gotta find by id.
 ```javascript
 // src/StaticTwitterEmbed.js
 // buildTweetHTML
-const tweetURL = `https://twitter.com/${author.username}/status/${tweet.data.id}`;
+const tweetURL = `https://twitter.com/${author.username}/status/${tweet.data.id}`
 ```
 
 3.  Construct the author HTML
@@ -224,7 +224,7 @@ const tweetURL = `https://twitter.com/${author.username}/status/${tweet.data.id}
 ```javascript
 // src/StaticTwitterEmbed.js
 // buildTweetHTML
-const authorHTML = `<a class="author" href="${author.url}"><img src="${author.profile_image_url}" loading="lazy" alt="${author.name} avatar" /><b>${author.name}</b>@${author.username}</a>`;
+const authorHTML = `<a class="author" href="${author.url}"><img src="${author.profile_image_url}" loading="lazy" alt="${author.name} avatar" /><b>${author.name}</b>@${author.username}</a>`
 ```
 
 Great candidate for a React component huh 😅
@@ -239,7 +239,7 @@ Great candidate for a React component huh 😅
 const tweetHTML = `<blockquote>${tweet.data.text.replace(
   /https:\/\/t.co\/(\w+)/,
   ""
-)}</blockquote>`;
+)}</blockquote>`
 ```
 
 ![rendered tweet html](./img/rendered-tweet-htmlcia0bi.png)
@@ -250,7 +250,7 @@ const tweetHTML = `<blockquote>${tweet.data.text.replace(
 // src/StaticTwitterEmbed.js
 
 function buildMediaList(media) {
-  const width = media.length > 1 ? "50%" : "100%";
+  const width = media.length > 1 ? "50%" : "100%"
   return media
     .map(
       (media) =>
@@ -258,13 +258,13 @@ function buildMediaList(media) {
           media.preview_image_url || media.url
         }" width="${width}" loading="lazy" alt="Tweet media" />`
     )
-    .join("");
+    .join("")
 }
 
 // buildTweetHTML
 const mediaHTML = tweet.includes.media
   ? `<div class="media">${buildMediaList(tweet.includes.media)}</div>`
-  : "";
+  : ""
 ```
 
 Tried to use CSS for media widths and couldn't hack it. We know from experience that twitter renders images at 50% and in multiple rows.
@@ -283,12 +283,12 @@ const createdAtHTML = `<div class="time"><a href="${tweetURL}">${new Date(
   tweet.data.created_at
 ).toLocaleTimeString()} – ${new Date(
   tweet.data.created_at
-).toLocaleDateString()}</a></div>`;
+).toLocaleDateString()}</a></div>`
 
-const likeIntent = `https://twitter.com/intent/like?tweet_id=${tweet.data.id}`;
-const replyIntent = tweetURL;
+const likeIntent = `https://twitter.com/intent/like?tweet_id=${tweet.data.id}`
+const replyIntent = tweetURL
 
-const statsHTML = `<div class="stats"><a href="${likeIntent}" class="like">${likesSVG}${tweet.data.public_metrics.like_count}</a> <a href="${replyIntent}" class="reply">${repliesSVG}${tweet.data.public_metrics.reply_count}</a></div>`;
+const statsHTML = `<div class="stats"><a href="${likeIntent}" class="like">${likesSVG}${tweet.data.public_metrics.like_count}</a> <a href="${replyIntent}" class="reply">${repliesSVG}${tweet.data.public_metrics.reply_count}</a></div>`
 ```
 
 🤮
@@ -309,7 +309,7 @@ return `<div><div class="static-tweet-embed">
         ${mediaHTML}
         ${createdAtHTML}
         ${statsHTML}
-    </div></div>`;
+    </div></div>`
 ```
 
 And you get a great looking tweet:
@@ -360,6 +360,8 @@ Scroll to the bottom here 👉 <https://serverlesshandbook-4d7y3ge3f-swizec.verc
 Now scroll here 👉 serverlesshandbook.dev
 
 Feel the difference? Reload at bottom for extra groan
+
+https://twitter.com/Swizec/status/1392516093084790784
 
 Cheers,<br/>
 ~Swizec
