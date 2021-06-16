@@ -35,8 +35,12 @@ function Component() {
   const [booper, setBooper] = useState(3)
 
   // 2 re-renders
-  setBoop(3)
-  setBooper(4)
+  function onClick() {
+    fetch().then(() => {
+      setBoop(3)
+      setBooper(4)
+    })
+  }
 
   // 1 re-render
   function onClick() {
