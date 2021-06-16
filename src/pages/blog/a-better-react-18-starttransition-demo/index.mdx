@@ -1,6 +1,6 @@
 ---
 title: "A better React 18 startTransition demo"
-description: "Demoing startTransition is hard. Modern computers are too fast 😅 – Dan Abramov, a React core team member, helped me get it right. Here's what I learned"
+description: "Demoing startTransition is hard. Modern computers are too fast 😅 – Dan Abramov, a React core team member, helped me fix it up. Here's what I learned"
 published: 2021-06-16
 categories: "Technical, React, Frontend"
 hero: ./img/screenshot-1623860768995.png
@@ -10,21 +10,27 @@ Demoing startTransition is hard. Modern computers are too fast 😅
 
 The [demo I sent you last week](https://swizec.com/blog/trying-out-react-18-alpha/#lets-try-it-out) doesn't work. It's an aberration. A fluke of dev mode.
 
-Dan Abramov, React core team, messaged me on Twitter and said _"Yo dude, every render takes less than 1ms, startTransition and time slicing don't even have time to kick in"_
+Further testing showed that every render takes less than 1ms. `startTransition` and time slicing didn't even have time to kick in.
 
 💩
 
-So I built a better demo on stream. Later Dan tweaked it to correctly show off the new `startTransition` feature. I got it wrong. It's subtle.
+So I built a better demo on stream, but a subtle gotcha got in the way. Dan from the React team helped me figure it out and we even found a bug in the alpha. Great success all around!
 
 https://www.youtube.com/watch?v=6WRRf2ldixY
 
-You can [try the final demo here](https://react-fractals-git-react-18-swizec.vercel.app/)
+You can [try the final React 18 startTransition demo here](https://react-fractals-git-react-18-swizec.vercel.app/)
 
 [![React 18 startTransition demo with lag indicator](./img/React-18-startTransition-demo-with-lag-indicatorja3id2.gif)](https://react-fractals-git-react-18-swizec.vercel.app/)
 
-I [built the fractal](https://swizec.com/blog/dancing-tree-fractal-with-react/) to stress test React back in 2016, added form controls this week. Dan added the lag indicator, slow mode, faded transitioning state, and fixed my use of `startTransition`.
+The demo shows you what happens when every state change updates 1,000,000+ nodes. Slider on the left grows the tree, makes the problem worse – exponentially. Slider on top leans the tree, updates every node. Use it to see what happens :)
 
-You can [see the code on GitHub](https://github.com/Swizec/react-fractals/pull/15)
+Toggle the `Use startTransition` checkbox to compare behavior with and without the new feature. You should see your inputs laaaaaag without `startTransition`. When it's enabled, the urgent input update happens fast and the slow fractal updates later.
+
+If you don't see slowness, enable the artificial 0.1ms delay. That'll do it.
+
+The [original fractal tree stress test](https://swizec.com/blog/dancing-tree-fractal-with-react/) is code from 2016 and I'm happy to report upgrading to React 18 worked without changes.
+
+You can [see the full code on GitHub](https://github.com/Swizec/react-fractals/pull/15)
 
 ## Why it's slow
 
@@ -32,7 +38,7 @@ https://twitter.com/Swizec/status/1404917798527111168
 
 The [pythagoras tree](<https://en.wikipedia.org/wiki/Pythagoras_tree_(fractal)>) is a fractal. A deeply nested data structure that brings any rendering framework to its knees. Drawing to the DOM is the least of your worries.
 
-The left sets nesting level. At 20 (max) your computer will slow down for sure. My 2020 top-spec MacBook sure did 😅
+The left slider sets nesting level. At 20 (max) your computer will slow down for sure. My 2020 top-spec MacBook sure did 😅
 
 ![Growing a fractal tree](./img/Growing-a-fractal-tree3fj237.gif)
 
@@ -44,36 +50,29 @@ That's what makes this a great stress test :)
 - framework code: propagates the updates
 - browser code: redraws the DOM nodes
 
-You'll get more speed from WebGL or Canvas. Not much you can do about the nested tree with 1,000,000 elements. Math is math.
+You'll get more speed from WebGL or Canvas. Not much you can do about the nested tree with 1,000,000 elements. Math is math. In a real app your tree is dominated by user logic, not by raw div updates.
 
-> in a real app your tree is dominated by user logic, not by raw div updates
-
-Modern computers are fast though, you can [say screw it to web performance](https://swizec.com/blog/screw-web-performance-just-wait-a-little/) 😛
+[Modern computers are fast, though](https://swizec.com/blog/screw-web-performance-just-wait-a-little/), so you can get away with a lot before you'll need to think about `startTransition`. Here's a comparison from last year:
 
 ![2016 vs. 2020](./img/2016-vs-2020hfi56h.gif)
 
-## How Dan debugged my demo
+## How we debugged my demo
 
-Dan looked at my demo and said _"Hm that doesn't look like it's working"_. But how did he verify? I asked.
+When I showed my demo to Dan it didn't look quite right. Seemed like `startTransition` wasn't doing much 🤔
+
+Chrome's performance tab helped. An old Webpack polyfill from react-scripts 0.7 was batching all updates weirdly.
 
 ![Profiler view when startTransition didn't work](./img/Profiler-view-when-startTransition-didnt-work5c2j6a.png)
 
-> I used Performance tab and pressed record. What was supposed to happen is that each input update should be very fast and non-blocking. But instead of many small updates I saw a few large ones.
-
-An old Webpack polyfill got in the way.
-
-Here's what your profiler is supposed to show without `startTransition`.
+When you fix that, the profiler looks better. You can see too much work is happening inside the mouse handler.
 
 ![Working code, startTransition disabled](./img/Working-code-startTransition-disabledi2c1a3.png)
 
-> 1.  urgent updates should exclude large trees thanks to memo
-> 2.  transitions work in small chunks
-
-Enable `startTransition` and you'll see those big tasks collapse into tiny updates.
+When you enable `startTransition`, those big chunks of work split into quick urgent updates followed by the computationally heavy work.
 
 ![startTransition enabled](./img/startTransition-enabledec927e.png)
 
-Quick way to test you're leveraging `startTransition`. Don't get fooled like I did 😅
+Quick way to test you're leveraging `startTransition` ✌️
 
 And remember: realistic timing happens in production.
 
@@ -89,7 +88,7 @@ startTransition(() => {
 })
 ```
 
-Sounds easy and it's easy to get wrong. Make it ineffective 🥲
+Sounds easy when you read about it, then you get it wrong on stream 😅
 
 ### Use separate state for non-urgent updates
 
@@ -123,9 +122,7 @@ And everything's laggy 🤔
 
 Because _both components depend on the same state_ ...
 
-You have to split that state.
-
-Either by creating slider sub-components with internal urgent state, or the dirty way:
+You have to split that state:
 
 ```javascript
 const [treeLean, setTreeLean] = useState(0)
@@ -151,13 +148,13 @@ function changeTreeLean(event) {
 <Pythagoras lean={treeLean} ... />
 ```
 
-Now the input field and the tree can update separately. `startTransition` makes a big difference.
+Looks weird to split state like that, but it makes sense. You're saying it's okay for these 2 components to be visually out of sync.
+
+Now the input field and the tree update separately. `startTransition` makes a big difference.
 
 [![React 18 startTransition demo with lag indicator](./img/React-18-startTransition-demo-with-lag-indicatora2g643.gif)](https://react-fractals-git-react-18-swizec.vercel.app/)
 
 ### Use React.memo
-
-> Adds `memo` around Pythagoras that's necessary for an urgent update to actually skip rendering the tree.
 
 ```javascript
 const Pythagoras = React.memo(() => {
@@ -213,3 +210,4 @@ Cheers,<br/>
 ~Swizec
 
 PS: [React For Dataviz](https://reactfordataviz.com) is my course on pushing React to the max and fun stuff like this​. I think it's getting a new module or two when React 18 comes out :)
+
