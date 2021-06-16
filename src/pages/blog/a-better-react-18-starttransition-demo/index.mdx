@@ -50,23 +50,26 @@ That's what makes this a great stress test :)
 - framework code: propagates the updates
 - browser code: redraws the DOM nodes
 
-You'll get more speed from WebGL or Canvas. Not much you can do about the nested tree with 1,000,000 elements. Math is math. In a real app your tree is dominated by user logic, not by raw div updates.
+Yes WebGL or Canvas would make the draw step faster, but this is not a graphics demo. We're showing **something important that React 18 unlocks**.
+
+Think of each square as a separate React component in your app. A user action might update many of them. Each component on its own is fast to render, but the work adds up. And there's no one place to optimize 😱
+
+**`startTransition` enables React to break down this rendering work into small chunks.**
+
+This keeps the slider UI responsive even while your components are executing. Note that this is true even when you toggle the artificial delay (0.1 ms per square)! Even the fastest library that does updates synchronously will freeze when the slowdown happens in your code. 
+
+React can pull it off because it breaks up the work instead of doing it all at once. 🤘
 
 [Modern computers are fast, though](https://swizec.com/blog/screw-web-performance-just-wait-a-little/), so you can get away with a lot before you'll need to think about `startTransition`. Here's a comparison from last year:
 
 ![2016 vs. 2020](./img/2016-vs-2020hfi56h.gif)
 
-## How we debugged my demo
+## How we debugged the demo
 
-When I showed my demo to Dan it didn't look quite right. Seemed like `startTransition` wasn't doing much 🤔
-
-Chrome's performance tab helped. An old Webpack polyfill from react-scripts 0.7 was batching all updates weirdly.
-
-![Profiler view when startTransition didn't work](./img/Profiler-view-when-startTransition-didnt-work5c2j6a.png)
-
-When you fix that, the profiler looks better. You can see too much work is happening inside the mouse handler.
+You can look at Chrome's performance tab to see what's up. You're looking for large chunks of synchronous work in event handlers – that's an opportunity for `startTransition`.
 
 ![Working code, startTransition disabled](./img/Working-code-startTransition-disabledi2c1a3.png)
+
 
 When you enable `startTransition`, those big chunks of work split into quick urgent updates followed by the computationally heavy work.
 
@@ -74,7 +77,11 @@ When you enable `startTransition`, those big chunks of work split into quick urg
 
 Quick way to test you're leveraging `startTransition` ✌️
 
-And remember: realistic timing happens in production.
+When I first showed my demo to Dan we found a fun alpha bug. An old Webpack polyfill from react-scripts 0.7 triggered a bug in React 18 alpha. Updates getting batched weirdly. They'll fix this before going stable.
+
+![Profiler view when startTransition didn't work](./img/Profiler-view-when-startTransition-didnt-work5c2j6a.png)
+
+Always remember: realistic timing happens in production.
 
 ## A startTransition gotcha
 
