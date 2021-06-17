@@ -14,13 +14,11 @@ Further testing showed that every render takes less than 1ms. `startTransition` 
 
 💩
 
-So I built a better demo on stream, but a subtle gotcha got in the way. Dan from the React team helped me figure it out and we even found a bug in the alpha. Great success all around!
-
-https://www.youtube.com/watch?v=6WRRf2ldixY
+So [I built a better demo on stream](https://www.youtube.com/watch?v=6WRRf2ldixY), but a subtle gotcha got in the way. Dan from the React team helped me figure it out and we even found a bug in the alpha. Great success all around!
 
 You can [try the final React 18 startTransition demo here](https://react-fractals-git-react-18-swizec.vercel.app/)
 
-[![React 18 startTransition demo with lag indicator](./img/React-18-startTransition-demo-with-lag-indicatorja3id2.gif)](https://react-fractals-git-react-18-swizec.vercel.app/)
+[![React 18 startTransition demo with lag indicator](./img/React-18-startTransition-demo-with-lag-indicatori62e87.gif)](https://react-fractals-git-react-18-swizec.vercel.app/)
 
 The demo shows you what happens when every state change updates 1,000,000+ nodes. Slider on the left grows the tree, makes the problem worse – exponentially. Slider on top leans the tree, updates every node. Use it to see what happens :)
 
@@ -56,7 +54,7 @@ Think of each square as a separate React component in your app. A user action mi
 
 **`startTransition` enables React to break down this rendering work into small chunks.**
 
-This keeps the slider UI responsive even while your components are executing. Note that this is true even when you toggle the artificial delay (0.1 ms per square)! Even the fastest library that does updates synchronously will freeze when the slowdown happens in your code. 
+This keeps the slider UI responsive even while your components are executing. Note that this is true even when you toggle the artificial delay (0.1 ms per square)! Even the fastest library that does updates synchronously will freeze when the slowdown happens in your code.
 
 React can pull it off because it breaks up the work instead of doing it all at once. 🤘
 
@@ -69,7 +67,6 @@ React can pull it off because it breaks up the work instead of doing it all at o
 You can look at Chrome's performance tab to see what's up. You're looking for large chunks of synchronous work in event handlers – that's an opportunity for `startTransition`.
 
 ![Working code, startTransition disabled](./img/Working-code-startTransition-disabledi2c1a3.png)
-
 
 When you enable `startTransition`, those big chunks of work split into quick urgent updates followed by the computationally heavy work.
 
@@ -92,7 +89,9 @@ You can use this for expensive data transformation, large computations, or compl
 ```javascript
 startTransition(() => {
   // do slow work
-})
+  // this code executes synchronously
+  // but state updates are marked as less urgent
+});
 ```
 
 Sounds easy when you read about it, then you get it wrong on stream 😅
@@ -159,14 +158,14 @@ Looks weird to split state like that, but it makes sense. You're saying it's oka
 
 Now the input field and the tree update separately. `startTransition` makes a big difference.
 
-[![React 18 startTransition demo with lag indicator](./img/React-18-startTransition-demo-with-lag-indicatora2g643.gif)](https://react-fractals-git-react-18-swizec.vercel.app/)
+[![React 18 startTransition demo](./img/React-18-startTransition-demo3284d8.gif)](https://react-fractals-git-react-18-swizec.vercel.app/)
 
 ### Use React.memo
 
 ```javascript
 const Pythagoras = React.memo(() => {
   // same component code as usual
-})
+});
 ```
 
 Wrap expensive components in `React.memo` to give `startTransition` a chance to kick in. React needs to know it's safe to split the render step.
@@ -217,4 +216,3 @@ Cheers,<br/>
 ~Swizec
 
 PS: [React For Dataviz](https://reactfordataviz.com) is my course on pushing React to the max and fun stuff like this​. I think it's getting a new module or two when React 18 comes out :)
-
