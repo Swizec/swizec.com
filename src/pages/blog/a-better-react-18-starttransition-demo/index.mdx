@@ -91,7 +91,7 @@ startTransition(() => {
   // do slow work
   // this code executes synchronously
   // but state updates are marked as less urgent
-});
+})
 ```
 
 Sounds easy when you read about it, then you get it wrong on stream 😅
@@ -165,7 +165,7 @@ Now the input field and the tree update separately. `startTransition` makes a bi
 ```javascript
 const Pythagoras = React.memo(() => {
   // same component code as usual
-});
+})
 ```
 
 Wrap expensive components in `React.memo` to give `startTransition` a chance to kick in. React needs to know it's safe to split the render step.
