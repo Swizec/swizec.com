@@ -5,7 +5,7 @@ const sharp = require("sharp")
 sharp.cache(false)
 sharp.simd(false)
 
-exports.onPreBootstrap = async ({ actions }) => {
+exports.onPreBootstrap = ({ actions }) => {
   // read _redirects
   // call createRedirect for each
 
@@ -19,7 +19,6 @@ exports.onPreBootstrap = async ({ actions }) => {
         fromPath,
         toPath,
       })
-        console.log({ fromPath, toPath })
     }
   }
 
