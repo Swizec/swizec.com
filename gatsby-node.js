@@ -19,6 +19,7 @@ exports.onPreBootstrap = async ({ actions }) => {
         fromPath,
         toPath,
       })
+        console.log({ fromPath, toPath })
     }
   }
 
