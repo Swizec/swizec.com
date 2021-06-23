@@ -54,9 +54,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // extract all values and push to redirects array
   allPosts.forEach((post) => {
     const from = post.node.frontmatter.redirect_from
-    const to = `/blog${post.node.fields.slug}`
-
-    console.log("article", { from, to })
+    const to = post.node.fields.slug
 
     from.forEach((from) => {
       actions.createRedirect({
