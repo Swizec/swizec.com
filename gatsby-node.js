@@ -26,8 +26,6 @@ exports.onPreBootstrap = ({ actions }) => {
 }
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createRedirect } = actions
-
   const result = await graphql(`
     {
       allMdx(filter: { frontmatter: { redirect_from: { ne: null } } }) {
@@ -58,8 +56,10 @@ exports.createPages = async ({ graphql, actions }) => {
     const from = post.node.frontmatter.redirect_from
     const to = `/blog${post.node.fields.slug}`
 
+    console.log("article", { from, to })
+
     from.forEach((from) => {
-      createRedirect({
+      actions.createRedirect({
         fromPath: from,
         toPath: to,
         isPermanent: true,
