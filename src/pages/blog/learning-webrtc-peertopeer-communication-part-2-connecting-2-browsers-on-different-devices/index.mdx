@@ -30,7 +30,7 @@ Here's how it works 👇
 
 ## How to use WebRTC to connect browsers on different devices
 
-![](https://swizec.com/blog/wp-content/uploads/2018/05/photo_may_16_1_09_35_pm.jpg)
+![](https://swizec.com/wp-content/uploads/2018/05/photo_may_16_1_09_35_pm.jpg)
 
 You can use WebRTC to make browsers talk to each other directly without a server. But because there's no service discovery, you need a signaling server so browsers can find each other.
 
@@ -64,7 +64,7 @@ Easiest way is to deploy on `now`.
 
 Talking to the server happens via WebSockets with [a 40 line helper class](https://github.com/Swizec/webrtc-sample/blob/master/src/SignalingConnection.js). Instantiate the class, make a connection, listen for messages.
 
-![](https://swizec.com/blog/wp-content/uploads/2018/05/signalconnection.png)
+![](https://swizec.com/wp-content/uploads/2018/05/signalconnection.png)
 
 We create a `new WebSocket` in `connectToSocket`, add some callbacks, and hope for the best. The `onmessage` listener allows us to add additional message listeners later via the `messageListeners` array.
 
@@ -76,7 +76,7 @@ Learning our lesson from [WebRTC part 1](https://swizec.com/blog/learning-webrtc
 
 It's about 148 lines and handles the whole lifecycle. We [talked about the code before](https://swizec.com/blog/learning-webrtc-peer-peer-communication-part-1/swizec/8359), so here's a recap 👇
 
-![](https://swizec.com/blog/wp-content/uploads/2018/05/peerconnection.png)
+![](https://swizec.com/wp-content/uploads/2018/05/peerconnection.png)
 
 `constructor` sets a bunch of instance vars, sets up a new `RTCPeerConnection` object, tells it which `iceServers` to use, connects local event listeners, starts listening for messages on our signaling server, and adds our media stream to the `peerConnection`.
 

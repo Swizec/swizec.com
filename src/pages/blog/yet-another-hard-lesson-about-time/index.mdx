@@ -16,7 +16,7 @@ So began my two day hunt for a bug.
 
 To become a [Yup tutor](https://www.yup.com/become-tutor), you have to pass a subject exam: 25 questions about math, chemistry, or physics in 45 minutes. It's hard as hell; I tried.
 
-![](https://swizec.com/blog/wp-content/uploads/2017/01/exam-timer.gif)
+![](https://swizec.com/wp-content/uploads/2017/01/exam-timer.gif)
 
 There's a timer in the corner ticking down. 45 minutes, and then you're done. A dialog shows up telling you time’s up. Easy peasy to build, right? Get a start time, add 45 minutes, count down. When timer hits zero, stop. 90% of the time, it works every time.
 
@@ -26,7 +26,7 @@ o.O
 
 I looked through the code. No race conditions. You click Start, the server creates an exam, makes a `started_at` timestamp, adds 45 minutes, and tells the frontend when your exam should end. On every [Clock tick](https://swizec.com/blog/modeling-time-react/swizec/7200), the counter updates ,and a MobX observer checks if you're out of time.
 
-![](https://swizec.com/blog/wp-content/uploads/2017/01/time-diagram-1.jpg)
+![](https://swizec.com/wp-content/uploads/2017/01/time-diagram-1.jpg)
 
 Very straightforward.
 
@@ -85,7 +85,7 @@ You don't rely on user time. Instead of calculating a `should_end_by` timestamp 
 
 Like this:
 
-![](https://swizec.com/blog/wp-content/uploads/2017/01/time-diagram-2.jpg)
+![](https://swizec.com/wp-content/uploads/2017/01/time-diagram-2.jpg)
 
 The exam starts, the server looks at current time and returns `45min`. User reloads, server looks at current time, calculates delta from start time, returns new time remaining.
 

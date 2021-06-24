@@ -20,7 +20,7 @@ The goal was to have an event flow visualization where icons represent different
 
 It’s inspired by how GitHub visualizes the PR process but is intended for richer graphics. Hence why it has to be in SVG.
 
-![GitHub shows the PR process using connected event icons with descriptions](https://swizec.com/blog/wp-content/uploads/2018/06/githubscreenshot.jpg)
+![GitHub shows the PR process using connected event icons with descriptions](https://swizec.com/wp-content/uploads/2018/06/githubscreenshot.jpg)
 
 ## Problems to solve / gotchas to catch
 
@@ -38,7 +38,7 @@ But it’s terrible when you can't know the size of some elements. Like the heig
 
 My client tried several approaches and finally settled on a component structure a little like this 👇
 
-![Almost good enough structure](https://swizec.com/blog/wp-content/uploads/2018/06/component-structure1.jpg)
+![Almost good enough structure](https://swizec.com/wp-content/uploads/2018/06/component-structure1.jpg)
 
 Each row is a `div` that contains an `svg` on the left and a `div` on the right. The SVG renders our icon and the vertical line. The `div` contains potentially expanding descriptions.
 
@@ -62,7 +62,7 @@ Render everything inside an SVG, use `foreignObject` to support auto text layout
 
 In a nutshell 👇
 
-![](https://swizec.com/blog/wp-content/uploads/2018/06/accordionflow-sketch.jpg)
+![](https://swizec.com/wp-content/uploads/2018/06/accordionflow-sketch.jpg)
 
 - `<AccordionFlow>` renders rows
 - `<AccordionFlow>` holds an array of known or default row heights, used for vertical positioning

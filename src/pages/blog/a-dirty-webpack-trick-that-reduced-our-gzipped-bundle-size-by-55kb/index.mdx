@@ -16,11 +16,11 @@ Bundle splitting ensures web apps get only the code they need, individual vendor
 
 Despite all that, hitting our corp site, you're downloading 489KB of JavaScript. That's one of our most optimized apps. The apps that people use to work with our product are worse. Some go up to 1MB of gzipped JavaScript. 😅
 
-![](https://swizec.com/blog/wp-content/uploads/2017/06/big-files-screenshot.png)
+![](https://swizec.com/wp-content/uploads/2017/06/big-files-screenshot.png)
 
 If you look at the `BundleAnalyzerPlugin` output of our Webpack build, you'll see why. The vendors file, all our dependencies, is 238KB of that footprint.
 
-![](https://swizec.com/blog/wp-content/uploads/2017/06/webpack-chart.png)
+![](https://swizec.com/wp-content/uploads/2017/06/webpack-chart.png)
 
 [Lodash](https://lodash.com/) and [Moment](https://momentjs.com/) locales and jQuery everywhere! Most of the code we're shipping is made up of libraries which we use maybe 20% of.
 
@@ -30,13 +30,13 @@ We use 32 functions out of all of Lodash for example. I counted. We don't even u
 
 Here's how I optimized that to take 55KB off our gzipped vendors file. At least for the corp site that is. Results in other apps vary :)
 
-![](https://swizec.com/blog/wp-content/uploads/2017/06/better-files-screenshot.png)
+![](https://swizec.com/wp-content/uploads/2017/06/better-files-screenshot.png)
 
 See, corp site vendors file is down to 183KB. Overall, JavaScript footprint is down by 53KB. Not bad for gzipped minified code.
 
 Let's look at the unminified `BundleAnalyzerPlugin` output for our corp site.
 
-![](https://swizec.com/blog/wp-content/uploads/2017/06/corp-screen-1.png)
+![](https://swizec.com/wp-content/uploads/2017/06/corp-screen-1.png)
 
 2.1 megs of unminified ungzipped code 😅
 
@@ -56,7 +56,7 @@ plugins: [
 
 I'm not sure _how_ that works, but it removes most of what makes Moment big. We weren't using locales anyway; all our string formatting used explicit format strings.
 
-![](https://swizec.com/blog/wp-content/uploads/2017/06/corp-screen-2.png)
+![](https://swizec.com/wp-content/uploads/2017/06/corp-screen-2.png)
 
 That was easy.
 
@@ -202,7 +202,7 @@ When we have those unique Lodash function calls, we walk through them, and for e
 
 The resulting `ProvidePlugin` entries are added to the `plugins` array in our overall config.
 
-![](https://swizec.com/blog/wp-content/uploads/2017/06/corp-screen-3.png)
+![](https://swizec.com/wp-content/uploads/2017/06/corp-screen-3.png)
 
 And that's how we removed 55KB of gzipped dependencies. I feel like an evil mastermind.
 

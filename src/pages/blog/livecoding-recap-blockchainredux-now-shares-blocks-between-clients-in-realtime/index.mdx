@@ -38,13 +38,13 @@ In part that's because there's no _real_ consensus algorithm. Any valid block is
 
 You may have seen [how blockchain initialization works](https://swizec.com/blog/blockchain-redux-experiment-part-2/swizec/8055) before. We read the whole chain from Firebase and replace the local chain stub.
 
-![Initializing the blockchain from Firebase](https://swizec.com/blog/wp-content/uploads/2018/04/firebase-blockchain-init.png)
+![Initializing the blockchain from Firebase](https://swizec.com/wp-content/uploads/2018/04/firebase-blockchain-init.png)
 
 You can read more [details about this code in a previous blogpost](https://swizec.com/blog/blockchain-redux-experiment-part-2/swizec/8055).
 
 The part that's new is calling `listenForNextBlock` after replacing the local chain.
 
-![Listen for the next block](https://swizec.com/blog/wp-content/uploads/2018/04/wait-for-next-block.png)
+![Listen for the next block](https://swizec.com/wp-content/uploads/2018/04/wait-for-next-block.png)
 
 We have a local chain and want to make sure we catch the next block that shows up. So we fetch the latest index with `store.getLastBlock().index`, increment by 1, and listen for changes on `blockchain/${nextIndex}`.
 

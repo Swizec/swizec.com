@@ -8,7 +8,7 @@ categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
-Look at this code. Do you know what it prints? ![](https://swizec.com/blog/wp-content/uploads/2018/11/doesitprint-1024x562.png) Correct.
+Look at this code. Do you know what it prints? ![](https://swizec.com/wp-content/uploads/2018/11/doesitprint-1024x562.png) Correct.
 
 First `catch` prints because that timeout rejected the Promise. First `then` prints because the error has now been handled, and we returned a new promise. Implicitly.
 
@@ -58,7 +58,7 @@ In a nutshell: a [pure function](https://en.wikipedia.org/wiki/Pure_function) al
 
 Break this promise and subtle hard-to-debug bugs occur.
 
-What does this print? ![](https://swizec.com/blog/wp-content/uploads/2018/11/whatprint2-2.png) Hard to follow right? It's `5` then `3`.
+What does this print? ![](https://swizec.com/wp-content/uploads/2018/11/whatprint2-2.png) Hard to follow right? It's `5` then `3`.
 
 ## First there were callbacks
 
@@ -66,9 +66,9 @@ Those `setTimeout`s use callbacks. Callbacks are how JavaScript deals with its a
 
 You pass a function as an argument to another function, and it's called when is ready to call it. Great for small stuff like a timeout or a single API call.
 
-Leads to callback hell when you run a bunch of stuff in sequence. ![](https://swizec.com/blog/wp-content/uploads/2018/11/callbackhell.png) I always liked this kinda code. It's clear, readable, goes down the steps linearly. Super nice.
+Leads to callback hell when you run a bunch of stuff in sequence. ![](https://swizec.com/wp-content/uploads/2018/11/callbackhell.png) I always liked this kinda code. It's clear, readable, goes down the steps linearly. Super nice.
 
-Error handling makes it harder. That usually worked like this: ![](https://swizec.com/blog/wp-content/uploads/2018/11/errorhandlig.png) This gets messy. Making sure you handle all errors correctly and your UI shows what's up is hard. Super messy, super fast.
+Error handling makes it harder. That usually worked like this: ![](https://swizec.com/wp-content/uploads/2018/11/errorhandlig.png) This gets messy. Making sure you handle all errors correctly and your UI shows what's up is hard. Super messy, super fast.
 
 Your code gets especially fun when you want to run multiple things in parallel and want to ensure all are finished before you continue. You'd often use a library for that because it's so messy.
 
@@ -90,11 +90,11 @@ Now that our callbacks are wrapped in objects, they're easier to pass around. Ea
 
 You can chain. You can handle errors. You can run things in parallel.
 
-Like this ![](https://swizec.com/blog/wp-content/uploads/2018/11/waitforgodot-1024x605.png) Some say this is easier to read. I think it's about the same. The flat structure does look nice.
+Like this ![](https://swizec.com/wp-content/uploads/2018/11/waitforgodot-1024x605.png) Some say this is easier to read. I think it's about the same. The flat structure does look nice.
 
-You could write that same code like this: ![](https://swizec.com/blog/wp-content/uploads/2018/11/waitforgodot2-1024x791.png) _Anything_ you return from a promise is wrapped in a promise. If you return a promise, it gets flattened. You don't need `.then.then` to unpack the value.
+You could write that same code like this: ![](https://swizec.com/wp-content/uploads/2018/11/waitforgodot2-1024x791.png) _Anything_ you return from a promise is wrapped in a promise. If you return a promise, it gets flattened. You don't need `.then.then` to unpack the value.
 
-Observe 👇 ![](https://swizec.com/blog/wp-content/uploads/2018/11/waitforgodot3-1024x871.png) Print directly, and you get a `Promise` object. Mind you, it still executes. A promise doesn't care if you ever use the result. It executes right away.
+Observe 👇 ![](https://swizec.com/wp-content/uploads/2018/11/waitforgodot3-1024x871.png) Print directly, and you get a `Promise` object. Mind you, it still executes. A promise doesn't care if you ever use the result. It executes right away.
 
 That last `return 4` got wrapped in a promise ad we can get it with a `then`.
 
@@ -104,7 +104,7 @@ A `.catch` always gets the latest `throw` _and returns a resolved promise_.
 
 That's the tricky part.
 
-We can make our wait faster with `Promise.all`. That lets us run promises in parallel and deal with their results all at once. ![](https://swizec.com/blog/wp-content/uploads/2018/11/waitforgodot4.png) 👌
+We can make our wait faster with `Promise.all`. That lets us run promises in parallel and deal with their results all at once. ![](https://swizec.com/wp-content/uploads/2018/11/waitforgodot4.png) 👌
 
 So clean. Shows how you can pass promises around and get the value whenever you want. Doesn't even have to be chained.
 
@@ -118,21 +118,21 @@ For everyone else, there's async/await.
 
 Async/await is syntax sugar for Promises that replaces promise chaining with `await` calls.
 
-Waiting for Godot looks like this: ![](https://swizec.com/blog/wp-content/uploads/2018/11/await1.png) You now have code that's extremely linear. Reads just like normal imperative code you know and love.
+Waiting for Godot looks like this: ![](https://swizec.com/wp-content/uploads/2018/11/await1.png) You now have code that's extremely linear. Reads just like normal imperative code you know and love.
 
 Functions that use `await` have to be marked as `async` functions. That's how JavaScript knows to wrap them in a promise. Each `await` translates to a `.then()` that wraps the rest of the code behind it.
 
 Although Babel compiles this code using generators 🤔
 
-Either way, you can get values out of an async function using await just like you would with a Promise chain. Every async is await-able. ![](https://swizec.com/blog/wp-content/uploads/2018/11/await2-1024x392.png) But you can't `await` outside an async function. That's why I had to wrap that code.
+Either way, you can get values out of an async function using await just like you would with a Promise chain. Every async is await-able. ![](https://swizec.com/wp-content/uploads/2018/11/await2-1024x392.png) But you can't `await` outside an async function. That's why I had to wrap that code.
 
 Monads strike again.
 
 You can think of `async` as a monad. Once you're in async land, you have to stay in async land. You can't get out. The only way to access a value inside `async` is to step inside yourself.
 
-But it does lead to some cool things. Like easy iteration: ![](https://swizec.com/blog/wp-content/uploads/2018/11/await3.png) You can use `await` to wait for values inside a loop. The next iteration happens only after your Promise resolves.
+But it does lead to some cool things. Like easy iteration: ![](https://swizec.com/wp-content/uploads/2018/11/await3.png) You can use `await` to wait for values inside a loop. The next iteration happens only after your Promise resolves.
 
-And if you want to wait in parallel, you can do that, too. Just use `Promise.all` as before. ![](https://swizec.com/blog/wp-content/uploads/2018/11/await4-1024x421.png) Remember, `Promise.all` returns a promise and `await` can wait for any promise.
+And if you want to wait in parallel, you can do that, too. Just use `Promise.all` as before. ![](https://swizec.com/wp-content/uploads/2018/11/await4-1024x421.png) Remember, `Promise.all` returns a promise and `await` can wait for any promise.
 
 ## True multi-threading exists
 
