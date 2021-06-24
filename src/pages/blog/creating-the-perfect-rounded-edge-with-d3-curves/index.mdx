@@ -10,7 +10,7 @@ hero: ./img/d3-d3-shape-master-img-cardinal.png
 
 A coaching client showed me this design and asked: _Ok, how do I build this?_
 
-![Tree structure with rounded edges](https://swizec.com/blog/wp-content/uploads/2018/07/tree-with-rounded-edges.jpg)
+![Tree structure with rounded edges](https://swizec.com/wp-content/uploads/2018/07/tree-with-rounded-edges.jpg)
 
 Well hmm… it's a tree of some sort. Each icon is a node, and each line is an edge. Nodes can have multiple children. I think 🤔
 
@@ -98,7 +98,7 @@ We take `start` and `end` coordinates, and the desired `radius`. Similar to CSS 
 
 Experimentally, I discovered that for best results, you have to place 2 points between the two endpoints. One on each side of the rounded corner you want.
 
-![](https://swizec.com/blog/wp-content/uploads/2018/07/sketch.jpg)
+![](https://swizec.com/wp-content/uploads/2018/07/sketch.jpg)
 
 Then you have to use the `curveBundle` generator with the `beta` factor set to `1`. I honestly don't know what that means but it works.
 

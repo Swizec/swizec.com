@@ -8,7 +8,7 @@ categories: "Algorithm, Google, Robotics, San Francisco, Stanford, Uncategorized
 hero: ../../../defaultHero.jpg
 ---
 
-![A DARPA challenge loser](https://swizec.com/blog/wp-content/uploads/2011/12/ai-car-lol7.jpg "A DARPA challenge loser")
+![A DARPA challenge loser](https://swizec.com/wp-content/uploads/2011/12/ai-car-lol7.jpg "A DARPA challenge loser")
 
 _Science Wednesday is a category I've wanted to create for a while. It will feature a weekly summary of an interesting academic article or other piece of science that I find - the primary reason being to force me into reading original sources and hopefully give you guys something interesting._
 
@@ -36,7 +36,7 @@ After some normalization you take points with the most weight and move them forw
 
 For path planning two approaches are used. [Dynamic programming](http://en.wikipedia.org/wiki/Dynamic_programming "Dynamic programming") is used to plan the path and a modified [A\* algorithm](http://en.wikipedia.org/wiki/A%2A_search_algorithm "A* search algorithm") is used to plan the actual movement within the map.
 
-![A* search that uses a heuristic that is 5.0(=ε...](https://swizec.com/blog/wp-content/uploads/2011/12/Weighted_A_star_with_eps_58.gif "A* search that uses a heuristic that is 5.0(=ε...")
+![A* search that uses a heuristic that is 5.0(=ε...](https://swizec.com/wp-content/uploads/2011/12/Weighted_A_star_with_eps_58.gif "A* search that uses a heuristic that is 5.0(=ε...")
 
 Dynamic programming enables the robot to find the shortest path from current state to goal. The approach is actually pretty simple - just backtracking from the goal to the start and subtracting the cost of movement, if you have stochastic actions (e.g. sometimes going forward makes you go left) you have to perform the whole calculation a few times until the algorithm converges.
 

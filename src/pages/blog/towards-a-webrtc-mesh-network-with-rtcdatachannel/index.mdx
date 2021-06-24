@@ -32,7 +32,7 @@ Data can be anything. We're using `"Hello World"` strings for now, serialized JS
 
 This all sounds very simple. Even when you look at the code that's required.
 
-![](https://swizec.com/blog/wp-content/uploads/2018/05/rtcdatachannel.png)
+![](https://swizec.com/wp-content/uploads/2018/05/rtcdatachannel.png)
 
 We add a `RTCDataChannel` to our peer connection and attach a bunch of event handlers. Errors for complaining, messages for printing, and we try to send a message when the channel opens.
 
@@ -40,7 +40,7 @@ The cool part is that we can attach this channel _before_ a connection is fully 
 
 See, both clients finish with saying `Data channel open`.
 
-![](https://swizec.com/blog/wp-content/uploads/2018/05/datachannelopen.gif)
+![](https://swizec.com/wp-content/uploads/2018/05/datachannelopen.gif)
 
 But no data is sent or received, and there's no error. 🧐
 
