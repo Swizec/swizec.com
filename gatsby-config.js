@@ -34,6 +34,7 @@ module.exports = {
     },
     siteUrl: "https://swizec.com",
   },
+  flags: { PRESERVE_WEBPACK_CACHE: true },
   plugins: [
     "@swizec/gatsby-theme-course-platform",
     "gatsby-plugin-gatsby-cloud",
