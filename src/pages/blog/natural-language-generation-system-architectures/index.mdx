@@ -32,13 +32,13 @@ A NLG system usually involves three processes:
 
 Traditionally this has been approached by discretely implementing the three stages and assembling them into a pipeline of some sort.
 
-![Three reiter pipeline architecture](https://swizec.com/blog/wp-content/uploads/2012/05/three-reiter-pipeline-architecture.png "Three reiter pipeline architecture")![]()![]()![]()![]()
+![Three reiter pipeline architecture](https://swizec.com/wp-content/uploads/2012/05/three-reiter-pipeline-architecture.png "Three reiter pipeline architecture")![]()![]()![]()![]()
 
 But what if you don't have a clear communicative goal and just want to say something interesting about a subject? Or perhaps a later stage might find a better solution that has been disallowed by an earlier stage.
 
 A number of different architectures have emerged to combat these problems:
 
-[![NLG architectures](https://swizec.com/blog/wp-content/uploads/2012/05/NLG-architectures.png "NLG architectures")](http://swizec.com/blog/wp-content/uploads/2012/05/NLG-architectures.png)
+[![NLG architectures](https://swizec.com/wp-content/uploads/2012/05/NLG-architectures.png "NLG architectures")](http://swizec.com/wp-content/uploads/2012/05/NLG-architectures.png)
 
 The **revision approach** combats problems by iteratively fixing each stage in hopes of finding something better, **feedback** simply feeds findings from later stages back into earlier stages, which can open up options that would otherwise be pruned away, **blackboard** is particularly interesting because it uses a common space where results from different stages are posted so every stage has access to what's already out there.
 
@@ -60,7 +60,7 @@ This can be done in many ways:
 
 This approach is based on the model of an _author_ and a _reviewer_. The author continuously outputs a bunch of plausible solutions that the reviewer then ranks on viability and finally picks one to present to the user.
 
-[![Author-reviewer model](https://swizec.com/blog/wp-content/uploads/2012/05/author-reviewer-model.png "Author-reviewer model")](http://swizec.com/blog/wp-content/uploads/2012/05/author-reviewer-model.png)
+[![Author-reviewer model](https://swizec.com/wp-content/uploads/2012/05/author-reviewer-model.png "Author-reviewer model")](http://swizec.com/wp-content/uploads/2012/05/author-reviewer-model.png)
 
 The beauty of this approach lies in the fact that each part of the system only has to concern itself with what it does best, while they still collaborate so you aren't trapped in a pipeline architecture.
 

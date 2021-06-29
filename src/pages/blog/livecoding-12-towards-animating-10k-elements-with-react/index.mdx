@@ -27,7 +27,7 @@ It works like this:
 
 If you change `N` particles per loop from 5 to 1,000, all hell breaks loose. Animation grinds to a halt.
 
-![livecoding-12-1](https://swizec.com/blog/wp-content/uploads/2016/06/livecoding-12-1-1024x551.png)
+![livecoding-12-1](https://swizec.com/wp-content/uploads/2016/06/livecoding-12-1-1024x551.png)
 
 To get to the bottom of _why_ this happens, we fired up the profiler. There are two suspects:
 
@@ -36,7 +36,7 @@ To get to the bottom of _why_ this happens, we fired up the profiler. There are 
 
 The profiler wasn’t happy with us:
 
-![livecoding-12-2](https://swizec.com/blog/wp-content/uploads/2016/06/livecoding-12-2-1024x521.png)
+![livecoding-12-2](https://swizec.com/wp-content/uploads/2016/06/livecoding-12-2-1024x521.png)
 
 It seems that “scripting” is the culprit, not rendering. In a 21 second experiment, 18 seconds were spent “scripting”, and less than 2 were spent rendering. Curious.
 
@@ -48,7 +48,7 @@ Curiouser and curiouser.
 
 Looking deeper into the profiler reveals that the problem isn’t data management after all; it’s updating children, either in React or in the DOM.
 
-![livecoding-12-3](https://swizec.com/blog/wp-content/uploads/2016/06/livecoding-12-3-1024x185.png)
+![livecoding-12-3](https://swizec.com/wp-content/uploads/2016/06/livecoding-12-3-1024x185.png)
 
 Interesting.
 

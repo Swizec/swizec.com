@@ -36,7 +36,7 @@ You see, we use [Sidekiq](https://github.com/mperham/sidekiq) to queue our backg
 
 Somewhere along the line, we got lazy and we stopped specifying. Everything went to the same queue and it worked great. Until we had traffic.
 
-![](https://swizec.com/blog/wp-content/uploads/2017/10/backed-up-queue.png)
+![](https://swizec.com/wp-content/uploads/2017/10/backed-up-queue.png)
 
 Once we had traffic, our analytics workers filled up the queue. Users created tens of them before they even got to the login screen. Others were creating hundreds past the login screen.
 
@@ -58,7 +58,7 @@ Now you have a worker that takes longer to run. Several seconds, even a few minu
 
 **But you run only 30 jobs per hour instead of 10,000.**
 
-![](https://swizec.com/blog/wp-content/uploads/2017/10/batched-queue.png)
+![](https://swizec.com/wp-content/uploads/2017/10/batched-queue.png)
 
 The downside? Instead of real-time analytics, you have to wait 5 minutes to see what's up.
 

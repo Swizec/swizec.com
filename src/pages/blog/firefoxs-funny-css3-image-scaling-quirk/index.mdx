@@ -10,7 +10,7 @@ hero: ../../../defaultHero.jpg
 
 Last night as I was rewriting the CSS for [postme.me](http://postme.me) from scratch and I was cursing and shouting obscenities under my breath and trying to find a way to punch all of [Mozilla](http://en.wikipedia.org/wiki/Mozilla "Mozilla") in the face over the internet ... I discovered something silly.
 
-![](https://swizec.com/blog/wp-content/uploads/2011/10/Selection_044-300x122.png "A quirk")
+![](https://swizec.com/wp-content/uploads/2011/10/Selection_044-300x122.png "A quirk")
 
 Scaling images is something every developer on the web has had to come to grips with. Maybe you were implementing an image gallery and wanted to display thumbnails, maybe you've reimplemented all the scaling algorithms several times.
 
@@ -33,11 +33,11 @@ Casting aside concerns such as load times and bandwidth for a moment. This is an
 
 But try putting that image into a flexbox div and strange things start happening in firefox.
 
-![](https://swizec.com/blog/wp-content/uploads/2011/10/Selection_044.png "Flexbox and image scaling in FF")
+![](https://swizec.com/wp-content/uploads/2011/10/Selection_044.png "Flexbox and image scaling in FF")
 
 What's stranger still is that wrapping that same image into a vanilla div with zero styling not only fixes the image resizing issue, but also maintains centering and other flexbox properties you were originally going for.
 
-![](https://swizec.com/blog/wp-content/uploads/2011/10/Selection_045.png "And then it works")
+![](https://swizec.com/wp-content/uploads/2011/10/Selection_045.png "And then it works")
 
 You can check it out in action [here](http://swizec.com/code/firefox-scaling-quirk.html).
 

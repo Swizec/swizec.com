@@ -12,7 +12,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 This Sunday, we built a colorful map and discovered that a marathon is 138,435 feet long. I don't know why Google thinks that's a useful answer to _"How long is a marathon?”_.
 
-![](https://swizec.com/blog/wp-content/uploads/2017/02/map.gif)
+![](https://swizec.com/wp-content/uploads/2017/02/map.gif)
 
 Our map shows migrations _into_ the selected country and uses color to show migration magnitude. The more people that moved into a country in 2015, the warmer the color of that country and its curve. Or rather, the more to the right on the `d3.interpolateWarm` color scale.
 
@@ -24,7 +24,7 @@ Guess we'll have to add a legend next week ?
 
 But first, the curves. [Last week](https://swizec.com/blog/livecoding-32-map-global-migrations/swizec/7415), we discovered that a curve between two points is a straight line. We fixed that by adding a middle point calculated [using high school geometry](http://www.virtualnerd.com/algebra-1/radical-expressions-equations/distance-midpoint-formulas/midpoint-formula/midpoint-between-coordinates).
 
-![](https://swizec.com/blog/wp-content/uploads/2017/02/midpoint-screenshot.jpg)
+![](https://swizec.com/wp-content/uploads/2017/02/midpoint-screenshot.jpg)
 
 Our new `Curve` component looks like this:
 
@@ -47,7 +47,7 @@ A line generator with a curve interpolator, some geometry for the `middle` point
 
 That and some looping created a map with very many curves all over it. It was not very useful.
 
-![](https://swizec.com/blog/wp-content/uploads/2017/02/map-with-all-curves.png)
+![](https://swizec.com/wp-content/uploads/2017/02/map-with-all-curves.png)
 
 nikivansevdon suggested we add some sort of filtering, and daemon92 had great ideas around colors and highlighting source countries on the map itself. Thanks guys!
 
@@ -61,7 +61,7 @@ You can see the final [code on Github](https://github.com/Swizec/migrations-map/
 
 It came out quite well I think.
 
-![](https://swizec.com/blog/wp-content/uploads/2017/02/colourful-map.gif)
+![](https://swizec.com/wp-content/uploads/2017/02/colourful-map.gif)
 
 Next week, we'll add useful text info, a color legend, and add some animation to make the visualization quicker to understand. I want to add something that shows directionality for those curves.
 

@@ -170,19 +170,19 @@ LISP's core is a system of translating S-expressions into list structures that c
 
 **Representing S-Expressions by a List Structure** can be visualised with a set of connected boxes. Each box is divided into two parts - the right being the _address field_ and the left being the _decrement field_. They contain the locations for subexpressions returned by _car_ and _cdr_ respectively.
 
-![List structure](https://swizec.com/blog/wp-content/uploads/2012/08/list-structure.png "List structure")
+![List structure](https://swizec.com/wp-content/uploads/2012/08/list-structure.png "List structure")
 
 Substructures can be repeated, but cycles aren't allowed - the bottom-right example wouldn't fly. When subexpressions are repeated their in-memory representation depends mostly on the program's history, but luckily this doesn't affect the final result.
 
 The reason McCarthy prohibits circular structures is interesting - they might help with representing, say, recursive functions, but there are too many difficulties with printing them in a world with our topology.
 
-![((A · B) · (C · (E · F)))](https://swizec.com/blog/wp-content/uploads/2012/08/example-list-structure.png "((A · B) · (C · (E · F)))")
+![((A · B) · (C · (E · F)))](https://swizec.com/wp-content/uploads/2012/08/example-list-structure.png "((A · B) · (C · (E · F)))")
 
 When storing atomic symbols an **association list** is used. These are used for anything from print names, to memory locations of values - the machine uses them for whatever low-level concept it needs to make the mathematical principles of LISP work.
 
 For example, to store the word _DIFFERENTIATE_ in an association list on a computer with 6-bit words a structure such as this is used:
 
-![Association list for "DIFFERENTIATE"](https://swizec.com/blog/wp-content/uploads/2012/08/association-list.png 'Association list for "DIFFERENTIATE"')
+![Association list for "DIFFERENTIATE"](https://swizec.com/wp-content/uploads/2012/08/association-list.png 'Association list for "DIFFERENTIATE"')
 
 Even back then computers had more memory than a typical program would be using at all times, so a concept of a **free storage list** was introduced. At its core, the free storage list is simply a list structure that catalogs all the available free memory and starts with a pointer called _FREE_.
 

@@ -24,7 +24,7 @@ Absolutely terrible. There's no layout support at all. You get absolute position
 
 ## Absolute positioning hell
 
-![A React + D3 dashboard of scatterplots](https://swizec.com/blog/wp-content/uploads/2018/08/react-d3-scatterplot-dashboard.png)
+![A React + D3 dashboard of scatterplots](https://swizec.com/wp-content/uploads/2018/08/react-d3-scatterplot-dashboard.png)
 
 Say you're building a small dashboard. Like of different scatterplots looking at a dataset about dog breeds.
 
@@ -88,11 +88,11 @@ SVG itself offers zero help.
 
 Want to resize your scatterplots? Here's what happens 👇
 
-![Smaller scatterplots, gotta update positions](https://swizec.com/blog/wp-content/uploads/2018/08/scatterplots-spaced-out.png)
+![Smaller scatterplots, gotta update positions](https://swizec.com/wp-content/uploads/2018/08/scatterplots-spaced-out.png)
 
 Want to resize your browser? Here's what happens 👇
 
-![Resized browser cuts off visualization](https://swizec.com/blog/wp-content/uploads/2018/08/not-responsive-at-all.png)
+![Resized browser cuts off visualization](https://swizec.com/wp-content/uploads/2018/08/not-responsive-at-all.png)
 
 Ugh.
 
@@ -138,17 +138,17 @@ We take `<Flexbox>` out of `react-svg-flexbox`, use flexbox styles to say we wan
 
 Note that react-svg-flexbox passes `x` and `y` props into our components, so we had to take out manual positioning. Our dashboard now uses up all the space it can 👇
 
-![Scatterplots rendered in a flexbox row](https://swizec.com/blog/wp-content/uploads/2018/08/scatterplots-in-a-row.png)
+![Scatterplots rendered in a flexbox row](https://swizec.com/wp-content/uploads/2018/08/scatterplots-in-a-row.png)
 
 Something's funky with our vertical positioning, but it's an easy fix. Offset `y` coordinates by a few pixels. ¯\_(ツ)\_/¯ it's not happening in the official examples, so it must be something we're doing inside those scatterplots.
 
 The axes are still poking outside our `width` bounds, but this looks better already.
 
-![Scatterplots with a vertical offset](https://swizec.com/blog/wp-content/uploads/2018/08/scatterplots-vertical-offset.png)
+![Scatterplots with a vertical offset](https://swizec.com/wp-content/uploads/2018/08/scatterplots-vertical-offset.png)
 
 Even if we make one of them bigger, everything still works. No changes to positioning required! o/
 
-![One big scatterplot](https://swizec.com/blog/wp-content/uploads/2018/08/one-big-scatterplot.png)
+![One big scatterplot](https://swizec.com/wp-content/uploads/2018/08/one-big-scatterplot.png)
 
 ## Responsive layout with react-svg-flexbox
 
