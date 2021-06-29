@@ -1,6 +1,5 @@
 /serverless-handbook  https://serverlesshandbook.dev
 /reactd3js  https://reactfordataviz.com
-/blog/wp-content/*  /wp-content/:splat
 /blog/i-built-a-node-app-to-thaw-my-favorite-snack-🥕/swizec/8660  /blog/i-built-a-node-app-to-thaw-my-favorite-snack
 
 /blog/experimenting-with-the-new-react-concurrent-mode/swizec/9231  https://reactfordataviz.com/articles/experimenting-with-the-new-react-concurrent-mode
