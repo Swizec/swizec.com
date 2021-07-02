@@ -43,7 +43,7 @@ glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
                   node.url = node.url.replace(/^http/, "https")
                   shouldWriteFile = true
                 }
-                if (!node.url.includes("swizec.com/blog/wp-content")) {
+                if (!node.url.includes("swizec.com/wp-content")) {
                   nodes.push(node)
                 }
               }
