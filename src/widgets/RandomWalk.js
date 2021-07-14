@@ -125,7 +125,7 @@ export default function RandomWalk() {
   }, [vision])
 
   return (
-    <div style={{ border: "1px solid black" }}>
+    <div>
       <h1>Your career is a random walk, it needs vision</h1>
       <p>
         Steps taken: {randomWalk.length}, Distance traveled:{" "}
@@ -134,7 +134,13 @@ export default function RandomWalk() {
       <p>Click to add a vision. Your random decisions bias towards it.</p>
       <button onClick={restartWalk}>Restart walk</button>
       <br />
-      <svg width={width} height={height} onClick={addVision} ref={svgRef}>
+      <svg
+        width={width}
+        height={height}
+        onClick={addVision}
+        ref={svgRef}
+        style={{ cursor: "pointer" }}
+      >
         {/* renders the walk path */}
         {randomWalk.map(({ start, end }, index) => (
           <line
