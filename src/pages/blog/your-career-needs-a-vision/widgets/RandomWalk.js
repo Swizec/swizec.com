@@ -18,7 +18,7 @@ const Vision = ({ x, y }) => {
   )
 }
 
-export function RandomWalk() {
+export default function RandomWalk() {
   const width = 600,
     height = 600,
     stepSize = 10
