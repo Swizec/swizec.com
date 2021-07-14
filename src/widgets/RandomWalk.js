@@ -116,10 +116,12 @@ export default function RandomWalk() {
 
   // start random walk on component mount
   useEffect(() => {
-    const interval = setInterval(addStep, 30)
+    if (typeof window !== "undefined") {
+      const interval = setInterval(addStep, 30)
 
-    // stop interval on unmount
-    return () => clearInterval(interval)
+      // stop interval on unmount
+      return () => clearInterval(interval)
+    }
   }, [vision])
 
   return (
