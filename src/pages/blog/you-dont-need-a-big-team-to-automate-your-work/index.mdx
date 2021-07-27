@@ -1,0 +1,168 @@
+---
+title: "You don't need a big team to automate your work"
+description: "The opposite of folks who follow every FAANG trend and over-engineer their companies to death, are the folks who *never* take advice from the big boys."
+published: 2021-07-27
+categories: "Technical, Learnings, Node.js"
+hero: ./img/hero.png
+---
+
+> Bah that would never work for us, we're not a faang
+
+The opposite of [folks who follow every FAANG trend](https://swizec.com/blog/how-cvdriven-development-shapes-our-industry/) and over-engineer their companies to death, are the folks who _never_ take advice from the big boys. The ones who read [my recap of Software Engineering at Google](https://swizec.com/blog/what-i-learned-from-software-engineering-at-google/) and said _"Yes of course Google can automate all that work, there's entire teams focusing on that! We gotta grind it out! Ain't nobody got time to make their lives easier!!"_
+
+![](giphy:fillion_speechless)
+
+_You_ can automate your work and speed up your team. That's what engineering is all about! Making tools that improve people's lives. Yours included.
+
+First you do the work. Then you notice the patterns. Then you automate them away.
+
+Known as [the rule of three](<https://en.wikipedia.org/wiki/Rule_of_three_(computer_programming)>) when coding, it works for tooling and process. When you find yourself doing a repetitive task for the 3rd time, see if you can make it easier.
+
+You go through life accumulating little snippets of code and keyboard shortcuts that make your machine feel just right. A vanilla computer feels like you lost an arm.
+
+That's called "developer experience" (DX) these days. Large companies do in fact have whole teams devoted to DX.
+
+But most don't. A good team shares the improvements everyone makes. When the company grows, some of you become the DX team because you enjoy making everyone faster.
+
+## How to automate a painful process
+
+[At work](https://asktia.com/), we use a distributed monolith architecture. The result of a partial migration to micro services.
+
+We have a bunch of services, each in its own repository, all sharing the database as the communication layer. You get every downside of a monolith _and_ every downside of micro services. It's great. 🙃
+
+Production deploys hurt. And they're getting worse as the team grows. More frequent _or_ more painful. Choose your poison.
+
+### 1. spot the problem
+
+Painful deploys are easy to spot. There's a whole book about it called [The Phoenix Project](https://swizec.com/blog/the-phoenix-project-recap/).
+
+You'll see behaviors like:
+
+1.  Folks avoiding deploys
+2.  Nobody wants to deploy their own code
+3.  Finished code sitting around for weeks
+4.  **Deploy meetings** where everyone gets together and deploys
+5.  Lots of back-and-forth chatter about what is and isn't ready to go out
+6.  Production bugs from incorrect and partial deploys
+
+Deploys should be a non-event. Something that just happens every day. At least.
+
+We use [GitOps](https://www.gitops.tech/) with automated AWS CodePipeline deploys driven by `git push`. The problem is our plethora of microservices that all need to work together.
+
+https://www.youtube.com/watch?v=y8OnoxKotPQ
+
+Other problems may have other symptoms. Pay attention.
+
+### 2. see the pattern
+
+Going from develop to staging is full of the human element. You need to look at the diff, check the features, and ask every team if it's okay to deploy.
+
+Remember, you don't know what everyone else is doing.
+
+When you're ready, you run a series of commands:
+
+    cd ../database
+    git checkout develop
+    git pull origin develop
+    git checkout staging
+    git pull origin staging
+    git merge develop
+    git push origin staging
+
+Get the latest `develop` database and the latest `staging` database. Merge. Push.
+
+    cd ../microservice1
+    git checkout develop
+    git pull origin develop
+    git checkout staging
+    git pull origin staging
+    git merge develop
+    git push origin staging
+
+Do the same for the first microservice. Then the second. Then the third. Then you forget the fourth, do the fifth, and oh hey production bug!
+
+Every damn time my friend.
+
+### 3. make a script
+
+Look, you're mindlessly doing the same process for every deploy. You know who's good at that? Computers.
+
+You can start with a bash script:
+
+```bash
+#!/bin/bash
+
+git checkout develop
+git pull origin develop
+git checkout staging
+git pull origin staging
+git merge develop
+git push origin staging
+```
+
+Put that in every repository, call it `deploy.sh`. Now you can deploy with `./deploy`. Saves 20 seconds per service, is always correct.
+
+![](giphy:wonderful)
+
+### 4. make a better script
+
+Would be nice if you could run _one_ script instead of going into every repository 🤔
+
+You can do this with bash, but I've learned my lesson. Use a language you're familiar with when you need loops, conditions, functions, and user input.
+
+That series of commands can become a Node.js function.
+
+```javascript
+import prompts from "prompts"
+import chalk from "chalk"
+import { execSync } from "child_process"
+
+async function deployRepository(path) {
+  const { yes } = await prompts({
+    type: "confirm",
+    name: "yes",
+    message: `Ready to deploy ${path}?`,
+    initial: true,
+  })
+
+  if (yes) {
+    const deployCommands = [
+      "git checkout develop",
+      "git pull origin develop",
+      "git checkout staging",
+      "git pull origin staging",
+      "git merge develop",
+      "git push origin staging",
+    ]
+
+    for (const command of deployCommands) {
+      execSync(command, { cwd: path })
+    }
+
+    console.log(chalk.green(`\n${path} deployed\n\n`))
+  }
+}
+```
+
+[Prompts](https://github.com/terkelg/prompts) lets you ask for user input – *"Are you ready to deploy?"* in this case. If they answer "yes", you deploy.
+
+Mechanically iterate through the list of commands, use `execSync` to run them in your desired directory – `cwd` – then use [chalk](https://github.com/chalk/chalk) to print a green success message.
+
+Run `deployRepository` in a loop over every microservice and you have yourself a huge timesaver!
+
+    node deployAll.js
+
+That's a 10min error-prone task whittled down to a quick flick of the wrist. 😍
+
+Later you can make it run every day on its own.
+
+## When's it worth automating
+
+As engineers we _love_ to automate tedious work. But it's not always worth it! Use this helpful conversion chart from XKCD:
+
+[![XKCD: Is it worth the time?](./img/XKCD-Is-it-worth-the-timeaij4jc.png)](https://xkcd.com/1205/)
+
+And remember, [automation _can_ be a trap](https://xkcd.com/1319/).
+
+Cheers,<br/>
+~Swizec
