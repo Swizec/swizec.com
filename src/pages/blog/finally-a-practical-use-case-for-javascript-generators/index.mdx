@@ -1,10 +1,10 @@
 ---
 title: "Finally, a practical use case for JavaScript generators!"
-description: ""
+description: "JavaScript generators are amazing. They let you write infinite loops that terminate. Yield values from functions before they finish … and I bet you've never used a JavaScript generator even once did you? I FOUND A USE! A real world practical use-case where generators make your code better. 😱"
 published: 2019-04-17
 redirect_from:
   - /blog/finally-a-practical-use-case-for-javascript-generators/swizec/9036
-categories: "Front End, Livecoding, Technical"
+categories: "Frontend Web, Livecoding, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
@@ -36,11 +36,14 @@ Unless you use generators 😛
 
 First, you create a regex that matches `@` followed by a series of word symbols.
 
-    <code class="javascript">const UserRegex = new RegExp(/@(\w+)/, "g");
+```javascript
+const UserRegex = new RegExp(/@(\w+)/, "g");
+```
 
 Then you create a generator that runs this regex in a loop. Each `UserRegex.exec()` returns the next match.
 
-    <code class="javascript">function* getUsernames(string) {
+```javscript
+function* getUsernames(string) {
         let match = null;
 
         do {
@@ -50,6 +53,7 @@ Then you create a generator that runs this regex in a loop. Each `UserRegex.exec
             }
         } while (match);
     }
+```
 
 We have a `*getUsernames` generator that takes a `string`. The asterisk notation changes a function to a generator.
 
@@ -61,11 +65,13 @@ Yield is how you return values from generators. Notice that even after returning
 
 You can now find all usernames in a string with a loop.
 
-    <code class="javascript">const string = "this is a test with @swizec and @kyleshevlin, maybe @lukeed05"
+```javascript
+const string = "this is a test with @swizec and @kyleshevlin, maybe @lukeed05"
 
     for (const username of getUsernames(string)) {
       console.log(username)
     }
+```
 
 That outputs
 

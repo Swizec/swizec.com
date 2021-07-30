@@ -1,6 +1,6 @@
 ---
-title: "Discovered a cool javascript property"
-description: ""
+title: "A cool JavaScript property you never noticed"
+description: "A few years ago I was playing around with JavaScript trying to find the cleanest way to implement callbacks in functions. Primarily I wanted a readable way to make certain the last argument passed is a callback, withut having to rely on knowing how many arguments there are and so on. Instead I stumbled upon a pretty cool feature of how javascript handles function arguments."
 published: 2011-04-16
 redirect_from:
   - /blog/discovered-a-cool-javascript-property/swizec/1628
@@ -8,7 +8,7 @@ categories: "Argument, Callback, Function (mathematics), JavaScript, Languages, 
 hero: ../../../defaultHero.jpg
 ---
 
-Yesterday I was playing around with javascript trtying to find the cleanest way to implement [callbacks](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)") in [functions](http://en.wikipedia.org/wiki/Function_%28mathematics%29 "Function (mathematics)"). Primarily I wanted a readable way to make certain the last argument passed is a callback, withut having to rely on knowing how many [arguments](http://en.wikipedia.org/wiki/Argument "Argument") there are and so on.
+A few years ago I was playing around with JavaScript trying to find the cleanest way to implement [callbacks](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)") in [functions](http://en.wikipedia.org/wiki/Function_%28mathematics%29 "Function (mathematics)"). Primarily I wanted a readable way to make certain the last argument passed is a callback, withut having to rely on knowing how many [arguments](http://en.wikipedia.org/wiki/Argument "Argument") there are and so on.
 
 Instead I stumbled upon a pretty cool feature of how javascript handles function arguments. But let's look at some code.
 
@@ -106,15 +106,3 @@ isitdeep({ a: { b: "c" }, d: { e: "f" } }, { g: "h" });
 Interesting, turns out it's a shallow copy and you can still poke arguments in strange ways ... but maybe/probably that's just how javascript performs in general, the = operator being a shallow copy mechanism.
 
 Anyhow, I'm sure this knowledge will come in handy some day, I'm just nicely tickled by having found it. Actually ... it's kind of horrible, this sort of obscure language features should never be used in [production code](http://en.wikipedia.org/wiki/Motion_Picture_Production_Code "Motion Picture Production Code") :)
-
-###### Related articles
-
-- [You Don't Know JavaScript](http://www.w2lessons.com/2011/04/you-dont-know-javascript.html) (w2lessons.com)
-- [Fast JavaScript Max/Min](http://ejohn.org/blog/fast-javascript-maxmin/) (ejohn.org)
-- [Amb in JavaScript](http://mihai.bazon.net/blog/amb-in-javascript) (mihai.bazon.net)
-- [Three Routes to Spaghetti-Free Javascript](http://zef.me/3715/three-routes-to-spaghetti-free-javascript) (zef.me)
-- [JavaScript interview questions and answers](http://venkatb4me.wordpress.com/2011/03/23/javascript-interview-questions-and-answers/) (venkatb4me.wordpress.com)
-- ["JavaScript: The Good Parts", You Owe Me An Apology](http://sayyouresorryforwhatyouvedone.blogspot.com/2011/04/douglas-crockford-for-javascript-good.html) (sayyouresorryforwhatyouvedone.blogspot.com)
-- [Will the Rise of Javascript Mean the End of LAMP?](http://www.infoq.com/news/2011/04/javascript-lamp) (infoq.com)
-
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=1f7fa21d-b33c-4405-9a6f-c5c9e51030ef)](http://www.zemanta.com/ "Enhanced by Zemanta")
