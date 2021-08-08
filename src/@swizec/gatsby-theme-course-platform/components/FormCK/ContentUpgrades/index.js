@@ -5,6 +5,9 @@ import ServerlessHandbookLeftCopy from "./ServerlessHandbookLeftCopy"
 import SeniorMindsetBeforeCopy from "./SeniorMindsetBeforeCopy"
 import SeniorMindsetLeftCopy from "./SeniorMindsetLeftCopy.mdx"
 
+import JavascriptBeforeCopy from "./JavascriptBeforeCopy"
+import JavascriptLeftCopy from "./JavascriptLeftCopy.mdx"
+
 import { FormCK } from "@swizec/gatsby-theme-course-platform"
 
 export const ServerlessHandbook = ({ footer }) => {
@@ -27,6 +30,18 @@ export const SeniorMindset = ({ footer }) => {
       submitText="Get curated essays 💌"
     >
       <SeniorMindsetLeftCopy />
+    </FormCK>
+  )
+}
+
+export const Javascript = ({ footer }) => {
+  return (
+    <FormCK
+      copyBefore={footer ? <JavascriptBeforeCopy /> : <></>}
+      formName="javascript"
+      submitText="Get curated essays 💌"
+    >
+      <JavascriptLeftCopy />
     </FormCK>
   )
 }

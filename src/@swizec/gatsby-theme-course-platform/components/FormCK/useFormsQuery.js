@@ -10,6 +10,7 @@ export const useFormsQuery = () => {
             defaultFormId
             serverlessHandbookFormId
             seniorMindsetFormId
+            javascriptFormId
           }
         }
       }
