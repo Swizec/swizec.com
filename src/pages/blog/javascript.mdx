@@ -9,7 +9,7 @@ export const pageQuery = graphql`
     allSitePage(
       filter: {
         path: { regex: "/blog/.+/" }
-        context: { frontmatter: { categories: { regex: ".*JavaScript.*" } } }
+        context: { frontmatter: { categories: { regex: "/JavaScript/gi" } } }
       }
       sort: { fields: context___frontmatter___published, order: DESC }
     ) {
