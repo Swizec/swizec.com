@@ -8,7 +8,7 @@ module.exports = {
     description:
       "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
     author: `@swizec`,
-    coverImageStaticPath: "metaimage.png",
+    coverImageStaticPath: "metaimage.jpg",
     hasAuthentication: false,
     convertkit: {
       userId: "785fc7ef1f",
