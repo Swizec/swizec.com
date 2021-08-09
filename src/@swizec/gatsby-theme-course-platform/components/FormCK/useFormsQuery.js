@@ -11,6 +11,7 @@ export const useFormsQuery = () => {
             serverlessHandbookFormId
             seniorMindsetFormId
             javascriptFormId
+            fullstackWebFormId
           }
         }
       }

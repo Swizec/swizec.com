@@ -17,6 +17,7 @@ module.exports = {
       serverlessHandbookFormId: "2103715",
       seniorMindsetFormId: "1712642",
       javascriptFormId: "2507452",
+      fullstackWebFormId: "2507619",
     },
     articles: {
       title: `Swizec - A geek with a hat`,

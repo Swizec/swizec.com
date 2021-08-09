@@ -8,6 +8,9 @@ import SeniorMindsetLeftCopy from "./SeniorMindsetLeftCopy.mdx"
 import JavascriptBeforeCopy from "./JavascriptBeforeCopy"
 import JavascriptLeftCopy from "./JavascriptLeftCopy.mdx"
 
+import FullstackWebBeforeCopy from "./FullstackWebBeforeCopy"
+import FullstackWebLeftCopy from "./FullstackWebLeftCopy.mdx"
+
 import { FormCK } from "@swizec/gatsby-theme-course-platform"
 
 export const ServerlessHandbook = ({ footer }) => {
@@ -42,6 +45,18 @@ export const Javascript = ({ footer }) => {
       submitText="Get curated essays 💌"
     >
       <JavascriptLeftCopy />
+    </FormCK>
+  )
+}
+
+export const FullstackWeb = ({ footer }) => {
+  return (
+    <FormCK
+      copyBefore={footer ? <FullstackWebBeforeCopy /> : <></>}
+      formName="fullstackWeb"
+      submitText="Get curated essays 💌"
+    >
+      <FullstackWebLeftCopy />
     </FormCK>
   )
 }
