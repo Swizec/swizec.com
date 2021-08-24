@@ -1,0 +1,61 @@
+---
+title: "Build simple backends with Gatsby Serverless Functions" 
+description: "Until recently adding a little backend to your Gatsby site meant 2 options:
+
+1. Climbing the AWS learning curve
+2. Rewrite with NextJS
+
+Now there's an /api directory 😱" 
+published: 2021-08-24
+content_upgrade: ServerlessHandbook
+categories: "Serverless, Podcasts, Gatsby"
+hero: ./img/build-simple-backends-with-gatsby-serverless-functions.png
+---
+
+Until recently adding a little backend to your Gatsby site meant 2 options:
+
+1.  Climbing the AWS learning curve
+2.  Rewrite with NextJS
+
+With version 3.7 Gatsby gained the `/api` directory. Pop a JavaScript or TypeScript file in `src/api`, export a `handler`, and you've got a serverless function.
+
+```javascript
+// src/api/hello.js
+module.exports = function handler(req, res) {
+  return res.status(200).json({ hello: req.query.name });
+};
+```
+
+You can call that as an API request from your site. Great for 3rd party integrations with secret tokens, user reactions, authentication, and anything else you can't do in the browser.
+
+I joined Queen Raae on a bonus episode of her Gatsby Summer Functions webinar series to explore how all this works.
+
+[![Architecting your Gatsby Serverless Functions](./img/Architecting-your-Gatsby-Serverless-Functions898ji9.png)](https://www.crowdcast.io/e/architecturing-your)
+
+We started with my crappy implementation of a function that takes a form submission and:
+
+- sends an email
+- sends a few texts
+- saves your message to a firestore
+
+We refactored this serverless function so it's faster and more reliable. While refactoring we talked about:
+
+- how to architect your functions
+- when to put code on the frontend or the backend
+- why distributed transactions are hard
+- when you should worry about absolute correctness
+- when's it make sense to leverage AWS
+- how using small functions gives you greater flexibility
+
+And I drew a sketch, live 🤘
+
+https://twitter.com/Swizec/status/1429863758361358341
+
+Enjoy the webinar, [hit reply](https://twitter.com/swizec) if you have questions.
+
+And if you'd like a deeper introduction to serverless, the [Serverless Handbook](https://serverlesshandbook.dev/) is full of sketches like that.
+
+Cheers,<br/>
+~Swizec
+
+PS: yes, there's options between AWS and NextJS like Firebase or Netlify cloud functions. And even tougher climbs like hosting your own servers. Adding those made the intro too long ✌️
