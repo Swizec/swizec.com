@@ -1,10 +1,10 @@
 ---
 title: "How GraphQL blows REST out of the water"
-description: ""
+description: "Let's have a look at hyow GraphQL makes queries so much easier and more pleasant than REST"
 published: 2020-01-23
 redirect_from:
   - /blog/how-graphql-blows-rest-out-of-the-water/swizec/9300
-categories: "Front End, Technical"
+categories: "Front End, Technical, Fullstack Web"
 hero: ./img/techletter.app-screenshot-1579794681281.png
 ---
 
@@ -12,11 +12,48 @@ You're building an app. It needs data from a server. What do you do?
 
 Oh, you make a `fetch()` request. Easy.
 
-[![Click through for source](./img/techletter.app-screenshot-1579794681281.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=fetch('https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F1%2F')%0A%09.then(res%20%3D%3E%20res.json())%0A%09.then(console.log)>)
+```javascript
+fetch('https://swapi.co/api/people/1/')
+	.then(res => res.json())
+	.then(console.log)
+```
 
 And you get eeeevery piece of info about Luke Skywalker.
 
-[![Click through for source](./img/techletter.app-screenshot-1579795602007.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=json&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%7B%0A%09%22name%22%3A%20%22Luke%20Skywalker%22%2C%0A%09%22height%22%3A%20%22172%22%2C%0A%09%22mass%22%3A%20%2277%22%2C%0A%09%22hair_color%22%3A%20%22blond%22%2C%0A%09%22skin_color%22%3A%20%22fair%22%2C%0A%09%22eye_color%22%3A%20%22blue%22%2C%0A%09%22birth_year%22%3A%20%2219BBY%22%2C%0A%09%22gender%22%3A%20%22male%22%2C%0A%09%22homeworld%22%3A%20%22https%3A%2F%2Fswapi.co%2Fapi%2Fplanets%2F1%2F%22%2C%0A%09%22films%22%3A%20%5B%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Ffilms%2F2%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Ffilms%2F6%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Ffilms%2F3%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Ffilms%2F1%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Ffilms%2F7%2F%22%0A%09%5D%2C%0A%09%22species%22%3A%20%5B%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fspecies%2F1%2F%22%0A%09%5D%2C%0A%09%22vehicles%22%3A%20%5B%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fvehicles%2F14%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fvehicles%2F30%2F%22%0A%09%5D%2C%0A%09%22starships%22%3A%20%5B%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fstarships%2F12%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fstarships%2F22%2F%22%0A%09%5D%2C%0A%09%22created%22%3A%20%222014-12-09T13%3A50%3A51.644000Z%22%2C%0A%09%22edited%22%3A%20%222014-12-20T21%3A17%3A56.891000Z%22%2C%0A%09%22url%22%3A%20%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F1%2F%22%0A%7D>)
+```json
+{
+	"name": "Luke Skywalker",
+	"height": "172",
+	"mass": "77",
+	"hair_color": "blond",
+	"skin_color": "fair",
+	"eye_color": "blue",
+	"birth_year": "19BBY",
+	"gender": "male",
+	"homeworld": "https://swapi.co/api/planets/1/",
+	"films": [
+		"https://swapi.co/api/films/2/",
+		"https://swapi.co/api/films/6/",
+		"https://swapi.co/api/films/3/",
+		"https://swapi.co/api/films/1/",
+		"https://swapi.co/api/films/7/"
+	],
+	"species": [
+		"https://swapi.co/api/species/1/"
+	],
+	"vehicles": [
+		"https://swapi.co/api/vehicles/14/",
+		"https://swapi.co/api/vehicles/30/"
+	],
+	"starships": [
+		"https://swapi.co/api/starships/12/",
+		"https://swapi.co/api/starships/22/"
+	],
+	"created": "2014-12-09T13:50:51.644000Z",
+	"edited": "2014-12-20T21:17:56.891000Z",
+	"url": "https://swapi.co/api/people/1/"
+}
+```
 
 Well that's annoying ... all you wanted was his name and hair color. Why's the API sending you all this crap? 🤦‍♂️
 
@@ -24,19 +61,92 @@ And what's this about Luke's species being `1`? What the heck is `1`?
 
 Okay, another fetch request.
 
-[![Click through for source](./img/techletter.app-screenshot-1579794681428.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=fetch('https%3A%2F%2Fswapi.co%2Fapi%2Fspecies%2F1%2F')%0A%09.then(res%20%3D%3E%20res.json())%0A%09.then(console.log)>)
+```javascript
+fetch('https://swapi.co/api/species/1/')
+	.then(res => res.json())
+	.then(console.log)
+```
 
 You get a bunch of data about humans. Great.
 
-[![Click through for source](./img/techletter.app-screenshot-1579794681620.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=json&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%7B%0A%09%22name%22%3A%20%22Human%22%2C%0A%09%22classification%22%3A%20%22mammal%22%2C%0A%09%22designation%22%3A%20%22sentient%22%2C%0A%09%22average_height%22%3A%20%22180%22%2C%0A%09%22skin_colors%22%3A%20%22caucasian%2C%20black%2C%20asian%2C%20hispanic%22%2C%0A%09%22hair_colors%22%3A%20%22blonde%2C%20brown%2C%20black%2C%20red%22%2C%0A%09%22eye_colors%22%3A%20%22brown%2C%20blue%2C%20green%2C%20hazel%2C%20grey%2C%20amber%22%2C%0A%09%22average_lifespan%22%3A%20%22120%22%2C%0A%09%22homeworld%22%3A%20%22https%3A%2F%2Fswapi.co%2Fapi%2Fplanets%2F9%2F%22%2C%0A%09%22language%22%3A%20%22Galactic%20Basic%22%2C%0A%09%22people%22%3A%20%5B%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F1%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F4%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F5%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F6%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F7%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F9%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F10%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F11%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F12%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F14%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F18%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F19%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F21%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F22%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F25%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F26%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F28%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F29%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F32%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F34%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F43%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F51%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F60%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F61%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F62%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F66%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F67%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F68%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F69%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F74%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F81%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F84%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F85%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F86%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Fpeople%2F35%2F%22%0A%09%5D%2C%0A%09%22films%22%3A%20%5B%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Ffilms%2F2%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Ffilms%2F7%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Ffilms%2F5%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Ffilms%2F4%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Ffilms%2F6%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Ffilms%2F3%2F%22%2C%0A%09%09%22https%3A%2F%2Fswapi.co%2Fapi%2Ffilms%2F1%2F%22%0A%09%5D%2C%0A%09%22created%22%3A%20%222014-12-10T13%3A52%3A11.567000Z%22%2C%0A%09%22edited%22%3A%20%222015-04-17T06%3A59%3A55.850671Z%22%2C%0A%09%22url%22%3A%20%22https%3A%2F%2Fswapi.co%2Fapi%2Fspecies%2F1%2F%22%0A%7D>)
-
+```json
+{
+	"name": "Human",
+	"classification": "mammal",
+	"designation": "sentient",
+	"average_height": "180",
+	"skin_colors": "caucasian, black, asian, hispanic",
+	"hair_colors": "blonde, brown, black, red",
+	"eye_colors": "brown, blue, green, hazel, grey, amber",
+	"average_lifespan": "120",
+	"homeworld": "https://swapi.co/api/planets/9/",
+	"language": "Galactic Basic",
+	"people": [
+		"https://swapi.co/api/people/1/",
+		"https://swapi.co/api/people/4/",
+		"https://swapi.co/api/people/5/",
+		"https://swapi.co/api/people/6/",
+		"https://swapi.co/api/people/7/",
+		"https://swapi.co/api/people/9/",
+		"https://swapi.co/api/people/10/",
+		"https://swapi.co/api/people/11/",
+		"https://swapi.co/api/people/12/",
+		"https://swapi.co/api/people/14/",
+		"https://swapi.co/api/people/18/",
+		"https://swapi.co/api/people/19/",
+		"https://swapi.co/api/people/21/",
+		"https://swapi.co/api/people/22/",
+		"https://swapi.co/api/people/25/",
+		"https://swapi.co/api/people/26/",
+		"https://swapi.co/api/people/28/",
+		"https://swapi.co/api/people/29/",
+		"https://swapi.co/api/people/32/",
+		"https://swapi.co/api/people/34/",
+		"https://swapi.co/api/people/43/",
+		"https://swapi.co/api/people/51/",
+		"https://swapi.co/api/people/60/",
+		"https://swapi.co/api/people/61/",
+		"https://swapi.co/api/people/62/",
+		"https://swapi.co/api/people/66/",
+		"https://swapi.co/api/people/67/",
+		"https://swapi.co/api/people/68/",
+		"https://swapi.co/api/people/69/",
+		"https://swapi.co/api/people/74/",
+		"https://swapi.co/api/people/81/",
+		"https://swapi.co/api/people/84/",
+		"https://swapi.co/api/people/85/",
+		"https://swapi.co/api/people/86/",
+		"https://swapi.co/api/people/35/"
+	],
+	"films": [
+		"https://swapi.co/api/films/2/",
+		"https://swapi.co/api/films/7/",
+		"https://swapi.co/api/films/5/",
+		"https://swapi.co/api/films/4/",
+		"https://swapi.co/api/films/6/",
+		"https://swapi.co/api/films/3/",
+		"https://swapi.co/api/films/1/"
+	],
+	"created": "2014-12-10T13:52:11.567000Z",
+	"edited": "2015-04-17T06:59:55.850671Z",
+	"url": "https://swapi.co/api/species/1/"
+}
+```
 That's a lot of data just to get the word `"Human"` out of the [Star Wars API](https://swapi.co/), my friend.
 
-![eyeroll giphy](./img/media-qmfpjpAT2fJRK-giphy.gif)
+![](https://imgur.com/tzsicxp.gif)
 
 What about all of Luke's starships? There's just 2 and yet that's 2 more API requests ...
 
-[![Click through for source](./img/techletter.app-screenshot-1579794681424.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=fetch(%22https%3A%2F%2Fswapi.co%2Fapi%2Fstarships%2F12%2F%22)%0A%09.then(res%20%3D%3E%20res.json())%0A%09.then(console.log)%0A%09%0Afetch(%22https%3A%2F%2Fswapi.co%2Fapi%2Fstarships%2F22%2F%22)%0A%09.then(res%20%3D%3E%20res.json())%0A%09.then(console.log)>)
+```javascript
+fetch("https://swapi.co/api/starships/12/")
+	.then(res => res.json())
+	.then(console.log)
+	
+fetch("https://swapi.co/api/starships/22/")
+	.then(res => res.json())
+	.then(console.log)
+```
 
 I don't even wanna know how much data those dump out ...
 
@@ -50,11 +160,50 @@ And guess what, you didn't cache anything. How often do you think this data chan
 
 Here's what that same process looks like with GraphQL.
 
-[![Click through for source](./img/techletter.app-screenshot-1579794681447.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=graphql&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=query%20luke%20%7B%0A%20%20Person(name%3A%20%22Luke%20Skywalker%22)%20%7B%0A%20%20%20%20name%0A%20%20%20%20hairColor%0A%20%20%20%20species%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%20%20starships%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D>)
+```graphql
+
+query luke {
+  Person(name: "Luke Skywalker") {
+    name
+    hairColor
+    species {
+      name
+    }
+    starships {
+      name
+    }
+  }
+}
+
+```
 
 And the API returns exactly what you wanted with a single request.
 
-[![Click through for source](./img/techletter.app-screenshot-1579794681567.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=json&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%7B%0A%20%20%22data%22%3A%20%7B%0A%20%20%20%20%22Person%22%3A%20%7B%0A%20%20%20%20%20%20%22name%22%3A%20%22Luke%20Skywalker%22%2C%0A%20%20%20%20%20%20%22hairColor%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%22BLONDE%22%0A%20%20%20%20%20%20%5D%2C%0A%20%20%20%20%20%20%22species%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Human%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%2C%0A%20%20%20%20%20%20%22starships%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22X-wing%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Imperial%20shuttle%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%5D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D>)
+```json
+{
+  "data": {
+    "Person": {
+      "name": "Luke Skywalker",
+      "hairColor": [
+        "BLONDE"
+      ],
+      "species": [
+        {
+          "name": "Human"
+        }
+      ],
+      "starships": [
+        {
+          "name": "X-wing"
+        },
+        {
+          "name": "Imperial shuttle"
+        }
+      ]
+    }
+  }
+}
+```
 
 Wait what 😲
 
@@ -70,7 +219,7 @@ Many GraphQL libraries also add caching so you don't make the same calls too oft
 
 I fell in love the moment it clicked.
 
-![](./img/media-7FyMQm2vBiTjG-giphy.gif)
+![](https://imgur.com/AKQSxza.gif)
 
 You can [try it out on graph.cool's public playground](https://swapi.graph.cool/)
 
@@ -78,7 +227,31 @@ You can [try it out on graph.cool's public playground](https://swapi.graph.cool/
 
 You don't need much to make a basic GraphQL client. Something like this:
 
-[![Click through for source](./img/techletter.app-screenshot-1579795766609.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=fetch('https%3A%2F%2Fswapi.graph.cool%2F'%2C%20%7B%0A%09method%3A%20'POST'%2C%0A%09body%3A%20%7B%0A%09%09operationName%3A%20'luke'%2C%0A%09%09variables%3A%20%7B%7D%2C%0A%09%09query%3A%20%60%0A%09%09%09query%20luke%20%7B%0A%09%09%09%20%20Person(name%3A%20%22Luke%20Skywalker%22)%20%7B%0A%09%09%09%20%20%20%20name%0A%09%09%09%20%20%20%20hairColor%0A%09%09%09%20%20%20%20species%20%7B%0A%09%09%09%20%20%20%20%20%20name%0A%09%09%09%20%20%20%20%7D%0A%09%09%09%20%20%20%20starships%20%7B%0A%09%09%09%20%20%20%20%20%20name%0A%09%09%09%20%20%20%20%7D%0A%09%09%09%20%20%7D%0A%09%09%09%7D%0A%09%09%60%0A%09%7D%0A%7D)>)
+```javascript
+
+fetch('https://swapi.graph.cool/', {
+	method: 'POST',
+	body: {
+		operationName: 'luke',
+		variables: {},
+		query: `
+			query luke {
+			  Person(name: "Luke Skywalker") {
+			    name
+			    hairColor
+			    species {
+			      name
+			    }
+			    starships {
+			      name
+			    }
+			  }
+			}
+		`
+	}
+})
+
+```
 
 Better than before but eh ...
 
@@ -86,7 +259,38 @@ Where GraphQL really shines, my friend, is with React hooks. I like to use `@apo
 
 You get a pattern like this:
 
-[![Click through for source](./img/techletter.app-screenshot-1579794681647.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20%7B%20useQuery%20%7D%20from%20'%40apollo%2Freact-hooks'%3B%0Aimport%20gql%20from%20'graphql-tag'%3B%0A%0A%2F%2F%20define%20the%20graphql%20query%0Aconst%20LUKE_QUERY%20%3D%20gql%60%0A%09query%20luke%20%7B%0A%09%20%20Person(name%3A%20%22Luke%20Skywalker%22)%20%7B%0A%09%20%20%20%20name%0A%09%20%20%20%20hairColor%0A%09%20%20%20%20species%20%7B%0A%09%20%20%20%20%20%20name%0A%09%20%20%20%20%7D%0A%09%20%20%20%20starships%20%7B%0A%09%20%20%20%20%20%20name%0A%09%20%20%20%20%7D%0A%09%20%20%7D%0A%09%7D%0A%60%0A%0A%2F%2F%20a%20component%20that%20fetches%20data%20and%20displays%20it%0Aconst%20Luke%20%3D%20()%20%3D%3E%20%7B%0A%09const%20%7B%20loading%2C%20data%20%7D%20%3D%20useQuery(LUKE_QUERY)%0A%09%0A%09return%20loading%20%3F%20%0A%09%09%3Cp%3EFetching%20...%3C%2Fp%3E%20%0A%09%3A%20%0A%09%09%3Cp%3E%7Bdata.Person.name%7D%20is%20a%20%7Bdata.Person.hairColor%5B0%5D%7D%20%7Bdata.Person.species%5B0%5D.name%7D%20and%20flies%20around%20in%20%7Bdata.Person.starships.map(ship%20%3D%3E%20ship.name).join(%22%2C%20%22)%7D%3C%2Fp%3E%0A%7D>)
+```javascript
+
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+
+// define the graphql query
+const LUKE_QUERY = gql`
+	query luke {
+	  Person(name: "Luke Skywalker") {
+	    name
+	    hairColor
+	    species {
+	      name
+	    }
+	    starships {
+	      name
+	    }
+	  }
+	}
+`
+
+// a component that fetches data and displays it
+const Luke = () => {
+	const { loading, data } = useQuery(LUKE_QUERY)
+	
+	return loading ? 
+		<p>Fetching ...</p> 
+	: 
+		<p>{data.Person.name} is a {data.Person.hairColor[0]} {data.Person.species[0].name} and flies around in {data.Person.starships.map(ship => ship.name).join(", ")}</p>
+}
+
+```
 
 Render `<Luke />` and it first says `Fetching ...` then changes into `Luke Skywalker is a BLONDE Human and flies around in X-wing, Imperial shuttle`.
 
@@ -94,7 +298,41 @@ Not the perfectest English but that's way better than cobbling together 4 API re
 
 You could even make your component accept a search parameter.
 
-[![Click through for source](./img/techletter.app-screenshot-1579794681459.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20%7B%20useQuery%20%7D%20from%20'%40apollo%2Freact-hooks'%3B%0Aimport%20gql%20from%20'graphql-tag'%3B%0A%0A%2F%2F%20define%20the%20graphql%20query%0Aconst%20PERSON_QUERY%20%3D%20gql%60%0A%09query%20person(%24name%3A%20String!)%20%7B%0A%09%20%20Person(name%3A%20%24name)%20%7B%0A%09%20%20%20%20name%0A%09%20%20%20%20hairColor%0A%09%20%20%20%20species%20%7B%0A%09%20%20%20%20%20%20name%0A%09%20%20%20%20%7D%0A%09%20%20%20%20starships%20%7B%0A%09%20%20%20%20%20%20name%0A%09%20%20%20%20%7D%0A%09%20%20%7D%0A%09%7D%0A%60%0A%0A%2F%2F%20a%20component%20that%20fetches%20data%20and%20displays%20it%0Aconst%20Person%20%3D%20(%7B%20name%20%7D)%20%3D%3E%20%7B%0A%09const%20%7B%20loading%2C%20data%20%7D%20%3D%20useQuery(PERSON_QUERY%2C%20%7B%0A%09%09variables%3A%20%7B%0A%09%09%09name%0A%09%09%7D%0A%09%7D)%0A%09%0A%09return%20loading%20%3F%20%0A%09%09%3Cp%3EFetching%20...%3C%2Fp%3E%20%0A%09%3A%20%0A%09%09%3Cp%3E%7Bdata.Person.name%7D%20is%20a%20%7Bdata.Person.hairColor%5B0%5D%7D%20%7Bdata.Person.species%5B0%5D.name%7D%20and%20flies%20around%20in%20%7Bdata.Person.starships.map(ship%20%3D%3E%20ship.name).join(%22%2C%20%22)%7D%3C%2Fp%3E%0A%7D>)
+```javascript
+
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+
+// define the graphql query
+const PERSON_QUERY = gql`
+	query person($name: String!) {
+	  Person(name: $name) {
+	    name
+	    hairColor
+	    species {
+	      name
+	    }
+	    starships {
+	      name
+	    }
+	  }
+	}
+`
+
+// a component that fetches data and displays it
+const Person = ({ name }) => {
+	const { loading, data } = useQuery(PERSON_QUERY, {
+		variables: {
+			name
+		}
+	})
+	
+	return loading ? 
+		<p>Fetching ...</p> 
+	: 
+		<p>{data.Person.name} is a {data.Person.hairColor[0]} {data.Person.species[0].name} and flies around in {data.Person.starships.map(ship => ship.name).join(", ")}</p>
+}
+```
 
 Now you can use `<Person name="luke skywalker" />` to show data about Luke, and `<Person name="chewbacca" />` to learn about Chewie.
 
@@ -110,13 +348,28 @@ The past few years of React common sense taught us to put everything in a global
 
 You get a unidirectional data flow, easy to understand state transitions, and a total mess of an impenetrable state tree as your app grows. Things slow down, debugging gets hard, and help you god if you can't keep the entire app in your head. I'm looking at you sagas 😒
 
-![ded giphy](./img/media-3ohzdUbXhdSXOvwJbO-giphy-downsized-medium.gif)
+![](https://imgur.com/fmYrpwQ.gif)
 
 With edge first, we turn that upside-down. _The edge does the work_
 
 Look at the `<Person />` component.
 
-[![Click through for source](./img/techletter.app-screenshot-1579794681475.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20a%20component%20that%20fetches%20data%20and%20displays%20it%0Aconst%20Person%20%3D%20(%7B%20name%20%7D)%20%3D%3E%20%7B%0A%09const%20%7B%20loading%2C%20data%20%7D%20%3D%20useQuery(PERSON_QUERY%2C%20%7B%0A%09%09variables%3A%20%7B%0A%09%09%09name%0A%09%09%7D%0A%09%7D)%0A%09%0A%09return%20loading%20%3F%20%0A%09%09%3Cp%3EFetching%20...%3C%2Fp%3E%20%0A%09%3A%20%0A%09%09%3Cp%3E%7Bdata.Person.name%7D%20is%20a%20%7Bdata.Person.hairColor%5B0%5D%7D%20%7Bdata.Person.species%5B0%5D.name%7D%20and%20flies%20around%20in%20%7Bdata.Person.starships.map(ship%20%3D%3E%20ship.name).join(%22%2C%20%22)%7D%3C%2Fp%3E%0A%7D>)
+```javascript
+// a component that fetches data and displays it
+const Person = ({ name }) => {
+	const { loading, data } = useQuery(PERSON_QUERY, {
+		variables: {
+			name
+		}
+	})
+	
+	return loading ? 
+		<p>Fetching ...</p> 
+	: 
+		<p>{data.Person.name} is a {data.Person.hairColor[0]} {data.Person.species[0].name} and flies around in {data.Person.starships.map(ship => ship.name).join(", ")}</p>
+}
+
+```
 
 It's doing all the work. Fetches its own data, deals with loading states, maybe errors, displays the result when ready.
 
