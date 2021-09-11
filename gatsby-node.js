@@ -33,7 +33,6 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             fields {
               slug
-              slug2
             }
             frontmatter {
               redirect_from
