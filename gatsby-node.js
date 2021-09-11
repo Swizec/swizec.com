@@ -72,7 +72,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const to = post.node.fields.slug
     const slug2 = post.node.fields.slug2
 
-    console.log({ from, to, slug2 })
+    console.log(`${from} -> ${to} ;; ${slug2}`)
 
     from.forEach((from) => {
       console.log("article redirect", { from, to })
