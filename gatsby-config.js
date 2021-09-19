@@ -16,6 +16,9 @@ module.exports = {
       defaultFormId: "826419",
       serverlessHandbookFormId: "2103715",
       seniorMindsetFormId: "1712642",
+      fullstackFormId: "2507619",
+      JavascriptFormId: "2507452",
+      ServerlessHandbookCUFormId: "1655570",
     },
     articles: {
       title: `Swizec - A geek with a hat`,
