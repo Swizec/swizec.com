@@ -16,6 +16,7 @@ module.exports = {
       defaultFormId: "826419",
       serverlessHandbookFormId: "2103715",
       seniorMindsetFormId: "1712642",
+      ServerlessHandbookCUFormId: "1655570",
       javascriptFormId: "2507452",
       fullstackWebFormId: "2507619",
     },
