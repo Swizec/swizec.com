@@ -5,7 +5,7 @@ published: 2017-09-21
 redirect_from:
   - /blog/javascript-promises-monads/swizec/7814
 categories: "Technical, JavaScript"
-hero: https://imgur.com/TNUZOok.jpg
+hero: ./img/TNUZOok.png
 ---
 
 https://youtu.be/KVYm0qC4b1Y
@@ -48,12 +48,12 @@ Let's compare promises to callbacks. You're likely to have met with callbacks be
 
 ```javascript
 let theFuture = function (callback) {
-  setTimeout(callback, 5000);
-};
+  setTimeout(callback, 5000)
+}
 
 theFuture(() => {
-  console.log("It is now 5 seconds later");
-});
+  console.log("It is now 5 seconds later")
+})
 ```
 
 We turn `theFuture` into a Promise and trigger its `resolve` method after 5 seconds. The `Promise` wrapped everything inside its body into a protective time bubble.

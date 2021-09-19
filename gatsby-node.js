@@ -1,5 +1,6 @@
 const chalk = require("chalk")
 const fs = require("fs")
+const { createFilePath } = require("gatsby-source-filesystem")
 
 const sharp = require("sharp")
 sharp.cache(false)
@@ -25,6 +26,19 @@ exports.onPreBootstrap = ({ actions }) => {
   console.log(`${chalk.green("success")} create redirects from _redirects`)
 }
 
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions
+
+  if (node.internal.type === "MarkdownRemark" || node.internal.type === "Mdx") {
+    const slug = createFilePath({ node, getNode })
+    createNodeField({
+      node,
+      name: "slug2",
+      value: slug,
+    })
+  }
+}
+
 exports.createPages = async ({ graphql, actions }) => {
   const result = await graphql(`
     {
@@ -33,6 +47,7 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             fields {
               slug
+              slug2
             }
             frontmatter {
               redirect_from
@@ -55,6 +70,9 @@ exports.createPages = async ({ graphql, actions }) => {
   allPosts.forEach((post) => {
     const from = post.node.frontmatter.redirect_from
     const to = post.node.fields.slug
+    const slug2 = post.node.fields.slug2
+
+    console.log(`${from} -> ${to} ;; ${slug2}`)
 
     from.forEach((from) => {
       console.log("article redirect", { from, to })

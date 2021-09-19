@@ -8,7 +8,7 @@ module.exports = {
     description:
       "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
     author: `@swizec`,
-    coverImageStaticPath: "metaimage.png",
+    coverImageStaticPath: "metaimage.jpg",
     hasAuthentication: false,
     convertkit: {
       userId: "785fc7ef1f",
@@ -16,9 +16,9 @@ module.exports = {
       defaultFormId: "826419",
       serverlessHandbookFormId: "2103715",
       seniorMindsetFormId: "1712642",
-      fullstackFormId: "2507619",
-      JavascriptFormId: "2507452",
       ServerlessHandbookCUFormId: "1655570",
+      javascriptFormId: "2507452",
+      fullstackWebFormId: "2507619",
     },
     articles: {
       title: `Swizec - A geek with a hat`,
