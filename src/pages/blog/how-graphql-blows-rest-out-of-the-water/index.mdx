@@ -5,56 +5,54 @@ published: 2020-01-23
 redirect_from:
   - /blog/how-graphql-blows-rest-out-of-the-water/swizec/9300
 categories: "Front End, Technical, Fullstack Web"
-content_upgrade: 
+content_upgrade: fullstackWeb
 hero: ./img/techletter.app-screenshot-1579794681281.png
 ---
 
-import { ContentUpgrades } from '@swizec/gatsby-theme-course-platform'
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 You're building an app. It needs data from a server. What do you do?
 
 Oh, you make a `fetch()` request. Easy.
 
 ```javascript
-fetch('https://swapi.co/api/people/1/')
-	.then(res => res.json())
-	.then(console.log)
+fetch("https://swapi.co/api/people/1/")
+  .then((res) => res.json())
+  .then(console.log)
 ```
 
 And you get eeeevery piece of info about Luke Skywalker.
 
 ```json
 {
-	"name": "Luke Skywalker",
-	"height": "172",
-	"mass": "77",
-	"hair_color": "blond",
-	"skin_color": "fair",
-	"eye_color": "blue",
-	"birth_year": "19BBY",
-	"gender": "male",
-	"homeworld": "https://swapi.co/api/planets/1/",
-	"films": [
-		"https://swapi.co/api/films/2/",
-		"https://swapi.co/api/films/6/",
-		"https://swapi.co/api/films/3/",
-		"https://swapi.co/api/films/1/",
-		"https://swapi.co/api/films/7/"
-	],
-	"species": [
-		"https://swapi.co/api/species/1/"
-	],
-	"vehicles": [
-		"https://swapi.co/api/vehicles/14/",
-		"https://swapi.co/api/vehicles/30/"
-	],
-	"starships": [
-		"https://swapi.co/api/starships/12/",
-		"https://swapi.co/api/starships/22/"
-	],
-	"created": "2014-12-09T13:50:51.644000Z",
-	"edited": "2014-12-20T21:17:56.891000Z",
-	"url": "https://swapi.co/api/people/1/"
+  "name": "Luke Skywalker",
+  "height": "172",
+  "mass": "77",
+  "hair_color": "blond",
+  "skin_color": "fair",
+  "eye_color": "blue",
+  "birth_year": "19BBY",
+  "gender": "male",
+  "homeworld": "https://swapi.co/api/planets/1/",
+  "films": [
+    "https://swapi.co/api/films/2/",
+    "https://swapi.co/api/films/6/",
+    "https://swapi.co/api/films/3/",
+    "https://swapi.co/api/films/1/",
+    "https://swapi.co/api/films/7/"
+  ],
+  "species": ["https://swapi.co/api/species/1/"],
+  "vehicles": [
+    "https://swapi.co/api/vehicles/14/",
+    "https://swapi.co/api/vehicles/30/"
+  ],
+  "starships": [
+    "https://swapi.co/api/starships/12/",
+    "https://swapi.co/api/starships/22/"
+  ],
+  "created": "2014-12-09T13:50:51.644000Z",
+  "edited": "2014-12-20T21:17:56.891000Z",
+  "url": "https://swapi.co/api/people/1/"
 }
 ```
 
@@ -65,76 +63,77 @@ And what's this about Luke's species being `1`? What the heck is `1`?
 Okay, another fetch request.
 
 ```javascript
-fetch('https://swapi.co/api/species/1/')
-	.then(res => res.json())
-	.then(console.log)
+fetch("https://swapi.co/api/species/1/")
+  .then((res) => res.json())
+  .then(console.log)
 ```
 
 You get a bunch of data about humans. Great.
 
 ```json
 {
-	"name": "Human",
-	"classification": "mammal",
-	"designation": "sentient",
-	"average_height": "180",
-	"skin_colors": "caucasian, black, asian, hispanic",
-	"hair_colors": "blonde, brown, black, red",
-	"eye_colors": "brown, blue, green, hazel, grey, amber",
-	"average_lifespan": "120",
-	"homeworld": "https://swapi.co/api/planets/9/",
-	"language": "Galactic Basic",
-	"people": [
-		"https://swapi.co/api/people/1/",
-		"https://swapi.co/api/people/4/",
-		"https://swapi.co/api/people/5/",
-		"https://swapi.co/api/people/6/",
-		"https://swapi.co/api/people/7/",
-		"https://swapi.co/api/people/9/",
-		"https://swapi.co/api/people/10/",
-		"https://swapi.co/api/people/11/",
-		"https://swapi.co/api/people/12/",
-		"https://swapi.co/api/people/14/",
-		"https://swapi.co/api/people/18/",
-		"https://swapi.co/api/people/19/",
-		"https://swapi.co/api/people/21/",
-		"https://swapi.co/api/people/22/",
-		"https://swapi.co/api/people/25/",
-		"https://swapi.co/api/people/26/",
-		"https://swapi.co/api/people/28/",
-		"https://swapi.co/api/people/29/",
-		"https://swapi.co/api/people/32/",
-		"https://swapi.co/api/people/34/",
-		"https://swapi.co/api/people/43/",
-		"https://swapi.co/api/people/51/",
-		"https://swapi.co/api/people/60/",
-		"https://swapi.co/api/people/61/",
-		"https://swapi.co/api/people/62/",
-		"https://swapi.co/api/people/66/",
-		"https://swapi.co/api/people/67/",
-		"https://swapi.co/api/people/68/",
-		"https://swapi.co/api/people/69/",
-		"https://swapi.co/api/people/74/",
-		"https://swapi.co/api/people/81/",
-		"https://swapi.co/api/people/84/",
-		"https://swapi.co/api/people/85/",
-		"https://swapi.co/api/people/86/",
-		"https://swapi.co/api/people/35/"
-	],
-	"films": [
-		"https://swapi.co/api/films/2/",
-		"https://swapi.co/api/films/7/",
-		"https://swapi.co/api/films/5/",
-		"https://swapi.co/api/films/4/",
-		"https://swapi.co/api/films/6/",
-		"https://swapi.co/api/films/3/",
-		"https://swapi.co/api/films/1/"
-	],
-	"created": "2014-12-10T13:52:11.567000Z",
-	"edited": "2015-04-17T06:59:55.850671Z",
-	"url": "https://swapi.co/api/species/1/"
+  "name": "Human",
+  "classification": "mammal",
+  "designation": "sentient",
+  "average_height": "180",
+  "skin_colors": "caucasian, black, asian, hispanic",
+  "hair_colors": "blonde, brown, black, red",
+  "eye_colors": "brown, blue, green, hazel, grey, amber",
+  "average_lifespan": "120",
+  "homeworld": "https://swapi.co/api/planets/9/",
+  "language": "Galactic Basic",
+  "people": [
+    "https://swapi.co/api/people/1/",
+    "https://swapi.co/api/people/4/",
+    "https://swapi.co/api/people/5/",
+    "https://swapi.co/api/people/6/",
+    "https://swapi.co/api/people/7/",
+    "https://swapi.co/api/people/9/",
+    "https://swapi.co/api/people/10/",
+    "https://swapi.co/api/people/11/",
+    "https://swapi.co/api/people/12/",
+    "https://swapi.co/api/people/14/",
+    "https://swapi.co/api/people/18/",
+    "https://swapi.co/api/people/19/",
+    "https://swapi.co/api/people/21/",
+    "https://swapi.co/api/people/22/",
+    "https://swapi.co/api/people/25/",
+    "https://swapi.co/api/people/26/",
+    "https://swapi.co/api/people/28/",
+    "https://swapi.co/api/people/29/",
+    "https://swapi.co/api/people/32/",
+    "https://swapi.co/api/people/34/",
+    "https://swapi.co/api/people/43/",
+    "https://swapi.co/api/people/51/",
+    "https://swapi.co/api/people/60/",
+    "https://swapi.co/api/people/61/",
+    "https://swapi.co/api/people/62/",
+    "https://swapi.co/api/people/66/",
+    "https://swapi.co/api/people/67/",
+    "https://swapi.co/api/people/68/",
+    "https://swapi.co/api/people/69/",
+    "https://swapi.co/api/people/74/",
+    "https://swapi.co/api/people/81/",
+    "https://swapi.co/api/people/84/",
+    "https://swapi.co/api/people/85/",
+    "https://swapi.co/api/people/86/",
+    "https://swapi.co/api/people/35/"
+  ],
+  "films": [
+    "https://swapi.co/api/films/2/",
+    "https://swapi.co/api/films/7/",
+    "https://swapi.co/api/films/5/",
+    "https://swapi.co/api/films/4/",
+    "https://swapi.co/api/films/6/",
+    "https://swapi.co/api/films/3/",
+    "https://swapi.co/api/films/1/"
+  ],
+  "created": "2014-12-10T13:52:11.567000Z",
+  "edited": "2015-04-17T06:59:55.850671Z",
+  "url": "https://swapi.co/api/species/1/"
 }
 ```
+
 That's a lot of data just to get the word `"Human"` out of the [Star Wars API](https://swapi.co/), my friend.
 
 ![](https://imgur.com/tzsicxp.gif)
@@ -143,12 +142,12 @@ What about all of Luke's starships? There's just 2 and yet that's 2 more API req
 
 ```javascript
 fetch("https://swapi.co/api/starships/12/")
-	.then(res => res.json())
-	.then(console.log)
-	
+  .then((res) => res.json())
+  .then(console.log)
+
 fetch("https://swapi.co/api/starships/22/")
-	.then(res => res.json())
-	.then(console.log)
+  .then((res) => res.json())
+  .then(console.log)
 ```
 
 I don't even wanna know how much data those dump out ...
@@ -164,7 +163,6 @@ And guess what, you didn't cache anything. How often do you think this data chan
 Here's what that same process looks like with GraphQL.
 
 ```graphql
-
 query luke {
   Person(name: "Luke Skywalker") {
     name
@@ -177,7 +175,6 @@ query luke {
     }
   }
 }
-
 ```
 
 And the API returns exactly what you wanted with a single request.
@@ -187,9 +184,7 @@ And the API returns exactly what you wanted with a single request.
   "data": {
     "Person": {
       "name": "Luke Skywalker",
-      "hairColor": [
-        "BLONDE"
-      ],
+      "hairColor": ["BLONDE"],
       "species": [
         {
           "name": "Human"
@@ -231,13 +226,12 @@ You can [try it out on graph.cool's public playground](https://swapi.graph.cool/
 You don't need much to make a basic GraphQL client. Something like this:
 
 ```javascript
-
-fetch('https://swapi.graph.cool/', {
-	method: 'POST',
-	body: {
-		operationName: 'luke',
-		variables: {},
-		query: `
+fetch("https://swapi.graph.cool/", {
+  method: "POST",
+  body: {
+    operationName: "luke",
+    variables: {},
+    query: `
 			query luke {
 			  Person(name: "Luke Skywalker") {
 			    name
@@ -250,10 +244,9 @@ fetch('https://swapi.graph.cool/', {
 			    }
 			  }
 			}
-		`
-	}
+		`,
+  },
 })
-
 ```
 
 Better than before but eh ...
@@ -263,36 +256,39 @@ Where GraphQL really shines, my friend, is with React hooks. I like to use `@apo
 You get a pattern like this:
 
 ```javascript
-
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
+import { useQuery } from "@apollo/react-hooks"
+import gql from "graphql-tag"
 
 // define the graphql query
 const LUKE_QUERY = gql`
-	query luke {
-	  Person(name: "Luke Skywalker") {
-	    name
-	    hairColor
-	    species {
-	      name
-	    }
-	    starships {
-	      name
-	    }
-	  }
-	}
+  query luke {
+    Person(name: "Luke Skywalker") {
+      name
+      hairColor
+      species {
+        name
+      }
+      starships {
+        name
+      }
+    }
+  }
 `
 
 // a component that fetches data and displays it
 const Luke = () => {
-	const { loading, data } = useQuery(LUKE_QUERY)
-	
-	return loading ? 
-		<p>Fetching ...</p> 
-	: 
-		<p>{data.Person.name} is a {data.Person.hairColor[0]} {data.Person.species[0].name} and flies around in {data.Person.starships.map(ship => ship.name).join(", ")}</p>
-}
+  const { loading, data } = useQuery(LUKE_QUERY)
 
+  return loading ? (
+    <p>Fetching ...</p>
+  ) : (
+    <p>
+      {data.Person.name} is a {data.Person.hairColor[0]}{" "}
+      {data.Person.species[0].name} and flies around in{" "}
+      {data.Person.starships.map((ship) => ship.name).join(", ")}
+    </p>
+  )
+}
 ```
 
 Render `<Luke />` and it first says `Fetching ...` then changes into `Luke Skywalker is a BLONDE Human and flies around in X-wing, Imperial shuttle`.
@@ -302,38 +298,42 @@ Not the perfectest English but that's way better than cobbling together 4 API re
 You could even make your component accept a search parameter.
 
 ```javascript
-
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
+import { useQuery } from "@apollo/react-hooks"
+import gql from "graphql-tag"
 
 // define the graphql query
 const PERSON_QUERY = gql`
-	query person($name: String!) {
-	  Person(name: $name) {
-	    name
-	    hairColor
-	    species {
-	      name
-	    }
-	    starships {
-	      name
-	    }
-	  }
-	}
+  query person($name: String!) {
+    Person(name: $name) {
+      name
+      hairColor
+      species {
+        name
+      }
+      starships {
+        name
+      }
+    }
+  }
 `
 
 // a component that fetches data and displays it
 const Person = ({ name }) => {
-	const { loading, data } = useQuery(PERSON_QUERY, {
-		variables: {
-			name
-		}
-	})
-	
-	return loading ? 
-		<p>Fetching ...</p> 
-	: 
-		<p>{data.Person.name} is a {data.Person.hairColor[0]} {data.Person.species[0].name} and flies around in {data.Person.starships.map(ship => ship.name).join(", ")}</p>
+  const { loading, data } = useQuery(PERSON_QUERY, {
+    variables: {
+      name,
+    },
+  })
+
+  return loading ? (
+    <p>Fetching ...</p>
+  ) : (
+    <p>
+      {data.Person.name} is a {data.Person.hairColor[0]}{" "}
+      {data.Person.species[0].name} and flies around in{" "}
+      {data.Person.starships.map((ship) => ship.name).join(", ")}
+    </p>
+  )
 }
 ```
 
@@ -360,18 +360,22 @@ Look at the `<Person />` component.
 ```javascript
 // a component that fetches data and displays it
 const Person = ({ name }) => {
-	const { loading, data } = useQuery(PERSON_QUERY, {
-		variables: {
-			name
-		}
-	})
-	
-	return loading ? 
-		<p>Fetching ...</p> 
-	: 
-		<p>{data.Person.name} is a {data.Person.hairColor[0]} {data.Person.species[0].name} and flies around in {data.Person.starships.map(ship => ship.name).join(", ")}</p>
-}
+  const { loading, data } = useQuery(PERSON_QUERY, {
+    variables: {
+      name,
+    },
+  })
 
+  return loading ? (
+    <p>Fetching ...</p>
+  ) : (
+    <p>
+      {data.Person.name} is a {data.Person.hairColor[0]}{" "}
+      {data.Person.species[0].name} and flies around in{" "}
+      {data.Person.starships.map((ship) => ship.name).join(", ")}
+    </p>
+  )
+}
 ```
 
 It's doing all the work. Fetches its own data, deals with loading states, maybe errors, displays the result when ready.
