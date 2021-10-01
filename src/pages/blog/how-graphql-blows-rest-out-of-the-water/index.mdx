@@ -9,7 +9,7 @@ content_upgrade: fullstackWeb
 hero: ./img/techletter.app-screenshot-1579794681281.png
 ---
 
-import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform";
 
 You're building an app. It needs data from a server. What do you do?
 
@@ -18,7 +18,7 @@ Oh, you make a `fetch()` request. Easy.
 ```javascript
 fetch("https://swapi.co/api/people/1/")
   .then((res) => res.json())
-  .then(console.log)
+  .then(console.log);
 ```
 
 And you get eeeevery piece of info about Luke Skywalker.
@@ -65,7 +65,7 @@ Okay, another fetch request.
 ```javascript
 fetch("https://swapi.co/api/species/1/")
   .then((res) => res.json())
-  .then(console.log)
+  .then(console.log);
 ```
 
 You get a bunch of data about humans. Great.
@@ -136,18 +136,18 @@ You get a bunch of data about humans. Great.
 
 That's a lot of data just to get the word `"Human"` out of the [Star Wars API](https://swapi.co/), my friend.
 
-![](https://imgur.com/tzsicxp.gif)
+![](./img/zsicxpgif5he48i.gif)
 
 What about all of Luke's starships? There's just 2 and yet that's 2 more API requests ...
 
 ```javascript
 fetch("https://swapi.co/api/starships/12/")
   .then((res) => res.json())
-  .then(console.log)
+  .then(console.log);
 
 fetch("https://swapi.co/api/starships/22/")
   .then((res) => res.json())
-  .then(console.log)
+  .then(console.log);
 ```
 
 I don't even wanna know how much data those dump out ...
@@ -217,7 +217,7 @@ Many GraphQL libraries also add caching so you don't make the same calls too oft
 
 I fell in love the moment it clicked.
 
-![](https://imgur.com/AKQSxza.gif)
+![](./img/KQSxzagifg40a2e.gif)
 
 You can [try it out on graph.cool's public playground](https://swapi.graph.cool/)
 
@@ -246,7 +246,7 @@ fetch("https://swapi.graph.cool/", {
 			}
 		`,
   },
-})
+});
 ```
 
 Better than before but eh ...
@@ -256,8 +256,8 @@ Where GraphQL really shines, my friend, is with React hooks. I like to use `@apo
 You get a pattern like this:
 
 ```javascript
-import { useQuery } from "@apollo/react-hooks"
-import gql from "graphql-tag"
+import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
 // define the graphql query
 const LUKE_QUERY = gql`
@@ -273,11 +273,11 @@ const LUKE_QUERY = gql`
       }
     }
   }
-`
+`;
 
 // a component that fetches data and displays it
 const Luke = () => {
-  const { loading, data } = useQuery(LUKE_QUERY)
+  const { loading, data } = useQuery(LUKE_QUERY);
 
   return loading ? (
     <p>Fetching ...</p>
@@ -287,8 +287,8 @@ const Luke = () => {
       {data.Person.species[0].name} and flies around in{" "}
       {data.Person.starships.map((ship) => ship.name).join(", ")}
     </p>
-  )
-}
+  );
+};
 ```
 
 Render `<Luke />` and it first says `Fetching ...` then changes into `Luke Skywalker is a BLONDE Human and flies around in X-wing, Imperial shuttle`.
@@ -298,8 +298,8 @@ Not the perfectest English but that's way better than cobbling together 4 API re
 You could even make your component accept a search parameter.
 
 ```javascript
-import { useQuery } from "@apollo/react-hooks"
-import gql from "graphql-tag"
+import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
 // define the graphql query
 const PERSON_QUERY = gql`
@@ -315,7 +315,7 @@ const PERSON_QUERY = gql`
       }
     }
   }
-`
+`;
 
 // a component that fetches data and displays it
 const Person = ({ name }) => {
@@ -323,7 +323,7 @@ const Person = ({ name }) => {
     variables: {
       name,
     },
-  })
+  });
 
   return loading ? (
     <p>Fetching ...</p>
@@ -333,8 +333,8 @@ const Person = ({ name }) => {
       {data.Person.species[0].name} and flies around in{" "}
       {data.Person.starships.map((ship) => ship.name).join(", ")}
     </p>
-  )
-}
+  );
+};
 ```
 
 Now you can use `<Person name="luke skywalker" />` to show data about Luke, and `<Person name="chewbacca" />` to learn about Chewie.
@@ -351,7 +351,7 @@ The past few years of React common sense taught us to put everything in a global
 
 You get a unidirectional data flow, easy to understand state transitions, and a total mess of an impenetrable state tree as your app grows. Things slow down, debugging gets hard, and help you god if you can't keep the entire app in your head. I'm looking at you sagas 😒
 
-![](https://imgur.com/fmYrpwQ.gif)
+![](./img/mYrpwQgifi33g0f.gif)
 
 With edge first, we turn that upside-down. _The edge does the work_
 
@@ -364,7 +364,7 @@ const Person = ({ name }) => {
     variables: {
       name,
     },
-  })
+  });
 
   return loading ? (
     <p>Fetching ...</p>
@@ -374,8 +374,8 @@ const Person = ({ name }) => {
       {data.Person.species[0].name} and flies around in{" "}
       {data.Person.starships.map((ship) => ship.name).join(", ")}
     </p>
-  )
-}
+  );
+};
 ```
 
 It's doing all the work. Fetches its own data, deals with loading states, maybe errors, displays the result when ready.
