@@ -2,11 +2,14 @@
 title: "How to waste hours of life with fetch() and a bit of brainfart"
 description: "Both superagent and fetch() enable you to talk to a server. The first produces clean code that gets nesty if you need many things. The second produces clean code that is Promis-y and sometimes cumbersome. The difference between superagent and fetch() isn't that one sends your headers as-given and the other lowercases their names. The difference is that superagent sends a cookie and fetch() doesn't!"
 published: 2016-11-01
+content_upgrade: FullstackWeb
 redirect_from:
   - /blog/waste-hours-fetch-brainfart/swizec/7173
 categories: "Technical, JavaScript, Fullstack Web"
 hero: ../../../defaultHero.jpg
 ---
+
+import { ContentUpgrades} from '@swizec-gatsby-theme-course-platform'
 
 Today, I had a dumb idea: _"Nested superagent calls sure look messy… maybe I should use fetch() instead…”_
 
@@ -45,6 +48,8 @@ fetch("/api/some.json", { headers: { Accept: "application/json" } })
 ```
 
 Both just 5 lines of code. It’s debatable which is cleaner. They look the same to me. ¯\_(ツ)\_/¯
+
+<ContentUpgrades.FullstackWeb />
 
 Where it gets interesting is when you have two calls that rely on each other. Observe:
 
