@@ -2,11 +2,14 @@
 title: "How to add real web push notifications to your webapp"
 description: "You've probably seen web notifications before. YouTube shows them when it goes to a new song, Facebook pings them when a new message comes in, scammy websites ask for permissions and you say no. The usual. You can fire those notifications from anywhere inside your JavaScript."
 published: 2017-11-16
+content_upgrade: FullstackWeb
 redirect_from:
   - /blog/add-real-web-push-notifications-webapp/swizec/7924
 categories: "Technical, JavaScript, Fullstack Web"
 hero: ../../../defaultHero.jpg
 ---
+
+import { ContentUpgrades} from '@swizec-gatsby-theme-course-platform'
 
 You've probably seen web notifications before. YouTube shows them when it goes to a new song, Facebook pings them when a new message comes in, scammy websites ask for permissions and you say no. The usual.
 
@@ -101,6 +104,8 @@ I've noticed (at least on a Mac) that subsequent notifications with the same `ta
 We use `self.addEventListener` to listen for both `push` and `onclick` events. In the push handler, we call `showNotification` to show our web push notification, and in `notificationclick` we open our site.
 
 That's the service worker 😄
+
+<ContentUpgrades.FullstackWeb />
 
 ## Register the service worker
 
