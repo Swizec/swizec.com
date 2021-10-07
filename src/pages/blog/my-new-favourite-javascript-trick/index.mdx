@@ -9,7 +9,7 @@ categories: "JavaScript, Technical, Backend Web"
 hero: ../../../defaultHero.jpg
 ---
 
-import { ContentUpgrades} from '@swizec-gatsby-theme-course-platform'
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 Using returns and [callbacks](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)") in the same function.
 
@@ -50,20 +50,20 @@ Just adding a `return server` at the bottom of that function lets us do somethin
 
 ```javascript
 var make_servers = function (callback) {
-  this.servers = {};
+  this.servers = {}
 
   async.each(
     [5000, 5001, 5002],
     _.bind(function (port, callback) {
-      this.servers[port] = server(port, callback);
+      this.servers[port] = server(port, callback)
     }, this),
     function (err) {
-      callback();
+      callback()
     }
-  );
+  )
 
-  return this;
-};
+  return this
+}
 ```
 
 I sneakily added the async and underscore libraries because they make life easier.
