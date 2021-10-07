@@ -4,9 +4,12 @@ description: "I was doing code review for a coworker, and it soon became obvious
 published: 2017-09-14
 redirect_from:
   - /blog/javascript-linters-bugs/swizec/7800
+content_upgrade: Javascript
 categories: "Front End, Technical, JavaScript"
 hero: ../../../defaultHero.jpg
 ---
+
+import { ContentUpgrades} from '@swizec-gatsby-theme-course-platform'
 
 ![](https://swizec.com/wp-content/uploads/2017/09/DJoDVIiVYAAOcPs.jpg-large.jpeg)
 
@@ -60,6 +63,8 @@ But here's one situation where it gets tricky. Checking undefinedness:
     false
 
 Under loose comparison, `null` and `undefined` are equal. Under strict, they're not.
+
+<ContentUpgrades.Javascript />
 
 This can cause all sorts of issues.
 

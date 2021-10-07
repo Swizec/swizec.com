@@ -2,11 +2,14 @@
 title: "My new favourite Javascript trick"
 description: "Using returns and callbacks in the same function. Sounds like crazy talk I know, but hear me out, I have good reason. I think."
 published: 2014-06-26
+content_upgrade: Javascript
 redirect_from:
   - /blog/my-new-favourite-javascript-trick/swizec/6585
 categories: "JavaScript, Technical, Backend Web"
 hero: ../../../defaultHero.jpg
 ---
+
+import { ContentUpgrades} from '@swizec-gatsby-theme-course-platform'
 
 Using returns and [callbacks](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)") in the same function.
 
@@ -38,6 +41,8 @@ var server = function (port, callback) {
 Simple. Call a function, give it a port, get notified when server is ready to listen. Never be able to touch the server again.
 
 Wait, that's not good. What if you want to reference the server later? To close it, for instance.
+
+<ContentUpgrades.Javascript />
 
 That's where using returns alongside callbacks comes in.
 

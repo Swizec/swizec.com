@@ -2,11 +2,15 @@
 title: 'A puzzle in JavaScript objects'
 description: "This is a puzzle you can run into if you’re not careful, and sometimes, despite your best efforts, even if you are careful. It happened to me when I had a settings object that I passed into a view. The view then did things. When I made a new view from the settings object, it looked like the view I had just cleared."
 published: 2016-09-09
+content_upgrade: Javascript
 redirect_from: 
             - /blog/a-puzzle-in-javascript-objects/swizec/7014
 categories: "coding, Front End, JavaScript, Technical"
 hero: ../../../defaultHero.jpg
 ---
+
+import { ContentUpgrades} from '@swizec-gatsby-theme-course-platform'
+
 ![](https://cdn.meme.am/instances/500x/71601683.jpg)
 
 This is a puzzle you can run into if you’re not careful, and sometimes, despite your best efforts, even if you _are_ careful. It happened to me when I had a settings object that I passed into a view. The view then did things. When I made a new view from the settings object, it looked like the view I had just cleared. O.o
@@ -24,6 +28,8 @@ You have a `Counter` class that:
 This allows you to instantiate as many counters as you want, starting from any number you want. They can only count up. The implementation is straightforward. They’re the kind I’ve seen many times in the wild.
 
 You take initial state, save it in an instance property, then proceed to use it like it was your very own. The implementation is simple to reason about, easy to extend when further properties are needed, and quick to build.
+
+<ContentUpgrades.Javascript />
 
 There’s just one problem: Instantiating multiple counters from settings stored in memory makes them share state.
 
