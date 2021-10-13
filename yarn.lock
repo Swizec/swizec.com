@@ -2270,10 +2270,10 @@
     "@styled-system/core" "^5.1.2"
     "@styled-system/css" "^5.1.5"
 
-"@swizec/gatsby-theme-course-platform@^2.4.1-3":
-  version "2.4.1-3"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-2.4.1-3.tgz#a2795f0277d634229ee650796c92a915e09598fb"
-  integrity sha512-cQ2o1fU6STiL4A9GLhsJGnq6/ALhb9SQxyhIiBUULwyYRaQIia6Uq9JBdaPcDdb1oeYhQ0y8mBvqAUv2ofcoPg==
+"@swizec/gatsby-theme-course-platform@^2.4.1-4":
+  version "2.4.1-4"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-2.4.1-4.tgz#3cab44a8488c552d93966219ac4a6761743d46aa"
+  integrity sha512-owObqr8M5UtW7WkToecExlpMtkSKWS9iHdw9cQbisAPE8XNmTSjPiZfqLxtQuEYNJo+aT+oF5xXu/MKjWwf0fA==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
