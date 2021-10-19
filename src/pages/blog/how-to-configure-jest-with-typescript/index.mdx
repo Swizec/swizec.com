@@ -1,6 +1,6 @@
 ---
 title: "How to configure Jest with TypeScript"
-description: "Using plain Jest on a TypeScript codebase has rough edges. Making them work together smoothly is something you do just rarely enough to forget the details. Hope this helps us both :)"
+description: "Using plain Jest on a TypeScript codebase is kinda rough. No types in tests no thanks.  Making Jest and TypeScript work together smoothly is something you do just rarely enough to forget the details. Hope this helps you and future me too ✌️"
 published: 2021-10-19
 categories: "Technical, Tutorial, TypeScript, Jest, Testing"
 hero: ./img/screenshot-1634657691600.png
@@ -48,7 +48,7 @@ This installs jest and ts-jest, TypeScript (if you don't have it yet), and type 
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-};
+}
 ```
 
 ## Make tests runnable
@@ -112,14 +112,14 @@ this:
 
 ```typescript
 // tests/api/v2/importantBlob/functions.test.ts
-import functionBeingTested from "../../../src/api/v2/importantBlob/functions";
+import functionBeingTested from "../../../src/api/v2/importantBlob/functions"
 ```
 
 or this:
 
 ```typescript
 // src/api/v2/importantBlob/__tests__/functions.test.ts
-import functionBeingTested from "../functions";
+import functionBeingTested from "../functions"
 ```
 
 🤔
@@ -159,15 +159,15 @@ I didn't like having a JavaScript file floating around my pure and clean wonderf
 
 ```typescript
 // jest.config.ts
-import type { Config } from "@jest/types";
+import type { Config } from "@jest/types"
 
 const config: Config.InitialOptions = {
   preset: "ts-jest",
   testEnvironment: "node",
   verbose: true,
   automock: true,
-};
-export default config;
+}
+export default config
 ```
 
 Much better.
@@ -184,7 +184,7 @@ Put a silly function in `src/silly.ts`:
 
 ```typescript
 export function sillyFunction() {
-  return 4; // chosen by fair dice throw, guaranteed to be random
+  return 4 // chosen by fair dice throw, guaranteed to be random
 }
 ```
 
@@ -194,18 +194,18 @@ And a test for this function in `src/__tests__/silly.test.ts`:
 // requireActual ensures you get the real file
 // instead of an automock
 // we use import type and <typeof ...> to still get types
-import type * as Silly from "../silly";
-const { sillyFunction } = jest.requireActual<typeof Silly>("../silly");
+import type * as Silly from "../silly"
+const { sillyFunction } = jest.requireActual<typeof Silly>("../silly")
 
 describe("silly function", () => {
   test("guaranteed random", () => {
-    expect(sillyFunction()).toBe(4);
-  });
-});
+    expect(sillyFunction()).toBe(4)
+  })
+})
 
 // required with this small example
 // to make the isolatedModules config happy
-export {};
+export {}
 ```
 
 We have to use `jest.requireActual` because of the earlier `automock: true` configuration. This loses type information for the code we're testing, so we help TypeScript by doing `import type` and passing that type to `jest.requireActual` with `<>`.
