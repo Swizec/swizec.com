@@ -9,7 +9,7 @@ categories: "Frontend Web, Livecoding, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
-import { ContentUpgrades} from '@swizec-gatsby-theme-course-platform'
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 JavaScript generators are amazing. A brilliant concept infinitely useful on paper.
 
@@ -42,7 +42,7 @@ Unless you use generators 😛
 First, you create a regex that matches `@` followed by a series of word symbols.
 
 ```javascript
-const UserRegex = new RegExp(/@(\w+)/, "g");
+const UserRegex = new RegExp(/@(\w+)/, "g")
 ```
 
 Then you create a generator that runs this regex in a loop. Each `UserRegex.exec()` returns the next match.
@@ -73,9 +73,9 @@ You can now find all usernames in a string with a loop.
 ```javascript
 const string = "this is a test with @swizec and @kyleshevlin, maybe @lukeed05"
 
-    for (const username of getUsernames(string)) {
-      console.log(username)
-    }
+for (const username of getUsernames(string)) {
+  console.log(username)
+}
 ```
 
 That outputs

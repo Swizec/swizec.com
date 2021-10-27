@@ -9,7 +9,7 @@ categories: "Technical, JavaScript, Fullstack Web"
 hero: ../../../defaultHero.jpg
 ---
 
-import { ContentUpgrades} from '@swizec-gatsby-theme-course-platform'
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 Today, I had a dumb idea: _"Nested superagent calls sure look messy… maybe I should use fetch() instead…”_
 
@@ -44,7 +44,7 @@ fetch("/api/some.json", { headers: { Accept: "application/json" } })
   .then((res) => res.json())
   .then((json) => {
     // json contains parsed JSON
-  });
+  })
 ```
 
 Both just 5 lines of code. It’s debatable which is cleaner. They look the same to me. ¯\_(ツ)\_/¯
@@ -72,13 +72,13 @@ Vs.
 fetch("/api/some.json", { headers: { Accept: "application/json" } })
   .then((res) => res.json())
   .then((json) => {
-    const url = `/api/details/${json.details_id}.json`;
-    return fetch(url, { headers: { Accept: "application/json" } });
+    const url = `/api/details/${json.details_id}.json`
+    return fetch(url, { headers: { Accept: "application/json" } })
   })
   .then((res) => res.json())
   .then((json) => {
     // json contains parsed details
-  });
+  })
 ```
 
 The promises approach _does_ look cleaner ?
@@ -126,16 +126,16 @@ fetch("/api/some.json", {
 })
   .then((res) => res.json())
   .then((json) => {
-    const url = `/api/details/${json.details_id}.json`;
+    const url = `/api/details/${json.details_id}.json`
     return fetch(url, {
       headers: { Accept: "application/json" },
       credentials: "same-origin",
-    });
+    })
   })
   .then((res) => res.json())
   .then((json) => {
     // json contains parsed details
-  });
+  })
 ```
 
 In real code, I suggest wrapping fetch() in a helper function that always adds API-specific options like `Accept` and `Authorization` headers and `credentials`. Your future self will thank you.

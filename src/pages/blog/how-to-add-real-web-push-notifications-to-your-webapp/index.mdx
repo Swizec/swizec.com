@@ -9,7 +9,7 @@ categories: "Technical, JavaScript, Fullstack Web"
 hero: ../../../defaultHero.jpg
 ---
 
-import { ContentUpgrades} from '@swizec-gatsby-theme-course-platform'
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 You've probably seen web notifications before. YouTube shows them when it goes to a new song, Facebook pings them when a new message comes in, scammy websites ask for permissions and you say no. The usual.
 
@@ -19,7 +19,7 @@ You can fire those notifications from anywhere inside your JavaScript.
 const notification = new Notification(title, {
   body: body,
   icon: iconURL,
-});
+})
 ```
 
 That creates a new browser notification and shows it to the user. Since Chrome 60-something on a Mac, they're integrated with native notifications. It's great.
@@ -116,13 +116,13 @@ function registerServiceWorker() {
   navigator.serviceWorker
     .register("/service-worker.js")
     .then((registration) => {
-      console.log("ServiceWorker registered with scope:", registration.scope);
+      console.log("ServiceWorker registered with scope:", registration.scope)
     })
-    .catch((e) => console.error("ServiceWorker failed:", e));
+    .catch((e) => console.error("ServiceWorker failed:", e))
 }
 
 if (navigator && navigator.serviceWorker) {
-  registerServiceWorker();
+  registerServiceWorker()
 }
 ```
 
@@ -145,7 +145,7 @@ If you've ever used web notifications before, you already know this part: You ha
 Here's how that goes
 
 ```javascript
-const permission = Notification.requestPermission();
+const permission = Notification.requestPermission()
 
 if (permission !== "granted") {
   // no notifications
@@ -196,9 +196,9 @@ function subscribeToPushNotifications(registration) {
       console.log(
         "Received PushSubscription:",
         JSON.stringify(pushSubscription)
-      );
-      return pushSubscription;
-    });
+      )
+      return pushSubscription
+    })
 }
 ```
 

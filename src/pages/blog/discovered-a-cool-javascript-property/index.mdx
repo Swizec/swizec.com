@@ -9,7 +9,7 @@ categories: "Argument, Callback, Function (mathematics), JavaScript, Languages, 
 hero: ../../../defaultHero.jpg
 ---
 
-import { ContentUpgrades} from '@swizec-gatsby-theme-course-platform'
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 A few years ago I was playing around with JavaScript trying to find the cleanest way to implement [callbacks](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)") in [functions](http://en.wikipedia.org/wiki/Function_%28mathematics%29 "Function (mathematics)"). Primarily I wanted a readable way to make certain the last argument passed is a callback, withut having to rely on knowing how many [arguments](http://en.wikipedia.org/wiki/Argument "Argument") there are and so on.
 
@@ -19,21 +19,21 @@ This is the usual way people use functions, it's nicely standard and works prett
 
 ```javascript
 function example(arg1, arg2, arg3) {
-  return arg1 + arg2 == arg3;
+  return arg1 + arg2 == arg3
 }
 
-example(1, 2, 3);
+example(1, 2, 3)
 ```
 
 Nothing too spectacular here, but javascript has another way to access function arguments - the magical arguments object; granted, a lot of languages have something like this, but it's always a less than obvious feature people often forget about:
 
 ```javascript
 function example() {
-  console.log(arguments);
+  console.log(arguments)
   // prints { '0': 1, '1': 2, '2': 3 }
 }
 
-example(1, 2, 3);
+example(1, 2, 3)
 ```
 
 Ok, nothing too major, perhaps the biggest surprise is that arguments is an object, not a list or an array and strangely enough that the keys are strings despite being just numbers. Also pretty cool is that you don't have to specify any arguments at all, it just magically works. In python for example you at least have to say \*args or something like that.
@@ -44,32 +44,32 @@ But things really start to heat up when we mix both ways of using function argum
 
 ```javascript
 function example(arg) {
-  console.log(arguments);
+  console.log(arguments)
   // prints { '0': 1, '1': 2, '2': 3 }
 
-  arg = 5;
-  console.log(arguments);
+  arg = 5
+  console.log(arguments)
   // prints { '0': 5, '1': 2, '2': 3 }
 
-  var arg = "new";
-  console.log(arguments);
+  var arg = "new"
+  console.log(arguments)
   // prints { '0': 'new', '1': 2, '2': 3 }
 
-  var notArg = arg;
-  notArg = "old";
-  console.log(arguments);
+  var notArg = arg
+  notArg = "old"
+  console.log(arguments)
   // prints { '0': 'new', '1': 2, '2': 3 }
 
-  arguments[1] = arg;
-  console.log(arguments);
+  arguments[1] = arg
+  console.log(arguments)
   // prints { '0': 'new', '1': 'new', '2': 3 }
 
-  arg = 5;
-  console.log(arguments);
+  arg = 5
+  console.log(arguments)
   // prints { '0': 5, '1': 'new', '2': 3 }
 }
 
-example(1, 2, 3);
+example(1, 2, 3)
 ```
 
 The slightly strange thing here is that arguments the function takes explicitly are only references to the positions in the arguments object rather than variables of their own. Trying to make them a new variable doesn't work unless you give them a different name.
@@ -80,32 +80,32 @@ But is it a deep or a [shallow copy](http://en.wikipedia.org/wiki/Object_copy "O
 
 ```javascript
 function isitdeep(arg1, arg2) {
-  console.log(arguments);
+  console.log(arguments)
   // prints { '0': { a: { b: 'c' }, d: { e: 'f' } },
   //          '1': { g: 'h' } }
 
-  arg1.a.b = "f";
-  console.log(arguments);
+  arg1.a.b = "f"
+  console.log(arguments)
   // prints { '0': { a: { b: 'f' }, d: { e: 'f' } },
   //          '1': { g: 'h' } }
 
-  arg2 = arg1;
-  console.log(arguments);
+  arg2 = arg1
+  console.log(arguments)
   // prints { '0': { a: { b: 'f' }, d: { e: 'f' } },
   //          '1': { a: { b: 'f' }, d: { e: 'f' } } }
 
-  arg1.a.b = "c";
-  console.log(arguments);
+  arg1.a.b = "c"
+  console.log(arguments)
   // prints { '0': { a: { b: 'c' }, d: { e: 'f' } },
   //          '1': { a: { b: 'c' }, d: { e: 'f' } } }
 
-  arg1 = "hello world";
-  console.log(arguments);
+  arg1 = "hello world"
+  console.log(arguments)
   // prints { '0': 'hello world',
   //          '1': { a: { b: 'c' }, d: { e: 'f' } } }
 }
 
-isitdeep({ a: { b: "c" }, d: { e: "f" } }, { g: "h" });
+isitdeep({ a: { b: "c" }, d: { e: "f" } }, { g: "h" })
 ```
 
 Interesting, turns out it's a shallow copy and you can still poke arguments in strange ways ... but maybe/probably that's just how javascript performs in general, the = operator being a shallow copy mechanism.

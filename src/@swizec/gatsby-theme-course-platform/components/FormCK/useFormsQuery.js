@@ -13,6 +13,7 @@ export const useFormsQuery = () => {
             javascriptFormId
             fullstackWebFormId
             ComputerScienceFormID
+            ServerlessHandbookCUFormId
           }
         }
       }
