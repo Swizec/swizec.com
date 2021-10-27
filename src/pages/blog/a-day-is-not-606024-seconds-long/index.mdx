@@ -5,8 +5,11 @@ published: 2015-11-18
 redirect_from:
   - /blog/a-day-is-not-606024-seconds-long/swizec/6755
 categories: "Technical, JavaScript"
+content_upgrade: Javascript
 hero: ../../../defaultHero.jpg
 ---
+
+import { ContentUpgrades } from '@swizec/gatsby-theme-course-platform'
 
 I was fixing some code written by an intrepid junior the other day and came upon this beauty:
 
@@ -53,6 +56,8 @@ But, I mean, who cares, right? It's just an hour here, an hour there, and maybe 
 Here's the thing, though. Just because it’s _yesterday_ doesn’t mean it’s also _1 day ago_.
 
 Let’s say this code runs between 2 am and 3 am on the days when daylight savings time goes away. First of all, not all countries do the change; not even all US states do. Second of all, there are **two** instances of _the hour between 2 am and 3 am_.
+
+<ContentUpgrades.Javascript />
 
 Let me show you some examples:
 
