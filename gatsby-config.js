@@ -19,6 +19,7 @@ module.exports = {
       ServerlessHandbookCUFormId: "1655570",
       javascriptFormId: "2507452",
       fullstackWebFormId: "2507619",
+      ComputerScienceFormId: "2720965"
     },
     articles: {
       title: `Swizec - A geek with a hat`,
