@@ -11,6 +11,9 @@ import JavascriptLeftCopy from "./JavascriptLeftCopy.mdx"
 import FullstackWebBeforeCopy from "./FullstackWebBeforeCopy"
 import FullstackWebLeftCopy from "./FullstackWebLeftCopy.mdx"
 
+import ComputerScienceBeforeCopy from "./ComputerScienceBeforeCopy"
+import ComputerScienceLeftCopy from "./ComputerScienceLeftCopy.mdx"
+
 import { FormCK } from "@swizec/gatsby-theme-course-platform"
 
 export const ServerlessHandbook = ({ footer }) => {
@@ -57,6 +60,18 @@ export const FullstackWeb = ({ footer }) => {
       submitText="Get curated essays 💌"
     >
       <FullstackWebLeftCopy />
+    </FormCK>
+  )
+}
+
+export const ComputerScience = ({ footer }) => {
+  return (
+    <FormCK
+      copyBefore={footer ? <ComputerScienceBeforeCopy /> : <></>}
+      formName="ComputerScience"
+      submitText="Get curated essays 💌"
+    >
+      <ComputerScienceLeftCopy />
     </FormCK>
   )
 }

@@ -5,8 +5,11 @@ published: 2019-02-08
 redirect_from:
   - /blog/async-await-catch-error-handling-that-wont-drive-you-crazy/swizec/8931
 categories: "Computer Science, Front End, Technical"
+content_upgrade: Javascript
 hero: ./img/media-DyvM7QQUUAAiUvA.png
 ---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 Async/await is great. Makes your code easier to read 👌 But the error handling ... oof 🙄
 
@@ -45,6 +48,8 @@ Oh I know! We can move using data to after the catch block, right? That should w
 Nope. Now data isn't defined because `const { data }` only works within that try block. 🤦‍♂️
 
 You could solve that with a `var`, but that's old school JavaScript and we all agreed we'd stop using it.
+
+<ContentUpgrades.Javascript />
 
 What about this?
 
