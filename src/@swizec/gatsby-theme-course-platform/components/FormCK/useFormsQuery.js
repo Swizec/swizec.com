@@ -12,7 +12,7 @@ export const useFormsQuery = () => {
             seniorMindsetFormId
             javascriptFormId
             fullstackWebFormId
-            ComputerScienceFormID
+            ComputerScienceFormId
             ServerlessHandbookCUFormId
           }
         }
