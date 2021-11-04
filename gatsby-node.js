@@ -26,16 +26,21 @@ exports.onPreBootstrap = ({ actions }) => {
   console.log(`${chalk.green("success")} create redirects from _redirects`)
 }
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
+exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
 
   if (node.internal.type === "MarkdownRemark" || node.internal.type === "Mdx") {
-    const slug = createFilePath({ node, getNode })
-    createNodeField({
-      node,
-      name: "slug2",
-      value: slug,
-    })
+    if (node.fileAbsolutePath.includes("/pages/blog/")) {
+      const slug = node.fileAbsolutePath
+        .split("/pages/")[1]
+        .replace("/index.mdx", "")
+
+      createNodeField({
+        node,
+        name: "slug_custom",
+        value: `/${slug}`,
+      })
+    }
   }
 }
 
@@ -47,7 +52,7 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             fields {
               slug
-              slug2
+              slug_custom
             }
             frontmatter {
               redirect_from
@@ -69,11 +74,15 @@ exports.createPages = async ({ graphql, actions }) => {
   // extract all values and push to redirects array
   allPosts.forEach((post) => {
     const from = post.node.frontmatter.redirect_from
-    const to = post.node.fields.slug
-    const slug2 = post.node.fields.slug2
+    let to = post.node.fields.slug
+    const slugCustom = post.node.fields.slug_custom
+
+    if (to === "/index") {
+      to = slugCustom
+    }
 
     from.forEach((from) => {
-      console.log("article redirect", { from, to, slug2 })
+      console.log("article redirect", { from, to })
       actions.createRedirect({
         fromPath: from,
         toPath: to,
