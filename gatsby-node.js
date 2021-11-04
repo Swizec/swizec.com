@@ -87,7 +87,6 @@ exports.createPages = async ({ graphql, actions }) => {
         fromPath: from,
         toPath: to,
         isPermanent: true,
-        redirectInBrowser: true,
       })
     })
   })
