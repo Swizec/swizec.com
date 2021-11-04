@@ -82,11 +82,11 @@ exports.createPages = async ({ graphql, actions }) => {
     }
 
     from.forEach((from) => {
-      console.log("article redirect", { from, to })
       actions.createRedirect({
         fromPath: from,
         toPath: to,
         isPermanent: true,
+        redirectInBrowser: true,
       })
     })
   })

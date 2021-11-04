@@ -10,7 +10,7 @@ const customTheme = {
   ...courseTheme,
   layout: {
     container: {
-      //   width: ["97%", "97%", "78%"],
+      width: ["97%", "97%", "78%"],
       maxWidth: "container",
     },
   },
