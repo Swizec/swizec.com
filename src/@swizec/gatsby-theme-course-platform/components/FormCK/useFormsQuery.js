@@ -14,6 +14,9 @@ export const useFormsQuery = () => {
             fullstackWebFormId
             ComputerScienceFormId
             ServerlessHandbookCUFormId
+            ReactFormId
+            BackendWebFormId
+            IndieHackingFormId
           }
         }
       }
