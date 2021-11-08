@@ -1,10 +1,10 @@
 ---
 title: "How you can start using GraphQL today without changing the backend"
-description: ""
+description: "GraphQL for new projects looks great ... buuuut how do you use it with that old backend cobbled together in Rails over the last bazillion years?"
 published: 2020-03-12
 redirect_from:
   - /blog/how-you-can-start-using-graphql-today-without-changing-the-backend/swizec/9350
-categories: "Back End, Technical"
+categories: "Backend Web, Serverless, Technical"
 content_upgrade: ServerlessHandbook
 hero: ./img/h5gaIXC.png
 ---
@@ -23,7 +23,7 @@ You can connect GraphQL to your REST API instead of the database. Create a small
 
 We explored this idea on a stream 👇
 
-[![Click through for source](./img/techletter.app-screenshot-1584029350206.png)](https://www.youtube.com/watch?v=5d_CZHljxuw)
+https://www.youtube.com/watch?v=5d_CZHljxuw
 
 Out came a proof of concept that took a 37KB payload from our production API at [Yup](https://yup.com) and turned it into this:
 
@@ -92,7 +92,27 @@ here's what I found
 
 Host on AWS Lambda so you don't have to deal with servers. Focus on the code.
 
-[![Click through for source](./img/techletter.app-screenshot-1584029348368.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=yaml&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=service%3A%20yup-graphql-proxy%0A%0Aprovider%3A%0A%20%20%20%20name%3A%20aws%0A%20%20%20%20runtime%3A%20nodejs12.x%0A%20%20%20%20stage%3A%20dev%0A%0Afunctions%3A%0A%20%20%20%20graphql%3A%0A%20%20%20%20%20%20%20%20handler%3A%20dist%2Fgraphql.handler%0A%20%20%20%20%20%20%20%20events%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20path%3A%20graphql%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20GET%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cors%3A%20true%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20path%3A%20graphql%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20POST%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cors%3A%20true>)
+```yaml
+service: yup-graphql-proxy
+
+provider:
+    name: aws
+    runtime: nodejs12.x
+    stage: dev
+
+functions:
+    graphql:
+        handler: dist/graphql.handler
+        events:
+            - http:
+                  path: graphql
+                  method: GET
+                  cors: true
+            - http:
+                  path: graphql
+                  method: POST
+                  cors: true
+```
 
 Run `sls deploy` and you get a server that runs your `graphql.handler` method on every GET and POST request.
 
@@ -100,7 +120,47 @@ Run `sls deploy` and you get a server that runs your `graphql.handler` method on
 
 Apollo is great for building GraphQL servers. Good community support, integrates well with Lambda, great developer experience. 👌
 
-[![Click through for source](./img/techletter.app-screenshot-1584029348184.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2Fgraphql.ts%0Aimport%20%7B%20ApolloServer%2C%20gql%20%7D%20from%20%22apollo-server-lambda%22%3B%0Aimport%20%7B%20APIwrapper%20%7D%20from%20%22.%2FAPIwrapper%22%3B%0Aimport%20%7B%20settingsSchema%20%7D%20from%20%22.%2Fschema%2FSettings%22%3B%0A%0A%2F%2F%20this%20is%20where%20we%20define%20the%20shape%20of%20our%20API%0Aconst%20rootSchema%20%3D%20gql%60%0A%20%20%20%20type%20Query%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20queries%20%E2%80%93%C2%A0GET%20api%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20type%20Mutation%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20mutations%20%E2%80%93%C2%A0POST%20api%0A%20%20%20%20%7D%0A%60%3B%0A%0Aconst%20typeDefs%20%3D%20%5BrootSchema%2C%20settingsSchema%5D%3B%0A%0A%2F%2F%20a%20convenience%20wrapper%20for%20your%20API%0Aconst%20API%20%3D%20new%20APIwrapper()%3B%0A%0A%2F%2F%20this%20is%20where%20the%20shape%20maps%20to%20functions%0Aconst%20resolvers%20%3D%20%7B%0A%20%20%20%20Query%3A%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20query%20resolvers%20go%20here%0A%20%20%20%20%7D%0A%20%20%20%20Mutation%3A%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20mutation%20resolvers%20go%20here%0A%20%20%20%20%7D%0A%7D%3B%0A%0Aconst%20server%20%3D%20new%20ApolloServer(%7B%20typeDefs%2C%20resolvers%20%7D)%3B%0A%0Aexport%20const%20handler%20%3D%20server.createHandler(%7B%0A%20%20%20%20cors%3A%20%7B%0A%20%20%20%20%20%20%20%20origin%3A%20%22*%22%2C%20%2F%2F%20for%20security%20in%20production%2C%20lock%20this%20to%20your%20real%20endpoints%0A%20%20%20%20%20%20%20%20credentials%3A%20true%0A%20%20%20%20%7D%0A%7D)%3B>)
+```typescript
+// src/graphql.ts
+import { ApolloServer, gql } from "apollo-server-lambda";
+import { APIwrapper } from "./APIwrapper";
+import { settingsSchema } from "./schema/Settings";
+
+// this is where we define the shape of our API
+const rootSchema = gql`
+    type Query {
+        // queries – GET api
+    }
+    
+    type Mutation {
+        // mutations – POST api
+    }
+`;
+
+const typeDefs = [rootSchema, settingsSchema];
+
+// a convenience wrapper for your API
+const API = new APIwrapper();
+
+// this is where the shape maps to functions
+const resolvers = {
+    Query: {
+        // query resolvers go here
+    }
+    Mutation: {
+        // mutation resolvers go here
+    }
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+export const handler = server.createHandler({
+    cors: {
+        origin: "*", // for security in production, lock this to your real endpoints
+        credentials: true
+    }
+});
+```
 
 This creates a GraphQL server. Send a POST request and it maps queries to resolvers. Send a GET request and you see an Apollo playground so you can try your queries.
 
@@ -116,7 +176,35 @@ Then use something like the [walmartlabs schema generator](https://walmartlabs.g
 
 To keep code organized I recommend 1 schema file per endpoint – `src/schema/Thing.ts`. Like this
 
-[![Click through for source](./img/techletter.app-screenshot-1584029348191.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=src%2Fschema%2FSettings.ts%0A%0Aimport%20%7B%20gql%20%7D%20from%20%22apollo-server%22%3B%0A%0A%2F%2F%20schema%20generated%20with%3A%20https%3A%2F%2Fwalmartlabs.github.io%2Fjson-to-simple-graphql-schema%2F%0Aexport%20const%20settingsSchema%20%3D%20gql%60%0A%20%20%20%20type%20Reactions%20%7B%0A%20%20%20%20%20%20%20%20name%3A%20String%0A%20%20%20%20%20%20%20%20emoji%3A%20String%0A%20%20%20%20%20%20%20%20label%3A%20String%0A%20%20%20%20%7D%0A%0A%20%20%20%20type%20Subtopics%20%7B%0A%20%20%20%20%20%20%20%20id%3A%20Int%0A%20%20%20%20%20%20%20%20name%3A%20String%0A%20%20%20%20%20%20%20%20label%3A%20String%0A%20%20%20%20%7D%0A%0A%20%20%20%20type%20Subjects%20%7B%0A%20%20%20%20%20%20%20%20id%3A%20Int%0A%20%20%20%20%20%20%20%20name%3A%20String%0A%20%20%20%20%20%20%20%20blurb%3A%20String%0A%20%20%20%20%20%20%20%20available%3A%20Boolean%0A%20%20%20%20%20%20%20%20%0A%2F%2F%20...%0A%20%20%20%20%7D%0A%60%3B>)
+```typescript
+src/schema/Settings.ts
+
+import { gql } from "apollo-server";
+
+// schema generated with: https://walmartlabs.github.io/json-to-simple-graphql-schema/
+export const settingsSchema = gql`
+    type Reactions {
+        name: String
+        emoji: String
+        label: String
+    }
+
+    type Subtopics {
+        id: Int
+        name: String
+        label: String
+    }
+
+    type Subjects {
+        id: Int
+        name: String
+        blurb: String
+        available: Boolean
+        
+// ...
+    }
+`;
+```
 
 There's 300 lines of this crap. You don't wanna write it by hand from scratch 😅
 
@@ -128,7 +216,23 @@ You'll have to consolidate and clean up by hand.
 
 Get all your schemas imported and into an array, pass them into ApolloServer as type definitions.
 
-[![Click through for source](./img/techletter.app-screenshot-1584029348174.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2Fgraphql.ts%0A%0Aimport%20%7B%20userSchema%20%7D%20from%20%22.%2Fschema%2FUser%22%3B%0Aimport%20%7B%20settingsSchema%20%7D%20from%20%22.%2Fschema%2FSettings%22%3B%0A%0Aconst%20rootSchema%20%3D%20gql%60%0A%20%20%20%20type%20Query%20%7B%0A%20%20%20%20%20%20%20%20user%3A%20User%0A%20%20%20%20%20%20%20%20settings%3A%20Settings%0A%20%20%20%20%7D%0A%60%3B%0A%0Aconst%20typeDefs%20%3D%20%5BrootSchema%2C%20userSchema%2C%20settingsSchema%5D%3B%0A%0Aconst%20server%20%3D%20new%20ApolloServer(%7B%20typeDefs%2C%20resolvers%20%7D)%3B>)
+```typescript
+// src/graphql.ts
+
+import { userSchema } from "./schema/User";
+import { settingsSchema } from "./schema/Settings";
+
+const rootSchema = gql`
+    type Query {
+        user: User
+        settings: Settings
+    }
+`;
+
+const typeDefs = [rootSchema, userSchema, settingsSchema];
+
+const server = new ApolloServer({ typeDefs, resolvers });
+```
 
 Query `user` returns the `User` model, `settings` for `Settings` etc. Build a mapping that makes sense for your API.
 
@@ -140,13 +244,50 @@ Resolvers are where you map queries to data. Any data from anywhere. 🤘
 
 For my settings proof-of-concept, it looks like this:
 
-[![Click through for source](./img/techletter.app-screenshot-1584029348370.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2Fgraphql.ts%0A%0Aconst%20API%20%3D%20new%20APIwrapper()%3B%0A%0A%2F%2F%20this%20is%20where%20the%20shape%20maps%20to%20functions%0Aconst%20resolvers%20%3D%20%7B%0A%20%20%20%20Query%3A%20%7B%0A%20%20%20%20%20%20%20%20settings%3A%20async%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20await%20API.login()%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20API.settings()%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%20%20%2F%2F%20Mutation%3A%20%7B%7D%0A%7D%3B>)
+```typescript
+// src/graphql.ts
+
+const API = new APIwrapper();
+
+// this is where the shape maps to functions
+const resolvers = {
+    Query: {
+        settings: async () => {
+            await API.login();
+            return API.settings();
+        }
+    }
+    // Mutation: {}
+};
+```
 
 An API wrapper helps with authentication, staying logged in as a user, and sending the right headers with each request.
 
 The `API.settings()` method sends a fetch request to `/api/settings` and returns the payload.
 
-[![Click through for source](./img/techletter.app-screenshot-1584029348135.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2FAPIwrapper.ts%0A%0Aimport%20fetch%20from%20%22isomorphic-fetch%22%3B%0A%0Aexport%20class%20APIwrapper%20%7B%0A%20%20%20%20headers%3A%20JSONBlob%20%3D%20%7B%0A%20%20%20%20%20%20%20%20%22Content-Type%22%3A%20%22application%2Fjson%22%2C%0A%20%20%20%20%20%20%20%20Authorization%3A%20%60Token%20token%3D%3Cauth_token%3E%60%2C%0A%20%20%20%20%20%20%20%20Accept%3A%20%22application%2Fjson.v2%22%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20async%20settings()%20%7B%0A%20%20%20%20%20%20%20%20await%20this.login()%3B%0A%0A%20%20%20%20%20%20%20%20const%20settings%20%3D%20await%20fetch(%22https%3A%2F%2Fswizec.ngrok.io%2Fapi%2Fsettings%22%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20headers%3A%20this.headers%0A%20%20%20%20%20%20%20%20%7D).then(res%20%3D%3E%20res.json())%3B%0A%0A%20%20%20%20%20%20%20%20return%20settings%3B%0A%20%20%20%20%7D%0A%7D>)
+```typescript
+// src/APIwrapper.ts
+
+import fetch from "isomorphic-fetch";
+
+export class APIwrapper {
+    headers: JSONBlob = {
+        "Content-Type": "application/json",
+        Authorization: `Token token=<auth_token>`,
+        Accept: "application/json.v2"
+    };
+
+    async settings() {
+        await this.login();
+
+        const settings = await fetch("https://swizec.ngrok.io/api/settings", {
+            headers: this.headers
+        }).then(res => res.json());
+
+        return settings;
+    }
+}
+```
 
 Hardcoded to my dev machine because this is just a prototype. You'd want that to be a setting or environment variable of some sort.
 
@@ -154,7 +295,36 @@ The headers also are hardcoded and I stripped the token before sharing.
 
 My login method also is quite ratchet. It uses a demo user's email/pass combination to fake logging into the server. 🤣
 
-[![Click through for source](./img/techletter.app-screenshot-1584029348257.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=async%20login()%20%7B%0A%20%20%20%20if%20(this.headers%5B%22X-Has-User-Account%22%5D)%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20already%20logged%20in%2C%20keep%20going%0A%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20const%20response%3A%20LoginResponse%20%3D%20await%20fetch(%0A%20%20%20%20%20%20%20%20%22https%3A%2F%2Fswizec.ngrok.io%2Fapi%2Flogin%22%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20%22POST%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20headers%3A%20this.headers%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20body%3A%20JSON.stringify(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20user%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20email%3A%20%22admin%40localhost.com%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20password%3A%20%22Password1!%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20).then(res%20%3D%3E%20res.json())%3B%0A%0A%20%20%20%20%2F%2F%20add%20login%20stuff%20to%20headers%20for%20other%20methods%0A%20%20%20%20this.headers%20%3D%20%7B%0A%20%20%20%20%20%20%20%20...this.headers%2C%0A%20%20%20%20%20%20%20%20%22X-Has-User-Account%22%3A%20%22true%22%2C%0A%20%20%20%20%20%20%20%20%22X-User-Known-Key%22%3A%20response.identifier%2C%0A%20%20%20%20%20%20%20%20%22X-User-Authentication-Token%22%3A%20response.access_token%0A%20%20%20%20%7D%3B%0A%7D>)
+```typescript
+async login() {
+    if (this.headers["X-Has-User-Account"]) {
+        // already logged in, keep going
+        return;
+    }
+
+    const response: LoginResponse = await fetch(
+        "https://swizec.ngrok.io/api/login",
+        {
+            method: "POST",
+            headers: this.headers,
+            body: JSON.stringify({
+                user: {
+                    email: "admin@localhost.com",
+                    password: "Password1!"
+                }
+            })
+        }
+    ).then(res => res.json());
+
+    // add login stuff to headers for other methods
+    this.headers = {
+        ...this.headers,
+        "X-Has-User-Account": "true",
+        "X-User-Known-Key": response.identifier,
+        "X-User-Authentication-Token": response.access_token
+    };
+}
+```
 
 You'll need to figure this part out for yourself. Authentication depends on your backend implementation. You might not even need it for some requests.
 
