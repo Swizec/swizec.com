@@ -20,6 +20,9 @@ module.exports = {
       javascriptFormId: "2507452",
       fullstackWebFormId: "2507619",
       ComputerScienceFormId: "2720965",
+      ReactFormId: "2753675",
+      BackendWebFormId: "2376968",
+      IndieHackingFormId: "2753667",
     },
     articles: {
       title: `Swizec - A geek with a hat`,
