@@ -37,9 +37,9 @@ https://twitter.com/Swizec/status/1457037060078927876
 You have to write your bazillionth state setter. Boilerplate you could write in your sleep, if it wasn't so easy to write a bug.
 
 ```javascript
-const [taylorSwiftSongs, setTaylorSwiftSongs] = useState([]);
+const [taylorSwiftSongs, setTaylorSwiftSongs] = useState([])
 async function parseCSV() {
-  const file = await dataURLToFile(csv, "spotify_taylorswift.csv");
+  const file = await dataURLToFile(csv, "spotify_taylorswift.csv")
 
   // parse the file
   Papa.parse(file, {
@@ -49,12 +49,12 @@ async function parseCSV() {
         // sort by popularity
         data.data.sort((a, b) => Number(b.popularity) - Number(a.popularity))
       ),
-  });
+  })
 }
 
 // ...
 
-<Button onClick={parseCSV}>Click Me</Button>;
+;<Button onClick={parseCSV}>Click Me</Button>
 ```
 
 1.  Define a new state that starts with an empty array
@@ -78,7 +78,7 @@ Because this is a demo, we show a list of Taylor Swift songs by popularity. Your
         </li>
       ))}
     </ol>
-  ) : null;
+  ) : null
 }
 ```
 
@@ -101,7 +101,7 @@ To add a loading state, you need to write yet more boilerplate.
 First, you add a loading state to your button:
 
 ```javascript
-import Loading from "./loading.gif";
+import Loading from "./loading.gif"
 
 function Button({ loading, onClick, children }) {
   return (
@@ -112,7 +112,7 @@ function Button({ loading, onClick, children }) {
     >
       {loading ? <img src={Loading} alt="loading" /> : children}
     </button>
-  );
+  )
 }
 ```
 
@@ -121,12 +121,12 @@ Shows a loading gif and disables the button when `loading=true`. You'll need thi
 Then you set the loading state while your slow operation runs:
 
 ```javascript
-const [taylorSwiftSongs, setTaylorSwiftSongs] = useState([]);
-const [loadingSongs, setLoadingSongs] = useState(false);
+const [taylorSwiftSongs, setTaylorSwiftSongs] = useState([])
+const [loadingSongs, setLoadingSongs] = useState(false)
 
 async function parseCSV() {
-  setLoadingSongs(true);
-  const file = await dataURLToFile(csv, "spotify_taylorswift.csv");
+  setLoadingSongs(true)
+  const file = await dataURLToFile(csv, "spotify_taylorswift.csv")
 
   // parse the file
   Papa.parse(file, {
@@ -135,10 +135,10 @@ async function parseCSV() {
       setTaylorSwiftSongs(
         // sort by popularity
         data.data.sort((a, b) => Number(b.popularity) - Number(a.popularity))
-      );
-      setLoadingSongs(false);
+      )
+      setLoadingSongs(false)
     },
-  });
+  })
 }
 ```
 
@@ -158,7 +158,7 @@ Writing all that boilerplate was tedious. Instead, we can use React Query.
 
 ```javascript
 const taylorSwiftSongs = useMutation(async () => {
-  const file = await dataURLToFile(csv, "spotify_taylorswift.csv");
+  const file = await dataURLToFile(csv, "spotify_taylorswift.csv")
 
   // we need to wrap Papa in a promise
   return new Promise((resolve, reject) => {
@@ -168,17 +168,17 @@ const taylorSwiftSongs = useMutation(async () => {
       complete: (data) => {
         const sorted = data.data.sort(
           (a, b) => Number(b.popularity) - Number(a.popularity)
-        );
-        resolve(sorted);
+        )
+        resolve(sorted)
       },
-    });
-  });
-});
+    })
+  })
+})
 ```
 
-We kept the same core of our code – turn CSV into a file, ask Papa to parse it.
+We kept the same core of our code – turn CSV into a file, ask Papa to parse.
 
-Because Papa is an older library, we had to wrap it in a promise. Makes it work better with async/await.
+Because Papa is an older library, we had to wrap the code in a promise. Makes it work better with async/await.
 
 But look there's no boilerplate!
 
@@ -199,14 +199,14 @@ async function getFactors(number) {
   return new Promise((resolve) => {
     setTimeout(() => {
       // the algorithm
-      const factors = [];
+      const factors = []
       for (let i = 2; i < number; i++)
         if (number % i === 0) {
-          factors.push(i);
+          factors.push(i)
         }
-      resolve(factors);
-    }, 0);
-  });
+      resolve(factors)
+    }, 0)
+  })
 }
 ```
 
@@ -217,20 +217,20 @@ Once you have a slow function, `useQuery` is the easiest way to hold it.
 ```javascript
 function Factors({ number }) {
   const factors = useQuery(["factors", number], async () => {
-    return getFactors(number);
-  });
+    return getFactors(number)
+  })
 
   if (factors.isLoading) {
-    return <img src={Loading} alt="loading" />;
+    return <img src={Loading} alt="loading" />
   } else if (factors.isError) {
-    return <p>Oh no something went wrong</p>;
+    return <p>Oh no something went wrong</p>
   } else if (factors.data) {
     return (
       <p>
         {number} has {factors.data.length} factors, they are [
         {factors.data.join(", ")}]
       </p>
-    );
+    )
   }
 }
 ```
