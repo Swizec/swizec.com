@@ -44,6 +44,7 @@ module.exports = {
       resolve: "gatsby-plugin-typography",
       options: {
         pathToConfigModule: "src/typography.js",
+        omitGoogleFont: true,
       },
     },
     "gatsby-plugin-gatsby-cloud",
