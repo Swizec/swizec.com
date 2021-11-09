@@ -6967,7 +6967,7 @@ gatsby-remark-copy-relative-linked-files@^1.4.0:
     unist-util-visit "^2.0.3"
     upath "^2.0.1"
 
-"gatsby-remark-embedder@github:Swizec/gatsby-remark-embedder#custom-first-boop":
+gatsby-remark-embedder@Swizec/gatsby-remark-embedder#custom-first-boop:
   version "0.0.0-semantically-released"
   resolved "https://codeload.github.com/Swizec/gatsby-remark-embedder/tar.gz/152933bfd204f5a2f36c9946757b74c156a5db42"
   dependencies:
@@ -13672,6 +13672,11 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typeface-arvo@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/typeface-arvo/-/typeface-arvo-1.1.13.tgz#28be4abbd80f70d5871d185b9fc6a54b3096c9bb"
+  integrity sha512-iDMriza7N1/e+qee4Qdn9ZdJrpAHfjwvU6pMr/O30lwsdk33v35IkDKVhDceBDe03eiw1HifdU4+P5RuO1UwTA==
+
 typeface-cabin-condensed@^1.1.13:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/typeface-cabin-condensed/-/typeface-cabin-condensed-1.1.13.tgz#06bb32a051a31047602c8ed4d23bb63c21af0be8"
@@ -13686,6 +13691,11 @@ typeface-merriweather@^1.1.13:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/typeface-merriweather/-/typeface-merriweather-1.1.13.tgz#c6f0564bc0346174f4da8daf282d27bfa802f06f"
   integrity sha512-ho6xe/y/uHIKVXsFtK+dJfRCD5KZqJCMYTCcXfuCwQHQbeQ83a7hVkxfRMTEIjZOSXw5SevOjnwJuZ5QgWEHiw==
+
+typeface-montserrat@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/typeface-montserrat/-/typeface-montserrat-1.1.13.tgz#2a16729c174dd1a8c3fec05a851b7725412606cc"
+  integrity sha512-Pklkyj0e+K+6I/t0M6JBDBphpfJkF1k+3qd8qDnp9aVtCC7oGBQWTAcL6+5eArfGe7h73uPwyal73hEkf9YCUA==
 
 typeface-patua-one@^1.1.13:
   version "1.1.13"
@@ -13702,6 +13712,15 @@ typography-theme-funston@^0.16.19:
   resolved "https://registry.yarnpkg.com/typography-theme-funston/-/typography-theme-funston-0.16.19.tgz#fe543c337cad4af67911cdb2004cb641045b92a9"
   integrity sha512-0C6PAfgZju6is1Dys3sK06huefxFFhf+Y+1l+5G3TVXjJds27IrHSggdUDmTS/nxtTLo1v4zbNtu1Z1W5UNb/g==
   dependencies:
+    gray-percentage "^2.0.0"
+    typography-breakpoint-constants "^0.16.19"
+
+typography-theme-grand-view@^0.16.19:
+  version "0.16.19"
+  resolved "https://registry.yarnpkg.com/typography-theme-grand-view/-/typography-theme-grand-view-0.16.19.tgz#696b1c42f755d0f559b7b671e1705f76e69c658d"
+  integrity sha512-D7JsfJ3r29aCERgOD2XhIdwAxOHroBEKzpGwm7nznF9EyO1kioC8+tjROVsSU5YRYvwMqIPdXtmd3h3NLHEe7Q==
+  dependencies:
+    compass-vertical-rhythm "^1.2.1"
     gray-percentage "^2.0.0"
     typography-breakpoint-constants "^0.16.19"
 

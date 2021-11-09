@@ -1,9 +1,8 @@
-import preset from "@rebass/preset"
-import merge from "lodash.merge"
+import merge from "deepmerge"
 import { toTheme } from "@theme-ui/typography"
-import typography from "typography-theme-funston"
-import "typeface-patua-one"
-import "typeface-cabin-condensed"
+import typography from "typography-theme-grand-view"
+// import "typeface-montserrat"
+// import "typeface-arvo"
 import { courseTheme } from "@swizec/gatsby-theme-course-platform"
 
 const customTheme = {
@@ -23,6 +22,7 @@ const customTheme = {
   },
 }
 
-const theme = merge(preset, toTheme(typography), customTheme)
+// const theme = merge(preset, toTheme(typography), customTheme)
+// const theme = toTheme(typography)
 
-export default theme
+export default courseTheme

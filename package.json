@@ -18,6 +18,7 @@
         "@mdx-js/react": "^1.6.16",
         "@rebass/preset": "^4.0.5",
         "@swizec/gatsby-theme-course-platform": "^2.4.1",
+        "deepmerge": "^4.2.2",
         "gatsby": "^3.3.1",
         "gatsby-plugin-feed": "3.3.0",
         "gatsby-plugin-gatsby-cloud": "^2.4.1",
@@ -26,9 +27,12 @@
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
         "theme-ui": "0.7.3",
+        "typeface-arvo": "^1.1.13",
         "typeface-cabin-condensed": "^1.1.13",
+        "typeface-montserrat": "^1.1.13",
         "typeface-patua-one": "^1.1.13",
-        "typography-theme-funston": "^0.16.19"
+        "typography-theme-funston": "^0.16.19",
+        "typography-theme-grand-view": "^0.16.19"
     },
     "resolutions": {
         "react": "^17.0.1",
