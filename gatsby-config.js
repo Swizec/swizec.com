@@ -40,6 +40,12 @@ module.exports = {
   flags: { PRESERVE_WEBPACK_CACHE: true },
   plugins: [
     "@swizec/gatsby-theme-course-platform",
+    {
+      resolve: "gatsby-plugin-typography",
+      options: {
+        pathToConfigModule: "src/typography.js",
+      },
+    },
     "gatsby-plugin-gatsby-cloud",
     {
       resolve: "gatsby-plugin-manifest",
