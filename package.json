@@ -30,6 +30,7 @@
         "typeface-exo": "^1.1.13",
         "typeface-yrsa": "^1.1.13",
         "typography": "^0.16.21",
+        "typography-plugin-code": "^0.16.20",
         "typography-theme-irving": "^0.16.19"
     },
     "resolutions": {

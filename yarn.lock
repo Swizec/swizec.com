@@ -13723,6 +13723,14 @@ typography-normalize@^0.16.19:
   resolved "https://registry.yarnpkg.com/typography-normalize/-/typography-normalize-0.16.19.tgz#58e0cf12466870c5b27006daa051fe7307780660"
   integrity sha512-vtnSv/uGBZVbd4e/ZhZB9HKBgKKlWQUXw74+ADIHHxzKp27CEf8PSR8TX1zF2qSyQ9/qMdqLwXYz8yRQFq9JLQ==
 
+typography-plugin-code@^0.16.20:
+  version "0.16.20"
+  resolved "https://registry.yarnpkg.com/typography-plugin-code/-/typography-plugin-code-0.16.20.tgz#37b268b7fa0d37355a7856a75a077ef3cd6d0295"
+  integrity sha512-JoJ7nJIMfCCs3zqNDdB5q/XvMKnZB+WkV1lDlmW2DsOU333yH+gQwBBIJNzQBgqKaRAXxc8cLcgvEmV4abtvBQ==
+  dependencies:
+    gray-percentage "^2.0.0"
+    lodash "^4.13.1"
+
 typography-theme-irving@^0.16.19:
   version "0.16.19"
   resolved "https://registry.yarnpkg.com/typography-theme-irving/-/typography-theme-irving-0.16.19.tgz#3d7bfd71f092126743587a4ace64d10508155168"
