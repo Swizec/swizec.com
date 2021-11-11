@@ -14,8 +14,8 @@ import FullstackWebLeftCopy from "./FullstackWebLeftCopy.mdx"
 import ComputerScienceBeforeCopy from "./ComputerScienceBeforeCopy"
 import ComputerScienceLeftCopy from "./ComputerScienceLeftCopy.mdx"
 
-import ReactBeforeCopy from "./ReactBeforeCopy"
-import ReactLeftCopy from "./ReactLeftCopy.mdx"
+import ReactCUBeforeCopy from "./ReactCUBeforeCopy"
+import ReactCULeftCopy from "./ReactCULeftCopy.mdx"
 
 import BackendWebBeforeCopy from "./BackendWebBeforeCopy"
 import BackendWebLeftCopy from "./BackendWebLeftCopy.mdx"
@@ -85,11 +85,11 @@ export const ComputerScience = ({ footer }) => {
   )
 }
 
-export const React = ({ footer }) => {
+export const ReactCU = ({ footer }) => {
   return (
     <FormCK
-      copyBefore={footer ? <ReactBeforeCopy /> : <></>}
-      formName="React"
+      copyBefore={footer ? <ReactCUBeforeCopy /> : <></>}
+      formName="ReactCU"
       submitText="Get curated essays 💌"
     >
       <ReactLeftCopy />
