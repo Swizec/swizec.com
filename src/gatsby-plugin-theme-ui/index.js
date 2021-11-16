@@ -4,6 +4,9 @@ import "typeface-exo"
 import "typeface-yrsa"
 
 const customTheme = {
+  container: {
+    maxWidth: "780px",
+  },
   header: {
     nav: {
       color: "text",
