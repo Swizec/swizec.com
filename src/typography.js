@@ -10,7 +10,6 @@ theme.overrideThemeStyles = ({ rhythm }, options) => ({
 })
 theme.plugins = [new CodePlugin()]
 theme.baseFontSize = "23px"
-theme.scaleRatio = 2.4
 
 const typography = new Typography(theme)
 
