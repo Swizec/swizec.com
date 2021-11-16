@@ -14,6 +14,15 @@ import FullstackWebLeftCopy from "./FullstackWebLeftCopy.mdx"
 import ComputerScienceBeforeCopy from "./ComputerScienceBeforeCopy"
 import ComputerScienceLeftCopy from "./ComputerScienceLeftCopy.mdx"
 
+import ReactCUBeforeCopy from "./ReactCUBeforeCopy"
+import ReactCULeftCopy from "./ReactCULeftCopy.mdx"
+
+import BackendWebBeforeCopy from "./BackendWebBeforeCopy"
+import BackendWebLeftCopy from "./BackendWebLeftCopy.mdx"
+
+import IndieHackingBeforeCopy from "./IndieHackingBeforeCopy"
+import IndieHackingLeftCopy from "./IndieHackingLeftCopy.mdx"
+
 import { FormCK } from "@swizec/gatsby-theme-course-platform"
 
 export const ServerlessHandbook = ({ footer }) => {
@@ -72,6 +81,42 @@ export const ComputerScience = ({ footer }) => {
       submitText="Get curated essays 💌"
     >
       <ComputerScienceLeftCopy />
+    </FormCK>
+  )
+}
+
+export const ReactCU = ({ footer }) => {
+  return (
+    <FormCK
+      copyBefore={footer ? <ReactCUBeforeCopy /> : <></>}
+      formName="ReactCU"
+      submitText="Get curated essays 💌"
+    >
+      <ReactLeftCopy />
+    </FormCK>
+  )
+}
+
+export const BackendWeb = ({ footer }) => {
+  return (
+    <FormCK
+      copyBefore={footer ? <BackendWebBeforeCopy /> : <></>}
+      formName="BackendWeb"
+      submitText="Get curated essays 💌"
+    >
+      <BackendWebLeftCopy />
+    </FormCK>
+  )
+}
+
+export const IndieHacking = ({ footer }) => {
+  return (
+    <FormCK
+      copyBefore={footer ? <IndieHackingBeforeCopy /> : <></>}
+      formName="IndieHacking"
+      submitText="Get curated essays 💌"
+    >
+      <IndieHackingLeftCopy />
     </FormCK>
   )
 }
