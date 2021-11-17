@@ -5,7 +5,7 @@ import "typeface-yrsa"
 
 const customTheme = {
   container: {
-    maxWidth: "780px",
+    maxWidth: "60ch",
   },
   header: {
     nav: {
@@ -27,23 +27,23 @@ const customTheme = {
       fontSize: "1.1em",
     },
     root: {
+      "main#content": {
+        maxWidth: "60ch",
+      },
       // override for typography screwing up forms
-      "& form": {
-        fontFamily: "heading",
-        fontSize: "18px",
-        p: 3,
-        "& input": {
-          fontSize: "18px",
-          p: 3,
-        },
-        "& button": {
-          fontSize: "1em",
-          marginBottom: "0.3rem",
-        },
-      },
-      "& div.copy-content > div": {
-        p: 3,
-      },
+      //   "& form": {
+      //     fontFamily: "heading",
+      //     fontSize: "18px",
+      //     p: 3,
+      //     "& input": {
+      //       fontSize: "18px",
+      //       p: 3,
+      //     },
+      //     "& button": {
+      //       fontSize: "1em",
+      //       marginBottom: "0.3rem",
+      //     },
+      //   },
     },
   },
 }

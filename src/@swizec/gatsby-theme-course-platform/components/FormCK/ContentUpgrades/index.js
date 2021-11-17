@@ -92,7 +92,7 @@ export const ReactCU = ({ footer }) => {
       formName="ReactCU"
       submitText="Get curated essays 💌"
     >
-      <ReactLeftCopy />
+      <ReactCULeftCopy />
     </FormCK>
   )
 }
