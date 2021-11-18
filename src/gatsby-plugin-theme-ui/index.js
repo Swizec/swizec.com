@@ -29,24 +29,10 @@ const customTheme = {
     root: {
       "main#content": {
         maxWidth: "60ch",
+        margin: "0 auto",
       },
-      // override for typography screwing up forms
-      //   "& form": {
-      //     fontFamily: "heading",
-      //     fontSize: "18px",
-      //     p: 3,
-      //     "& input": {
-      //       fontSize: "18px",
-      //       p: 3,
-      //     },
-      //     "& button": {
-      //       fontSize: "1em",
-      //       marginBottom: "0.3rem",
-      //     },
-      //   },
     },
   },
 }
 
 export default merge(courseTheme, customTheme)
-// export default merge(toTheme(typography), merge(courseTheme, customTheme))
