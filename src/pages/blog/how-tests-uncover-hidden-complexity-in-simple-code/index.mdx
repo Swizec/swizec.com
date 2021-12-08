@@ -14,7 +14,7 @@ Okay that's easy enough.
 
 You're building a utility method for every project. Something that checks an `env=` param and lets you run web apps against production, QA, and local environments.
 
-[![Click through for source](./img/techletter.app-screenshot-1586877415543.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=class%20EnvironmentHelper%20%7B%0A%20%20%20%20get%20currentEnvironment()%3A%20string%20%7C%20null%20%7B%0A%20%20%20%20%20%20%20%20%09let%20env%20%3D%20null%3B%0A%20%20%20%20%20%20%20%20if%20(typeof%20window%20!%3D%3D%20%22undefined%22)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20env%20%3D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20new%20URLSearchParams(window.location.search).get(%22env%22)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20return%20env%3B%0A%20%20%20%20%7D>)
+[A smol EnvironmentHelper class](./img/techletter.app-screenshot-1586877415543.png)
 
 `URLSearchParams` parses the `window.location.search` string into a Map and you `.get()` the `env` param. If the param isn't there, the value is `null`.
 
@@ -28,7 +28,7 @@ Damn, that _would_ be cool.
 
 You add some defaults.
 
-[![Click through for source](./img/techletter.app-screenshot-1586877415495.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=class%20EnvironmentHelper%20%7B%0A%20%20%20%20private%20get%20defaultEnvironment()%20%7B%0A%20%20%20%20%20%20%20%20return%20window.location.hostname.endsWith(%22company.com%22)%0A%20%20%20%20%20%20%20%20%20%20%20%20%3F%20%22production%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%3A%20%22development%22%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20get%20currentEnvironment()%3A%20string%20%7B%0A%20%20%20%20%20%20%20%20%09let%20env%20%3D%20null%3B%0A%20%20%20%20%20%20%20%20if%20(typeof%20window%20!%3D%3D%20%22undefined%22)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20env%20%3D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20new%20URLSearchParams(window.location.search).get(%22env%22)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20return%20env%20%7C%7C%20this.defaultEnvironment%3B%0A%20%20%20%20%7D>)
+[EnvironmentHelper with default values](./img/techletter.app-screenshot-1586877415495.png)
 
 That wasn't so hard. If there's no param, pick a default value based on the current domain. `"production"` in production and `"development"` everywhere else.
 
@@ -42,7 +42,7 @@ That's a _great_ idea!
 
 You [npm install js-cookie](https://www.npmjs.com/package/js-cookie) and get to work.
 
-[![Click through for source](./img/techletter.app-screenshot-1586877415484.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20Cookies%20from%20%22js-cookie%22%3B%0A%0Aclass%20EnvironmentHelper%20%7B%0A%20%20%20%20private%20get%20defaultEnvironment()%20%7B%0A%20%20%20%20%20%20%20%20return%20window.location.hostname.endsWith(%22company.com%22)%0A%20%20%20%20%20%20%20%20%20%20%20%20%3F%20%22production%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%3A%20%22development%22%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20get%20currentEnvironment()%3A%20string%20%7B%0A%20%20%20%20%20%20%20%20%09let%20env%20%3D%20Cookies.get(%22env%22)%3B%0A%20%20%20%20%20%20%20%20%09%0A%20%20%20%20%20%20%20%20if%20(typeof%20window%20!%3D%3D%20%22undefined%22)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20env%20%3D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20new%20URLSearchParams(window.location.search).get(%22env%22)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20if%20(env%20!%3D%3D%20Cookies.get(%22env%22))%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20Cookies.set(%22env%22%2C%20env)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20return%20env%20%7C%7C%20this.defaultEnvironment%3B%0A%20%20%20%20%7D>)
+![EnvironmentHelper that preserves state](./img/techletter.app-screenshot-1586877415484.png)
 
 You read the `env` cookie, check the URL param, and update the cookie when those don't match. Return the environment or default based on domain.
 
@@ -68,7 +68,7 @@ Bet you it's more than you think 😛
 
 Lemme show you a trick from college
 
-![](./img/zZNVUdJ.png)
+![A truth table](./img/zZNVUdJ.png)
 
 You write a binary truth table. Each column is a variable, `0` means empty, `1` means set.
 
@@ -78,11 +78,11 @@ Your function has just 4 conditionals, hmm 🤔
 
 We can discard some because of precedence rules. `?env=` param always wins, so you can drop all but one row where it's set.
 
-![](./img/K3LySTD.png)
+![Truth table with impossible states crossed out](./img/K3LySTD.png)
 
 Same is true for cookie. It always wins over the domain.
 
-![](./img/Ei311cv.png)
+![Truth table with impossible states crossed out](./img/Ei311cv.png)
 
 We're down to 4 states and 4 conditionals. Should be fine now, right?
 
@@ -92,7 +92,7 @@ We're down to 4 states and 4 conditionals. Should be fine now, right?
 
 What the heck's still missing? Let's add some tests. More tests than you think.
 
-[![Click through for source](./img/techletter.app-screenshot-1586877415427.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=describe(%22currentEnvironment%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20describe(%22no%20cookie%2C%20no%20url%20param%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20it(%22returns%20development%20for%20localhost%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvCookie(%22%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvParam(%22%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20window.location.hostname%20%3D%20%22localhost%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20expect(EnvironmentHelper.currentEnvironment).toBe(%22development%22)%3B%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%0A%20%20%20%20%20%20%20%20it(%22returns%20production%20for%20yup.com%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvCookie(%22%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvParam(%22%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20window.location.hostname%20%3D%20%22company.com%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20expect(EnvironmentHelper.currentEnvironment).toBe(%22production%22)%3B%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D)%3B%0A%0A%20%20%20%20describe(%22no%20cookie%2C%20yes%20url%20param%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20it(%22returns%20url%20param%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvCookie(%22%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvParam(%22swizec%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20expect(EnvironmentHelper.currentEnvironment).toBe(%22swizec%22)%3B%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%0A%20%20%20%20%20%20%20%20it(%22sets%20cookie%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvCookie(%22%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvParam(%22swizec%22)%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20EnvironmentHelper.currentEnvironment%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20expect(Cookies.get(%22env%22)).toBe(%22swizec%22)%3B%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D)%3B%0A%0A%20%20%20%20describe(%22yes%20cookie%2C%20no%20url%20param%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20it(%22returns%20cookie%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvCookie(%22swizec%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvParam(%22%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20expect(EnvironmentHelper.currentEnvironment).toBe(%22swizec%22)%3B%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D)%3B%0A%0A%20%20%20%20describe(%22yes%20cookie%2C%20yes%20url%20param%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20it(%22returns%20url%20param%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvCookie(%22swizec%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvParam(%22development%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20expect(EnvironmentHelper.currentEnvironment).toBe(%22development%22)%3B%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%0A%20%20%20%20%20%20%20%20it(%22updates%20cookie%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvCookie(%22swizec%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20mockEnvParam(%22development%22)%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20EnvironmentHelper.currentEnvironment%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20expect(Cookies.get(%22env%22)).toBe(%22development%22)%3B%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D)%3B%0A%7D)%3B>)
+![Tests based on truth table](./img/techletter.app-screenshot-1586877415427.png)
 
 Yep, 7 tests for just 4 states. And I think that's still missing some helpful tests.
 
@@ -102,11 +102,11 @@ So, what was the bug?
 
 Bug's right here:
 
-[![Click through for source](./img/techletter.app-screenshot-1586877415481.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=if%20(env%20!%3D%3D%20Cookies.get(%22env%22))%20%7B%0A%20%20%20%20Cookies.set(%22env%22%2C%20env)%3B%0A%7D>)
+![Found the bug](./img/techletter.app-screenshot-1586877415481.png)
 
 That means we overwrite the cookie with an empty value when there's no URL param. Should look like this:
 
-[![Click through for source](./img/techletter.app-screenshot-1586877415231.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=if%20(env%20%26%26%20env%20!%3D%3D%20Cookies.get(%22yup-env%22))%20%7B%0A%20%20%20%20Cookies.set(%22yup-env%22%2C%20env)%3B%0A%7D>)
+![Fixed the bug](./img/techletter.app-screenshot-1586877415231.png)
 
 That simple function took 2 days off my life. All because I was too damn proud to write tests the first time.
 
