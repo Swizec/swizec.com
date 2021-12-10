@@ -14,7 +14,18 @@ Okay that's easy enough.
 
 You're building a utility method for every project. Something that checks an `env=` param and lets you run web apps against production, QA, and local environments.
 
-[A smol EnvironmentHelper class](./img/techletter.app-screenshot-1586877415543.png)
+```javascript
+class EnvironmentHelper {
+    get currentEnvironment(): string | null {
+        	let env = null;
+        if (typeof window !== "undefined") {
+            env =
+                new URLSearchParams(window.location.search).get("env");
+        }
+
+        return env;
+    }
+```
 
 `URLSearchParams` parses the `window.location.search` string into a Map and you `.get()` the `env` param. If the param isn't there, the value is `null`.
 
@@ -28,7 +39,24 @@ Damn, that _would_ be cool.
 
 You add some defaults.
 
-[EnvironmentHelper with default values](./img/techletter.app-screenshot-1586877415495.png)
+```javascript
+class EnvironmentHelper {
+    private get defaultEnvironment() {
+        return window.location.hostname.endsWith("company.com")
+            ? "production"
+            : "development";
+    }
+
+    get currentEnvironment(): string {
+        	let env = null;
+        if (typeof window !== "undefined") {
+            env =
+                new URLSearchParams(window.location.search).get("env");
+        }
+
+        return env || this.defaultEnvironment;
+    }
+```
 
 That wasn't so hard. If there's no param, pick a default value based on the current domain. `"production"` in production and `"development"` everywhere else.
 
@@ -42,7 +70,31 @@ That's a _great_ idea!
 
 You [npm install js-cookie](https://www.npmjs.com/package/js-cookie) and get to work.
 
-![EnvironmentHelper that preserves state](./img/techletter.app-screenshot-1586877415484.png)
+```javascript
+import Cookies from "js-cookie";
+
+class EnvironmentHelper {
+    private get defaultEnvironment() {
+        return window.location.hostname.endsWith("company.com")
+            ? "production"
+            : "development";
+    }
+
+    get currentEnvironment(): string {
+        	let env = Cookies.get("env");
+
+        if (typeof window !== "undefined") {
+            env =
+                new URLSearchParams(window.location.search).get("env");
+        }
+
+        if (env !== Cookies.get("env")) {
+            Cookies.set("env", env);
+        }
+
+        return env || this.defaultEnvironment;
+    }
+```
 
 You read the `env` cookie, check the URL param, and update the cookie when those don't match. Return the environment or default based on domain.
 
@@ -92,7 +144,67 @@ We're down to 4 states and 4 conditionals. Should be fine now, right?
 
 What the heck's still missing? Let's add some tests. More tests than you think.
 
-![Tests based on truth table](./img/techletter.app-screenshot-1586877415427.png)
+```javascript
+describe("currentEnvironment", () => {
+  describe("no cookie, no url param", () => {
+    it("returns development for localhost", () => {
+      mockEnvCookie("")
+      mockEnvParam("")
+      window.location.hostname = "localhost"
+      expect(EnvironmentHelper.currentEnvironment).toBe("development")
+    })
+
+    it("returns production for yup.com", () => {
+      mockEnvCookie("")
+      mockEnvParam("")
+      window.location.hostname = "company.com"
+      expect(EnvironmentHelper.currentEnvironment).toBe("production")
+    })
+  })
+
+  describe("no cookie, yes url param", () => {
+    it("returns url param", () => {
+      mockEnvCookie("")
+      mockEnvParam("swizec")
+      expect(EnvironmentHelper.currentEnvironment).toBe("swizec")
+    })
+
+    it("sets cookie", () => {
+      mockEnvCookie("")
+      mockEnvParam("swizec")
+
+      EnvironmentHelper.currentEnvironment
+
+      expect(Cookies.get("env")).toBe("swizec")
+    })
+  })
+
+  describe("yes cookie, no url param", () => {
+    it("returns cookie", () => {
+      mockEnvCookie("swizec")
+      mockEnvParam("")
+      expect(EnvironmentHelper.currentEnvironment).toBe("swizec")
+    })
+  })
+
+  describe("yes cookie, yes url param", () => {
+    it("returns url param", () => {
+      mockEnvCookie("swizec")
+      mockEnvParam("development")
+      expect(EnvironmentHelper.currentEnvironment).toBe("development")
+    })
+
+    it("updates cookie", () => {
+      mockEnvCookie("swizec")
+      mockEnvParam("development")
+
+      EnvironmentHelper.currentEnvironment
+
+      expect(Cookies.get("env")).toBe("development")
+    })
+  })
+})
+```
 
 Yep, 7 tests for just 4 states. And I think that's still missing some helpful tests.
 
@@ -102,17 +214,29 @@ So, what was the bug?
 
 Bug's right here:
 
-![Found the bug](./img/techletter.app-screenshot-1586877415481.png)
+```javascript
+if (env !== Cookies.get("env")) {
+  Cookies.set("env", env)
+}
+```
 
 That means we overwrite the cookie with an empty value when there's no URL param. Should look like this:
 
-![Fixed the bug](./img/techletter.app-screenshot-1586877415231.png)
+```javascript
+if (env && env !== Cookies.get("yup-env")) {
+  Cookies.set("yup-env", env)
+}
+```
 
 That simple function took 2 days off my life. All because I was too damn proud to write tests the first time.
 
 Happy coding ❤️
 
-Cheers,  
+Cheers,
 ~Swizec
 
 PS: this situation adapted for brevity, IRL there were some other functions involved further obscuring the complexity
+
+```
+
+```
