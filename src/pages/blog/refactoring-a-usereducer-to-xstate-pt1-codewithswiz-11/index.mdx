@@ -2,7 +2,7 @@
 title: "Refactoring a useReducer to XState, pt1 – CodeWithSwiz 11"
 description: "XState promises to be like useReducer+Context combined and the simplest way to handle complex state in React apps. But can it deliver? On this episode of #CodeWithSwiz, we gave it a shot."
 published: 2020-10-08
-categories: "CodeWithSwiz, Livecoding, Technical, XState"
+categories: "React, CodeWithSwiz, Livecoding, Technical, XState"
 hero: ./img/screenshot-1602169279345.png
 ---
 
@@ -10,13 +10,13 @@ XState promises to be like useReducer+Context combined and the simplest way to h
 
 _CodeWithSwiz is a twice-a-week live show. Like a podcast with video and fun hacking. Focused on experiments. [Join live Wednesdays and Sundays](https://youtube.com/swizecteller)_
 
-[https://youtu.be/ftbH90Sd7aU](https://youtu.be/ftbH90Sd7aU)
+https://www.youtube.com/watch?v=ftbH90Sd7aU
 
 [useAuth](https://github.com/Swizec/useAuth) was always meant to become _the_ best way to add authentication to your React and JAMStack apps. Regardless of auth provider.
 
 But as time passed, contributors grew (up to 19), pull requests mounted (70 closed or merged 🤘), and bugs got fixed, the codebase became a mess. Hard to reason about, difficult to understand, bleh to work with.
 
-[https://twitter.com/Swizec/status/1159865098556432384](https://twitter.com/Swizec/status/1159865098556432384)
+https://twitter.com/Swizec/status/1159865098556432384
 
 It was time to refactor. And [When your brain is breaking, try XState](https://swizec.com/blog/when-your-brain-is-breaking-try-xstate/)
 
@@ -28,7 +28,7 @@ Merge existing PRs, verify tests work, fix lingering bugs. Anything that could l
 
 You don't want to leave your contributors hanging.
 
-[https://www.youtube.com/watch?v=VQruDDBxyi8](https://www.youtube.com/watch?v=VQruDDBxyi8)
+https://www.youtube.com/watch?v=VQruDDBxyi8
 
 Among the neglected pull requests we found a fantastic candidate for a useAuth docs page! Thanks Eric Hodges, you're amazing 😍
 
@@ -191,7 +191,7 @@ They're set up with the `assign()` action creator from XState. I figured out thi
 
 You can't access context directly.
 
-[https://twitter.com/DavidKPiano/status/1314201314193076226](https://twitter.com/DavidKPiano/status/1314201314193076226)
+https://twitter.com/DavidKPiano/status/1314201314193076226
 
 That means you'll have to either `.subscribe` to changes or use a dirty side effect in an `.onTransition` call.
 
