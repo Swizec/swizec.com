@@ -23,6 +23,7 @@ module.exports = {
       ReactCUFormId: "2753675",
       BackendWebFormId: "2376968",
       IndieHackingFormId: "2753667",
+      ServerlessFormId: "2849380",
     },
     articles: {
       title: `Swizec - A geek with a hat`,
