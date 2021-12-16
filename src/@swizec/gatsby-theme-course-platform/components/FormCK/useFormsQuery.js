@@ -17,6 +17,7 @@ export const useFormsQuery = () => {
             ReactCUFormId
             BackendWebFormId
             IndieHackingFormId
+            ServerlessFormId
           }
         }
       }
