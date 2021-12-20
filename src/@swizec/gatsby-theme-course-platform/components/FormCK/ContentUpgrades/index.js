@@ -23,6 +23,9 @@ import BackendWebLeftCopy from "./BackendWebLeftCopy.mdx"
 import IndieHackingBeforeCopy from "./IndieHackingBeforeCopy"
 import IndieHackingLeftCopy from "./IndieHackingLeftCopy.mdx"
 
+import ServerlessBeforeCopy from "./ServerlessBeforeCopy"
+import ServerlessLeftCopy from "./ServerlessLeftCopy.mdx"
+
 import { FormCK } from "@swizec/gatsby-theme-course-platform"
 
 export const ServerlessHandbook = ({ footer }) => {
@@ -117,6 +120,18 @@ export const IndieHacking = ({ footer }) => {
       submitText="Get curated essays 💌"
     >
       <IndieHackingLeftCopy />
+    </FormCK>
+  )
+}
+
+export const Serverless = ({ footer }) => {
+  return (
+    <FormCK
+      copyBefore={footer ? <ServerlessBeforeCopy /> : <></>}
+      formName="Serverless"
+      submitText="Get curated essays 💌"
+    >
+      <ServerlessLeftCopy />
     </FormCK>
   )
 }
