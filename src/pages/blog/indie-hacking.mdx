@@ -1,0 +1,60 @@
+---
+title: "Want to learn about Indie Hacking from the trenches?"
+description: "Indie Hacking has been near and dear to me for over a decade. Diversifying your income is a wonderful habit"
+content_upgrade: Javascript
+---
+
+import {
+  ContentUpgrades,
+  ArticleListing,
+} from "@swizec/gatsby-theme-course-platform"
+import { graphql } from "gatsby"
+
+export const pageQuery = graphql`
+  query {
+    allSitePage(
+      filter: {
+        path: { regex: "/blog/.+/" }
+        context: { frontmatter: { categories: { regex: "/IndieHacking/gi" } } }
+      }
+      sort: { fields: context___frontmatter___published, order: DESC }
+    ) {
+      nodes {
+        path
+        context {
+          frontmatter {
+            title
+            description
+            published
+          }
+        }
+      }
+    }
+  }
+`
+
+Indie Hacking – building smol businesses on your own terms – is a strange beast to me. From my first experiments back in 2011 where I went from [idea to sales in 3 days](https://swizec.com/blog/postmeme-idea-to-sales-in-3-days/) to nowadays where I have a [full-time job but think like a consultant](https://podcast.ditchinghourly.com/episodes/swizec-teller-the-employed-consultant), indie hacking has been near and dear to my heart.
+
+I believe this is the best and worst time to launch something.
+
+The best because consumers are used to paying and they hate big tech. People want your thing and they want to pay you. Not a faceless behemoth that steals their data and turns users into commodities. Blech
+
+And if you're an engineer or product manager, the swan song of easy money in tech is irresistible.
+
+Sometimes it feels like my career is running backwards 😅
+
+https://twitter.com/Swizec/status/1472327078594838528
+
+But I'll never stop tinkering on the side. Multiple streams of income are a great way to [recession proof your career](https://swizec.com/blog/how-to-recession-proof-your-career/).
+
+Leave your email and **get the Indie Hacking Series** - a series of curated essays from the trenches of Indie Hacking.
+
+<ContentUpgrades.IndieHacking />
+
+## Latest IndieHacking articles from Swizec
+
+<>
+  {props.data.allSitePage.nodes.map((props, i) => (
+    <ArticleListing {...props} key={i} />
+  ))}
+</>
