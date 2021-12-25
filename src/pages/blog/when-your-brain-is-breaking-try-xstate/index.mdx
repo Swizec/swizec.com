@@ -4,7 +4,8 @@ description: ""
 published: 2020-08-10
 redirect_from:
   - /blog/when-your-brain-is-breaking-try-xstate/swizec/9473
-categories: "Computer Science, Technical"
+categories: "Computer Science, Technical, React"
+content_upgrade: React
 hero: ./img/Fdfzkov.png
 ---
 
@@ -16,7 +17,7 @@ Oh but if B is true then show Z, unless A is also true, then you need Y _and_ Z.
 
 Aaaaand you've got a mess. A piece of code that's going to be _fun_ to maintain.
 
-![](./img/Fdfzkov.png)
+![99 little bugs in the code ...](./img/Fdfzkov.png)
 
 This happens a lot. Sometimes fast, sometimes after months of polishing your logic to include every edge case.
 
@@ -24,13 +25,13 @@ And that's okay. Messes happen.
 
 It's what you do with your mess that matters.
 
-[![Click through for source](./img/techletter.app-screenshot-1597076399015.png)](https://twitter.com/Swizec/status/1288942710762569729)
+https://twitter.com/Swizec/status/1288942710762569729
 
 ## How you create a mess
 
 Here's a mess, I made it just for you ❤️
 
-[![Click through for source](./img/techletter.app-screenshot-1597076414013.png)](https://codesandbox.io/s/distracted-thunder-y85rn)
+https://codesandbox.io/s/distracted-thunder-y85rn
 
 Check the checkboxes to get different colors. Looks silly in this example and I assure you it happens all the time.
 
@@ -38,7 +39,7 @@ Like when I was building an insurance intake form that shows fields depending on
 
 Messes happen when you're dealing with a combinatorial explosion. Every new condition _doubles_ the number of possible states.
 
-![](./img/CMAdR7S.png)
+![Truth tables show your combinatorial explosion](./img/CMAdR7S.png)
 
 3 variables give us 8 possible states. 4 makes 16. 5 is 32.
 
@@ -66,21 +67,37 @@ You can start with a truth table to get your bearings. Great for boolean logic, 
 
 Truth table for the mess above looks like this:
 
-![](./img/jkN5tGO.png)
+![The truth table of our component](./img/jkN5tGO.png)
 
 You can turn that into a hashmap of states. A piece of data that tells you how the code behaves.
 
-[![Click through for source](./img/techletter.app-screenshot-1597076399083.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20STATE_MAP%20%3D%20%7B%0A%20%20%220-0-0%22%3A%20%7B%20green%3A%201%2C%20red%3A%200%2C%20blue%3A%200%20%7D%2C%0A%20%20%220-0-1%22%3A%20%7B%20green%3A%201%2C%20red%3A%200%2C%20blue%3A%200%20%7D%2C%0A%20%20%220-1-0%22%3A%20%7B%20green%3A%200%2C%20red%3A%200%2C%20blue%3A%200%20%7D%2C%0A%20%20%220-1-1%22%3A%20%7B%20green%3A%200%2C%20red%3A%201%2C%20blue%3A%201%20%7D%2C%0A%20%20%221-0-0%22%3A%20%7B%20green%3A%200%2C%20red%3A%200%2C%20blue%3A%201%20%7D%2C%0A%20%20%221-0-1%22%3A%20%7B%20green%3A%201%2C%20red%3A%201%2C%20blue%3A%201%20%7D%2C%0A%20%20%221-1-0%22%3A%20%7B%20green%3A%201%2C%20red%3A%200%2C%20blue%3A%200%20%7D%2C%0A%20%20%221-1-1%22%3A%20%7B%20green%3A%201%2C%20red%3A%200%2C%20blue%3A%200%20%7D%0A%7D%3B>)
+```javascript
+const STATE_MAP = {
+  "0-0-0": { green: 1, red: 0, blue: 0 },
+  "0-0-1": { green: 1, red: 0, blue: 0 },
+  "0-1-0": { green: 0, red: 0, blue: 0 },
+  "0-1-1": { green: 0, red: 1, blue: 1 },
+  "1-0-0": { green: 0, red: 0, blue: 1 },
+  "1-0-1": { green: 1, red: 1, blue: 1 },
+  "1-1-0": { green: 1, red: 0, blue: 0 },
+  "1-1-1": { green: 1, red: 0, blue: 0 },
+}
+```
 
 And you use it like this:
 
-[![Click through for source](./img/techletter.app-screenshot-1597076398630.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%20%20const%20key%20%3D%20%60%24%7BNumber(a)%7D-%24%7BNumber(b)%7D-%24%7BNumber(c)%7D%60%3B%0A%20%20const%20showGreen%20%3D%20STATE_MAP%5Bkey%5D.green%3B%0A%20%20const%20showRed%20%3D%20STATE_MAP%5Bkey%5D.red%3B%0A%20%20const%20showBlue%20%3D%20STATE_MAP%5Bkey%5D.blue%3B>)
+```javascript
+const key = `${Number(a)}-${Number(b)}-${Number(c)}`
+const showGreen = STATE_MAP[key].green
+const showRed = STATE_MAP[key].red
+const showBlue = STATE_MAP[key].blue
+```
 
 😍
 
 Isn't that more readable, easier to understand, and way easier to debug? Got a problem, change the map. Done.
 
-[![Click through for source](./img/techletter.app-screenshot-1597076415238.png)](https://codesandbox.io/s/eager-banach-2cxcj)
+https://codesandbox.io/s/eager-banach-2cxcj
 
 ## How you fix the mess with state machines
 
@@ -92,13 +109,13 @@ That's when you need a [state machine](https://en.wikipedia.org/wiki/Finite-stat
 
 Here's a state machine for each of the `useState`s in our smol mess example.
 
-![](./img/yCtO4VE.png)
+![A 2-state state machine](./img/yCtO4VE.png)
 
 Circles are states, arrows are transitions. You can draw a state machine like this for almost anything\[^1].
 
 That's where [XState](https://xstate.js.org/) shines – it's designed for state machines. It can even visualize them for you 😍
 
-[![Click through for source](./img/techletter.app-screenshot-1597076399332.png)](https://twitter.com/Swizec/status/1289309003508408321)
+https://twitter.com/Swizec/status/1289309003508408321
 
 Yeah, no wonder that form broke my brain.
 
@@ -110,13 +127,34 @@ First you need to define the state machine. Flip your mindset from mapping state
 
 I like to do this in the [XState visualizer](https://xstate.js.org/viz/). Helps you see what you're doing.
 
-[![](./img/cHQdm62.png)](https://xstate.js.org/viz/?gist=7d8dc2133f897c61857d5509fb780658)
+[![3-state state machine visualized with XState](./img/cHQdm62.png)](https://xstate.js.org/viz/?gist=7d8dc2133f897c61857d5509fb780658)
 
 👆 Click to see the full machine in XState visualizer
 
 You define XState machines by listing states, their meta data, and performable actions. Each action points to the next state.
 
-[![Click through for source](./img/techletter.app-screenshot-1597076398823.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20smolMessMachine%20%3D%20Machine(%7B%0A%20%20%20%20id%3A%20'smolMess'%2C%0A%20%20%20%20initial%3A%20'0-0-0'%2C%0A%20%20%20%20states%3A%20%7B%0A%20%20%20%20%20%20'0-0-0'%3A%20%7B%0A%20%20%20%20%20%20%20%20on%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20A%3A%20'1-0-0'%2C%0A%20%20%20%20%20%20%20%20%20%20B%3A%20'0-1-0'%2C%0A%20%20%20%20%20%20%20%20%20%20C%3A%20'0-0-1'%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20meta%3A%20%7B%20green%3A%201%2C%20red%3A%200%2C%20blue%3A%200%20%7D%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20'0-0-1'%3A%20%7B%0A%20%20%20%20%20%20%20%20on%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20A%3A%20'1-0-1'%2C%0A%20%20%20%20%20%20%20%20%20%20B%3A%20'0-1-1'%2C%0A%20%20%20%20%20%20%20%20%20%20C%3A%20'0-0-0'%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20meta%3A%20%7B%20green%3A%201%2C%20red%3A%200%2C%20blue%3A%200%20%7D%0A%20%20%20%20%20%20%7D%2C>)
+```javascript
+const smolMessMachine = Machine({
+    id: 'smolMess',
+    initial: '0-0-0',
+    states: {
+      '0-0-0': {
+        on: {
+          A: '1-0-0',
+          B: '0-1-0',
+          C: '0-0-1'
+        },
+        meta: { green: 1, red: 0, blue: 0 }
+      },
+      '0-0-1': {
+        on: {
+          A: '1-0-1',
+          B: '0-1-1',
+          C: '0-0-0'
+        },
+        meta: { green: 1, red: 0, blue: 0 }
+      },
+```
 
 This looks like a lot of work compared to a hashmap, I know, but it's invaluable when you want to prevent some transitions. Or you need to run side-effects when states are entered/exited.
 
@@ -124,19 +162,32 @@ XState can do all that, it's great.
 
 Putting this in our smol mess, you get this:
 
-[![Click through for source](./img/techletter.app-screenshot-1597076415032.png)](https://codesandbox.io/s/blissful-sound-k13mu)
+https://codesandbox.io/s/blissful-sound-k13mu
 
-[![Click through for source](./img/techletter.app-screenshot-1597076398665.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20%5Bstate%2C%20send%5D%20%3D%20useMachine(smolMessMachine)%3B>)
+```javascript
+const [state, send] = useMachine(smolMessMachine)
+```
 
 Hooks the machine up to your component. `state` is the current state machine state, `send` is like dispatch – sends actions.
 
 Checkboxes use `send` instead of `setX`
 
-[![Click through for source](./img/techletter.app-screenshot-1597076398398.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%3Clabel%3E%0A%20%20%3Cinput%20type%3D%22checkbox%22%20checked%3D%7Ba%7D%20onChange%3D%7B()%20%3D%3E%20send(%22A%22)%7D%20%2F%3EA%0A%3C%2Flabel%3E>)
+```javascript
+<label>
+  <input type="checkbox" checked={a} onChange={() => send("A")} />A
+</label>
+```
 
 And you read current state like this:
 
-[![Click through for source](./img/techletter.app-screenshot-1597076399080.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%200-0-0%20%F0%9F%91%89%20%5Bfalse%2C%20false%2C%20false%5D%0Aconst%20%5Ba%2C%20b%2C%20c%5D%20%3D%20state.value.split(%22-%22).map(Number).map(Boolean)%3B%0A%0Aconst%20showGreen%20%3D%20!!state.meta%5B%60smolMess.%24%7Bstate.value%7D%60%5D.green%2C%0AshowRed%20%3D%20!!state.meta%5B%60smolMess.%24%7Bstate.value%7D%60%5D.red%2C%0AshowBlue%20%3D%20!!state.meta%5B%60smolMess.%24%7Bstate.value%7D%60%5D.blue%3B>)
+```javascript
+// 0-0-0 👉 [false, false, false]
+const [a, b, c] = state.value.split("-").map(Number).map(Boolean)
+
+const showGreen = !!state.meta[`smolMess.${state.value}`].green,
+  showRed = !!state.meta[`smolMess.${state.value}`].red,
+  showBlue = !!state.meta[`smolMess.${state.value}`].blue
+```
 
 Your code would have better-named states than my example. No need to translate with .map :)
 
@@ -146,7 +197,7 @@ And unless I made a mistake, all 3 codesandboxes should behave the same. But 2 o
 
 Happy hacking
 
-Cheers,  
+Cheers,<br/>
 ~Swizec
 
 \[^1] finite state machines can't solve every solvable problem. [Pushdown automata](https://en.wikipedia.org/wiki/Pushdown_automaton) (state machines with a stack) are more powerful and [Turing machines](https://en.wikipedia.org/wiki/Turing_machine) (state machine with an infinite memory) can solve anything

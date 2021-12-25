@@ -1,0 +1,198 @@
+---
+title: "Small choices can wreck your codebase"
+description: "wanna see the strangest looping construct I've found in production code?"
+published: 2021-12-03
+categories: "JavaScript, Mindset, Technical, Programming Lessons"
+content_upgrade: JavaScript
+hero: ./img/carbon__3_.png
+---
+
+Wanna see the strangest looping construct I've found in production code?
+
+It looked like this:
+
+```javascript
+const array = ["a", "b", "c"]
+
+for (let i of array.keys()) {
+  const item = array[i]
+  console.log(item)
+}
+```
+
+The array was a function argument and the loop did more than print the values.
+
+What's wrong with this code?
+
+## It's clean but weird
+
+The code works, it's readable, doesn't look _that_ crazy. Anyone can jump in and know what's going on.
+
+But the code feels off.
+
+You have this `array.keys()` construct that returns an [Array Iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators) based on its keys. But arrays don't have keys, they have indexes ...
+
+Oh except in JavaScript where for historical reasons `array.1` and `array[1]` both work. Indexes double as keys on the array object.
+
+Then you have the `for ... of` loop, which iterates over the values of an iterable object. `for ... in` is for indexes.
+
+And then we use the index to get each value like we used to before modern looping constructs:
+
+```javascript
+for (var i = 0; i < array.length; i++) {
+  var item = array[i]
+}
+```
+
+## A more idiomatic solution
+
+Now what do you think is wrong with that code?
+
+I think it's doing too much.
+
+The author understands JavaScript and is aware of modern constructs, but doesn't lean into them. Modern JavaScript feels juuuust within grasp, but they keep pulling back into the familiar. Afraid to let go or too focused to notice.
+
+I suggested this fix:
+
+```javascript
+const array = ["a", "b", "c"]
+
+for (let item of array) {
+  console.log(item)
+}
+```
+
+Isn't that better?
+
+## A small decision can wreck your codebase
+
+Write Less Code and Lean Into Your Tools are two of the [25 lessons I learned in 25 years of coding](https://swizec.com/blog/25-lessons-from-25-years-of-coding/). Writing too much code and solving problems others have solved almost always leads to gnar. But it's easy to avoid.
+
+A more sinister approach to gnarly code are little decisions that wreck the rest of your codebase.
+
+You write a data loading React hook like this:
+
+```javascript
+import { useQuery } from "react-query"
+
+function useArticles() {
+  const query = useQuery(() => fetchArticles())
+
+  return {
+    articles: query.data,
+    isLoading: query.isLoading,
+  }
+}
+```
+
+[React Query](https://swizec.com/blog/how-react-query-gives-you-almost-everything-you-thought-you-needed-graphql-for/) handles complexities of React state for us and triggers re-renders when data loads. `query.data` starts as undefined, then turns into an array of articles. Each change re-renders every component using this query.
+
+Can you spot what's going to suck about using this hook? Or any function with a similar issue?
+
+Let's try.
+
+We list articles like this:
+
+```javascript
+function ArticleListing() {
+  const { articles } = useArticles()
+
+  return <div>{articles && articles.map((a) => <h3>{a.title}</h3>)}</div>
+}
+```
+
+We show a count of articles like this:
+
+```javascript
+function ArticleCount() {
+  const { articles } = useArticles()
+
+  return articles ? <p>{articles.length}</p> : null
+}
+```
+
+We look for a specific article like this:
+
+```javascript
+function SpecificArticle() {
+  const { articles } = useArticles()
+
+  if (articles) {
+    const theOne = articles.find((a) => a.author == "Neo")
+
+    return <Article {...theOne} />
+  }
+
+  return null
+}
+```
+
+Notice a pattern?
+
+### Validate at the edges!
+
+One little decision in `useArticles` created a situation where [Defensive Coding Leads to Bloat](https://swizec.com/blog/how-defensive-coding-leads-to-bloat/). You wrote a function that requires every single consumer of your code to add a null check. 💩
+
+A 4-character fix at the source cleans up the whole codebase:
+
+```javascript
+import { useQuery } from "react-query"
+
+function useArticles() {
+  const query = useQuery(() => fetchArticles())
+
+  return {
+    // array of articles or empty array
+    // no undefined
+    articles: query.data || [],
+    isLoading: query.isLoading,
+  }
+}
+
+function ArticleListing() {
+  const { articles } = useArticles()
+
+  return (
+    <div>
+      {articles.map((a) => (
+        <h3>{a.title}</h3>
+      ))}
+    </div>
+  )
+}
+
+function ArticleCount() {
+  const { articles } = useArticles()
+
+  return <p>{articles.length}</p>
+}
+
+function SpecificArticle() {
+  const { articles } = useArticles()
+
+  const theOne = articles.find((a) => a.author == "Neo")
+
+  return <Article {...theOne} />
+}
+```
+
+Isn't that nicer? We cleaned the whole codebase by changing where we handle data issues. At the source vs. everywhere.
+
+You can use TypeScript or JSDoc to tell every consumer of your function that it guarantees a defined array. Even if empty.
+
+Use the `isLoading` flag to deal with loading states. Even that I'd recommend doing at the edges of your component tree.
+
+The same principle works for translating strings into dates, parsing numbers, adding meta data, and so on. The less you have to think about that throughout your codebase the better.
+
+## How to spot these opportunities
+
+I don't know. Maybe it's experience, maybe it's keeping an eye out for code that feels fuzzy.
+
+A saying goes that you should _"Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live"_
+
+But I think you should _"Write code as if the next person reading it is trying to fix a production outage in 10 minutes between meetings"_
+
+Keep it obvious. Keep it short.
+
+Cheers,<br/>
+~Swizec

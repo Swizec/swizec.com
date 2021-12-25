@@ -1,0 +1,287 @@
+---
+title: "pg-mem and jest for smooth integration testing"
+description: "The cult of TDD leads you down a dark and stormy path towards brittle code with a false sense of security. But there is a better way. A sweet spot between unit and heavy integration."
+published: 2021-12-21
+categories: "Backend Web, JavaScript, TypeScript, Testing, Jest"
+hero: ./img/screenshot-1640148145574.png
+---
+
+It's no secret that I think [the cult of TDD](https://swizec.com/blog/25-lessons-from-25-years-of-coding/#2-tests-are-great-swbut-tdd-is-a-cult) leads you down a dark and stormy path towards brittle code with a false sense of security.
+
+Clean isolation, mocks for all things impure, interfaces designed for ease of testing over ease of use. The sense of achievement is immense. Look at all those green checkmarks 💪
+
+And outside a few special cases with [complex logic or algorithms](https://swizec.com/blog/how-tests-uncover-hidden-complexity-in-simple-code/), it means boopkis to your production code.
+
+![2 unit tests, 0 integration tests](./img/2-unit-tests-0-integration-tests1674g1.gif)
+
+Most business code is JSON bureaucracy: shuttling data from one side to another. Transforming formats. Joining data streams. Abstracting knowledge domains and business processes.
+
+You know how to write a loop and [TypeScript ensures you hold the code correctly](https://swizec.com/blog/learn-typescript-in-5-minutes/). Unit tests don't add much.
+
+## Fakes over mocks
+
+Unit tests isolate too much.
+
+While fantastic for complex algorithms and gnarly logic, they break down for JSON bureaucracy. They don't test the right things.
+
+Take this test for example:
+
+```typescript
+describe("getOAuthToken", () => {
+  it("should call the db with the tokenReference successfully", async () => {
+    const tokenReference = "tokenReference"
+    const tableName = "oauth_token"
+    await oauthService.getOAuthToken(tokenReference)
+    expect(db).toBeCalledWith(tableName)
+    expect(db().where).toBeCalledTimes(1)
+    expect(db().where).toBeCalledWith("internal_reference", tokenReference)
+  })
+})
+```
+
+Verifies that calling `getOAuthToken` talks to the database and uses the `tokenReference` to fetch a row. The database is mocked and this test is pure. Runs on your machine with no external dependencies very fast.
+
+A beautiful example of a great unit test. 👌
+
+Do you think it's a useful test?
+
+### How stubs and mocks fail
+
+What happens if we change the table name? This test won't notice.
+
+What happens if we change the table structure? This test doesn't even check.
+
+How do you know the code does anything of value? The test pretends to check, but you can make it pass with useless code, if you want.
+
+```typescript
+export async function getOAuthToken(): Promise<Token> {
+  db("oauth_token")
+  db("random_table").where("internal_reference", "tokenReference")
+
+  return {
+    access_token: "123",
+    refresh_token: "afefaw",
+    expires_in: 3600,
+  }
+}
+```
+
+Call the correct table then call a `.where()` with hardcoded params on a random table. Return an unrelated value of the right type. 💩
+
+We're using [Jest with TypeScript](https://swizec.com/blog/how-to-configure-jest-with-typescript/) which ensures the return types must match. At least there's that.
+
+You won't be mean like this in your project, I hope. It can happen by accident. When someone unfamiliar with your code makes a change that breaks it in a way that mocks obscure.
+
+### Stubs and mocks test a strawman
+
+Stubs and mocks construct a strawman and test _that_, not your code. This is a lesson Google learned at scale – [stubs and mocks make bad tests](https://swizec.com/blog/what-i-learned-from-software-engineering-at-google/#stubs-and-mocks-make-bad-tests).
+
+But full integration testing is slow, resource intensive, and hard to get right. The more complex your production environment, the harder it is to simulate.
+
+To quote David Wells, an early developer of Serverless Framework: _"Forget about local testing, you can't replicate AWS on your machine"_.
+
+The solution are fakes. This also is a lesson Google learned at scale and put in their wonderful [Software Engineering at Google](https://swizec.com/blog/what-i-learned-from-software-engineering-at-google/) book.
+
+Fakes are lightweight implementations of the services you need. Maintained, ideally, by the team who makes that service.
+
+## pg-mem is a fake database for your tests
+
+[pg-mem](https://github.com/oguimbal/pg-mem) is a pure in-memory implementation of Postgres. The perfect solution for database tests that sit in that sweet spot between pure unit and full integration. 😍
+
+You get database reads and writes, guarantees around data consistency, migrations, and zero overhead. Your tests run in memory, as fast as always.
+
+pg-mem achieves this through [Olivier Guimbal](https://github.com/oguimbal)'s herculean effort. The madman built his own SQL parser and reimplemented an almost full-featured clone of Postgres in TypeScript.
+
+## What pg-mem looks like in practice
+
+See [the example repository](https://swizec.com/blog/how-to-configure-jest-with-typescript/) for the full setup. It's based on my [How to configure Jest with TypeScript](https://swizec.com/blog/how-to-configure-jest-with-typescript/) from a while back when I thought this article would be "next week". 😅
+
+For this example we're using [knex](https://knexjs.org/), a query builder, to talk to the database and [pg-mem](https://github.com/oguimbal/pg-mem) for testing. The project doesn't do anything useful, it exists to show off testing.
+
+### Use Jest manual mocks to fake your database
+
+[Jest manual mocks](https://jestjs.io/docs/manual-mocks) are the perfect place to implement a fake. You build a lightweight implementation of your code and Jest uses it in tests.
+
+For the database example, you take this db connection file:
+
+```typescript
+// ./src/db.ts
+import knex from "knex"
+import knexFile from "../knexfile"
+
+export default knex(knexFile)
+```
+
+And add its fake counterpart in a sibling `__mocks__/` directory:
+
+```typescript
+// ./src/__mocks__/db.ts
+import { newDb } from "pg-mem"
+import knexFile from "../../knexfile"
+
+const mem = newDb()
+
+export default mem.adapters.createKnex(0, knexFile) as typeof import("knex")
+```
+
+The original `db.ts` file configures knex to connect to your database. You can `import db` and run SQL queries with `db('table_name')` throughout your codebase.
+
+The `__mocks__/` version uses the same config, but instantiates an in-memory pg-mem instance and connects to that. Unless you're doing something special, the rest of your code should Just Work. It has no idea the database is fake 🤘
+
+### Setup the pg-mem database
+
+Your fake database needs to be in the right state to run tests. Have the tables, the seed data, etc.
+
+That happens in `jest.setup.ts`, a test setup file that runs before your tests. Configured by the `setupFilesAfterEnv` value in `jest.config.ts`.
+
+```typescript
+// jest.setup.ts
+import db from "./src/db"
+
+// enables the fake database for all test files
+jest.mock("./src/db")
+
+// run migrations
+beforeAll(async () => {
+  await db.migrate.latest()
+})
+
+// close connection
+afterAll(async () => {
+  await db.destroy()
+})
+```
+
+We import the faked `db` file, enable mocking for every test, and run migrations before anything else. After tests are done, we close the connection so Jest doesn't hang.
+
+### Write better tests with a fake database
+
+Take that `getOAuthToken` example from before. Here's the function itself:
+
+```typescript
+export type OAuthToken = {
+  access_token: string
+  refresh_token: string
+  expires_in: number
+  internal_reference: string
+}
+
+export type OAuthTokenRow = OAuthToken & {
+  internal_reference: string
+}
+
+export const getOAuthToken = async (
+  tokenReference: string
+): Promise<OAuthToken> => {
+  const tokenRow: OAuthTokenRow = await db("oauth_token")
+    .where("internal_reference", tokenReference)
+    .first()
+
+  return omit(tokenRow, "internal_reference")
+}
+```
+
+Talks to the database and returns the first row of the `oauth_token` table that matches the `tokenReference`. Omits `internal_reference` before returning the value because that's an implementation detail. I think. We could debate on that.
+
+How would you write a test for this function?
+
+Here's what I did:
+
+```typescript
+// ./src/__tests__/oauth-service.ts
+
+describe("oauth-service", () => {
+  let token: oauthService.OAuthToken, tokenReference: string
+
+  beforeEach(() => {
+    tokenReference = Faker.datatype.uuid()
+    token = {
+      access_token: Faker.datatype.string(20),
+      refresh_token: Faker.datatype.string(20),
+      expires_in: 3600,
+    }
+  })
+
+  describe("getOAuthToken", () => {
+    it("should read the oauth token from db", async () => {
+      await db("oauth_token").insert({
+        ...token,
+        internal_reference: tokenReference,
+      })
+
+      const oauthToken = await oauthService.getOAuthToken(tokenReference)
+
+      expect(oauthToken).toEqual(token)
+    })
+  })
+})
+```
+
+Construct a fake OAuth token, insert into the database, use the `getOAuthToken` function. Compare that the result matches expectations.
+
+Now you can rely on this test to tell you if something's wrong.
+
+Table got renamed? You get a SQL error.
+
+Table structure changed? The result no longer matches unless you fix the function.
+
+Made a typo in your query or aren't using the params? The test will tell you.
+
+### You get better insert tests too
+
+The insertion counterpart to `getOAuthToken` looks like this:
+
+```typescript
+export const insertOAuthToken = async (
+  tokenReference: string,
+  token: OAuthToken
+) => {
+  return db("oauth_token").insert({
+    ...token,
+    internal_reference: tokenReference,
+  })
+}
+```
+
+Gets an `OAuthToken` and its internal reference, saves to the database.
+
+How would you write this test?
+
+Here's what I did:
+
+```typescript
+describe("insertOAuthToken", () => {
+  it("should insert a token", async () => {
+    const [{ count: prevCount }] = await db("oauth_token").count()
+
+    await oauthService.insertOAuthToken(tokenReference, token)
+
+    const [{ count: afterCount }] = await db("oauth_token").count()
+
+    const newToken = await db("oauth_token")
+      .where("internal_reference", tokenReference)
+      .first()
+
+    expect(afterCount).toEqual((prevCount as number) + 1)
+    expect(omit(newToken, "internal_reference")).toEqual(token)
+  })
+})
+```
+
+Compares row count before and after insertion, verifies it increments. Fetches the inserted value and verifies it matches expectations.
+
+Another great test would be to verify what happens, if you try to use a non-unique `tokenReference` and insert twice. The code currently has a bug I think.
+
+## Principles of good DB testing with pg-mem
+
+1.  Test the data gets inserted
+2.  Test the right data gets inserted
+3.  Test the inserted data gets returned
+4.  Avoid hardcoded values with [Faker](https://github.com/marak/Faker.js/)
+
+Now all I'm missing from Rails is something like [Factory Bot](https://github.com/thoughtbot/factory_bot) for convenient test models and data factories. The search continues
+
+Cheers,<br/>
+~Swizec
+
+PS: you can use the `__mocks__` approach to write a lightweight fake of any file. Like a 3rd party SDK, a fake microservice, or an API 😍

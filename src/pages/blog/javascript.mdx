@@ -15,7 +15,9 @@ export const pageQuery = graphql`
     allSitePage(
       filter: {
         path: { regex: "/blog/.+/" }
-        context: { frontmatter: { categories: { regex: "/JavaScript/gi" } } }
+        context: {
+          frontmatter: { categories: { regex: "/JavaScript|TypeScript/gi" } }
+        }
       }
       sort: { fields: context___frontmatter___published, order: DESC }
     ) {

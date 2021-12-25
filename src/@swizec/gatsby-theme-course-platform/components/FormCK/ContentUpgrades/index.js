@@ -3,25 +3,28 @@ import ServerlessHandbookBeforeCopy from "./ServerlessHandbookBeforeCopy"
 import ServerlessHandbookLeftCopy from "./ServerlessHandbookLeftCopy"
 
 import SeniorMindsetBeforeCopy from "./SeniorMindsetBeforeCopy"
-import SeniorMindsetLeftCopy from "./SeniorMindsetLeftCopy.mdx"
+import SeniorMindsetLeftCopy from "./SeniorMindsetLeftCopy"
 
 import JavascriptBeforeCopy from "./JavascriptBeforeCopy"
-import JavascriptLeftCopy from "./JavascriptLeftCopy.mdx"
+import JavascriptLeftCopy from "./JavascriptLeftCopy"
 
 import FullstackWebBeforeCopy from "./FullstackWebBeforeCopy"
-import FullstackWebLeftCopy from "./FullstackWebLeftCopy.mdx"
+import FullstackWebLeftCopy from "./FullstackWebLeftCopy"
 
 import ComputerScienceBeforeCopy from "./ComputerScienceBeforeCopy"
-import ComputerScienceLeftCopy from "./ComputerScienceLeftCopy.mdx"
+import ComputerScienceLeftCopy from "./ComputerScienceLeftCopy"
 
 import ReactCUBeforeCopy from "./ReactCUBeforeCopy"
-import ReactCULeftCopy from "./ReactCULeftCopy.mdx"
+import ReactCULeftCopy from "./ReactCULeftCopy"
 
 import BackendWebBeforeCopy from "./BackendWebBeforeCopy"
-import BackendWebLeftCopy from "./BackendWebLeftCopy.mdx"
+import BackendWebLeftCopy from "./BackendWebLeftCopy"
 
 import IndieHackingBeforeCopy from "./IndieHackingBeforeCopy"
-import IndieHackingLeftCopy from "./IndieHackingLeftCopy.mdx"
+import IndieHackingLeftCopy from "./IndieHackingLeftCopy"
+
+import ServerlessBeforeCopy from "./ServerlessBeforeCopy"
+import ServerlessLeftCopy from "./ServerlessLeftCopy"
 
 import { FormCK } from "@swizec/gatsby-theme-course-platform"
 
@@ -92,7 +95,7 @@ export const ReactCU = ({ footer }) => {
       formName="ReactCU"
       submitText="Get curated essays 💌"
     >
-      <ReactLeftCopy />
+      <ReactCULeftCopy />
     </FormCK>
   )
 }
@@ -117,6 +120,18 @@ export const IndieHacking = ({ footer }) => {
       submitText="Get curated essays 💌"
     >
       <IndieHackingLeftCopy />
+    </FormCK>
+  )
+}
+
+export const Serverless = ({ footer }) => {
+  return (
+    <FormCK
+      copyBefore={footer ? <ServerlessBeforeCopy /> : <></>}
+      formName="Serverless"
+      submitText="Get curated essays 💌"
+    >
+      <ServerlessLeftCopy />
     </FormCK>
   )
 }

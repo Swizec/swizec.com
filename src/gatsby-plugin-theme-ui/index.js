@@ -1,18 +1,11 @@
-import preset from "@rebass/preset"
-import merge from "lodash.merge"
-import { toTheme } from "@theme-ui/typography"
-import typography from "typography-theme-funston"
-import "typeface-patua-one"
-import "typeface-cabin-condensed"
+import merge from "deepmerge"
 import { courseTheme } from "@swizec/gatsby-theme-course-platform"
+import "typeface-exo"
+import "typeface-yrsa"
 
 const customTheme = {
-  ...courseTheme,
-  layout: {
-    container: {
-      width: ["97%", "97%", "78%"],
-      maxWidth: "container",
-    },
+  container: {
+    maxWidth: "60ch",
   },
   header: {
     nav: {
@@ -21,8 +14,25 @@ const customTheme = {
       fontWeight: "700",
     },
   },
+  fonts: {
+    heading: "Exo, sans-serif",
+    body: "Yrsa, georgia, sans-serif",
+    monospace: "monospace",
+  },
+  styles: {
+    h3: {
+      fontSize: "1.1em",
+    },
+    h4: {
+      fontSize: "1.1em",
+    },
+    root: {
+      "main#content": {
+        maxWidth: "60ch",
+        margin: "0 auto",
+      },
+    },
+  },
 }
 
-const theme = merge(preset, toTheme(typography), customTheme)
-
-export default theme
+export default merge(courseTheme, customTheme)

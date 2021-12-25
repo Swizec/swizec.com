@@ -23,6 +23,7 @@ module.exports = {
       ReactCUFormId: "2753675",
       BackendWebFormId: "2376968",
       IndieHackingFormId: "2753667",
+      ServerlessFormId: "2849380",
     },
     articles: {
       title: `Swizec - A geek with a hat`,
@@ -43,6 +44,13 @@ module.exports = {
   flags: { PRESERVE_WEBPACK_CACHE: true },
   plugins: [
     "@swizec/gatsby-theme-course-platform",
+    {
+      resolve: "gatsby-plugin-typography",
+      options: {
+        pathToConfigModule: "src/typography.js",
+        omitGoogleFont: true,
+      },
+    },
     "gatsby-plugin-gatsby-cloud",
     {
       resolve: "gatsby-plugin-manifest",
