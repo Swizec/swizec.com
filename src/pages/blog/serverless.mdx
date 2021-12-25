@@ -1,6 +1,6 @@
 ---
-title: "Want to become a JavaScript expert?"
-description: "Learning from tutorials is great! You follow some steps, learn a smol lesson, and feel like you got this. Then you go into an interview, get a question from the boss, or encounter a new situation and o-oh."
+title: "Want to become a Serverless and modern backend expert?"
+description: "I've been building web backends since ~2004 when they were just called websites. With these curated essays I want to share the hard lessons learned."
 content_upgrade: Javascript
 ---
 
@@ -16,7 +16,9 @@ export const pageQuery = graphql`
       filter: {
         path: { regex: "/blog/.+/" }
         context: {
-          frontmatter: { categories: { regex: "/JavaScript|TypeScript/gi" } }
+          frontmatter: {
+            categories: { regex: "/Serverless|Backend|Backend Web/gi" }
+          }
         }
       }
       sort: { fields: context___frontmatter___published, order: DESC }
@@ -41,11 +43,11 @@ Shit, how does this work again? 😅
 
 That's the problem with tutorials. They're not how the world works. Real software is a mess. A best-effort pile of duct tape and chewing gum. _You need deep understanding, not recipes_.
 
-Leave your email and **get the JavaScript Essays series** - a series of curated essays and experiments on modern JavaScript. Lessons and insights learned from practice building production software.
+I've been building web backends since ~2004 when they were just called websites. With these curated essays I want to share the hard lessons learned. Leave your email and **get the Serverless and Modern Backend email series**.
 
-<ContentUpgrades.Javascript />
+<ContentUpgrades.Serverless />
 
-## Latest JavaScript articles from Swizec
+## Latest Serverless and Backend articles from Swizec
 
 <>
   {props.data.allSitePage.nodes.map((props, i) => (
