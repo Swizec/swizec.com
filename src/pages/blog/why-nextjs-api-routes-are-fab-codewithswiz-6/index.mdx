@@ -2,7 +2,7 @@
 title: "Why NextJS /api routes are fab – CodeWithSwiz 6"
 description: "In this episode of CodeWithSwiz, we tried NextJS's support for /api routes – code running on the backend. In a word – Wow"
 published: 2020-09-13
-categories: "CodeWithSwiz, Technical, NextJS, Livecoding"
+categories: "CodeWithSwiz, Technical, NextJS, Livecoding, React"
 hero: ./img/screenshot-1600041512681.png
 ---
 
@@ -26,8 +26,8 @@ Same file-based routing as your frontend code 👉 put a file there and it's ava
 // pages/api/publishArticle.js
 
 export default async (req, res) => {
-  res.status(200).json({ success: true });
-};
+  res.status(200).json({ success: true })
+}
 ```
 
 `req` is the request object, `res` is the response object. You read inputs from `req` and return outputs by modifying `res`.
@@ -65,15 +65,15 @@ export const ShipIt = ({ article }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(article),
-    });
-  });
+    })
+  })
 
   if (isLoading) {
-    return <Spinner></Spinner>;
+    return <Spinner></Spinner>
   } else {
-    return <Button onClick={shipArticle}>Ship It</Button>;
+    return <Button onClick={shipArticle}>Ship It</Button>
   }
-};
+}
 ```
 
 We set up a mutation, show a spinner when it's loading, and a button with a click handler otherwise. Click the button, call the `shipArticle` method returned from `useMutation`, execute the `fetch()` call.
@@ -88,8 +88,8 @@ export default async (req, res) => {
   // req.body.description == article description
   // etc
 
-  res.status(200).json({ success: true });
-};
+  res.status(200).json({ success: true })
+}
 ```
 
 Tanner says we can share queries and mutations between frontend and backend. Gonna try that next time ✌️
@@ -109,19 +109,19 @@ After much spelunking through the docs, we got an authenticated request working.
 ```javascript
 // pages/api/publishArticle.js
 
-import { Octokit } from "@octokit/rest";
+import { Octokit } from "@octokit/rest"
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
-});
+})
 
 export default async (req, res) => {
-  const { data } = await octokit.request("/user");
+  const { data } = await octokit.request("/user")
   // prints user info
-  console.log(data);
+  console.log(data)
 
   // ...
-};
+}
 ```
 
 Instantiates Octokit with your token and requests `/user` data. Makes the project hardcoded to you, but works. We'd have to add a full authentication system to let anyone else use this.
@@ -129,10 +129,12 @@ Instantiates Octokit with your token and requests `/user` data. Makes the projec
 We figured out how to add files to repositories juuuuust as my internet died.
 
 ```javascript
-await octokit.repos.createOrUpdateFileContents;
+await octokit.repos.createOrUpdateFileContents
 ```
 
 Join me Wednesday evening and we'll figure out the rest 🤞
 
 Cheers,<br/>
 ~Swizec
+
+PS: since this article was published, Gatsby added /api routes too 🥳
