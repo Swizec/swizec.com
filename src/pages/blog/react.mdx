@@ -16,7 +16,9 @@ export const pageQuery = graphql`
       filter: {
         path: { regex: "/blog/.+/" }
         context: {
-          frontmatter: { categories: { regex: "/React|Reactjs|React.js/gi" } }
+          frontmatter: {
+            categories: { regex: "/React|Reactjs|React.js|gatsby|nextjs/gi" }
+          }
         }
       }
       sort: { fields: context___frontmatter___published, order: DESC }

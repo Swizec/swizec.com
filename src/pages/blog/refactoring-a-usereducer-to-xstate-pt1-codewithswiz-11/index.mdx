@@ -3,6 +3,7 @@ title: "Refactoring a useReducer to XState, pt1 – CodeWithSwiz 11"
 description: "XState promises to be like useReducer+Context combined and the simplest way to handle complex state in React apps. But can it deliver? On this episode of #CodeWithSwiz, we gave it a shot."
 published: 2020-10-08
 categories: "CodeWithSwiz, Livecoding, Technical, XState"
+content_upgrade: React
 hero: ./img/screenshot-1602169279345.png
 ---
 
@@ -59,9 +60,9 @@ export const authReducer = (
     case "error":
     // ...
     default:
-      return state;
+      return state
   }
-};
+}
 ```
 
 Your XState state machine will have N-1 states.
@@ -80,7 +81,7 @@ const authMachine = Machine<AuthState>(
     },
   }
   // ...
-);
+)
 ```
 
 A user can be either `unauthenticated`, `authenticating`, `authenticated`, or there's an `error`. No other state exists.
@@ -171,16 +172,16 @@ const authMachine = Machine<AuthState>(
       startAuthenticating: assign((context) => {
         return {
           isAuthenticating: true,
-        };
+        }
       }),
       stopAuthenticating: assign((context) => {
         return {
           isAuthenticating: false,
-        };
+        }
       }),
     },
   }
-);
+)
 ```
 
 Adding `entry` and `exit` effects to the `AUTHENTICATING` action tells XState to call the `startAuthenticating` and `stopAuthenticating` actions.
@@ -199,16 +200,16 @@ Here's a test that works to verify the authenticating entry side-effect.
 
 ```typescript
 it("changes isAuthenticating to true", () => {
-  let context = { isAuthenticating: false };
+  let context = { isAuthenticating: false }
 
   authMachine
     .onTransition((state) => {
-      context = state.context;
+      context = state.context
     })
-    .send("LOGIN");
+    .send("LOGIN")
 
-  expect(context.isAuthenticating).toBe(true);
-});
+  expect(context.isAuthenticating).toBe(true)
+})
 ```
 
 Notice how I'm storing a value in a variable when `onTransition` runs. That can get messy and I'm not sure yet how we'll use it to make the `authMachine` a drop-in replacement for `authReducer`.
