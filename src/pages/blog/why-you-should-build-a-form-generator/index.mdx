@@ -1,10 +1,10 @@
 ---
 title: "Why you should build a form generator"
-description: ""
+description: "Lemme guess, every project involves 1 or 2 forms and they're all the friggen same. You got forms coming out the wazoo. Render fields. Connect to state. Add field validation. Detect submit. Add form validation. Send fetch request. Repeat."
 published: 2020-04-27
 redirect_from:
   - /blog/why-you-should-build-a-form-generator/swizec/9394
-categories: "Front End, Technical"
+categories: "Front End, React, Technical"
 content_upgrade: React
 hero: ./img/techletter.app-screenshot-1588001432438.png
 ---
@@ -27,7 +27,7 @@ Here's what you do instead my friend, you notice a pattern and you solve it once
 
 That's how you level up.
 
-[![Click through for source](./img/techletter.app-screenshot-1588001432438.png)](https://twitter.com/Swizec/status/1251180097538678785)
+https://twitter.com/Swizec/status/1251180097538678785
 
 **Next time you're building a form, grab some extra time, turn it into a library.**
 
@@ -49,7 +49,57 @@ Handles 2 input fields, validates email as you type, verifies both fields are fi
 
 58 lines of boring code and there's a bunch of cases I didn't cover.
 
-[![Click through for source](./img/techletter.app-screenshot-1588001432001.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20Form%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5Bname%2C%20setName%5D%20%3D%20useState(%22%22)%3B%0A%20%20const%20%5Bemail%2C%20setEmail%5D%20%3D%20useState(%22%22)%3B%0A%20%20const%20%5BemailValidation%2C%20setEmailValidation%5D%20%3D%20useState(%22%22)%3B%0A%20%20const%20%5BformValidation%2C%20setFormValidation%5D%20%3D%20useState(%22%22)%3B%0A%0A%20%20function%20changeName(event)%20%7B%0A%20%20%20%20setName(event.target.value)%3B%0A%20%20%20%20setFormValidation(%22%22)%3B%0A%20%20%7D%0A%0A%20%20function%20changeEmail(event)%20%7B%0A%20%20%20%20const%20email%20%3D%20event.target.value%3B%0A%20%20%20%20setEmail(email)%3B%0A%0A%20%20%20%20if%20(!isValidEmail(email))%20%7B%0A%20%20%20%20%20%20setEmailValidation(%22Not%20valid%20email%22)%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20setEmailValidation(%22%22)%3B%0A%20%20%20%20%7D%0A%20%20%20%20setFormValidation(%22%22)%3B%0A%20%20%7D%0A%0A%20%20function%20onSubmit(event)%20%7B%0A%20%20%20%20event.preventDefault()%3B%0A%0A%20%20%20%20if%20(isValidEmail(email)%20%26%26%20name.length%20%3E%200)%20%7B%0A%20%20%20%20%20%20%2F%2F%20submit%0A%20%20%20%20%20%20setFormValidation(%22%22)%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20setFormValidation(%22Missing%20fields%22)%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20return%20(%0A%20%20%20%20%3Cform%20onSubmit%3D%7BonSubmit%7D%3E%0A%20%20%20%20%20%20%3Clabel%3E%0A%20%20%20%20%20%20%20%20Name%20%3Cinput%20type%3D%22text%22%20value%3D%7Bname%7D%20onChange%3D%7BchangeName%7D%20%2F%3E%0A%20%20%20%20%20%20%3C%2Flabel%3E%0A%20%20%20%20%20%20%3Cbr%20%2F%3E%0A%20%20%20%20%20%20%3Clabel%3E%0A%20%20%20%20%20%20%20%20Email%20%3Cinput%20type%3D%22email%22%20value%3D%7Bemail%7D%20onChange%3D%7BchangeEmail%7D%20%2F%3E%0A%20%20%20%20%20%20%3C%2Flabel%3E%0A%20%20%20%20%20%20%3Cp%3E%7BemailValidation%7D%3C%2Fp%3E%0A%20%20%20%20%20%20%3Cp%3E%7BformValidation%7D%3C%2Fp%3E%0A%20%20%20%20%20%20%3Cbutton%20type%3D%22submit%22%3ESubmit%3C%2Fbutton%3E%0A%20%20%20%20%3C%2Fform%3E%0A%20%20)%3B%0A%7D%3B>)
+```javascript
+const Form = () => {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [emailValidation, setEmailValidation] = useState("")
+  const [formValidation, setFormValidation] = useState("")
+
+  function changeName(event) {
+    setName(event.target.value)
+    setFormValidation("")
+  }
+
+  function changeEmail(event) {
+    const email = event.target.value
+    setEmail(email)
+
+    if (!isValidEmail(email)) {
+      setEmailValidation("Not valid email")
+    } else {
+      setEmailValidation("")
+    }
+    setFormValidation("")
+  }
+
+  function onSubmit(event) {
+    event.preventDefault()
+
+    if (isValidEmail(email) && name.length > 0) {
+      // submit
+      setFormValidation("")
+    } else {
+      setFormValidation("Missing fields")
+    }
+  }
+
+  return (
+    <form onSubmit={onSubmit}>
+      <label>
+        Name <input type="text" value={name} onChange={changeName} />
+      </label>
+      <br />
+      <label>
+        Email <input type="email" value={email} onChange={changeEmail} />
+      </label>
+      <p>{emailValidation}</p>
+      <p>{formValidation}</p>
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+```
 
 Every engineer on your team goes through that _every time_ they build a form. And they build a lot.
 
@@ -61,7 +111,16 @@ Wouldn't you?
 
 Here's what you do after _someone_ ;) builds a form generator for your team:
 
-[![Click through for source](./img/techletter.app-screenshot-1588001432307.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20fields%20%3D%20%5B%0A%09%7Bname%3A%20'name'%2C%20label%3A%20'Name'%2C%20validate%3A%20val%20%3D%3E%20val.length%20%3E%200%7D%2C%0A%09%7Bname%3A%20'email'%2C%20label%3A%20'Email'%2C%20validate%3A%20isValidEmail%7D%0A%5D%0A%0A%2F%2F%20...%0A%0A%3CForm%20fields%3D%7Bfields%7D%20onSubmit%3D%7BonSubmit%7D%20%2F%3E>)
+```javascript
+const fields = [
+	{name: 'name', label: 'Name', validate: val => val.length > 0},
+	{name: 'email', label: 'Email', validate: isValidEmail}
+]
+
+// ...
+
+<Form fields={fields} onSubmit={onSubmit} />
+```
 
 😍
 
@@ -83,7 +142,33 @@ https://codesandbox.io/s/staging-frog-cmcgr?fontsize=14&hidenavigation=1&theme=d
 
 You start with a `<Field>` component like this.
 
-[![Click through for source](./img/techletter.app-screenshot-1588001431994.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20Field%20%3D%20(%7B%20name%2C%20label%2C%20validate%20%7D)%20%3D%3E%20%7B%0A%20%20const%20%5Bvalue%2C%20setValue%5D%20%3D%20useState(%22%22)%3B%0A%20%20const%20%5Bvalidation%2C%20setValidation%5D%20%3D%20useState(%22%22)%3B%0A%0A%20%20function%20changeValue(event)%20%7B%0A%20%20%20%20const%20val%20%3D%20event.target.value%3B%0A%0A%20%20%20%20setValue(val)%3B%0A%0A%20%20%20%20if%20(validate(val))%20%7B%0A%20%20%20%20%20%20setValidation(%22%22)%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20setValidation(%60Invalid%20%24%7Blabel%7D%60)%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20return%20(%0A%20%20%20%20%3C%3E%0A%20%20%20%20%20%20%3Clabel%3E%0A%20%20%20%20%20%20%20%20%7Blabel%7D%20%3Cinput%20type%3D%22text%22%20value%3D%7Bvalue%7D%20onChange%3D%7BchangeValue%7D%20%2F%3E%0A%20%20%20%20%20%20%3C%2Flabel%3E%0A%20%20%20%20%20%20%3Cp%3E%7Bvalidation%7D%3C%2Fp%3E%0A%20%20%20%20%3C%2F%3E%0A%20%20)%3B%0A%7D%3B>)
+```javascript
+const Field = ({ name, label, validate }) => {
+  const [value, setValue] = useState("")
+  const [validation, setValidation] = useState("")
+
+  function changeValue(event) {
+    const val = event.target.value
+
+    setValue(val)
+
+    if (validate(val)) {
+      setValidation("")
+    } else {
+      setValidation(`Invalid ${label}`)
+    }
+  }
+
+  return (
+    <>
+      <label>
+        {label} <input type="text" value={value} onChange={changeValue} />
+      </label>
+      <p>{validation}</p>
+    </>
+  )
+}
+```
 
 This component handles a complete field. Renders an input with a label, stores state, and performs validation as you type. Even renders errors.
 
@@ -93,7 +178,31 @@ You can use render props for more flexibility. But that's often _too_ flexible. 
 
 The `<Form />` component is a glorified loop.
 
-[![Click through for source](./img/techletter.app-screenshot-1588001432243.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20Form%20%3D%20(%7B%20fields%20%7D)%20%3D%3E%20%7B%0A%20%20const%20%5BformValidation%2C%20setFormValidation%5D%20%3D%20useState(%22%22)%3B%0A%0A%20%20function%20onSubmit(event)%20%7B%0A%20%20%20%20event.preventDefault()%3B%0A%0A%20%20%20%20%2F%2F%20..%0A%20%20%7D%0A%0A%20%20return%20(%0A%20%20%20%20%3Cform%20onSubmit%3D%7BonSubmit%7D%3E%0A%20%20%20%20%20%20%7Bfields.map(field%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3C%3E%0A%20%20%20%20%20%20%20%20%20%20%3CField%20%7B...field%7D%20key%3D%7Bfield.name%7D%20%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cbr%20%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2F%3E%0A%20%20%20%20%20%20))%7D%0A%0A%20%20%20%20%20%20%3Cp%3E%7BformValidation%7D%3C%2Fp%3E%0A%20%20%20%20%20%20%3Cbutton%20type%3D%22submit%22%3ESubmit%3C%2Fbutton%3E%0A%20%20%20%20%3C%2Fform%3E%0A%20%20)%3B%0A%7D%3B>)
+```javascript
+const Form = ({ fields }) => {
+  const [formValidation, setFormValidation] = useState("")
+
+  function onSubmit(event) {
+    event.preventDefault()
+
+    // ..
+  }
+
+  return (
+    <form onSubmit={onSubmit}>
+      {fields.map((field) => (
+        <>
+          <Field {...field} key={field.name} />
+          <br />
+        </>
+      ))}
+
+      <p>{formValidation}</p>
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+```
 
 Loop through fields, render each one. Add a submit button, `<form>` element, and a place to put errors.
 
@@ -103,7 +212,26 @@ The `onSubmit` method handles submissions. Validates all fields, runs any form-l
 
 Something like this:
 
-[![Click through for source](./img/techletter.app-screenshot-1588001432141.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%20%20function%20onSubmit(event)%20%7B%0A%20%20%20%20event.preventDefault()%3B%0A%0A%20%20%20%20const%20values%20%3D%20fields%0A%20%20%20%20%20%20.map(field%20%3D%3E%20(%7B%0A%20%20%20%20%20%20%20%20...field%2C%0A%20%20%20%20%20%20%20%20value%3A%20document.getElementsByName(field.name)%5B0%5D.value%0A%20%20%20%20%20%20%7D))%0A%20%20%20%20%20%20.filter(field%20%3D%3E%20field.validate(field.value))%0A%20%20%20%20%20%20.map(field%20%3D%3E%20(%7B%20name%3A%20field.name%2C%20value%3A%20field.value%20%7D))%3B%0A%0A%20%20%20%20if%20(values.length%20%3D%3D%3D%20fields.length)%20%7B%0A%20%20%20%20%20%20alert(JSON.stringify(values))%3B%0A%20%20%20%20%20%20setFormValidation(%22%22)%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20setFormValidation(%22missing%20fields%22)%3B%0A%20%20%20%20%7D%0A%20%20%7D>)
+```javascript
+function onSubmit(event) {
+  event.preventDefault()
+
+  const values = fields
+    .map((field) => ({
+      ...field,
+      value: document.getElementsByName(field.name)[0].value,
+    }))
+    .filter((field) => field.validate(field.value))
+    .map((field) => ({ name: field.name, value: field.value }))
+
+  if (values.length === fields.length) {
+    alert(JSON.stringify(values))
+    setFormValidation("")
+  } else {
+    setFormValidation("missing fields")
+  }
+}
+```
 
 This one iterates through the fields and grabs their values straight from the DOM. A little dirty but it works ✌️
 
