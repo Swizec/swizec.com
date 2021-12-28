@@ -17,9 +17,6 @@ import ComputerScienceLeftCopy from "./ComputerScienceLeftCopy"
 import ReactCUBeforeCopy from "./ReactCUBeforeCopy"
 import ReactCULeftCopy from "./ReactCULeftCopy"
 
-import BackendWebBeforeCopy from "./BackendWebBeforeCopy"
-import BackendWebLeftCopy from "./BackendWebLeftCopy"
-
 import IndieHackingBeforeCopy from "./IndieHackingBeforeCopy"
 import IndieHackingLeftCopy from "./IndieHackingLeftCopy"
 
@@ -96,18 +93,6 @@ export const ReactCU = ({ footer }) => {
       submitText="Get curated essays 💌"
     >
       <ReactCULeftCopy />
-    </FormCK>
-  )
-}
-
-export const BackendWeb = ({ footer }) => {
-  return (
-    <FormCK
-      copyBefore={footer ? <BackendWebBeforeCopy /> : <></>}
-      formName="BackendWeb"
-      submitText="Get curated essays 💌"
-    >
-      <BackendWebLeftCopy />
     </FormCK>
   )
 }

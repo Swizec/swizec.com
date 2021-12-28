@@ -15,7 +15,6 @@ export const useFormsQuery = () => {
             ComputerScienceFormId
             ServerlessHandbookCUFormId
             ReactCUFormId
-            BackendWebFormId
             IndieHackingFormId
             ServerlessFormId
           }
