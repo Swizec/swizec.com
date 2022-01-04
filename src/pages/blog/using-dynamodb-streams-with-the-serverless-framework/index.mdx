@@ -7,7 +7,7 @@ content_upgrade: Serverless
 hero: ./img/screenshot-1641316423669.png
 ---
 
-import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform";
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 DynamoDB Streams are a convenient way to react to changes in your database. And surprisingly easy to use 🥳
 
@@ -144,21 +144,21 @@ I use [TypeScript so I don't have to worry about typos](https://swizec.com/blog/
 
 ```typescript
 export async function handler(event: DynamoDBStreamEvent) {
-  const votes = new Map<string, Vote>();
+  const votes = new Map<string, Vote>()
 
   // collect latest instance of a vote
   // event processing happens in-order
   // https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html
   for (const record of event.Records) {
-    const voteRecord = parseRecord(record);
+    const voteRecord = parseRecord(record)
 
     if (shouldNotify(voteRecord)) {
-      votes.set(voteRecord.vote.voteId, voteRecord.vote);
+      votes.set(voteRecord.vote.voteId, voteRecord.vote)
     }
   }
 
   for (const [voteId, vote] of votes) {
-    await sendNotification(vote);
+    await sendNotification(vote)
   }
 }
 ```
@@ -183,29 +183,29 @@ https://twitter.com/Swizec/status/1476016108305932289
 You can use the [`unmarshall` function](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/modules/_aws_sdk_util_dynamodb.html#unmarshall-1) from the AWS SDK to ease your pain. My parsing function looks like this:
 
 ```typescript
-import { unmarshall } from "@aws-sdk/util-dynamodb";
+import { unmarshall } from "@aws-sdk/util-dynamodb"
 
 function parseRecord(record: DynamoDBRecord): VoteRecord {
   if (!record.dynamodb?.NewImage) {
-    throw new Error("Invalid DynamoDBRecord");
+    throw new Error("Invalid DynamoDBRecord")
   }
 
   // parse the weird object shape
   const vote = unmarshall(
     record.dynamodb?.NewImage as {
-      [key: string]: AttributeValue;
+      [key: string]: AttributeValue
     }
-  );
+  )
 
   // my list of form answers is a JSON string
   if (typeof vote.answers === "string") {
-    vote.answers = JSON.parse(vote.answers);
+    vote.answers = JSON.parse(vote.answers)
   }
 
   return {
     ...record,
     vote: vote as Vote,
-  };
+  }
 }
 ```
 
@@ -229,24 +229,24 @@ I stored mine in AWS Secrets Manager (manually). The code uses `@aws-sdk/client-
 import {
   GetSecretValueCommand,
   SecretsManagerClient,
-} from "@aws-sdk/client-secrets-manager";
+} from "@aws-sdk/client-secrets-manager"
 
 // reads slack webhook url from secrets manager
 async function getSlackUrl() {
   const client = new SecretsManagerClient({
     region: "us-east-1",
-  });
+  })
   const command = new GetSecretValueCommand({
     SecretId: "sparkjoySlackWebhook",
-  });
+  })
 
-  const secret = await client.send(command);
+  const secret = await client.send(command)
 
   if (!secret.SecretString) {
-    throw new Error("Failed to read Slack Webhook URL");
+    throw new Error("Failed to read Slack Webhook URL")
   }
 
-  return JSON.parse(secret.SecretString) as { webhookUrl: string };
+  return JSON.parse(secret.SecretString) as { webhookUrl: string }
 }
 ```
 
@@ -255,13 +255,13 @@ Instantiate a `SecretsManagerClient`, create a command, send the command to get 
 Sending the notification looks like this:
 
 ```typescript
-import { IncomingWebhook } from "@slack/webhook";
+import { IncomingWebhook } from "@slack/webhook"
 
 async function sendNotification(vote: Vote): Promise<void> {
-  console.log("Gonna send notification for", vote);
+  console.log("Gonna send notification for", vote)
 
-  const { webhookUrl } = await getSlackUrl();
-  const webhook = new IncomingWebhook(webhookUrl);
+  const { webhookUrl } = await getSlackUrl()
+  const webhook = new IncomingWebhook(webhookUrl)
 
   if (vote.voteType === "thumbsup") {
     await webhook.send({
@@ -270,7 +270,7 @@ async function sendNotification(vote: Vote): Promise<void> {
       }_ got a 👍 with answers \`${JSON.stringify(vote.answers)}\` from ${
         vote.voter
       }`,
-    });
+    })
   } else {
     await webhook.send({
       text: `Womp _${
@@ -278,7 +278,7 @@ async function sendNotification(vote: Vote): Promise<void> {
       }_ got a 👎 with answers \`${JSON.stringify(vote.answers)}\` from ${
         vote.voter
       }`,
-    });
+    })
   }
 }
 ```
@@ -306,3 +306,5 @@ Keep that in mind when you build event-based systems ✌️
 
 Cheers,<br/>
 ~Swizec
+
+PS: if you're curious about serverless, consider grabbing a copy of [Serverless Handbook](https://serverlesshandbook.dev), it's a great resource :)
