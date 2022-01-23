@@ -2,3 +2,21 @@
 # yarn lockfile v1
 
 
+"@typeform/api-client@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@typeform/api-client/-/api-client-1.7.0.tgz#2d37e93ee90b3ae9a41f14a3b593d5caa3bb21ec"
+  integrity sha512-Q4+tw4w6bKQ3K8021HGd9X2Kpupyefuy7Cu620Ohymq+cYRY+ipOdQVOxLBNesi9rYS+S+R4raM71w85Hcqt7w==
+  dependencies:
+    axios "^0.21.1"
+
+axios@^0.21.1:
+  version "0.21.4"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
+  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+  dependencies:
+    follow-redirects "^1.14.0"
+
+follow-redirects@^1.14.0:
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
+  integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
