@@ -27,9 +27,7 @@ module.exports = {
     articles: {
       title: `Swizec - A geek with a hat`,
       description: `
-        This is where some intro copy comes talking about why you should read these articles.
-
-        Also signup for the mailing list etc.
+        "Raw and honest from the heart!" writing. No bullshit. Real insights into the career and skills of a modern software engineer.
       `,
       titleSeo: `Swizec Teller`,
       descriptionSeo: `Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops`,
