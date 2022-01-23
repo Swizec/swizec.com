@@ -44,7 +44,7 @@
         "chalk": "^4.1.1",
         "child_process": "^1.0.2",
         "mime-types": "^2.1.27",
-        "node-fetch": "^2.6.0",
+        "node-fetch": "^2.6.7",
         "prettier": "^2.0.5",
         "remark-frontmatter": "2.0.0",
         "to-vfile": "^6.1.0",
