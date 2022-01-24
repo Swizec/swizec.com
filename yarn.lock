@@ -2655,6 +2655,13 @@
   resolved "https://registry.yarnpkg.com/@turist/time/-/time-0.0.2.tgz#32fe0ce708ea0f4512776bd313409f1459976dda"
   integrity sha512-qLOvfmlG2vCVw5fo/oz8WAZYlpe5a5OurgTj3diIxJCdjRHpapC+vQCz3er9LV79Vcat+DifBjeAhOAdmndtDQ==
 
+"@typeform/api-client@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@typeform/api-client/-/api-client-1.7.0.tgz#2d37e93ee90b3ae9a41f14a3b593d5caa3bb21ec"
+  integrity sha512-Q4+tw4w6bKQ3K8021HGd9X2Kpupyefuy7Cu620Ohymq+cYRY+ipOdQVOxLBNesi9rYS+S+R4raM71w85Hcqt7w==
+  dependencies:
+    axios "^0.21.1"
+
 "@types/body-parser@*":
   version "1.19.1"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.19.1.tgz#0c0174c42a7d017b818303d4b5d969cb0b75929c"
@@ -6976,7 +6983,7 @@ gatsby-remark-copy-relative-linked-files@^1.4.0:
     unist-util-visit "^2.0.3"
     upath "^2.0.1"
 
-"gatsby-remark-embedder@github:Swizec/gatsby-remark-embedder#custom-first-boop":
+gatsby-remark-embedder@Swizec/gatsby-remark-embedder#custom-first-boop:
   version "0.0.0-semantically-released"
   resolved "https://codeload.github.com/Swizec/gatsby-remark-embedder/tar.gz/152933bfd204f5a2f36c9946757b74c156a5db42"
   dependencies:
