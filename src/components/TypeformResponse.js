@@ -1,15 +1,36 @@
 import React from "react"
 
+function getAnswer(question, answers) {
+  return answers.find((answer) => answer.field.title === question)
+}
+
 const JobTitle = ({ answers }) => {
-  const answer = answers.find(
-    (answer) => answer.field.title === "What’s your job level?"
-  )
+  const answer = getAnswer("What’s your job level?", answers)
 
   return answer?.choice ? <>from a {answer.choice.label}</> : null
 }
 
+const QuestionAnswer = ({ question, answers }) => {
+  const answer = getAnswer(question, answers)
+  return answer?.text ? (
+    <>
+      <strong>{answer.field.title}</strong>
+      <p>{answer.text}</p>
+    </>
+  ) : null
+}
+
 export const TypeformResponse = ({ answers }) => {
-  const stars = answers[0]?.number ? new Array(answers[0].number).fill(0) : []
+  const rating = getAnswer("Are you enjoying the Swizec’s Newsletter?", answers)
+  const stars = rating?.number ? new Array(rating.number).fill(0) : []
+
+  const questions = [
+    "What hesitation did you have about subscribing?",
+    "What did you learn from Swizec’s Newsletter?",
+    "What do you like most about the Swizec’s Newsletter?",
+    "What are some other benefits you got from Swizec’s Newsletter?",
+    "Would you recommend Swizec’s Newsletter to a friend? Why?",
+  ]
 
   return (
     <>
@@ -21,14 +42,9 @@ export const TypeformResponse = ({ answers }) => {
         ))}{" "}
         <JobTitle answers={answers} />
       </h3>
-      {[1, 2, 3, 4, 5].map((i) =>
-        answers[i] && answers[i]?.text ? (
-          <>
-            <strong>{answers[i]?.field.title}</strong>
-            <p>{answers[i]?.text}</p>
-          </>
-        ) : null
-      )}
+      {questions.map((question, i) => (
+        <QuestionAnswer question={question} answers={answers} key={i} />
+      ))}
     </>
   )
 }
