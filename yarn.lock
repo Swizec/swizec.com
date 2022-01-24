@@ -2272,10 +2272,10 @@
     "@styled-system/core" "^5.1.2"
     "@styled-system/css" "^5.1.5"
 
-"@swizec/gatsby-theme-course-platform@^2.6.2":
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-2.6.2.tgz#41acce566f0f6a657fdd460a71a65feaa69c50c5"
-  integrity sha512-/Pk70Rpfx0dQ8FqZ4Zy4KmYxPDaA8vlHmeOPKXYr9Yi3J766d0Wa/ERp8q70w496riI6VP7FF/3FfOEttJSq7g==
+"@swizec/gatsby-theme-course-platform@^2.6.3":
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-2.6.3.tgz#61416b8820976c6fe3f9d5e4ab0050a54bb8029e"
+  integrity sha512-w97FtYifw5Xnnxmt17gnjXp6ZpDLdMRoDIerK82NXM+Mo6VhDo3mpAMXGAv1RlpT39If914mBdW2mMrOwgaNcg==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -6983,7 +6983,7 @@ gatsby-remark-copy-relative-linked-files@^1.4.0:
     unist-util-visit "^2.0.3"
     upath "^2.0.1"
 
-gatsby-remark-embedder@Swizec/gatsby-remark-embedder#custom-first-boop:
+"gatsby-remark-embedder@github:Swizec/gatsby-remark-embedder#custom-first-boop":
   version "0.0.0-semantically-released"
   resolved "https://codeload.github.com/Swizec/gatsby-remark-embedder/tar.gz/152933bfd204f5a2f36c9946757b74c156a5db42"
   dependencies:
