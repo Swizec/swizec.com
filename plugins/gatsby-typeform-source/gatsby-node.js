@@ -8,15 +8,15 @@
 const { createClient } = require("@typeform/api-client")
 
 // fetches responses for a specific typeform
-function fetchResponses(uid) {
+function fetchResponses(token, formId) {
   const typeformAPI = createClient({
-    token: "tfp_EkDTBwLmvDQfV44SCkof4A4PfFyy5Rhz83uL2r1HwS96_3stYXkf87FoZ1Z",
+    token,
   })
 
   return Promise.all([
-    typeformAPI.forms.get({ uid }),
+    typeformAPI.forms.get({ uid: formId }),
     typeformAPI.responses.list({
-      uid,
+      uid: formId,
       pageSize: 1000,
     }),
   ])
@@ -64,15 +64,16 @@ exports.createSchemaCustomization = ({ actions }) => {
     `)
 }
 
-exports.sourceNodes = async ({
-  cache,
-  actions,
-  createContentDigest,
-  createNodeId,
-}) => {
-  const { createNode, createTypes } = actions
+exports.sourceNodes = async (
+  { cache, actions, createContentDigest, createNodeId },
+  pluginOptions
+) => {
+  const { createNode } = actions
 
-  const [{ fields }, { items }] = await fetchResponses("jLgVKKLf")
+  const [{ fields }, { items }] = await fetchResponses(
+    pluginOptions.token,
+    pluginOptions.formId
+  )
 
   const fieldMap = new Map(fields.map((field) => [field.id, field]))
 

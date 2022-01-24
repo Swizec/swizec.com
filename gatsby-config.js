@@ -48,6 +48,13 @@ module.exports = {
         omitGoogleFont: true,
       },
     },
+    {
+      resolve: "gatsby-typeform-source",
+      options: {
+        token: process.env.TYPEFORM_TOKEN,
+        formId: "jLgVKKLf",
+      },
+    },
     "gatsby-plugin-gatsby-cloud",
     {
       resolve: "gatsby-plugin-manifest",
