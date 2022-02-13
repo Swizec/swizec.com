@@ -6378,9 +6378,9 @@ flatted@^3.1.0:
   integrity sha512-JaTY/wtrcSyvXJl4IMFHPKyFur1sE9AUqc0QnhOaJ0CxHtAoIV8pYDzeEfAaNEtGkOfq4gr3LBFmdXW5mOQFnA==
 
 follow-redirects@^1.0.0, follow-redirects@^1.14.0:
-  version "1.14.3"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.3.tgz#6ada78118d8d24caee595595accdc0ac6abd022e"
-  integrity sha512-3MkHxknWMUtb23apkgz/83fDoe+y+qr0TdgacGIA7bew+QLBo3vdgEN2xEsuXNivpFy4CyDhBBZnNZOtalmenw==
+  version "1.14.8"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.8.tgz#016996fb9a11a100566398b1c6839337d7bfa8fc"
+  integrity sha512-1x0S9UVJHsQprFcEC/qnNzBLcIxsjAV905f/UkQxbclCsoTWlacCNOpQa/anodLl2uaEKFhfWOvM2Qg77+15zA==
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -6983,8 +6983,9 @@ gatsby-remark-copy-relative-linked-files@^1.4.0:
     unist-util-visit "^2.0.3"
     upath "^2.0.1"
 
-"gatsby-remark-embedder@github:Swizec/gatsby-remark-embedder#custom-first-boop":
+gatsby-remark-embedder@Swizec/gatsby-remark-embedder#custom-first-boop:
   version "0.0.0-semantically-released"
+  uid "152933bfd204f5a2f36c9946757b74c156a5db42"
   resolved "https://codeload.github.com/Swizec/gatsby-remark-embedder/tar.gz/152933bfd204f5a2f36c9946757b74c156a5db42"
   dependencies:
     "@babel/runtime" "^7.13.10"
