@@ -26,9 +26,7 @@ module.exports = {
     },
     articles: {
       title: `Swizec - A geek with a hat`,
-      description: `
-        "Raw and honest from the heart!" writing. No bullshit. Real insights into the career and skills of a modern software engineer.
-      `,
+      description: `I aim to write mindblowing emails with real insight into the career and skills of a modern software engineer. <em>"Raw and honest from the heart!"</em> as one reader described them.<br/><br/>Subscribe below or keep reading.`,
       titleSeo: `Swizec Teller`,
       descriptionSeo: `Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops`,
     },
