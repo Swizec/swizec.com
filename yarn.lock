@@ -2272,10 +2272,10 @@
     "@styled-system/core" "^5.1.2"
     "@styled-system/css" "^5.1.5"
 
-"@swizec/gatsby-theme-course-platform@^2.6.6":
-  version "2.6.6"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-2.6.6.tgz#ee9411915af9a82630d295b25c908ad8fc3a5b98"
-  integrity sha512-F1hvWNfSo8V2XFX1iqgftlq5lTW6howXVxiInAFou6nU0Ozn7/Bk2NnwvgDijCZUy9SitxehTny6Cfh0vIdIgg==
+"@swizec/gatsby-theme-course-platform@^2.6.7":
+  version "2.6.7"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-2.6.7.tgz#a65aa6ef06974458b354f82472bd21a9a48261c9"
+  integrity sha512-J/1eADqSNnwkmZolVddaKLLX1qjtJVEgw3m1M7zaraOLZDvYzDup9VqZ0VGPCLbJzSOOx7hfS0x/4Hno8JdV7g==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2294,7 +2294,6 @@
     gatsby-image "3.2.0"
     gatsby-plugin-advanced-sitemap "^1.6.0"
     gatsby-plugin-catch-links "^3.12.0"
-    gatsby-plugin-facebook-pixel "^1.0.8"
     gatsby-plugin-google-analytics "^3.12.0"
     gatsby-plugin-image "^1.12.0"
     gatsby-plugin-load-script "^1.1.0"
@@ -6651,11 +6650,6 @@ gatsby-plugin-catch-links@^3.12.0:
   dependencies:
     "@babel/runtime" "^7.14.8"
     escape-string-regexp "^1.0.5"
-
-gatsby-plugin-facebook-pixel@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-facebook-pixel/-/gatsby-plugin-facebook-pixel-1.0.8.tgz#8f5aa6816ddf1cf451c372464fa3f873d7dae288"
-  integrity sha512-oJfTMJxAv5AF2sganhtaq3+6GZ2W2s6/RjQxVsRUxUWMxhrtW6YeMsayAh1bVPgVQ8boJ0QyftipXe7fyq4BCA==
 
 gatsby-plugin-feed@3.3.0:
   version "3.3.0"
