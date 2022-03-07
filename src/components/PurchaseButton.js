@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet"
 export const PurchaseButton = ({ productId, children }) => (
   <>
     <Helmet>
-      <script src="https://gumroad.com/js/gumroad.js"></script>
+      <script src="https://gumroad.com/js/gumroad.js" defer></script>
     </Helmet>
     <a
       class="gumroad-button"
