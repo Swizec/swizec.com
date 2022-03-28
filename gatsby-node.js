@@ -45,10 +45,7 @@ exports.onCreateNode = ({ node, actions }) => {
 }
 
 exports.createPages = async ({ graphql, actions }) => {
-  await Promise.allSettled([
-    // createArticleRedirects({ graphql, actions }),
-    createCategoryPages({ graphql, actions }),
-  ])
+  await Promise.allSettled([createArticleRedirects({ graphql, actions })])
 }
 
 async function createArticleRedirects({ graphql, actions }) {
@@ -99,42 +96,4 @@ async function createArticleRedirects({ graphql, actions }) {
   })
 
   console.log(`${chalk.green("success")} create redirects`) // eslint-disable-line no-console
-}
-
-async function createCategoryPages({ graphql, actions }) {
-  const result = await graphql(`
-    query Categories {
-      allMdx(filter: { fileAbsolutePath: { regex: "/blog/.+/" } }) {
-        nodes {
-          frontmatter {
-            categories
-          }
-        }
-      }
-    }
-  `)
-
-  if (result.errors) {
-    console.error(result.errors) // eslint-disable-line no-console
-    throw result.errors
-  }
-
-  // extract categories out of graphql and make a set
-  const allCategories = new Set(
-    result.data.allMdx.nodes
-      .filter((node) => !!node.frontmatter.categories)
-      .map((node) => node.frontmatter.categories)
-      .map((categories) => categories.split(","))
-      .flat()
-      .map((category) => category.trim().toLowerCase())
-  )
-
-  for (const category of allCategories) {
-    console.log("creating page", `/categories/${category}`)
-    await actions.createPage({
-      path: `/categories/${category}`,
-      component: require.resolve("./src/templates/category.js"),
-      context: { category, categoryRegex: `/${category}/gi` },
-    })
-  }
 }
