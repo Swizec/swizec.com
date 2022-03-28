@@ -5,5 +5,6 @@ export default [
   { Link: "/books", Title: "Books" },
   { Link: "/courses", Title: "Courses" },
   { Link: "/workshops", Title: "Workshops" },
+  { Link: "/testimonials", Title: "Testimonials" },
   { Link: "/about", Title: "About" },
 ]
