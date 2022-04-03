@@ -2272,10 +2272,10 @@
     "@styled-system/core" "^5.1.2"
     "@styled-system/css" "^5.1.5"
 
-"@swizec/gatsby-theme-course-platform@^2.7.1":
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-2.7.1.tgz#f678b6061a5afcbe5b27bb632fda91c99ae66c08"
-  integrity sha512-oXWJqqbaiflsWMuv8zmDPlr3Oao34eAO1UM03uBvnAmSr/dpOOd/UlG5iaMrGHdL2S2MusonAjF6XYaZ43DwbA==
+"@swizec/gatsby-theme-course-platform@^2.7.2":
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-2.7.2.tgz#ab9872cc63353e1d145488ba6547c8b8b5f67be5"
+  integrity sha512-HkFTY9aiuvcs+VRfSx6yQAOwVsTTLc+077KOa1b68WGLGxv+80jywhGh2l7yX7pgy5Bzkf9j35ASw6fNmsVNkg==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -4158,9 +4158,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001125, caniuse-lite@^1.0.30001252, caniuse-lite@^1.0.30001254:
-  version "1.0.30001256"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001256.tgz#182410b5f024e0ab99c72ec648f234a9986bd548"
-  integrity sha512-QirrvMLmB4txNnxiaG/xbm6FSzv9LqOZ3Jp9VtCYb3oPIfCHpr/oGn38pFq0udwlkctvXQgPthaXqJ76DaYGnA==
+  version "1.0.30001324"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001324.tgz"
+  integrity sha512-/eYp1J6zYh1alySQB4uzYFkLmxxI8tk0kxldbNHXp8+v+rdMKdUBNjRLz7T7fz6Iox+1lIdYpc7rq6ZcXfTukg==
 
 ccount@^1.0.0, ccount@^1.0.3:
   version "1.1.0"
