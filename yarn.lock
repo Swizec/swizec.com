@@ -2565,10 +2565,10 @@
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.3.8.tgz#5b9ecf4ee480ca00f1ffbc2d1a5d4eed0d1afe81"
   integrity sha512-aWItSZvJj4+GI6FWkjZR13xPNPctq2RRakzo+O6vN7bC2yjwdg5EFpgaSAUn95b7BGSgcflvzVDPoKmJv24IOg==
 
-"@swizec/gatsby-theme-course-platform@^3.0.0-13":
-  version "3.0.0-13"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.0-13.tgz#313379f10914ec7c121fd383ca6a10e8227c23d7"
-  integrity sha512-oUSuD8h5VhwXTl+BDQhKcNj9W7lhHnVz+oZqeneUky+1M/iOIqtWZSoYPYWuqLff8GeoD1RYwJSCutdzDuO5IQ==
+"@swizec/gatsby-theme-course-platform@^3.0.0-14":
+  version "3.0.0-14"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.0-14.tgz#c58150cba19d4604d5fb5fc66bcfbe9fd4fb2247"
+  integrity sha512-7naTM4PSYKQbcQjwCBOfSkRlZXSWOkTFsZuZk3VBtmksNS6h2hxLG7bpmQXphPNEdOPJmpBOlWg37aNG8tLf7w==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
