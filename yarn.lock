@@ -2565,10 +2565,10 @@
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.3.8.tgz#5b9ecf4ee480ca00f1ffbc2d1a5d4eed0d1afe81"
   integrity sha512-aWItSZvJj4+GI6FWkjZR13xPNPctq2RRakzo+O6vN7bC2yjwdg5EFpgaSAUn95b7BGSgcflvzVDPoKmJv24IOg==
 
-"@swizec/gatsby-theme-course-platform@^3.0.0-14":
-  version "3.0.0-14"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.0-14.tgz#c58150cba19d4604d5fb5fc66bcfbe9fd4fb2247"
-  integrity sha512-7naTM4PSYKQbcQjwCBOfSkRlZXSWOkTFsZuZk3VBtmksNS6h2hxLG7bpmQXphPNEdOPJmpBOlWg37aNG8tLf7w==
+"@swizec/gatsby-theme-course-platform@^3.0.0-15":
+  version "3.0.0-15"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.0-15.tgz#40e0dd2881446d05d91f5f7cc779a93e2054d611"
+  integrity sha512-Q2+Nnxs6Ukh6VDMcPFBwcyWSd8YHDGXBHq8QG5I8e7wq4FlgL9qNNn4x53d89GAeQ0n4Dmba5gGSG4O+DL3GCQ==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2602,7 +2602,7 @@
     gatsby-remark-copy-linked-files "^5.11.0"
     gatsby-remark-copy-relative-linked-files "^1.5.0"
     gatsby-remark-embedder Swizec/gatsby-remark-embedder#custom-first-boop
-    gatsby-remark-giphy "^1.1.2"
+    gatsby-remark-giphy "^1.1.3"
     gatsby-remark-images "^6.11.0"
     gatsby-remark-relative-images "^2.0.2"
     gatsby-source-filesystem "^4.11.0"
@@ -7159,10 +7159,10 @@ gatsby-remark-copy-relative-linked-files@^1.5.0:
     parse5 "^6.0.1"
     unist-util-visit "^2.0.3"
 
-gatsby-remark-giphy@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-giphy/-/gatsby-remark-giphy-1.1.2.tgz#df2507661b8ef687a31a2fbb9c75697628135e71"
-  integrity sha512-FTunp9I6Z30ro8IJV7NIOlFYqF069rgdBEpxXiDAJLEtp2KqeEKFRfgN+L3g/9AGi9bs2pww91L0KaQ+/De+kg==
+gatsby-remark-giphy@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-giphy/-/gatsby-remark-giphy-1.1.3.tgz#38676b914036bcad5adceb5bd00dedb051afb60e"
+  integrity sha512-YooQGpuhywV3EGtnt+f7LIm4ko8hvDsyAiw+MaTiXtcJeg7eO274hPNNkPrvmZqRhTV0Stsck0DAikNyZA4bOQ==
   dependencies:
     giphy-api "^2.0.1"
     unist-util-visit "^2.0.2"
