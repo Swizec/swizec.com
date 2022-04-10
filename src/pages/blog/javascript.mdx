@@ -12,23 +12,19 @@ import { graphql } from "gatsby"
 
 export const pageQuery = graphql`
   query {
-    allSitePage(
+    allMdx(
       filter: {
         path: { regex: "/blog/.+/" }
-        context: {
-          frontmatter: { categories: { regex: "/JavaScript|TypeScript/gi" } }
-        }
+        frontmatter: { categories: { regex: "/JavaScript|TypeScript/gi" } }
       }
-      sort: { fields: context___frontmatter___published, order: DESC }
+      sort: { fields: frontmatter___published, order: DESC }
     ) {
       nodes {
-        path
-        context {
-          frontmatter {
+        slug
+        frontmatter {
             title
             description
             published
-          }
         }
       }
     }
@@ -48,7 +44,7 @@ Leave your email and **get the JavaScript Essays series** - a series of curated 
 ## Latest JavaScript articles from Swizec
 
 <>
-  {props.data.allSitePage.nodes.map((props, i) => (
+  {props.data.allMdx.nodes.map((props, i) => (
     <ArticleListing {...props} key={i} />
   ))}
 </>

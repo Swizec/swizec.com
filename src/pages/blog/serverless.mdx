@@ -19,7 +19,7 @@ export const pageQuery = graphql`
             categories: { regex: "/Serverless|Backend|Backend Web/gi" }
         }
       }
-      sort: { fields: context___frontmatter___published, order: DESC }
+      sort: { fields: frontmatter___published, order: DESC }
     ) {
       nodes {
         slug
