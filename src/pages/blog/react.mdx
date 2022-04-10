@@ -12,25 +12,21 @@ import { graphql } from "gatsby"
 
 export const pageQuery = graphql`
   query {
-    allSitePage(
+    allMdx(
       filter: {
-        path: { regex: "/blog/.+/" }
-        context: {
-          frontmatter: {
+        slug: { regex: "/blog/.+/" }
+        frontmatter: {
             categories: { regex: "/React|Reactjs|React.js|gatsby|nextjs/gi" }
-          }
         }
       }
-      sort: { fields: context___frontmatter___published, order: DESC }
+      sort: { fields: frontmatter___published, order: DESC }
     ) {
       nodes {
-        path
-        context {
-          frontmatter {
+        slug
+        frontmatter {
             title
             description
             published
-          }
         }
       }
     }
@@ -52,7 +48,7 @@ Leave your email and **get the React email Series** - a series of curated essays
 ## Latest React articles from Swizec
 
 <>
-  {props.data.allSitePage.nodes.map((props, i) => (
+  {props.data.allMdx.nodes.map((props, i) => (
     <ArticleListing {...props} key={i} />
   ))}
 </>
