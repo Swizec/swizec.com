@@ -14,7 +14,7 @@ export const pageQuery = graphql`
   query {
     allMdx(
       filter: {
-        slug: { regex: "/blog/.+/" }
+        fileAbsolutePath: { regex: "/blog/.+/" }
         frontmatter: { categories: { regex: "/Fullstack/gi" } }
       }
       sort: { fields: frontmatter___published, order: DESC }

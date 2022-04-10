@@ -92,7 +92,7 @@ module.exports = {
             query: `
               {
                 allMdx(
-                    filter: { slug: { regex: "/blog/.+/" } }
+                    filter: { fileAbsolutePath: { regex: "/blog/.+/" } }
                     sort: { fields: frontmatter___published, order: DESC }
                     limit: 50
                 ) {
@@ -111,7 +111,7 @@ module.exports = {
               return allMdx.nodes.map((node) => {
                 return Object.assign({}, node.frontmatter, {
                   date: node.frontmatter.published,
-                  url: site.siteMetadata.siteUrl + node.slug,
+                  url: site.siteMetadata.siteUrl + "/" + node.slug,
                   guid: site.siteMetadata.siteUrl + node.slug,
                 })
               })
