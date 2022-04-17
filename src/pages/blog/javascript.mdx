@@ -20,7 +20,9 @@ export const pageQuery = graphql`
       sort: { fields: frontmatter___published, order: DESC }
     ) {
       nodes {
-        slug
+        fields {
+          slug
+        }
         frontmatter {
             title
             description

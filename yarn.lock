@@ -2565,10 +2565,10 @@
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.3.8.tgz#5b9ecf4ee480ca00f1ffbc2d1a5d4eed0d1afe81"
   integrity sha512-aWItSZvJj4+GI6FWkjZR13xPNPctq2RRakzo+O6vN7bC2yjwdg5EFpgaSAUn95b7BGSgcflvzVDPoKmJv24IOg==
 
-"@swizec/gatsby-theme-course-platform@^3.0.0-17":
-  version "3.0.0-17"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.0-17.tgz#9bdb192127190a728a86deca9f0c777deaba5414"
-  integrity sha512-SfFsJfnBkIerLX2UqBZPsAciJXeC9MILCoMP2pnaYoZthCwgQ0JJ3ePyoSf3Yj4CYi8Y6CSzSGLawd3QDE92vQ==
+"@swizec/gatsby-theme-course-platform@^3.0.0-19":
+  version "3.0.0-19"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.0-19.tgz#318a238e33a7a5dfc0a02a1cf233b6194f2d561e"
+  integrity sha512-q0qc8phzTCLEtfCrZUm+OMRCqnqj47ooPkiRTCKERlUKgqjmLQdvgN9Ac6yOsMIfPDh0qJbKlmClFyd/VyE5Qw==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2596,7 +2596,6 @@
     gatsby-plugin-remove-serviceworker "^1.0.0"
     gatsby-plugin-sharp "^4.11.0"
     gatsby-plugin-simple-analytics "^1.0.4"
-    gatsby-plugin-slug "^2.0.0"
     gatsby-plugin-theme-ui "^0.6.2"
     gatsby-plugin-twitter "^4.11.0"
     gatsby-remark-copy-linked-files "^5.11.0"
@@ -7064,11 +7063,6 @@ gatsby-plugin-simple-analytics@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-simple-analytics/-/gatsby-plugin-simple-analytics-1.0.4.tgz#5e8671733423d48eb9c9162c46cb73b2b0ed2a21"
   integrity sha512-Routbv22mlVybTafCJD6iby9/1NH26e3+r3Byr1LO1EB1y7xqn8gSre+2LQOLhBY3kaeVoB0iOaPtuL6YYLeCw==
-
-gatsby-plugin-slug@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-slug/-/gatsby-plugin-slug-2.0.0.tgz#1da65ac4277b8122c221273e9071d15e7af7cb25"
-  integrity sha512-nBfp/3s8gLcuNSN7WN7a5r+T8F0ySxEeShYEWxLn+9yBeijKnItNv5YnS+kxUl23Y2/fnaj752L/w0OJeK+mQg==
 
 gatsby-plugin-theme-ui@^0.6.2:
   version "0.6.2"

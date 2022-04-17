@@ -97,11 +97,13 @@ module.exports = {
                     limit: 50
                 ) {
                     nodes {
-                        slug
                         frontmatter {
                             title
                             description
                             published
+                        }
+                        fields {
+                            slug
                         }
                     }
                 }
@@ -111,8 +113,8 @@ module.exports = {
               return allMdx.nodes.map((node) => {
                 return Object.assign({}, node.frontmatter, {
                   date: node.frontmatter.published,
-                  url: site.siteMetadata.siteUrl + "/" + node.slug,
-                  guid: site.siteMetadata.siteUrl + node.slug,
+                  url: site.siteMetadata.siteUrl + "/" + node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + node.fields.slug,
                 })
               })
             },
