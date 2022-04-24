@@ -118,7 +118,7 @@ svg
   .call(yAxis);
 ```
 
-[![Scatterplot simple axes](https://swizec.com/wp-content/uploads/2012/09/scatterplot-simple-axes.png "Scatterplot simple axes")](http://swizec.com/wp-content/uploads/2012/09/scatterplot-simple-axes.png)
+[![Scatterplot simple axes](https://swizec.com/wp-content/uploads/2012/09/scatterplot-simple-axes.png "Scatterplot simple axes")](https://swizec.com/wp-content/uploads/2012/09/scatterplot-simple-axes.png)
 
 As you can see, d3 was nice enough to figure out on its own how many ticks to draw and where to put them. This usually makes graphs more readable, but in our case we do want all the ticks.
 
@@ -154,7 +154,7 @@ var xAxis = d3.svg
 
 The _.tickFormat_ method allows us to give d3 a function that calculates what a label should look like and we used _.ticks_ to specify how many ticks we want.
 
-[![Nicely  labeled scatterplot](https://swizec.com/wp-content/uploads/2012/09/scatterplot-labeled-axes.png "Nicely  labeled scatterplot")](http://swizec.com/wp-content/uploads/2012/09/scatterplot-labeled-axes.png)
+[![Nicely  labeled scatterplot](https://swizec.com/wp-content/uploads/2012/09/scatterplot-labeled-axes.png "Nicely  labeled scatterplot")](https://swizec.com/wp-content/uploads/2012/09/scatterplot-labeled-axes.png)
 
 Much better, but since we'll be loading the data asynchronously, let's tell the user what's going on by placing _"Loading ..."_ roughly in the middle of the plot.
 
@@ -171,7 +171,7 @@ svg
   });
 ```
 
-[![Scatterplot loading ...](https://swizec.com/wp-content/uploads/2012/09/scatterplot-loading.png "Scatterplot loading ...")](http://swizec.com/wp-content/uploads/2012/09/scatterplot-loading.png)
+[![Scatterplot loading ...](https://swizec.com/wp-content/uploads/2012/09/scatterplot-loading.png "Scatterplot loading ...")](https://swizec.com/wp-content/uploads/2012/09/scatterplot-loading.png)
 
 Loading the data can be done with one of d3's many data loading functions.
 
@@ -230,7 +230,7 @@ After removing the _"Loading ..." \_we gave d3 our data, then said that for each
 
 Notice we're using functions to compute these values, but because we're lazy we just rely on d3 doing all of the actual calculations with the _x, y_ and _r_ scales we defined earlier.
 
-[![The final scatterplot](https://swizec.com/wp-content/uploads/2012/09/scatterplot-finished1.png "The final scatterplot")](http://swizec.com/wp-content/uploads/2012/09/scatterplot-finished1.png)
+[![The final scatterplot](https://swizec.com/wp-content/uploads/2012/09/scatterplot-finished1.png "The final scatterplot")](https://swizec.com/wp-content/uploads/2012/09/scatterplot-finished1.png)
 
 On pictures everything looks great now, but the circles appear very suddenly. Wouldn't it be nice if there was a sexy transition going on?
 

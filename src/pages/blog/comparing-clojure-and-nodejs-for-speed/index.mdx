@@ -14,7 +14,7 @@ For the longest of whiles I've been working on a speed comparison between Node.j
 
 I did my best to implement the same algorithm in both. It creates a list of numbers from 3 to N, then filters it of anything that isn't a prime. Through a bit of trial and error this turned out to be the quickest approach, possibly because it means we can run prime-ness tests in parallel on several numbers.
 
-For node.js I also implemented a bit different algorithm that builds a list of known primes and iterates through that instead of everything under the square root of the target. It can't run in parallel, but turns out it's faster ... couldn't figure out how to implement it in clojure to be fast as you can see from my post on [prime searching in clojure](http://swizec.com/blog/checking-for-primes-dumber-algorithm-is-faster-algorithm/swizec/1580).
+For node.js I also implemented a bit different algorithm that builds a list of known primes and iterates through that instead of everything under the square root of the target. It can't run in parallel, but turns out it's faster ... couldn't figure out how to implement it in clojure to be fast as you can see from my post on [prime searching in clojure](https://swizec.com/blog/checking-for-primes-dumber-algorithm-is-faster-algorithm/swizec/1580).
 
 As far as initial observations go there were a few interesting things I discovered:
 

@@ -10,7 +10,7 @@ hero: ./img/iknWGlq.jpg
 
 ![](./img/sAr4q3L.gif)
 
-I turned [my animated alphabet example](http://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797) into an animation of what you’re typing. New characters drop in from above, old characters drop down, and any white space gets squeezed out.
+I turned [my animated alphabet example](https://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797) into an animation of what you’re typing. New characters drop in from above, old characters drop down, and any white space gets squeezed out.
 
 Pretty cool, huh?
 
@@ -41,7 +41,7 @@ Declaring a root `transition` ensures individual letter transitions are synced. 
 
 Then, each `Letter` component takes care of its own enter/update/exit transitions inside special lifecycle hooks. `componentWillEnter` for the enter animation, `componentWillReceiveProps` for update, and `componentWillLeave` for exit. [The whole component](https://github.com/Swizec/react-d3-enter-exit-transitions/blob/master/src/components/Letter.jsx) is just 59 standard lines of code.
 
-You can read my previous 2000-word article to learn the details about [using D3 transitions with React components](http://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797). I’ve cleaned up the code since then, but the gist hasn’t changed. You can see the current code in my [github repository](https://github.com/Swizec/react-d3-enter-exit-transitions).
+You can read my previous 2000-word article to learn the details about [using D3 transitions with React components](https://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797). I’ve cleaned up the code since then, but the gist hasn’t changed. You can see the current code in my [github repository](https://github.com/Swizec/react-d3-enter-exit-transitions).
 
 The _key_ mystery was choosing the right key prop for each `Letter` component. That part was hard. It took me two whole nights!
 
