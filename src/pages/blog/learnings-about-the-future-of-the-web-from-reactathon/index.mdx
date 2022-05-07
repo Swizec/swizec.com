@@ -46,11 +46,15 @@ Several talks mentioned Remix as an exciting step into the adjacent possible of 
 
 All of this happens by magic. [Ryan](https://twitter.com/ryanflorence) explained it as a lever you can pull between different web vitals metrics like time-to-first-byte and largest-paint.
 
+### Suspense is the key
+
 As [David](https://twitter.com/davidkpiano) said in his talk – fetch on render is a lie.
 
 https://twitter.com/Swizec/status/1521918300770299905
 
 You need to fetch _while_ you render. Side-effects go in state transitions, not when you land on the new state in your state machine.
+
+### Everyone loves a good state machine
 
 And yes you _are_ building state machines even if you don't realize it. We had lots of debates about how nice it would be if engineers started new projects by drawing out a state machine in their notebook.
 
@@ -104,6 +108,8 @@ https://twitter.com/Swizec/status/1522014527952285696
 https://twitter.com/uilian/status/1522370813491621889
 
 I don't know what to do with this information, but the future's exciting. We're going beyond infrastructure as code and towards infrastructure _from_ code.
+
+### The future is even less work
 
 Self-configuring platforms that look at your code and create the right deployment environment, set up your lambdas, make the queues, figure out your database, ... you write the business logic, platform does the rest 😍
 
