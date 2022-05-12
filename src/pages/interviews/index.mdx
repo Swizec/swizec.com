@@ -5,6 +5,7 @@ hero: "../../images/swizec-interview-face.jpg"
 ---
 
 import { graphql } from "gatsby"
+import { ArticleListing } from "@swizec/gatsby-theme-course-platform"
 
 export const pageQuery = graphql`
   query {
@@ -31,8 +32,6 @@ export const pageQuery = graphql`
 I like to share thoughts with new audiences and discover ideas with provocative questions. Here are some of my past appearances.
 
 Got a provocative question to ask? [email me](mailto:hi@swizec.com?subject=Provocative+question)
-
-## Latest podcast interviews with Swizec
 
 <>
   {props.data.allSitePage.nodes.map((props, i) => (
