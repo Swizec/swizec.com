@@ -1,0 +1,40 @@
+---
+title: "Interviews"
+description: "There's a lot of fantastic podcasts out there. Rather than add one more to the list, Swizec runs a reverse podcast – guesting with everyone who has good questions."
+hero: "../../images/swizec-interview-face.jpg"
+---
+
+import { graphql } from "gatsby"
+import { ArticleListing } from "@swizec/gatsby-theme-course-platform"
+
+export const pageQuery = graphql`
+  query {
+    allSitePage(
+      filter: { path: { regex: "/interviews/.+/" } }
+      sort: { fields: context___frontmatter___published, order: DESC }
+    ) {
+      nodes {
+        path
+        context {
+          frontmatter {
+            title
+            description
+            published
+          }
+        }
+      }
+    }
+  }
+`
+
+![Swizec's best interview face](../../images/swizec-interview-face.jpg)
+
+I like to share thoughts with new audiences and discover ideas with provocative questions. Here are some of my past appearances.
+
+Got a provocative question to ask? [email me](mailto:hi@swizec.com?subject=Provocative+question)
+
+<>
+  {props.data.allSitePage.nodes.map((props, i) => (
+    <ArticleListing {...props} key={i} />
+  ))}
+</>
