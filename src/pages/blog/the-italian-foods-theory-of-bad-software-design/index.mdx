@@ -1,5 +1,5 @@
 ---
-title: "The Italian foods theory of bad software design" 
+title: "The Italian foods theory of bad software design 🍝" 
 description: "Spaghetti code – unstructured
 Ravioli code – too structured
 Lasagna code – layered wrong
@@ -94,7 +94,7 @@ function getLatestArticlesByAuthor(author_id, count) {
 		 where author_id=${author_id} 
 		 order by created_at
 		 limit ${count}`
-  );
+  )
 }
 ```
 
@@ -108,12 +108,12 @@ You write the glue:
 
 ```javascript
 exports.latestArticles = async (req, res) => {
-  const { author_id } = req.params;
+  const { author_id } = req.params
 
-  const articles = ArticleService.getLatestArticlesByAuthor(author_id, 10);
+  const articles = ArticleService.getLatestArticlesByAuthor(author_id, 10)
 
-  return res.send(200).json(articles);
-};
+  return res.send(200).json(articles)
+}
 ```
 
 We snuck in some business logic! We're saying that "latest" means 10. Does that go in the controller? 🤔
@@ -173,7 +173,7 @@ On the client you then have to render these objects.
 const LatestArticles = ({ articles, author }) => {
   const sorted = articles.sort(
     (a, b) => new Date(b.created_at) - new Date(a.created_at)
-  );
+  )
 
   return (
     <div>
@@ -182,8 +182,8 @@ const LatestArticles = ({ articles, author }) => {
         <ArticleListing {...article} />
       ))}
     </div>
-  );
-};
+  )
+}
 ```
 
 Sort articles by `created_at` and render an `<ArticleListing>` component for each. We pass the whole article object as individual props.
@@ -196,8 +196,8 @@ const ArticleListing = ({ id, created_at, title, content }) => {
       <label className="created_at">Created at: {created_at}</label>
       <p>{content.substr(100)}</p>
     </div>
-  );
-};
+  )
+}
 ```
 
 Each article listing shows a `title`, the `created_at` timestamp, and the first 100 characters of the `content` as a lazy summary.
