@@ -6,7 +6,7 @@ module.exports = {
   siteMetadata: {
     title: "Swizec Teller",
     description:
-      "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
+      "Swizec shares software engineering lessons from production in his books, articles, talks, and workshops",
     author: `@swizec`,
     coverImageStaticPath: "metaimage.jpg",
     hasAuthentication: false,
@@ -26,7 +26,7 @@ module.exports = {
     },
     articles: {
       title: `Swizec - A geek with a hat`,
-      description: `I aim to write mindblowing emails with real insight into the career and skills of a modern software engineer. <em>"Raw and honest from the heart!"</em> as one reader described them.<br/><br/>Subscribe below or keep reading.`,
+      description: `I write mindblowing emails with real insight into the career and skills of a modern software engineer. <strong><em>"Raw and honest from the heart!"</em></strong> as one reader described them. Fueled by <strong>lessons learned over 20 years</strong> of building <strong>production code</strong> for side-projects, small businesses, and hyper growth startups. Both successful and not.<br/><br/>Subscribe below or keep reading 👇`,
       titleSeo: `Swizec Teller`,
       descriptionSeo: `Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops`,
     },
