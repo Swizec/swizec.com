@@ -17,3 +17,124 @@ On this episode, Jeremy and Rebecca chat with Swizec Teller about how to approac
 ></iframe>
 
 [Serverless Chats ep #135](https://www.serverlesschats.com/135/)
+
+## Talking points
+
+- If you can JavaScript, you can back end
+- The future belongs to full stack front end engineers
+- Modern backend is a JavaScript function
+- JavaScript is a great language and anyone who can code JavaScript can pick up any other language
+- A lot of what used to make JavaScript really ugly was interacting with the Dom
+- Front end is more like a full fledged app
+- GraphQL is kind of an escape for backend engineers
+- How should a full stack or how should a front end engineer approach serverless?
+- Database and Variable Naming Conventions: Snake Case vs Camel Case
+- Serverless Handbook for Front End Engineers
+- Architecture principles and how to create good serverless developer experience
+- Your average tutorial can make you a mediocre engineer, how to break out of that cycle
+
+## Quotable Quotes
+
+"I never want to touch an Apache config ever again" - ST
+"There was this JAMstack revolution that happened over the last couple of years" - ST
+"we've now had react for almost 10 years and everyone's still happy with react, which is honestly a huge accomplishment for the JavaScript ecosystem" - ST
+"one of the coolest things about JavaScript programmers is that I feel like JavaScript is relatively easy to get started with, especially since we have ESX and modern JavaScript, is surprisingly, it's actually a very reasonable language" - ST
+"JavaScript is kind of a lot like in the English language where it mugs programming languages in dark alleys and picks off all of the best stuff from their pockets and adds it to JavaScript." - ST
+
+"it's the only language (sic JavaScript), that I know of at least, where every device on the planet has a JavaScript execution environment." - ST
+"So you can write code for literally anything, like Android can run JavaScript. iOS can run JavaScript. A lot of people don't know this but your TV set top box is actually a web browser." - ST
+
+"JavaScript is a really fast language now." - ST
+"Maybe don't go write the next Elder Scrolls in JavaScript, that might not work. Or like big games, still need C stuff. But for web apps on modern computers, JavaScript is amazing" - ST
+
+"So if you write, if you stick to the good parts of jobs, It's a really reasonable language. That's fairly easy to use, quick to understand." - ST
+
+"I think it's become kind of the lingua franca of the web." - ST
+
+"Like I've seen people who write a lot of articles say, 'Yeah, even if I'm writing about computer science topics or I'm writing some high-level software engineering stuff, I just use JavaScript for my examples because that way everyone can understand it. And I don't have to explain this weird Haskell syntax, even though I'm actually talking about something I would have implemented in Haskell. It's easier to just present it as JavaScript, because it works and it's fine." - ST
+
+"a lot of engineers coming into the field. They start with JavaScript and a lot of the times, they can feel stuck because they hear all of these gray beards talk about, 'Ah, JavaScript is no good. It's a weird scripting language. This sucks.' And it's like, 'Yeah, sure. But to do it, you last looked at it 10 years ago.' It was a very different language back then and what I want to like, if somebody is listening to this and if there's one thing they want to take away from it is that: JavaScript is a great language and anyone who can code JavaScript can pick up any other language and probably doesn't even have to pick up another language because JavaScript will get them there anyway." - ST
+
+"as things have progressed and certainly with node.js coming out, you know, the basic of what you can do with any programming language you can do with JavaScript now." - Jeremy
+
+"you can just write a line of code that does something and it doesn't have to be wrapped in classes and all this inheritance and prototypes and all like it'll just work? I mean, that was one of the things where it really made it very, very fast, I think for me to pick up a lot of what you could do with JavaScript." - Jeremy
+
+"And then over the years, of course you apply computer science and the knowledge of other things and data structures and all that kind of stuff. And of course it can get more complex as you go down that path." - Jeremy
+
+"But I think that's an interesting thing where if you're writing react, maybe your favorite, you know, maybe your favorite was Ember JS, which luckily went out of favor. Um, maybe you're a, you know, a prototype JS or a, you know, what's the other one? The J query, right? I mean, I think that's still around. But if you're writing something like eact or view or you're using next JS or any of those things, you're writing a lot of JavaScript." - Jeremy
+
+"And if you can do that, those skills translate really, really well to node.js." - Jeremy
+
+"We were talking with, we talked to Tomasz Lakomy and he was saying that he thinks front end development is actually harder than backend development now." - Jeremy
+
+"a lot of what used to make JavaScript really ugly was interacting with the Dom. And now with these modern frameworks, you're literally just writing JavaScript and letting somebody else handle the Dom" - ST
+
+"The hardest part, in my opinion, is domain modeling and data management and deciding what to do with state and where it goes and where it doesn't go, which is like somebody who's building a framework to talk to the Dom." - ST
+
+"every time I talk to real customers or real world business people, I'm like, wow, this is so much harder and more complicated than anything I've ever seen in a tutorial or a textbook" - ST
+
+"a funny example from earlier in my career, there was somebody who was posting on a forum. Something like, 'Yeah, we need engineers. We have this app that has 2 or 300 database tables.' And I was like 'What the hell? What are you talking about? You don't need 300 database tables. You are surely doing something wrong.' And they were like, 'Okay, well, if you're so sure we're going to hire you.' And they did hire me for a gig. And I was like, oh my God, you need all of these 300 tables. How's this possible? The real world is so complicated." - ST
+
+"The real world is so complicated. And that's the hard part of software engineering is How do you take a fuzzy business domain? and turn it into something strictly defined that a computer can understand. And we can't get away from that complexity." - ST
+
+"pure REST and graph ql are very similar in that they give you full direct access to objects on the database" - Rebecca
+
+"With graph QL you've just smooshed that into one request so that it's technically more performant and you get articles and authors together in one request" - Rebecca
+
+"back end engineers are telling front end engineers. 'Dude, you're really asking me for weird stuff here. That's very hard to get. Why don't you get it yourself?' So that's where I think full stack engineers shine because we can, we get to do both parts of that. So we only get to be angry at ourselves." - Rebecca
+
+"the nicest thing about serverless is that it abstracts away a lot of the gnarly parts of the backend, or at least the parts that I personally think aren't interesting. A lot of backend code used to be about setting up servers, managing those servers, wiring up routing." - ST
+
+"I've worked on projects that are using old school, monolithic frameworks running on a container, somewhere on AWS. And it's like to add one new field to your API you have to go into 10 different files, wire up all of the routes, then make sure that the data gets spelunked from one side to the other. Probably in the meantime, you have to translate between camel case and snake case and kebab case about five different times for absolutely no reason. It's just databases are snake case, javaScript is in camel case, something else is in kebab case and because we want to follow all of those perfect, I guess traditions would be a word, I can think of the other word, perfect traditions of each different parts of the stack. We then have to keep translating between them. And I personally don't think there's much value in that." - ST
+
+"my ideal Serverless server is basically a JavaScript function written in node.js that accepts some arguments." - ST
+
+"some people don't realize this, but your database will work just fine if column names are in camel case.6 It's going to look weird and you might shriek in horror when you see that. But the database doesn't care. the database it's just a string. Same with JavaScript. If you do some snake case in JavaScript, it's just, it's fine. It's just a string. It doesn't care what you call your variables." - ST
+
+"the nice thing with serverless is that it abstracts away all of the dev ops stuff. And all of the wiring just happens on,, essentially automatically on the infrastructure of AWS or whatever provider you're using. And you can focus on writing the business logic." - ST
+
+"If you're using something like edge workers that are becoming more and more popular, it will find the nearest server, the nearest data center to the user, wakes up, a server runs all of the wiring sets up all of the frameworky stuff. Calls your function with a parsed object that just has the arguments that you want." - ST
+
+"the biggest thing that, especially front-end engineers coming to serverless don't realize is that you can get huge latencies and slowness if you get it wrong. And by get it wrong I mean, the biggest, like the Achilles heel of something like Versal or Netlify functions or even Gatsby functions is when, as soon ,as you have to talk to a database, because you can't configure the database in the same environment." - ST
+
+"it feels like, 'Oh, if I add Postgres to my thing, or if I add Mongo, it's suddenly it's slow. It's not actually slow. It's just the connection takes awhile." - ST
+
+"when in high school I was installing a Linux and I got it wrong. And because I was just following a tutorial, I didn't know what I was doing. So two days into compiling, gentu, on my very slow computer back then. I got it wrong and I had to start from scratch. And yes, it actually took me three days to install a new operating system. Those were the days. And I'm happy we're not there anymore." - ST
+
+"personally really liked the serverless framework because it's a really good middle ground between all of the pain of cloud formation and all of the abstraction of something like Netlify or Vercel or Gatsby or whatever. Because it gives you all of the power, but it makes the simple things easy" - ST
+
+"Why go base jumping when you can write raw CloudFormation" - Jeremy
+
+"I don't have the resources that Walmart does. How does this apply to like my pet side project? Or how does this apply to a beginning startup that just needs to do something on the backend that doesn't have a lot of, you know, we need to build this for a hundred users, not for 10,000 users per second. Cuz how you approach that is very different.
+
+So I started the writing from that perspective, and then I realized that one of the big surprises for a lot of, if you're coming at this from the front end is just realizing how flaky distributed systems can be." - ST
+
+"How can I make the rest of the system keep working? Or how will I even know if something has failed and fix it? There's a lot of those principles on the backend that kind of get lost in tutorials because tutorials are necessarily simplified and nobody tells you." - ST
+
+"I wanted to write Serverless Handbook in a way that will stand the test of time as much as possible." - ST
+
+"you should go from a deploy, being a huge event where you put something in production and it's like whiskey time and champagne time. And it takes a team of engineers a week to put everyone's code together and put it out there and make it work. The ideal these days, and that's actually possible is, you can deploy multiple times per day. It's not something anyone even notices it's all behind like feature flags and you just push something out, test it in production, and see if it works. And if it doesn't work, you turn it off, you fix it, you put it out there for like, so like Canary deploys are really fun." - ST
+
+"You build a new feature. You push it straight out to production as soon as it's ready or even before it's fully ready, you make it available to half a percent of your users or to 1% of your users. If it hurts metrics, you turn it off. If it looks good, you bump it up to 5%, 10%, everyone. And you can see that a lot in like how Twitter or Facebook or those big companies roll out features." - ST
+
+"if you talk to somebody from five years ago, would you test your code in production? Obviously write some unit tests and integration tests to make sure of the baseline, but would you test your code in production?" - ST
+
+"One of the things with software that's really nice is that you can iterate fast, but then we're putting all of these roadblocks in our way that makes it hard to iterate fast. And it's only that fast iteration that really makes it possible to build something that people want." - ST
+
+"that's where like these fast deploys and quick iteration cycles come in, that you can do with modern tooling. You can immediately see if it's the right thing. If it breaks anything and then iterate from there." - ST
+
+"essentially you have to test in production cause you're not going to find the edges unless you can observe what's actually happening with the systems and distributed systems tend to work really well when they're small, but then once they start getting a lot of traffic and you start getting those failure rates and things like that." - Jeremy
+
+"at some point in your career, hopefully as early as possible, you have to go beyond tutorials towards actually understanding what you're doing and understanding the 'why' behind those tutorials, because tutorials necessarily are very, very dumbed down and they have to be simplified because otherwise nobody would understand" - ST
+
+"Like you see a lot of, hopefully beginners, online where if they don't find a tutorial for their specific thing, that they're building, they are stuck and they can't build it." - ST
+
+"And it's like, 'you realize that if you look at this tutorial, And at your problem, the only difference is that? they're calling it tags and you're calling it categories. Everything else is the same.' But if you don't have that understanding behind what you're building, you just don't realize it." - ST
+
+"Like when I started serverless, I would ask someone who's really good with backend systems. And I would ask a stupid question and they were like, that question doesn't even make sense. You don't understand enough of what's going on here to even ask me a question that I can help with." - ST
+
+"And I think it's similar in software engineering when you're starting out, you're very strictly following tutorials. I feel like you have to push in that direction where you can kind of just take bits and pieces of different recipes, put them together and make something new." - ST
+
+"hopefully with enough practice and with enough trying, you get to the point where somebody can come with a problem that nobody has ever solved before. And that's where I think the really fun software engineering begins. Is when you take a business problem a raw business problem, and you say, 'okay, here's what we're going to do to solve this based on all of this, based on this experience.'" - ST
+
+"And like, there is no tutorial. You're building something from scratch or inventing something new. And those to me are the fun engineering problems to solve. Where suddenly you find yourself in this position where you're the sole leading expert in the world, in that particular, tiny part of your niche." - ST
