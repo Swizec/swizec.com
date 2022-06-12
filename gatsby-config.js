@@ -47,6 +47,14 @@ module.exports = {
       },
     },
     {
+      resolve: "gatsby-plugin-google-gtag",
+      trackingIds: [process.env.GOOGLE_TRACKING_ID, "G-1854GGD6QW"],
+      pluginConfig: {
+        head: false,
+        respectDNT: true,
+      },
+    },
+    {
       resolve: "gatsby-typeform-source",
       options: {
         token: process.env.TYPEFORM_TOKEN,
