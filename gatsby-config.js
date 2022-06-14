@@ -47,6 +47,18 @@ module.exports = {
       },
     },
     {
+      resolve: "gatsby-plugin-google-gtag",
+      trackingIds: ["G-1854GGD6QW"],
+      gtagConfig: {
+        anonymize_ip: true,
+        cookie_expires: 0,
+      },
+      pluginConfig: {
+        head: false,
+        respectDNT: true,
+      },
+    },
+    {
       resolve: "gatsby-typeform-source",
       options: {
         token: process.env.TYPEFORM_TOKEN,
