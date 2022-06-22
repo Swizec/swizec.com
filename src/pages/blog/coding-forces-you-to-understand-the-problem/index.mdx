@@ -1,12 +1,12 @@
 ---
-title: "Coding forces you to understand the problem" 
-description: "Programming translates fuzzy understanding into exacting specifications. That’s why it’s hard. The Illusion of Explanatory Depth reigns supreme" 
+title: "Coding forces you to understand the problem"
+description: "Programming translates fuzzy understanding into exacting specifications. That’s why it’s hard. The Illusion of Explanatory Depth reigns supreme"
 published: 2022-06-22
 categories: "Mindset, Lessons, Refactoring"
 hero: ./img/E6C0823C-DBD7-4392-A0A0-A2D7BD1C00B4.png
 ---
 
-You know how a pen works, right? A nice ballpoint pen that you use every day. 
+You know how a pen works, right? A nice ballpoint pen that you use every day.
 
 Now explain how it works. 5 minutes. Write down how a pen works in as much detail as you can muster.
 
@@ -18,15 +18,13 @@ Say you're writing a loop that calculates times in 7 day intervals. You might wr
 
 ```javascript
 function getTimes(startAt, N) {
-	let times = []
-	
-	for (let i = 0; i < N; i++) {
-		times.push(
-			addDays(startAt, 7 * i)
-		)
-	}
-	
-	return times
+  let times = [];
+
+  for (let i = 0; i < N; i++) {
+    times.push(addDays(startAt, 7 * i));
+  }
+
+  return times;
 }
 ```
 
@@ -46,17 +44,15 @@ To support human time, your code needs to become timezone aware. Like this:
 
 ```javascript
 function getTimes(startAt, N, timezone) {
-	let times = []
-	
-	const zonedStartAt = utcToZonedTime(startAt, timezone)
-	
-	for (let i = 0; i < N; i++) {
-		times.push(
-			zonedTimeToUtc(addDays(zonedStartAt, 7 * i), timezone)
-		)
-	}
-	
-	return times
+  let times = [];
+
+  const zonedStartAt = utcToZonedTime(startAt, timezone);
+
+  for (let i = 0; i < N; i++) {
+    times.push(zonedTimeToUtc(addDays(zonedStartAt, 7 * i), timezone));
+  }
+
+  return times;
 }
 ```
 
@@ -66,7 +62,7 @@ The code converts `startAt` from a UTC timestamp to the right time in our target
 
 ## The rabbit hole goes deep, always
 
-_But_ that still doesn't work for all dates. 
+_But_ that still doesn't work for all dates.
 
 The transition from Julian to Gregorian calendar in 1582 removed 15 days of that year. Few date-time libraries and execution environments support that change correctly.
 
@@ -74,9 +70,9 @@ You can't run this code on a satellite either. For that you'd need to take relat
 
 Let's not even get into leap seconds and how UTC is measured as the average between multiple atomic clocks spread around the world.
 
-Rabbit holes are common in programming because we translate fuzzy understanding into exacting specifications. 
+Rabbit holes are common in programming because we translate fuzzy understanding into exacting specifications.
 
-Like what is the best way to store a [person's name](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/)? Or a [billing address](https://www.mjt.me.uk/posts/falsehoods-programmers-believe-about-addresses/)? Or [map data](https://solutionspace.blog/2022/06/18/map-data-v-false-assumptions-programmers-make/)? 
+Like what is the best way to store a [person's name](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/)? Or a [billing address](https://www.mjt.me.uk/posts/falsehoods-programmers-believe-about-addresses/)? Or [map data](https://solutionspace.blog/2022/06/18/map-data-v-false-assumptions-programmers-make/)?
 
 Popular misconceptions are common enough that [Falsehoods programmers believe about X](https://hn.algolia.com/?q=falsehoods) emerged as a genre of internet writing. The real world is messy.
 
@@ -84,11 +80,11 @@ Popular misconceptions are common enough that [Falsehoods programmers believe ab
 
 Even something as well-defined as an email address can be full of hidden complexity. Check out this [state machine that validates an email address](https://stackoverflow.com/a/201378)
 
-![Email validation state machine](https://i.stack.imgur.com/YI6KR.png)
+![Email validation state machine](./img/Email-validation-state-machineeci074.png)
 
 Yeah, I never would've guessed it either.
 
-Next time you look at convoluted code and think _"wow terrible, needs a rewrite"_, take a moment to consider you're missing some nuance. 
+Next time you look at convoluted code and think _"wow terrible, needs a rewrite"_, take a moment to consider you're missing some nuance.
 
 Or you've learned the nuance and see that the code looks wrong. Sometimes you code around a problem in circles. The insight of understanding simplifies it all.
 
