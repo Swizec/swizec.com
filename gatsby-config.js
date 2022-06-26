@@ -36,7 +36,8 @@ module.exports = {
     },
     siteUrl: "https://swizec.com",
   },
-  flags: { PRESERVE_WEBPACK_CACHE: true },
+  flags: {},
+  trailingSlash: "always",
   plugins: [
     "@swizec/gatsby-theme-course-platform",
     {
@@ -90,29 +91,30 @@ module.exports = {
             match: "^/blog/",
             query: `
               {
-                allSitePage(
-                    filter: { path: { regex: "/blog/.+/" } }
-                    sort: { fields: context___frontmatter___published, order: DESC }
+                allMdx(
+                    filter: { fileAbsolutePath: { regex: "/blog/.+/" } }
+                    sort: { fields: frontmatter___published, order: DESC }
+                    limit: 50
                 ) {
                     nodes {
-                        path
-                        context {
-                            frontmatter {
-                                title
-                                description
-                                published
-                            }
+                        frontmatter {
+                            title
+                            description
+                            published
+                        }
+                        fields {
+                            slug
                         }
                     }
                 }
             }
               `,
-            serialize: ({ query: { site, allSitePage } }) => {
-              return allSitePage.nodes.map((node) => {
-                return Object.assign({}, node.context.frontmatter, {
-                  date: node.context.frontmatter.published,
-                  url: site.siteMetadata.siteUrl + node.path,
-                  guid: site.siteMetadata.siteUrl + node.path,
+            serialize: ({ query: { site, allMdx } }) => {
+              return allMdx.nodes.map((node) => {
+                return Object.assign({}, node.frontmatter, {
+                  date: node.frontmatter.published,
+                  url: site.siteMetadata.siteUrl + "/" + node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + node.fields.slug,
                 })
               })
             },

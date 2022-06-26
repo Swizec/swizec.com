@@ -26,24 +26,6 @@ exports.onPreBootstrap = ({ actions }) => {
   console.log(`${chalk.green("success")} create redirects from _redirects`)
 }
 
-exports.onCreateNode = ({ node, actions }) => {
-  const { createNodeField } = actions
-
-  if (node.internal.type === "MarkdownRemark" || node.internal.type === "Mdx") {
-    if (node.fileAbsolutePath.includes("/pages/blog/")) {
-      const slug = node.fileAbsolutePath
-        .split("/pages/")[1]
-        .replace("/index.mdx", "")
-
-      createNodeField({
-        node,
-        name: "slug_custom",
-        value: `/${slug}`,
-      })
-    }
-  }
-}
-
 exports.createPages = async ({ graphql, actions }) => {
   await Promise.allSettled([createArticleRedirects({ graphql, actions })])
 }
@@ -56,7 +38,6 @@ async function createArticleRedirects({ graphql, actions }) {
           node {
             fields {
               slug
-              slug_custom
             }
             frontmatter {
               redirect_from
@@ -79,10 +60,9 @@ async function createArticleRedirects({ graphql, actions }) {
   allPosts.forEach((post) => {
     const from = post.node.frontmatter.redirect_from
     let to = post.node.fields.slug
-    const slugCustom = post.node.fields.slug_custom
 
-    if (to === "/index") {
-      to = slugCustom
+    if (to.endsWidth("/index")) {
+      console.warn(`Bad redirect for ${to}`)
     }
 
     from.forEach((from) => {
