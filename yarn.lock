@@ -2609,10 +2609,10 @@
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.3.8.tgz#5b9ecf4ee480ca00f1ffbc2d1a5d4eed0d1afe81"
   integrity sha512-aWItSZvJj4+GI6FWkjZR13xPNPctq2RRakzo+O6vN7bC2yjwdg5EFpgaSAUn95b7BGSgcflvzVDPoKmJv24IOg==
 
-"@swizec/gatsby-theme-course-platform@^3.0.0-25":
-  version "3.0.0-25"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.0-25.tgz#289b9e5d5aeb251f1de0d4be2ffc5e983579b3e7"
-  integrity sha512-43FKwEPtQwTLmtUger2NhIaPb/tO6kswpSZ4YG7swDmgXNGDBiE7b5dwTe+k9c4XCRI7PZPAB/Q7304IXantEg==
+"@swizec/gatsby-theme-course-platform@^3.0.0-26":
+  version "3.0.0-26"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.0-26.tgz#f638ec963a609b899cd21d92b8ab8f8ed53eeece"
+  integrity sha512-+oMRf5JY7il1B3++8VhdTVPhGhDLtPixr3jNyScYQmf+7ow4mvffJdmt+RKii8oe7UEw10QxMDT1ykDLfMuPgg==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -7295,10 +7295,10 @@ gatsby-remark-copy-relative-linked-files@^1.5.0:
   version "0.0.0-semantically-released"
   resolved "https://codeload.github.com/Swizec/gatsby-remark-embedder/tar.gz/4ffd5d9f15d7b5256b5b5edf98ab01986d2be732"
   dependencies:
-    "@babel/runtime" "^7.18.3"
-    fetch-retry "^5.0.2"
+    "@babel/runtime" "^7.13.10"
+    fetch-retry "^4.1.1"
     hast-util-from-parse5 "^6.0.1"
-    node-fetch "^2.6.7"
+    node-fetch "^2.6.1"
     parse5 "^6.0.1"
     unist-util-visit "^2.0.3"
 
