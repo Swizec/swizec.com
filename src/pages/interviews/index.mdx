@@ -9,8 +9,8 @@ import { ArticleListing } from "@swizec/gatsby-theme-course-platform"
 
 export const pageQuery = graphql`
   query {
-    allSitePage(
-      fileAbsolutePath: { regex: "/blog/.+/" }
+    allMdx(
+      filter: { fileAbsolutePath: { regex: "/interviews/.+/" } }
       sort: { fields: frontmatter___published, order: DESC }
     ) {
       nodes {
