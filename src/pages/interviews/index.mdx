@@ -10,17 +10,17 @@ import { ArticleListing } from "@swizec/gatsby-theme-course-platform"
 export const pageQuery = graphql`
   query {
     allSitePage(
-      filter: { path: { regex: "/interviews/.+/" } }
-      sort: { fields: context___frontmatter___published, order: DESC }
+      fileAbsolutePath: { regex: "/blog/.+/" }
+      sort: { fields: frontmatter___published, order: DESC }
     ) {
       nodes {
-        path
-        context {
-          frontmatter {
-            title
-            description
-            published
-          }
+        fields {
+          slug
+        }
+        frontmatter {
+          title
+          description
+          published
         }
       }
     }
