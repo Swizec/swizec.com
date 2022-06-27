@@ -2786,10 +2786,10 @@
   dependencies:
     tslib "^2.4.0"
 
-"@swizec/gatsby-theme-course-platform@^3.0.0-34":
-  version "3.0.0-34"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.0-34.tgz#2bfaed779f189c31363673a5eaab1cf1636f5e2e"
-  integrity sha512-fCQtyYrPesKbVzam3dshwCP8G4q9Xc8qataKqPldufV8lcsce6T6S8MmAGUfx10moD9tq8o1a1JnJxJhoZN3mQ==
+"@swizec/gatsby-theme-course-platform@^3.0.0-35":
+  version "3.0.0-35"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.0-35.tgz#280c286594e5e598fbb6861bc4eb2b1534f66995"
+  integrity sha512-G1AkAE+8pbb0Tq6FgXEflhJ4Ywb/HrX/+FJTa/DI/T2WNCjYK416j31CtJIWMKI6PfOkcPJsM70JnHRXpofHiA==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2821,7 +2821,7 @@
     gatsby-plugin-twitter "^4.17.0"
     gatsby-remark-copy-linked-files "^5.17.0"
     gatsby-remark-copy-relative-linked-files "^1.5.0"
-    gatsby-remark-embedder Swizec/gatsby-remark-embedder#0a6afaefbe281d2df0e2fdf6ea7f5fc7e360400d
+    gatsby-remark-embedder Swizec/gatsby-remark-embedder#138a6c3a73c34cbd70a558b0507070ebd5f5a34f
     gatsby-remark-giphy "^1.1.3"
     gatsby-remark-images "^6.17.0"
     gatsby-remark-relative-images "^2.0.2"
@@ -7425,9 +7425,9 @@ gatsby-remark-copy-relative-linked-files@^1.5.0:
     unist-util-visit "^2.0.3"
     upath "^2.0.1"
 
-"gatsby-remark-embedder@github:Swizec/gatsby-remark-embedder#0a6afaefbe281d2df0e2fdf6ea7f5fc7e360400d":
-  version "6.0.2"
-  resolved "https://codeload.github.com/Swizec/gatsby-remark-embedder/tar.gz/0a6afaefbe281d2df0e2fdf6ea7f5fc7e360400d"
+"gatsby-remark-embedder@github:Swizec/gatsby-remark-embedder#138a6c3a73c34cbd70a558b0507070ebd5f5a34f":
+  version "6.0.2-0"
+  resolved "https://codeload.github.com/Swizec/gatsby-remark-embedder/tar.gz/138a6c3a73c34cbd70a558b0507070ebd5f5a34f"
   dependencies:
     "@babel/runtime" "^7.18.3"
     fetch-retry "^5.0.2"
