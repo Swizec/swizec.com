@@ -12,25 +12,23 @@ import { graphql } from "gatsby"
 
 export const pageQuery = graphql`
   query {
-    allSitePage(
+    allMdx(
       filter: {
-        path: { regex: "/blog/.+/" }
-        context: {
-          frontmatter: {
+        fileAbsolutePath: { regex: "/blog/.+/" }
+        frontmatter: {
             categories: { regex: "/Serverless|Backend|Backend Web/gi" }
-          }
         }
       }
-      sort: { fields: context___frontmatter___published, order: DESC }
+      sort: { fields: frontmatter___published, order: DESC }
     ) {
       nodes {
-        path
-        context {
-          frontmatter {
+        fields {
+          slug
+        }
+        frontmatter {
             title
             description
             published
-          }
         }
       }
     }
@@ -50,7 +48,7 @@ I've been building web backends since ~2004 when they were just called websites.
 ## Latest Serverless and Backend articles from Swizec
 
 <>
-  {props.data.allSitePage.nodes.map((props, i) => (
+  {props.data.allMdx.nodes.map((props, i) => (
     <ArticleListing {...props} key={i} />
   ))}
 </>

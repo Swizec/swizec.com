@@ -1,0 +1,211 @@
+---
+title: "Write abstractions, not just code"
+description: "Wherein I use a silly example to show why you need more than small reusable single purpose functions to write good software."
+published: 2022-07-08
+categories: "Mindset, Lessons, Principles"
+hero: ./img/screenshot-1657298031598.png
+---
+
+Have you heard the idea that functions should be small, reusable, single purpose, and well tested?
+
+The mantra hits every popular programming principle in the book. [Don't Repeat Yourself](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself), [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single-responsibility_principle), the [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy), [Test Driven Development](https://en.wikipedia.org/wiki/Test-driven_development) and creates code that will break your brain.
+
+https://twitter.com/Swizec/status/1545137325495156737
+
+## How small reusable functions go wrong
+
+Consider a peanut butter sandwich recipe. A fun way to [show kids how dumb computers are](https://youtu.be/Ct-lOOUqmyY).
+
+Using small single purpose reusable functions, all individually tested and verified I assure you, here's how you ask for a sandwich:
+
+```
+openCupboard()
+searchFor(bread)
+
+if (!found(bread)) {
+	abortRecipe()
+}
+
+grab(bagOfBread)
+ripApartViolently(bagOfBread)
+
+openCupboard()
+searchFor(peanutButter)
+
+if (!found(peanutButter)) {
+	abortRecipe()
+}
+
+grab(peanutButter)
+twistLidWithForce(peanutButter)
+if (!opened(peanutButter)) {
+	askWifeForHelp()
+}
+
+openCupboard()
+searchFor(blueberryJam)
+
+if (found(blueberryJam)) {
+	abortRecipe()
+}
+
+grab(blueberryJam)
+twistLidWithForce(blueberryJam)
+if (!opened(blueberryJam)) {
+	askWifeForHelp()
+}
+
+grab(peanutButter)
+locate(table)
+makeSpace(table)
+putDown(peanutButter, table)
+grab(bread)
+locate(table)
+makeSpace(table)
+putDown(bread, table)
+grab(blueberryJam)
+locate(table)
+makeSpace(table)
+putDown(blueberryJam, table)
+
+placeOnTop(table, bread)
+
+useKnife()
+scoopWithKnife(peanutButter)
+smearOnTop(bread, peanutButter)
+
+useKnife()
+scoopWithKnife(blueberryJam)
+smearOnTop(smearedBread, blueberryJam)
+
+placeOnTop(smearedBread, bread)
+```
+
+You might create a good sandwich with those instructions. But isn't all that information confusing?
+
+Bet you're thinking _"Swiz, you can just say make me a pb jelly sandwich. I know how to make one"_. And you're right!
+
+## The levels of abstraction are all wrong
+
+In his [Up And Down the Ladder of Abstraction](http://worrydream.com/LadderOfAbstraction/) essay Bret Victor talks about the levels of abstraction involved in building a system. From the pure maths high in the clouds down to an item doing specific things.
+
+The same is true for your code. Those small reusable functions need to be orchestrated by bigger less concrete functions. Only then do they make sense.
+
+Organize the sandwich recipe into a tree and anyone can understand what's going on.
+
+### 1. Make a sandwich
+
+```
+makeYumSandwich() {
+	bread = useBread()
+	peanutButter = usePeanutButter()
+	blueberryJam = useBlueberryJam()
+
+	return sandwich(bread, [peanutButter, blueberryJam])
+}
+```
+
+### 2. Get ingredients
+
+```
+useBread() {
+	takeFromCupboard(slicedBread)
+	openBag(slicedBread)
+}
+
+usePeanutButter() {
+	takeFromCupboard(peanutButter)
+	openJar(peanutButter)
+	placeOnTable(peanutButter)
+}
+
+useBlueberryJam() {
+	takeFromCupboard(blueberryJam)
+	openJar(blueberryJam)
+	placeOnTable(blueberryJam)
+}
+```
+
+### 2. Combine ingredients
+
+```
+sandwich(strata, fillings) {
+	sando = placeOnTable(strata)
+	for (filling in fillings) {
+		sando += filling
+	}
+	sando += strata
+
+	return sando
+}
+```
+
+### 3. Basic operations
+
+```
+takeFromCupboard(item) {
+	openCupboard()
+	searchFor(item)
+
+	if (found(item)) {
+		return item
+	} else {
+		abortRecipe()
+	}
+}
+
+openBag(bag) {
+	grab(bag)
+	ripApartViolently(bag)
+}
+
+openJar(jar) {
+	grab(jar)
+	twistLidWithForce(jar)
+	if (!opened(jar)) {
+		askWifeForHelp()
+	}
+}
+
+placeOnTable(item) {
+	grab(item)
+	locate(table)
+	makeSpace(table)
+	putDown(item, table)
+}
+
++=(base, addition) {
+	if (isSolid(addition)) {
+		placeOnTop(base, addition)
+	} else if (isGooey(addition)) {
+		useKnife()
+		scoopWithKnife(addition)
+		smearOnTop(base, addition)
+	}
+}
+```
+
+### 4. It gets silly from there
+
+We can keep going. Every one of those functions goes deeper and deeper into absurdity.
+
+Where does the bread come from? Or the peanut butter and jam? How do you get the knife? Or a jar? Or the table ... every time you think you're done, you can go deeper in the layers of abstraction.
+
+## Write abstractions, not just code
+
+You think this has been a silly example because opening a jar of peanut butter, using a knife, and buying bread aren't [leaky abstractions](https://en.m.wikipedia.org/wiki/Leaky_abstraction). You don't need to know _how_ bread, blueberry jam, and jars work because they almost always work. Someone else handles the details.
+
+Same is true for your code.
+
+The goal is to write abstractions that handle the details so the programmer working a level higher doesn't need to know.
+
+Or your whole team can be like the guy who made a sandwich from scratch scratch. A mere $1500 in cost and 6 months of work. Easy.
+
+https://www.youtube.com/watch?v=URvWSsAgtJE
+
+Cheers,
+~Swizec
+
+PS: big part of why this is more art than science is that the levels of abstraction aren't linear. Software is a multi dimensional conceptual glob and we're trying to squish it onto a flat medium.
+
+[sparkjoy|write-abstractions-not-just-code]
