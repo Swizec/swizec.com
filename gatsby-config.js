@@ -1,3 +1,5 @@
+const { URL } = require("url")
+
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
@@ -88,7 +90,7 @@ module.exports = {
           {
             output: "/rss.xml",
             title: "swizec.com RSS Feed",
-            match: "^/blog/",
+            match: "^/blog/|^/interviews/",
             query: `
               {
                 allMdx(
@@ -111,10 +113,13 @@ module.exports = {
               `,
             serialize: ({ query: { site, allMdx } }) => {
               return allMdx.nodes.map((node) => {
+                const url = new URL(site.siteMetadata.siteUrl)
+                url.pathname = node.fields.slug + "/"
+
                 return Object.assign({}, node.frontmatter, {
                   date: node.frontmatter.published,
-                  url: site.siteMetadata.siteUrl + "/" + node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + node.fields.slug,
+                  url: url.href,
+                  guid: url.href,
                 })
               })
             },

@@ -27,21 +27,19 @@ exports.onPreBootstrap = ({ actions }) => {
 }
 
 exports.createPages = async ({ graphql, actions }) => {
-  await Promise.allSettled([createArticleRedirects({ graphql, actions })])
+  await createArticleRedirects({ graphql, actions })
 }
 
 async function createArticleRedirects({ graphql, actions }) {
   const result = await graphql(`
     {
       allMdx(filter: { frontmatter: { redirect_from: { ne: null } } }) {
-        edges {
-          node {
-            fields {
-              slug
-            }
-            frontmatter {
-              redirect_from
-            }
+        nodes {
+          fields {
+            slug
+          }
+          frontmatter {
+            redirect_from
           }
         }
       }
@@ -53,16 +51,21 @@ async function createArticleRedirects({ graphql, actions }) {
     throw result.errors
   }
 
-  const allPosts = result.data.allMdx.edges
+  const allPosts = result.data.allMdx.nodes
 
   // For all posts with redirect_from frontmatter,
   // extract all values and push to redirects array
   allPosts.forEach((post) => {
-    const from = post.node.frontmatter.redirect_from
-    let to = post.node.fields.slug
+    const from = post.frontmatter.redirect_from
+    let to = post.fields.slug
 
-    if (to.endsWidth("/index")) {
+    if (to.endsWith("/index")) {
       console.warn(`Bad redirect for ${to}`)
+      to = to.replace(/\/index$/, "")
+    }
+
+    if (!to.endsWith("/")) {
+      to += "/"
     }
 
     from.forEach((from) => {
