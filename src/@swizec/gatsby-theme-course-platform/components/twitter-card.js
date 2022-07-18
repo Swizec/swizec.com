@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Heading, Flex, Image, Box, Paragraph } from "theme-ui"
-import swizec from "../images/swizec-social.jpg"
+import swizec from "../images/swizec-social.png"
 
 export default (props) => {
   const [title, setTitle] = useState(props.title)
@@ -20,6 +20,9 @@ export default (props) => {
         width: 1024,
         height: 512,
         p: 0,
+        bg: "#211C28",
+        color: "white",
+        borderRadius: 10,
       }}
       id="social-card"
     >
@@ -27,7 +30,7 @@ export default (props) => {
         <Heading sx={{ fontSize: 6 }}>{title}</Heading>
         <Paragraph>Swizec Teller</Paragraph>
       </Box>
-      <Image src={swizec} sx={{ width: 496, height: 512 }} />
+      <Image src={swizec} sx={{ width: 496, height: 512, bg: "white" }} />
     </Flex>
   )
 }
