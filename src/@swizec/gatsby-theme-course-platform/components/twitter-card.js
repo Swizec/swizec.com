@@ -26,7 +26,7 @@ export default (props) => {
       }}
       id="social-card"
     >
-      <Box sx={{ width: 1024 - 511, pl: 5, textAlign: "left" }}>
+      <Box sx={{ width: 1024 - 511, pl: 3, textAlign: "left" }}>
         <Heading sx={{ fontSize: 6 }}>{title}</Heading>
         <Paragraph>Swizec Teller</Paragraph>
       </Box>
