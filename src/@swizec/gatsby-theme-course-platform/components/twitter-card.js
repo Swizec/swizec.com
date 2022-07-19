@@ -26,11 +26,11 @@ export default (props) => {
       }}
       id="social-card"
     >
-      <Box sx={{ width: 1024 - 496, pr: 4, textAlign: "center" }}>
+      <Box sx={{ width: 1024 - 511, pl: 5, textAlign: "left" }}>
         <Heading sx={{ fontSize: 6 }}>{title}</Heading>
         <Paragraph>Swizec Teller</Paragraph>
       </Box>
-      <Image src={swizec} sx={{ width: 496, height: 512, bg: "white" }} />
+      <Image src={swizec} sx={{ width: 511, height: 512, bg: "white" }} />
     </Flex>
   )
 }
