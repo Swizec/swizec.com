@@ -2786,10 +2786,10 @@
   dependencies:
     tslib "^2.4.0"
 
-"@swizec/gatsby-theme-course-platform@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.0.tgz#3a81a8529992e7fefcaf22acd95f28ac066b89cb"
-  integrity sha512-57EcPiDBMVmzGpH9DnJocQLYUDHw9MI8/HcEzZbXcer3H5fpz5K7V6BNRoNLJIrHvC+0EI3AI4empiSPxLI9XQ==
+"@swizec/gatsby-theme-course-platform@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.1.tgz#3cb4dd3cbe9bf7e43cc003e9826cd1ce45b28c5f"
+  integrity sha512-ZvgKRd0XLnGOt6wZdsTqLehyP1GxmqiEI+tnTjllmAX6RN6t9umtZKGmAvdKLv5mwDt1ipazhdxGSIdtCrwhLQ==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
