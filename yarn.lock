@@ -2786,10 +2786,10 @@
   dependencies:
     tslib "^2.4.0"
 
-"@swizec/gatsby-theme-course-platform@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.1.tgz#3cb4dd3cbe9bf7e43cc003e9826cd1ce45b28c5f"
-  integrity sha512-ZvgKRd0XLnGOt6wZdsTqLehyP1GxmqiEI+tnTjllmAX6RN6t9umtZKGmAvdKLv5mwDt1ipazhdxGSIdtCrwhLQ==
+"@swizec/gatsby-theme-course-platform@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.2.tgz#08fe522cfc066bb473f5326d8c920209025d6fda"
+  integrity sha512-1AhqjZDtmBQC53ivjL7paW7J1ndAVhRdxWSGbsu8DDWsbQve840idXQ+HDxWFDDYClYrZEJJLkBi56JRAfObAQ==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -7425,9 +7425,8 @@ gatsby-remark-copy-relative-linked-files@^1.5.0:
     unist-util-visit "^2.0.3"
     upath "^2.0.1"
 
-gatsby-remark-embedder@Swizec/gatsby-remark-embedder#138a6c3a73c34cbd70a558b0507070ebd5f5a34f:
+"gatsby-remark-embedder@github:Swizec/gatsby-remark-embedder#138a6c3a73c34cbd70a558b0507070ebd5f5a34f":
   version "6.0.2-0"
-  uid "138a6c3a73c34cbd70a558b0507070ebd5f5a34f"
   resolved "https://codeload.github.com/Swizec/gatsby-remark-embedder/tar.gz/138a6c3a73c34cbd70a558b0507070ebd5f5a34f"
   dependencies:
     "@babel/runtime" "^7.18.3"
