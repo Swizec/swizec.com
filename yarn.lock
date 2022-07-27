@@ -2786,10 +2786,10 @@
   dependencies:
     tslib "^2.4.0"
 
-"@swizec/gatsby-theme-course-platform@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.0.2.tgz#08fe522cfc066bb473f5326d8c920209025d6fda"
-  integrity sha512-1AhqjZDtmBQC53ivjL7paW7J1ndAVhRdxWSGbsu8DDWsbQve840idXQ+HDxWFDDYClYrZEJJLkBi56JRAfObAQ==
+"@swizec/gatsby-theme-course-platform@^3.1.0-0":
+  version "3.1.0-0"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.1.0-0.tgz#2e735dc06ba7d00a8e3e5cab7f6228657fd73046"
+  integrity sha512-kv7lzK8+U+K71lDMvM1JXK9vTJRAKapJHQ5E62Ra791uQNmhI/W8vH6H/bVUuajpTWA5t4qgCT7oqguJ4Nf0xQ==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2813,6 +2813,7 @@
     gatsby-plugin-load-script "^1.1.0"
     gatsby-plugin-manifest "^4.17.0"
     gatsby-plugin-mdx "^3.17.0"
+    gatsby-plugin-plausible "^0.0.7"
     gatsby-plugin-react-helmet "^5.17.0"
     gatsby-plugin-remove-serviceworker "^1.0.0"
     gatsby-plugin-sharp "^4.17.0"
@@ -7302,6 +7303,15 @@ gatsby-plugin-page-creator@^4.17.0:
     gatsby-telemetry "^3.17.0"
     globby "^11.1.0"
     lodash "^4.17.21"
+
+gatsby-plugin-plausible@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-plausible/-/gatsby-plugin-plausible-0.0.7.tgz#6f8c922bbc672a73bd8e9a39add61fb62ec96566"
+  integrity sha512-pWCXsrWal8lWMmZ1wJ2dolbwZZR1CZU1LVR/K1rYC8NeA+uqTLY8h3uH3hFgP5n8jmRRenOSJ9SjWM9OIdCjOA==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
+    minimatch "3.0.4"
+    react "^16.13.1"
 
 gatsby-plugin-react-helmet@^5.17.0:
   version "5.17.0"
@@ -11829,7 +11839,7 @@ react-use-auth@^2.1.0-14:
     date-fns "^2.16.1"
     xstate "^4.13.0"
 
-react@^17.0.1:
+react@^16.13.1, react@^17.0.1:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
   integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
