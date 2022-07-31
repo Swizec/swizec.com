@@ -2786,24 +2786,24 @@
   dependencies:
     tslib "^2.4.0"
 
-"@swizec/gatsby-plugin-plausible@0.1.0-5":
-  version "0.1.0-5"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-plugin-plausible/-/gatsby-plugin-plausible-0.1.0-5.tgz#2c84f195a4d460a37e7ca4b601115973394325e8"
-  integrity sha512-g0XTh6J9sQ2MLGw1Dq2d7K/lFSRrSvmutFmNWWEM0IoVHp71SC1ywTmHJixh1ZSFZRObrtCOk3KA3LsvitEqrQ==
+"@swizec/gatsby-plugin-plausible@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-plugin-plausible/-/gatsby-plugin-plausible-0.1.0.tgz#5189947b3a80537d80fd680c75d27f913218a723"
+  integrity sha512-PHT1XMRbUyQnvkVr5C+uQjG8KxUub924RhyU96/bxuB3Bf5YJmssqV2KhgX5H7ywEBnk+/uvT53Y3ifdWKsBeA==
   dependencies:
     "@babel/runtime" "^7.9.2"
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@^3.1.0-9":
-  version "3.1.0-9"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.1.0-9.tgz#9083c7a3c5c66bbf63781e2cd262d1542c698f5e"
-  integrity sha512-WDxKwjv6Z3xbBlblaWfO+L7wbOdYoGetv6mQN+USlCFX3z8ZoPknEvcN6/xlGB7aZyRW2D07MRB3bo7CQMmcJA==
+"@swizec/gatsby-theme-course-platform@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.1.0.tgz#fb51632cfd87381e656368a3930c85f9d40f0471"
+  integrity sha512-Th+XWKj85ifJy2NtQ9UgPiBRL+CdKr7PB+Aba0P850hf3b+r25b7Z8I0ejjLlI925hldoi6PpIwu+c1ghXYHXg==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
     "@mdx-js/react" "^1.6.22"
-    "@swizec/gatsby-plugin-plausible" "0.1.0-5"
+    "@swizec/gatsby-plugin-plausible" "0.1.0"
     "@theme-ui/presets" "^0.6.2"
     "@theme-ui/prism" "^0.6.2"
     "@theme-ui/sidenav" "^0.6.2"
