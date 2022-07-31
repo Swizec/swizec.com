@@ -2786,14 +2786,24 @@
   dependencies:
     tslib "^2.4.0"
 
-"@swizec/gatsby-theme-course-platform@^3.1.0-0":
-  version "3.1.0-0"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.1.0-0.tgz#2e735dc06ba7d00a8e3e5cab7f6228657fd73046"
-  integrity sha512-kv7lzK8+U+K71lDMvM1JXK9vTJRAKapJHQ5E62Ra791uQNmhI/W8vH6H/bVUuajpTWA5t4qgCT7oqguJ4Nf0xQ==
+"@swizec/gatsby-plugin-plausible@0.1.0-5":
+  version "0.1.0-5"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-plugin-plausible/-/gatsby-plugin-plausible-0.1.0-5.tgz#2c84f195a4d460a37e7ca4b601115973394325e8"
+  integrity sha512-g0XTh6J9sQ2MLGw1Dq2d7K/lFSRrSvmutFmNWWEM0IoVHp71SC1ywTmHJixh1ZSFZRObrtCOk3KA3LsvitEqrQ==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
+    minimatch "3.0.4"
+    react "^16.13.1"
+
+"@swizec/gatsby-theme-course-platform@^3.1.0-9":
+  version "3.1.0-9"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.1.0-9.tgz#9083c7a3c5c66bbf63781e2cd262d1542c698f5e"
+  integrity sha512-WDxKwjv6Z3xbBlblaWfO+L7wbOdYoGetv6mQN+USlCFX3z8ZoPknEvcN6/xlGB7aZyRW2D07MRB3bo7CQMmcJA==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
     "@mdx-js/react" "^1.6.22"
+    "@swizec/gatsby-plugin-plausible" "0.1.0-5"
     "@theme-ui/presets" "^0.6.2"
     "@theme-ui/prism" "^0.6.2"
     "@theme-ui/sidenav" "^0.6.2"
@@ -2813,7 +2823,6 @@
     gatsby-plugin-load-script "^1.1.0"
     gatsby-plugin-manifest "^4.17.0"
     gatsby-plugin-mdx "^3.17.0"
-    gatsby-plugin-plausible "^0.0.7"
     gatsby-plugin-react-helmet "^5.17.0"
     gatsby-plugin-remove-serviceworker "^1.0.0"
     gatsby-plugin-sharp "^4.17.0"
@@ -7303,15 +7312,6 @@ gatsby-plugin-page-creator@^4.17.0:
     gatsby-telemetry "^3.17.0"
     globby "^11.1.0"
     lodash "^4.17.21"
-
-gatsby-plugin-plausible@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-plausible/-/gatsby-plugin-plausible-0.0.7.tgz#6f8c922bbc672a73bd8e9a39add61fb62ec96566"
-  integrity sha512-pWCXsrWal8lWMmZ1wJ2dolbwZZR1CZU1LVR/K1rYC8NeA+uqTLY8h3uH3hFgP5n8jmRRenOSJ9SjWM9OIdCjOA==
-  dependencies:
-    "@babel/runtime" "^7.9.2"
-    minimatch "3.0.4"
-    react "^16.13.1"
 
 gatsby-plugin-react-helmet@^5.17.0:
   version "5.17.0"
