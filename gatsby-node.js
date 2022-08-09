@@ -19,6 +19,7 @@ exports.onPreBootstrap = ({ actions }) => {
       actions.createRedirect({
         fromPath,
         toPath,
+        redirectInBrowser: true,
       })
     }
   }
