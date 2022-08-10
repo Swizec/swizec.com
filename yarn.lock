@@ -2795,10 +2795,10 @@
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@^3.2.0-0":
-  version "3.2.0-0"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.2.0-0.tgz#4cbb146c356bc9ad75e51c2b3829e21d97722a74"
-  integrity sha512-q881AYN/P7ydE8eqQir9llslTYtaDkRmY39usw8UCI3f3yS91cAwwb3/6ORO6FeMDl1VSJjxeOTu+rhqjlQHAQ==
+"@swizec/gatsby-theme-course-platform@^3.2.0-1":
+  version "3.2.0-1"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.2.0-1.tgz#15f204bfd971088d12410aa0197b31f6e3201b90"
+  integrity sha512-TYuYdNLBM2pBOkpzon92f8wvgIFMwreOpto4paaJaA7xOKY7oJTQlxpmlz9aE/RlszYKINQlKnNmsdgXfhjBYQ==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2825,7 +2825,6 @@
     gatsby-plugin-react-helmet "^5.17.0"
     gatsby-plugin-remove-serviceworker "^1.0.0"
     gatsby-plugin-sharp "^4.17.0"
-    gatsby-plugin-simple-analytics "^1.0.4"
     gatsby-plugin-theme-ui "^0.6.2"
     gatsby-plugin-twitter "^4.17.0"
     gatsby-remark-copy-linked-files "^5.17.0"
@@ -7338,11 +7337,6 @@ gatsby-plugin-sharp@^4.17.0:
     semver "^7.3.7"
     sharp "^0.30.3"
     svgo "1.3.2"
-
-gatsby-plugin-simple-analytics@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-simple-analytics/-/gatsby-plugin-simple-analytics-1.0.4.tgz#5e8671733423d48eb9c9162c46cb73b2b0ed2a21"
-  integrity sha512-Routbv22mlVybTafCJD6iby9/1NH26e3+r3Byr1LO1EB1y7xqn8gSre+2LQOLhBY3kaeVoB0iOaPtuL6YYLeCw==
 
 gatsby-plugin-theme-ui@^0.6.2:
   version "0.6.2"
