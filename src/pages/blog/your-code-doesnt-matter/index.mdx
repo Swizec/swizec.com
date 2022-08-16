@@ -1,6 +1,6 @@
 ---
-title: "Your code doesn't matter" 
-description: ""Your code doesn't matter" is something experienced programmers say, between the lines, when they sound like complete lunatics. But what do they mean? Why does everyone say it?" 
+title: "Your code doesn't matter"
+description: '"Your code doesn''t matter" is something experienced programmers say, between the lines, when they sound like complete lunatics. But what do they mean? Why does everyone say it?'
 published: 2022-08-16
 categories: "Programming Lessons, Code, Philosophy, Technical"
 content_upgrade: SeniorMindset
@@ -49,7 +49,7 @@ You can write a classic for loop:
 
 ```javascript
 for (let i = 0; i < N; i++) {
-  console.log(i);
+  console.log(i)
 }
 ```
 
@@ -57,7 +57,7 @@ Or a modern for loop:
 
 ```javascript
 for (let i in new Array(N).fill(0)) {
-  console.log(i);
+  console.log(i)
 }
 ```
 
@@ -65,16 +65,16 @@ Or a `.map`:
 
 ```javascript
 new Array(N).fill(0).map((_, i) => {
-  console.log(i);
-});
+  console.log(i)
+})
 ```
 
 Or use a helper library:
 
 ```javascript
 d3.range(N).map((i) => {
-  console.log(i);
-});
+  console.log(i)
+})
 ```
 
 Or recursion:
@@ -82,9 +82,9 @@ Or recursion:
 ```javascript
 // this counts in reverse because I'm lazy
 function count(N) {
-  console.log(N);
+  console.log(N)
   if (N > 1) {
-    count(N - 1);
+    count(N - 1)
   }
 }
 ```
@@ -116,22 +116,22 @@ Like the difference between these 2 React components:
 
 ```javascript
 function DoesntUnderstandreact({ N }) {
-  const [fizzbuzz, setFizzbuzz] = useState([]);
+  const [fizzbuzz, setFizzbuzz] = useState([])
 
   useEffect(() => {
     let temp = new Array(N).fill(0).map((_, i) => {
       if (N % 15 === 0) {
-        return "fizz buzz";
+        return "fizz buzz"
       } else if (N % 5 === 0) {
-        return "buzz";
+        return "buzz"
       } else if (N % 3 === 0) {
-        return "fizz";
+        return "fizz"
       } else {
-        return i;
+        return i
       }
-    });
-    setFizzbuzz(temp);
-  }, [N]);
+    })
+    setFizzbuzz(temp)
+  }, [N])
 
   return (
     <ul>
@@ -139,7 +139,7 @@ function DoesntUnderstandreact({ N }) {
         <li>{w}</li>
       ))}
     </ul>
-  );
+  )
 }
 ```
 
@@ -147,15 +147,15 @@ function DoesntUnderstandreact({ N }) {
 function UnderstandsReact({ N }) {
   const fizzbuzz = new Array(N).fill(0).map((_, i) => {
     if (N % 15 === 0) {
-      return "fizz buzz";
+      return "fizz buzz"
     } else if (N % 5 === 0) {
-      return "buzz";
+      return "buzz"
     } else if (N % 3 === 0) {
-      return "fizz";
+      return "fizz"
     } else {
-      return i;
+      return i
     }
-  });
+  })
 
   return (
     <ul>
@@ -163,7 +163,7 @@ function UnderstandsReact({ N }) {
         <li>{w}</li>
       ))}
     </ul>
-  );
+  )
 }
 ```
 
