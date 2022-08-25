@@ -1,5 +1,5 @@
 ---
-title: "Want to become a Serverless and modern backend expert?"
+title: "Insights into Serverless and modern backends"
 description: "I've been building web backends since ~2004 when they were just called websites. With these curated essays I want to share the hard lessons learned."
 content_upgrade: Serverless
 ---
@@ -16,7 +16,7 @@ export const pageQuery = graphql`
       filter: {
         fileAbsolutePath: { regex: "/blog/.+/" }
         frontmatter: {
-            categories: { regex: "/Serverless|Backend|Backend Web/gi" }
+          categories: { regex: "/Serverless|Backend|Backend Web/gi" }
         }
       }
       sort: { fields: frontmatter___published, order: DESC }
@@ -26,9 +26,9 @@ export const pageQuery = graphql`
           slug
         }
         frontmatter {
-            title
-            description
-            published
+          title
+          description
+          published
         }
       }
     }

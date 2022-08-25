@@ -1,5 +1,5 @@
 ---
-title: "Want to learn about Indie Hacking from the trenches?"
+title: "Read about indie hacking from the trenches"
 description: "Indie Hacking has been near and dear to me for over a decade. Diversifying your income is a wonderful habit"
 content_upgrade: Javascript
 ---
@@ -15,8 +15,7 @@ export const pageQuery = graphql`
     allMdx(
       filter: {
         fileAbsolutePath: { regex: "/blog/.+/" }
-        frontmatter: { categories: { regex: "/IndieHacking|Business/gi" }
-        }
+        frontmatter: { categories: { regex: "/IndieHacking|Business/gi" } }
       }
       sort: { fields: frontmatter___published, order: DESC }
     ) {
@@ -25,9 +24,9 @@ export const pageQuery = graphql`
           slug
         }
         frontmatter {
-            title
-            description
-            published
+          title
+          description
+          published
         }
       }
     }

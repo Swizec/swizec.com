@@ -1,5 +1,5 @@
 ---
-title: "Want to become a React expert?"
+title: "Take your React beyond the tutorial"
 description: "Learning from tutorials is great! You follow some steps, learn a smol lesson, and feel like you got this. Then you go into an interview, get a question from the boss, or encounter a new situation and o-oh."
 content_upgrade: ReactCU
 ---
@@ -16,7 +16,7 @@ export const pageQuery = graphql`
       filter: {
         fileAbsolutePath: { regex: "/blog/.+/" }
         frontmatter: {
-            categories: { regex: "/React|Reactjs|React.js|gatsby|nextjs/gi" }
+          categories: { regex: "/React|Reactjs|React.js|gatsby|nextjs/gi" }
         }
       }
       sort: { fields: frontmatter___published, order: DESC }
@@ -26,14 +26,16 @@ export const pageQuery = graphql`
           slug
         }
         frontmatter {
-            title
-            description
-            published
+          title
+          description
+          published
         }
       }
     }
   }
 `
+
+React is here to stay. It solves many problems you may not even know existed. These essays are the good stuff I learned over the years.
 
 Learning from tutorials is easy. You follow some steps, learn a smol lesson, and feel like you got dis 💪
 
