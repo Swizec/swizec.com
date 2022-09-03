@@ -68,7 +68,7 @@ No, I don't know why the namespace needs to be a full URL. The Auth0 documentati
 
 Ah yes, _adding_ roles to users. That part is a little tricky.
 
-Here's an article I wrote on [Connecting Gumroad to Auth0 for paywalled JAMStack apps](https://swizec.com/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/swizec/9336) ❤️
+Here's an article I wrote on [Connecting Gumroad to Auth0 for paywalled JAMStack apps](https://swizec.com/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/) ❤️
 
 The TL;DR is that your checkout provider triggers your cloud function through a webhook and that adds a role to your user. You can also do it manually.
 
@@ -76,7 +76,7 @@ I use Gumroad, Stripe works too. I use AWS Lambda, a Netlify or Vercel cloud fun
 
 [![Click through for source](./img/techletter.app-screenshot-1589818029816.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20this%20bit%20of%20code%20adds%20a%20role%20to%20user%0A%20%20if%20(FindYourIdea_PRODUCTS.includes(ping.product_permalink))%20%7B%0A%20%20%20%20%2F%2F%20create%20or%20get%20user%0A%20%20%20%20const%20user%20%3D%20await%20upsertUser(ping)%0A%0A%20%20%20%20if%20(user)%20%7B%0A%20%20%20%20%20%20const%20auth0%20%3D%20await%20getAuth0Client()%0A%0A%20%20%20%20%20%20%2F%2F%20add%20the%20right%20role%0A%20%20%20%20%20%20await%20auth0.assignRolestoUser(%0A%20%20%20%20%20%20%20%20%7B%20id%3A%20user.user_id!%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%2F%2F%20hardcoded%20FindYourIdea%20role%20id%20from%20Auth0%20URL%0A%20%20%20%20%20%20%20%20%20%20roles%3A%20%5BROLE_ID%5D%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20)%0A%20%20%20%20%7D%0A%20%20%7D>)
 
-Full details in the [Connecting Gumroad to Auth0 for paywalled JAMStack apps](https://swizec.com/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/swizec/9336) article.
+Full details in the [Connecting Gumroad to Auth0 for paywalled JAMStack apps](https://swizec.com/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/) article.
 
 ## What if there's many roles to check?
 
@@ -105,6 +105,6 @@ Same principle my friend. You get the role for your user and you ask _"Does this
 Cheers,  
 ~Swizec
 
-PS: the [coding-on-a-ipad workflow I suggested on Friday totally worked](https://swizec.com/blog/looking-for-the-perfect-light-work-device/swizec/9413) 🤘
+PS: the [coding-on-a-ipad workflow I suggested on Friday totally worked](https://swizec.com/blog/looking-for-the-perfect-light-work-device/) 🤘
 
 [![Click through for source](./img/techletter.app-screenshot-1589818031419.png)](https://youtu.be/OqZeMqRqr9A)

@@ -18,7 +18,7 @@ Pure canvas frame redraw speed
 
 We removed everything that could possibly slow us down. There’s no more React or Konva for the main drawing part. All that’s left are the raw HTML5 canvas APIs. Despite our best efforts, it still takes almost 50 milliseconds to draw 10,000 circles.
 
-A huge improvement from [last time](https://swizec.com/blog/livecoding-14-mostly-smooth-animation-up-to-4000-elements-with-react-and-canvas/swizec/6864), yes. But it’s not good enough. With a drawing time of 50ms per frame, the upper bound on my laptop is about 20 frames per second. Animated, but choppy.
+A huge improvement from [last time](https://swizec.com/blog/livecoding-14-mostlysmooth-animation-up-to-4000-elements-with-react-and-canvas/), yes. But it’s not good enough. With a drawing time of 50ms per frame, the upper bound on my laptop is about 20 frames per second. Animated, but choppy.
 
 And there’s some 5ms of React and Redux overhead on top of that. Down to 18 frames per second.
 
