@@ -2795,10 +2795,10 @@
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@^3.3.1":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.3.1.tgz#cee47de02fd842704b7f949a831347030cf490a7"
-  integrity sha512-iowhXI9g+oBBNUgsOLv/KJvnjC6ALl3axHELmFrhTXYK/i9NAVrzjcApqVPBC0plsZZKJ6qoT2q39pnUuWNK4w==
+"@swizec/gatsby-theme-course-platform@^3.4.0-3":
+  version "3.4.0-3"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.0-3.tgz#a9baf1bf5f5aecd2e72bd2031e14b729c7b1afa9"
+  integrity sha512-xahm2NmX9acpNKvAC/97XtF2mrngKhk3aVutT2iL9RHkvXRHloFqLVPBqYwCBi+qYqv4qc5lW9FPvecchKRfYA==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2854,6 +2854,7 @@
     slugify "^1.6.5"
     theme-ui "^0.6.2"
     twitter-lite "^1.1.0"
+    twitter-lite-embed "1.0.0-0"
     typeface-merriweather "^1.1.13"
     typeface-merriweather-sans "^1.1.13"
     typography-theme-parnassus "^0.16.19"
@@ -13516,6 +13517,11 @@ tunnel-agent@^0.6.0:
   integrity sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==
   dependencies:
     safe-buffer "^5.0.1"
+
+twitter-lite-embed@1.0.0-0:
+  version "1.0.0-0"
+  resolved "https://registry.yarnpkg.com/twitter-lite-embed/-/twitter-lite-embed-1.0.0-0.tgz#326203a760819fe61920fd14cbafb3aaceb8dcd9"
+  integrity sha512-heTBwOyauoxWtRzvn/McsyRHVejna4vqRZ3UcF0XZr1C4AmJuqeoFljDN1yqXNWh2iXtLnKuo+FPhdWSOa14HQ==
 
 twitter-lite@^1.1.0:
   version "1.1.0"
