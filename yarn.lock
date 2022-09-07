@@ -2795,10 +2795,10 @@
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@^3.4.0-8":
-  version "3.4.0-8"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.0-8.tgz#ba9c3858bfe2cc505f74141dd0680890175e2d2c"
-  integrity sha512-5umbS+SvHW5BgXFkgFyk6JOC5aXF40Sy4ED5M/cvpfq7Iaj7mhfEzyc4zDe8k51dWM2VjCbd82IibfrjgFC14g==
+"@swizec/gatsby-theme-course-platform@^3.4.0-9":
+  version "3.4.0-9"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.0-9.tgz#d77ff372219383c7c604d8433763e59bea002e42"
+  integrity sha512-oes3DC3rb0VkjmQPyg2QMP7NK8OQZADHC2PHo9Js5Ga20uOUhVyhDZUVnKotjC7A/GIrytAb7didu9CVkvlItw==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2826,7 +2826,6 @@
     gatsby-plugin-remove-serviceworker "^1.0.0"
     gatsby-plugin-sharp "^4.17.0"
     gatsby-plugin-theme-ui "^0.6.2"
-    gatsby-plugin-twitter "^4.17.0"
     gatsby-remark-copy-linked-files "^5.17.0"
     gatsby-remark-copy-relative-linked-files "^1.5.0"
     gatsby-remark-embedder Swizec/gatsby-remark-embedder#138a6c3a73c34cbd70a558b0507070ebd5f5a34f
@@ -7344,13 +7343,6 @@ gatsby-plugin-theme-ui@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.6.2.tgz#8a8336dfd9286e70e2a4627f5662992fa8b82911"
   integrity sha512-4PiGxHmaLSAybfYtEj6A8vWGti2zJvTNhjrs63fK8eMjk3PCnuhdcs08SLaLnJhV4pd+9EEA0pgJ9jSmd2392Q==
-
-gatsby-plugin-twitter@^4.17.0:
-  version "4.17.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-twitter/-/gatsby-plugin-twitter-4.17.0.tgz#8b81f6383e0aee25caead319e5b4695865e65483"
-  integrity sha512-cutor16gkpQhle/jH5hqb2W+6SKvFuhujngHhgaolrGQQnzjiXPB8QJF1LFTmIPc1bvmnvYs418+Wefs4AQuSg==
-  dependencies:
-    "@babel/runtime" "^7.15.4"
 
 gatsby-plugin-typescript@^4.17.0:
   version "4.17.0"
