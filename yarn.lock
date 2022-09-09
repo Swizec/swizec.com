@@ -2795,10 +2795,10 @@
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@^3.4.0-10":
-  version "3.4.0-10"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.0-10.tgz#40b995b2cf675c91057666c64b65310d24b98aac"
-  integrity sha512-sN/Sg9zWGgCyjUg/6c11zwQ3ZXYvPHDonNs6NQjB3tRwd9ayU4slN9JcZMidkTd9tq8BLL4jYoJEICKWDZDOIg==
+"@swizec/gatsby-theme-course-platform@^3.4.0-12":
+  version "3.4.0-12"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.0-12.tgz#19289d2d95b8c2bf78937e0ac8025d2dde783d95"
+  integrity sha512-bapjOzpMx/sGSNXQ7CKpGk4BfdNrFvRAk804avLk6XyzsrvdgkjpGjS9PWP7LcxKFlRJhXjtjpFoh9/qmW/BTw==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2854,7 +2854,7 @@
     slugify "^1.6.5"
     theme-ui "^0.6.2"
     twitter-lite "^1.1.0"
-    twitter-lite-embed "1.0.0-0"
+    twitter-lite-embed "1.0.0-1"
     typeface-merriweather "^1.1.13"
     typeface-merriweather-sans "^1.1.13"
     typography-theme-parnassus "^0.16.19"
@@ -13511,10 +13511,10 @@ tunnel-agent@^0.6.0:
   dependencies:
     safe-buffer "^5.0.1"
 
-twitter-lite-embed@1.0.0-0:
-  version "1.0.0-0"
-  resolved "https://registry.yarnpkg.com/twitter-lite-embed/-/twitter-lite-embed-1.0.0-0.tgz#326203a760819fe61920fd14cbafb3aaceb8dcd9"
-  integrity sha512-heTBwOyauoxWtRzvn/McsyRHVejna4vqRZ3UcF0XZr1C4AmJuqeoFljDN1yqXNWh2iXtLnKuo+FPhdWSOa14HQ==
+twitter-lite-embed@1.0.0-1:
+  version "1.0.0-1"
+  resolved "https://registry.yarnpkg.com/twitter-lite-embed/-/twitter-lite-embed-1.0.0-1.tgz#de66fbc4898c5471a0987a9746fd50cae70ab676"
+  integrity sha512-CdBGqIGyYUSASm8Cj8i8tpKBwCNvrQT+YEP5Utc5ISBQj+XcrPF2EAVFsHgc8e8xSxDd53j5dqYuwmsgKkH3uA==
 
 twitter-lite@^1.1.0:
   version "1.1.0"
