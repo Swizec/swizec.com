@@ -19,7 +19,7 @@ const RightBanner = (props) => {
       as="section"
       sx={{
         position: "sticky",
-        mt: 0,
+        mt: props.path === "/" ? 200 : 0,
         top: 64,
         float: "right",
         mr: -40,
