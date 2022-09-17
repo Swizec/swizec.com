@@ -2832,10 +2832,10 @@
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@^3.4.0-24":
-  version "3.4.0-24"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.0-24.tgz#aa6603533ce7b2ab9d3a874942ab81c0a265bbe0"
-  integrity sha512-XZtN3v0CAX/NHyP0zumG3olu1m1TbOa/xupi70SuRs9KBuPwGIG7XvjQONDXUuRfnvzzvp2xjqY1grDCu2topA==
+"@swizec/gatsby-theme-course-platform@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.0.tgz#ef0be325c86264df91a09cf161d5d03d769b425e"
+  integrity sha512-vXGmU3aFSNgY0GhKMtwZCVoiGL9mXRgEEYHAkyqR0QQmL4eXQlH9tVA8Keym6Q++ge4QH/zpfoSNrczvI11pnQ==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2863,7 +2863,6 @@
     gatsby-plugin-remove-serviceworker "^1.0.0"
     gatsby-plugin-sharp "^4.17.0"
     gatsby-plugin-theme-ui "^0.6.2"
-    gatsby-plugin-twitter "^4.17.0"
     gatsby-remark-copy-linked-files "^5.17.0"
     gatsby-remark-copy-relative-linked-files "^1.5.0"
     gatsby-remark-embedder Swizec/gatsby-remark-embedder#138a6c3a73c34cbd70a558b0507070ebd5f5a34f
@@ -2879,6 +2878,7 @@
     lodash.omit "^4.5.0"
     minimatch "^3.1.2"
     node "^15.12.0"
+    node-fetch "2"
     react-collapse "^5.1.1"
     react-helmet "^6.1.0"
     react-hook-form "^7.33.0"
@@ -2891,6 +2891,7 @@
     slugify "^1.6.5"
     theme-ui "^0.6.2"
     twitter-lite "^1.1.0"
+    twitter-lite-embed "1.0.0-6"
     typeface-merriweather "^1.1.13"
     typeface-merriweather-sans "^1.1.13"
     typography-theme-parnassus "^0.16.19"
@@ -7437,13 +7438,6 @@ gatsby-plugin-theme-ui@^0.6.2:
   resolved "https://registry.yarnpkg.com/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.6.2.tgz#8a8336dfd9286e70e2a4627f5662992fa8b82911"
   integrity sha512-4PiGxHmaLSAybfYtEj6A8vWGti2zJvTNhjrs63fK8eMjk3PCnuhdcs08SLaLnJhV4pd+9EEA0pgJ9jSmd2392Q==
 
-gatsby-plugin-twitter@^4.17.0:
-  version "4.17.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-twitter/-/gatsby-plugin-twitter-4.17.0.tgz#8b81f6383e0aee25caead319e5b4695865e65483"
-  integrity sha512-cutor16gkpQhle/jH5hqb2W+6SKvFuhujngHhgaolrGQQnzjiXPB8QJF1LFTmIPc1bvmnvYs418+Wefs4AQuSg==
-  dependencies:
-    "@babel/runtime" "^7.15.4"
-
 gatsby-plugin-typescript@^4.17.0:
   version "4.17.0"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-typescript/-/gatsby-plugin-typescript-4.17.0.tgz#95da5c9c4dbdd029eb702e465ccc4b10a12a8993"
@@ -10502,17 +10496,17 @@ node-bin-setup@^1.0.0:
   resolved "https://registry.yarnpkg.com/node-bin-setup/-/node-bin-setup-1.0.6.tgz#4b5c9bb937ece702d7069b36ca78af4684677528"
   integrity sha512-uPIxXNis1CRbv1DwqAxkgBk5NFV3s7cMN/Gf556jSw6jBvV7ca4F9lRL/8cALcZecRibeqU+5dFYqFFmzv5a0Q==
 
-node-fetch@2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
-  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
-
-node-fetch@2.6.7, node-fetch@^2.6.0, node-fetch@^2.6.1, node-fetch@^2.6.6, node-fetch@^2.6.7:
+node-fetch@2, node-fetch@2.6.7, node-fetch@^2.6.0, node-fetch@^2.6.1, node-fetch@^2.6.6, node-fetch@^2.6.7:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
   dependencies:
     whatwg-url "^5.0.0"
+
+node-fetch@2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 node-fetch@^1.0.1:
   version "1.7.3"
@@ -13659,6 +13653,11 @@ tunnel-agent@^0.6.0:
   integrity sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==
   dependencies:
     safe-buffer "^5.0.1"
+
+twitter-lite-embed@1.0.0-6:
+  version "1.0.0-6"
+  resolved "https://registry.yarnpkg.com/twitter-lite-embed/-/twitter-lite-embed-1.0.0-6.tgz#98b4d9133d5f359e39b076da8bdb88ef8dcc5704"
+  integrity sha512-lWuhFZBz2EDw9YcdL5qlzltDB7upgVl8pFrh/wYJal3u634kkFPNwm6T1T9Aq8nwuL8LHqaW0ZljLEoPt5vMVA==
 
 twitter-lite@^1.1.0:
   version "1.1.0"
