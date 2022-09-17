@@ -52,16 +52,16 @@ That's where `useCallback` comes in.
 
 ```javascript
 const newFuncEveryTime = () => {
-  setSpinning(!spinning);
-};
+  setSpinning(!spinning)
+}
 ```
 
 This is a new function any time React's engine touches the `<FidgetSpinner>` component (calls the function). Whether it updates the DOM or not, calling the component re-defines this function with a new memory address. That causes a re-render of `<Spinner>`.
 
 ```javascript
 const stableFunc = useCallback(() => {
-  setSpinning(!spinning);
-}, [spinning]);
+  setSpinning(!spinning)
+}, [spinning])
 ```
 
 This creates a memoized function with a stable memory address. It only creates a new function when the dependency array changes. In this case any time `spinning`'s value changes, `useCallback` re-instantiates your function with a new address.
@@ -74,8 +74,8 @@ Define it like this:
 
 ```javascript
 const stableFunc = useCallback(() => {
-  setSpinning(!spinning);
-}, []);
+  setSpinning(!spinning)
+}, [])
 ```
 
 And the `spinning` value is baked into the function "forever". Calling this function won't toggle `spinning` from false to true and back as you'd expect, it's always going to set it to true. Or false if the initial value was true.
@@ -98,15 +98,15 @@ And there's a third version I've seen that ... why??
 ```javascript
 function Component() {
   const SubComponent = useCallback(() => {
-    return <div>This is a component damn it!</div>;
-  }, []);
+    return <div>This is a component damn it!</div>
+  }, [])
 
   return (
     <>
       <p>Lorem Ipsum</p>
       {SubComponent()}
     </>
-  );
+  )
 }
 ```
 
@@ -124,21 +124,21 @@ A better version of the example above looks like this:
 
 ```javascript
 function FidgetSpinner() {
-  const [spinning, setSpinning] = useState(false);
+  const [spinning, setSpinning] = useState(false)
 
   return (
     <>
       <p>Is it spinning? {spinning}</p>
       <Spinner spinning={spinning} setSpinning={setSpinning} />
     </>
-  );
+  )
 }
 ```
 
 `setSpinning` is a stable function! You can pass it into `<Spinner>`, which can use its alternative form to toggle state:
 
 ```javascript
-setSpinning((spinning) => !spinning);
+setSpinning((spinning) => !spinning)
 ```
 
 You can call React setters with a function that gets current value as its argument.
@@ -149,16 +149,16 @@ Another common opportunity is turning functions using local scope into independe
 
 ```javascript
 function ComplicatedStuff() {
-  const formMethods = useForm();
+  const formMethods = useForm()
 
-  const fieldValue = formMethods.watch("field");
+  const fieldValue = formMethods.watch("field")
 
   return (
     <>
       <p>Live current value of field: {fieldValue}</p>
       <FormRenderComponent onSubmit={onSubmit} />
     </>
-  );
+  )
 }
 ```
 
@@ -228,3 +228,5 @@ Cheers,<br/>
 ~Swizec
 
 PS: [computers are fast these days](https://swizec.com/blog/screw-web-performance-just-wait-a-little/) and in [my experiments with React 18](https://swizec.com/blog/a-better-react-18-starttransition-demo/) it took thousands of elements to notice performance issues
+
+PPS: I hear rumors the React team is working on an auto-memoizing engine that handles all this for you 🤞
