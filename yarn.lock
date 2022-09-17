@@ -2795,10 +2795,10 @@
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@^3.4.0-15":
-  version "3.4.0-15"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.0-15.tgz#ac34cc20bfb966758ffc52cc4e8b4a6c70ce74e7"
-  integrity sha512-dOBEEgi6J/G9vsbUl0UFXiHNn8YQNIjGWVsekfAHd8Y462IIhqCTVzVCMkyas+UbrdD8u07LqwALF98L5HVt8w==
+"@swizec/gatsby-theme-course-platform@^3.4.0-19":
+  version "3.4.0-19"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.0-19.tgz#5a3aae3deef63e32b438d16cf71176898c7b4471"
+  integrity sha512-Ba7Mxj91i0RZRMDz5qbSELA5uk2mBJNEeOmhfDok0En6YTFNDWjFR5SKTwA+ba0fi60uVWZFxY95tlwWIGqVgQ==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2854,7 +2854,7 @@
     slugify "^1.6.5"
     theme-ui "^0.6.2"
     twitter-lite "^1.1.0"
-    twitter-lite-embed "1.0.0-3"
+    twitter-lite-embed "1.0.0-6"
     typeface-merriweather "^1.1.13"
     typeface-merriweather-sans "^1.1.13"
     typography-theme-parnassus "^0.16.19"
@@ -7413,7 +7413,7 @@ gatsby-remark-copy-relative-linked-files@^1.5.0:
     unist-util-visit "^2.0.3"
     upath "^2.0.1"
 
-"gatsby-remark-embedder@github:Swizec/gatsby-remark-embedder#138a6c3a73c34cbd70a558b0507070ebd5f5a34f":
+gatsby-remark-embedder@Swizec/gatsby-remark-embedder#138a6c3a73c34cbd70a558b0507070ebd5f5a34f:
   version "6.0.2-0"
   resolved "https://codeload.github.com/Swizec/gatsby-remark-embedder/tar.gz/138a6c3a73c34cbd70a558b0507070ebd5f5a34f"
   dependencies:
@@ -13511,10 +13511,10 @@ tunnel-agent@^0.6.0:
   dependencies:
     safe-buffer "^5.0.1"
 
-twitter-lite-embed@1.0.0-3:
-  version "1.0.0-3"
-  resolved "https://registry.yarnpkg.com/twitter-lite-embed/-/twitter-lite-embed-1.0.0-3.tgz#eefe907231b0456fdf135cb2bc8b16d0f9c26f27"
-  integrity sha512-TWamUleDtqFeQS64vs5srAvo0vZr9jerXleoHH2ODRnPhdefeZx5W1Np6aKC/YIwdS9b1JVOZ/dmy5tI7VIBVA==
+twitter-lite-embed@1.0.0-6:
+  version "1.0.0-6"
+  resolved "https://registry.yarnpkg.com/twitter-lite-embed/-/twitter-lite-embed-1.0.0-6.tgz#98b4d9133d5f359e39b076da8bdb88ef8dcc5704"
+  integrity sha512-lWuhFZBz2EDw9YcdL5qlzltDB7upgVl8pFrh/wYJal3u634kkFPNwm6T1T9Aq8nwuL8LHqaW0ZljLEoPt5vMVA==
 
 twitter-lite@^1.1.0:
   version "1.1.0"
