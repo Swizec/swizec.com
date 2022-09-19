@@ -104,7 +104,7 @@ So we built our own. Or rather I did with some help from the team. Particularly 
 [![](./img/techletter.app-screenshot-1545070245704.png)  
 ](<https://d.pr/i/Zf5345.jpg >)
 
-[My initial design](https://swizec.com/blog/simple-for-loop-increased-conversions/swizec/7875) broke after about 6 months. Too naive. One queue too few.
+[My initial design](https://swizec.com/blog/that-one-time-a-simple-forloop-increased-conversions-by-19percent/) broke after about 6 months. Too naive. One queue too few.
 
 The design that lasted another year looks like this 👇
 
@@ -120,7 +120,7 @@ Saving events in local storage ensures we don't lose events. If the user disconn
 
 Payloads are designed to accept arrays of events. Sending each one right away is easier.
 
-On the frontend we used a [Fast Mutex Lamport lock implementation](https://swizec.com/blog/fast-mutex-lamport-lock-javascript-promises/swizec/7532) to ensure multiple tabs can't overwrite each other's queues. LocalStorage is a single shared resource.
+On the frontend we used a [Fast Mutex Lamport lock implementation](https://swizec.com/blog/a-fast-mutex-lamport-lock-with-javascript-promises/) to ensure multiple tabs can't overwrite each other's queues. LocalStorage is a single shared resource.
 
 Don't need that on mobile clients.
 

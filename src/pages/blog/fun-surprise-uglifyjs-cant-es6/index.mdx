@@ -23,7 +23,7 @@ O.o
 
 ![](https://swizec.com/wp-content/uploads/2016/12/Screen-Shot-2016-12-07-at-00.15.52.png)
 
-That's funny ... UglifyJS throws an error on the first line of my [better-fetch](https://swizec.com/blog/a-tiny-es6-fetch-wrapper/swizec/7177) library. Why would it do _that_? ?
+That's funny ... UglifyJS throws an error on the first line of my [better-fetch](https://swizec.com/blog/a-tiny-es6-fetch-wrapper-that-makes-your-life-easier/) library. Why would it do _that_? ?
 
 _"We don't minify our code on localhost, do we? What about on staging?"_
 
@@ -49,7 +49,7 @@ Nope. Not if a project that imports your library minifies their assets.
 
 ## How to package your ES6 library so anyone can use it
 
-3.73 months ago, I thought [packaging a library was hard](https://swizec.com/blog/livecoding-19-its-hard-to-package-a-library/swizec/6927). Turns out it's not so bad at all.
+3.73 months ago, I thought [packaging a library was hard](https://swizec.com/blog/livecoding-19-its-hard-to-package-a-library/). Turns out it's not so bad at all.
 
 You have to add [Babel](https://babeljs.io/), the ES6 -> ES5 compiler[1](#fn1), configure it, update your new `main` entry, and add a `build` script to npm scripts. That makes it easier to run.
 

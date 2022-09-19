@@ -1,3 +1,5 @@
+const { URL } = require("url")
+
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
@@ -36,7 +38,8 @@ module.exports = {
     },
     siteUrl: "https://swizec.com",
   },
-  flags: { PRESERVE_WEBPACK_CACHE: true },
+  flags: {},
+  trailingSlash: "always",
   plugins: [
     "@swizec/gatsby-theme-course-platform",
     {
@@ -69,6 +72,13 @@ module.exports = {
       },
     },
     {
+      resolve: "@swizec/gatsby-plugin-plausible",
+      options: {
+        domain: process.env.PLAUSIBLE_DOMAIN,
+        customDomain: process.env.PLAUSIBLE_DOMAIN,
+      },
+    },
+    {
       resolve: "gatsby-plugin-feed",
       options: {
         query: `
@@ -87,32 +97,36 @@ module.exports = {
           {
             output: "/rss.xml",
             title: "swizec.com RSS Feed",
-            match: "^/blog/",
+            match: "^/blog/|^/interviews/",
             query: `
               {
-                allSitePage(
-                    filter: { path: { regex: "/blog/.+/" } }
-                    sort: { fields: context___frontmatter___published, order: DESC }
+                allMdx(
+                    filter: { fileAbsolutePath: { regex: "/blog/.+/" } }
+                    sort: { fields: frontmatter___published, order: DESC }
+                    limit: 50
                 ) {
                     nodes {
-                        path
-                        context {
-                            frontmatter {
-                                title
-                                description
-                                published
-                            }
+                        frontmatter {
+                            title
+                            description
+                            published
+                        }
+                        fields {
+                            slug
                         }
                     }
                 }
             }
               `,
-            serialize: ({ query: { site, allSitePage } }) => {
-              return allSitePage.nodes.map((node) => {
-                return Object.assign({}, node.context.frontmatter, {
-                  date: node.context.frontmatter.published,
-                  url: site.siteMetadata.siteUrl + node.path,
-                  guid: site.siteMetadata.siteUrl + node.path,
+            serialize: ({ query: { site, allMdx } }) => {
+              return allMdx.nodes.map((node) => {
+                const url = new URL(site.siteMetadata.siteUrl)
+                url.pathname = node.fields.slug + "/"
+
+                return Object.assign({}, node.frontmatter, {
+                  date: node.frontmatter.published,
+                  url: url.href,
+                  guid: url.href,
                 })
               })
             },

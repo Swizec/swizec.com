@@ -1,0 +1,54 @@
+---
+title: "Learn from stories about fullstack web development"
+description: "Learning from tutorials is great! You follow some steps, learn a smol lesson, and feel like you got this. Then you go into an interview, get a question from the boss, or encounter a new situation and o-oh."
+content_upgrade: FullstackWeb
+---
+
+import {
+  ContentUpgrades,
+  ArticleListing,
+} from "@swizec/gatsby-theme-course-platform"
+import { graphql } from "gatsby"
+
+export const pageQuery = graphql`
+  query {
+    allMdx(
+      filter: {
+        fileAbsolutePath: { regex: "/blog/.+/" }
+        frontmatter: { categories: { regex: "/Fullstack/gi" } }
+      }
+      sort: { fields: frontmatter___published, order: DESC }
+    ) {
+      nodes {
+        fields {
+          slug
+        }
+        frontmatter {
+          title
+          description
+          published
+        }
+      }
+    }
+  }
+`
+
+Fullstack Web is the bastard child of web development. BigTech frowns on its lack of specialization, everyone else drowns in its complexity. But it runs the web.
+
+Learning from tutorials is great! You follow some steps, learn a smol lesson, and feel like you got this. Then you go into an interview, get a question from the boss, or encounter a new situation and o-oh.
+
+Shit, how does this work again? 😅
+
+That's the problem with tutorials. They're not how the world works. Real software is a mess. A best-effort pile of duct tape and chewing gum. _You need deep understanding, not recipes_.
+
+Leave your email and **get the Fullstack Web Essays series** - a series of curated essays and experiments on modern Fullstack Web development. Lessons and insights learned from practice building production software.
+
+<ContentUpgrades.FullstackWeb />
+
+## Latest Fullstack Web articles from Swizec
+
+<>
+  {props.data.allMdx.nodes.map((props, i) => (
+    <ArticleListing {...props} key={i} />
+  ))}
+</>

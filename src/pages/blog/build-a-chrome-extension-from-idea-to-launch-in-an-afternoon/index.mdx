@@ -96,7 +96,7 @@ For Imgur hiding, we need a content script. It’s the simplest Chrome extension
 
 The fun part is avoiding frameworks.
 
-The [DOM is fast these days](https://swizec.com/blog/building-interactive-dom-benchmark-preliminary-results/swizec/8219) and pretty easy to use. Here's a function that hides an element on the page whether it's loaded yet or not. Remember, we're running _before_ the DOM is done loading.
+The [DOM is fast these days](https://swizec.com/blog/building-an-interactive-dom-benchmark-preliminary-results/) and pretty easy to use. Here's a function that hides an element on the page whether it's loaded yet or not. Remember, we're running _before_ the DOM is done loading.
 
 ```javascript
 // hide-imgur.js

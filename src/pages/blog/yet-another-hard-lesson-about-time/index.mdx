@@ -24,7 +24,7 @@ And then there’re _those_ 7 people. For them, the timer hits zero 1 second aft
 
 o.O
 
-I looked through the code. No race conditions. You click Start, the server creates an exam, makes a `started_at` timestamp, adds 45 minutes, and tells the frontend when your exam should end. On every [Clock tick](https://swizec.com/blog/modeling-time-react/swizec/7200), the counter updates ,and a MobX observer checks if you're out of time.
+I looked through the code. No race conditions. You click Start, the server creates an exam, makes a `started_at` timestamp, adds 45 minutes, and tells the frontend when your exam should end. On every [Clock tick](https://swizec.com/blog/modeling-time-in-react/), the counter updates ,and a MobX observer checks if you're out of time.
 
 ![](https://swizec.com/wp-content/uploads/2017/01/time-diagram-1.jpg)
 
@@ -63,7 +63,7 @@ class SubjectExam {
 
 MobX's `when` creates an autorun that checks the condition function, `() => this.isOutOfTime`, every time its value changes. When it evaluates to `true`, it runs the given function. In this case, that’s an action that finishes the subject exam.
 
-The reason this works is hidden in `@computed timeLeft()`. It depends on `Clock.time`, which is a global MobX store that updates every second. It’s based on my [Modeling time in React & MobX](https://swizec.com/blog/modeling-time-react/swizec/7200) approach.
+The reason this works is hidden in `@computed timeLeft()`. It depends on `Clock.time`, which is a global MobX store that updates every second. It’s based on my [Modeling time in React & MobX](https://swizec.com/blog/modeling-time-in-react/) approach.
 
 Diffing the server-provided `should_end_by` timestamp and `Clock.time` tells us how much time is left. It works great and produces a countdown timer when you add some rendering.
 

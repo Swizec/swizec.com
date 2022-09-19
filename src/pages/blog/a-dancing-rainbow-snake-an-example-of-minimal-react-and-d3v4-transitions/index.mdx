@@ -10,7 +10,7 @@ hero: ./img/d3-d3-scale-master-img-point.png
 
 https://www.youtube.com/watch?v=_zzGKD-ybw4
 
-Remember that [dancing fractal tree](https://swizec.com/blog/animating-svg-nodes-react-preact-inferno-vue/swizec/7311) from December? That was built using what I like to call The Rich Animation Technique. TRAT for short.
+Remember that [dancing fractal tree](https://swizec.com/blog/animating-2048-svg-nodes-in-react-preact-inferno-vue-angular-2-and-cyclejs-a-sidebyside-comparison/) from December? That was built using what I like to call The Rich Animation Technique. TRAT for short.
 
 Yes, I just came up with that. You might know of it as the "game loop" principle, or recalculate-redraw. It's how React's engine works.
 
@@ -112,7 +112,7 @@ Guess what transitions are… props that change over time :)
 
 So we put props in state and render from state. This lets us keep a stable platform while running transitions. It ensures that changes re-rendering `Dot` from above won't interfere with D3 transitions.
 
-Not super important in our particular example because those changes never happen. But I had many interesting issues in this [animated typing example](https://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797).
+Not super important in our particular example because those changes never happen. But I had many interesting issues in this [animated typing example](https://swizec.com/blog/using-d3js-transitions-in-react/).
 
 For the `render` method, we return an SVG ``element positioned at `(x, y)`, with a radius, an `onMouseOver` listener, and a style with the `fill` color depending on `state.colorize`.
 

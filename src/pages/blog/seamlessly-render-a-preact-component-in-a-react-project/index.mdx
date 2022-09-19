@@ -12,7 +12,7 @@ https://www.youtube.com/watch?v=sdxz_1A8zFk
 
 Have you ever wanted to render a [Preact](https://preactjs.com/) component inside a React project?
 
-It's hard, right? First of all, why? [Because](https://swizec.com/blog/building-interactive-dom-benchmark-preliminary-results/swizec/8219). Second of all, how do you reconcile the two different implementations of JSX?
+It's hard, right? First of all, why? [Because](https://swizec.com/blog/building-an-interactive-dom-benchmark-preliminary-results/). Second of all, how do you reconcile the two different implementations of JSX?
 
 Preact and React are [pretty similar](https://github.com/developit/preact/wiki/Differences-to-React), you see. Both are based on components, both leverage JSX to make your life easier, and for the most part, they look interchangeable.
 
@@ -55,7 +55,7 @@ The `render()` method sets `h` to `React.createElement` and outputs an anchor di
 
 Then we hook into the component lifecycle with `componentDidMount` and `componentDidUpdate`. We call `renderPreact` in both of them to ensure our wrapper component always ends up rendering Preact.
 
-Same as my [React D3 blackbox](https://swizec.com/blog/translate-random-d3-example-react/swizec/7765) approach for quickly wrapping D3 code in React components.
+Same as my [React D3 blackbox](https://swizec.com/blog/how-you-can-translate-any-random-d3-example-to-react/) approach for quickly wrapping D3 code in React components.
 
 In `renderPreact`, we then use Preact's `render()` function to render the Preact component into our anchor div. This works the same way as Preact's normal DOM rendering where you call `render(<App />, document.getElementById('root'))` to put your app into a root div.
 

@@ -14,7 +14,7 @@ Its goal? GET ALL THE DATA!
 
 ![Commit time histogram](https://swizec.com/wp-content/uploads/2013/01/commit-histogram.png)
 
-The plan was to scrape a massive [dataset](http://en.wikipedia.org/wiki/Data_set "Data set") off [Github](http://github.com "GitHub") and do some analysis of programmers' working habits, at least the ones using Github that is. As such, the script was fairly simple - run a search query via the API, get page 1, 2, 3 ...
+The plan was to scrape a massive [dataset](https://en.wikipedia.org/wiki/Data_set "Data set") off [Github](https://github.com "GitHub") and do some analysis of programmers' working habits, at least the ones using Github that is. As such, the script was fairly simple - run a search query via the API, get page 1, 2, 3 ...
 
 At 100 repositories per page with a round-trip of a few seconds and having to wait for an hour before being allowed to do more requests after every couple of hundred pages, the scraping job took the bigger part of a week. Occasionally the script would hang without getting a _403 error_ so I changed the query. That fixed it.
 
@@ -30,7 +30,7 @@ The next step was going through the list of repositories and fetching punchcard 
 
 A core saying of practical computer science goes something like _"Our O(N^5) algorithm sucks for large N, but N is usually less than 10"_
 
-Although not a very big dataset by most means, at half a million, it was enough to thwart my original approach of using [Mongoose](http://mongoosejs.com/) to handle my mongodb connection.
+Although not a very big dataset by most means, at half a million, it was enough to thwart my original approach of using [Mongoose](https://mongoosejs.com/) to handle my mongodb connection.
 
 While Mongoose was great for writing, it failed completely at reading. Not exactly certain where the problem was, but running this sort of code quickly made my EC2 instance run out of memory:
 
@@ -56,13 +56,13 @@ mongo.Db.connect(
 // ...
 ```
 
-A lot more work, but it doesn't even show up as a blip on memory usage. My guess is that Mongoose was doing the wrong thing and didn't stream data right out of the database into my [callback function](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)"), but was trying to keep it all in memory. Silly Mongoose.
+A lot more work, but it doesn't even show up as a blip on memory usage. My guess is that Mongoose was doing the wrong thing and didn't stream data right out of the database into my [callback function](https://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)"), but was trying to keep it all in memory. Silly Mongoose.
 
 There was one more step! Ensuring I only fetch punchcard data for unique repositories.
 
 My first attempt was going through the data, adding each repository's username/name combination to a redis set, then following that set when fetching the punchcards. Remember, sets guarantee each member only shows up once.
 
-Alas. After running a script for a few minutes - oh yes, did I mention it takes about 3 minutes just to read through the entire list of repositories? - it turns out the [Redis](http://redis.io/ "Redis (data store)") set was so massive my attempts at reading it were to no avail. Ran out of memory before even doing anything serious.
+Alas. After running a script for a few minutes - oh yes, did I mention it takes about 3 minutes just to read through the entire list of repositories? - it turns out the [Redis](https://redis.io/ "Redis (data store)") set was so massive my attempts at reading it were to no avail. Ran out of memory before even doing anything serious.
 
 This time I'm not sure it's [node_redis](https://github.com/mranney/node_redis)'s fault or Redis really cannot stream data out of sets as is reading them.
 

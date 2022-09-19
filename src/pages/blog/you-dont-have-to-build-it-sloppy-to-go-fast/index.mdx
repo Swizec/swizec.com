@@ -1,0 +1,211 @@
+---
+title: "You don't *have to* build it sloppy to go fast"
+description: "My favorite mistake to make when I'm in a hurry is to think that I _have to_ build new features the sloppiest way possible. Find the quick fix and move on. But that's not true."
+published: 2022-07-19
+categories: "Refactoring, Mindset, Software Engineering"
+hero: ./img/screenshot-1658250983594.png
+---
+
+My favorite mistake to make when I'm in a hurry is to think that I _have to_ build new features the sloppiest way possible. Find the quick fix and move on.
+
+That's when things like this happen:
+
+```javascript
+function controller(req, res) {
+  const {
+    body: { reason, idempotencyKey },
+  } = req
+  const {
+    body: { charge },
+  } = req
+
+  // ...
+}
+```
+
+The code uses [JavaScript object destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to pull the `reason`, `idempotencyKey`, and `charge` properties out of request body and assign them to local variables. Why I wrote this as two separate blocks of code is anyone's guess.
+
+This is known as a [Big Ball of Mud](https://en.wikipedia.org/wiki/Big_ball_of_mud) – code with no coherent design. It happens when you keep adding changes without rethinking how the problem changed over time. Common with quick bug fixes and big scary systems you're afraid to break.
+
+## How small sensible steps make messy code
+
+Say Alice writes a feature to fetch a list of articles from an internal API. It talks to another micro service.
+
+```javascript
+async function getArticles() {
+  const res = await fetch(process.env.ARTICLES_URL + "/articles")
+
+  if (!res.ok) {
+    throw new Error("Failed to get articles")
+  }
+
+  return res.json()
+}
+```
+
+The code takes an environment variable and adds the `/articles` to construct the URL. Then runs a `fetch()` request and throws error on a bad response, returns parsed JSON on success.
+
+Seems reasonable.
+
+### Missed a non functional requirement
+
+Oh but Alice forgot that the platform team made authentication mandatory. Nobody noticed this code hiding on a branch until you merged and it didn't work.
+
+You quickly add authentication to unblock testing. The way you've seen it done elsewhere.
+
+```javascript
+async function getArticles() {
+	const res = await fetch(
+		process.env.ARTICLES_URL + '/articles',
+		headers: {
+			...getAuthHeaders()
+		}
+	)
+
+	if (!res.ok) {
+		throw new Error("Failed to get articles")
+	}
+
+	return res.json()
+}
+```
+
+The `getAuthHeaders` function returns all necessary headers for authentication. You never looked into how it works, but it's worked in the past. All good.
+
+### Not quite the right functionality
+
+After testing Bob realizes that listing all articles is silly. What people want are _their_ articles.
+
+The API supports user filtering through a URL param. Bob adds `userId` to the request:
+
+```javascript
+async function getArticles(userId) {
+	const res = await fetch(
+		process.env.ARTICLES_URL + '/' + userId + '/articles',
+		headers: {
+			...getAuthHeaders()
+		}
+	)
+
+	if (!res.ok) {
+		throw new Error("Failed to get articles")
+	}
+
+	return res.json()
+}
+```
+
+Oh wait, that should be optional. Sometimes we do want all articles, like for the admin interface.
+
+```javascript
+async function getArticles(userId) {
+	const res = await fetch(
+		process.env.ARTICLES_URL + (userId ? '/' + userId | '') + '/articles',
+		headers: {
+			...getAuthHeaders()
+		}
+	)
+
+	if (!res.ok) {
+		throw new Error("Failed to get articles")
+	}
+
+	return res.json()
+}
+```
+
+Great. A quick ternary expression and the `userId` portion of the URL is optional.
+
+### Expanding requirements
+
+Now wouldn't it be great, if we could limit articles by time?
+
+Carol is on it! She doesn't quite know what all the code is doing, but she can add a query. That much she's sure of.
+
+```javascript
+async function getArticles(userId, startDate, endDate) {
+	const res = await fetch(
+		process.env.ARTICLES_URL + (userId ? '/' + userId | '') + '/articles' + (startDate && endDate ? `?startDate=${startDate}&endDate=${endDate}` : ''),
+		headers: {
+			...getAuthHeaders()
+		}
+	)
+
+	if (!res.ok) {
+		throw new Error("Failed to get articles")
+	}
+
+	return res.json()
+}
+```
+
+If `startDate` and `endDate` are defined, add a URL fragment with query params.
+
+## Rethink your approach when the code gets messy
+
+Alice wants to add a sorting param and pagination and wouldn't search be nice?
+
+She walks into this function and whoa what happened here? It's a mess! That URL construction will break anyone's brain. Not to mention the subtle security bugs.
+
+_PS: Query and path concatenation are a common source of security bugs. If values come from user input, they can break out of bounds and inject any URL fragment. This can even lead to reading other users' data!_
+
+Alice has been coding for a while and doesn't like clever code anymore. Makes her think too much. She thinks code should be simple and obvious.
+
+Instead of jamming another bug fix into the mess, she takes 10 minutes to rewrite the function.
+
+```javascript
+async function getArticles(userId, startDate, endDate) {
+	const url = new URL(process.env.ARTICLES_URL)
+	if (userId) {
+		url.pathname = `/${userId}/articles`
+	} else {
+		url.pathname = '/articles'
+	}
+
+	const params = new URLSearchParams()
+	if (startDate && endDate) {
+		params.append('startDate', startDate)
+		params.append('endDate', endDate)
+	}
+
+	// TODO: add more query params
+
+	url.search = params
+
+	const res = await fetch(
+		url.toString(),
+		headers: {
+			...getAuthHeaders()
+		}
+	)
+
+	if (!res.ok) {
+		throw new Error("Failed to get articles")
+	}
+
+	return res.json()
+}
+```
+
+Alice used the [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) and [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) constructors built into JavaScript. Most languages have something similar.
+
+## Avoid feeling smart
+
+This code won't make anyone feel smart and that's the point.
+
+It gets the job done, it's readable, and using the standard library means common security bugs and subtle issues are handled without thinking about it.
+
+Plus the code is easy to extend. Anyone can jump in to add more params without making the code messier.
+
+Instead of 2 minutes to hack the code and 30 minutes to debug why it isn't working, Alice spent:
+
+- 10 minutes to clean the function,
+- 2 minutes to add new params,
+- 5 minutes to test
+
+With more time and a global perspective, someone can turn this approach into a library for everyone to use. Later, when it's an established pattern.
+
+Cheers,<br/>
+~Swizec
+
+PS: I guess this why firefighters, racing drivers, and others say _"Slow is smooth and smooth is fast"_

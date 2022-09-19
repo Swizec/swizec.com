@@ -1,0 +1,58 @@
+---
+title: "Take your React beyond the tutorial"
+description: "Learning from tutorials is great! You follow some steps, learn a smol lesson, and feel like you got this. Then you go into an interview, get a question from the boss, or encounter a new situation and o-oh."
+content_upgrade: ReactCU
+---
+
+import {
+  ContentUpgrades,
+  ArticleListing,
+} from "@swizec/gatsby-theme-course-platform"
+import { graphql } from "gatsby"
+
+export const pageQuery = graphql`
+  query {
+    allMdx(
+      filter: {
+        fileAbsolutePath: { regex: "/blog/.+/" }
+        frontmatter: {
+          categories: { regex: "/React|Reactjs|React.js|gatsby|nextjs/gi" }
+        }
+      }
+      sort: { fields: frontmatter___published, order: DESC }
+    ) {
+      nodes {
+        fields {
+          slug
+        }
+        frontmatter {
+          title
+          description
+          published
+        }
+      }
+    }
+  }
+`
+
+React is here to stay. It solves many problems you may not even know existed. These essays are the good stuff I learned over the years.
+
+Learning from tutorials is easy. You follow some steps, learn a smol lesson, and feel like you got dis 💪
+
+Then comes the interview, a real world problem, or a question from the boss. Your mind goes blank. Shit, how does this work again ...
+
+Happens to everyone. Building is harder than recognizing and the real world is a mess! _Nothing_ fits in neat little boxes you learned about in tutorials.
+
+That's where my emails come in – lessons from experience. Building production software :)
+
+Leave your email and **get the React email Series** - a series of curated essays on building with React. Borne from experience, seasoned with over 12+ years of hands-on practice building the engineering side of growing SaaS companies.
+
+<ContentUpgrades.ReactCU />
+
+## Latest React articles from Swizec
+
+<>
+  {props.data.allMdx.nodes.map((props, i) => (
+    <ArticleListing {...props} key={i} />
+  ))}
+</>

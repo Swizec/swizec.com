@@ -10,7 +10,7 @@ hero: ./img/jdqcwa6.png
 
 _This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding ?. Always under 500 words and with pictures. You can follow my channel, [here](https://livecoding.tv/swizec). New streams almost **every Sunday at 2pm PDT**. There’s live chat, come say hai ?_
 
-This is embarrassing. That [Slack bot that opens doors](https://swizec.com/blog/livecoding-22-a-door-answering-slackbot/swizec/7038) from last week… it still doesn’t work. I thought we almost had it. I thought I’d identified the hard part. I thought it was just a matter of sitting down and smashing it out.
+This is embarrassing. That [Slack bot that opens doors](https://swizec.com/blog/livecoding-22-a-dooranswering-slackbot/) from last week… it still doesn’t work. I thought we almost had it. I thought I’d identified the hard part. I thought it was just a matter of sitting down and smashing it out.
 
 I was blindsided by OAuth and the exploding complexity that always comes in tutorials and API docs! They show you how simple their API is. How absolutely beautiful to use!
 
@@ -88,7 +88,7 @@ But when you click a button on a message that you sent, you still get the error.
 
 ![](./img/jdqcwa6.png)
 
-It’s an identity issue, I think. Based on [last week’s livecoding](https://swizec.com/blog/livecoding-22-a-door-answering-slackbot/swizec/7038), we’re sending Slack messages based on an ad-hoc integration API key. But we’re a real app, so we should send them as the app.
+It’s an identity issue, I think. Based on [last week’s livecoding](https://swizec.com/blog/livecoding-22-a-dooranswering-slackbot/), we’re sending Slack messages based on an ad-hoc integration API key. But we’re a real app, so we should send them as the app.
 
 Slack’s documentation doesn’t say how to do that. It talks only about API keys, but apps don’t get API keys. Or I don’t understand the docs. Or I’m blind.
 

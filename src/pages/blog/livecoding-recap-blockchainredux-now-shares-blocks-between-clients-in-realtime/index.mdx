@@ -36,11 +36,11 @@ Long validation times got you down? Blockchain-redux is all real-time with the `
 
 In part that's because there's no _real_ consensus algorithm. Any valid block is accepted to the chain. Longest chain wins by default.
 
-You may have seen [how blockchain initialization works](https://swizec.com/blog/blockchain-redux-experiment-part-2/swizec/8055) before. We read the whole chain from Firebase and replace the local chain stub.
+You may have seen [how blockchain initialization works](https://swizec.com/blog/blockchain-redux-experiment-part-2/) before. We read the whole chain from Firebase and replace the local chain stub.
 
 ![Initializing the blockchain from Firebase](https://swizec.com/wp-content/uploads/2018/04/firebase-blockchain-init.png)
 
-You can read more [details about this code in a previous blogpost](https://swizec.com/blog/blockchain-redux-experiment-part-2/swizec/8055).
+You can read more [details about this code in a previous blogpost](https://swizec.com/blog/blockchain-redux-experiment-part-2/).
 
 The part that's new is calling `listenForNextBlock` after replacing the local chain.
 

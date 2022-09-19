@@ -263,7 +263,7 @@ We update color state right away. This triggers a render, eventually.
 
 Then we start an 80 millisecond transition that uses the `arcTween` generator we built earlier. When the transition ends, we update React state with the new values for `d` and `pathD`. This triggers another render.
 
-That might sound like a lot of renders, but it works okay. Don't worry about wasting resources, you're re-rendering a single `<path>` element. [The DOM is pretty fast](https://swizec.com/blog/building-interactive-dom-benchmark-preliminary-results/swizec/8219) ☺️
+That might sound like a lot of renders, but it works okay. Don't worry about wasting resources, you're re-rendering a single `<path>` element. [The DOM is pretty fast](https://swizec.com/blog/building-an-interactive-dom-benchmark-preliminary-results/) ☺️
 
 ![Our pie looks nice and smooth.](https://swizec.com/wp-content/uploads/2018/03/transition-pie-1.gif)
 

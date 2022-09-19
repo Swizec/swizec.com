@@ -38,7 +38,7 @@ The Haskell and node.js part communicate via mongodb.
 
 I didn't even use a mongodb library. Hacked something together because mongoose - ORM-like mongodb library for node - was too slow for some reason. And I have no idea how Haskell does it. Monads continue to confuse me.
 
-To make matters even more worse, I didn't use any libraries to talk to either [Toggl](http://www.toggl.com "Toggl.com") or [Toshl](http://toshl.com/). Partly because Toshl only released an official API this summer and other than [my half baked attempt from two weeks ago](https://swizec.com/blog/about-achieving-polymorphism-in-javascript/swizec/6370) there are no libraries, partly because I don't know why.
+To make matters even more worse, I didn't use any libraries to talk to either [Toggl](http://www.toggl.com "Toggl.com") or [Toshl](http://toshl.com/). Partly because Toshl only released an official API this summer and other than [my half baked attempt from two weeks ago](https://swizec.com/blog/about-achieving-polymorphism-in-javascript/) there are no libraries, partly because I don't know why.
 
 The Toshl part is the worst. I fake user interactions to log into their service and export a [CSV file](http://en.wikipedia.org/wiki/Comma-separated_values "Comma-separated values") with data, then parse it locally.
 
