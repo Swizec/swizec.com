@@ -37,7 +37,7 @@ export const RightBanner = (props) => {
       <Box sx={{ textAlign: "center" }}>
         <Link to="/senior-mindset/" onClick={trackClick}>
           <StaticImage
-            src="../../../images/SeniorMindset-cover-3d.png"
+            src="../images/SeniorMindset-cover-3d.png"
             alt="Senior Engineer Mindset cover"
             placeholder="tracedSVG"
           />
@@ -70,7 +70,7 @@ export const FooterBanner = () => {
       <Box sx={{ textAlign: "center", width: 300 }}>
         <Link to="/senior-mindset/" onClick={trackClick}>
           <StaticImage
-            src="../../../images/SeniorMindset-cover-3d.png"
+            src="../images/SeniorMindset-cover-3d.png"
             alt="Senior Engineer Mindset cover"
             placeholder="tracedSVG"
           />
