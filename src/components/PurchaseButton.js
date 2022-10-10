@@ -18,7 +18,7 @@ export const PurchaseButton = ({ productId, children }) => (
     </Helmet>
     <a
       class="gumroad-button"
-      href={`https://swizec.gumroad.com/l/${productId}?wanted=true`}
+      href={`https://swizec.gumroad.com/l/${productId}`}
       data-gumroad-single-product="true"
       onClick={() => trackClick(productId)}
     >
