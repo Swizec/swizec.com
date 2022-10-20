@@ -2832,10 +2832,10 @@
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@^3.4.1":
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.1.tgz#ecba55124c5b20c411619f963d1b43c116c58038"
-  integrity sha512-9CXzx6kQ2o+RuwBqpKST6/27sKNZCwxjJnERzqBdS9Dd03guoPpdZj4w9hY482vMrfVu4XzIdEiyg7+ig0Iupg==
+"@swizec/gatsby-theme-course-platform@^3.4.2":
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.2.tgz#bbb45f8bebc99fab465d31b1b1c064a21dc90773"
+  integrity sha512-XYKIwgpJi+YYnxBsskMh25FIN2d9bX7gmqwb/Ne8coAw7UA55bZV3ONXiPfOWr2Zdzc4+ROmcucIY3DC75ZXlg==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
