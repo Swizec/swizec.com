@@ -1,5 +1,5 @@
 import React from "react"
-import { Helmet } from "react-helmet"
+import { Script } from "gatsby"
 
 export function trackClick(productId) {
   if (window.plausible) {
@@ -13,9 +13,8 @@ export function trackClick(productId) {
 
 export const PurchaseButton = ({ productId, children }) => (
   <>
-    <Helmet>
-      <script src="https://gumroad.com/js/gumroad.js" defer></script>
-    </Helmet>
+    <Script src="https://gumroad.com/js/gumroad.js" />
+    <Script src="https://cdn.paritydeals.com/banner.js" />
     <a
       class="gumroad-button"
       href={`https://swizec.gumroad.com/l/${productId}`}
