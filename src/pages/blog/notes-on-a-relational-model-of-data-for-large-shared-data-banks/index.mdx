@@ -32,9 +32,9 @@ Codd suggests his relational model can support a system that gets around those c
 
 His core thesis is that:
 
-1. Data retrieval should be independent of its representation
-2. Data semantics shouldn't depend on storage concerns
-3. Different programs should be able to read the same data
+1.  Data retrieval should be independent of its representation
+2.  Data semantics shouldn't depend on storage concerns
+3.  Different programs should be able to read the same data
 
 The major insight from Codd's paper is that how you think about data – its abstract model – should be separate from how it's stored. Worry less about arrays and trees, think about what the data means.
 
@@ -60,7 +60,7 @@ Note that many things you do to optimize a relational database or make SQL easie
 
 ### Every relation is a table
 
-![Relational table from Wikipedia](https://upload.wikimedia.org/wikipedia/commons/8/8d/Relational_model_concepts.png)
+![Relational table from Wikipedia](./img/Relational-table-from-Wikipediaj7daac.png)
 
 Codd describes data relations as named sets `R` of columns `A` where each column describes a nameable property of the relation. Each row holds a distinct tuple of column values.
 
@@ -68,24 +68,22 @@ Columns belong to a table, which means different tables can share columns of the
 
 For example:
 
-```
-R1:
-user   name
- 1      Swiz
- 2      Kiwi
+    R1:
+    user   name
+     1      Swiz
+     2      Kiwi
 
-R2:
-article   title   user
- 1         sdf     1
- 2         dfs     1
-```
+    R2:
+    article   title   user
+     1         sdf     1
+     2         dfs     1
 
 The `user` field in one table matches the `user` field in another. Now you can store user info about each article without multiplying user data.
 
 This is known as the [normal form](https://en.wikipedia.org/wiki/Database_normalization#Normal_forms):
 
-1. Has a primary key (no duplicates)
-2. Columns cannot be turned into a table (atomic)
+1.  Has a primary key (no duplicates)
+2.  Columns cannot be turned into a table (atomic)
 
 ### Relations have set operations that produce relations
 
@@ -97,12 +95,10 @@ Because every relation is a set, standard set operations apply:
 
 For example if you join `R1` and `R2` from before, you get a new relation `R'`:
 
-```
-R':
-article   title   user   name
- 1         sdf     1      Swiz
- 2         dfs     1      Swiz
-```
+    R':
+    article   title   user   name
+     1         sdf     1      Swiz
+     2         dfs     1      Swiz
 
 Because this is a relation, you can continue to do further joins, projections, permutations, and the rest.
 
