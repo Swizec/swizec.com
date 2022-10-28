@@ -1,0 +1,152 @@
+---
+title: "Why PATCH endpoints matter" 
+description: "A painful lesson from production that brought several engineers almost to tears: *Please* add PATCH endpoints to your public APIs." 
+published: 2022-10-28
+categories: "Fullstack, Backend, Lessons"
+hero: ./img/20B8019B-F4BF-4B5D-BAB3-82F9D554E5BC.png
+---
+
+Here's a painful lesson from production that brought several engineers almost to tears: *Please* add PATCH endpoints to your public APIs.
+
+This is true for all APIs: REST, GraphQL, RPC, or sockets. You need PATCH, a way for users to *update* an object.
+
+Here's why:
+
+Months ago we integrated with a vendor, who will go un-named, to handle calendar events for us. They have good integrations with gCal and such, a nice API, and solve fun algorithmic problems that we don't have time to tackle.
+
+Optimal packing of a user schedule is akin to the [knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem), a famous NP-complete (-ish, it's complicated) problem, and ain't nobody got time to solve unsolvable problems at a startup. But this unnamed vendor has a Good Enough™ solution! Perfect.
+
+## What the heck??
+
+We build this integration and save for [a few hiccups with daylight savings](https://swizec.com/blog/saving-time-in-utc-doesnt-work-and-offsets-arent-enough/) everything is fine.
+
+Until spooky things started to happen. Events un-cancelling long after they were cancelled. Timezones shifting for no reason. Attendees going missing ...
+
+🤨
+
+What could it be!? A distributed systems problem with updates being dropped? Wonky eventual consistency? Silent errors we don't notice? Accidentally [unresolved promises](https://swizec.com/blog/finding-unresolved-promises-in-javascript/) causing issues?
+
+Nope it was nothing fun like that. A *massive* amount of logging revealed we were overwriting our own data. Changing events to drop fields 🤦‍♀️
+
+## No PATCH equals pain
+
+You see this vendor has no PATCH. There is only a POST (insert) and it acts like a PUT (upsert), but that's fine, we can handle that. The lack of PATCH hurts, though.
+
+Here's what happens:
+
+Say you create an event on the user's calendar. Friday 1pm for an hour. You POST an object like this:
+
+```javascript
+{
+	calendar_id: 1234
+	attendees: [
+		{ user_id: 1234 }
+	],
+	start: '2022-10-28T20:00:00.000Z'
+	end: '2022-10-28T21:00:00.000Z'
+}
+```
+
+This adds an event to calendar `1234`, adds the user as an attendee, and sets start/end times.
+
+How would you *update* this event to set a cancelled status?
+
+That's right, you send the whole object again.
+
+```javascript
+{
+	calendar_id: 1234
+	attendees: [
+		{ user_id: 1234 }
+	],
+	start: '2022-10-28T20:00:00.000Z'
+	end: '2022-10-28T21:00:00.000Z'
+	status: 'cancelled'
+}
+```
+
+What about adding another attendee? Multiple people tend to join a meeting.
+
+That's right, you send the whole object again!
+
+```javascript
+{
+	calendar_id: 1234
+	attendees: [
+		{ user_id: 1234 },
+		{ user_id: 1235 }
+	],
+	start: '2022-10-28T20:00:00.000Z'
+	end: '2022-10-28T21:00:00.000Z'
+}
+```
+
+Oh no look what we did! The event is no longer cancelled 😱
+
+User `1235` didn't know the event was cancelled. Client hasn't synced yet, for example. When they joined the meeting, they didn't send the `status: 'cancelled'` field and the unnamed vendor dutifully overwrote the data.
+
+Now user `1234` has two meetings at the same time because someone else saw a hole on their schedule and quickly booked a time to chat. Awkward ...
+
+## How PATCH helps
+
+Now imagine that same sequence, but with a PATCH endpoint.
+
+First we create the event:
+
+```javascript
+{
+	calendar_id: 1234
+	attendees: [
+		{ user_id: 1234 }
+	],
+	start: '2022-10-28T20:00:00.000Z'
+	end: '2022-10-28T21:00:00.000Z'
+}
+```
+
+Then we send a PATCH to cancel:
+
+```javascript
+{ 
+	event_id: ...,
+	status: 'cancelled'
+}
+```
+
+And a PATCH to add an attendee:
+
+```javascript
+{ 
+	event_id: ...,
+	attendees: [
+		{ user_id: 1235 }
+	]
+}
+```
+
+The system merges all this data into the final object:
+
+```javascript
+{
+	event_id: ...
+	calendar_id: 1234
+	attendees: [
+		{ user_id: 1234 },
+		{ user_id: 1235 }
+	],
+	start: '2022-10-28T20:00:00.000Z'
+	end: '2022-10-28T21:00:00.000Z',
+	status: 'cancelled'
+}
+```
+
+PATCH, or its equivalents in other API genres, lets you *update an object* without knowing the full state. Super useful when you want the API to be the source of truth, not every client.
+
+Without PATCH, it is easy to create a race condition where multiple clients send updates, each missing parts of state the other clients are sending. Whomever comes last, that's the new object. Not great.
+
+Now you might ask *"Okay smartass, what about removing an attendee? How do you do that with PATCH?*
+
+And you'd be right, that's where REST patterns get wonky. You'd need an explicit DELETE endpoint of sorts. A function that lets you say "Remove X from event Y".
+
+Cheers,<br/>
+~Swizec
