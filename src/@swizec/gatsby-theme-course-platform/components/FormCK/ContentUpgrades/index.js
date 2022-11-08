@@ -42,7 +42,7 @@ export const SeniorMindset = ({ footer }) => {
     <FormCK
       copyBefore={footer ? <SeniorMindsetBeforeCopy /> : <></>}
       formName="seniorMindset"
-      submitText="Get curated essays 💌"
+      submitText="Get email crash course 💌"
     >
       <SeniorMindsetLeftCopy />
     </FormCK>
