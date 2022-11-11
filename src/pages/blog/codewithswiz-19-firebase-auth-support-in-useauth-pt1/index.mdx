@@ -2,7 +2,7 @@
 title: "[CodeWithSwiz 19] Firebase Auth support in useAuth, pt1"
 description: "Support for Firebase Auth is one of the most requested features for useAuth and I figured what the heck, how hard can it be?"
 published: 2021-01-12
-categories: "CodeWithSwiz, Technical, Firebase, useAuth, Livecoding"
+categories: "CodeWithSwiz, Technical, Firebase, useAuth, Livecoding,State machines"
 hero: ./img/screenshot-1610466159667.png
 ---
 
@@ -24,7 +24,7 @@ _How to set up fricken Firebase_ 😡
 
 ```javascript
 // Initialize the FirebaseUI Widget using Firebase.
-var ui = new firebaseui.auth.AuthUI(firebase.auth());
+var ui = new firebaseui.auth.AuthUI(firebase.auth())
 ```
 
 Ok Google, how do I import this? Where's my API key?
@@ -56,31 +56,31 @@ You start with copypasta of the abstract implementation.
 
 // Auth Wrapper for Auth0
 export class Auth0 implements AuthProviderClass {
-  private auth0: Auth0Client.WebAuth;
-  private dispatch: (eventName: string, eventData?: any) => void;
+  private auth0: Auth0Client.WebAuth
+  private dispatch: (eventName: string, eventData?: any) => void
   // Auth0 specific, used for roles
-  private customPropertyNamespace?: string;
+  private customPropertyNamespace?: string
   // Initialize the client and save any custom config
   constructor(params: AuthOptions) {
     // You will almost always need access to dispatch
-    this.dispatch = params.dispatch;
+    this.dispatch = params.dispatch
     // Auth0 specific, used for roles
-    this.customPropertyNamespace = params.customPropertyNamespace;
+    this.customPropertyNamespace = params.customPropertyNamespace
     // Init your client
     this.auth0 = new Auth0Client.WebAuth({
       ...(params as Auth0Options),
-    });
+    })
   }
   // Makes configuration easier by guessing default options
   static addDefaultParams(params: ProviderOptions, callbackDomain: string) {
-    const vals = params as Auth0Options;
+    const vals = params as Auth0Options
     return {
       redirectUri: `${callbackDomain}/auth0_callback`,
       audience: `https://${vals.domain}/api/v2/`,
       responseType: "token id_token",
       scope: "openid profile email",
       ...vals,
-    };
+    }
   }
   public authorize() {
     // Open login dialog
@@ -104,8 +104,8 @@ export class Auth0 implements AuthProviderClass {
     // include the user object and authResult with at least an expiresIn value
   }
   public async checkSession(): Promise<{
-    user: Auth0UserProfile;
-    authResult: Auth0DecodedHash;
+    user: Auth0UserProfile
+    authResult: Auth0DecodedHash
   }> {
     // verify session is still valid
     // return fresh user info
@@ -157,7 +157,7 @@ export const wrapRootElement = ({ element }) => (
     />
     {element}
   </ThemeProvider>
-);
+)
 ```
 
 Render `<AuthConfig>` and provide the new auth provider. We don't know yet which params Firebase Auth is going to use. Find out next time :)
@@ -194,8 +194,8 @@ The `"files"` config tells NPM to keep `./firebase-ui.js` when publishing. That 
 
 // this is a hack to improve DX
 // TODO: figure out a better way
-const { FirebaseUI } = require("./dist/FirebaseUI");
-module.exports = { FirebaseUI };
+const { FirebaseUI } = require("./dist/FirebaseUI")
+module.exports = { FirebaseUI }
 ```
 
 Only way I could find to:

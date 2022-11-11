@@ -2,7 +2,7 @@
 title: "Why null checks are bad"
 description: "Every null or undefined check doubles the number of tests you need 😱"
 published: 2021-12-10
-categories: "TypeScript, JavaScript, Lessons"
+categories: "TypeScript, JavaScript, Lessons, State machines"
 hero: ./img/screenshot-1639149928539.png
 ---
 
@@ -16,11 +16,11 @@ Take a basic React component for example. It takes a user and renders their info
 
 ```typescript
 type User = {
-  name: string;
-};
+  name: string
+}
 
 function UserInfo(props: { user: User }) {
-  return <div>{props.user.name}</div>;
+  return <div>{props.user.name}</div>
 }
 ```
 
@@ -52,11 +52,11 @@ Let's see what happens when a user's name may be undefined and we want to show a
 
 ```typescript
 type User = {
-  name?: string | null;
-};
+  name?: string | null
+}
 
 function UserInfo(props: { user: User }) {
-  return <div>{props.user.name || "Unknown"}</div>;
+  return <div>{props.user.name || "Unknown"}</div>
 }
 ```
 
@@ -110,13 +110,13 @@ Now here's where it gets crazy. _Every_ null check doubles the number of tests y
 
 ```typescript
 type User = {
-  name?: string;
-  avatar?: string;
-  karma?: number;
-};
+  name?: string
+  avatar?: string
+  karma?: number
+}
 
 function UserInfo(props: { user: User }) {
-  const { user } = props;
+  const { user } = props
 
   return (
     <div>
@@ -124,7 +124,7 @@ function UserInfo(props: { user: User }) {
       <label>{user.name || "Unknown"}</label>
       <p>{typeof user.karma === "undefined" ? "🐣" : user.karma}</p>
     </div>
-  );
+  )
 }
 ```
 

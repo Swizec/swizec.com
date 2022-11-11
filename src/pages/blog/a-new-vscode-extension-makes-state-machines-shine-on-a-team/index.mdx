@@ -2,6 +2,7 @@
 title: "A new VSCode extension makes state machines shine on a team"
 description: "When you grok state machines, a new world of computational beauty and software design opens in front of your eyes. Things that used to be hard become easy. The impossible becomes possible. And you turn into that annoying team member."
 published: 2022-02-25
+categories: "XState, State machines, React, Computer Science, Technical"
 content_upgrade: ReactCU
 hero: ./img/screenshot-1645810987499.png
 ---
@@ -21,7 +22,7 @@ const loader = createMachine({
     fetched: { on: { RELOAD: "fetching" } },
     error: { on: { RETRY: "fetching" } },
   },
-});
+})
 ```
 
 But if you show it like this:
@@ -44,14 +45,14 @@ It uses [React Query](https://swizec.com/blog/how-react-query-gives-you-almost-e
 
 ```javascript
 function pseudoCodeExample() {
-  const { data, isLoading, isError } = useQuery();
-  const [showMore, setShowMore] = useState(false);
+  const { data, isLoading, isError } = useQuery()
+  const [showMore, setShowMore] = useState(false)
 
   function onShowMore() {
-    setShowMore(true);
+    setShowMore(true)
   }
   function onHideMore() {
-    setShowMore(false);
+    setShowMore(false)
   }
 
   return (
@@ -72,7 +73,7 @@ function pseudoCodeExample() {
         </>
       )}
     </div>
-  );
+  )
 }
 ```
 
@@ -108,7 +109,7 @@ const stateMachine = createMachine({
     },
     not_found: {},
   },
-});
+})
 ```
 
 And then you have to write all the glue code to drive this state machine. React Query and XState don't natively talk to each other. Yet 🤞
@@ -122,27 +123,27 @@ But look what happens to our rendering logic:
 ```javascript
 switch (state.value) {
   case "loading":
-    return <Spinner />;
+    return <Spinner />
   case "not_found":
-    return <NotFound />;
+    return <NotFound />
   case "error":
-    return <Ooopsies />;
+    return <Ooopsies />
   case "show_less":
     return (
       <>
         <List data={data} count={10} />
         <Button onClick={showMore} />
       </>
-    );
+    )
   case "show_more":
     return (
       <>
         <List data={data} count={data.length} />
         <Button onClick={showLess} />
       </>
-    );
+    )
   default:
-    return <Spinner />;
+    return <Spinner />
 }
 ```
 
