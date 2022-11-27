@@ -25,7 +25,41 @@ Subscribe below 👇
 
 <Box sx={{ p: [2, 4] }}>&nbsp;</Box>
 
-# Not ready to subscribe? <br/> Try a curated collection
+# [Read the latest articles](/blog/)
+
+<StaticQuery
+  query={graphql`
+    query {
+      allMdx(
+        filter: { fileAbsolutePath: { regex: "/blog/.+/" } }
+        sort: { fields: frontmatter___published, order: DESC }
+        limit: 5
+      ) {
+        nodes {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            description
+            published
+          }
+        }
+      }
+    }
+  `}
+  render={(data) =>
+    data.allMdx.nodes.map((props, i) => <ArticleListing {...props} key={i} />)
+  }
+/>
+
+<Button as="a" href="/blog/" mb={[2, 3, 3]}>
+  Continue to more latest articles 👉 /blog
+</Button>
+
+<Box sx={{ p: [2, 4] }}>&nbsp;</Box>
+
+# Or try a curated collection of top hits
 
 Learning from tutorials is great! You follow some steps, learn a smol lesson, and feel like you got this. Then you go into an interview, get a question from the boss, or encounter a new situation and o-oh.
 
@@ -100,40 +134,6 @@ Indie Hacking has been near and dear to me for over a decade. Diversifying your 
 BigTech frowns on fullstack's lack of specialization, everyone else drowns in its complexity. But fullstack runs the web.
 
 [Read fullstack web lessons from production 👉](/collections/fullstack-web/)
-
-<Box sx={{ p: [2, 4] }}>&nbsp;</Box>
-
-# [Read the latest articles](/blog/)
-
-<StaticQuery
-  query={graphql`
-    query {
-      allMdx(
-        filter: { fileAbsolutePath: { regex: "/blog/.+/" } }
-        sort: { fields: frontmatter___published, order: DESC }
-        limit: 5
-      ) {
-        nodes {
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            description
-            published
-          }
-        }
-      }
-    }
-  `}
-  render={(data) =>
-    data.allMdx.nodes.map((props, i) => <ArticleListing {...props} key={i} />)
-  }
-/>
-
-<Button as="a" href="/blog/" mb={[2, 3, 3]}>
-  Continue to more latest articles 👉 /blog
-</Button>
 
 <Box sx={{ p: [2, 4] }}>&nbsp;</Box>
 
