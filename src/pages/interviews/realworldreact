@@ -1,0 +1,127 @@
+---
+title: "Real World React - Fireside Chat"
+description: "Benjamin Dunphy interviews Swizec Teller: Senior engineering mindset & leadership for engineers"
+hero: "../../images/swizec-interview-face.jpg"
+published: 2021-11-09
+---
+
+Benjamin Dunphy interviews Swizec Teller: Senior engineering mindset & leadership for engineers
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NAbEo2_6Us4?start=5900" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+[Real World React – Sep 22, 2022](https://www.youtube.com/watch?v=NAbEo2_6Us4&ab_channel=RealWorldReact)
+
+## Talking Points
+
+- What's so great about being a senior engineer?
+- Characteristics of a Senior Engineer
+- Senior Engineer vs People Manager
+- Senior Engineer vs Lead Engineer
+- Do senior engineers follow on these responsibilities of product features and design versus product development?
+- The Senior Engineer title
+- Do engineers report to a senior engineer?
+- Having a vision for your career
+- How meetings give you superpowers
+- The mindset of the senior engineer
+- Is leadership a quality that is a prerequisite for becoming a senior engineer?
+- Visas and working in the Bay
+- Blogging and how it helps your career
+- Working with different tech stacks
+- Choosing a company to join
+- Gathering consensus among engineers 
+- Best practises for a junior developer to implement now to become a senior developer one day
+- Dealing with trials, tribulations and challenges
+
+
+## Quotable Quotes
+
+"My favorite thing about being a software engineer is that it makes it very easy to go from an idea to something that actually works and does things for people." - Swizec Teller
+
+"A senior software engineer should be able to take a fuzzy description of a problem and find a solution for that and implement it, adapt it to your system" - Swizec Teller
+
+"Junior or associate engineers usually are people who can write code. They can write really good code! It's not so much about how long it takes them, but they need more guidance and more guardrails" - Swizec Teller
+
+"Senior engineers and then senior plus and above, that's where you start getting into the area where people are like somewhere between purely focused on the code and starting to become more focused on the business problem" - Swizec Teller
+
+"A very typical differentiator between someone who's like a mid-level or a senior engineer is whether they can fit the solution into the constraints" - Swizec Teller
+
+"Titles are always given, but it's kind of taken in that managers usually look at the people they have on the team and they see who has the potential" - Swizec Teller
+
+"Senior engineers can kind of take on the role of a tech lead on a team or leading a project that potentially even spans multiple teams, but they're not really people managers. It's more like managing the technical aspects, maybe running the project management part depending on company size and culture" - Swizec Teller
+
+"As a senior engineer, you're often owning the project and responsible for its delivery even though you're not the person who is writing all of the code." - Swizec Teller
+
+"Senior engineer is more like project focused, making sure a project gets done well and on time rather than constructing a team" - Swizec Teller
+
+"If you are making all of the best and most amazing decisions, that's great. People just defer to you. But it's also very unlikely that you as a single person can be smarter than your entire team. So it's a lot about encouraging people to speak up and say, 'Yo, you are wrong. This is the stupidest idea I've ever heard.'" - Swizec Teller
+
+"It seems like as you get more experienced, or if you happen to be one of the more experienced people on the team, people automatically think you know what you're doing, but you may not actually know what you're doing" - Swizec Teller
+
+"The best kind of problems to solve are the ones where you don't know what you're doing because nobody knows how that problem should be solved" - Swizec Teller
+
+"If you've been senior for a long time, it's very common that you kind of softly, gently start getting pushed towards those lead roles, especially if you can actually pull them off. And then eventually, based on company needs or whatever, you may get promoted to lead engineer. But it's more, in most companies, it's more of a role than an actual job title" - Swizec Teller
+
+"In more modern companies, the product manager or the product owner is actually part of the team itself. So your peers with the person who is, who is doing who's, so the product owner is responsible for analyzing the market and understanding what the market needs, and then they collaboratively work with the engineers to figure out what is the best way to solve that problem for the market. And then you iterate together on the solution to find better solutions" - Swizec Teller
+
+"As a senior engineer, you can take a step back and say, 'Okay, so what is it that we're actually trying to solve?' And then once you understand what you're trying to solve for the user, then you can propose different or better suggestions" - Swizec Teller
+
+"One of my favorite things to do as a senior engineer is to intuit what the product manager or product owner is trying to achieve." - Swizec Teller
+
+"As a senior you become much more valuable in terms of your ideas and experience and understanding the gotchas and knowing where things are going to go wrong before they go wrong rather than how fast you can type code." - Swizec Teller
+
+"If you can use that to get others to write the actual code and user guidance to help them write better code or help them avoid contrast, that is much more valuable than doing it yourself." - Swizec Teller
+
+"Leadership to an extent does come with being a senior engineer, mostly because these days software is very collaborative" - Swizec Teller
+
+"A big part of what a senior engineer does is coordinating all of those efforts, making sure everyone's pulling in the same direction. And all of that is basically leadership" - Swizec Teller
+
+"Hamming has a really good essay slash talk called 'You and your research', and in it he talks about how if you want to do top tier research, if you want to do good research, you need to have a vision for where it is that you want to go with your career. And it's the same thing for software engineers." - Swizec Teller
+
+"If you have a vision, if you have even just like a 10% chance of making a random decision that goes, that is 10% more likely to go to, into a certain direction, you're gonna get there much faster" - Swizec Teller
+
+"The way vision helps in your career is if you have a vision for what you want, not just in terms of 'I want to grow to be a principal engineer'. It needs to be more like, 'I want to work on these kinds of problems. This is the thing that I wanna solve'. If you have that sort of vision, you can then find companies who will hire you to do that, and you can move in that direction and make your mark on the engineering world as a whole, not just on your career." - Swizec Teller
+
+"I leverage my team to create time for me to focus on the bigger picture and think about those bigger problems so that I'm not bogged down in the details." - Swizec Teller
+
+"An interesting thing I've learned as our team has grown in the last two years is that the way you scale engineering teams is actually a technical problem, not as much a people problem as I thought it was" - Swizec Teller
+
+"Turns out turning a 1 million lines of code codebase from JavaScript to TypeScript is not quick" - Swizec Teller
+
+"Equity is a big part of why you would wanna work at a startup in the Bay Area" - Swizec Teller
+
+"When you're trying to enter a field, just having anything out there that, like portfolio, blog, anything that shows what you can do and what you're capable of really helps." - Swizec Teller
+
+"It doesn't matter how much I blog or how famous my blog is, or all of the experiments I do, it all pales in comparison to being able to say, 'I saw a company grow from 40 to 400'. Like, that's gonna make, uh, hiring managers a lot more excited than, 'Hey, I got 10,000 views from Hacker News. That's cool, right?'" - Swizec Teller
+
+"What blogging does, and a big part of why I still do it is that it helps you think through what you're learning. It essentially helps you grow faster. - Swizec Teller
+
+"That's where blogging really comes in. There's a lot of times where at work I find a problem where we're thinking about something and then writing a blog about it helps me think through it and really form my thoughts. So the next time the same problem comes up, I am much better at arguing my case" - Swizec Teller
+
+"If you are working at something like Google, Microsoft or Facebook, their internal tech stacks from what I've heard, so specific to the company that it's essentially non-transferable to anywhere else" - Swizec Teller
+
+"You can build a really amazing career on ancient tech stacks but personally, I think it's more interesting to be in a tech stack that a lot of people are using" - Swizec Teller
+
+"My policy of choosing a company, and it's the same for if you can, choosing a team within a company or a project to focus on, is to think about the concept of s-curves. S-curves are a concept from economics where things usually start growing slowly, then they explode in growth, and then they taper off again as they reach their peak. If you can join a company, project, or team at the bottom of that s-curve, right when it starts exploding, that's where you're going to learn the most, the fastest" - Swizec Teller
+
+"Gathering consensus among engineers, as we all know, can be very difficult. We can probably start a fight about just about any library we can think of right now" - Swizec Teller
+
+"If you work on a team that has a lot of real deadlines and real business goals that needs to be achieved, a lot of that consensus building falls away because rather than being focused on the mini and the tiny little details, People don't have time for that." - Swizec Teller
+
+"If you are somebody who wants to find consensus, if you are not the problem in the consensus, if you're not the torn in everyone's sides, they're gonna be much more likely to, build consensus with you as well." - Swizec Teller
+
+"That's how we train associates slash junior engineers as well. It's like, we're gonna give you the best, like the best way to learn as a junior or even a mid engineer is we're gonna give you real problems to solve and you're gonna solve them. And then we're gonna give you feedback" - Swizec Teller
+
+"No matter where you are in your career, where you are in your skill level, there is someone who's at that same exact level and will take value from any content you're providing, whether it's questions or whether it's answers." - Benjamin Dunphy
+
+"Ask questions in public. Create answers in public." - Benjamin Dunphy
+
+"If you're going through hell, keep going because otherwise you're just gonna stay in hell" - Swizec Teller
+
+"I enjoy the challenge and I like to find excuses to challenge myself. And then once you are already being challenged, just keep going until you figure it out. And then when life gets too boring, find a new challenge to go for" - Swizec Teller
+
+"It is extremely relaxing to finish your work day and then go punch people in the face" - Swizec Teller
+
+"There are different ways to grow as a senior engineer. You don't have to increase in titles, but someone who is a senior engineer at a 10 person startup is probably at a very different level than somebody who is a senior engineer at Google" - Swizec Teller
+
+"You can get more interesting challenges or better challenges by changing what kind of company you work at" - Swizec Teller
+
