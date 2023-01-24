@@ -2832,10 +2832,10 @@
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@^3.4.2":
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.2.tgz#bbb45f8bebc99fab465d31b1b1c064a21dc90773"
-  integrity sha512-XYKIwgpJi+YYnxBsskMh25FIN2d9bX7gmqwb/Ne8coAw7UA55bZV3ONXiPfOWr2Zdzc4+ROmcucIY3DC75ZXlg==
+"@swizec/gatsby-theme-course-platform@^3.4.3":
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.3.tgz#e9a8c032e7b2bd3d0043a0b838e828c9b863e012"
+  integrity sha512-uV3m+8DBxiwdEFKdeWqRW1yOXagIGvrR+9GHbHKBu+vZM8D2SgRttO00BZ9+MVXh+HqxM+lujhKOUhrA2J69cA==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2866,7 +2866,7 @@
     gatsby-remark-copy-linked-files "^5.17.0"
     gatsby-remark-copy-relative-linked-files "^1.5.0"
     gatsby-remark-embedder Swizec/gatsby-remark-embedder#138a6c3a73c34cbd70a558b0507070ebd5f5a34f
-    gatsby-remark-giphy "^1.1.3"
+    gatsby-remark-giphy "1.1.4"
     gatsby-remark-images "^6.17.0"
     gatsby-remark-relative-images "^2.0.2"
     gatsby-source-filesystem "^4.17.0"
@@ -7536,10 +7536,10 @@ gatsby-remark-copy-relative-linked-files@^1.5.0:
     parse5 "^6.0.1"
     unist-util-visit "^2.0.3"
 
-gatsby-remark-giphy@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-giphy/-/gatsby-remark-giphy-1.1.3.tgz#38676b914036bcad5adceb5bd00dedb051afb60e"
-  integrity sha512-YooQGpuhywV3EGtnt+f7LIm4ko8hvDsyAiw+MaTiXtcJeg7eO274hPNNkPrvmZqRhTV0Stsck0DAikNyZA4bOQ==
+gatsby-remark-giphy@1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-giphy/-/gatsby-remark-giphy-1.1.4.tgz#5902a420e9711dc7b10cba4d5dae9cf1658d03e4"
+  integrity sha512-fCkn2tnG2ZE3KfcGCMdXplot7oSJKrFIxMUkrRLczY5al8ZtU79r4ejyun84kTOafFz9eCPZ/1V7UbgU02wK1Q==
   dependencies:
     giphy-api "^2.0.1"
     unist-util-visit "^2.0.2"
