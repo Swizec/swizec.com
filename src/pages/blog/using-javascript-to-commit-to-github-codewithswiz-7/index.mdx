@@ -34,10 +34,10 @@ And that's what our `/api` method needs to do.
 // pages/api/publishArticle.js
 
 export default async (req, res) => {
-  const status = await commitArticle(req.body);
+  const status = await commitArticle(req.body)
 
-  res.status(status).json({ success: true });
-};
+  res.status(status).json({ success: true })
+}
 ```
 
 Think of the API method as your controller. Gets a request, does work, returns the result. In this case the status code we get from GitHub.
@@ -59,11 +59,11 @@ We're using [Github's personal access token](https://docs.github.com/en/github/a
 
 ```javascript
 // pages/api/publishArticle.js
-import { Octokit } from "@octokit/rest";
+import { Octokit } from "@octokit/rest"
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
-});
+})
 ```
 
 This gives you an authenticated octokit library to use. Hardcoded to your user.
@@ -102,11 +102,11 @@ async function getSHA(path) {
     owner: "Swizec",
     repo: "test-repo",
     path,
-  });
+  })
 
-  const sha = result?.data?.sha;
+  const sha = result?.data?.sha
 
-  return sha;
+  return sha
 }
 ```
 
@@ -120,8 +120,8 @@ The final "publish an article as a single Markdown file" method looks like this:
 // pages/api/publishArticle.js
 
 async function commitArticle(article) {
-  const path = `${slug(article.title)}.mdx`;
-  const sha = await getSHA(path);
+  const path = `${slug(article.title)}.mdx`
+  const sha = await getSHA(path)
 
   const result = await octokit.repos.createOrUpdateFileContents({
     owner: "Swizec",
@@ -130,9 +130,9 @@ async function commitArticle(article) {
     message: `Add article "${article.title}"`,
     content: Base64.encode(`${frontmatter(article)}\n\n${article.markdown}`),
     sha,
-  });
+  })
 
-  return result?.status || 500;
+  return result?.status || 500
 }
 ```
 
@@ -142,7 +142,7 @@ You get [a test repository](https://github.com/Swizec/test-repo) with 2 files an
 
 ![Commit change for a test article](./img/Commit-change-for-a-test-article005e75.png)
 
-![](giphy:yes_it_works)
+<!-- ![](giphy:yes_it_works) -->
 
 Cheers,
 ~Swizec
