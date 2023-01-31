@@ -73,7 +73,7 @@ export const PurchaseButton = ({ productId, children }) => {
   return (
     <>
       <Script src="https://app.lemonsqueezy.com/js/lemon.js" />
-      {/* <Script src="https://cdn.paritydeals.com/banner.js" /> */}
+      <Script src="https://cdn.paritydeals.com/banner.js" />
       <a
         href={`https://swizec.lemonsqueezy.com/checkout/buy/${productId}?embed=1&media=0`}
         className="lemonsqueezy-button"
