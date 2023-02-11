@@ -1,5 +1,6 @@
 import React from "react"
 import { Script } from "gatsby"
+import { Box, Paragraph, Grid, Heading } from "theme-ui"
 
 export function trackClick(productId) {
   if (window.plausible) {
@@ -88,13 +89,121 @@ export const PurchaseButton = ({ productId, children }) => {
   )
 }
 
-export const SeniorMindsetBuyWidget = () => {
+const Package = ({ title, price, items, sx }) => {
   return (
-    <center style={{ marginBottom: "1em" }}>
-      <PurchaseButton productId="c2b0c3ce-6d23-4d01-b4f2-bb01f600e72f">
-        Get Senior Mindset Book
-      </PurchaseButton>
-      <p style={{ fontSize: "0.8em" }}>Price goes up every 100 purchases</p>
-    </center>
+    <Box
+      sx={{
+        fontFamily:
+          'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+        textAlign: "center",
+        ...sx,
+      }}
+    >
+      <Heading as="h4" sx={{ textAlign: "center" }}>
+        {title}
+      </Heading>
+      <Heading as="h5" sx={{ textAlign: "center", my: 2, mb: 3 }}>
+        ${price}
+      </Heading>
+      <Box
+        as="ul"
+        sx={{
+          fontSize: 2,
+          lineHeight: "110%",
+          listStyleType: "none",
+        }}
+      >
+        {items?.map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </Box>
+    </Box>
   )
+}
+
+const TheButton = () => (
+  <Box sx={{ mb: "1em", textAlign: "center" }}>
+    <PurchaseButton productId="c2b0c3ce-6d23-4d01-b4f2-bb01f600e72f">
+      Get Senior Mindset Book
+    </PurchaseButton>
+    <Paragraph as="small" sx={{ display: "block" }}>
+      Price goes up every 100 purchases
+    </Paragraph>
+  </Box>
+)
+
+export const SeniorMindsetBuyWidget = ({ showPricing }) => {
+  if (showPricing) {
+    return (
+      <Box
+        sx={{
+          ml: ["-26px", "-80px"],
+          mr: ["-26px", "-100px"],
+          border: "2px solid rgb(112, 71, 235)",
+          borderRadius: 10,
+          p: 4,
+          pb: 1,
+          mb: 4,
+        }}
+      >
+        <Grid columns={[2, 3]} gap={4}>
+          <Package
+            title="Just The Book"
+            price={44}
+            items={[
+              "DRM free epub/pdf",
+              "14 week email series",
+              <>
+                30 day
+                <br />
+                money-back guarantee
+              </>,
+            ]}
+          />
+          <Package
+            title="Book + Audio"
+            price={69}
+            items={[
+              "DRM free epub/pdf",
+              "14 week email series",
+              "3h 32min audiobook",
+              <>
+                12h+ interviews
+                <br />
+                private podcast
+              </>,
+              <>
+                30 day
+                <br />
+                money-back guarantee
+              </>,
+            ]}
+          />
+          <Package
+            title="Book + Audio + Coaching"
+            price={449}
+            sx={{ gridColumn: ["span 2", "inherit"] }}
+            items={[
+              "DRM free epub/pdf",
+              "14 week email series",
+              "3h 32min audiobook",
+              <>
+                12h+ interviews
+                <br />
+                private podcast
+              </>,
+              <>
+                1-on-1 ask anything
+                <br />
+                coaching session
+              </>,
+            ]}
+          />
+        </Grid>
+        <TheButton />
+      </Box>
+    )
+  } else {
+    return <TheButton />
+  }
 }
