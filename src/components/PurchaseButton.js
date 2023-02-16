@@ -149,7 +149,7 @@ export const SeniorMindsetBuyWidget = ({ showPricing }) => {
         <Grid columns={[2, 3]} gap={4}>
           <Package
             title="Just The Book"
-            price={44}
+            price={49}
             items={[
               "DRM free epub/pdf",
               "14 week email series",
@@ -162,7 +162,7 @@ export const SeniorMindsetBuyWidget = ({ showPricing }) => {
           />
           <Package
             title="Book + Audio"
-            price={69}
+            price={79}
             items={[
               "DRM free epub/pdf",
               "14 week email series",
