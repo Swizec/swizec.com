@@ -151,8 +151,9 @@ export const SeniorMindsetBuyWidget = ({ showPricing }) => {
             title="Just The Book"
             price={49}
             items={[
-              "DRM free epub/pdf",
+              "DRM-free pdf/epub",
               "14 week email series",
+              <>39 curated book<br/>recommendations</>,
               <>
                 30 day
                 <br />
@@ -164,8 +165,9 @@ export const SeniorMindsetBuyWidget = ({ showPricing }) => {
             title="Book + Audio"
             price={79}
             items={[
-              "DRM free epub/pdf",
+              "DRM-free pdf/epub",
               "14 week email series",
+              <>39 curated book<br/>recommendations</>,
               "3h 32min audiobook",
               <>
                 12h+ interviews
@@ -184,8 +186,9 @@ export const SeniorMindsetBuyWidget = ({ showPricing }) => {
             price={449}
             sx={{ gridColumn: ["span 2", "inherit"] }}
             items={[
-              "DRM free epub/pdf",
+              "DRM-free pdf/epub",
               "14 week email series",
+              <>39 curated book<br/>recommendations</>,
               "3h 32min audiobook",
               <>
                 12h+ interviews
