@@ -6,7 +6,7 @@ categories: "TechLetterApp, Serverless"
 hero: ./img/screenshot-1679411841649.png
 ---
 
-[name|Friend], the extra space is no more! All fixed. Here's a little backstory that I hope inspires you to build more tools for yourself.
+The extra space is no more! All fixed. Here's a little backstory that I hope inspires you to build more tools for yourself.
 
 https://twitter.com/Swizec/status/1637584633671061504
 ![](./img/R4Tg3Jpngf228af.png)
@@ -61,7 +61,7 @@ A chain of syntax tree transformations. Each `.use()` accepts a [Remark plugin](
 
 ## The space-after-name bug
 
-Yes [name|] many readers complained about the extra space since I added the feature in August 2020. About one per quarter. It never quite made the priority list 😇
+Yes many readers complained about the extra space since I added the feature in August 2020. About one per quarter. It never quite made the priority list 😇
 
 I use a custom bit of markdown syntax – `[name|something else]` – to inject your name into the email. If the system knows your name, it uses that, otherwise the `something else` part.
 
@@ -70,32 +70,32 @@ That happens via liquid syntax that ConvertKit and most other emailing systems u
 Like this:
 
 ```javascript
-const nameOrFriend = /^\s*name\s*\|(.*)$/;
+const nameOrFriend = /^\s*name\s*\|(.*)$/
 
 export function remarkNameOrFriend() {
   return (tree) => {
     visit(tree, "linkReference", (node, index, parent) => {
       if (node.label.match(nameOrFriend)) {
-        node.type = "text";
+        node.type = "text"
 
         node.value = node.label.replace(
           nameOrFriend,
           '{% if subscriber.first_name != blank %} {{ subscriber.first_name | truncatewords: 1, "" | capitalize }} {% else %} $1 {% endif %}'
-        );
-        node.children = null;
+        )
+        node.children = null
       }
-    });
-  };
+    })
+  }
 }
 ```
 
-Can you spot the bug [name|]?
+Can you spot the bug?
 
 It's right here:
 
     '{% if subscriber.first_name != blank %} {{ subscriber.first_name | truncatewords: 1, "" | capitalize }} {% else %} $1 {% endif %}'
 
-That has spaces 🤣
+That has spaces between the liquid tags 🤣
 
 Needs to be:
 
@@ -103,9 +103,7 @@ Needs to be:
 
 And that's the bug that took me 919 days to fix.
 
-Cheers,
+Cheers,<br/>
 ~Swizec
 
 PS: getting this deployed was an ordeal because _software breaks when you change it_. But that's a post for another day
-
-[sparkjoy|are-you-annoyed-by-the-extra-space-after-your-name-name]
