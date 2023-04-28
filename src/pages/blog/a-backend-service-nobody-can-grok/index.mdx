@@ -1,0 +1,112 @@
+---
+title: "A backend service nobody can grok"
+description: "a little case study from an upcoming book I'm writing with Manning about software rewrites"
+published: 2023-04-28
+categories: "Architecture, Lessons, Stories"
+hero: ./img/screenshot-1682694693022.png
+---
+
+[name|Friend] this is a little case study from an upcoming book I'm writing with Manning about software rewrites. I think it stands on its own and figured you'd appreciate the lessons learned. Maybe share a _"oof been there"_ laugh.
+
+Here goes 👇
+
+At $dayjob, we have a backend service that only a parent could love. Except I don't. None of us do.
+
+Ownership changes hands like a hot potato – everyone's eager to get it off their hands. Our team had it first and not a single tear was shed when another team took over. When we got it back, they didn't even blink. We all make it better, but mistakes were made.
+
+We'll call this service calendar-service because that's what it does – deal with provider calendars. It was our first truly micro micro-service.
+
+## The good idea
+
+Calendar-service was our attempt to build a service that encapsulates a 3rd party API for managing provider calendars. It's part of the rewrite case study from chapter 3. The old implementation smeared through our backend like peanut butter and we figured keeping it all in one place would be easier to work with.
+
+The plan was simple:
+
+- extract the calendar domain out of our monolith
+- encapsulate and abstractify the new 3rd party service
+- have _one_ place that handles calendars
+- keep business details out of calendar-service
+- keep calendar details out of everything else
+
+The result would be a service that can answer questions like _"Is this provider available at time X?"_, _"Who is this provider meeting with at time Y?"_, _"What providers are available in the next N days?"_, _"When are providers available?"_, _"How does a recurring appointment behave?"_.
+
+We gave the service a separate database to enforce separation and made sure it uses opaque IDs for patients and providers. Calendar-service would treat them as a meaningless string, our monolith would understand the details.
+
+This worked okay. It's in production, it's fast, reliable, and runs a large portion of our system.
+
+## The mistakes
+
+Everybody struggles when they first jump into calendar-service. New team members are confused, new teams have no idea what's going on, and the team who built it struggles after stepping away for a few months. _Something_ is wrong.
+
+Like I said, mistakes were made.
+
+### Separate database
+
+The first problem is that separate database, an industry best practice for micro-services. The approach works great to enforce separation of concerns, but we weren't ready organizationally.
+
+It's hell during onboarding, frustrates our platform team, poorly supported in local dev tooling, and causes confusion when things don't Just Work. Every new engineer goes through the _"Hey this doesn't work and the error looks weird?"_ question followed by a veteran going _"... OH YEAH! Separate database, here's a doc"_.
+
+Contextual overhead right there.
+
+### Mix of slices
+
+The next problem is that we used a mix of vertical and horizontal slices to organize the code.
+
+There's an `api/v1/paths` directory, which contains route definitions using file-based routing. Each exported function represents an HTTP verb and implements a controller.
+
+But there's also a `services` directory – `api/v1/services` – which tries to follow the vertical slice paradigm. Every file in there is supposed to implement and fully contain an entity from our business domain, but also not quite?
+
+This is confusing because:
+
+1. it implies the implementation depends on `api/v1`
+2. it contains a mix of abstraction levels
+   2.1. `api/v1/services/<entity>` files for domain entities
+   2.2. `api/v1/services/db` file to wrap the DB
+   2.3 `api/v1/services/API` file to wrap the 3rd party API
+3. there's a `src/models` directory also, what's that for?
+4. "services" liberally import functions from one another
+5. we have a global `@services` import that refers to `api/v1/services`
+
+Plus there's another `utils/API` file that is ... yet another wrapper for the 3rd party API? Primarily used by the rich wrapper in `api/v1/services/API`, but also many others. You never quite know which is appropriate.
+
+This mix of abstraction levels makes for a confusing codebase that's hard for newcomers to approach.
+
+### Leaky abstractions
+
+But you could fix that by moving some code around. Move vertical services outside `api/v1`, better organize the horizontal layers, etc. The real problem is leaky abstractions.
+
+Our dear calendar-service re-implements the 3rd party API almost word for word. Uses many of the same routes, calls entities by the same names, and barely hides any of the complexity.
+
+This lack of abstraction bleeds through the whole implementation in a beautiful example of lasagna code – a change in one layer requires a change in all layers. External types bleed through to internal concerns, services (entities) all know deep details about one another, and control flow zig-zags around like a labyrinth.
+
+If you want to work on any part of calendar-service, you have to understand:
+
+- the 3rd party API
+- Teta's business context
+- the arbitrary-looking entity domain separations
+- the ill-defined boundary between inside and outside parts of the code
+
+That's a lot of context to keep track of.
+
+### The not-mistakes
+
+My favorite part of calendar-service is the file-based routing. If you know the API that's called, you know where to find the code. That makes all the difference in an otherwise impenetrable codebase.
+
+Once there, you'll find https://www.openapis.org[OpenAPI documentation] right next to the controller definition. Verbose descriptions explain the API you're looking at, specs define what parameters it supports and what kind of objects it returns. Wonderful.
+
+When exploring, you'll find the codebase is chock full of long comments explaining why code looks the way it does. Like when strange timestamp math adds timezone support to a 3rd party API that otherwise doesn't care.
+
+### The lesson
+
+Forcing a square peg into a round hole is hard.
+
+You can't magic away the complexity of fitting together two business domains that don't like each other. A 3rd party provider that thinks of calendars one way talking to a client that has a different view.
+
+The result is a service that leaks abstractions, knows a little too much about either side, and breaks programmer brains for breakfast.
+
+BUT the whole rest of our system doesn't need to care about any of this. The mess is self-contained. Great success 💪
+
+Cheers,
+~Swizec
+
+[sparkjoy|a-backend-service-nobody-can-grok]
