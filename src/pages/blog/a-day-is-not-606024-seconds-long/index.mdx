@@ -14,11 +14,11 @@ import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 I was fixing some code written by an intrepid junior the other day and came upon this beauty:
 
 ```javascript
-var day = 1000 * 60 * 60 * 24;
-var week = day * 7;
+var day = 1000 * 60 * 60 * 24
+var week = day * 7
 
-var yesterday = new Date(today.getTime() - day);
-var lastWeek = new Date(today.getTime() - week);
+var yesterday = new Date(today.getTime() - day)
+var lastWeek = new Date(today.getTime() - week)
 ```
 
 Looks pretty good, right? It calculates the timestamp for yesterday and a timestamp for last week by deducting the amount of milliseconds in a day and a week from the current time. Clever.
@@ -73,16 +73,16 @@ Subtracting 24 hours from PST (Pacific Standard Time) gives you the day before, 
 The same example without specifying a timezone chooses your local timezone (which for me is PST):
 
 ```javascript
-new Date(new Date("2015-11-01 02:59").getTime() - 1000 * 60 * 60 * 24);
+new Date(new Date("2015-11-01 02:59").getTime() - 1000 * 60 * 60 * 24)
 // Sat Oct 31 2015 03:59:00 GMT-0700 (PDT)
 ```
 
 Now let's see what happens in March, when daylight savings time goes back into effect:
 
 ```javascript
-new Date(new Date("2015-03-08 02:30 pdt").getTime() - 1000 * 60 * 60 * 24);
+new Date(new Date("2015-03-08 02:30 pdt").getTime() - 1000 * 60 * 60 * 24)
 // Sat Mar 07 2015 01:30:00 GMT-0800 (PST)
-new Date(new Date("2015-03-08 02:30 pst").getTime() - 1000 * 60 * 60 * 24);
+new Date(new Date("2015-03-08 02:30 pst").getTime() - 1000 * 60 * 60 * 24)
 // Sat Mar 07 2015 02:30:00 GMT-0800 (PST)
 ```
 
@@ -91,13 +91,13 @@ We didn't get the wrong date because JavaScript is awesome and automatically cov
 At least, this is what happened when I ran the code in San Francisco. When I tried in Denver, a few days later, it looked like this:
 
 ```javascript
-new Date(new Date("2015-11-01 02:59 pst").getTime() - 1000 * 60 * 60 * 24);
+new Date(new Date("2015-11-01 02:59 pst").getTime() - 1000 * 60 * 60 * 24)
 // Sat Oct 31 2015 04:59:00 GMT-0600 (MDT)
-new Date(new Date("2015-11-01 02:59 pdt").getTime() - 1000 * 60 * 60 * 24);
+new Date(new Date("2015-11-01 02:59 pdt").getTime() - 1000 * 60 * 60 * 24)
 // Sat Oct 31 2015 03:59:00 GMT-0600 (MDT)
-new Date(new Date("2015-11-01 01:59 pdt").getTime() - 1000 * 60 * 60 * 24);
+new Date(new Date("2015-11-01 01:59 pdt").getTime() - 1000 * 60 * 60 * 24)
 // Sat Oct 31 2015 02:59:00 GMT-0600 (MDT)
-new Date(new Date("2015-11-01 01:59 pst").getTime() - 1000 * 60 * 60 * 24);
+new Date(new Date("2015-11-01 01:59 pst").getTime() - 1000 * 60 * 60 * 24)
 // Sat Oct 31 2015 03:59:00 GMT-0600 (MDT)
 ```
 
@@ -120,7 +120,7 @@ You'd think a system that counts seconds since January 1st, 1970, wouldn't have 
 Let's see what JavaScript will do in this situation:
 
 ```javascript
-new Date(new Date("1999-01-01T00:00:00.00").getTime() - 1000 * 60 * 60 * 24);
+new Date(new Date("1999-01-01T00:00:00.00").getTime() - 1000 * 60 * 60 * 24)
 // Wed Dec 30 1998 16:00:00 GMT-0800 (PST)
 ```
 
@@ -132,7 +132,7 @@ All that said, there were two or three people that put garlic around their necks
 
 &lt;tweet gone missing>
 
-https://twitter.com/galar/status/661701633030647809
+&lt;tweet gone missing>
 
 You should read the falsehoods article. Dealing with time _is_ a minefield.
 
