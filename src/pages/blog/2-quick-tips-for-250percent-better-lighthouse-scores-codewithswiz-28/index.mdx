@@ -49,9 +49,9 @@ Check this out:
 
 _"Oh hey you have unused JavaScript and maybe you don't know how to write decent code. Here are the files you should look at_
 
-- youtube
-- gumroad
-- twitter
+-  youtube
+-  gumroad
+-  twitter
 
 Right.
 
@@ -64,7 +64,7 @@ The [lite-youtube](https://github.com/justinribeiro/lite-youtube) plugin by @jus
 ```javascript
 // import anywhere globally
 // gatsby-browser.js for me
-import "@justinribeiro/lite-youtube"
+import "@justinribeiro/lite-youtube";
 ```
 
 ```html
@@ -85,10 +85,10 @@ I forgot to use that for the cover image. Loaded 6MB of data 💩
 Like this:
 
 ```javascript
-import coverImg from "../images/cover.png"
+import coverImg from "../images/cover.png";
 
 // ...
-;<img src={coverImg} />
+<img src={coverImg} />;
 ```
 
 That works. You can import images like they're code in every modern JavaScript environment.
@@ -98,15 +98,15 @@ And it leads to terrible performance.
 Here's what you can do since Gatsby v3 – a new image component with a fantastic API.
 
 ```javascript
-import { StaticImage } from "gatsby-plugin-image"
+import { StaticImage } from "gatsby-plugin-image";
 
 // ...
-;<StaticImage
+<StaticImage
   src="../images/cover.png"
   alt="Serverless Handbook cover"
   loading="eager"
   objectFit="cover"
-/>
+/>;
 ```
 
 `StaticImage` loads your image at build-time, optimizes into different formats, resizes to fit your container, and handles rendering in the browser.
@@ -115,19 +115,19 @@ The final result is an `<img>` tag like this:
 
 ```html
 <img
-  data-gatsby-image-ssr=""
-  data-main-image=""
-  style="object-fit: cover; object-position: 50 50; opacity: 1;"
-  sizes="(min-width: 1877px) 1877px, 100vw"
-  decoding="async"
-  loading="eager"
-  src="/static/12464dcff493620208d29a0abec73bb7/69e59/cover.png"
-  srcset="
-    /static/12464dcff493620208d29a0abec73bb7/a16c8/cover.png  469w,
-    /static/12464dcff493620208d29a0abec73bb7/56dcd/cover.png  939w,
-    /static/12464dcff493620208d29a0abec73bb7/69e59/cover.png 1877w
-  "
-  alt="Serverless Handbook cover"
+   data-gatsby-image-ssr=""
+   data-main-image=""
+   style="object-fit: cover; object-position: 50 50; opacity: 1;"
+   sizes="(min-width: 1877px) 1877px, 100vw"
+   decoding="async"
+   loading="eager"
+   src="/static/12464dcff493620208d29a0abec73bb7/69e59/cover.png"
+   srcset="
+      /static/12464dcff493620208d29a0abec73bb7/a16c8/cover.png  469w,
+      /static/12464dcff493620208d29a0abec73bb7/56dcd/cover.png  939w,
+      /static/12464dcff493620208d29a0abec73bb7/69e59/cover.png 1877w
+   "
+   alt="Serverless Handbook cover"
 />
 ```
 

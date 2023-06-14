@@ -3,7 +3,7 @@ title: "3 key insights that make D3.js easy to learn"
 description: ""
 published: 2018-02-08
 redirect_from:
-  - /blog/3-key-insights-make-d3-js-easy-learn/swizec/8179
+   - /blog/3-key-insights-make-d3-js-easy-learn/swizec/8179
 categories: "Front End, Technical"
 hero: ./img/wikipedia-commons-thumb-d-df-Function_color_example_3.svg-440px-Function_color_example_3.svg.png
 ---
@@ -36,10 +36,10 @@ There are two parts to this code: Data manipulation and DOM manipulation.
 
 Bostock here first prepares his data:
 
-- some sizing variables (margin, width, height)
-- two scales to help with data-to-coordinates conversion (x, y)
-- loads his dataset (d3.tsv) and updates his scales' domains
-- uses scales to calculate attributes during DOM manipulation
+-  some sizing variables (margin, width, height)
+-  two scales to help with data-to-coordinates conversion (x, y)
+-  loads his dataset (d3.tsv) and updates his scales' domains
+-  uses scales to calculate attributes during DOM manipulation
 
 In the DOM manipulation part, he puts shapes and objects into an SVG. This is the part you then see in the browser.
 
@@ -49,12 +49,12 @@ DOM manipulation in D3 happens via D3 selections. They're a lot like jQuery `$(s
 
 Here Bostock does a few things
 
-- selects the `<svg>` node (d3.select)
-- appends a grouping `<g>` node (.append) with an SVG positioning attribute (translate)
-- adds a bottom axis by appending a `<g>`, moving it, then calling `d3.axisBottom` on it. D3 has built-in axis generators
-- adds a left axis using the same approach but rotating the ticks
-- appends a text label "Frequency" to the left axis
-- uses `selectAll.data` to make a virtual selection of `.bar` nodes and attach some data, then for every new data value (.enter), appends a `<rect>` node and gives it attributes
+-  selects the `<svg>` node (d3.select)
+-  appends a grouping `<g>` node (.append) with an SVG positioning attribute (translate)
+-  adds a bottom axis by appending a `<g>`, moving it, then calling `d3.axisBottom` on it. D3 has built-in axis generators
+-  adds a left axis using the same approach but rotating the ticks
+-  appends a text label "Frequency" to the left axis
+-  uses `selectAll.data` to make a virtual selection of `.bar` nodes and attach some data, then for every new data value (.enter), appends a `<rect>` node and gives it attributes
 
 That last part is where people get lost. It looks like magic. I've been using D3 for years and it still looks like magic.
 
@@ -74,9 +74,11 @@ They're like the mathematical functions you learned about in school. A domain ma
 
 Colored shapes in the domain map to colors in the range. No formula for this one, which makes it an ordinal scale.
 
+```javascript
     let shapes = d3.scaleOrdinal()
                      .domain(['red triangle', 'orange rectangle', ...)
                      .range(['red', 'orange', ...)
+```
 
 Once you have this scale, you can use it to translate from shapes to colors. `shapes('red triangle')` returns `'red'` for example.
 
@@ -98,10 +100,18 @@ But here's a key insight about the magic of layouts: They're the data part.
 
 You take a `forceLayout` for example and feed it your data. It returns an object with a `tick` event callback.
 
-    var simulation = d3.forceSimulation()
-        .force("link", d3.forceLink().id(function(d) { return d.id; }))
-        .force("charge", d3.forceManyBody())
-        .force("center", d3.forceCenter(width / 2, height / 2));
+```javascript
+var simulation = d3
+    .forceSimulation()
+    .force(
+        "link",
+        d3.forceLink().id(function (d) {
+            return d.id;
+        })
+    )
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(width / 2, height / 2));
+```
 
 This `simulation` now handles everything about rendering nodes. Changes their positions on every `tick` callback.
 
