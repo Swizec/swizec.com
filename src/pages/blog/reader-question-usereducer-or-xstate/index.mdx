@@ -2,7 +2,7 @@
 title: "Reader question: useReducer or XState?"
 description: "Following up from my article about XState and Stately.ai, fellow reader S. asked if `useReducer` could ever be relevant when using state machines in React code. Yes! Here's how"
 published: 2022-11-11
-categories: "XState, Stately.ai, State machines, Computer science, Technical, React, Reader questions"
+categories: "XState, Stately.ai, State machines, Computer science, Technical, React, Reader question"
 content_upgrade: ReactCU
 hero: ./img/screenshot-1668185187140.png
 ---
@@ -40,7 +40,7 @@ return (
       </>
     )}
   </div>
-);
+)
 ```
 
 and would prefer to have code like this:
@@ -48,27 +48,27 @@ and would prefer to have code like this:
 ```javascript
 switch (state) {
   case "loading":
-    return <Spinner />;
+    return <Spinner />
   case "not_found":
-    return <NotFound />;
+    return <NotFound />
   case "error":
-    return <Ooopsies />;
+    return <Ooopsies />
   case "show_less":
     return (
       <>
         <List data={data} count={10} />
         <Button onClick={showMore} />
       </>
-    );
+    )
   case "show_more":
     return (
       <>
         <List data={data} count={data.length} />
         <Button onClick={showLess} />
       </>
-    );
+    )
   default:
-    return <Spinner />;
+    return <Spinner />
 }
 ```
 
@@ -82,28 +82,28 @@ function reducer(state, action) {
     switch (action.type) {
       case "loaded":
         if (action.data.length === 0) {
-          return "not_found";
+          return "not_found"
         } else {
-          return "loaded";
+          return "loaded"
         }
       case "error":
-        return "error";
+        return "error"
     }
   }
 
   if (state === "loaded") {
     switch (action.type) {
       case "show_more":
-        return "show_more";
+        return "show_more"
     }
   }
 
   if (state === "show_more" && action.type === "show_less") {
-    return "show_less";
+    return "show_less"
   }
 
   if (state === "show_less" && action.type === "show_more") {
-    return "show_more";
+    return "show_more"
   }
 }
 ```
@@ -116,7 +116,7 @@ The `useReducer` hook lets you use this in a React component:
 
 ```javascript
 // init with the "loading" state
-const [state, dispatch] = useReducer(reducer, "loading");
+const [state, dispatch] = useReducer(reducer, "loading")
 ```
 
 All that remains is to call `dispatch` with the right actions at the right moments. Either by integrating deeply with your data loading or relying on `useEffect` when values change.
