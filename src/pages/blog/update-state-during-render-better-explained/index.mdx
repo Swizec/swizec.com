@@ -1,0 +1,97 @@
+---
+title: "Update state during render, better explained" 
+description: ""Dive deep into React's 'Update State During Render' with this detailed explanation, highlighting the benefits of this approach over the useEffect method. Ideal for developers aiming to enhance app performance and React expertise."" 
+published: 2023-07-07
+content_upgrade: ReactCU
+categories: "Frontend, JavaScript, React, Reader Question"
+hero: ./img/screenshot-1688744678859.png
+---
+
+A few readers wrote in to say that the [React Can Update State During Render](https://swizec.com/blog/react-can-update-state-during-render/) email last week made no sense. Here's a better explanation.
+
+Now, I tried to write a better example that more closely matches wtf we were doing in our production code that made this trick important. It didn't work. Both versions exhibit the same bug. (╯°□°)╯︵ ┻━┻
+
+It worked IRL, I promise. This solved a huge problem for us.
+
+Here's the example, maybe you can spot what I'm doing wrong:
+
+https://codesandbox.io/p/sandbox/update-state-during-render-vs-useeffect-rrjwzj
+
+And, again, the more toyful example from last week that shows this pattern working as expected:
+
+https://codesandbox.io/s/update-state-during-render-3gjn33
+
+## The background
+
+We're using [react-hook-form](https://swizec.com/blog/why-reacthookform-is-my-new-favorite-form-library/) at work because it's an awesome library. Based on uncontrolled form inputs, which leads to better UI performance.
+
+Uncontrolled inputs create a few sharp edges when you need React app state and your form state to match. One such example are default values that come from an API.
+
+Normally, you set default values like this:
+
+```javascript
+useForm({
+  defaultValues: {
+    test_field: "default value",
+  },
+})
+```
+
+That doesn't work when you don't know the values on first render. You can't update them later because then they're not _default_ anymore.
+
+How then do you make this work?
+
+```javascript
+const defaultValue = useSlowValue()
+
+;<SmartInput name="test_field" defaultValue={defaultValue} />
+```
+
+## useEffect approach
+
+Your natural reaction may be to reach for an effect. You want to do something when a prop changes.
+
+```typescript
+const SmartInput = (props: { name: string; defaultValue: string }) => {
+  const { register, setValue } = useFormContext()
+
+  useEffect(() => {
+    setValue(props.name, props.defaultValue)
+  }, [props.defaultValue])
+
+  return <input {...register(props.name)} />
+}
+```
+
+When prop changes, set value on the field.
+
+This may lead to a double UI update when the prop changes. You re-render when the prop changes, then run the effect, then re-render again.
+
+As your app grows and you have more and more of these effects, things start getting weird and difficult to debug.
+
+## Update state during render approach
+
+You can avoid weird bugs from effects building up by adopting the update state during render pattern.
+
+```typescript
+const BetterSmartInput = (props: { name: string; defaultValue: string }) => {
+  const { register, setValue } = useFormContext()
+  const [prevDefaultValue, setPrevDefaultValue] = useState(props.defaultValue)
+
+  if (prevDefaultValue !== props.defaultValue) {
+    setValue(props.name, props.defaultValue)
+    setPrevDefaultValue(props.defaultValue)
+  }
+
+  return <input {...register(props.name)} />
+}
+```
+
+When React re-renders your component, see if the prop value changed from before and update. This lets React abandon the in-progress render and start again with correct state.
+
+No double UI updates. More predictable behavior as your app grows.
+
+Cheers,<br/>
+~Swizec
+
+PS: I can just tell there's an engineering lesson hiding in how my smol isolated example of a neat trick didn't work, but the same thing worked in a large app
