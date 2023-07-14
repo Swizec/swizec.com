@@ -30,7 +30,7 @@ Add a new function call to the `createPages` hook in `gatsby-node.js`. This lets
 // gatsby-node.js
 
 exports.createPages = async ({ graphql, actions }) => {
-  createCategoryPages({ graphql, actions });
+   createCategoryPages({ graphql, actions });
 };
 ```
 
@@ -46,6 +46,7 @@ The `createCategoryPages` function works in 3 steps:
 
 Gatsby revolves around the idea of using GraphQL to access everything. And they mean _everything_. Even markdown files in your project.
 
+```javascript
     // gatsby-node.js
 
     async function createCategoryPages({ graphql, actions }) {
@@ -65,6 +66,7 @@ Gatsby revolves around the idea of using GraphQL to access everything. And they 
         console.error(result.errors) // eslint-disable-line no-console
         throw result.errors
       }
+```
 
 That GraphQL query looks for all [MDX files](https://www.gatsbyjs.com/docs/glossary/mdx/) under the `/blog/` or `/articles/` paths and extracts the `categories` field from their frontmatter. If there's an error, we throw.
 
@@ -77,12 +79,12 @@ The query gives us an array of strings like `"Time, UTC, Daylight Saving, Lesson
 
 // extract categories out of graphql and make a set
 const allCategories = new Set(
-  result.data.allMdx.nodes
-    .filter((node) => !!node.frontmatter.categories)
-    .map((node) => node.frontmatter.categories)
-    .map((categories) => categories.split(","))
-    .flat()
-    .map((category) => category.trim().toLowerCase())
+   result.data.allMdx.nodes
+      .filter((node) => !!node.frontmatter.categories)
+      .map((node) => node.frontmatter.categories)
+      .map((categories) => categories.split(","))
+      .flat()
+      .map((category) => category.trim().toLowerCase())
 );
 
 allCategories.add("uncategorized");
@@ -98,11 +100,11 @@ The last step in `createCategoryPages`, uses [Gatsby's createPage action](https:
 
 ```javascript
 for (const category of allCategories) {
-  await actions.createPage({
-    path: `/categories/${category}`,
-    component: require.resolve("./src/templates/category.js"),
-    context: { category, categoryRegex: `/${category}/gi` },
-  });
+   await actions.createPage({
+      path: `/categories/${category}`,
+      component: require.resolve("./src/templates/category.js"),
+      context: { category, categoryRegex: `/${category}/gi` },
+   });
 }
 ```
 
@@ -122,22 +124,21 @@ The component is nothing special. A bunch of copy, email signup forms, and an `<
 // /src/templates/category.js
 
 const CategoryPage = ({ data, pageContext: { category } }) => {
-  const title = `Swizec's ${category} articles`;
-  const description = `Learn from Swizec's raw and honest from the heart articles filed under "${category}".`;
-
-  return (
-    <>
-      <Head title={title} description={description} />
-      <Container>
-        // ...
-        <FormCK copyBefore={<></>} />
-        {data.allSitePage.nodes.map((props, i) => (
-          <ArticleListing {...props} key={i} />
-        ))}
-        <FormCK copyBefore={<></>} />
-      </Container>
-    </>
-  );
+    const title = `Swizec's ${category} articles`;
+    const description = `Learn from Swizec's raw and honest from the heart articles filed under "${category}".`;
+    return (
+        <>
+            <Head title={title} description={description} />
+            <Container>
+                // ...
+                <FormCK copyBefore={<></>} />
+                {data.allSitePage.nodes.map((props, i) => (
+                    <ArticleListing {...props} key={i} />
+                ))}
+                <FormCK copyBefore={<></>} />
+            </Container>
+        </>
+    );
 };
 ```
 
@@ -149,25 +150,27 @@ The [page query](https://www.gatsbyjs.com/docs/how-to/querying-data/page-query/)
 
 ```javascript
 export const pageQuery = graphql`
-  query ArticlesInCategory($categoryRegex: String) {
-    allSitePage(
-      filter: {
-        path: { regex: "/blog|articles/.+/" }
-        context: { frontmatter: { categories: { regex: $categoryRegex } } }
+    query ArticlesInCategory($categoryRegex: String) {
+        allSitePage(
+            filter: {
+                path: { regex: "/blog|articles/.+/" }
+                context: {
+                    frontmatter: { categories: { regex: $categoryRegex } }
+                }
+            }
+            sort: { fields: context___frontmatter___published, order: DESC }
+        ) {
+            nodes {
+                path
+                context {
+                    frontmatter {
+                        title
+                        description
+                        published
+                    }
+                }
+            }
       }
-      sort: { fields: context___frontmatter___published, order: DESC }
-    ) {
-      nodes {
-        path
-        context {
-          frontmatter {
-            title
-            description
-            published
-          }
-        }
-      }
-    }
   }
 `;
 ```
@@ -186,18 +189,19 @@ Adding links to categories is the easy part. You split the category string by co
 
 ```javascript
 const Categories = ({ categories }) => {
-  const cleaned = categories.split(",").map((category) => category.trim());
+   const cleaned = categories.split(",").map((category) => category.trim());
 
-  return (
-    <>
-      {cleaned.map((category) => (
+    return (
         <>
-          <Link to={`/categories/${category.toLowerCase()}`}>{category}</Link>
-          ,{" "}
+            {cleaned.map((category) => (
+                <>
+                    <Link to={`/categories/${category.toLowerCase()}`}>
+                        {category}
+                    </Link>
+                    ,{" "}
+                </>
         </>
-      ))}
-    </>
-  );
+    );
 };
 ```
 
