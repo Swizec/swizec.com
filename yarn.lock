@@ -1199,6 +1199,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.20.13":
+  version "7.22.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.22.6.tgz#57d64b9ae3cff1d67eb067ae117dac087f5bd438"
+  integrity sha512-wDb5pWm4WDdF6LFUde3Jl8WzPA+3ZbxYqkC6xAXuD3irdEHN1k0NfTRrJD8ZD378SJ61miMLCqIOXYhd8x+AJQ==
+  dependencies:
+    regenerator-runtime "^0.13.11"
+
 "@babel/template@^7.12.7":
   version "7.15.4"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.15.4.tgz#51898d35dcf3faa670c4ee6afcfd517ee139f194"
@@ -2832,10 +2839,10 @@
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@^3.4.3":
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.4.3.tgz#e9a8c032e7b2bd3d0043a0b838e828c9b863e012"
-  integrity sha512-uV3m+8DBxiwdEFKdeWqRW1yOXagIGvrR+9GHbHKBu+vZM8D2SgRttO00BZ9+MVXh+HqxM+lujhKOUhrA2J69cA==
+"@swizec/gatsby-theme-course-platform@^3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.5.0.tgz#46ce52023a88dca71f1a9f125c6637ec901e1748"
+  integrity sha512-CKcPdP6yXq0v5calQ2OtuNwss8aFf6IfUHk0SdyxK4HClP5TtGHBpSJnHD6jVYsf1gXl8QJnrEMgdjay7R0Seg==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -2863,6 +2870,7 @@
     gatsby-plugin-remove-serviceworker "^1.0.0"
     gatsby-plugin-sharp "^4.17.0"
     gatsby-plugin-theme-ui "^0.6.2"
+    gatsby-plugin-twitter "^5.11.0"
     gatsby-remark-copy-linked-files "^5.17.0"
     gatsby-remark-copy-relative-linked-files "^1.5.0"
     gatsby-remark-embedder Swizec/gatsby-remark-embedder#138a6c3a73c34cbd70a558b0507070ebd5f5a34f
@@ -7437,6 +7445,13 @@ gatsby-plugin-theme-ui@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.6.2.tgz#8a8336dfd9286e70e2a4627f5662992fa8b82911"
   integrity sha512-4PiGxHmaLSAybfYtEj6A8vWGti2zJvTNhjrs63fK8eMjk3PCnuhdcs08SLaLnJhV4pd+9EEA0pgJ9jSmd2392Q==
+
+gatsby-plugin-twitter@^5.11.0:
+  version "5.11.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-twitter/-/gatsby-plugin-twitter-5.11.0.tgz#b59de0571ee525d259fb9994009399b46bd1ff75"
+  integrity sha512-G/9DBRvpZbUSgvwIuB9FvujsVMiUuxW4uqQ0mFz1OUfAHiFhiK3Ar9aO1p7kT5t0aaRfYt1S97WaralPoMFdvA==
+  dependencies:
+    "@babel/runtime" "^7.20.13"
 
 gatsby-plugin-typescript@^4.17.0:
   version "4.17.0"
@@ -12051,6 +12066,11 @@ regenerate@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.2.tgz#b9346d8827e8f5a32f7ba29637d398b69014848a"
   integrity sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==
+
+regenerator-runtime@^0.13.11:
+  version "0.13.11"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
+  integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
 
 regenerator-runtime@^0.13.3, regenerator-runtime@^0.13.4, regenerator-runtime@^0.13.7:
   version "0.13.9"

@@ -16,7 +16,7 @@
     "dependencies": {
         "@mdx-js/mdx": "^1.6.16",
         "@mdx-js/react": "^1.6.16",
-        "@swizec/gatsby-theme-course-platform": "^3.4.3",
+        "@swizec/gatsby-theme-course-platform": "^3.5.0",
         "@typeform/api-client": "^1.7.0",
         "gatsby": "^4.11.0",
         "gatsby-plugin-feed": "^4.11.0",
@@ -40,7 +40,7 @@
         "react-dom": "^17.0.1"
     },
     "engines": {
-        "node": "12.x || 14.x || 16.x"
+        "node": "16.x || 18.x"
     },
     "devDependencies": {
         "chalk": "^4.1.1",
