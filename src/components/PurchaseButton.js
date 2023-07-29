@@ -126,9 +126,6 @@ const TheButton = () => (
     <PurchaseButton productId="c2b0c3ce-6d23-4d01-b4f2-bb01f600e72f">
       Get Senior Mindset Book
     </PurchaseButton>
-    <Paragraph as="small" sx={{ display: "block" }}>
-      Price goes up every 100 purchases
-    </Paragraph>
   </Box>
 )
 
