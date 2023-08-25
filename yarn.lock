@@ -7540,7 +7540,7 @@ gatsby-remark-copy-relative-linked-files@^1.5.0:
     unist-util-visit "^2.0.3"
     upath "^2.0.1"
 
-"gatsby-remark-embedder@github:Swizec/gatsby-remark-embedder#c4a04f82ef0ba18da28e787474ae87e587c24277":
+gatsby-remark-embedder@Swizec/gatsby-remark-embedder#c4a04f82ef0ba18da28e787474ae87e587c24277:
   version "6.0.2-2"
   resolved "https://codeload.github.com/Swizec/gatsby-remark-embedder/tar.gz/c4a04f82ef0ba18da28e787474ae87e587c24277"
   dependencies:

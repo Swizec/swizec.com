@@ -4,6 +4,7 @@ import ServerlessHandbookLeftCopy from "./ServerlessHandbookLeftCopy"
 
 import SeniorMindsetBeforeCopy from "./SeniorMindsetBeforeCopy"
 import SeniorMindsetLeftCopy from "./SeniorMindsetLeftCopy"
+import SeniorMindsetLeftCopyLanding from "./SeniorMindsetLeftCopyLanding"
 
 import JavascriptBeforeCopy from "./JavascriptBeforeCopy"
 import JavascriptLeftCopy from "./JavascriptLeftCopy"
@@ -45,6 +46,18 @@ export const SeniorMindset = ({ footer }) => {
       submitText="Get email crash course 💌"
     >
       <SeniorMindsetLeftCopy />
+    </FormCK>
+  )
+}
+
+export const SeniorMindsetLanding = ({ footer }) => {
+  return (
+    <FormCK
+      copyBefore={<></>}
+      formName="seniorMindset"
+      submitText="Get your free chapter 💌"
+    >
+      <SeniorMindsetLeftCopyLanding />
     </FormCK>
   )
 }
