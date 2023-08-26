@@ -1,0 +1,121 @@
+---
+title: "Avoid spooky action at a distance"
+description: "Shared state in programming isn't the enemy, it's unclear dependencies that tangle your code. Keep it clean with explicit state dependencies and strict access guidelines"
+published: 2023-08-26
+categories: "Software engineering, Architecture, Lessons"
+hero: ./img/screenshot-1693064648023.png
+---
+
+[name|Friend] unclear state dependencies are the biggest source of code that's difficult to detangle.
+
+So much so that [Shared State Bad](https://swizec.com/blog/my-favorite-lessons-from-pragmatic-programmer/) is a programming dogma described in books like Pragmatic Programmer and many others. But shared state is fine, even necessary, when done right. Let me explain.
+
+One of my earliest big projects was a text-based GUI for [DOS](https://en.wikipedia.org/wiki/DOS). I was 12 and called it an operating system because I didn't know any better. That project taught me an important lesson about shared state.
+
+![Example of what text-based GUIs in DOS used to look like, image from Wikipedia](./img/Example-of-what-text-based-GUIs-in-DOS-used-to-look-like-image-from-Wikipediad51bh7.png)
+
+I wrote the project in Turbo Pascal before learning about functions, procedures, arrays, and objects. The whole codebase lived in 1 file, used nearly 200 global variables, and to give you a sense of scale: I ran into trouble because GOTO couldn't jump more than 4096 lines of code. Solved that with double jumps 🤘
+
+All talent no skill.
+
+> **Note**: The GOTO statement lets you jump to pre-defined locations in the code. Once popular, the practice went away with the [Structured Programming](https://en.wikipedia.org/wiki/Structured_programming) movement of the 60's and 70's and was replaced in most contexts with functions by the early 90's. You might still see GOTO in performance-critical low-level applications.
+
+The word "mess" doesn't even begin to describe my big project. I used global variables named `a`, `b`, .. `aa`, `ab` sort of like a programmer in the 1960's might use absolute memory addressing. I even re-used variables between features, which meant that a variable's exact meaning depended on how you got there.
+
+This caused many hard to fix bugs. Click through the UI in a new sequence of steps and everything gets jumbled up.
+
+## How shared state causes problems
+
+The intermingled state made it so my code's exact behavior depended on how users (really just me) went through features. Here's a simplified example:
+
+```pascal
+var counter: integer
+
+counter := 0
+
+add:
+	counter := counter + 1
+	writeln(counter)
+
+sub:
+	counter := counter - 1
+	writeln(counter)
+	goto add
+
+fun_feature1:
+	counter := counter + 10
+	goto sub
+
+fun_feature2:
+	counter := 2
+	goto fun_feature1
+```
+
+- `add`: the `add` block adds +1 and prints the value
+- `sub`: the `sub` block subs -1, prints the value, and jumps to `add`
+- `fun_feature1`: the `fun_feature1` block adds +10 and jumps to `sub`
+- `fun_feature2`: the `fun_feature2` block prints a message and jumps to `fun_feature1`
+
+> **Note**: DOS was limited to 25 lines. Turbo Pascal used 4 lines for the UI. Meaning my code spanned _at least_ 195 screens. With all 200+ variables defined in a big block at the top of the file. 12 year old Swiz must've been a genius.
+
+## Unclear shared state happens quickly
+
+You don't need GOTO programming to run into unclear shared state. Here's a typical situation that happens in event-based code:
+
+```javascript
+let menuIsOpen = false;
+
+function toggleMenu() {
+  menuIsOpen = !menuIsOpen;
+  window.localStorage.setItem("savedMenuState", menuIsOpen);
+
+  updateMenu();
+}
+
+function updateMenu() {
+  if (menuIsOpen) {
+    // display menu
+  } else {
+    // hide menu
+  }
+}
+
+document.onload = () => {
+  menuIsOpen = window.localStorage.getItem("savedMenuState");
+  updateMenu();
+};
+```
+
+## Prefer pure functions
+
+The issue is that neither `toggleMenu` nor `updateMenu` are [pure functions](https://en.wikipedia.org/wiki/Pure_function). You can't tell what they'll do unless you know the value of `menuIsOpen`.
+
+> **Note**: A pure function is one that relies only on its arguments and has no side-effects. You know it's pure when calling the same function multiple times with unchanged arguments produces the same result.
+
+## When shared state works great
+
+Shared state isn't all doom and gloom. It causes problems when you have asynchronous or threaded code and unclear access patterns.
+
+But your database is a repository of shared state and that works great. The cache in your networking layer is a type of shared state. Works fine. State management libraries popular in modern app development are all about sharing state and they can be fantastic.
+
+What gives?
+
+Explicitly declared state dependencies with strict guidelines around access patterns make all the difference. If a compiler or linter can enforce those patterns, even better.
+
+```javascript
+function SomeBeautifulData({ id }) {
+	const { data } = useQuery(
+		['beautiful-data', id],
+		...
+	)
+
+	return data.map( ... )
+}
+```
+
+Thanks to explicit state dependencies, you can let framework machinery handle the details 😍
+
+Cheers,<br/>
+~Swizec
+
+PS: databases achieve this with ACID – atomicity, consistency, isolation, durability. By ensuring every write completes before any read and that writes can't conflict, a database can ensure you always read the right data.
