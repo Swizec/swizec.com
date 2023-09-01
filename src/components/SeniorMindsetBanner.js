@@ -2,6 +2,7 @@ import React from "react"
 import { Box, Button, Heading, Paragraph, Flex } from "theme-ui"
 import { StaticImage } from "gatsby-plugin-image"
 import { Link } from "gatsby"
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 function trackClick() {
   if (window.plausible) {
@@ -51,6 +52,7 @@ export const RightBanner = (props) => {
           Learn more
         </Button>
       </Box>
+      <ContentUpgrades.SeniorMindsetBanner />
     </Box>
   )
 }
