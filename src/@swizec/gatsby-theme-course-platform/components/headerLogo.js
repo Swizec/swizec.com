@@ -37,14 +37,14 @@ const HeaderLogo = () => (
       }}
     >
       <Container>
-        👋 ready to invest in your career? The{" "}
+        👋 ready to invest in your career? Get{" "}
         <a
           href="https://seniormindset.com"
           style={{ color: "white", fontWeight: "bold" }}
         >
-          Senior Engineer Mindset book
+          the Senior Engineer Mindset book
         </a>{" "}
-        is 20% off this week only
+        20% off this week only
       </Container>
     </Box>
   </>
