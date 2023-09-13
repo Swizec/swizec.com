@@ -51,6 +51,7 @@ export const RightBanner = (props) => {
         >
           Learn more
         </Button>
+        <Paragraph sx={{ fontSize: 3 }}>20% off this week</Paragraph>
       </Box>
       <ContentUpgrades.SeniorMindsetBanner />
     </Box>
@@ -91,6 +92,7 @@ export const FooterBanner = () => {
         >
           Learn more
         </Button>
+        <Paragraph sx={{ fontSize: 3 }}>20% off this week</Paragraph>
       </Box>
     </Flex>
   )

@@ -76,7 +76,7 @@ export const PurchaseButton = ({ productId, children }) => {
       <Script src="https://app.lemonsqueezy.com/js/lemon.js" />
       <Script src="https://cdn.paritydeals.com/banner.js" />
       <a
-        href={`https://swizec.lemonsqueezy.com/checkout/buy/${productId}?embed=1&media=0`}
+        href={`https://swizec.lemonsqueezy.com/checkout/buy/${productId}?embed=1&media=0&checkout[discount_code]=GOSENIOR`}
         className="lemonsqueezy-button"
         onClick={() => trackClick(productId)}
         onMouseOver={() => setHover(true)}
@@ -103,7 +103,8 @@ const Package = ({ title, price, items, sx }) => {
         {title}
       </Heading>
       <Heading as="h5" sx={{ textAlign: "center", my: 2, mb: 3 }}>
-        ${price}
+        <strike style={{ fontSize: "0.8em" }}>${price}</strike> $
+        {Math.round(price * 0.8)}
       </Heading>
       <Box
         as="ul"
@@ -126,6 +127,7 @@ const TheButton = () => (
     <PurchaseButton productId="c2b0c3ce-6d23-4d01-b4f2-bb01f600e72f">
       Get Senior Mindset Book
     </PurchaseButton>
+    <Paragraph sx={{ fontSize: 3 }}>20% off this week</Paragraph>
   </Box>
 )
 
@@ -150,7 +152,11 @@ export const SeniorMindsetBuyWidget = ({ showPricing }) => {
             items={[
               "DRM-free pdf/epub",
               "14 week email series",
-              <>39 curated book<br/>recommendations</>,
+              <>
+                39 curated book
+                <br />
+                recommendations
+              </>,
               <>
                 30 day
                 <br />
@@ -164,7 +170,11 @@ export const SeniorMindsetBuyWidget = ({ showPricing }) => {
             items={[
               "DRM-free pdf/epub",
               "14 week email series",
-              <>39 curated book<br/>recommendations</>,
+              <>
+                39 curated book
+                <br />
+                recommendations
+              </>,
               "3h 32min audiobook",
               <>
                 12h+ interviews
@@ -185,7 +195,11 @@ export const SeniorMindsetBuyWidget = ({ showPricing }) => {
             items={[
               "DRM-free pdf/epub",
               "14 week email series",
-              <>39 curated book<br/>recommendations</>,
+              <>
+                39 curated book
+                <br />
+                recommendations
+              </>,
               "3h 32min audiobook",
               <>
                 12h+ interviews
