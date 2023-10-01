@@ -21,7 +21,7 @@ const HeaderLogo = () => (
         swizec.com
       </Link>
     </Flex>
-    <Box
+    {/* <Box
       sx={{
         position: "absolute",
         top: 64,
@@ -46,7 +46,7 @@ const HeaderLogo = () => (
         </a>{" "}
         20% off this week only
       </Container>
-    </Box>
+    </Box> */}
   </>
 )
 
