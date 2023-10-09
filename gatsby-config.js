@@ -42,6 +42,7 @@ module.exports = {
   trailingSlash: "always",
   plugins: [
     "@swizec/gatsby-theme-course-platform",
+    "gatsby-plugin-netlify",
     {
       resolve: "gatsby-plugin-typography",
       options: {
