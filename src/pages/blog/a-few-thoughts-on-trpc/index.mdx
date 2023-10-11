@@ -43,7 +43,7 @@ I rolled into an existing project and can't give you the full tutorial. Just the
 To create endpoints you make a new tRPC router:
 
 ```typescript
-export const matchingRouter = createTRPCRouter({})
+export const matchingRouter = createTRPCRouter({});
 ```
 
 You define your endpoints as keys in that object. Each endpoint is a resolver function that gets an input and returns a response.
@@ -72,11 +72,11 @@ export const api = createTRPCNext<AppRouter>({
   config() {
     return {
       // ...
-    }
+    };
   },
 
   ssr: false,
-})
+});
 ```
 
 You then use queries same as you would with React Query. I think tRPC even uses React Query under the hood.
@@ -84,9 +84,9 @@ You then use queries same as you would with React Query. I think tRPC even uses 
 ```typescript
 api.matching.getMatches.useQuery("clnb896di0002c949ugw700yc", {
   onSuccess: (data) => {
-    console.log("hai", data)
+    console.log("hai", data);
   },
-})
+});
 ```
 
 tRPC gives you autocomplete for your API structure and the query ensures your component re-renders when new data becomes available. Does all the re-fetching and caching for you too.
@@ -97,9 +97,9 @@ API calls are based on HTTP because we're on the web. No surprises here.
 
 It does look like tRPC batches your API calls to reduce network traffic. That's neat.
 
-![Batched API call](https://i.imgur.com/eeeKm7d.png)
+![Batched API call](./img/Batched-API-call4e7jfe.png)
 
-![API call response](https://i.imgur.com/hk4iIOM.png)
+![API call response](./img/API-call-responsec62bi5.png)
 
 Ideally you'd never care about any of this. tRPC hides the details and makes your code work.
 
