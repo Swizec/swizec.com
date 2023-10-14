@@ -8,7 +8,7 @@ categories: "JSON, Languages, PHP, Programming, Redis, Ruby, Uncategorized"
 hero: ./img/6sGx6.png
 ---
 
-This is a continuation from the last time [I benchmarked node vs. clojure for hard computation](https://swizec.com/blog/comparing-clojure-and-nodejs-for-speed/ "Comparing clojure and node.js for speed"), sort of. This time 'round I decided to benchmark how many concurrent requests a single process of technology X can handle. Threading is fine.
+This is a continuation from the last time [I benchmarked node vs. clojure for hard computation](https://swizec.com/blog/comparing-clojure-and-nodejs-for-speed/), sort of. This time 'round I decided to benchmark how many concurrent requests a single process of technology X can handle. Threading is fine.
 
 tl;dr ---> node is fast but a bit unpredictable, django fails a lot, tornado is mediocre
 
@@ -16,22 +16,22 @@ Clojure isn't included in this test because it isn't your average web backend te
 
 There are two very important server-side languages that I omitted. Ruby and PHP.
 
-[Ruby](http://www.ruby-lang.org/ "Ruby (programming language)") , is missing simply because I don't know it well enough to implement the test in. There are varied mostly personal and silly reasons as to why this is, but the fact remains. I don't know Ruby.
+[Ruby](http://www.ruby-lang.org/) , is missing simply because I don't know it well enough to implement the test in. There are varied mostly personal and silly reasons as to why this is, but the fact remains. I don't know Ruby.
 
-[PHP](http://www.php.net/ "PHP") ... This isn't because I personally hate PHP (I do), I tried very very very hard to get it working for this test, but it just would not cooperate. I spent as much time trying to get PHP to _run_ as getting all the other benchmarks coded and tested. Not sure why exactly php-fpm hates me, or why it hates nginx, or maybe they've ganged up on me and hate me in unison, but it just did not work. I give up. After it finally looked like it might work it would just vomit 404 errors rather than actually run anything ... yes, I double, tripple and quintoople checked my paths.
+[PHP](http://www.php.net/) ... This isn't because I personally hate PHP (I do), I tried very very very hard to get it working for this test, but it just would not cooperate. I spent as much time trying to get PHP to _run_ as getting all the other benchmarks coded and tested. Not sure why exactly php-fpm hates me, or why it hates nginx, or maybe they've ganged up on me and hate me in unison, but it just did not work. I give up. After it finally looked like it might work it would just vomit 404 errors rather than actually run anything ... yes, I double, tripple and quintoople checked my paths.
 
 Either way, I ended up testing node.js and django, then just because the whole test is a bit unfair to django, I added Tornado, which is supposed to work a bit more the same way as node is.
 
 Onward to the test!
 
-## The [Benchmark](http://www.benchmark.com/ "Benchmark Capital")
+## The Benchmark
 
 Because this test would be completely invalid if each request didn't perform some even remotely real work I went with this flow:
 
-1.  Read a [JSON](http://json.org "JSON") string from raw post data
+1.  Read a [JSON](http://json.org) string from raw post data
 2.  Parse the JSON
-3.  JSON is in the form of {key: &lt;something>, value: &lt;something>}
-4.  Read the value stored at _key_ from [Redis](http://redis.io/ "Redis (data store)").
+3.  JSON is in the form of `{key: <something>, value: <something>}`
+4.  Read the value stored at _key_ from [Redis](http://redis.io/).
 5.  Store the value to key on Redis
 6.  Return what was read from Redis
 
@@ -63,29 +63,29 @@ Node:
 
 ```javascript
 var redis = require("redis").createClient(),
-  http = require("http");
+  http = require("http")
 
 http
   .createServer(function (req, res) {
-    var data = "";
+    var data = ""
     req.on("data", function (chunk) {
-      data += chunk;
-    });
+      data += chunk
+    })
     req.on("end", function () {
-      var input = JSON.parse(data);
+      var input = JSON.parse(data)
 
       redis.get(input.key, function (err, value) {
         redis.set(input.key, input.value, function (err) {
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(value);
-        });
-      });
-    });
+          res.writeHead(200, { "Content-Type": "application/json" })
+          res.end(value)
+        })
+      })
+    })
   })
-  .listen(8124, "127.0.0.1");
+  .listen(8124, "127.0.0.1")
 ```
 
-[Django](http://www.djangoproject.com "Django (web framework)"):
+[Django](http://www.djangoproject.com):
 
 ```python
 from django.http import HttpResponse
@@ -141,11 +141,11 @@ Maybe I just didn't push hard enough, then again, 8 seconds average on django ..
 
 Some shiny graphs:
 
-![](./img/6sGx6.png "Average time graph")
+![Average time graph](./img/6sGx6.png)
 
-![](./img/ubAAQ.png "Total runtime")
+![Total runtime](./img/ubAAQ.png)
 
-![](./img/DDUbz.png "Dropped connections")
+![Dropped connections](./img/DDUbz.png)
 
 ## The Conclusion
 
@@ -156,4 +156,3 @@ Unfortunately I have no idea why that might be, my suspicion is something with h
 The greatest thing is that hey, no matter whether it's fast or slow, apparently all three of these are well adept at handling a bunch of load almost linearly without becoming increasingly slower when you add more. Just don't try running your whole server in a single process, that obviously doesn't work too well.
 
 Load balance!
-
