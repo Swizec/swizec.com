@@ -49,7 +49,7 @@ plugins: [
   new require("nyan-progress-webpack-plugin")({
     sendProgressToTouchbar: true,
   }),
-];
+]
 ```
 
 This enables a Nyan Cat webpack progress indicator in your terminal and tells it to send progress to the touchbar as well. It's behind a feature flag so @alexkuz doesn't get too upset when I make a pull request. Kind of a silly feature :)
@@ -69,7 +69,8 @@ The native app runs a web server built with [Swifter](https://github.com/httpswi
 
 We added these lines to what looks like the most important Nyan cat file – `NyanCatCanvas.swift`.
 
-    <code class="swift">// NyanCatCanvas.swift
+```swift
+// NyanCatCanvas.swift
 
     func downloadImage() {
         // stuff that downloads nyan gif
@@ -95,6 +96,7 @@ We added these lines to what looks like the most important Nyan cat file – `Ny
         }
         }
     }
+```
 
 We start the server listening on port `12345` with `server.start(12345)` and add a route for `/progress/:progress`. We're listening to GET request on `localhost:12345/progress/<number>`. Those call `updateProgress()`.
 

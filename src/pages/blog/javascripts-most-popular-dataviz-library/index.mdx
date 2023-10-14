@@ -155,10 +155,11 @@ Scales work like the mathematical functions you learned about in school. A domai
 
 Colored shapes in the domain map to colors in the range. No formula for this one, which makes it an ordinal scale.
 
-    <code>let shapes = d3.scaleOrdinal()
+```javascript
+let shapes = d3.scaleOrdinal()
         .domain(['triangle', 'rectangle', ...)
         .range(['red', 'orange', ...)
-    </code>
+```
 
 Once you have this scale, you can use it to translate from shapes to colors. `shapes('triangle')` returns `'red'`, rectangle is orange, etc..
 
@@ -182,10 +183,18 @@ Here's a key insight about layouts: _Layouts are the data part._
 
 You take a `forceLayout` and feed it your data. It returns an object with a `tick` event callback.
 
-    var simulation = d3.forceSimulation()
-        .force("link", d3.forceLink().id(function(d) { return d.id; }))
-        .force("charge", d3.forceManyBody())
-        .force("center", d3.forceCenter(width / 2, height / 2));
+```javascript
+var simulation = d3
+  .forceSimulation()
+  .force(
+    "link",
+    d3.forceLink().id(function (d) {
+      return d.id
+    })
+  )
+  .force("charge", d3.forceManyBody())
+  .force("center", d3.forceCenter(width / 2, height / 2))
+```
 
 This `simulation` now handles everything about rendering nodes. Changes their positions on every tick callback.
 
@@ -199,6 +208,7 @@ Once I figured this out, all fancy visualizations out there started making sense
 
 What's something surprising you learned recently? Have you tried D3? tweet me
 
-Cheers, ~Swizec
+Cheers,<br/>
+~Swizec
 
 PS: you can watch me explain all this in [a 5 min video](https://www.youtube.com/watch?v=_kgyCiWbcY8)

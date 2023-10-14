@@ -1,5 +1,5 @@
 ---
-title: "Advent of Code Day 20 – Particle Swarm"
+title: "Advent of Code Day 20 – Particle Swarm"
 description: ""
 published: 2017-12-20
 redirect_from:
@@ -28,6 +28,7 @@ This makes sense when you think about it. No matter the initial position or velo
 
 Say a particle starts at `p = <3,0,0>` and is moving away from center at `v = <3,0,0>`, but its acceleration is towards center – `a = <-1,0,0>`. If we iterate through each tick of the simulation, you'll see what I mean 👇
 
+```
     p = <3,0,0>  v=<3,0,0>  a = <-1,0,0>
     p = <5,0,0>  v=<2,0,0>  a = <-1,0,0>
     p = <6,0,0>  v=<1,0,0>  a = <-1,0,0>
@@ -36,6 +37,7 @@ Say a particle starts at `p = <3,0,0>` and is moving away from center at `v = <3
     p = <3,0,0>  v=<-2,0,0> a = <-1,0,0>
     p = <0,0,0>  v=<-3,0,0> a = <-1,0,0>
     ...
+```
 
 On each tick of the simulation, we add acceleration to velocity, then add velocity to the current position. Our particle that started life flying away from center first slows down, then stops, then hurtles towards center.
 
@@ -54,13 +56,13 @@ The gist of our bruteforcing is the simulation function itself, the `tick`. It g
 ```javascript
 function tick(particles) {
   return particles.map(({ p, v, a }) => {
-    v = v.map((n, i) => n + a[i]);
+    v = v.map((n, i) => n + a[i])
     return {
       p: p.map((n, i) => n + v[i]),
       v: v,
       a: a,
-    };
-  });
+    }
+  })
 }
 ```
 
@@ -70,7 +72,7 @@ We then also need a way to find the particle closest to center. That's these two
 
 ```javascript
 function distance(particle) {
-  return particle.p.reduce((d, n) => d + Math.abs(n), 0);
+  return particle.p.reduce((d, n) => d + Math.abs(n), 0)
 }
 
 function closest(particles) {
@@ -80,7 +82,7 @@ function closest(particles) {
         ? { min: distance(p), index: i }
         : { min: min, index: index },
     { min: distance(particles[0]), index: 0 }
-  );
+  )
 }
 ```
 
@@ -94,29 +96,29 @@ The longer you keep looking, the likelier that you're at the best possible resul
 
 ```javascript
 function star1(input) {
-  let particles = prepInput(input);
+  let particles = prepInput(input)
 
   let stable = {
     min: 0,
     index: 0,
     iterations_unchanged: 0,
-  };
+  }
 
   while (stable.iterations_unchanged < 2000) {
-    particles = tick(particles);
+    particles = tick(particles)
 
-    const { min, index } = closest(particles);
+    const { min, index } = closest(particles)
 
     if (stable.index === index) {
-      stable.iterations_unchanged += 1;
+      stable.iterations_unchanged += 1
     } else {
-      stable.min = min;
-      stable.index = index;
-      stable.iterations_unchanged = 0;
+      stable.min = min
+      stable.index = index
+      stable.iterations_unchanged = 0
     }
   }
 
-  console.log(stable);
+  console.log(stable)
 }
 ```
 
@@ -143,17 +145,17 @@ function collision(particles) {
   return particles.map((particle, idx) => {
     const {
       p: [x, y, z],
-    } = particle;
+    } = particle
 
     if (
       particles.find(
         ({ p }, i) => i !== idx && p[0] == x && p[1] == y && p[2] == z
       )
     ) {
-      particle.dead = true;
+      particle.dead = true
     }
-    return particle;
-  });
+    return particle
+  })
 }
 ```
 
@@ -163,25 +165,25 @@ To run the experiment, we then use a similar setup as before 👇
 
 ```javascript
 function star2(input) {
-  let particles = prepInput(input);
+  let particles = prepInput(input)
 
   let stable = {
     length: particles.length,
     iterations_unchanged: 0,
-  };
+  }
 
   while (stable.iterations_unchanged < 2000) {
-    particles = collision(tick(particles)).filter(({ dead }) => !dead);
+    particles = collision(tick(particles)).filter(({ dead }) => !dead)
 
     if (stable.length === particles.length) {
-      stable.iterations_unchanged += 1;
+      stable.iterations_unchanged += 1
     } else {
-      stable.length = particles.length;
-      stable.iterations_unchanged = 0;
+      stable.length = particles.length
+      stable.iterations_unchanged = 0
     }
   }
 
-  console.log(stable);
+  console.log(stable)
 }
 ```
 
@@ -189,4 +191,4 @@ Keep track of stable state and how long it's been stable for. Run the `tick` sim
 
 After a few seconds, the result pops out.
 
-Paying [\\\\\$3,000 for a laptop](https://swizec.com/blog/first-day-with-a-new-2017-macbook-pro/) was very worth it 👌
+Paying [$3,000 for a laptop](https://swizec.com/blog/first-day-with-a-new-2017-macbook-pro/) was very worth it 👌

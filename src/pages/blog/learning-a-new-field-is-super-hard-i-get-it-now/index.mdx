@@ -134,7 +134,8 @@ Yeah no I had no idea.
 
 This was an example in docs:
 
-    <code class="kotlin">class MyTests : StringSpec({
+```kotlin
+class MyTests : StringSpec({
       "length should return size of string" {
         "hello".length shouldBe 5
       }
@@ -142,10 +143,12 @@ This was an example in docs:
         "world" should startWith("wor")
       }
     })
+```
 
 The file you _actually_ need to write looks like this:
 
-    <code class="kotlin">package your.stuff
+```kotlin
+package your.stuff
 
     import io.kotlintest.specs.StringSpec
     import io.kotlintest.shouldBe
@@ -158,6 +161,7 @@ The file you _actually_ need to write looks like this:
         "world" should startWith("wor")
       }
     })
+```
 
 Banged my head against that wall for an hour. Such a small thing, so hard to figure out on your own.
 
@@ -179,6 +183,7 @@ Learning very new stuff is hard. Everyone assumes you have background knowledge 
 
 Sorry if I ever do that. Please call me out on it.
 
-Cheers, ~Swizec
+Cheers,<br/>
+~Swizec
 
 PS: yes it's a balance. Otherwise you might as well explain how 1+1 works in every article ... 🤔

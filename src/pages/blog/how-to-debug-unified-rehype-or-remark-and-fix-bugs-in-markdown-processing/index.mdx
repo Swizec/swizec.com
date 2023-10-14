@@ -8,7 +8,7 @@ categories: "Computer Science"
 hero: ./img/techletter.app-screenshot-1597679792741.png
 ---
 
-Ever had to debug a compiler {{ subscriber.first_name | truncatewords: 1, "" | capitalize }}? It's hard.
+Ever had to debug a compiler? It's hard.
 
 Typical engineering wisdom goes that if you blame the compiler, you're wrong. You messed up and can't figure it out and it is _not the compiler's fault_.
 
@@ -42,8 +42,7 @@ class ReportSize extends React.Component {
 
 And you get this output:
 
-```text
-``javascript
+```javascript
 class ReportSize extends React.Component {
   refCallback = element => {
     if (element) {
@@ -53,13 +52,12 @@ class ReportSize extends React.Component {
 
   render() {
     return (
-    
+
         {faker.lorem.paragraphs(Math.random() * 10)}
 
     );
   }
 }
-``
 ```
 
 But you're supposed to get this:
@@ -75,7 +73,7 @@ class ReportSize extends React.Component {
 
   render() {
     return (
-    
+
         {faker.lorem.paragraphs(Math.random() * 10)}
 
     );
@@ -121,17 +119,17 @@ General lay of the land is that:
 A basic example that parses HTML and spits out Markdown goes like this:
 
 ```javascript
-import parse from 'rehype-parse'
-import rehype2remark from 'rehype-remark'
-import stringify from 'remark-stringify'
+import parse from "rehype-parse"
+import rehype2remark from "rehype-remark"
+import stringify from "remark-stringify"
 
 unified() // initiate the pipeline
-	.use(parse) // parse HTML to AST
-	.use(rehype2remark) // translate Rehype AST to Remark AST
-	.use(stringify) // stringify AST to markdown
-	.process(inputHTML, (err, markdown) => {
-		console.log(markdown)
-	})
+  .use(parse) // parse HTML to AST
+  .use(rehype2remark) // translate Rehype AST to Remark AST
+  .use(stringify) // stringify AST to markdown
+  .process(inputHTML, (err, markdown) => {
+    console.log(markdown)
+  })
 ```
 
 ## How you debug a compiler
@@ -171,29 +169,29 @@ To see how Rehype sees your code blocks, you use a kludge like this:
 
 ```javascript
 function debugCodeBlocks() {
-    function findCodeBlocks(node) {
-        let nodes = [];
+  function findCodeBlocks(node) {
+    let nodes = []
 
-        if (node.tagName === "pre") {
-            nodes.push(node); // <pre> nodes are code blocks
-        } else if (node.children) {
-		        // recursively walk through child nodes
-            for (let child of node.children) {
-                nodes.push(...findCodeBlocks(child));
-            }
-        }
+    if (node.tagName === "pre") {
+      nodes.push(node) // <pre> nodes are code blocks
+    } else if (node.children) {
+      // recursively walk through child nodes
+      for (let child of node.children) {
+        nodes.push(...findCodeBlocks(child))
+      }
+    }
 
-        return nodes;
-    }
-    
-    return tree => {
-	    const codeBlocks = findCodeBlocks(tree)
-	    
-	    // deep print the codeBlocks array
-	    console.log(require("util").inspect(tree, false, null, true));
-	    
-	    return tree;
-    }
+    return nodes
+  }
+
+  return (tree) => {
+    const codeBlocks = findCodeBlocks(tree)
+
+    // deep print the codeBlocks array
+    console.log(require("util").inspect(tree, false, null, true))
+
+    return tree
+  }
 }
 ```
 
@@ -210,14 +208,14 @@ Remark is easier to debug because it's well-supported by the [unist](https://git
 To print code blocks on the Remark side:
 
 ```javascript
-import visit from "unist-util-visit";
+import visit from "unist-util-visit"
 
 function codeBlockDebugger() {
-    return (markdownAST) => {
-        visit(markdownAST, "code", (node) => {
-            console.log(require("util").inspect(node, false, null, true));
-        });
-    };
+  return (markdownAST) => {
+    visit(markdownAST, "code", (node) => {
+      console.log(require("util").inspect(node, false, null, true))
+    })
+  }
 }
 ```
 
@@ -255,32 +253,30 @@ Here's what I did for my example of JSX-containing code blocks:
 
 ```javascript
 function fixCodeBlocks() {
-    const settings = {
-        quoteSmart: false,
-        closeSelfClosing: false,
-        omitOptionalTags: false,
-        entities: { useShortestReferences: true },
-    };
+  const settings = {
+    quoteSmart: false,
+    closeSelfClosing: false,
+    omitOptionalTags: false,
+    entities: { useShortestReferences: true },
+  }
 
-    return (tree) => {
-        // same recursion findCodeBlocks as above
-        const codeBlocks = findCodeBlocks(tree);
+  return (tree) => {
+    // same recursion findCodeBlocks as above
+    const codeBlocks = findCodeBlocks(tree)
 
-        for (let block of codeBlocks) {
-            // copy position info for the whole <pre> so we can fake it later
-            const position = {
-                start: block.children[0].position.start,
-                end: block.children[block.children.length - 1].position.end,
-            };
+    for (let block of codeBlocks) {
+      // copy position info for the whole <pre> so we can fake it later
+      const position = {
+        start: block.children[0].position.start,
+        end: block.children[block.children.length - 1].position.end,
+      }
 
-            // replace children with my fakes
-            block.children = [
-                
-            ];
-        }
+      // replace children with my fakes
+      block.children = []
+    }
 
-        return tree;
-    };
+    return tree
+  }
 }
 ```
 
@@ -301,7 +297,7 @@ Find all the code blocks, replace their children with a fake new child.
     },
     children: [
         // stringify the full <pre> block
-        // as a text child of the new <code> block                    
+        // as a text child of the new <code> block
         {
             type: "text",
             // hast-util-to-html, Rehype's stringifier
@@ -320,8 +316,7 @@ Make the child a `<code>` block because Remark likes that better and stringify t
 
 You get:
 
-```text
-``javascript
+```javascript
 class ReportSize extends React.Component {
   refCallback = element => {
     if (element) {
@@ -337,10 +332,9 @@ class ReportSize extends React.Component {
     );
   }
 }
-``
 ```
 
 Not perfect, but better. Need to fix the child html nodes or find a JSX stringifier 🤔
 
-Cheers,  
+Cheers, <br/>
 ~Swizec

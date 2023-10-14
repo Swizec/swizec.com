@@ -1,163 +1,158 @@
 ---
-title: "Benchmarking Vue"
+title: "Benchmarking node, tornado and django for concurrency"
 description: ""
-published: 2018-03-05
+published: 2011-04-15
 redirect_from:
-  - /blog/benchmarking-vue/swizec/8240
-categories: "Front End, Technical, vue"
-hero: ../../../defaultHero.jpg
+  - /blog/benchmarking-node-tornado-and-django-for-concurrency/swizec/1616
+categories: "JSON, Languages, PHP, Programming, Redis, Ruby, Uncategorized"
+hero: ./img/6sGx6.png
 ---
 
-_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should subscribe to [My Youtube](https://www.youtube.com/user/TheSwizec) channel to catch me live._
+This is a continuation from the last time [I benchmarked node vs. clojure for hard computation](https://swizec.com/blog/comparing-clojure-and-nodejs-for-speed/), sort of. This time 'round I decided to benchmark how many concurrent requests a single process of technology X can handle. Threading is fine.
 
-https://www.youtube.com/watch?v=Ff5NiCzP0ek
+tl;dr ---> node is fast but a bit unpredictable, django fails a lot, tornado is mediocre
 
-_This article builds on my previous articles about [Building an interactive DOM benchmark](https://swizec.com/blog/building-an-interactive-dom-benchmark-preliminary-results/) and [Adding Preact to a React project](https://swizec.com/blog/seamlessly-render-a-preact-component-in-a-react-project/)_
+Clojure isn't included in this test because it isn't your average web backend technology and I honestly didn't feel like figuring out how to set it up to act as a server ... yes, I know it's possible, no, I do not in fact know how to do it. I imagine jetty or tomcat would be the way to go.
 
-I understand why people like Vue, and those people are wrong.
+There are two very important server-side languages that I omitted. Ruby and PHP.
 
-But this isn't a rant about Vue. If you like the ease of porting your 2012-era code to a modern framework, Vue is for you. If you're into Mustache templates, Angular directives, and love to split your code into templates, scripts, and styles just like ye olden times, Vue is perfect. Hell, if you love nothing more than to use cumbersome workarounds to avoid JavaScript classes 👉 Vue.
+[Ruby](http://www.ruby-lang.org/) , is missing simply because I don't know it well enough to implement the test in. There are varied mostly personal and silly reasons as to why this is, but the fact remains. I don't know Ruby.
 
-You do you. I built a Vue component and hated every minute of it. But it's important to try new things.
+[PHP](http://www.php.net/) ... This isn't because I personally hate PHP (I do), I tried very very very hard to get it working for this test, but it just would not cooperate. I spent as much time trying to get PHP to _run_ as getting all the other benchmarks coded and tested. Not sure why exactly php-fpm hates me, or why it hates nginx, or maybe they've ganged up on me and hate me in unison, but it just did not work. I give up. After it finally looked like it might work it would just vomit 404 errors rather than actually run anything ... yes, I double, tripple and quintoople checked my paths.
 
-It took about 2 hours to add Vue to my [interactive DOM benchmark](https://dom-benchmark.now.sh/). Half the time I spent bitching about the Angular 1 style templates. The other half, I complained about 2012-era hacks designed to fake classes.
+Either way, I ended up testing node.js and django, then just because the whole test is a bit unfair to django, I added Tornado, which is supposed to work a bit more the same way as node is.
 
-Oh, and it took an hour just to get it compiling.
+Onward to the test!
 
-https://twitter.com/Swizec/status/970435615450849280
+## The Benchmark
 
-A wonderful experience all over 👌
+Because this test would be completely invalid if each request didn't perform some even remotely real work I went with this flow:
 
-**BUT!** I created my first non-trivial Vue component, a simple benchmark 🎉
+1.  Read a [JSON](http://json.org) string from raw post data
+2.  Parse the JSON
+3.  JSON is in the form of `{key: <something>, value: <something>}`
+4.  Read the value stored at _key_ from [Redis](http://redis.io/).
+5.  Store the value to key on Redis
+6.  Return what was read from Redis
 
-## My first Vue component
+That's basically what happens on every request. The idea being that in real life this is some sort of [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer "Representational State Transfer") API running somewhere, the essential tasks being parsing JSON and reading/storing to a database that is possibly an intermediary between the world-facing server and some sort of more real database (like mongo, mysql or whatever).
 
-![The Vue benchmark component](https://swizec.com/wp-content/uploads/2018/03/component-screenshot.png)
+As mentioned, I went to great pains to make sure every technology ran as a single process because otherwise it's a rather pointless test. Add very many processes, some load balancing and you can pretty much scale infinitely as long as the hardware allows it. So that's silly.
 
-You can see the [code on GitHub](https://github.com/Swizec/dom-benchmark/blob/master/src/benchmarks/VueBenchmark.vue). There are 5 buttons and a scratchpad area that renders a list of immutable nodes. Much like a chatroom or a newsfeed.
+## The Running
 
-Buttons can `prepend`, `insert`, `append`, `drop`, and `remove` nodes. Clicks map to methods on the Vue component that manipulate a `nodes` array in data. The template renders it as a bunch of divs.
+All the benchmarks ran on my MBP, with 4GB of RAM and a 2.5GHz core 2 duo. There were some other apps running, but they were the same every time the benchmarks ran and I didn't touch the computer during the test, so hopefully that didn't influence the result.
 
-```javascript
-<div class="row benchmark-scratchpad">
-  <div v-for="k in nodes">{{ k }}</div>
-</div>
-```
+Everything was run with a set of two scripts (written in node.js). The first spawned processes, one to ten, of which every process made 512 concurrent requests to the server. Or as concurrent as async.map is, I imagine it might be bucketed a little.
 
-That `v-for="k in nodes"` syntax is one of my least favorite parts of Vue. Brings back memories of some Angular 1 projects I worked on. Nightmares lasted months[1](#fn1).
+Every spawned process measured the time it took for requests to finish and returned an average of the times. The main script then calculated the average of these averages, while also measuring the total time taken to run all the requests.
 
-Click events call instance methods via `v-on:click="func"`. They manipulate the `nodes` array and that triggers a re-render. These methods look a lot like to their React counterparts, but cleaner because there's no `setState` in Vue. I liked that 🤫
+When requests failed, the spawned process couldn't output an average time, so it was taken to be 10. There were more errors than I originally anticipated (dropped connections mostly) so there is also a graph of the fails.
 
-```javascript
-prepend() {
-    this.nodes = [...this.newNodes(), ...this.nodes];
-},
+The main script went from 1 sub-process to 10 in one go and the server was not restarted in the mean time. Between every batch there was a two second delay to let everything cool off a bit.
 
-append() {
-    this.nodes = [...this.nodes, ...this.newNodes()];
-},
-```
+When a new benchmark was run the redis server was restarted and flushed of all content.
 
-I think that looks more readable and makes more sense than going through `setState` in React.
+edit: django was run with runfcgi, as per the [django docs recommendations](http://docs.djangoproject.com/en/1.3/howto/deployment/fastcgi/) on running it behind nginx.
 
-_However_, you have to define instance attributes in a `data:` key and instance methods in a `methods:` key. But you override Vue's internal instance methods in the normal namespace. 🤨
+## The Code
 
-```javascript
-module.exports = {
-  // adding attributes here does nothing
+You can see the rest of the code [on github](https://github.com/Swizec/random-coding/tree/master/serverbench). I'll just share the relevant server bits here so we can compare how much code it takes to make this sort of thing in different environments.
 
-  data: function () {
-    // this is where you define state
-    return {
-      nodes: [],
-      start: null,
-      times: [],
-      // ...
-    };
-  },
-
-  // override Vue instance methods here
-
-  methods: {
-    // define custom instance methods here
-  },
-};
-```
-
-Wat 🤨
-
-That's kind of how we used to write code in the old days before JavaScript got better. Did I fall into a time machine?
-
-I've heard you can install plugins and tweak configs to get a better approach going, but if it's not the default in the official docs, it doesn't exist. Ask anyone.
-
-Some people like this, so here we are. It was a fun experiment, I don't like it at all. ¯\\\_(ツ)\_/¯
-
-**Oh btw** we render benchmark results using Vue refs and direct DOM manipulation so as to avoid re-rendering via Vue after each render. That would be unfair.
-
-## Adding Vue to a nwb-cli based project
-
-Getting Vue to compile at all was fun, too. I started the project using [nwb-cli](https://github.com/insin/nwb), which is not The Official Way™. You're supposed to use `vue-cli`, but I didn't want to start a new project.
-
-Some finagling with `vue-loader` was necessary. Two steps 👇
-
-1.  install some stuff
-2.  tweak `nwb.config.js`.
-
-### Install some stuff
-
-    yarn add vue vue-loader vue-template-compiler
-
-You need both `vue-loader` and `vue-template-compiler` because vue-loader actually installs `vue-template-es2015-compiler` then complains that it can't find `vue-template-compiler`. This is confusing.
-
-I installed [vuera](https://github.com/akxcv/vuera) as well. It gives you a wrapper component so you can render Vue inside your React project. [Vue is kept internally autonomous](https://github.com/akxcv/vuera/blob/master/src/wrappers/Vue.js%60) so it shouldn't affect the benchmark, but it makes it easier to put all benchmarks in the same project.
+Node:
 
 ```javascript
-// VueBenchmarkWrapper.js
+var redis = require("redis").createClient(),
+  http = require("http")
 
-import React from "react";
-import { VueWrapper } from "vuera";
-import VueBenchmark from "./VueBenchmark.vue";
+http
+  .createServer(function (req, res) {
+    var data = ""
+    req.on("data", function (chunk) {
+      data += chunk
+    })
+    req.on("end", function () {
+      var input = JSON.parse(data)
 
-export default () => <vuewrapper component={VueBenchmark}>;</vuewrapper>;
+      redis.get(input.key, function (err, value) {
+        redis.set(input.key, input.value, function (err) {
+          res.writeHead(200, { "Content-Type": "application/json" })
+          res.end(value)
+        })
+      })
+    })
+  })
+  .listen(8124, "127.0.0.1")
 ```
 
-### Tweak nwb.config.js
+[Django](http://www.djangoproject.com):
 
-After installing Vue, you have to tell Webpack how to use it. That goes in `nwb.config.js`.
+```python
+from django.http import HttpResponse
 
-```javascript
-// nwb.config.js
-module.exports = {
-  type: "react-app",
-  webpack: {
-    extra: {
-      module: {
-        rules: [
-          {
-            test: /\.vue$/,
-            loader: "vue-loader",
-          },
-        ],
-      },
-    },
-  },
-};
+import json, redis
+
+r = redis.Redis(host='localhost', port=6379, db=0)
+
+def bench(request):
+    data = json.loads(request.raw_post_data)
+    value = r.get(data['key'])
+    r.set(data['key'], data['value'])
+
+    return HttpResponse(value)
 ```
 
-You add a rule that tells Webpack to use `vue-loader` for files ending with `.vue`. Same as a normal Webpack config file, just wrapped in `extra:` so `nwb` knows what to do.
+Tornado:
 
-This is where `nwb` shines over `create-react-app`. Extra config without eject.
+```python
+import tornado.ioloop
+import tornado.web
 
-## Next step for the DOM benchmark
+import json, redis
 
-What I want to do next is going to blow your mind. Maybe.
+r = redis.Redis(host='localhost', port=6379, db=0)
 
-Remember my [blockchain-redux](https://swizec.com/blog/blockchain-redux-experiment-part-2/) experiment from December? I want to use it to make [this DOM benchmark](https://dom-benchmark.now.sh/) collaborative.
+class MainHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write("Hello, world")
 
-Every time you click a button, it adds to the benchmark blockchain, distributes it to everyone, updates graphs on everyone's page. We're going to see how these benchmarks behave in the real world on real people's computers.
+    def post(self):
+        data = json.loads(self.request.body)
+        value = r.get(data['key'])
+        r.set(data['key'], data['value'])
+        self.write(value)
 
-That's gonna be fun 🤘
+application = tornado.web.Application([
+    (r"/", MainHandler),
+])
 
-![](./img/media-u0v3z2iQLxyHC-giphy.gif)
+if __name__ == "__main__":
+    application.listen(8124)
+    tornado.ioloop.IOLoop.instance().start()
+```
 
-1.  This is a dramatization. There were only cold sweats every time I opened the editor to get started. [↩](#ffn1)
+As you can see I tried to make sure nobody would be making too many connections to redis because that's a waste of time.
+
+## The Results
+
+The most surprising thing I discovered is just how little effect piling on load has on all of the technologies involved. The average time for handling a request between 512 requests and 5120 is pretty much the same throughout. Even the rate of dropped requests doesn't seem to follow a really discernible pattern.
+
+Maybe I just didn't push hard enough, then again, 8 seconds average on django ... that's just horrible.
+
+Some shiny graphs:
+
+![Average time graph](./img/6sGx6.png)
+
+![Total runtime](./img/ubAAQ.png)
+
+![Dropped connections](./img/DDUbz.png)
+
+## The Conclusion
+
+As we can see, node.js proves to be the fastest in this setting by quite a bit - average request handling takes about a second whereas both tornado and django take at least 3. The more troubling thing are the periodic spikes that seem to happen under load where the average request suddenly took 15 seconds to handle.
+
+Unfortunately I have no idea why that might be, my suspicion is something with how the redis library talks to the database. Perhaps it's collecting reads and writes and then doing them all in a big batch ... but surely that can't be the case right?
+
+The greatest thing is that hey, no matter whether it's fast or slow, apparently all three of these are well adept at handling a bunch of load almost linearly without becoming increasingly slower when you add more. Just don't try running your whole server in a single process, that obviously doesn't work too well.
+
+Load balance!

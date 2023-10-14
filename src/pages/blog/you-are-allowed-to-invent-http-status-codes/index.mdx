@@ -37,10 +37,12 @@ Feels different doesn't it ...
 
 That's why many modern APIs have started returning `200 Success` for everything. As long as the server machinery works.
 
+```
     Status: 200
     {
       error: 'Not Found'
     }
+```
 
 GraphQL does this – everything is a POST and gets a 200 response. Even if your app breaks down. As long as the app itself is responding, you get a 200.
 

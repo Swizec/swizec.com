@@ -1,5 +1,5 @@
 ---
-title: "Fade in lazy loaded images with React and CSS – a quick guide"
+title: "Fade in lazy loaded images with React and CSS – a quick guide"
 description: ""
 published: 2018-01-31
 redirect_from:
@@ -24,7 +24,7 @@ But the default experience can be jarring. When images finally load, they just p
 
 So I built a general `FadeIn` component. I'll opensource it, but it needs some polish first, and I'd like your opinions on how to make it better.
 
-##
+## FadeIn component
 
 The component is just 40 lines of code. Pretty simple.
 
@@ -32,30 +32,35 @@ The component is just 40 lines of code. Pretty simple.
 class FadeIn extends React.Component {
   state = {
     loaded: false,
-  };
-  onLoad = () => this.setState({ loaded: true });
+  }
+  onLoad = () => this.setState({ loaded: true })
 
   render() {
     const { height, children } = this.props,
-      { loaded } = this.state;
+      { loaded } = this.state
 
     return (
-      <lazyload height={height} offset={150}>
+      <Lazyload height={height} offset={150}>
         <transition in={loaded} timeout={duration}>
           {(state) => (
-            <div style={{ ...defaultstyle, ...transitionstyles[state] }}>
+            <div
+              style={{
+                ...defaultstyle,
+                ...transitionstyles[state],
+              }}
+            >
               {children(this.onLoad)}
             </div>
           )}
         </transition>
-      </lazyload>
-    );
+      </Lazyload>
+    )
   }
 }
 FadeIn.propTypes = {
   height: PropTypes.number,
   children: PropTypes.func,
-};
+}
 ```
 
 `FadeIn` keeps local `loaded` state to keep track of what to show. `false` means "stay transparent", `true` means "fade to full opacity".
@@ -67,11 +72,11 @@ Using the children render function approach, you can ask `FadeIn` to render anyt
 All you have to do is trigger the `onLoad` callback once your content is ready. When your image is done loading for example.
 
 ```javascript
-<fadein height={400}>
+<FadeIn height={400}>
 {onLoad =>
   <img class={cx('img')} src={subheader2} onload={onLoad}>
 }
-</fadein>
+</FadeIn>
 ```
 
 You render `<FadeIn>`, give it a height so things don't jump around, and pass a children function that takes an `onLoad` callback. When you're ready to trigger the transition, you call `onLoad` and `FadeIn` does its thing.

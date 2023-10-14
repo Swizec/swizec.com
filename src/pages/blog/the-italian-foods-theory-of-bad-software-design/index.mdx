@@ -13,7 +13,7 @@ You know about spaghetti code. Code so confusing it looks like a bowl of spaghet
 
 But have you heard of ravioli and lasagna code?
 
-I don't know why we name bad practices after delicious Italian foods, but a recent conversation about [splitting up a monolith](https://swizec.com/blog/what-microservices-are-for/) inspired me to add another – **minestrone software**.
+I don't know why we name bad practices after delicious Italian foods, but a recent conversation about [splitting up a monolith](https://swizec.com/blog/what-microservices-are-for/) inspired me to add another – **minestrone software**.
 
 https://twitter.com/Swizec/status/1527695994028032001
 
@@ -73,6 +73,7 @@ Here's an example I've seen time and again.
 
 The storage layer keeps your data. A filesystem or database. Secretly it also holds your domain model, but we rarely talk about that.
 
+```graphql
     Article {
     	id: uuid
     	title: text
@@ -80,6 +81,7 @@ The storage layer keeps your data. A filesystem or database. Secretly it also ho
     	created_at: timestamp
     	author_id: fkey(User)
     }
+```
 
 Articles have `title`, `content`, are `created_at` a time, and belong to an author.
 

@@ -38,7 +38,7 @@ The API is a simple tracking pixel:
 <img src="http://<address>?t=<type>&v=<value>&b=<bucket>" />
 ```
 
-Where _type_ is one of _c _(counter)_, t _(timer)_, g _(gauge)_._ As per StatsD naming convention. And _bucket_ is simply the name of your metric.
+Where _type_ is one of _c_ (counter), _t_ (timer), _g_ (gauge). As per StatsD naming convention. And _bucket_ is simply the name of your metric.
 
 [The source](https://github.com/Swizec/personal-dashboard/blob/master/collectors/js_proxy/server.js) is on github. Feel free to use it.
 
@@ -46,7 +46,7 @@ Where _type_ is one of _c _(counter)_, t _(timer)_, g _(gauge)_._ As per StatsD 
 
 Ok, so now we can collect data from the browser ... but I want to send it directly to a browser as well. None of that [Graphite](http://graphite.wikidot.com/) stuff - I want to use some other fancy graphs and visualisations. Just because.
 
-To solve this problem I implemented a socket.io backend for StatsD. It, also, can be found on github -> <https://github.com/etsy/statsd/pull/102>
+To solve this problem I implemented a socket.io backend for StatsD. It, also, can be found on github -> https://github.com/etsy/statsd/pull/102
 
 Hope the pull request gets merged soon, or at all for that matter. I really think this is a useful addition to StatsD because it means you can use whatever client-side javascript to do visualisations. In near real-time and all that.
 
@@ -66,13 +66,11 @@ The data is sent over in a simple format:
  gauges: {gauge1: 10
           },
  statsd: {numStats: 6},
- timestamp: <unix timestamp="">}
-</unix>
+ timestamp: <unix timestamp>}
 ```
 
 ## The goal?
 
 If all goes well, I will soon be able to use cubism.js to draw a pretty timeseries of the traffic on this blog. And hey, who knows what else I can think of to add to a personal dashboard of my life ... I now have the basic framework. Time to start using it.
 
-[![Cubism.js makes shiny timeseries](https://swizec.com/wp-content/uploads/2012/06/cubismjs-shiny-timeseries.png "Cubism.js makes shiny timeseries")](http://square.github.com/cubism/)
-
+[![Cubism.js makes shiny timeseries](https://swizec.com/wp-content/uploads/2012/06/cubismjs-shiny-timeseries.png)](http://square.github.com/cubism/)

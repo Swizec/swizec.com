@@ -90,18 +90,17 @@ It starts by creating an array of arrays to represent our data. Each has an `<Ic
 ```javascript
 // index.js prep data
 
-const icons = [<circle>, <rectangle>, <triangle>],
+const icons = [<circle />, <rectangle />, <triangle />],
   flowData = d3range(10).map(i => [
     icons[i % 3],
     contentUpdated => (
-      <dynamiccontent title="{`Row" ${i}`}="" contentupdated={contentUpdated}>
+      <DynamicContent title="{`Row" ${i}`}="" contentupdated={contentUpdated}>
         {d3range(10)
           .slice(0, i)
           .map(() => faker.lorem.paragraph())}
-      </dynamiccontent>
+      </DynamicContent>
     )
   ]);
-</triangle></rectangle></circle>
 ```
 
 Icon is a plain component. We're rendering it as a compound component with no frills. ``is wrapped in a function because it's going to be used as a render prop. It gets the callback function it can call to dynamically update its height after initial rendering.
@@ -113,7 +112,7 @@ Rendering our dataviz is meant to be simple 👇
 ```javascript
 // index.js render method
 <svg width="600" height="2240">
-  <accordionflow data={flowData}></accordionflow>
+  <AccordionFlow data={flowData}></AccordionFlow>
 </svg>
 ```
 
@@ -139,12 +138,12 @@ class AccordionFlow extends React.Component {
 
     return (
       <g transform="translate(0, 20)">
-        <line x1={15} x2={15} y1={10} y2="{heights.reduce((sum," h)=""> sum + h, 0)}
+        <line x1={15} x2={15} y1={10} y2={heights.reduce((sum, h) => sum + h, 0)}
           stroke="lightgrey"
           strokeWidth="2.5"
         />
         {data.map(([icon, content], i) => (
-          <row icon={icon} content={content} y="{heights.slice(0," i).reduce((sum,="" h)=""> sum + h, 0)}
+          <row icon={icon} content={content} y={heights.slice(0, i).reduce((sum, h) => sum + h, 0)}
             width={450}
             key={i}
             reportHeight={height => {
@@ -157,7 +156,6 @@ class AccordionFlow extends React.Component {
             }}
           />
         ))}
-      </row></line></g>
     );
   }
 }
@@ -176,9 +174,9 @@ Each `<Row>` gets
 
 We should probably move that callback into a class method, but we need to encapsulate the index. Best we could do is something like `height => this.reportHeight(height, i)`.
 
-##
+## Row
 
-The ``component is more beastly. It renders the icon and the content, handles height callbacks, and uses my [declarative D3 transitions with React 16.3+](https://swizec.com/blog/declarative-d3-transitions-with-react-163/) approach to animate its vertical positioning.
+The `Row` component is more beastly. It renders the icon and the content, handles height callbacks, and uses my [declarative D3 transitions with React 16.3+](https://swizec.com/blog/declarative-d3-transitions-with-react-163/) approach to animate its vertical positioning.
 
 64 lines of code in total.
 
@@ -187,26 +185,26 @@ class Row extends React.Component {
   state = {
     open: false,
     y: this.props.y,
-  };
+  }
 
-  toggleOpen = () => this.setState({ open: !this.state.open });
+  toggleOpen = () => this.setState({ open: !this.state.open })
 
   // needed for animation
-  rowRef = React.createRef();
+  rowRef = React.createRef()
 
   // magic dynamic height detection
   contentRefCallback = (element) => {
     if (element) {
-      this.contentRef = element;
-      this.props.reportHeight(element.getBoundingClientRect().height);
+      this.contentRef = element
+      this.props.reportHeight(element.getBoundingClientRect().height)
     } else {
-      this.props.reportHeight();
+      this.props.reportHeight()
     }
-  };
+  }
 
   contentUpdated = () => {
-    this.props.reportHeight(this.contentRef.getBoundingClientRect().height);
-  };
+    this.props.reportHeight(this.contentRef.getBoundingClientRect().height)
+  }
 
   componentDidUpdate() {
     // handle animation
@@ -218,7 +216,7 @@ class Row extends React.Component {
 }
 ```
 
-Our ``component uses `state` to keep track of whether it's `open` and its vertical position `y`.
+Our `Row` component uses `state` to keep track of whether it's `open` and its vertical positio `y`.
 
 We use `toggleOpen` to flip the `open` switch. Right now, that just means the difference between `content` being rendered or not.
 
@@ -238,7 +236,7 @@ The `render` method puts all of this together.
       { y } = this.state;
 
     return (
-      <g transform="{`translate(5," ${y})`}="" ref={this.rowRef}>
+      <g transform={`translate(5, ${y})`} ref={this.rowRef}>
         <g onclick={this.toggleOpen} style={{ cursor: "pointer" }}>
           {icon}
         </g>
@@ -256,7 +254,7 @@ The `render` method puts all of this together.
   }
 ```
 
-We start with a grouping element ``that handles positioning and sets the `rowRef`.
+We start with a grouping element `g` that handles positioning and sets the `rowRef`.
 
 Inside, we render first a grouping element with a click callback and our `icon`. This lets us open and close a row.
 
@@ -291,14 +289,14 @@ We then render our `content` as either a functional render prop being passed the
 
 The idea is that we take the new `y` prop, transition our DOM node directly using D3, then update our `state` to keep React in sync with reality.
 
-##
+## DynamicContent
 
 To be honest, `<DynamicContent>` isn't the fun part of this code. I include it here for completeness.
 
 It's a component that renders a title and some paragraphs, waits 1.2 seconds, then adds another paragraph. There's also a spinner to make things more interesting.
 
 ```javascript
-lass DynamicContent extends React.Component {
+class DynamicContent extends React.Component {
   state = {
     paragraphs: this.props.children,
     spinner: true
@@ -322,17 +320,16 @@ lass DynamicContent extends React.Component {
         <h3>{title}</h3>
         {paragraphs.map(c => {c}
 
-)}
+        )}
         <p>
           {spinner && (
-            <spinner name="cube-grid" color="green" fadein="none" style={{ margin: "0 auto" }}>
+            <Spinner name="cube-grid" color="green" fadeIn="none" style={{ margin: "0 auto" }} />
           )}
 
 
     );
   }
 }
-</spinner></p></react>
 ```
 
 See, state holds paragraphs and a spinner flag. `componentDidMount` has a timeout of 1.2 seconds, then adds another paragraph and calls the `contentUpdated` callback.

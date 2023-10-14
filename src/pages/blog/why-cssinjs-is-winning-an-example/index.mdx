@@ -52,19 +52,21 @@ Pretty isn't it? I think it is.
 
 Here's all the component code 👇
 
-    <code lang="javascript">const Step = ({ index, done, last }) => (
-      <Circle index={index} done={done} last={last}>
-        {last ? "⭐️" : index + 1}
-      </Circle>
-    );
+```javascript
+const Step = ({ index, done, last }) => (
+  <Circle index={index} done={done} last={last}>
+    {last ? "⭐️" : index + 1}
+  </Circle>
+)
 
-    export default ({ step, maxSteps }) => (
-      <Steps row>
-        {range(maxSteps).map(i => (
-          <Step index={i} key={i} last={i === maxSteps - 1} done={i < step} />
-        ))}
-      </Steps>
-    );
+export default ({ step, maxSteps }) => (
+  <Steps row>
+    {range(maxSteps).map((i) => (
+      <Step index={i} key={i} last={i === maxSteps - 1} done={i < step} />
+    ))}
+  </Steps>
+)
+```
 
 Yep that's it. 12 lines of code.
 
@@ -86,13 +88,15 @@ Now look at us.
 
 BUT ALL IS NOT LOST! Look at this beauty.
 
-    <code class="javascript">import { Box, Flex, Heading, styled } from "reakit";
+```javascript
+import { Box, Flex, Heading, styled } from "reakit"
 
-    const Steps = styled(Flex)`
-        align-items: center;
-        justify-content: center;
-        padding-top: 40px;
-    `;
+const Steps = styled(Flex)`
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+`
+```
 
 I'm using Diegohaz's [reakit](https://reakit.io/) for base CSS stuff. He built a bunch of components on top of styled-components that have sane defaults and great composability.
 
@@ -104,21 +108,22 @@ Easy 👌
 
 And then comes the `<Circle>` component. The individual steps.
 
-    <code class="javascript">import { theme, palette, withProp, ifProp } from "styled-tools";
+```javascript
+import { theme, palette, withProp, ifProp } from "styled-tools"
 
-    const Circle = styled(Box)`
+const Circle = styled(Box)`
         border-radius: 100%;
         border: 1px solid;
         border-color: ${ifProp(
-            "done",
-            withProp("index", index => palette("steps", index)),
-            palette("grey", 2)
+          "done",
+          withProp("index", (index) => palette("steps", index)),
+          palette("grey", 2)
         )}
         color: ${ifProp("done", "white", palette("grey", 2))};
         background: ${ifProp(
-            "done",
-            withProp("index", index => palette("steps", index)),
-            "white"
+          "done",
+          withProp("index", (index) => palette("steps", index)),
+          "white"
         )}
         font-size: ${palette("size", 1)};
         ${theme("bold")}
@@ -131,7 +136,8 @@ And then comes the `<Circle>` component. The individual steps.
         &:last-child {
             margin-right: 0px;
         }
-    `;
+    `
+```
 
 ![](./img/media-xT0xeJpnrWC4XWblEk-giphy.gif)
 
@@ -145,16 +151,21 @@ Let's break it down.
 
 We start with a `Box`, which is just a `div`.
 
-    <code class="javascript">const Circle = styled(Box)`
+```javascript
+const Circle = styled(Box)`
+```
 
 Then we turn it into a circle with a border.
 
-    <code class="css">    border-radius: 100%;
-        border: 1px solid;
+```css
+border-radius: 100%;
+border: 1px solid;
+```
 
 Border and background color come from our `theme`, based on the combination of `index` and `done` props.
 
-    <code class="javascript">    border-color: ${ifProp(
+```javascript
+    border-color: ${ifProp(
             "done",
             withProp("index", index => palette("steps", index)),
             palette("grey", 2)
@@ -164,6 +175,7 @@ Border and background color come from our `theme`, based on the combination of `
             withProp("index", index => palette("steps", index)),
             "white"
         )}
+```
 
 Here's how you read that:
 
@@ -176,13 +188,16 @@ Palettes are arrays in your theme object. Pure JavaScript. You can see it in the
 
 A similar process gives you the font color.
 
-    <code class="javascript">    color: ${ifProp("done", "white", palette("grey", 2))};
+```javascript
+    color: ${ifProp("done", "white", palette("grey", 2))};
+```
 
 If step is `done`, color is `white`, otherwise the 2nd color from the `grey` palette.
 
 Then we have font size, bold fonts, widths and heights, and other normal CSS stuff to round off each step.
 
-    <code class="javascript">    font-size: ${palette("size", 1)};
+```javascript
+    font-size: ${palette("size", 1)};
         ${theme("bold")}
         width: 30px;
         height: 30px;
@@ -194,6 +209,7 @@ Then we have font size, bold fonts, widths and heights, and other normal CSS stu
             margin-right: 0px;
         }
     `;
+```
 
 You can still use CSS nesting and meta classes just like you're used to. `&:last-child` matches the last `<Step>` and removes its margin so it doesn't mess with the layout.
 

@@ -56,37 +56,37 @@ First, add `useDimensions` to your project
 
 Using it in a component looks like this
 
-    <code class="javascript">import React from 'react';
-    import useDimensions from 'react-use-dimensions';
+```javascript
+import React from "react"
+import useDimensions from "react-use-dimensions"
 
-    const MyComponent = () => {
-        const [ref, { x, y, width }] = useDimensions();
+const MyComponent = () => {
+  const [ref, { x, y, width }] = useDimensions()
 
-        return (
-            <div ref={ref}>
-                This is the element you'll measure
-            </div>
-        )
-    }
+  return <div ref={ref}>This is the element you'll measure</div>
+}
+```
 
 `useDimensions` returns a 2-element array. First the `ref`, second the dimensions.
 
 This is so multiple `useDimensions` hooks in the same component don't step on each others' toes. Create as many refs and measurement objects as you'd like.
 
-    <code class="javascript">const MyComponent = () => {
-        const [stepRef, stepSize] = useDimensions();
-        const [titleRef, titleSize] = useDimensions();
+```javascript
+const MyComponent = () => {
+  const [stepRef, stepSize] = useDimensions()
+  const [titleRef, titleSize] = useDimensions()
 
-        console.log("Step is at X: ", stepSize.x);
-        console.log("Title is", titleSize.width, "wide");
+  console.log("Step is at X: ", stepSize.x)
+  console.log("Title is", titleSize.width, "wide")
 
-        return (
-            <div>
-                <div ref={stepRef}>This is a step</div>
-                <h1 ref={titleRef}>The title</h1>
-            </div>
-        )
-    }
+  return (
+    <div>
+      <div ref={stepRef}>This is a step</div>
+      <h1 ref={titleRef}>The title</h1>
+    </div>
+  )
+}
+```
 
 MIT License of course.
 
@@ -94,4 +94,4 @@ Consider retweeting if you think it's neat
 
 https://twitter.com/Swizec/status/1105868919129030656?ref_src=twsrc%5Etfw
 
-Enjoy ✌️ ~Swizec
+Enjoy ✌️<br/> ~Swizec

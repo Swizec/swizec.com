@@ -64,7 +64,8 @@ Svelte components live in `.svelte` files, split into 3 sections:
 
 Our `App.svelte` component looks like this.
 
-    <code class="javascript">// src/App.svelte
+```javascript
+// src/App.svelte
     <script>
       // import other components
       import MarvelMovies from "./MarvelMovies.js";
@@ -114,6 +115,7 @@ Our `App.svelte` component looks like this.
 
       <Footer />
     </div>
+```
 
 You might wanna install the Svelte plugin for VSCode to have proper syntax highlighting, Prettier support, and all the rest. The plugin did cause some weird issues while I was streaming, but who knows what that was.
 
@@ -133,7 +135,8 @@ My favorite way to use custom components and add dynamic values to HTML. Vue's a
 
 Where I think Svelte really shines is building components for re-use. Like the `<Movie />` component we used above to render the Movie view.
 
-    <code class="javascript">// src/Movie.svelte
+```javascript
+// src/Movie.svelte
 
     <script>
       export let title;
@@ -186,6 +189,7 @@ Where I think Svelte really shines is building components for re-use. Like the `
       <p>{description}</p>
 
     </div>
+```
 
 Yep it's mostly CSS.
 
@@ -201,51 +205,52 @@ Whatever CSS you write here affects this file/component only and that's neat.
 
 Plus there was no boilerplate at all to get props working, reactive, and passed into the template. To be fair, the same React component looks like this:
 
-    <code class="javascript">// <Movie> as React
-    const Style = styled.div`
-      grid-area: b2;
+```javascript
+// <Movie> as React
+const Style = styled.div`
+  grid-area: b2;
 
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 0.1fr 400px 1.1fr;
-      grid-template-areas: "title" "thumbnail" "description";
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.1fr 400px 1.1fr;
+  grid-template-areas: "title" "thumbnail" "description";
 
-      h2 {
-        text-align: center;
-        grid-area: title;
-      }
+  h2 {
+    text-align: center;
+    grid-area: title;
+  }
 
-      img {
-        max-height: 100%;
-        max-width: 640px;
-        display: block;
-      }
+  img {
+    max-height: 100%;
+    max-width: 640px;
+    display: block;
+  }
 
-      .thumbnail {
-        grid-area: thumbnail;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+  .thumbnail {
+    grid-area: thumbnail;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-      p {
-        grid-area: description;
-        padding: 0 1em;
-      }
-    `
+  p {
+    grid-area: description;
+    padding: 0 1em;
+  }
+`
 
-    const Movie = ({ title, description, image, yearOut }) => (
-        <Style>
-          <h2>{title}</h2>
+const Movie = ({ title, description, image, yearOut }) => (
+  <Style>
+    <h2>{title}</h2>
 
-          <div class="thumbnail">
-            <img src={image} alt={`${title} movie thumbnail`} />
-          </div>
+    <div class="thumbnail">
+      <img src={image} alt={`${title} movie thumbnail`} />
+    </div>
 
-          <p>{description}</p>
-
-        </Style>
-    )
+    <p>{description}</p>
+  </Style>
+)
+```
 
 Which isn't so bad either 🤔
 
@@ -253,20 +258,22 @@ Which isn't so bad either 🤔
 
 Where Svelte shines is its reactivity. Look at all the state management for our app
 
-    <code class="javascript">  // this is automatically reactive
-      let index = 0;
+```javascript
+// this is automatically reactive
+let index = 0
 
-      // assigning new values in functions triggers re-renders
-      function nextMovie() {
-        index = (index + 1) % MarvelMovies.length;
-      }
+// assigning new values in functions triggers re-renders
+function nextMovie() {
+  index = (index + 1) % MarvelMovies.length
+}
 
-      function prevMovie() {
-        index = index - 1;
-        if (index < 0) {
-          index = MarvelMovies.length - 1;
-        }
-      }
+function prevMovie() {
+  index = index - 1
+  if (index < 0) {
+    index = MarvelMovies.length - 1
+  }
+}
+```
 
 Define a variable, `index`, change it inside methods. When its value changes, the component re-renders.
 
@@ -290,7 +297,9 @@ Svelte uses what I believe are called directives. `thing:something` syntax added
 
 We used the `on:` directive to make buttons work
 
-    <code class="html"><button on:click={prevMovie} style="grid-area:b1">👈</button>
+```html
+<button on:click="{prevMovie}" style="grid-area:b1">👈</button>
+```
 
 Call the `prevMovie` function when the button is clicked.
 
@@ -300,7 +309,8 @@ That's it. No binding. No passing params. No nothing. Svelte figures it all out 
 
 This is where I think Svelte fumbles. [Svelte's template logic](https://svelte.dev/examples#else-blocks) is easy to use, but reminiscent of old Mustache or Handlebars syntax.
 
-    <code class="javascript">{#if user.loggedIn}
+```javascript
+{#if user.loggedIn}
         <button on:click={toggle}>
             Log out
         </button>
@@ -309,6 +319,7 @@ This is where I think Svelte fumbles. [Svelte's template logic](https://svelte.d
             Log in
         </button>
     {/if}
+```
 
 Not sure how I feel about that 🤔
 

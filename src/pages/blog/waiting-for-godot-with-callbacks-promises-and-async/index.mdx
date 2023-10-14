@@ -28,9 +28,11 @@ JavaScript uses the [event loop execution model](https://developer.mozilla.org/e
 
 Once a message shows up, the engine processes it in full, then waits for the next one. Something like this:
 
+```
     while (queue.waitForMessage()) {
       queue.processNextMessage();
     }
+```
 
 Everything is an event. Your main code, your click handlers, user interactions, talking to an API, timeouts. All comes to the JavaScript engine as an event.
 

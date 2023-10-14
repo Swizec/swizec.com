@@ -10,7 +10,9 @@ hero: ../../../defaultHero.jpg
 
 Here's a fun engineering problem for ya: You want to build a CLI tool. It should run as a command anywhere in the terminal.
 
+```
     $ do-the-thing
+```
 
 And it does the thing. No `./` or funny paths or anything like that. Just a nice command you can run from anywhere.
 
@@ -30,6 +32,7 @@ Here's how you do it.
 
 **2)** Inside this project, create a `cli.js` file. This will be your executable. No real code in here, just handling the execution and possibly argument parsing.
 
+```
     // ./cli.js
 
     #!/usr/bin/env node
@@ -37,6 +40,7 @@ Here's how you do it.
     let command = require('./command')
 
     command()
+```
 
 The `cli.js` file uses the hashbang syntax to tell your terminal to use `node` to execute this file. You then import the adjacent `command.js` file that exports some function. Run that function.
 
@@ -44,6 +48,7 @@ You can now run this code with `./cli.js` and it should run the command. Superb.
 
 **3)** To turn `cli.js` into a command, you have to add a `"bin"` directive to your `package.json` file. Bin tells npm which commands should become global bash commands.
 
+```
     // package.json
 
     {
@@ -53,6 +58,7 @@ You can now run this code with `./cli.js` and it should run the command. Superb.
             "do-the-thing": "cli.js"
         }
     }
+```
 
 You can list as many `bin` commands as you'd like. Keys become bash commands while values are the Node files they map to.
 
@@ -60,7 +66,9 @@ We set `command.js` as the `main` entry point into our module because that makes
 
 **4)** Install globally.
 
+```
     $ npm install -g your-thing
+```
 
 Installs your CLI in the global node_modules directory. Wherever that is on your machine.
 
@@ -88,6 +96,7 @@ The hackiest.
 
 Something like this:
 
+```
     // cli.js
 
     let command = null;
@@ -97,6 +106,7 @@ Something like this:
     } catch (e) {
         command = require("your-thing");
     }
+```
 
 Start with an empty command. Then try to import the closest `node_modules` to current working directory. If that fails, load whatever Node can find. Usually that's the global installation because it starts searching at `cli.js`, which is global.
 

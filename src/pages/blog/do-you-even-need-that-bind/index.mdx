@@ -10,9 +10,11 @@ hero: ../../../defaultHero.jpg
 
 **Codereviewer:** _"Why is this binding necessary?"_
 
+```javascript
     <Modal show={viewStore.modal.show}
            closeOnOuterClick={true}
            onClose={viewStore.closeModal.bind(viewStore)}
+```
 
 > This code follows my [Simple MobX-driven modals](https://swizec.com/blog/simple-mobxdriven-modals/) approach.
 
@@ -40,10 +42,10 @@ We have a `Store` that holds the number of `clicks` and contains an `inc` action
 
 ```javascript
 class Store {
-  @observable clicks = 0;
+  @observable clicks = 0
 
   @action inc() {
-    this.clicks += 1;
+    this.clicks += 1
   }
 }
 ```
@@ -122,7 +124,7 @@ Looks like a function that takes native events from the browser and emits them i
 Our next step in the chain is `batchedUpdates`.
 
 ```javascript
-var transaction = new ReactDefaultBatchingStrategyTransaction();
+var transaction = new ReactDefaultBatchingStrategyTransaction()
 
 var ReactDefaultBatchingStrategy = {
   isBatchingUpdates: false,
@@ -132,18 +134,18 @@ var ReactDefaultBatchingStrategy = {
    * and friends are batched such that components aren't updated unnecessarily.
    */
   batchedUpdates: function (callback, a, b, c, d, e) {
-    var alreadyBatchingUpdates = ReactDefaultBatchingStrategy.isBatchingUpdates;
+    var alreadyBatchingUpdates = ReactDefaultBatchingStrategy.isBatchingUpdates
 
-    ReactDefaultBatchingStrategy.isBatchingUpdates = true;
+    ReactDefaultBatchingStrategy.isBatchingUpdates = true
 
     // The code is written this way to avoid extra allocations
     if (alreadyBatchingUpdates) {
-      callback(a, b, c, d, e);
+      callback(a, b, c, d, e)
     } else {
-      transaction.perform(callback, null, a, b, c, d, e);
+      transaction.perform(callback, null, a, b, c, d, e)
     }
   },
-};
+}
 ```
 
 Told ya it was good for performance. Just look at that comment – _"components aren't updated unnecessarily"_.

@@ -3,7 +3,7 @@ title: "A for loop is not a for loop is not a for loop"
 description: ""
 published: 2011-10-19
 redirect_from:
-   - /blog/a-for-loop-is-not-a-for-loop-is-not-a-for-loop/swizec/2667
+  - /blog/a-for-loop-is-not-a-for-loop-is-not-a-for-loop/swizec/2667
 categories: "Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
@@ -130,22 +130,22 @@ print "after:", i, "\n" # prints 5
 ## JavaScript
 
 ```javascript
-var i = 5;
+var i = 5
 
 for (var i = 0; i < 2; i++) {
-   console.log("for:" + i); // prints 0, 1
+  console.log("for:" + i) // prints 0, 1
 }
 
-console.log("after:" + i); // prints 2
+console.log("after:" + i) // prints 2
 
-i = 5;
+i = 5
 
 for (var j = 0; j < 2; j++) {
-   var i = j + 1;
-   console.log("for2:" + i); // prints 1, 2
+  var i = j + 1
+  console.log("for2:" + i) // prints 1, 2
 }
 
-console.log("after:" + i); // prints 2
+console.log("after:" + i) // prints 2
 ```
 
 ## CoffeeScript
@@ -190,4 +190,3 @@ The interesting part is how differently languages of the curly-braces family beh
 Ruby is similar to Perl in this regard. That little dollar sign can change the scope and that's what let us pull off the trick since loops are important enough to warrant scope at all.
 
 The biggest disappointment is Python. I was honestly expecting the [list comprehension](http://en.wikipedia.org/wiki/List_comprehension "List comprehension") to have its own scope, but alas.
-

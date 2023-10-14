@@ -92,7 +92,9 @@ Checks that you have at least 1 letter, then an `@`, then more letters, followed
 
 The correct regex for email validation looks like this:
 
+```
     (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+```
 
 Yeah I don't get it either. [StackOverflow](https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression) says that regex internally translates to this state machine:
 
@@ -152,13 +154,17 @@ I have been lucky enough to avoid this whole mess.
 
 Here's a smol taste instead, paste this in your console:
 
+```
     '🏳' + '\u200d' + '🌈'
+```
 
 🏳️‍🌈
 
 \`\\u200d' is a [zero-width-joiner](https://www.bram.us/2016/08/27/fun-with-javascript-and-emoji/) character. Combines emojis. See how you make an emoji family:
 
+```
     [...'👨‍👩‍👧‍👦']
+```
 
 Try it. I promise it's fun :)
 
@@ -170,7 +176,7 @@ All these words are powerful tools that are not meant to be safe.
 
 And that's an important lesson.
 
-Cheers,
+Cheers,<br/>
 ~Swizec
 
 PS: it was 3 hours of unfindable data because we have people on the East and West coast. UTC+4 and UTC+7. If we had a person in every UTC+N, we could find it all 🙃

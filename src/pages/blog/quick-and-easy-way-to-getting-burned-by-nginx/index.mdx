@@ -8,9 +8,9 @@ categories: "Linux, Nginx, Server, Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
 
-![HTTP 403: Forbidden](https://swizec.com/wp-content/uploads/2011/10/2990635787_f61ba8ce93_m1.jpg "HTTP 403: Forbidden")
+![HTTP 403: Forbidden](https://swizec.com/wp-content/uploads/2011/10/2990635787_f61ba8ce93_m1.jpg)
 
-A couple of hours ago I was talking about my past and current projects with someone and they mentioned that Hipstervision was down. Returning a nasty [403 error](http://en.wikipedia.org/wiki/HTTP_403 "HTTP 403").
+A couple of hours ago I was talking about my past and current projects with someone and they mentioned that Hipstervision was down. Returning a nasty [403 error](http://en.wikipedia.org/wiki/HTTP_403).
 
 What the hell?
 
@@ -30,17 +30,20 @@ But ... dear Nginx, I'm using server_name things, you were supposed to treat eac
 
 Turns out in all config files I had this:
 
+```
     server {
     	listen 80;
             server_name hipstervision.org;
+```
 
 But on that particular site I had:
 
+```
     server {
     	listen my-ip:80;
             server_name something.something;
+```
 
 Not sure why that was the case, but apparently Nginx pushes all requests to the most specific _listen_ rule first and only worries about domains and server names later.
 
 Good to know!
-

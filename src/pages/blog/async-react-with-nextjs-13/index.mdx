@@ -19,7 +19,7 @@ const ShowData = async () => {
 }
 ```
 
-Note the `async` React component, the `await` in its body, the complete lack of any loading states, effects, hooks, or libraries. It just works. You can use this component anywhere in your tree – even in a component that isn't itself async!
+Note the `async` React component, the `await` in its body, the complete lack of any loading states, effects, hooks, or libraries. It just works. You can use this component anywhere in your tree – even in a component that isn't itself async!
 
 This is part of React's [RFC: First class support for promises and async/await](https://github.com/reactjs/rfcs/pull/229). A next step from React Suspense, which I wrote about in [React 18 and the future of async data](https://swizec.com/blog/react-18-and-the-future-of-async-data/).
 
@@ -29,7 +29,7 @@ The goal is to make React Suspense easier to use. It worked!
 
 ## You can use async React in NextJS 13
 
-Right now the best way to try React's experimental support for promises is with [the beta side of NextJS 13](https://beta.nextjs.org/docs) – the `/app` directory. I used it to build [ScholarStream.ai](https://ScholarStream.ai) and it feels weird, but works great.
+Right now the best way to try React's experimental support for promises is with [the beta side of NextJS 13](https://beta.nextjs.org/docs) – the `/app` directory. I used it to build [ScholarStream.ai](https://ScholarStream.ai) and it feels weird, but works great.
 
 You can [see my full code on GitHub](https://github.com/Swizec/ScholarStream.ai).
 
@@ -51,7 +51,7 @@ Yes that means that even with server components there's plenty of client-side Ja
 
 ## What async React looks like with beta NextJS
 
-Again, full code on GitHub 👉 <https://github.com/Swizec/ScholarStream.ai>. See it in action 👉 [ScholarStream.ai](https://ScholarStream.ai)
+Again, full code on GitHub 👉 https://github.com/Swizec/ScholarStream.ai. See it in action 👉 [ScholarStream.ai](https://ScholarStream.ai)
 
 The base case is to use NextJS 13's new opinionated `/app` structure:
 

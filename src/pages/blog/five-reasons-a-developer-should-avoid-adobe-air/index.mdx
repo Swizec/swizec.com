@@ -18,7 +18,7 @@ This is of course a criticism geared towards all scripting languages, but fact r
 
 ## Imperfect abstraction
 
-Adobe toutes AIR as a great, almost perfect, abstraction layer between operating systems that enables developers to painlessly develop for all platforms. But as I've recently found in dveloping [Twitulater](http://twitulater.com) this is not so. One problem I've found was that on Mac the javascript implementation automatically translates <http://user:pass@domain.com> uri's to proper authentication and does all that's needed seamlessly, whereas on Windows (Vista) trying to access such an address produces an error.
+Adobe toutes AIR as a great, almost perfect, abstraction layer between operating systems that enables developers to painlessly develop for all platforms. But as I've recently found in dveloping [Twitulater](http://twitulater.com) this is not so. One problem I've found was that on Mac the javascript implementation automatically translates http://user:pass@domain.com uri's to proper authentication and does all that's needed seamlessly, whereas on Windows (Vista) trying to access such an address produces an error.
 
 That was one _very_ long debugging session before I figure that one out. The solution was telling AIR to ignore authentication and make my custom auth headers - which is dirty if you ask me. AIR should do that seamlessly and without annoying pop-ups.
 

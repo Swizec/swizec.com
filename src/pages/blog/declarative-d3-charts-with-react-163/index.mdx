@@ -38,15 +38,13 @@ Instead, we can move our scales into `state` and use `getDerivedStateFromProps`.
 
 That's right, you can have complex objects in state now. It's totally safe.
 
-tweet removed
-<!-- https://twitter.com/ryanflorence/status/984513942696296448 -->
-
 Here's the gist of it 👇
 
 ### D3 in state
 
 Defining D3 objects as component properties used to be best. Now you should do it in your component `state`.
 
+```javascript
     class BarChart extends React.Component {
       state = {
         widthScale: d3
@@ -59,6 +57,7 @@ Defining D3 objects as component properties used to be best. Now you should do i
           .domain([0, d3.max(this.props.data)])
           .range([0, this.props.height])
       };
+```
 
 We define a `widthScale` and a `heightScale`. Each has a `domain` and a `range` that both depend on `this.props`. Yes you can do that in [JavaScript class fields](http://2ality.com/2017/07/class-fields.html) syntax.
 
@@ -66,6 +65,7 @@ We define a `widthScale` and a `heightScale`. Each has a `domain` and a `range` 
 
 You then use `getDerivedStateFromProps` to keep those scales up to date when your component updates.
 
+```javascript
       static getDerivedStateFromProps(nextProps, prevState) {
         let { widthScale, heightScale } = prevState;
 
@@ -75,6 +75,7 @@ You then use `getDerivedStateFromProps` to keep those scales up to date when you
         prevState = { ...prevState, widthScale, heightScale };
         return prevState;
       }
+```
 
 It's a static method, which means no `this` keyword for you, you're running on the class, not an instance. You get the new props and the current state.
 
@@ -84,6 +85,7 @@ Take `widthScale` and `heightScale` out of props, update their domains, put them
 
 Now that your scales are always up to date, you can render your chart. Same as usual, D3 for props, React for rendering.
 
+```javascript
       render() {
         const { x, y, data, height } = this.props,
           { widthScale, heightScale } = this.state;
@@ -96,6 +98,7 @@ Now that your scales are always up to date, you can render your chart. Same as u
           </rect></g>
         );
       }
+```
 
 Get chart coordinates, `data`, and `height` from props. Grab `widthScale` and `heightScale`. Return a `<g>` element full of rectangles.
 
@@ -109,4 +112,4 @@ You can [play with it on CodeSandbox](https://codesandbox.io/s/lq0yr1lnq).
 
 You can render 100,000 SVG nodes in CodeSandbox if you're patient. Then you can't edit your code anymore.
 
-https://twitter.com/Swizec/status/989909019463630848?ref_src=twsrc%5Etfw
+https://twitter.com/Swizec/status/989909019463630848

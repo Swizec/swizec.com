@@ -77,14 +77,14 @@ Like this 👇
 ```javascript
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       data: (props.data || []).map(this.rowParse),
-    };
+    }
   }
 
-  dateParse = d3.timeParse("%d %b %Y");
+  dateParse = d3.timeParse("%d %b %Y")
 
   rowParse = ({ date, time, runner }) => ({
     date: this.dateParse(date),
@@ -94,7 +94,7 @@ class App extends Component {
       .reverse()
       .reduce((t, n, i) => (i > 0 ? t + n * 60 ** i : n)),
     runner,
-  });
+  })
 
   componentWillMount() {
     if (!this.state.data.length) {
@@ -102,7 +102,7 @@ class App extends Component {
         "https://raw.githubusercontent.com/Swizec/server-side-d3-poc/master/src/data.csv"
       )
         .row(this.rowParse)
-        .get((data) => this.setState({ data }));
+        .get((data) => this.setState({ data }))
     }
   }
 
@@ -125,23 +125,24 @@ https://twitter.com/dan_abramov/status/913353504856723458
 You can't detect that your component already had children and avoid replacing them until you're ready. Instead, you can wait to hydrate in the first place.
 
 ```javascript
-d3.csv("https://raw.githubusercontent.com/Swizec/server-side-d3-poc/master/src/data.csv")
+d3.csv(
+  "https://raw.githubusercontent.com/Swizec/server-side-d3-poc/master/src/data.csv"
+)
   .row(this.rowParse)
-  .get(data =>
-      ReactDOM.hydrate(<app data={data}>, document.getElementById('root'))
-  );
-</app>
+  .get((data) =>
+    ReactDOM.hydrate(<app data={data} />, document.getElementById("root"))
+  )
 ```
 
 And you have successfully solved the Flash of Doom seen in most D3 charts.
 
-\\o/
+\o/
 
 ## Caveat
 
 Now you need a server. No more static page serverless webapp for your beautiful chart. No gh-pages and simple hosting…
 
-You _could_ use now.sh, and that's nice, but I don't know how to make it run my server. See 👉 <https://server-side-d3-poc-mamdozxwze.now.sh>
+You _could_ use now.sh, and that's nice, but I don't know how to make it run my server. See 👉 https://server-side-d3-poc-mamdozxwze.now.sh
 
 The panacea is to figure out how to tweak the create-react-app build process to insert your server-side rendered `<App>` right into its `index.html`. That's what I really want.
 

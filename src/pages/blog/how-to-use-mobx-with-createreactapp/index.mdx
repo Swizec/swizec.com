@@ -21,12 +21,12 @@ MobX is a state management competitor to Redux, by the way. I like it because th
 A React component that reacts to MobX data store changes would use the `@observer` decorator. Like this:
 
 ```javascript
-import React, { Component } from "react";
-import { observer } from "mobx-react";
+import React, { Component } from "react"
+import { observer } from "mobx-react"
 @observer
 class Hello extends Component {
   render() {
-    return <h1>Hello {this.props.store.name}</h1>;
+    return <h1>Hello {this.props.store.name}</h1>
   }
 }
 ```
@@ -53,12 +53,14 @@ Ok, so here's what you do when setting up a new React app:
 
 **4)** Open `package.json`, find the `"babel"` section (line 78 for me), and add 4 lines so it looks like this:
 
+```json
 "babel": {"plugins": [
 "transform-decorators-legacy"
 ],
 "presets": [
 "react-app"
 ]},
+```
 
 **5)** Run `npm install --save mobx mobx-react`. This installs MobX.
 

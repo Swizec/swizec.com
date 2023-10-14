@@ -35,11 +35,13 @@ What do you do? You put Earth in a time bubble.
 
 Like this:
 
-    function getQuestion() {
-    return Earth()
-    .then(ArthurDent => ArthurDent.subconscious())
-    .then(subconscious => Scrabble.output(subconscious))
-    }
+```javascript
+function getQuestion() {
+  return Earth()
+    .then((ArthurDent) => ArthurDent.subconscious())
+    .then((subconscious) => Scrabble.output(subconscious))
+}
+```
 
 <ContentUpgrades.Javascript />
 

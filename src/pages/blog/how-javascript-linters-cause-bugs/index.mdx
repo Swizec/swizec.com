@@ -21,27 +21,34 @@ You're ensuring not only that your _values_ are equal or unequal, you ensure the
 
 Things like this:
 
+```
     > "0" == 0
     true
+```
 
 And like this:
 
+```
     > true == 1
     true
     > false == 0
     true
+```
 
 Even things as silly as this:
 
+```
     > new Array() == 0
     true
     > [] == 0
     true
+```
 
 Run a linter on those examples, and it will sagely say _"Dude, use strict comparison. ALWAYS use strict comparison.”_
 
 And your linter would be right. `===` fixes all of those examples.
 
+```
     > "0" === 0
     false
     > true === 1
@@ -52,6 +59,7 @@ And your linter would be right. `===` fixes all of those examples.
     false
     > [] === 0
     false
+```
 
 👌 Problem solved. 👌
 
@@ -70,37 +78,45 @@ This can cause all sorts of issues.
 
 Here are some examples I found in my coworker's PR. 👇
 
-    const url = $(elem).data('url')
-    if (url !== null) {
-        // ...
-    }
+```javascript
+const url = $(elem).data("url")
+if (url !== null) {
+  // ...
+}
+```
 
 But if your `elem` doesn't have a `data-url="..."` attribute, jQuery returns `undefined`, not `null`. Strict comparison fails.
 
 A better approach is to use `if (url)` because `undefined` is falsey and so is an empty string. That makes your code robust against `data-url=""` :)
 
-    function scroll({ elem, offset, duration }) {
-        duration = duration !== null ? duration : 2000;
-    }
+```javascript
+function scroll({ elem, offset, duration }) {
+  duration = duration !== null ? duration : 2000
+}
+```
 
 But if you call `scroll()` without duration, it's `undefined`, and your code breaks. No default duration for you. A better approach is to use destructuring defaults, like this: `function scroll({ elem, offset, duration = 2000 })`.
 
-    function get_id(widget) {
-        let id = widget.id;
-        if (id !== null) {
-            // ...
-        }
-    }
+```javascript
+function get_id(widget) {
+  let id = widget.id
+  if (id !== null) {
+    // ...
+  }
+}
+```
 
 But reading an inexistent object property returns `undefined`, not `null`, and this code breaks. Once more, you're better of relying on inherent falsiness 👉 `if (id)`.
 
-    function createWidget(defaultText, onClick, markBusy) {
-        new Widget({
-            text: defaultText,
-            onClick: onClick,
-            markBusy: markBusy !== null && markBusy
-        })
-    }
+```javascript
+function createWidget(defaultText, onClick, markBusy) {
+  new Widget({
+    text: defaultText,
+    onClick: onClick,
+    markBusy: markBusy !== null && markBusy,
+  })
+}
+```
 
 This one is tricky. It's trying to pass `markBusy` into the `Widget` constructor, but only if it's defined. You can't use default param values because there's no destructuring so hmm… 🤔
 

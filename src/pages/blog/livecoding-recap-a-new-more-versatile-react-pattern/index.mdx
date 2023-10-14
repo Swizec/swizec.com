@@ -34,8 +34,10 @@ This approach doesn't give you all the benefits of React, and it doesn't scale v
 
 Turning that into a library was pretty easy 👇
 
+```
     $ nwb new react-component simple-react-d3
     <copy pasta>
+```
 
 Boom. Library.
 
@@ -59,11 +61,11 @@ Now you can use the blackbox approach any way you like.
 
 ```javascript
 const Axis = SVGBlackbox(function () {
-  const scale = d3.scaleLinear().domain([0, 10]).range([0, 200]);
-  const axis = d3.axisBottom(scale);
+  const scale = d3.scaleLinear().domain([0, 10]).range([0, 200])
+  const axis = d3.axisBottom(scale)
 
-  d3.select(this.refs.anchor).call(axis);
-});
+  d3.select(this.refs.anchor).call(axis)
+})
 
 class Demo extends Component {
   render() {
@@ -74,15 +76,15 @@ class Demo extends Component {
           <axis x={10} y={10}></axis>
           <svgblackbox x={10} y={50}>
             {(anchor) => {
-              const scale = d3.scaleLinear().domain([0, 10]).range([0, 200]);
-              const axis = d3.axisBottom(scale);
+              const scale = d3.scaleLinear().domain([0, 10]).range([0, 200])
+              const axis = d3.axisBottom(scale)
 
-              d3.select(anchor).call(axis);
+              d3.select(anchor).call(axis)
             }}
           </svgblackbox>
         </svg>
       </div>
-    );
+    )
   }
 }
 ```

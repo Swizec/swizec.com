@@ -24,7 +24,9 @@ That quote made it click. D'oh! So obvious.
 
 You see, the problem with arc transitions is that their path definition has a funny shape. It looks like this:
 
+```
     M100.6434055594246,-99.8203632756589A8,8,0,0,1,112.2823856114007,-99.46188154973098A150,150,0,0,1,-104.56274177607584,107.54828233063364A8,8,0,0,1,-104.38099615277264,95.90520136696549L-64.39381262786019,59.38549403963366A8,8,0,0,1,-53.635344263429694,59.35696964757701A80,80,0,0,0,61.78081312913049,-50.82451307295977A8,8,0,0,1,62.30830828934212,-61.57007978883599Z
+```
 
 If that doesn't make sense, don't worry. I can't read it either. Maybe [Sarah Drasner](https://twitter.com/sarah_edo) can, she's an SVG goddess 🤔
 
@@ -67,20 +69,20 @@ Our `arcTween` function uses these to build a tween method that we then feed int
 ```javascript
 // inspired from http://bl.ocks.org/mbostock/5100636
 function arcTween(oldData, newData, arc) {
-  const copy = { ...oldData };
+  const copy = { ...oldData }
   return function () {
     const interpolateStartAngle = d3.interpolate(
         oldData.startAngle,
         newData.startAngle
       ),
-      interpolateEndAngle = d3.interpolate(oldData.endAngle, newData.endAngle);
+      interpolateEndAngle = d3.interpolate(oldData.endAngle, newData.endAngle)
 
     return function (t) {
-      copy.startAngle = interpolateStartAngle(t);
-      copy.endAngle = interpolateEndAngle(t);
-      return arc(copy);
-    };
-  };
+      copy.startAngle = interpolateStartAngle(t)
+      copy.endAngle = interpolateEndAngle(t)
+      return arc(copy)
+    }
+  }
 }
 ```
 
@@ -105,7 +107,7 @@ d3.select(this.refs.elem)
       d: newProps.d,
       pathD: this.arc(newProps.d),
     })
-  );
+  )
 ```
 
 Select an element, a `<path>`, start a transition, make it last `80` milliseconds, `attrTween` the path definition, `d`, attribute using the tween returned from `arcTween`.
@@ -121,7 +123,7 @@ We build our piechart from 2 components:
 
 You can see the [full code on GitHub](https://github.com/Swizec/react-d3-pie)
 
-##
+## Piechart component
 
 The Piechart component itself is pretty simple. Takes some data, renders some arcs.
 
@@ -167,7 +169,7 @@ How data makes it into `<Piechart>` is outside the scope of this tutorial. You c
 
 You can read that code on GitHub in [the App component](https://github.com/Swizec/react-d3-pie/blob/master/src/App.js).
 
-##
+## Updates
 
 Our `<Piechart>` gets updated data every few milliseconds and re-renders. This change propagates into `<Arc>` components via props.
 

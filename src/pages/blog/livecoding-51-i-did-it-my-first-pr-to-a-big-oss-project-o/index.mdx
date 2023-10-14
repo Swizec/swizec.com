@@ -18,10 +18,13 @@ Not because it's _that_ difficult of a bug. Oh no. Because I was doing dumb thin
 
 Previous attempts failed first because I couldn't get my dev environment to work and then because I made a newbie mistake with `yarn.lock` and got frustrated. 😅
 
-👉 <https://swizec.com/blog/livecoding-recap-48-why-contributing-to-big-opensource-projects-is-still-hard/> 👉 <https://swizec.com/blog/livecoding-recap-50-how-newbie-mistakes-kill-the-flow/>
+👉 https://swizec.com/blog/livecoding-recap-48-why-contributing-to-big-opensource-projects-is-still-hard/
+
+👉 https://swizec.com/blog/livecoding-recap-50-how-newbie-mistakes-kill-the-flow/
 
 The bug was more of a feature, really. When Remark generates a table of contents out of your markdown headers, it uses relative links. Like this 👇
 
+```
     # Heading
 
     ## Subheading 1
@@ -31,14 +34,17 @@ The bug was more of a feature, really. When Remark generates a table of contents
     ### Subsubheading
 
     ## Subheading 3
+```
 
 That turns into an HTML list with `#heading`, `#subheading-1` (etc) links. Nesting at all.
 
+```
     - Heading (#heading)
       - Subheading 1 (#subheading-1)
       - Subheading 2 (#subheading-2)
         - Subsubheading (#subsubheading)
       - Subheading 3 (#subheading-3)
+```
 
 Imagine all of that is HTML with `<ul>` and `<li>` and `<a>` tags. Laying it out like this is easier to read.
 
@@ -55,15 +61,15 @@ Our fix went into the aptly named `getTableOfContents` function.
 ```javascript
 const addSlugToUrl = function (node) {
   if (node.url) {
-    node.url = withPrefix(`${markdownNode.fields.slug}${node.url}`);
+    node.url = withPrefix(`${markdownNode.fields.slug}${node.url}`)
   }
   if (node.children) {
-    node.children = node.children.map((node) => addSlugToUrl(node));
+    node.children = node.children.map((node) => addSlugToUrl(node))
   }
 
-  return node;
-};
-tocAst.map = addSlugToUrl(tocAst.map);
+  return node
+}
+tocAst.map = addSlugToUrl(tocAst.map)
 ```
 
 This happens after all the processing that turns a markdown file into an [abstract syntax tree (AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree). Basic recursion 👇

@@ -3,13 +3,13 @@ title: "A day is not 60*60*24 seconds long"
 description: "Days aren't 60*60*24 seconds long. They are 1 day long, which on most days maps to 60*60*24 = 86400 seconds. But not on all days."
 published: 2015-11-18
 redirect_from:
-   - /blog/a-day-is-not-606024-seconds-long/swizec/6755
+  - /blog/a-day-is-not-606024-seconds-long/swizec/6755
 categories: "Technical, JavaScript"
 content_upgrade: Javascript
 hero: ../../../defaultHero.jpg
 ---
 
-import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform";
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 I was fixing some code written by an intrepid junior the other day and came upon this beauty:
 
@@ -60,9 +60,9 @@ Let’s say this code runs between 2 am and 3 am on the days when daylight savin
 Let me show you some examples:
 
 ```javascript
-new Date(new Date("2015-11-01 02:59 pst").getTime() - 1000 * 60 * 60 * 24);
+new Date(new Date("2015-11-01 02:59 pst").getTime() - 1000 * 60 * 60 * 24)
 // Sat Oct 31 2015 03:59:00 GMT-0700 (PDT)
-new Date(new Date("2015-11-01 02:59 pdt").getTime() - 1000 * 60 * 60 * 24);
+new Date(new Date("2015-11-01 02:59 pdt").getTime() - 1000 * 60 * 60 * 24)
 // Sat Oct 31 2015 02:59:00 GMT-0700 (PDT)
 ```
 
@@ -127,6 +127,8 @@ Ok. That’s bad. We've lost an entire day. I’m pretty sure that’s going to 
 Oh, and by the way, stop using Unix timestamps as unique identifiers because they’re not unique.
 
 All that said, there were two or three people that put garlic around their necks, tossed salt over their shoulders, and ran as fast as their legs would carry them.
+
+https://twitter.com/galar/status/661701633030647809
 
 You should read the falsehoods article. Dealing with time _is_ a minefield.
 

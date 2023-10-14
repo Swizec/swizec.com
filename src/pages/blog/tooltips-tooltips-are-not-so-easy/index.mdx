@@ -42,9 +42,9 @@ Oh there's also a codesandbox you can check out:
 
 https://codesandbox.io/s/7mlxwrjw4x
 
-Or read this online 👉 <https://reactviz.holiday/gift-stockings/>
+Or read this online 👉 https://reactviz.holiday/gift-stockings/
 
-Click here, if you'd like a daily dataviz tutorial/challenge until Christmas 👉 <https://reactviz.holiday/>
+Click here, if you'd like a daily dataviz tutorial/challenge until Christmas 👉 https://reactviz.holiday/
 
 ## Managing and sharing tooltip state
 
@@ -55,7 +55,7 @@ const [tooltip, setTooltip] = useState({
   y: 0,
   content: "",
   orientLeft: false,
-});
+})
 ```
 
 Our `tooltip` state holds a `show` flag, tooltip coordinates, and `content`. `orientLeft` is the nascent beginnings of a fuller tooltip API. The tooltip component is going to consume this context and use it to render itself.
@@ -106,11 +106,11 @@ const TooltipContext = React.createContext({
   y: 0,
   orientLeft: false,
   content: "",
-});
+})
 
 // ...
-export default Tooltip;
-export { TooltipContext };
+export default Tooltip
+export { TooltipContext }
 ```
 
 Makes it easier to share the same context between different consumers.
@@ -160,7 +160,7 @@ const TooltipP = styled.p`
   background: ${chroma("green").brighten().hex()};
   border-radius: 3px;
   padding: 1em;
-`;
+`
 ```
 
 Nice green background, rounded corners, and a bit of padding.
@@ -205,10 +205,15 @@ const Arc = ({ d, r, color, offsetX, offsetY }) => {
   }
 
   return (
-    <path d={arc(d)} fill={color} onmouseover={mouseOver} onmouseout={mouseOut} style={{ cursor: 'pointer' }}>
+    <path
+      d={arc(d)}
+      fill={color}
+      onmouseover={mouseOver}
+      onmouseout={mouseOut}
+      style={{ cursor: "pointer" }}
+    />
   )
 }
-</path>
 ```
 
 Here you can see a downside of hooks: They can lead to pretty sizeable functions if you aren't careful.
@@ -221,17 +226,17 @@ All that is followed by our mouse eve handling fucntions.
 
 ```javascript
 const mouseOver = () => {
-  const [x, y] = arc.centroid(d);
+  const [x, y] = arc.centroid(d)
 
-  setSelected(true);
+  setSelected(true)
   tooltipContext.setTooltip({
     show: d.index !== null,
     x: x + offsetX + 30,
     y: y + offsetY + 30,
     content: d.data.stuffer,
     orientLeft: offsetX < 0,
-  });
-};
+  })
+}
 ```
 
 `mouseOver` is the active function. Mouse over an arc and it calculates its center, sets the arc to `selected`, and pushes necessary info into tooltip state. This triggers a re-render of the tooltip component and makes it show up.
@@ -242,9 +247,9 @@ Deselecting the arc happens in a `mouseOut` function
 
 ```javascript
 const mouseOut = () => {
-  setSelected(false);
-  tooltipContext.setTooltip({ show: false });
-};
+  setSelected(false)
+  tooltipContext.setTooltip({ show: false })
+}
 ```
 
 Set `selected` to falls and hide the tooltip.
@@ -253,9 +258,14 @@ With all that defined, rendering our arc is a matter of returning a path with so
 
 ```javascript
 return (
-  <path d={arc(d)} fill={color} onmouseover={mouseOver} onmouseout={mouseOut} style={{ cursor: 'pointer' }}>
+  <path
+    d={arc(d)}
+    fill={color}
+    onmouseover={mouseOver}
+    onmouseout={mouseOut}
+    style={{ cursor: "pointer" }}
+  />
 )
-</path>
 ```
 
 Use the arc generator to create the shape, fill it with color, set up mouse events, add a dash of styling.
@@ -272,9 +282,9 @@ const StockingDonut = ({ data, x, y, r }) => {
   return (
     <g transform="{`translate(${x}," ${y})`}="">
       {pie(data).map(d => (
-        <arc d={d} color={color[d.index]} r={r} key={d.index} offsetx={x} offsety={y}>
+        <arc d={d} color={color[d.index]} r={r} key={d.index} offsetx={x} offsety={y}/>
       ))}
-    </arc></g>
+    </g>
   )
 }
 ```
@@ -301,13 +311,13 @@ Got tired of the `useState`/`useEffect` dance when loading data with hooks. Buil
 
 ```javascript
 function useData(loadData) {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(null)
 
   useEffect(() => {
-    loadData(setData);
-  }, [!data]);
+    loadData(setData)
+  }, [!data])
 
-  return data;
+  return data
 }
 ```
 

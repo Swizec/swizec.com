@@ -1,9 +1,9 @@
 ---
-title: "Advent of Code Day 15 – Dueling JavaScript Generators"
+title: "Advent of Code Day 15 – Dueling JavaScript Generators"
 description: ""
 published: 2017-12-15
 redirect_from:
-   - /blog/advent-code-day-15-dueling-javascript-generators/swizec/7973
+  - /blog/advent-code-day-15-dueling-javascript-generators/swizec/7973
 categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
@@ -24,13 +24,13 @@ The full generator for Day 15 looks like this 👇
 
 ```javascript
 function* star2generator(factor, startingValue, denominator) {
-    let val = startingValue;
-    while (true) {
-        val = (val * factor) % 2147483647;
-        if (val % denominator === 0) {
-            yield val;
-        }
+  let val = startingValue
+  while (true) {
+    val = (val * factor) % 2147483647
+    if (val % denominator === 0) {
+      yield val
     }
+  }
 }
 ```
 
@@ -41,9 +41,9 @@ But it won't crash your node runtime or your browser. Because `function*` and `y
 You get the next value like this:
 
 ```javascript
-const A = generator(16807, startA, denomA);
-A.next().value; // some number
-A.next().value; // next number
+const A = generator(16807, startA, denomA)
+A.next().value // some number
+A.next().value // next number
 ```
 
 The full generator only returns values that are divisible by a `denominator`. That's from part 2 of Day 15. The first part returned every value.
@@ -66,26 +66,26 @@ To count the number of matches, I used this function 👇
 
 ```javascript
 function countMatches({
-   startA,
-   startB,
-   generator,
-   denominators = [],
-   sampleSize,
+  startA,
+  startB,
+  generator,
+  denominators = [],
+  sampleSize,
 }) {
-   const A = generator(16807, startA, denominators[0]),
-      B = generator(48271, startB, denominators[1]);
+  const A = generator(16807, startA, denominators[0]),
+    B = generator(48271, startB, denominators[1])
 
-   let judge = 0,
-      mask = 0b00000000000000001111111111111111;
+  let judge = 0,
+    mask = 0b00000000000000001111111111111111
 
-    for (let i = 0; i < sampleSize; i++) {
-        if ((A.next().value & mask) === (B.next().value & mask)) {
-            judge += 1;
-        }
+  for (let i = 0; i < sampleSize; i++) {
+    if ((A.next().value & mask) === (B.next().value & mask)) {
+      judge += 1
     }
-
-   return judge;
   }
+
+  return judge
+}
 ```
 
 The same function can do both Star 1 and Star 2 of the puzzle depending on input.
@@ -103,7 +103,7 @@ Here's how it works:
 Solving for Star 1 and Star 2 then becomes a matter of calling the `matchCount` function with our inputs.
 
 ```
-console.log(
+    console.log(
         countMatches({
             startA: 591,
             startB: 393,

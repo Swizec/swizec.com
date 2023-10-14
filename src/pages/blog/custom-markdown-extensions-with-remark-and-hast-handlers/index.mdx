@@ -72,45 +72,49 @@ That 3rd part is what we're building 👉 a method that takes a `node` object an
 
 My link-to-screenshot plugin looks like this:
 
-    <code class="javascript">import visit from "unist-util-visit";
-    import Url from "url-parse";
+```javascript
+import visit from "unist-util-visit"
+import Url from "url-parse"
 
-    function getScreenshotUrl(url) {
-        return `https://84wz7ux5rc.execute-api.us-east-1.amazonaws.com/default/screenshot-as-a-service-dev-screenshot-function?url=${url}`;
-    }
+function getScreenshotUrl(url) {
+  return `https://84wz7ux5rc.execute-api.us-east-1.amazonaws.com/default/screenshot-as-a-service-dev-screenshot-function?url=${url}`
+}
 
-    function remarkUrlThumbnail({ domains = [] }) {
-        return tree =>
-            new Promise(async (resolve, reject) => {
-                const nodesToChange = [];
-                visit(tree, "link", node => {
-                    const url = new Url(node.url);
-                    const thumbnailable = domains.some(
-                        d => url.hostname.replace("www.", "") === d
-                    );
+function remarkUrlThumbnail({ domains = [] }) {
+  return (tree) =>
+    new Promise(async (resolve, reject) => {
+      const nodesToChange = []
+      visit(tree, "link", (node) => {
+        const url = new Url(node.url)
+        const thumbnailable = domains.some(
+          (d) => url.hostname.replace("www.", "") === d
+        )
 
-                    if (thumbnailable) {
-                        nodesToChange.push({
-                            node
-                        });
-                    }
-                });
-                for (const { node } of nodesToChange) {
-                    node.type = "screenshot";
-                    node.url = getScreenshotUrl(node.url);
-                    node.link = node.url;
-                }
+        if (thumbnailable) {
+          nodesToChange.push({
+            node,
+          })
+        }
+      })
+      for (const { node } of nodesToChange) {
+        node.type = "screenshot"
+        node.url = getScreenshotUrl(node.url)
+        node.link = node.url
+      }
 
-                resolve();
-            });
-    }
+      resolve()
+    })
+}
 
-    export default remarkUrlThumbnail;
+export default remarkUrlThumbnail
+```
 
 34 lines of prettified code in total. Lemme explain :)
 
-    <code class="javascript">import visit from "unist-util-visit";
-    import Url from "url-parse";
+```javascript
+import visit from "unist-util-visit"
+import Url from "url-parse"
+```
 
 We use the `visit` util from unist utils to help us visit specific nodes. Easier than writing our own recursion-based tree-crawling code.
 
@@ -118,39 +122,43 @@ That's the stuff of whiteboard interviews and I never want to do it myself in re
 
 We use `Url` to parse URLs. You could write a regex for it and that's fraught with dangers. Let someone else deal with the edge cases :)
 
-    <code class="javascript">function getScreenshotUrl(url) {
-        return `https://84wz7ux5rc.execute-api.us-east-1.amazonaws.com/default/screenshot-as-a-service-dev-screenshot-function?url=${url}`;
-    }
+```javascript
+function getScreenshotUrl(url) {
+  return `https://84wz7ux5rc.execute-api.us-east-1.amazonaws.com/default/screenshot-as-a-service-dev-screenshot-function?url=${url}`
+}
+```
 
 `getScreenshotUrl` is a helper method that takes a URL and returns a URL based on my screenshot-as-a-service AWS Lambda. It knows how to take screenshots and make thumbnails of various types of sites.
 
 I should write about how that works some time 🤔
 
-    <code class="javascript">function remarkUrlThumbnail({ domains = [] }) {
-        return tree =>
-            new Promise(async (resolve, reject) => {
-                const nodesToChange = [];
-                visit(tree, "link", node => {
-                    const url = new Url(node.url);
-                    const thumbnailable = domains.some(
-                        d => url.hostname.replace("www.", "") === d
-                    );
+```javascript
+function remarkUrlThumbnail({ domains = [] }) {
+  return (tree) =>
+    new Promise(async (resolve, reject) => {
+      const nodesToChange = []
+      visit(tree, "link", (node) => {
+        const url = new Url(node.url)
+        const thumbnailable = domains.some(
+          (d) => url.hostname.replace("www.", "") === d
+        )
 
-                    if (thumbnailable) {
-                        nodesToChange.push({
-                            node
-                        });
-                    }
-                });
-                for (const { node } of nodesToChange) {
-                    node.type = "screenshot";
-                    node.url = getScreenshotUrl(node.url);
-                    node.link = node.url;
-                }
+        if (thumbnailable) {
+          nodesToChange.push({
+            node,
+          })
+        }
+      })
+      for (const { node } of nodesToChange) {
+        node.type = "screenshot"
+        node.url = getScreenshotUrl(node.url)
+        node.link = node.url
+      }
 
-                resolve();
-            });
-    }
+      resolve()
+    })
+}
+```
 
 `remarkUrlThumbnail` is the work horse here. Split into two parts.
 
@@ -176,11 +184,13 @@ But it won't know what to do with `screenshot`. It's not a node type that HAST r
 
 You can fix that with a HAST handler. Like this
 
-    <code class="javascript">const screenshotHandler = (h, node) => {
-        const props = { node };
+```javascript
+const screenshotHandler = (h, node) => {
+  const props = { node }
 
-        return h(node, "screenshot", props);
-    };
+  return h(node, "screenshot", props)
+}
+```
 
 `screenshotHandler` is a function that takes an `h` function and a `node` as its arguments. `h` is short for `createElement` in the AST rendering world.
 
@@ -198,32 +208,34 @@ Another trick that `remark-react` enables is using custom React components to re
 
 So I built a `<Screenshot>` component.
 
-    <code class="javascript">import React, { useState, useEffect } from "react";
+```javascript
+import React, { useState, useEffect } from "react"
 
-    function Screenshot({ node }) {
-        const [image, setImage] = useState("/lg.pink-pig-ajax-loader.gif");
+function Screenshot({ node }) {
+  const [image, setImage] = useState("/lg.pink-pig-ajax-loader.gif")
 
-        useEffect(() => {
-            (async () => {
-                try {
-                    const res = await fetch(node.url),
-                        url = await res.text();
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const res = await fetch(node.url),
+          url = await res.text()
 
-                    setImage(url);
-                } catch (e) {
-                    setImage("/undraw_warning_cyit.png");
-                }
-            })();
-        }, [node]);
+        setImage(url)
+      } catch (e) {
+        setImage("/undraw_warning_cyit.png")
+      }
+    })()
+  }, [node])
 
-        return (
-            <a href={node.link} target="_blank" rel="noopener noreferrer">
-                <img src={image} style={{ maxWidth: 480 }} alt={node.value} />
-            </a>
-        );
-    }
+  return (
+    <a href={node.link} target="_blank" rel="noopener noreferrer">
+      <img src={image} style={{ maxWidth: 480 }} alt={node.value} />
+    </a>
+  )
+}
 
-    export default Screenshot;
+export default Screenshot
+```
 
 Takes an AST `node` as its prop and returns a linked image. At first the image is a gif spinner, then it turns into a screenshot.
 
@@ -237,41 +249,38 @@ The final step in the puzzle is putting all this together. You'll need some way 
 
 Transforming from markdown to your output looks like this
 
-    <code class="javascript">import remark from "remark";
-    import remark2react from "remark-react";
-    import urlThumbnail from "./remarkUrlThumbnail";
-    import Screenshot from "../Screenshot";
+```javascript
+import remark from "remark"
+import remark2react from "remark-react"
+import urlThumbnail from "./remarkUrlThumbnail"
+import Screenshot from "../Screenshot"
 
-    export const remarkCompile = input =>
-        new Promise((resolve, reject) => {
-            remark()
-                .use(urlThumbnail, {
-                    domains: [
-                        "m.twitter.com",
-                        "twitter.com",
-                        "youtube.com",
-                        "youtu.be"
-                    ]
-                })
-                .use(remark2react, {
-                    sanitize: false,
-                    remarkReactComponents: {
-                        screenshot: Screenshot
-                    },
-                    toHast: {
-                        handlers: {
-                            screenshot: screenshotHandler
-                        }
-                    }
-                })
-                .process(input, (err, output) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(output);
-                    }
-                });
-        });
+export const remarkCompile = (input) =>
+  new Promise((resolve, reject) => {
+    remark()
+      .use(urlThumbnail, {
+        domains: ["m.twitter.com", "twitter.com", "youtube.com", "youtu.be"],
+      })
+      .use(remark2react, {
+        sanitize: false,
+        remarkReactComponents: {
+          screenshot: Screenshot,
+        },
+        toHast: {
+          handlers: {
+            screenshot: screenshotHandler,
+          },
+        },
+      })
+      .process(input, (err, output) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(output)
+        }
+      })
+  })
+```
 
 We have a `remarkCompile` function that takes an `input`, which is markdown, and returns a promise. Promise resolves with the final `output`, or rejects with an error.
 
@@ -281,7 +290,8 @@ You can put as many plugins as you want in between.
 
 Second argument you pass into `use()` goes into your plugin as a function argument. That's how we pass a list of domains to `urlThumbnail` and a bunch of config to `remark2react`.
 
-    <code class="javascript">.use(remark2react, {
+```javascript
+.use(remark2react, {
         sanitize: false,
         remarkReactComponents: {
             screenshot: Screenshot
@@ -292,6 +302,7 @@ Second argument you pass into `use()` goes into your plugin as a function argume
             }
         }
     })
+```
 
 We have to tell `remark2react` to avoid sanitizing our HAST because we're using custom nodes. The `screenshot` node.
 

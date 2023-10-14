@@ -109,16 +109,16 @@ const Actions = {
     Dispatcher.dispatch({
       actionType: Constants.UPDATE_SUBJECT,
       subject: subject,
-    });
+    })
   },
 
   update_body: function (body) {
     Dispatcher.dispatch({
       actionType: Constants.UPDATE_BODY,
       body: body,
-    });
+    })
   },
-};
+}
 ```
 
 Just an object with some functions. When our component calls `update_subject`, it dispatches a new event on the dispatcher singleton with the correct `actionType`, and the new value.
@@ -144,36 +144,66 @@ const Body = React.createClass({
         );
     }
 });
-</pre>
-See? Almost the same.<p></p>We return a <code>textarea</code>, bind the change event to <code>this.update</code>, and set the value with <code>this.props.value</code>.<p></p>Now, you might be thinking two things:
+```
+
+See? Almost the same.
+
+We return a <code>textarea</code>, bind the change event to <code>this.update</code>, and set the value with <code>this.props.value</code>.
+
+Now, you might be thinking two things:
+
 <ol>
-	<li>"This is dumb; you're making React look bad by repeating code."
-<ul id="draft_check_box_list_0">
-	<li>Technically, you're right, but these two are semantically different enough to warrant separate components.</li>
-</ul>
-</li>
-	<li>"You're dumb; React 0.14 came out last week and this code looks old."
-<ul id="draft_check_box_list_1">
-	<li>You're right. React 0.14 came out <em>the day after I wrote this code</em>. Deal with it. (⌐■_■)</li>
-</ul>
-</li>
+  <li>
+    "This is dumb; you're making React look bad by repeating code."
+    <ul id="draft_check_box_list_0">
+      <li>
+        Technically, you're right, but these two are semantically different
+        enough to warrant separate components.
+      </li>
+    </ul>
+  </li>
+  <li>
+    "You're dumb; React 0.14 came out last week and this code looks old."
+    <ul id="draft_check_box_list_1">
+      <li>
+        You're right. React 0.14 came out{" "}
+        <em>the day after I wrote this code</em>. Deal with it. (⌐■_■)
+      </li>
+    </ul>
+  </li>
 </ol>
-<h3 id="the-data-store">The Data store</h3>
+
+### The Data store
+
 Great, we've built the components for our users to interact with, and we've got <code>onChange</code> events firing actions into the aether.<p></p>We're using the default implementation of Flux provided by Facebook. That means we only have to declare the global dispatcher once, and then we never have to worry about it again.
-<pre lang="javascript">// src/Dispatcher.jsx<p></p>const Dispatcher = require('flux').Dispatcher;<p></p>module.exports = new Dispatcher();
-</pre>
+
+```javascript// src/Dispatcher.jsx<p></p>const Dispatcher = require('flux').Dispatcher;<p></p>module.exports = new Dispatcher();
+
+```
+
 The dispatcher acts as a sort of event broker between components. That makes it easier for components at various levels of the architecture to communicate with the data store, which acts as the single source of truth.<p></p>The store consists of three parts:
+
 <ol>
-	<li>Variables/objects with data</li>
-	<li>The Store object, which extends EventEmitter</li>
-	<li>A register call to the dispatcher that listens for events</li>
+  <li>Variables/objects with data</li>
+  <li>The Store object, which extends EventEmitter</li>
+  <li>A register call to the dispatcher that listens for events</li>
 </ol>
+
 We start the data store off with some global variables.
-<pre lang="javascript">// src/Store.jsx<p></p>var subject = "",
-    body = "";
-</pre>
-We're relying on the way Webpack bundles/compiles JavaScript to keep these from becoming true globals. We're also betting on the fact that <code>require()</code> is referentially transparent and always returns the same instance of the code.<p></p>That's a fancy way of saying <em>"Trust me, this works and is okay to do"</em>.<p></p>The store itself comes out to 20 lines of code. Here's what it looks like:
-<pre lang="javascript">// src/Store.jsx<p></p>const Store = Object.assign(EventEmitter.prototype, {
+
+```javascript
+// src/Store.jsx<p></p>var subject = "",
+body = ""
+```
+
+We're relying on the way Webpack bundles/compiles JavaScript to keep these from becoming true globals. We're also betting on the fact that <code>require()</code> is referentially transparent and always returns the same instance of the code.
+
+That's a fancy way of saying <em>"Trust me, this works and is okay to do"</em>.
+
+The store itself comes out to 20 lines of code. Here's what it looks like:
+
+```javascript
+// src/Store.jsx<p></p>const Store = Object.assign(EventEmitter.prototype, {
     getState: function () {
         return {
             subject: subject,
@@ -187,9 +217,16 @@ We're relying on the way Webpack bundles/compiles JavaScript to keep these from 
         this.emit(CHANGE_EVENT);
     }
 });
-</pre>
-We're using <code>Object.assign</code> to extend <code>EventEmitter</code> with four extra functions: <code>getState</code> returns an object with the current values, <code>add-</code> and <code>removeChangeListener</code> add or remove a listener on the change event, and <code>emitChange</code> triggers the change event.<p></p>The latter three make our other code easier to write and read.<p></p>Finally, we register our store with the dispatcher:
-<pre lang="javascript">// src/Store.jsx<p></p>Dispatcher.register(function (action) {
+```
+
+We're using <code>Object.assign</code> to extend <code>EventEmitter</code> with four extra functions: <code>getState</code> returns an object with the current values, <code>add-</code> and <code>removeChangeListener</code> add or remove a listener on the change event, and <code>emitChange</code> triggers the change event.
+
+The latter three make our other code easier to write and read.
+
+Finally, we register our store with the dispatcher:
+
+```javascript
+// src/Store.jsx<p></p>Dispatcher.register(function (action) {
     switch (action.actionType) {
         case Constants.UPDATE_SUBJECT:
             subject = action.subject;
@@ -200,11 +237,20 @@ We're using <code>Object.assign</code> to extend <code>EventEmitter</code> with 
             break;<p></p>        default:
             // no op
     };
-</pre>
-This is no fancier than <code>thing.on('event', callback)</code>. The hard work happens inside the dispatcher; we only care to be notified when something happens.<p></p>Our callback then takes the <code>actionType</code> property, and decides what to do. In most cases, it will change the value of a store variable and call <code>emitChange</code>.<p></p>That's it. Our store is ready. Let's see what happens after <code>emitChange</code>.
-<h3 id="the-output">The output</h3>
+```
+
+This is no fancier than <code>thing.on('event', callback)</code>. The hard work happens inside the dispatcher; we only care to be notified when something happens.
+
+Our callback then takes the <code>actionType</code> property, and decides what to do. In most cases, it will change the value of a store variable and call <code>emitChange</code>.
+
+That's it. Our store is ready. Let's see what happens after <code>emitChange</code>.
+
+### The output
+
 We've got the inputs, and we've got the data store as the single source of truth for the entire utility. Now we need a component that will act as the output. Some way for the user to get that <code>mailto:</code> link.<p></p>We'll call this component <code>Link</code> because we are engineers and have amazing imaginations.
-<pre lang="javascript">// src/Link.jsx<p></p>const Link = React.createClass({<p></p>    build_link: function () {
+
+```javascript
+// src/Link.jsx<p></p>const Link = React.createClass({<p></p>    build_link: function () {
         var subject = encodeURIComponent(this.props.subject),
             body = encodeURIComponent(
                 toMarkdown(
@@ -219,22 +265,39 @@ We've got the inputs, and we've got the data store as the single source of truth
         );
     }
 });
-</pre>
-The output is some text with a link, which gets its <code>href</code> attribute from the <code>this.build_link</code> method.<p></p>Remember the <code>build_link</code> method from earlier? Same function, different name and different way of getting data.<p></p>Our vanilla function used arguments to get the raw subject and body; this one gets them from <code>this.props</code>. These are populated as element properties by the parent component. Let me show you how it's done.
-<h3 id="the-main-component-puts-it-all-together">The main component puts it all together</h3>
-We've got the building blocks: the inputs, the data layer, and the output. Now we have to put them all together.<p></p>ShareThisEmail is a component with more code than the others, but it's not too bad.
-<pre lang="javascript">// src/ShareThisEmail.jsx<p></p>const ShareThisEmail = React.createClass({
+```
+
+The output is some text with a link, which gets its <code>href</code> attribute from the <code>this.build_link</code> method.
+
+Remember the <code>build_link</code> method from earlier? Same function, different name and different way of getting data.
+
+Our vanilla function used arguments to get the raw subject and body; this one gets them from <code>this.props</code>. These are populated as element properties by the parent component. Let me show you how it's done.
+
+### The main component puts it all together
+
+We've got the building blocks: the inputs, the data layer, and the output. Now we have to put them all together.
+
+ShareThisEmail is a component with more code than the others, but it's not too bad.
+
+```javascript
+// src/ShareThisEmail.jsx
+
+const ShareThisEmail = React.createClass({
     getInitialState: function () {
         return Store.getState();
-    },<p></p>    componentDidMount: function () {
+    },
+    componentDidMount: function () {
         Store.addChangeListener(this._onChange);
-    },<p></p>    componentWillUnmount: function () {
+    },
+    componentWillUnmount: function () {
         Store.removeChangeListener(this._onChange);
     },
 
     _onChange: function () {
         this.setState(Store.getState());
-    }<p></p>    render: function () {
+    }
+
+    render: function () {
         return (
             <div>
                 <form className="col-md-8">
@@ -247,8 +310,43 @@ We've got the building blocks: the inputs, the data layer, and the output. Now w
         )
     }
 });
-</pre>
-This component uses <code>addChangeListener</code> to bind to data store changes when it's mounted into the page, and ensures there are no hanging callbacks before it's unmounted. Basically, subscribes to changes when it starts existing, and unsubscribes before it dies.<p></p>In both cases, we use <code>this._onChange</code> as the callback. It uses <code>Store.getState()</code> to naively set <code>ShareThisEmail</code>'s internal state to whatever the store says. Not the best approach in all cases, but it works for us.<p></p>Once <code>this.setState</code> executes, it triggers a component re-render. This is where React magic kicks in.<p></p>On every re-render, we feed the new state into <code>Subject</code>, <code>Body</code>, and <code>Link</code> components as properties. Those components then see the new values in <code>this.props</code> and re-render as needed. A re-render only happens if the actual values are different.<p></p>So for example, <code>Link</code> re-renders every time the user types into either subject or body. But subject only re-renders when the subject changes.<p></p>Now here's the kicker: because we're using so called controlled components, their values can only change by changing <code>this.props.value</code>. If you forget to close the Flux loop, typing into an input field doesn't change the field.<p></p>That part seems kind of bonkers, but it makes sense when you think about it. We're trying to control everything the user sees through an internal data representation. It gives us many benefits, I promise.<p></p>So, there you have it. A working app. I only showed you the core parts of the code, so you might want to check out <a href="https://github.com/Swizec/sharethisemail">ShareThisEmail's source on Github</a> to learn the details.
-<h1 id="conclusion:-do-you-need-flux?">Conclusion: do you need flux?</h1>
-After reading all of that, you might be asking yourself: <em>why</em> did we turn 10 lines of JavaScript into 137, and added a few hundred kilobytes of library payload to our page?<p></p>To prove a point.<p></p>For this example, Flux doesn't solve any problems. It makes the code harder to follow, increases our payload size, and provides a fertile ground for bugs. More code, more places to make mistakes.<p></p>But Flux is a pattern. You can give this code to anyone who knows Flux, and they will know exactly where to look for what. They'll know how things fit together, and they will be able to add more features.<p></p>Five months from now, you'll still know what's going on, and you'll be able to fix things.<p></p>Adding new features doesn't mean rewriting the whole app. In fact, I added a "Copy to Clipboard" button over the weekend to improve UX and ... well, Flux made it kind of boilerplatey.<p></p>When I think of my main gig's production code with its thousands of lines of JavaScript, tens of components, and hundreds of sources of truth, my soul weeps for Flux.<p></p>Your mileage may vary.<p></p>PS: I'm working on a book about testing React code, <a href="mailto:swizec@swizec.com?subject=I%20like%20testing%20React!&body=Hey%20Swizec%2C%20%20%0A%0AI%20want%20to%20learn%20more%20about%20writing%20tests%20for%20React%20code.%20%20%0A%0AIn%20particular%20I%20want%20to%20know%20more%20about%20______%20%20%0A%0ACheers%2C%20%20%0A~%20My%20Name">send me an email</a>, if you're interested<p></p><strong>Thanks</strong> to Will Fanguy, Tiffany Morgan, David Bairne, and Coletta Teske for reading draft copies of this article</textarea></div>
 ```
+
+This component uses <code>addChangeListener</code> to bind to data store changes when it's mounted into the page, and ensures there are no hanging callbacks before it's unmounted. Basically, subscribes to changes when it starts existing, and unsubscribes before it dies.
+
+In both cases, we use <code>this.\_onChange</code> as the callback. It uses <code>Store.getState()</code> to naively set <code>ShareThisEmail</code>'s internal state to whatever the store says. Not the best approach in all cases, but it works for us.
+
+Once <code>this.setState</code> executes, it triggers a component re-render. This is where React magic kicks in.
+
+On every re-render, we feed the new state into <code>Subject</code>, <code>Body</code>, and <code>Link</code> components as properties. Those components then see the new values in <code>this.props</code> and re-render as needed. A re-render only happens if the actual values are different.
+
+So for example, <code>Link</code> re-renders every time the user types into either subject or body. But subject only re-renders when the subject changes.
+
+Now here's the kicker: because we're using so called controlled components, their values can only change by changing <code>this.props.value</code>. If you forget to close the Flux loop, typing into an input field doesn't change the field.
+
+That part seems kind of bonkers, but it makes sense when you think about it. We're trying to control everything the user sees through an internal data representation. It gives us many benefits, I promise.
+
+So, there you have it. A working app. I only showed you the core parts of the code, so you might want to check out <a href="https://github.com/Swizec/sharethisemail">ShareThisEmail's source on Github</a> to learn the details.
+
+## Conclusion: do you need flux?
+
+After reading all of that, you might be asking yourself: <em>why</em> did we turn 10 lines of JavaScript into 137, and added a few hundred kilobytes of library payload to our page?
+
+To prove a point.
+
+For this example, Flux doesn't solve any problems. It makes the code harder to follow, increases our payload size, and provides a fertile ground for bugs. More code, more places to make mistakes.
+
+But Flux is a pattern. You can give this code to anyone who knows Flux, and they will know exactly where to look for what. They'll know how things fit together, and they will be able to add more features.
+
+Five months from now, you'll still know what's going on, and you'll be able to fix things.
+
+Adding new features doesn't mean rewriting the whole app. In fact, I added a "Copy to Clipboard" button over the weekend to improve UX and ... well, Flux made it kind of boilerplatey.
+
+When I think of my main gig's production code with its thousands of lines of JavaScript, tens of components, and hundreds of sources of truth, my soul weeps for Flux.
+
+Your mileage may vary.
+
+PS: I'm working on a book about testing React code, <a href="mailto:swizec@swizec.com?subject=I%20like%20testing%20React!&body=Hey%20Swizec%2C%20%20%0A%0AI%20want%20to%20learn%20more%20about%20writing%20tests%20for%20React%20code.%20%20%0A%0AIn%20particular%20I%20want%20to%20know%20more%20about%20______%20%20%0A%0ACheers%2C%20%20%0A~%20My%20Name">send me an email</a>, if you're interested
+
+<strong>Thanks</strong> to Will Fanguy, Tiffany Morgan, David Bairne, and Coletta
+Teske for reading draft copies of this article
