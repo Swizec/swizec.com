@@ -3015,10 +3015,10 @@
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@^3.5.2":
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.5.2.tgz#b15ca8c66fda15666a10092595168b1d3e609854"
-  integrity sha512-aSSntle/cb4cJWXyMCROKVLT4u83IAue/mXmorNxwhTYt3cZhuMTH2fU3K+6SpY34Yn4PXAFtYuzdMi7EG1jUg==
+"@swizec/gatsby-theme-course-platform@^3.5.3":
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.5.3.tgz#053214a9e4576e6d8c475e4d3c53d23dcd252fc5"
+  integrity sha512-WZKGLbxOFhF/7Ge8Cdk4artjAG4Tfkuj7O/mlz7Gs82LK7sC4h4J6VRwO4xyjUiMkJ/lzYQnnCHU0t5dJP4wBA==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"
@@ -8026,7 +8026,7 @@ gatsby-remark-copy-relative-linked-files@^1.5.0:
     unist-util-visit "^2.0.3"
     upath "^2.0.1"
 
-gatsby-remark-embedder@Swizec/gatsby-remark-embedder#c4a04f82ef0ba18da28e787474ae87e587c24277:
+"gatsby-remark-embedder@github:Swizec/gatsby-remark-embedder#c4a04f82ef0ba18da28e787474ae87e587c24277":
   version "6.0.2-2"
   resolved "https://codeload.github.com/Swizec/gatsby-remark-embedder/tar.gz/c4a04f82ef0ba18da28e787474ae87e587c24277"
   dependencies:
