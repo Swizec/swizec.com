@@ -3015,10 +3015,10 @@
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@^3.5.3":
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.5.3.tgz#053214a9e4576e6d8c475e4d3c53d23dcd252fc5"
-  integrity sha512-WZKGLbxOFhF/7Ge8Cdk4artjAG4Tfkuj7O/mlz7Gs82LK7sC4h4J6VRwO4xyjUiMkJ/lzYQnnCHU0t5dJP4wBA==
+"@swizec/gatsby-theme-course-platform@^3.5.4":
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-3.5.4.tgz#dd8fe751902d6b4374eb0234d4ed89f9bd54064c"
+  integrity sha512-NADjdaxjG4ho1thex/1l9snNCLgNWRUQqVzGqoGnfQICnHQ/67ZL3ZC75r4RUF148vee+D9nGfWA6hESr6v5bg==
   dependencies:
     "@justinribeiro/lite-youtube" "^0.9.1"
     "@mdx-js/mdx" "^1.6.22"

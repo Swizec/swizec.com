@@ -177,8 +177,10 @@ Now, you might be thinking two things:
 
 Great, we've built the components for our users to interact with, and we've got <code>onChange</code> events firing actions into the aether.<p></p>We're using the default implementation of Flux provided by Facebook. That means we only have to declare the global dispatcher once, and then we never have to worry about it again.
 
-```javascript// src/Dispatcher.jsx<p></p>const Dispatcher = require('flux').Dispatcher;<p></p>module.exports = new Dispatcher();
-
+```javascript
+// src/Dispatcher.jsx
+const Dispatcher = require("flux").Dispatcher
+module.exports = new Dispatcher()
 ```
 
 The dispatcher acts as a sort of event broker between components. That makes it easier for components at various levels of the architecture to communicate with the data store, which acts as the single source of truth.<p></p>The store consists of three parts:
@@ -192,8 +194,9 @@ The dispatcher acts as a sort of event broker between components. That makes it 
 We start the data store off with some global variables.
 
 ```javascript
-// src/Store.jsx<p></p>var subject = "",
-body = ""
+// src/Store.jsx
+var subject = "",
+  body = ""
 ```
 
 We're relying on the way Webpack bundles/compiles JavaScript to keep these from becoming true globals. We're also betting on the fact that <code>require()</code> is referentially transparent and always returns the same instance of the code.
@@ -203,20 +206,24 @@ That's a fancy way of saying <em>"Trust me, this works and is okay to do"</em>.
 The store itself comes out to 20 lines of code. Here's what it looks like:
 
 ```javascript
-// src/Store.jsx<p></p>const Store = Object.assign(EventEmitter.prototype, {
-    getState: function () {
-        return {
-            subject: subject,
-            body: body
-        };
-    },<p></p>    addChangeListener: function (callback) {
-        this.on(CHANGE_EVENT, callback);
-    },<p></p>    removeChangeListener: function (callback) {
-        this.on(CHANGE_EVENT, callback);
-    },<p></p>    emitChange: function () {
-        this.emit(CHANGE_EVENT);
+// src/Store.jsx
+const Store = Object.assign(EventEmitter.prototype, {
+  getState: function () {
+    return {
+      subject: subject,
+      body: body,
     }
-});
+  },
+  addChangeListener: function (callback) {
+    this.on(CHANGE_EVENT, callback)
+  },
+  removeChangeListener: function (callback) {
+    this.on(CHANGE_EVENT, callback)
+  },
+  emitChange: function () {
+    this.emit(CHANGE_EVENT)
+  },
+})
 ```
 
 We're using <code>Object.assign</code> to extend <code>EventEmitter</code> with four extra functions: <code>getState</code> returns an object with the current values, <code>add-</code> and <code>removeChangeListener</code> add or remove a listener on the change event, and <code>emitChange</code> triggers the change event.
@@ -226,15 +233,18 @@ The latter three make our other code easier to write and read.
 Finally, we register our store with the dispatcher:
 
 ```javascript
-// src/Store.jsx<p></p>Dispatcher.register(function (action) {
+// src/Store.jsx
+Dispatcher.register(function (action) {
     switch (action.actionType) {
         case Constants.UPDATE_SUBJECT:
             subject = action.subject;
             Store.emitChange();
-            break;<p></p>        case Constants.UPDATE_BODY:
+            break;
+        case Constants.UPDATE_BODY:
             body = action.body;
             Store.emitChange();
-            break;<p></p>        default:
+            break;
+        default:
             // no op
     };
 ```
@@ -247,24 +257,31 @@ That's it. Our store is ready. Let's see what happens after <code>emitChange</co
 
 ### The output
 
-We've got the inputs, and we've got the data store as the single source of truth for the entire utility. Now we need a component that will act as the output. Some way for the user to get that <code>mailto:</code> link.<p></p>We'll call this component <code>Link</code> because we are engineers and have amazing imaginations.
+We've got the inputs, and we've got the data store as the single source of truth for the entire utility. Now we need a component that will act as the output. Some way for the user to get that <code>mailto:</code> link.
+
+We'll call this component <code>Link</code> because we are engineers and have amazing imaginations.
 
 ```javascript
-// src/Link.jsx<p></p>const Link = React.createClass({<p></p>    build_link: function () {
-        var subject = encodeURIComponent(this.props.subject),
-            body = encodeURIComponent(
-                toMarkdown(
-                    this.props.body.replace(/(?:\r\n|\r|\n)/g, '<br />')
-                )
-            );<p></p>        return "mailto:?subject="+subject+"&body="+body;
-    },<p></p>    render: function () {
-        return (
-            <p>
-                You're done! Copy this into your email: <a href={this.build_link()} target="_blank">Email this to a friend</a>
-            </p>
-        );
-    }
-});
+// src/Link.jsx
+const Link = React.createClass({
+  build_link: function () {
+    var subject = encodeURIComponent(this.props.subject),
+      body = encodeURIComponent(
+        toMarkdown(this.props.body.replace(/(?:\r\n|\r|\n)/g, "<br />"))
+      )
+    return "mailto:?subject=" + subject + "&body=" + body
+  },
+  render: function () {
+    return (
+      <p>
+        You're done! Copy this into your email:{" "}
+        <a href={this.build_link()} target="_blank">
+          Email this to a friend
+        </a>
+      </p>
+    )
+  },
+})
 ```
 
 The output is some text with a link, which gets its <code>href</code> attribute from the <code>this.build_link</code> method.
