@@ -148,34 +148,18 @@ const Body = React.createClass({
 
 See? Almost the same.
 
-We return a <code>textarea</code>, bind the change event to <code>this.update</code>, and set the value with <code>this.props.value</code>.
+We return a `textarea`, bind the change event to `this.update`, and set the value with `this.props.value`.
 
 Now, you might be thinking two things:
 
-<ol>
-  <li>
-    "This is dumb; you're making React look bad by repeating code."
-    <ul id="draft_check_box_list_0">
-      <li>
-        Technically, you're right, but these two are semantically different
-        enough to warrant separate components.
-      </li>
-    </ul>
-  </li>
-  <li>
-    "You're dumb; React 0.14 came out last week and this code looks old."
-    <ul id="draft_check_box_list_1">
-      <li>
-        You're right. React 0.14 came out{" "}
-        <em>the day after I wrote this code</em>. Deal with it. (⌐■_■)
-      </li>
-    </ul>
-  </li>
-</ol>
+- **"This is dumb; you're making React look bad by repeating code."** Technically, you're right, but these two are semantically different enough to warrant separate components.
+- **"You're dumb; React 0.14 came out last week and this code looks old."** You're right. React 0.14 came out <em>the day after I wrote this code</em>. Deal with it. (⌐■_■)
 
 ### The Data store
 
-Great, we've built the components for our users to interact with, and we've got <code>onChange</code> events firing actions into the aether.<p></p>We're using the default implementation of Flux provided by Facebook. That means we only have to declare the global dispatcher once, and then we never have to worry about it again.
+Great, we've built the components for our users to interact with, and we've got `onChange` events firing actions into the aether.
+
+We're using the default implementation of Flux provided by Facebook. That means we only have to declare the global dispatcher once, and then we never have to worry about it again.
 
 ```javascript
 // src/Dispatcher.jsx
@@ -183,13 +167,13 @@ const Dispatcher = require("flux").Dispatcher
 module.exports = new Dispatcher()
 ```
 
-The dispatcher acts as a sort of event broker between components. That makes it easier for components at various levels of the architecture to communicate with the data store, which acts as the single source of truth.<p></p>The store consists of three parts:
+The dispatcher acts as a sort of event broker between components. That makes it easier for components at various levels of the architecture to communicate with the data store, which acts as the single source of truth.
 
-<ol>
-  <li>Variables/objects with data</li>
-  <li>The Store object, which extends EventEmitter</li>
-  <li>A register call to the dispatcher that listens for events</li>
-</ol>
+The store consists of three parts:
+
+- Variables/objects with data
+- The Store object, which extends EventEmitter
+- A register call to the dispatcher that listens for events
 
 We start the data store off with some global variables.
 
@@ -199,7 +183,7 @@ var subject = "",
   body = ""
 ```
 
-We're relying on the way Webpack bundles/compiles JavaScript to keep these from becoming true globals. We're also betting on the fact that <code>require()</code> is referentially transparent and always returns the same instance of the code.
+We're relying on the way Webpack bundles/compiles JavaScript to keep these from becoming true globals. We're also betting on the fact that `require()` is referentially transparent and always returns the same instance of the code.
 
 That's a fancy way of saying <em>"Trust me, this works and is okay to do"</em>.
 
@@ -226,7 +210,7 @@ const Store = Object.assign(EventEmitter.prototype, {
 })
 ```
 
-We're using <code>Object.assign</code> to extend <code>EventEmitter</code> with four extra functions: <code>getState</code> returns an object with the current values, <code>add-</code> and <code>removeChangeListener</code> add or remove a listener on the change event, and <code>emitChange</code> triggers the change event.
+We're using `Object.assign` to extend `EventEmitter` with four extra functions: `getState` returns an object with the current values, `add-` and `removeChangeListener` add or remove a listener on the change event, and `emitChange` triggers the change event.
 
 The latter three make our other code easier to write and read.
 
@@ -249,17 +233,17 @@ Dispatcher.register(function (action) {
     };
 ```
 
-This is no fancier than <code>thing.on('event', callback)</code>. The hard work happens inside the dispatcher; we only care to be notified when something happens.
+This is no fancier than `thing.on('event', callback)`. The hard work happens inside the dispatcher; we only care to be notified when something happens.
 
-Our callback then takes the <code>actionType</code> property, and decides what to do. In most cases, it will change the value of a store variable and call <code>emitChange</code>.
+Our callback then takes the `actionType` property, and decides what to do. In most cases, it will change the value of a store variable and call `emitChange`.
 
-That's it. Our store is ready. Let's see what happens after <code>emitChange</code>.
+That's it. Our store is ready. Let's see what happens after `emitChange`.
 
 ### The output
 
-We've got the inputs, and we've got the data store as the single source of truth for the entire utility. Now we need a component that will act as the output. Some way for the user to get that <code>mailto:</code> link.
+We've got the inputs, and we've got the data store as the single source of truth for the entire utility. Now we need a component that will act as the output. Some way for the user to get that `mailto:` link.
 
-We'll call this component <code>Link</code> because we are engineers and have amazing imaginations.
+We'll call this component `Link` because we are engineers and have amazing imaginations.
 
 ```javascript
 // src/Link.jsx
@@ -284,11 +268,11 @@ const Link = React.createClass({
 })
 ```
 
-The output is some text with a link, which gets its <code>href</code> attribute from the <code>this.build_link</code> method.
+The output is some text with a link, which gets its `href` attribute from the `this.build_link` method.
 
-Remember the <code>build_link</code> method from earlier? Same function, different name and different way of getting data.
+Remember the `build_link` method from earlier? Same function, different name and different way of getting data.
 
-Our vanilla function used arguments to get the raw subject and body; this one gets them from <code>this.props</code>. These are populated as element properties by the parent component. Let me show you how it's done.
+Our vanilla function used arguments to get the raw subject and body; this one gets them from `this.props`. These are populated as element properties by the parent component. Let me show you how it's done.
 
 ### The main component puts it all together
 
@@ -329,17 +313,17 @@ const ShareThisEmail = React.createClass({
 });
 ```
 
-This component uses <code>addChangeListener</code> to bind to data store changes when it's mounted into the page, and ensures there are no hanging callbacks before it's unmounted. Basically, subscribes to changes when it starts existing, and unsubscribes before it dies.
+This component uses `addChangeListener` to bind to data store changes when it's mounted into the page, and ensures there are no hanging callbacks before it's unmounted. Basically, subscribes to changes when it starts existing, and unsubscribes before it dies.
 
-In both cases, we use <code>this.\_onChange</code> as the callback. It uses <code>Store.getState()</code> to naively set <code>ShareThisEmail</code>'s internal state to whatever the store says. Not the best approach in all cases, but it works for us.
+In both cases, we use `this._onChange` as the callback. It uses `Store.getState()` to naively set `ShareThisEmail`'s internal state to whatever the store says. Not the best approach in all cases, but it works for us.
 
-Once <code>this.setState</code> executes, it triggers a component re-render. This is where React magic kicks in.
+Once `this.setState` executes, it triggers a component re-render. This is where React magic kicks in.
 
-On every re-render, we feed the new state into <code>Subject</code>, <code>Body</code>, and <code>Link</code> components as properties. Those components then see the new values in <code>this.props</code> and re-render as needed. A re-render only happens if the actual values are different.
+On every re-render, we feed the new state into `Subject`, `Body`, and `Link` components as properties. Those components then see the new values in `this.props` and re-render as needed. A re-render only happens if the actual values are different.
 
-So for example, <code>Link</code> re-renders every time the user types into either subject or body. But subject only re-renders when the subject changes.
+So for example, `Link` re-renders every time the user types into either subject or body. But subject only re-renders when the subject changes.
 
-Now here's the kicker: because we're using so called controlled components, their values can only change by changing <code>this.props.value</code>. If you forget to close the Flux loop, typing into an input field doesn't change the field.
+Now here's the kicker: because we're using so called controlled components, their values can only change by changing `this.props.value`. If you forget to close the Flux loop, typing into an input field doesn't change the field.
 
 That part seems kind of bonkers, but it makes sense when you think about it. We're trying to control everything the user sees through an internal data representation. It gives us many benefits, I promise.
 
