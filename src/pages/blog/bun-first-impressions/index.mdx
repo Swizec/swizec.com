@@ -1,0 +1,80 @@
+---
+title: "Bun – first impressions"
+description: "I've been using Bun in a few side-projects and I like it a lot"
+published: 2023-10-20
+categories: "JavaScript, TypeScript, NodeJS, Bun"
+hero: ./img/screenshot-1697814529122.png
+---
+
+Heard of Bun? It's a new JavaScript runtime that recently reached 1.0.0. I've been using it on a few side-projects. Even at work!
+
+Ok so what is a runtime? A runtime is the environment that your code runs in. For JavaScript that's your browser, an Electron app, or NodeJS. Compiled languages like C or C# don't need a runtime because the compiled binary runs natively on your machine.
+
+[Bun](https://bun.sh) is a new runtime written from scratch. Optimized for performance, compatibility, and ease of use.
+
+## Things I've liked about Bun
+
+A few things that stood out after using Bun for a few hours. I'm not an expert but so far Bun has been stupid easy to use.
+
+### Bun is very very fast
+
+Using Bun _feels_ faster. You have to try to appreciate the difference. It's like your computer feels lighter.
+
+When you run a NodeJS script, it's fast. Hit enter and your script gets to work. No lag you'd complain about.
+
+Then you run the same script with Bun and it's like omg what just happened? I barely finished hitting enter and it's done!? 🤯
+
+### No mjs bullshit
+
+I don't know about you, but seeing `Error [ERR_REQUIRE_ESM]: require() of ES Module` makes me want to throw keyboards. You add a new library and the whole project blows up. (╯°□°）╯︵ ┻━┻
+
+This is because a few years ago NodeJS decided to support modern imports. `import thing from 'file'` instead of `const thing = require('file)`. Fantastic!
+
+But they couldn't make both systems compatible. You have to choose between CommonJS (require) and Modules (import).
+
+Some libraries have migrated. Many haven't. You'll find out which is which when your project blows up after you add a dependency 🙃
+
+Bun doesn't have this problem. I don't know through what magic, but I like it. Everything just works.
+
+### Native TypeScript support
+
+Write a `file.ts` run with `bun run file.ts`.
+
+Write a `file.js` run with `bun run file.js`.
+
+Direct native runtime support for TypeScript. No compiling, little configuration. Cross-import JavaScript into TypeScript and TypeScript into JavaScript. Bun don't care 😍
+
+No run-time support for types though. [Jarred](https://twitter.com/jarredsumner), creator of Bun, says that's not a goal either.
+
+### Tools included
+
+Bun aims to become a full toolkit for JavaScript.
+
+https://twitter.com/jarredsumner/status/1712218329413489011
+
+Can't wait! The ease of going `bun add library` and `bun run code.ts` already feels amazing. Haven't looked for others yet.
+
+### Compatible with the NodeJS ecosystem
+
+This has been my favorite part. Bun aims to work as a drop-in replacement for NodeJS, which means full ecosystem compatibility.
+
+APIs you're used to from NodeJS all work. I haven't bumped into anything broken, at least not in side-projects. Every library I've tried has also worked.
+
+Means you don't have to learn anything new \o/
+
+## A couple sharp edges
+
+We all know how drop-in replacements work.
+
+https://twitter.com/Swizec/status/1714333299223695416
+
+If you use private packages, you'll have to move registry configuration from `.npmrc` to `bunfig.toml`. That's easy.
+
+In larger projects, you're likely to find things that are broken. When I tried running work stuff in Bun, there was a cryptic error with no good way to debug. Later we figured out our Logger library, used everywhere, doesn't like Bun – an outdated dependency maybe.
+
+**Bun is new**. Fantastic documentation, but if you run into a problem the documentation doesn't cover, you're likely one of the first people online to have this problem.
+
+All in all, Bun is my new favorite way to write CLI scripts.
+
+Cheers,<br/>
+~Swizec
