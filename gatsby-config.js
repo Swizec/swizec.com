@@ -58,20 +58,20 @@ module.exports = {
       },
     },
     "gatsby-plugin-gatsby-cloud",
-    {
-      resolve: "gatsby-plugin-manifest",
-      options: {
-        name: "swizec.com",
-        short_name: "swizec.com",
-        description:
-          "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
-        start_url: "/",
-        background_color: "#fff",
-        theme_color: "#FF002B",
-        display: "standalone",
-        icon: "./static/favicon.png",
-      },
-    },
+    // {
+    //   resolve: "gatsby-plugin-manifest",
+    //   options: {
+    //     name: "swizec.com",
+    //     short_name: "swizec.com",
+    //     description:
+    //       "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
+    //     start_url: "/",
+    //     background_color: "#fff",
+    //     theme_color: "#FF002B",
+    //     display: "standalone",
+    //     icon: "./static/favicon.png",
+    //   },
+    // },
     {
       resolve: "@swizec/gatsby-plugin-plausible",
       options: {
@@ -101,7 +101,7 @@ module.exports = {
             match: "^/blog/|^/interviews/",
             query: `{
   allMdx(
-    filter: {fileAbsolutePath: {regex: "/blog/.+/"}}
+    filter: {internal: { contentFilePath: {regex: "/blog/.+/"}}}
     sort: {frontmatter: {published: DESC}}
     limit: 50
   ) {

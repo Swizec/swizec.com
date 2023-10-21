@@ -10,8 +10,10 @@ import { ArticleListing } from "@swizec/gatsby-theme-course-platform"
 export const pageQuery = graphql`
   query {
     allMdx(
-      filter: { fileAbsolutePath: { regex: "/interviews/(?!index).+/" } }
-      sort: { fields: frontmatter___published, order: DESC }
+      filter: {
+        internal: { contentFilePath: { regex: "/interviews/(?!index).+/" } }
+      }
+      sort: { frontmatter: { published: DESC } }
     ) {
       nodes {
         fields {
