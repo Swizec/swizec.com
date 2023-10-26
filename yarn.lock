@@ -2426,10 +2426,10 @@
     minimatch "3.0.4"
     react "^16.13.1"
 
-"@swizec/gatsby-theme-course-platform@4.0.0-81":
-  version "4.0.0-81"
-  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-4.0.0-81.tgz#57442da9c159a5813f8ab9693383d04dccb249ca"
-  integrity sha512-BTiiDIb402VSNMbB7nqGT/e5WZiRMWCfkoJOaL6xlJ+gJ/HtGGVUmdHz5/Lt06KLhWjN5vlPcGmq7pn+3RXgow==
+"@swizec/gatsby-theme-course-platform@4.0.0-82":
+  version "4.0.0-82"
+  resolved "https://registry.yarnpkg.com/@swizec/gatsby-theme-course-platform/-/gatsby-theme-course-platform-4.0.0-82.tgz#73869c02601c6d988b1dc53806b3dcfdc592ea80"
+  integrity sha512-DAxRaC0inwHZSmi4GXdBK1FqBZTkIa2gpif96RTvhZ3AMx3TGL2ZNTyxdIvyY81dnhraIl0FHw+aYYcO8+2BHA==
   dependencies:
     "@emotion/react" "^11.11.1"
     "@emotion/styled" "^11.11.0"
