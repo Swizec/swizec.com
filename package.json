@@ -16,7 +16,7 @@
     "dependencies": {
         "@mdx-js/react": "^2.3.0",
         "@netlify/plugin-gatsby": "^3.7.2",
-        "@swizec/gatsby-theme-course-platform": "4.0.0-65",
+        "@swizec/gatsby-theme-course-platform": "4.0.0-78",
         "@typeform/api-client": "^1.7.0",
         "gatsby": "^5.12.8",
         "gatsby-plugin-feed": "^5.12.2",
