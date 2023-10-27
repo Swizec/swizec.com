@@ -1,0 +1,135 @@
+---
+title: "Why and how I built my own course platform"
+description: "Why the heck did I build a course platform for ServerlessReact.Dev when services like Teachable, Podia, Thinkific, and such already exist? Because of friction my friend."
+published: 2020-02-14
+redirect_from:
+  - /blog/why-and-how-i-built-my-own-course-platform/swizec/9330
+categories: "Indie Hacking"
+content_upgrade: IndieHacking
+hero: ./img/techletter.app-screenshot-1581701543300.png
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+
+Rule number 1 of indie hacking: _Coding is a trap, focus on your product._
+
+So why the heck did I build a course platform for [ServerlessReact.Dev](https://serverlessreact.dev) when services like Teachable, Podia, Thinkific, and such already exist? Because of friction my friend.
+
+Lemme explain
+
+My goal is to give frontend engineers superpowers and turn them into full-fledged product owners. Whether that product is a feature at work or a great idea for an app.
+
+The way I do that is quality content.
+
+Thoughtful emails from experience, detailed articles, well-researched video courses, deep dive workshops, and funny gifs. You gotta have gifs.
+
+![funny_gifs giphy](./img/media-110F1JFzWKtiA8-giphy.gif)
+
+Everything else is a distraction. _Especially_ building a custom course platform.
+
+But here's the thing: managing content is _also_ a distraction. I should focus on _creating_ content. Doing research, following trends, finding ideas, writing, editing, recording, coding ...
+
+What creating shouldn't involve is futzing around with video uploads, getting transcripts, adding subtitles, rescaling images, formatting content, embedding stuff, or even looking for gifs.
+
+And that's where other course platforms fail.
+
+In appealing to the lowest common denominator they lose the very thing that makes them useful: Removing work, _being frictionless_.
+
+## How a custom platform reduces friction
+
+https://twitter.com/Swizec/status/1224404079461289984
+
+Most course platforms are designed to be _simple_, but they're not designed to be _easy_. At least not if you're technical or stuck in your ways.
+
+I write in markdown. Using iA Writer since 2010 or so.
+
+I record in OBS. Often livestreamed.
+
+My DSLR is the face camera. When there's no code, I just talk into the DSLR like a vlog.
+
+I edit videos in DaVinci Resolve.
+
+All serious work should be version controlled with Git. Saved in Dropbox at the very least. It's got version control too.
+
+Now, which platform do you think supports that authoring setup my friend?
+
+Yep, none of them.
+
+![sad_trombone giphy](./img/media-mbPqOzyASJzB6-giphy.gif)
+
+<ContentUpgrades.IndieHacking />
+
+## Platforms and misaligned incentives
+
+You see, their incentive isn't to make _your_ life easy. Platforms want to make _everyone_'s life simple.
+
+Come on Teachable and we've got you covered. Come to Podia and get started. No skills required.
+
+Spin up our editor and write your content. Flick on the webcam and record right here. Upload a video and we'll keep it safe for ya.
+
+**Please use our platform for authoring _and_ publishing.**
+
+I've already got a great _authoring_ flow, thanks. Can I still use your platform?
+
+Sure you can, just go through these five bazillion painful steps and we've got you!
+
+All these platforms use WYSIWYG. No markdown support. You're supposed to write right there and hit publish.
+
+Oh you don't want to write here? Maybe you can copy pasta. Oh wait you'd like to preserve your formatting when you paste? LoL
+
+You want to upload videos? Great! Just click these five buttons in the right sequence and we've got you. We'll even host it for ya.
+
+Integrate with your video editing software? hahahahahahaha
+
+Oh you want version control? What's that? You realize nobody outside of tech even realized that's a thing right? Why on earth would we support that feature don't be silly.
+
+Captions? Eh
+
+Transcripts? You can copy pasta into a new section can't you?
+
+Multiple videos per lesson? That does not fit our philosophy. A/B testing has showed that users want one video at a time and then to click a big fat NEXT button so they get a sense of accomplishment for finishing a lesson.
+
+But my videos are short. You have to watch 3 of them to get all the steps of the same overall lesson.
+
+_A/B testing has showed_ ...
+
+## So I built my own
+
+So after spending heaps of money, time, and effort trying to make Teachable easier to work with and _absolutely dreading_ the pain of making a new course ... **I said fuck it and built my own**
+
+Now my process looks like this:
+
+- livestream a build
+- edit into videos in DaVinci Resolve
+- hit render
+- DaVinci uploads to Vimeo
+- find video urls on Vimeo
+- paste into iA Writer
+- add descriptions in Markdown
+- run `now --prod` to deploy
+- go to Rev.com
+- select Vimeo vids
+- Rev creates captions and delivers straight to Vimeo
+
+It. Is. Wonderful. 😍
+
+Easiest it's ever been to make a course.
+
+And check this my friend: ServerlessReact.Dev is built with Gatsby so adding a new section or module is as easy as creating a new `module.mdx` file. Hit deploy and voila, new page.
+
+I have ideas to make it even more frictionless. Gatsby can read Vimeo's API and handle the videos itself. Maybe even insert transcripts from Rev 🤔
+
+Using Gatsby also means that my course renders as a static HTML page. You can use it on your phone, laptop, crappy wifi, or wonderful broadband. Once it's open it's open.
+
+And the best part? I can fix things from an airplane.
+
+https://twitter.com/Swizec/status/1228041748120666112
+
+🤘
+
+Cheers,  
+~Swizec
+
+PS: this post got long so maybe I'll write about the Gumroad-> Auth0 -> useAuth -> course integration next time. Interested? hit reply
+
+PPS: Gumroad because I'm not dumb enough to build my own checkout ;)

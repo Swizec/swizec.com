@@ -1,0 +1,163 @@
+---
+title: "How to lie with facts"
+description: ""
+published: 2020-06-05
+redirect_from:
+  - /blog/how-to-lie-with-facts/swizec/9428
+categories: "Thoughts"
+hero: ./img/comics-heatmap.png
+---
+
+A smart man once said _"Lies, damn lies, and statistics"_ and oh boy do I have a story for you today.
+
+You know how I mentioned yesterday that total counts aren't a great stat to learn from? It's true, they suffer from a bunch of issues.
+
+Compare them and fall prey to underlying statistics.
+
+You see that 1219 black people got shot by police since 2015, compare that to the 2320 white people and hey that looks pretty good. Those poor white people!
+
+Ah but only 12% of the population is black. You're 3x more likely to get shot by police if you're black. 😬
+
+But why?
+
+## Self-reinforcing statistics
+
+Cathy O'Neil has a great chapter on this in her book [Weapons of Math Destruction](https://en.wikipedia.org/wiki/Weapons_of_Math_Destruction)
+
+[![](./img/uctionjpg4a8j4d.jpeg)](https://en.wikipedia.org/wiki/Weapons_of_Math_Destruction)
+
+She argues that self-reinforcing statistics are the problem. Police departments don't have enough resources, so they use statistical modeling to deploy ... troops? Is it troops?
+
+You take a city like New York and overlay a map of crime statistics. Where there's more crime, you deploy more officers.
+
+Sounds good.
+
+Then those officers observe. They report the crime they see. And that reduces the crime rate, right?
+
+Nope.
+
+More officers, more crimes spotted, more officers deployed, more crimes ...
+
+Imagine if a police officer wrote you up for every minor infraction. Just because they have nothing better to do at the moment. Crossed the street on a red? Crime. Littered? Crime. Took a swig of your alcohol beverage? Crime. Loitered a bit? Crime.
+
+Unfortunately in USA this over-policing comes down to racial boundaries. Blacks are more likely to have a police encounter. Just because there's more police in their neighborhoods. Just because the crime stats send them there.
+
+Self-reinforcing statistic. Lying with facts.
+
+Imagine if they did that with Wall Street bankers 😉
+
+![think giphy](./img/media-d3mlE7uhX8KFgEmY-giphy.gif)
+
+## Dataviz helps you lie with facts
+
+Self-reinforcing statistics are great, but difficult to explain. It took me _years_ to grok.
+
+Here's a simpler way 👉 dataviz.
+
+Take total counts again. Terrible measure for comparison but put them on a map and it's fantastic. Use the power of human processing and intuition to understand what's going on.
+
+Nope.
+
+[![](./img/comics-heatmap.png)](https://xkcd.com/1138/)
+
+Most maps just end up showing population density. Where there are more people there is more of _everything_.
+
+Coronavirus.
+
+[![](./img/BD3jG4g.png)](https://coronavirus.jhu.edu/map.html)
+
+Car dealerships.
+
+[![](./img/ZHiOpcw.png)](https://www.caliper.com/featured-maps/maptitude-auto-dealerships-map.html)
+
+UFO sightings.
+
+[![](./img/d4mzHvM.png)](http://metrocosm.com/ufo-sightings-map.html)
+
+Okay those have a bias for US Air Force bases too.
+
+### There's other ways to lie with dataviz facts
+
+Axis manipulation is another great way to lie with facts and dataviz. Want to make a change look super big? Just don't start at zero.
+
+Look at this impressive email subscriber growth! WOW this software that costs $149/mo is really crushing it for me 😍
+
+![](./img/HmUvPte.png)
+
+Soooo impressive!
+
+Oh wait, it's just 379 net new subscribers in 3 months. 3% growth. Start the Y axis at 0 and you won't even notice the growth.
+
+That wouldn't be very useful to visualize so let's give ConvertKit a pass. Maybe my list just needs to grow more 😛
+
+Here's another great example.
+
+From Georgia bragging about their success against the coronavirus. How they'd pretty much defeated it. Go Georgia!
+
+[![](./img/uHJr54X.png)](https://www.vox.com/covid-19-coronavirus-us-response-trump/2020/5/18/21262265/georgia-covid-19-cases-declining-reopening)
+
+Notice something fishy?
+
+Here's that same graph with X _ordered by time_
+
+[![](./img/o4zqBo2.png)](https://www.businessinsider.com/graph-shows-georgia-bungling-coronavirus-data-2020-5)
+
+![thinking_hard giphy](./img/media-2H67VmB5UEBmU-giphy.gif)
+
+When you look at a graph that implies time, you think it's ordered by time. You see trends. Humans are great at trends.
+
+And data visualization manipulators can use that tendency to lie with facts.
+
+What we didn't do anything wrong? The graph is clearly labeled. You're the dumb doodoo who assumed X was ordered by time like we're honest normal people.
+
+## Lying with factual bias
+
+There's a fantastic story from WW2.
+
+Allied bombers kept coming home riddled with bullet holes from German air defense. They'd go over there, drop some bombs, turn into a sieve, and make it home.
+
+![](./img/wp-content-uploads-2015-03-eeebe3963b7baaec9dd049b4c39e21e2-512x640.jpg)
+
+Yeah, it was real bad.
+
+So they did some statistics. Where do airplanes get the most holes?
+
+![](./img/wp-content-uploads-2019-05-survivorship-bias.png)
+
+Wonderful! Slap some armor on those spots and away we go. Problem solved.
+
+Nyet.
+
+Those are the airplanes that came home. The ones that _didn't_ come home had holes in the white areas. The holes we never got to measure because the planes died.
+
+_That_'s where you put the armor.
+
+![mind_blown giphy](./img/media-xT0xeJpnrWC4XWblEk-giphy-downsized-medium.gif)
+
+This is a type of [survivorship bias](https://en.wikipedia.org/wiki/Survivorship_bias). You're using facts to tell a story, _but not all the facts_.
+
+Another way to lie with facts ✌️
+
+The [Texas sharpshooter fallacy](https://en.wikipedia.org/wiki/Texas_sharpshooter_fallacy) is another version of this.
+
+Give Joe Sixpack a gun and ask him to shoot at the side of a barn. 200 shots for good measure.
+
+Then you inspect the barn and find the 10 bullet holes with the tightest clustering.
+
+Congratulations, Joe Sixpack is a sharpshooter! In just 10 shots he got clustering so tight an Olympic shooter would be jealous.
+
+![flex giphy](./img/media-xo6QL3gjGMimA-giphy.gif)
+
+## Factual correlation lies
+
+And finally, my favorite one – the lack of pirates caused global warming. True fact.
+
+There's even a graph about it. Perfect correlation and everything. Factual data.
+
+![](./img/home-piratesarecool4.gif)
+
+You can see more of those over at [Spurious Correlations](https://www.tylervigen.com/spurious-correlations).
+
+Seen any good examples of lying with facts? Hit reply
+
+Cheers, ~Swizec

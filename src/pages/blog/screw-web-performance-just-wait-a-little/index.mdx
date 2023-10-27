@@ -1,0 +1,108 @@
+---
+title: "Screw web performance, just wait a little 😈"
+description: ""
+published: 2020-05-22
+redirect_from:
+  - /blog/screw-web-performance-just-wait-a-little/swizec/9422
+categories: "Front End, Technical"
+hero: ./img/techletter.app-screenshot-1590163368621.png
+---
+
+Back in 2016 React performance was top of mind. Sure React makes life easy, _but is it worth it?!?_
+
+You have the DOM abstraction, the synthetic event system, the weird reconciliation, the batching of DOM updates, the ... there's a lot going on. Can it really be _faster_ than vanilla? \[^1]
+
+I devised a devilish plan. An example to end all examples.
+
+[![Fractals](./img/Fractals1431ad.gif)](https://swizec.com/blog/fractals-in-react/)
+
+[React Fractals!](https://swizec.com/blog/fractals-in-react/)
+
+Folks from the community ❤️ helped me fix some trigonometry and the React Fractals demo became interactive:
+
+[![](./img/gifx24020d37e73.gif)](https://swizec.com/blog/dancing-tree-fractal-with-react/)
+
+_Feel_ the computer struggle to keep up. Feel it! 😈
+
+Here's the exact same code 4 years later. No changes, no library updates, nothing.
+
+[![](./img/wF8l8tS.gif)]()
+
+🤯
+
+Try for yourself: https://react-fractals.now.sh/
+
+## Why fractals are bad
+
+I remember making those gifs in 2016. Had to move my mouse veeeeery carefully so they came out okay. 😅
+
+My machine was a respectable [first-gen MacBook Pro retina](<https://en.wikipedia.org/wiki/MacBook_Pro#Third_generation_(Retina)>). Getting up there in age but a very respectable computer with the maxed out specs. \[^2]
+
+Here's the problem:
+
+[![Click through for source](./img/techletter.app-screenshot-1590163368621.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2FPythagoras.js%0A%0Aconst%20Pythagoras%20%3D%20(%7B%0A%20%20%20%20w%2C%0A%20%20%20%20x%2C%0A%20%20%20%20y%2C%0A%20%20%20%20heightFactor%2C%0A%20%20%20%20lean%2C%0A%20%20%20%20left%2C%0A%20%20%20%20right%2C%0A%20%20%20%20lvl%2C%0A%20%20%20%20maxlvl%2C%0A%7D)%20%3D%3E%20%7B%0A%20%20%20%20%2F%2F%20avoid%20infinite%20recursion%0A%20%20%20%20if%20(lvl%20%3E%3D%20maxlvl%20%7C%7C%20w%20%3C%201)%20%7B%0A%20%20%20%20%20%20%20%20return%20null%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%2F%2F%20grab%20memoized%20calculations%20for%20each%20level%0A%20%20%20%20const%20%7B%20nextRight%2C%20nextLeft%2C%20A%2C%20B%20%7D%20%3D%20memoizedCalc(%7B%0A%20%20%20%20%20%20%20%20w%3A%20w%2C%0A%20%20%20%20%20%20%20%20heightFactor%3A%20heightFactor%2C%0A%20%20%20%20%20%20%20%20lean%3A%20lean%2C%0A%20%20%20%20%7D)%3B%0A%0A%20%20%20%20let%20rotate%20%3D%20%22%22%3B%0A%0A%20%20%20%20%2F%2F%20SVG%20rotate%20transformation%2C%20not%20GPU%20accelerated%20%3A(%0A%20%20%20%20if%20(left)%20%7B%0A%20%20%20%20%20%20%20%20rotate%20%3D%20%60rotate(%24%7B-A%7D%200%20%24%7Bw%7D)%60%3B%0A%20%20%20%20%7D%20else%20if%20(right)%20%7B%0A%20%20%20%20%20%20%20%20rotate%20%3D%20%60rotate(%24%7BB%7D%20%24%7Bw%7D%20%24%7Bw%7D)%60%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%2F%2F%20draw%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%20%20%3Cg%20transform%3D%7B%60translate(%24%7Bx%7D%20%24%7By%7D)%20%24%7Brotate%7D%60%7D%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%7B%60%2F%2F%20draw%20current%20level%60%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Crect%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20width%3D%7Bw%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20height%3D%7Bw%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20x%3D%7B0%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20y%3D%7B0%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20style%3D%7B%7B%20fill%3A%20interpolateViridis(lvl%20%2F%20maxlvl)%20%7D%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%7B%60%2F%2F%20draw%20current%20level%60%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%3CPythagoras%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20w%3D%7BnextLeft%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20x%3D%7B0%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20y%3D%7B-nextLeft%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20lvl%3D%7Blvl%20%2B%201%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20maxlvl%3D%7Bmaxlvl%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20heightFactor%3D%7BheightFactor%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20lean%3D%7Blean%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20left%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3CPythagoras%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20w%3D%7BnextRight%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20x%3D%7Bw%20-%20nextRight%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20y%3D%7B-nextRight%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20lvl%3D%7Blvl%20%2B%201%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20maxlvl%3D%7Bmaxlvl%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20heightFactor%3D%7BheightFactor%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20lean%3D%7Blean%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20right%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20)%3B%0A%7D%3B>)
+
+Fractals are recursive.
+
+Each `<Pythagoras>`\[^3] component renders 2 more. The angle calculations are memoized for each level to save time\[^4]. Still this is a terrible case.
+
+Recursion means that every render has to re-render _every element_. They're all dependent.
+
+At the maximum recursion level of 11 that's `2^11 = 2048` SVG elements that React and your browser have to re-render in real time on every mouse move.
+
+Well, not _every_ mouse move – we throttle to React's pace of state updates:
+
+[![Click through for source](./img/techletter.app-screenshot-1590163368556.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2FApp.js%0A%0A%2F%2F%20Throttling%20approach%20borrowed%20from%20Vue%20fork%0A%2F%2F%20https%3A%2F%2Fgithub.com%2Fyyx990803%2Fvue-fractal%2Fblob%2Fmaster%2Fsrc%2FApp.vue%0A%2F%2F%20rAF%20makes%20it%20slower%20than%20just%20throttling%20on%20React%20update%0AonMouseMove(event)%20%7B%0A%20%20%20%20if%20(this.running)%20return%3B%0A%20%20%20%20this.running%20%3D%20true%3B%0A%0A%20%20%20%20const%20%5Bx%2C%20y%5D%20%3D%20d3mouse(this.refs.svg)%2C%0A%20%20%20%20%20%20%20%20scaleFactor%20%3D%20scaleLinear()%0A%20%20%20%20%20%20%20%20%20%20%20%20.domain(%5Bthis.svg.height%2C%200%5D)%0A%20%20%20%20%20%20%20%20%20%20%20%20.range(%5B0%2C%200.8%5D)%2C%0A%20%20%20%20%20%20%20%20scaleLean%20%3D%20scaleLinear()%0A%20%20%20%20%20%20%20%20%20%20%20%20.domain(%5B0%2C%20this.svg.width%20%2F%202%2C%20this.svg.width%5D)%0A%20%20%20%20%20%20%20%20%20%20%20%20.range(%5B0.5%2C%200%2C%20-0.5%5D)%3B%0A%0A%20%20%20%20this.setState(%7B%0A%20%20%20%20%20%20%20%20heightFactor%3A%20scaleFactor(y)%2C%0A%20%20%20%20%20%20%20%20lean%3A%20scaleLean(x)%0A%20%20%20%20%7D)%3B%0A%20%20%20%20this.running%20%3D%20false%3B%0A%7D>)
+
+Mouse move events fire multiple times per frame, which means you can swamp the CPU with calculations you're not even drawing. You can use the `this.running` trick as a lock to prevent flushing multiple `setState` events before they finish.
+
+This worked in React 16.3.
+
+With [concurrent mode in the future](https://reactjs.org/docs/concurrent-mode-intro.html) this becomes trickier.
+
+## Why this code works so well in 2020
+
+Imagine my surprise when I go to see if React's concurrent mode makes this faster and it's already smooth as butter.
+
+[![Click through for source](/static/media/error.4c412ab4.png)](https://twitter.com/Swizec/status/1263663856779321346)
+
+A few things happened since 2016 my friend.
+
+JavaScript itself got faster. 4 years of research and development on the V8 engine, DOM manipulation, etc. Lots of very smart people working on that.
+
+Computers got faster too.
+
+We might not be getting record breaking CPU gigahertz every year, but [Moore's Law is far from dead](https://reactfordataviz.com/articles/moores-law/).
+
+[![](./img/W3OVpFL.gif)](https://reactfordataviz.com/articles/moores-law/)
+
+My current computer is a [16" MacBook Pro](<https://en.wikipedia.org/wiki/MacBook_Pro#Fifth_generation_(Magic_Keyboard)>). Same 16GB of RAM, _less_ speed per core at 2.4GHz – but there's 8 of them instead of 4. And the RAM chips are faster and the motherboard is faster and everything around the CPU is faster.
+
+While my code stayed the same _my environment_ got faster.
+
+That's the beauty of working on the web. Your work keeps improving all on its own.
+
+## Why webapps keep getting slower
+
+Before you ask why the web _feels_ slower and slower despite these wonderful advances in computing and browser technology ...
+
+... because nobody's waiting. They keep adding shit.
+
+Sit back and relax my friend. You don't need the new feature. You don't need the next shiny. Chill.
+
+Let your environment make your code better.
+
+![relax giphy](./img/media-9u1J84ZtCSl9K-giphy.gif)
+
+✌️
+
+Cheers,<br/>
+~Swizec
+
+\[^1]: technically React _can't_ be faster than vanilla because there's a layer of overhead. Your manual solution will be faster _if you're crazy careful_. Most likely it's going to end up slower and messier or you'll end up reinventing React.
+
+\[^2]: maxed out specs for [my computer in 2016](https://everymac.com/systems/apple/macbook_pro/specs/macbook-pro-core-i7-2.7-15-mid-2012-retina-display-specs.html) were a quad-core 2.7Ghz processor with 16GB of RAM. 🤘
+
+\[^3]: this is a [pythagorean fractal](<https://en.wikipedia.org/wiki/Pythagoras_tree_(fractal)>) at core. Also known as the Khoch Curve when it wiggles like that. Names after Pythagoras because the noncurvy (45deg) version encloses a right triangle between each 3 points.
+
+\[^4]: each level of recursion renders multiple squares. Hundreds towards the end. They all have the same angles relative to the parent square so we can avoid calculating each one by [memoizing the function](https://github.com/Swizec/react-fractals/blob/master/src/Pythagoras.js#L8).

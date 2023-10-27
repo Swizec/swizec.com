@@ -1,0 +1,125 @@
+---
+title: "Learnings about the future of the web from Reactathon" 
+description: "The first in-person conference in years! It was wonderful 🤩
+- Remix is great
+- Serverless at edge is the future
+- GDPR does not play with 👆" 
+published: 2022-05-07
+categories: "Events, React, Lessons"
+hero: ./img/screenshot-1651961968630.png
+---
+
+The first in-person conference in years! It was wonderful 🤩
+
+https://twitter.com/Swizec/status/1521918300770299905
+
+Beautiful outdoor venue, great talks, wonderful conversations. And a surprising realization how small this industry is. Everyone knows everyone.
+
+At one point I found myself in a conversation between a React core maintainer, the inventor of XState, creator of React Router and Remix, a Chrome engine person, and the dude who built Firefox devtools and founded Replay 😳
+
+The group agreed that animation is hard, React may or may not be working on it, and `useEffect` leads to bugs.
+
+My key takeaways from [Reactathon](https://reactathon.com) are:
+
+- Remix is great
+- Serverless at edge is the future
+- GDPR does not play with 👆
+
+https://twitter.com/Swizec/status/1522604146360152064
+
+You can see all talks on Youtube – [Day 1](https://www.youtube.com/watch?v=V5hPAl1q7vo), [Day 2](https://www.youtube.com/watch?v=Ck-e3hd3pKw), [Day 3](https://www.youtube.com/watch?v=0qK2_wi4t3k)
+
+## Remix
+
+You don't _have to_ learn Remix. The ideas it brings to building React apps are cool though. Everyone's excited.
+
+https://twitter.com/Swizec/status/1521937296890597376
+
+Several talks mentioned Remix as an exciting step into the adjacent possible of React, Serverless, and modern web standards. Like this:
+
+- you write a Remix app
+- Remix understands your code
+- runs data access functions on the server
+- renders the initial view on server
+- updates fragments of your page (React components) in the browser as data updates
+- renders can mix server-side and client-side on every page as desired to hit the UX you want
+
+All of this happens by magic. [Ryan](https://twitter.com/ryanflorence) explained it as a lever you can pull between different web vitals metrics like time-to-first-byte and largest-paint.
+
+### Suspense is the key
+
+As [David](https://twitter.com/davidkpiano) said in his talk – fetch on render is a lie.
+
+https://twitter.com/Swizec/status/1521918300770299905
+
+You need to fetch _while_ you render. Side-effects go in state transitions, not when you land on the new state in your state machine.
+
+### Everyone loves a good state machine
+
+And yes you _are_ building state machines even if you don't realize it. We had lots of debates about how nice it would be if engineers started new projects by drawing out a state machine in their notebook.
+
+No need to use XState or any library at all, but _please_ draw out and enumerate your states before you start banging on your keyboard.
+
+https://twitter.com/Swizec/status/1522315409562681345
+
+The nice thing about Remix is that it handles the most typical state machine – data fetching – and bakes it right into the router. And they're backporting a lot of this to React Router 😍
+
+https://twitter.com/Swizec/status/1521942566161158144
+
+## Serverless at edge
+
+Serverless at edge is all the rage and definitely the future. Lots of platforms are adding this, lots of new ones are making it better.
+
+You combine the power of a CDN with the power of serverless functions. Making your code run as close as possible to the user who's running it 😍
+
+Right now this is used for various flavors of server-side rendering, smart caching, and light personalization. The data portion isn't quite there yet. You get a large latency hit as soon as a database is involved because that remains central.
+
+Companies like Xata and Cloudflare are starting to work on that by offering serverless databases at edge.
+
+[Erikras](https://twitter.com/erikras) showed an interesting approach – running an XState state machine on the server and persisting its state in the cookie. You get complex stateful logic without slowing down to talk to a central database 😍
+
+## GDPR
+
+This was a side-conversation. What happens to serverless at edge when you have European data in the mix? 🤨
+
+Here's the problem:
+
+- GDPR says all data processing about Europeans has to comply
+- storing and serving data is processing
+- European data cannot be processed outside the EU
+- Serverless at edge tries to process data as close to the consumer as possible
+
+If an American looks at, say, a European user's profile, you _cannot_ process that on a server in America. But that's exactly what automatic global serverless at edge wants to do.
+
+Not a problem at all 😅
+
+![](giphy:its_fine)
+
+## _You_ are the bleeding edge
+
+[Swyx](https://twitter.com/swyx) gave an update on his Third Age of JavaScript talk. React won the framework wars. Now we're figuring out what to do with it.
+
+And even then, _React is only 8% of production JavaScript_. Everything at this conference was the bleeding edge of the bleeding edge.
+
+https://twitter.com/Swizec/status/1522014527952285696
+
+84% of the JavaScript out there is jQuery 🤯
+
+https://twitter.com/uilian/status/1522370813491621889
+
+I don't know what to do with this information, but the future's exciting. We're going beyond infrastructure as code and towards infrastructure _from_ code.
+
+### The future is even less work
+
+Self-configuring platforms that look at your code and create the right deployment environment, set up your lambdas, make the queues, figure out your database, ... you write the business logic, platform does the rest 😍
+
+[Jeremy Daly](https://twitter.com/jeremy_daly) in his talk on the history and future of Serverless said: _"Swyx was right. Except that future is here. Just very fresh."_
+
+Exciting!
+
+Cheers,<br/>
+~Swizec
+
+PS: the sun is strong
+
+https://twitter.com/Swizec/status/1522634027844268032

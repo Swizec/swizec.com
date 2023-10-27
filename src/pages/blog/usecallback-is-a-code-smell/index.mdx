@@ -1,0 +1,232 @@
+---
+title: "useCallback is a code smell"
+description: "One of my favorite ways to simplify and de-gotcha React code is to rip out all the useCallback and useMemo drama. 90% of the time you don't need it."
+published: 2022-09-16
+content_upgrade: ReactCU
+categories: "Technical, React, Frontend, Programming Lessons"
+hero: ./img/screenshot-1663342037597.png
+---
+
+One of my favorite ways to simplify and de-gotcha React code is to rip out all the `useCallback` and `useMemo` drama. 90% of the time you don't need it.
+
+https://twitter.com/Swizec/status/1570137306480230401
+
+## What useCallback is for
+
+`useCallback` and friends are React hooks that help you create a stable reference to a JavaScript object, which helps React's rendering engine understand the object hasn't changed.
+
+For example:
+
+```javascript
+function FidgetSpinner() {
+	const [spinning, setSpinning] = useState(false)
+
+	const newFuncEveryTime = () => {
+		setSpinning(!spinning)
+	}
+
+	const stableFunc = useCallback(() => {
+		setSpinning(!spinning)
+	}, [spinning])
+
+	return (
+		<>
+			<p>Is it spinning? {spinning}</p>
+			<Spinner spinning={spinning} onClick={...} />
+		</>
+	)
+}
+```
+
+Assume `<Spinner>` renders a fidget spinner that's either spinning or not. The `onClick` prop accepts a function that updates the `spinning` state.
+
+You can't move that state into `<Spinner>` because you want to show the description. You need to handle `onClick` inside the `<Spinner>` because that's what renders DOM elements.
+
+### Referential stability and re-renders
+
+React uses prop values to decide when to re-render the `<Spinner>` component. When values change, components re-render.
+
+For functions and other objects that "value" is their memory address. Known as a reference. Even if the function or object looks the same, but lives in a new address, React thinks it's different and re-renders your component.
+
+That's where `useCallback` comes in.
+
+```javascript
+const newFuncEveryTime = () => {
+  setSpinning(!spinning)
+}
+```
+
+This is a new function any time React's engine touches the `<FidgetSpinner>` component (calls the function). Whether it updates the DOM or not, calling the component re-defines this function with a new memory address. That causes a re-render of `<Spinner>`.
+
+```javascript
+const stableFunc = useCallback(() => {
+  setSpinning(!spinning)
+}, [spinning])
+```
+
+This creates a memoized function with a stable memory address. It only creates a new function when the dependency array changes. In this case any time `spinning`'s value changes, `useCallback` re-instantiates your function with a new address.
+
+### useCallback gotchas
+
+There is a tricky potential bug in my code above 👉 the wrong dependency array creates a good old JavaScript closure problem.
+
+Define it like this:
+
+```javascript
+const stableFunc = useCallback(() => {
+  setSpinning(!spinning)
+}, [])
+```
+
+And the `spinning` value is baked into the function "forever". Calling this function won't toggle `spinning` from false to true and back as you'd expect, it's always going to set it to true. Or false if the initial value was true.
+
+That's a big gotcha for dubious performance benefits.
+
+## Why engineers useCallback
+
+https://twitter.com/Swizec/status/1570174408958025728
+
+A reply likened it to "using sunscreen at night" 🤣
+
+There's 2 understandable reasons I've seen:
+
+1.  **Engineer is worried about performance** and wants to help. Admirable goal! But `useCallback` and friends introduce a memory overhead. JavaScript machinery needs to keep a stack of all those memoized functions and lug it around wherever a component goes. Do it too much or get it subtly wrong and this leads to fun memory leaks and stale renders. Big problem in ye olden days of hand-rolled "frameworks".
+2.  **Engineer encounters an infinite loop**. This one sucks. It happens when you use an unstable callback or object as a `useEffect` dependency. Every render re-defines the callback, triggers the effect, causes a re-render, which ... 😬
+
+And there's a third version I've seen that ... why??
+
+```javascript
+function Component() {
+  const SubComponent = useCallback(() => {
+    return <div>This is a component damn it!</div>
+  }, [])
+
+  return (
+    <>
+      <p>Lorem Ipsum</p>
+      {SubComponent()}
+    </>
+  )
+}
+```
+
+_Please_ don't do that. Define a component and let React do its thing. 🥺
+
+## How you can avoid useCallback
+
+https://twitter.com/Swizec/status/1570173097877327872
+
+Best way to avoid `useCallback` is by moving your functions out of component scope. Use [pure functions](https://en.wikipedia.org/wiki/Pure_function) that depend fully on passed-in arguments instead of values in scope.
+
+### Example 1
+
+A better version of the example above looks like this:
+
+```javascript
+function FidgetSpinner() {
+  const [spinning, setSpinning] = useState(false)
+
+  return (
+    <>
+      <p>Is it spinning? {spinning}</p>
+      <Spinner spinning={spinning} setSpinning={setSpinning} />
+    </>
+  )
+}
+```
+
+`setSpinning` is a stable function! You can pass it into `<Spinner>`, which can use its alternative form to toggle state:
+
+```javascript
+setSpinning((spinning) => !spinning)
+```
+
+You can call React setters with a function that gets current value as its argument.
+
+### Example 2
+
+Another common opportunity is turning functions using local scope into independent (testable 🤘) functions. Like when building forms with [react-hook-form](https://react-hook-form.com/)
+
+```javascript
+function ComplicatedStuff() {
+  const formMethods = useForm()
+
+  const fieldValue = formMethods.watch("field")
+
+  return (
+    <>
+      <p>Live current value of field: {fieldValue}</p>
+      <FormRenderComponent onSubmit={onSubmit} />
+    </>
+  )
+}
+```
+
+`formMethods.watch` watches your input field and returns its current value. Great when you're building dynamic forms.
+
+The temptation is to then write the `onSubmit` function like this:
+
+```javascript
+function ComplicatedStuff() {
+	const formMethods = useForm()
+
+	const fieldValue = formMethods.watch('field')
+
+	async function onSubmit() {
+		await fetch('...', {
+			method: 'POST',
+			body: JSON.stringify({
+				fieldValue
+			})
+		})
+	}
+```
+
+Then you think _"Oh no, performance!"_ and memoize that function with a `useCallback`. Run into staleness issues and add all the fields into its dependency array.
+
+Now you have unnecessary full re-renders on every keypress 💩
+
+Instead, try this:
+
+```javascript
+async function onSubmit(values) {
+	await fetch('...', {
+		method: 'POST',
+		body: JSON.stringify({
+			fieldValue: values.fieldValue
+		})
+	})
+}
+
+function ComplicatedStuff() {
+	const formMethods = useForm()
+
+	const fieldValue = formMethods.watch('field')
+```
+
+React-hook-form passes all current values into the `onSubmit` function. You don't need to rely on component scope!
+
+### Cough
+
+Sure, that's how _this_ library works, my point is the general principle 👉 look for opportunities to refactor your functions so they rely on arguments instead of scope.
+
+https://twitter.com/Swizec/status/1570179303689818113
+
+Then you can move them anywhere. Flexibility 🤩 (and stable references)
+
+## When _do_ you need useCallback and friends?
+
+If you're writing a library or core piece of functionality that's going to show up in lots of components, memoize all the things.
+
+![](./img/6tmch3jpgc6dc4j.jpeg)
+
+A library like [React Query](https://tanstack.com/query/v4) or [useAuth](https://useauth.dev/) can make your whole app re-render by accident. You do want to prevent that.
+
+A callback shared in 3 small components? Meh. Focus on keeping renders fast instead of worrying about re-renders.
+
+Cheers,<br/>
+~Swizec
+
+PS: [computers are fast these days](https://swizec.com/blog/screw-web-performance-just-wait-a-little/) and in [my experiments with React 18](https://swizec.com/blog/a-better-react-18-starttransition-demo/) it took thousands of elements to notice performance issues
+
+PPS: I hear rumors the React team is working on an auto-memoizing engine that handles all this for you 🤞

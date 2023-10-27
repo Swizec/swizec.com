@@ -1,0 +1,108 @@
+---
+title: "A surprising feature of JavaScript optional chaining"
+description: "This blew my mind, thought you'd like it too. You can do more with ?. than you thought."
+published: 2021-06-24
+content_upgrade: Javascript
+categories: "JavaScript, Technical"
+hero: ./img/screenshot-1624545125176.png
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+
+In 2020 JavaScript gained a new feature – optional chaining. It solves a problem we've had ... forever. With many workarounds and standard solutions over the years.
+
+https://twitter.com/Swizec/status/1407762472614854656
+
+## The problem optional chaining solves
+
+You get an object like this:
+
+```javascript
+const object = {
+  greet: "hai",
+  deepProp: {
+    greet: "hello",
+    deeperProp: {
+      greet: "ohai",
+    },
+  },
+}
+```
+
+JSON response from an API or reading from a database. Perhaps a blob you've built up on the frontend.
+
+How do you access the 3rd level `greet`, if `object`, `deepProp`, and `deeperProp` might be undefined?
+
+You could rely on JavaScript's evaluation semantics. Last value from expression is returned.
+
+```javascript
+const greeting =
+  object &&
+  object.deepProp &&
+  object.deepProp.deeperProp &&
+  object.deepProp.deeperProp.greet
+```
+
+Confusing for newbies, annoying to write, easy to get wrong. Exploding complexity to boot.
+
+A clearer way to write that are conditionals:
+
+```javascript
+let greeting = undefined
+if (object) {
+  if (object.deepProp) {
+    if (object.deepProp.deeperProp) {
+      greeting = object.deepProp.deeperProp
+    }
+  }
+}
+```
+
+Clearer, more verbose, nobody writes this in production code. Feels weird to use conditionals for assignment. 🤷
+
+Another common approach is to use a library like Lodash:
+
+```javascript
+const greeting = _.get(object, "deepProp.deeperProp.greet")
+```
+
+Personally not a fan. Feels unnecessary.
+
+<ContentUpgrades.Javascript />
+
+## Use optional chaining
+
+With [optional chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) you can do this natively:
+
+```javascript
+const greeting = object?.deepProp?.deeperProp?.greet
+```
+
+😍
+
+You've probably seen that before. Everyone's been very excited after wishing this existed for 10+ years.
+
+But you might've missed that the operator is `?.`, _not_ `?`. This is important because **you can optionally chain anything** 🤯
+
+Function calls:
+
+```javascript
+object?.deepProp?.function?.(args)
+```
+
+Array access:
+
+```javascript
+object?.deepProp?.deepArray?.[5]
+```
+
+And even expressions:
+
+```javascript
+object?.deepProp?.[console.log("runs if deepProp defined")]
+```
+
+Please don't use that last one 😅
+
+Cheers,<br/>
+~Swizec

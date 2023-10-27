@@ -1,0 +1,144 @@
+---
+title: "Trying out React 18 Alpha"
+description: "I read everything about React 18 Alpha, trawled through the work group, and ran some experiments. Here's what you'll wanna know."
+published: 2021-06-11
+categories: "React, Technical"
+hero: ./img/screenshot-1623429547604.png
+---
+
+React 18 is here! That's the one with concurrent mode 🥳
+
+Well, it's _almost_ here. You can play with experimental code, check out the [working group](https://github.com/reactwg/react-18/discussions), and hope library authors update soon.
+
+The gist is that:
+
+1. You don't gotta upgrade
+2. New features are opt-in
+3. React 16/17 and React 18 code can work together on the same screen
+4. Typical apps can "update in an afternoon"
+5. Library authors might have work to do
+6. Useful Suspense comes later
+
+I've been waiting for this since [Experimenting with the new React Concurrent mode](https://swizec.com/blog/experimenting-with-the-new-react-concurrent-mode/) in November 2019 and [Time Slicing for visualizing large datasets](https://medium.com/@swizec/how-to-use-react-suspense-and-time-slicing-to-visualize-large-datasets-b35dd86d3756) in September 2018. I even tried to get [Gatsby working with Suspense](https://swizec.com/blog/towards-a-gatsbysuspense-proofofconcept/) in 2019, but that was clunky.
+
+![](giphy:giddy)
+
+## The goods
+
+Biggest update from the UI perspective is the new/better [render batching for fewer updates](https://github.com/reactwg/react-18/discussions/21). Reduces DOM writes, increases performance.
+
+React 17 batches updates in event handlers. React 18 will **batch updates every time**.
+
+```javascript
+function Component() {
+  const [boop, setBoop] = useState(2)
+  const [booper, setBooper] = useState(3)
+
+  // 2 re-renders
+  function onClick() {
+    fetch().then(() => {
+      setBoop(3)
+      setBooper(4)
+    })
+  }
+
+  // 1 re-render
+  function onClick() {
+    setBoop(3)
+    setBooper(4)
+  }
+}
+```
+
+When you opt into React 18 features, both those cases trigger 1 component re-render. Your UI becomes faster and more responsive with no extra work 🤘
+
+**ServerSideRendering** gets a [new streaming mode and easier-to-use hydration support](https://github.com/reactwg/react-18/discussions/22). This one's for folks like Gatsby and NextJS. Or if you were brave enough to roll your own.
+
+A good lesson in [Not Invented Here](https://en.wikipedia.org/wiki/Not_invented_here). Leave the fiddly stuff to the fiddlers.
+
+[**Suspense** gets a behavior update](https://github.com/reactwg/react-18/discussions/7) that makes it easier to understand.
+
+```javascript
+<Suspense fallback={<Loading />}>
+  <ComponentThatSuspends />
+  <Sibling />
+</Suspense>
+```
+
+The point of `<Suspense>` is to enable loading modes in your UI. Instead of `{isLoading && <Component>}`, you can let React handle that for you.
+
+Fantastic when different components have to coordinate their loading – lets you avoid spinner cascades. They suck.
+
+With React 17, that `<Sibling>` component would mount, run its effects, then hide. Now it waits until data is ready. As I think it always should have.
+
+More to come in 18.x updates.
+
+### Concurrent features
+
+A gaggle of exciting new APIs that let you tell React _"Hey this update is less important, do it later"_
+
+Fantastic for large re-draws, data visualization, and anywhere your app feels a little janky right now. I've got this issue in production where you click a button and we redraw 300 components with 10 complex hooks each.
+
+This will help.
+
+![](giphy:giddy)
+
+[`startTransition`](https://github.com/reactwg/react-18/discussions/41) lets you mark an update as a transition. You could hack this with time slicing – `setTimeout` – but that's a delay and may lag. `startTransition` is synchronous.
+
+`useDeferredValue` lets you update state with a delay.
+
+The new `<SuspenseList>` allows you to coordinate how loading spinners cascade. This will become more useful in 18.x versions.
+
+The new [streaming SSR API with partial hydration](https://github.com/reactwg/react-18/discussions/37) lets you hydrate parts of the app while the rest loads. Make above-the-fold instantly interactive, let the rest load later 🤞
+
+## How to opt-in
+
+You'll want to install React from the latest alpha tag.
+
+```
+yarn add react@alpha react-dom@alpha
+```
+
+Expect broken-ness, changing APIs, and shifting details. When they say Alpha, they mean it.
+
+A change to the root opts you in:
+
+```javascript
+const root = ReactDOM.createRoot(container)
+root.render(<App />)
+```
+
+Anything below `<App />` has access to the new features. You can use this alongside the old `ReactDOM.render(<App />, container);` API.
+
+[Read more details about how root changes](https://github.com/reactwg/react-18/discussions/5) on the working group pages.
+
+## Let's try it out
+
+Now the fun part, can you see a difference?
+
+https://twitter.com/Swizec/status/1403364808007634949
+
+We put React 18 to the test with an old computer science and mathematics game – [a random walk](https://en.wikipedia.org/wiki/Random_walk), sometimes called The Drunkard's Walk. The math is fun, the visuals are better.
+
+Observe, in React 17:
+
+https://codesandbox.io/s/react-17-random-walk-vpwlx
+
+At first all is well.
+
+But the code is designed to be naive and inefficient. As the walk grows longer, each re-draw takes longer and longer. Adding steps slows down because we copy arrays.
+
+With luck, you'll see this lag as you type in the input field.
+
+Now try it out in React 18:
+
+https://codesandbox.io/s/react-18-random-walk-mcrv3
+
+Can you see the difference?
+
+I felt typing was smoother and animation was more jagged. As expected. Might be placebo? Always hard to tell.
+
+Read the comments to learn how it works. ✌️
+
+Cheers,<br/>
+~Swizec

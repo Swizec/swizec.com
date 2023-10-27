@@ -1,0 +1,205 @@
+---
+title: "When your brain is breaking, try XState"
+description: ""
+published: 2020-08-10
+redirect_from:
+  - /blog/when-your-brain-is-breaking-try-xstate/swizec/9473
+categories: "Computer Science, Technical, React, State Machines"
+content_upgrade: ReactCU
+hero: ./img/Fdfzkov.png
+---
+
+Ever built code that's like a Jenga tower of conditional logic?
+
+It always starts off easy. If A is true, show X, otherwise Y.
+
+Oh but if B is true then show Z, unless A is also true, then you need Y _and_ Z. And if C happens after A is true, but not after B is true, then you ...
+
+Aaaaand you've got a mess. A piece of code that's going to be _fun_ to maintain.
+
+![99 little bugs in the code ...](./img/Fdfzkov.png)
+
+This happens a lot. Sometimes fast, sometimes after months of polishing your logic to include every edge case.
+
+And that's okay. Messes happen.
+
+It's what you do with your mess that matters.
+
+https://twitter.com/Swizec/status/1288942710762569729
+
+## How you create a mess
+
+Here's a mess, I made it just for you ❤️
+
+https://codesandbox.io/s/distracted-thunder-y85rn
+
+Check the checkboxes to get different colors. Looks silly in this example and I assure you it happens all the time.
+
+Like when I was building an insurance intake form that shows fields depending on previous answers _and_ what the API says is even possible in this particular case 😅
+
+Messes happen when you're dealing with a combinatorial explosion. Every new condition _doubles_ the number of possible states.
+
+![Truth tables show your combinatorial explosion](./img/CMAdR7S.png)
+
+3 variables give us 8 possible states. 4 makes 16. 5 is 32.
+
+That's booleans.
+
+Imagine enums with 4 possible states. 3 of those and you're looking at 64 combinations.
+
+🤯
+
+Your first inclination is to write chains of conditionals. Cover the 3 or 4 happy-path cases and done.
+
+The other 60 are edge cases you find in production through bug reports. You fix those.
+
+And you create long and complex conditionals that nobody on your team can read. Each bug fix creates 5 new bugs.
+
+Everything's connected, nothing makes sense.
+
+![conspiracy_theory_board giphy](./img/media-l0IylOPCNkiqOgMyA-giphy.gif)
+
+## How you fix the mess with hashmaps
+
+Your way out of this mess is a stable mapping of states to values. Easiest to do with a hashmap.
+
+You can start with a truth table to get your bearings. Great for boolean logic, difficult for enums. You run out of dimensions 😅
+
+Truth table for the mess above looks like this:
+
+![The truth table of our component](./img/jkN5tGO.png)
+
+You can turn that into a hashmap of states. A piece of data that tells you how the code behaves.
+
+```javascript
+const STATE_MAP = {
+  "0-0-0": { green: 1, red: 0, blue: 0 },
+  "0-0-1": { green: 1, red: 0, blue: 0 },
+  "0-1-0": { green: 0, red: 0, blue: 0 },
+  "0-1-1": { green: 0, red: 1, blue: 1 },
+  "1-0-0": { green: 0, red: 0, blue: 1 },
+  "1-0-1": { green: 1, red: 1, blue: 1 },
+  "1-1-0": { green: 1, red: 0, blue: 0 },
+  "1-1-1": { green: 1, red: 0, blue: 0 },
+}
+```
+
+And you use it like this:
+
+```javascript
+const key = `${Number(a)}-${Number(b)}-${Number(c)}`
+const showGreen = STATE_MAP[key].green
+const showRed = STATE_MAP[key].red
+const showBlue = STATE_MAP[key].blue
+```
+
+😍
+
+Isn't that more readable, easier to understand, and way easier to debug? Got a problem, change the map. Done.
+
+https://codesandbox.io/s/eager-banach-2cxcj
+
+## How you fix the mess with state machines
+
+What a hashmap can't do, is guard against impossible states. What if you don't want users to click A when B and C are true? 🤔
+
+That's when you need a [state machine](https://en.wikipedia.org/wiki/Finite-state_machine), my friend. They're fun to build, tricky to get right, and different to think about than you're used to.
+
+`useReducer` is a state machine. Redux, too. `useState` if you squint your eyes.
+
+Here's a state machine for each of the `useState`s in our smol mess example.
+
+![A 2-state state machine](./img/yCtO4VE.png)
+
+Circles are states, arrows are transitions. You can draw a state machine like this for almost anything\[^1].
+
+That's where [XState](https://xstate.js.org/) shines – it's designed for state machines. It can even visualize them for you 😍
+
+https://twitter.com/Swizec/status/1289309003508408321
+
+Yeah, no wonder that form broke my brain.
+
+## Using XState
+
+Now, how do you use XState to fix the mess above?
+
+First you need to define the state machine. Flip your mindset from mapping states to transitioning between states.
+
+I like to do this in the [XState visualizer](https://xstate.js.org/viz/). Helps you see what you're doing.
+
+[![3-state state machine visualized with XState](./img/cHQdm62.png)](https://xstate.js.org/viz/?gist=7d8dc2133f897c61857d5509fb780658)
+
+👆 Click to see the full machine in XState visualizer
+
+You define XState machines by listing states, their meta data, and performable actions. Each action points to the next state.
+
+```javascript
+const smolMessMachine = Machine({
+    id: 'smolMess',
+    initial: '0-0-0',
+    states: {
+      '0-0-0': {
+        on: {
+          A: '1-0-0',
+          B: '0-1-0',
+          C: '0-0-1'
+        },
+        meta: { green: 1, red: 0, blue: 0 }
+      },
+      '0-0-1': {
+        on: {
+          A: '1-0-1',
+          B: '0-1-1',
+          C: '0-0-0'
+        },
+        meta: { green: 1, red: 0, blue: 0 }
+      },
+```
+
+This looks like a lot of work compared to a hashmap, I know, but it's invaluable when you want to prevent some transitions. Or you need to run side-effects when states are entered/exited.
+
+XState can do all that, it's great.
+
+Putting this in our smol mess, you get this:
+
+https://codesandbox.io/s/blissful-sound-k13mu
+
+```javascript
+const [state, send] = useMachine(smolMessMachine)
+```
+
+Hooks the machine up to your component. `state` is the current state machine state, `send` is like dispatch – sends actions.
+
+Checkboxes use `send` instead of `setX`
+
+```javascript
+<label>
+  <input type="checkbox" checked={a} onChange={() => send("A")} />A
+</label>
+```
+
+And you read current state like this:
+
+```javascript
+// 0-0-0 👉 [false, false, false]
+const [a, b, c] = state.value.split("-").map(Number).map(Boolean)
+
+const showGreen = !!state.meta[`smolMess.${state.value}`].green,
+  showRed = !!state.meta[`smolMess.${state.value}`].red,
+  showBlue = !!state.meta[`smolMess.${state.value}`].blue
+```
+
+Your code would have better-named states than my example. No need to translate with .map :)
+
+The meta data nests under your state machine name because you can have multiple running in parallel. That's when XState becomes pure wow 😉
+
+And unless I made a mistake, all 3 codesandboxes should behave the same. But 2 of those are way easier to debug ✌️
+
+Happy hacking
+
+Cheers,<br/>
+~Swizec
+
+\[^1] finite state machines can't solve every solvable problem. [Pushdown automata](https://en.wikipedia.org/wiki/Pushdown_automaton) (state machines with a stack) are more powerful and [Turing machines](https://en.wikipedia.org/wiki/Turing_machine) (state machine with an infinite memory) can solve anything
+
+PS: you can use XState in server code, too

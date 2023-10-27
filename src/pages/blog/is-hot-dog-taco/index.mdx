@@ -1,0 +1,239 @@
+---
+title: "Is hot dog taco?"
+description: "What if I told you modern tools let you build and launch a small webapp in 30 minutes? Complete with SSL, a .com domain, a database, a documented API, CDN hosting, fast static initial loads, and a hydrated SPA? That's the challenge I posed at Silicon Valley Code Camp this weekend. The audience didn't believe me, so it was time to perform some magic. 🧙"
+published: 2019-10-21
+redirect_from:
+  - /blog/is-hot-dog-taco/swizec/9219
+content_upgrade: ServerlessHandbook
+categories: "Back End, Front End, Fullstack Web, Serverless, Technical"
+hero: ./img/techletter.app-screenshot-1571675339434.png
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+
+What if I told you modern tools let you build and launch a small webapp in 30 minutes? Complete with SSL, a .com domain, a database, a _documented_ API, CDN hosting, fast static initial loads, and a hydrated SPA?
+
+That's the challenge I posed at Silicon Valley Code Camp this weekend. The audience didn't believe me, so it was time to perform some magic. 🧙
+
+[![](./img/fPf1rIR.gif)](https://www.youtube.com/watch?v=Kx0y6Yemutg)
+
+Here's the app 👉 [ishotdogtaco.com](https://ishotdogtaco.com)
+
+And the code 👉 [Swizec/hot-dog-taco](https://github.com/Swizec/hot-dog-taco)
+
+Like all magicians, I cheated on stage. Had some code snippets prepared, knew what I was building, and how. Like Penn & Teller once said:
+
+> Sometimes, magic is just someone spending more time on something than anyone else might reasonably expect.
+
+The real build, from scratch, while figuring it out ... that takes 70min.
+
+https://www.youtube.com/watch?v=c5tl1jiU3gk
+
+<ContentUpgrades.ServerlessHandbook />
+
+## But how?
+
+https://twitter.com/Swizec/status/1185705442539757568
+
+It's all about the stack. A new paradigm for building webapps that's emerging.
+
+You build the application logic, platforms take care of the rest. Focus on the part that makes your idea special.
+
+Your app comes in two parts:
+
+- **server** for sharing and persisting data between clients, heavy slow operations, data analysis, etc.
+- **web/mobile** for user-facing UI, single user logic, etc.
+
+You use [serverless technologies](https://serverlesshandbook.dev/) to host your server. A few lines of configuration, some javascript code, and you're ready to accept requests. Plus it's scalable.
+
+No need to deal with Kubernetes and Dockers and setting up your own DNS configs and dev environments and whatnot. It's pretty neat.
+
+For the frontend, you use the JAMstack. Loosely. Create a single page app, use Gatsby or Next to get fast static initial loads, talk to your backend via API – a GraphQL API.
+
+Since your frontend and backend are decoupled, you can host them separately. Let serverless deal with just your API and data, host everything else as a static page on a CDN.
+
+Your app is live, fast, and scales well.
+
+[![](./img/static-fff0598333278989c0aa583cfdb3f08c-590cf-03_hotdog.jpg)](https://ishotdogtaco.com)
+
+### The server side
+
+I encourage you to [look at github](https://github.com/Swizec/hot-dog-taco/tree/master/server) for the full code. Here's a couple interesting bits.
+
+Hot Dog Taco is a small app so the backend is simple: A graphql server that handles one API endpoint serving all queries.
+
+Bigger graphql servers still have just a single API, but their type definitions and query resolvers are bigger :)
+
+```JavaScript
+// server/src/handler.ts
+
+const typeDefs = gql`
+    type Vote {
+        voteId: String!
+        createdAt: String
+        isHotDog: Boolean
+    }
+    type Query {
+        allVotes: [Vote]
+    }
+    type Mutation {
+        vote(isHotDog: Boolean): Vote
+    }
+`;
+
+const resolvers = {
+    Query: {
+        allVotes: async () => {
+            const result = await scanItems({});
+
+            return result.Items;
+        }
+    },
+
+    Mutation: {
+        vote: async (_: any, { isHotDog }: { isHotDog: boolean }) => {
+            const voteId = uuidv4();
+            const createdAt = new Date().toISOString();
+
+            const result = await updateItem({
+                Key: { voteId },
+                UpdateExpression:
+                    "SET createdAt = :createdAt, isHotDog = :isHotDog",
+                ExpressionAttributeValues: {
+                    ":createdAt": createdAt,
+                    ":isHotDog": isHotDog
+                },
+                ReturnValues: "ALL_NEW"
+            });
+
+            return result.Attributes;
+        }
+    }
+};
+
+const server = new ApolloServer({
+    typeDefs,
+    resolvers
+});
+
+export const graphql = server.createHandler({
+    cors: {
+        origin: "*",
+        credentials: true
+    }
+});
+```
+
+Those 56 or so lines are all it took. Apollo GraphQL libraries do most of the heavy lifting.
+
+We write a type definition for our GraphQL schema – the types, queries, and mutations – and a bunch of resolvers that say _"When this query comes in, run this function to get or save data to the database"_
+
+The database is DynamoDB because that's quickest to set up.
+
+Oh and I promised a _documented_ API. Apollo takes care of that when you open the GraphQL playground.
+
+[![](./img/T7ot8NW.png)](https://iu03h69r48.execute-api.us-east-1.amazonaws.com/dev/graphql)
+
+### The web side
+
+The web side is a bunch of React components using Apollo hooks to run queries and fetch data. No central authority, no setup for global state, just components getting what they need when they need.
+
+You can see [the webapp code on github](https://github.com/Swizec/hot-dog-taco/tree/master/web)
+
+Apollo caching takes care of speed and performance behind the scenes, I think. Haven't dug into that very deep yet to be honest.
+
+Here's how the webapp works:
+
+```JavaScript
+// web/src/pages/index.js
+
+const VOTE_MUTATION = gql`
+  mutation vote($isHotDog: Boolean!) {
+    vote(isHotDog: $isHotDog) {
+      voteId
+      createdAt
+    }
+  }
+`
+
+const GET_VOTES_QUERY = gql`
+  query allVotes {
+    allVotes {
+      voteId
+      isHotDog
+    }
+  }
+`
+
+const VoteButton = ({ isHotDog, children }) => {
+  const [vote, { loading }] = useMutation(VOTE_MUTATION, {
+    variables: {
+      isHotDog,
+    },
+  })
+
+  return loading ? "Voting ..." : <button onClick={vote}>{children}</button>
+}
+
+const Votes = () => {
+  const { loading, error, data } = useQuery(GET_VOTES_QUERY)
+
+  const yes = data && data.allVotes.filter(vote => vote.isHotDog).length,
+    no = data && data.allVotes.filter(vote => !vote.isHotDog).length
+
+  return loading ? (
+    <p>Loading votes ...</p>
+  ) : (
+    <strong>
+      {yes + no} votes, {Math.round((yes / (yes + no)) * 100)} say hot dog is
+      taco
+    </strong>
+  )
+}
+
+const IndexPage = () => (
+  <Layout>
+    <SEO title="Home" />
+    <h1>Is hot dog taco?</h1>
+
+    <p>
+      <VoteButton isHotDog={true}>Yes </VoteButton>
+      <VoteButton isHotDog={false}>No </VoteButton>
+    </p>
+
+    <div style={{ maxWidth: `600px`, marginBottom: `1.45rem` }}>
+      <Image />
+    </div>
+    <Votes />
+  </Layout>
+)
+```
+
+We've got a couple of GraphQL queries defined as constants, and two important React components:
+
+1.  `<VoteButton>` is a button that votes Yes or No when clicked. Runs a GraphQL mutation and waits for a response.
+2.  `<Votes>` pokes our GraphQL API with a query and returns the results. This is where we see whether a hot dog is a taco.
+
+Notice how each component handles its own API communication internally? No need to bother the whole app with global state and other weird complications.
+
+It's like [edge computing](https://en.wikipedia.org/wiki/Edge_computing) but for React components 🤔
+
+The rest is Gatsby machinery handling all the hard stuff. Compiles to a static build at deploy, gives us routing, basic page layout, even a little bit of CSS defaults.
+
+Host it with Netlify or Zeit and voila: A live webapp with SSL and fast CDN setup.
+
+## But why?
+
+![but_why giphy](./img/media-s239QJIh56sRW-giphy-downsized-medium.gif)
+
+Because the [Cube Rule](https://cuberule.com/) is an amazing unified theory of food identification.
+
+But also to show that it can be done.
+
+You _can_ launch an app with little effort these days. The web stack has never been so productive and I'm excited as heck to see what happens next.
+
+I'm expecting a cambrian explosion of indie startups. Small apps solving real problems, making their creators rich.
+
+You excited?
+
+Cheers, ~Swizec

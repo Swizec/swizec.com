@@ -1,0 +1,253 @@
+---
+title: "Why you should build a form generator"
+description: "Lemme guess, every project involves 1 or 2 forms and they're all the friggen same. You got forms coming out the wazoo. Render fields. Connect to state. Add field validation. Detect submit. Add form validation. Send fetch request. Repeat."
+published: 2020-04-27
+redirect_from:
+  - /blog/why-you-should-build-a-form-generator/swizec/9394
+categories: "Front End, React, Technical"
+content_upgrade: ReactCU
+hero: ./img/techletter.app-screenshot-1588001432438.png
+---
+
+How many forms have you built? 1? 2? 5 bazillion?
+
+Lemme guess, every project involves 1 or 2 forms and they're all the friggen same. You got forms coming out the wazoo.
+
+Render fields. Connect to state. Add field validation. Detect submit. Add form validation. Send fetch request. Repeat.
+
+![shoot_me giphy](./img/media-JtQc9M7l1KUGQ-giphy.gif)
+
+How many times can you go through that mind-numbing software bureaucracy before you say **"Enough already!"**
+
+And no, that doesn't mean _"Give it to the most junior engineer on the team coz they still think it's exciting"_ either. That's shitty. (and yes every company does it)
+
+## Build a form generator
+
+Here's what you do instead my friend, you notice a pattern and you solve it once and for all. For every future project. For every engineer on the team. For yourself.
+
+That's how you level up.
+
+https://twitter.com/Swizec/status/1251180097538678785
+
+**Next time you're building a form, grab some extra time, turn it into a library.**
+
+Sure, libraries like [formik](https://github.com/jaredpalmer/formik) and [react-form](https://github.com/tannerlinsley/react-form) and [redux-form](https://github.com/redux-form/redux-form) exist. There's a bunch for every frontend framework.
+
+And they're not what I'm talking about.
+
+What you need is a form _generator_. A piece of code that takes JSON configuration and spits out a form.
+
+A form that looks like _your_ forms. Follows _your_ design system, has _your_ validation principles, looks like _you_ built it.
+
+### Form generators vs. forms
+
+Take a basic form for example. Name and email.
+
+https://codesandbox.io/s/relaxed-moore-rl1lh?fontsize=14&hidenavigation=1&theme=dark
+
+Handles 2 input fields, validates email as you type, verifies both fields are filled out before submitting.
+
+58 lines of boring code and there's a bunch of cases I didn't cover.
+
+```javascript
+const Form = () => {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [emailValidation, setEmailValidation] = useState("")
+  const [formValidation, setFormValidation] = useState("")
+
+  function changeName(event) {
+    setName(event.target.value)
+    setFormValidation("")
+  }
+
+  function changeEmail(event) {
+    const email = event.target.value
+    setEmail(email)
+
+    if (!isValidEmail(email)) {
+      setEmailValidation("Not valid email")
+    } else {
+      setEmailValidation("")
+    }
+    setFormValidation("")
+  }
+
+  function onSubmit(event) {
+    event.preventDefault()
+
+    if (isValidEmail(email) && name.length > 0) {
+      // submit
+      setFormValidation("")
+    } else {
+      setFormValidation("Missing fields")
+    }
+  }
+
+  return (
+    <form onSubmit={onSubmit}>
+      <label>
+        Name <input type="text" value={name} onChange={changeName} />
+      </label>
+      <br />
+      <label>
+        Email <input type="email" value={email} onChange={changeEmail} />
+      </label>
+      <p>{emailValidation}</p>
+      <p>{formValidation}</p>
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+```
+
+Every engineer on your team goes through that _every time_ they build a form. And they build a lot.
+
+This is how they feel 👇
+
+![groan giphy](./img/media-6y038xO1p06He-giphy.gif)
+
+Wouldn't you?
+
+Here's what you do after _someone_ ;) builds a form generator for your team:
+
+```javascript
+const fields = [
+	{name: 'name', label: 'Name', validate: val => val.length > 0},
+	{name: 'email', label: 'Email', validate: isValidEmail}
+]
+
+// ...
+
+<Form fields={fields} onSubmit={onSubmit} />
+```
+
+😍
+
+## How you build a form generator
+
+A form generator doesn't have to be complicated my friend, it just needs to get the job done.
+
+You'll need 3 parts:
+
+1.  A generic `<Field>` component
+2.  A generic `<Form>` component
+3.  Couple of loops
+
+Here's a basic example that supports text fields only.
+
+https://codesandbox.io/s/staging-frog-cmcgr?fontsize=14&hidenavigation=1&theme=dark
+
+###
+
+You start with a `<Field>` component like this.
+
+```javascript
+const Field = ({ name, label, validate }) => {
+  const [value, setValue] = useState("")
+  const [validation, setValidation] = useState("")
+
+  function changeValue(event) {
+    const val = event.target.value
+
+    setValue(val)
+
+    if (validate(val)) {
+      setValidation("")
+    } else {
+      setValidation(`Invalid ${label}`)
+    }
+  }
+
+  return (
+    <>
+      <label>
+        {label} <input type="text" value={value} onChange={changeValue} />
+      </label>
+      <p>{validation}</p>
+    </>
+  )
+}
+```
+
+This component handles a complete field. Renders an input with a label, stores state, and performs validation as you type. Even renders errors.
+
+You can use render props for more flexibility. But that's often _too_ flexible. Aim to build a generator that spits out perfect forms for _your_ company. Every time.
+
+###
+
+The `<Form />` component is a glorified loop.
+
+```javascript
+const Form = ({ fields }) => {
+  const [formValidation, setFormValidation] = useState("")
+
+  function onSubmit(event) {
+    event.preventDefault()
+
+    // ..
+  }
+
+  return (
+    <form onSubmit={onSubmit}>
+      {fields.map((field) => (
+        <>
+          <Field {...field} key={field.name} />
+          <br />
+        </>
+      ))}
+
+      <p>{formValidation}</p>
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+```
+
+Loop through fields, render each one. Add a submit button, `<form>` element, and a place to put errors.
+
+### onSubmit
+
+The `onSubmit` method handles submissions. Validates all fields, runs any form-level validations, and does the thing.
+
+Something like this:
+
+```javascript
+function onSubmit(event) {
+  event.preventDefault()
+
+  const values = fields
+    .map((field) => ({
+      ...field,
+      value: document.getElementsByName(field.name)[0].value,
+    }))
+    .filter((field) => field.validate(field.value))
+    .map((field) => ({ name: field.name, value: field.value }))
+
+  if (values.length === fields.length) {
+    alert(JSON.stringify(values))
+    setFormValidation("")
+  } else {
+    setFormValidation("missing fields")
+  }
+}
+```
+
+This one iterates through the fields and grabs their values straight from the DOM. A little dirty but it works ✌️
+
+You might want to find a way to communicate values from `<Field />` components with callbacks or something. Maybe hoist state up a level or add a React context ... depends what you need.
+
+Invalid fields are thrown out and the rest collected into an array of `{ name, value }` objects. If that array is same length as the number of fields, the form is valid.
+
+My submit alerts. Yours should call the `onSubmit` prop function of some sort. Let the user of your form builder define what happens :)
+
+## 🤯
+
+An afternoon of brain-bending once, a lifetime of perfect forms.
+
+What are you waiting for? Go save your team from this pain, be the hero they need.
+
+![hero giphy](./img/media-ek4CUx2FONgHaMz9V5-giphy-downsized-medium.gif)
+
+Cheers,  
+~Swizec

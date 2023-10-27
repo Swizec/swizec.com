@@ -1,0 +1,247 @@
+---
+title: "How to write tests for XState – CodeWithSwiz 12"
+description: "Once you know how to refactor a useReducer to XState, you gotta prove you did it right. "
+published: 2020-10-13
+categories: "CodeWithSwiz, Livecoding, Technical, XState, State machines"
+hero: ./img/screenshot-1602604132265.png
+---
+
+Once you know [how to refactor a useReducer to XState](https://swizec.com/blog/refactoring-a-usereducer-to-xstate-pt1-codewithswiz-11/), you gotta prove you did it right.
+
+_CodeWithSwiz is a twice-a-week live show. Like a podcast with video and fun hacking. Focused on experiments. [Join live Wednesdays and Sundays](https://youtube.com/swizecteller)_
+
+https://www.youtube.com/watch?v=U0yHKAuTG98
+
+[useAuth](https://github.com/Swizec/useAuth) had existing tests for its core reducer and that makes refactoring easier.
+
+In theory tests are great for refactoring. You can change the implementation, leave tests alone, get them passing. Verify you refactored without destroying the external API.
+
+My tests were not that good.
+
+```typescript
+// src/__tests__/authReducer.spec.ts
+describe("login", () => {
+    const currentTime = new Date().getTime();
+    const state: AuthState = { // ... };
+    const action: AuthAction = { // ... };
+
+    it("adds user to local storage", () => {
+        localStorage.removeItem("useAuth:expires_at");
+        localStorage.removeItem("useAuth:user");
+
+        authReducer(state, action);
+
+        expect(
+            JSON.parse(localStorage.getItem("useAuth:expires_at")!)
+        ).toBeGreaterThanOrEqual(currentTime + 500 * 1000);
+
+        expect(localStorage.getItem("useAuth:user")).toEqual(
+            JSON.stringify(action.user)
+        );
+    });
+
+    it("sets user", () => {
+        expect(authReducer(state, action).user).toEqual(action.user);
+    });
+    it("sets expiresAt", () => {
+        expect(authReducer(state, action).expiresAt).toBeGreaterThanOrEqual(
+            currentTime + 500 * 1000
+        );
+    });
+    // ...
+});
+```
+
+Beautiful reducer tests. Take reducer as a function, pass-in a fake current state and an action, check for expected changes.
+
+Every part of the reducer's `"login"` action gets tested.
+
+```typescript
+// src/authReducer.ts
+switch (action.type) {
+    case "login":
+        const { authResult, user } = action;
+        const expiresAt =
+            authResult.expiresIn! * 1000 + new Date().getTime();
+
+        if (typeof localStorage !== "undefined") {
+            localStorage.setItem(
+                "useAuth:expires_at",
+                JSON.stringify(expiresAt)
+            );
+            localStorage.setItem("useAuth:user", JSON.stringify(user));
+        }
+
+        return {
+            ...state,
+            user,
+            expiresAt,
+            authResult
+        };
+```
+
+Can you spot the problem?
+
+## Testing too close to the implementation
+
+My tests are looking at implementation details. They know how the reducer works and test that way.
+
+That won't work for [XState](https://xstate.js.org/).
+
+https://twitter.com/DavidKPiano/status/1315420521530613765
+
+XState doesn't let you fake anything. You can't force it into a particular state, you can't trick it to do something it's not supposed to.
+
+That's the whole point. _"Make impossible states impossible"_ as the tagline goes.
+
+## How to test XState
+
+As David says in his tweet, the trick is to go one level higher and write better tests. At the integration and API level.
+
+Start by initializing your state machine.
+
+```typescript
+// src/__tests__/authReducer.spec.ts
+
+function initStateMachine() {
+  const state = interpret(authMachine.withContext(initialContext)).start()
+
+  return state
+}
+```
+
+You'll use this in multiple tests so having a function helps. It takes your state machine – `authMachine` – seeds it with initial context and starts an [interpreter](https://xstate.js.org/docs/guides/interpretation.html#interpreting-machines).
+
+[Jest](https://jestjs.io/) runs tests within a `describe` block in sequence[\[1\]](https://stackoverflow.com/questions/39831961/are-tests-inside-one-file-run-in-parallel-in-jest). That means you can share setup between tests.
+
+```typescript
+// init with values to easily tell TypeScript the type
+let authState = initStateMachine(),
+  savedContext = initialContext
+
+beforeEach(() => {
+  authState = initStateMachine()
+
+  authState.subscribe((state) => {
+    savedContext = state.context
+  })
+})
+```
+
+Create a shared `authState` and `savedContext`, giving them values makes TypeScript's type inference kick in. Means you don't have to specify your own types.
+
+In a `beforeEach` block you then instantiate a fresh state machine for each test and subscribe to changes. This lets you keep track of the latest application state.
+
+Each test then triggers the right sequence of actions and checks the result.
+
+```typescript
+// src/__tests__/authReducer.spec.ts
+describe("LOGIN", // ...
+	it("sets user", () => {
+	    authState.send("LOGIN");
+	    authState.send("AUTHENTICATED", loginPayload);
+
+	    expect(savedContext.user).toEqual(loginPayload.user);
+	});
+	it("sets expiresAt", () => {
+	    authState.send("LOGIN");
+	    authState.send("AUTHENTICATED", loginPayload);
+
+	    expect(savedContext.expiresAt).toBeGreaterThanOrEqual(
+	        currentTime + 500 * 1000
+	    );
+	});
+	it("sets authResult", () => {
+	    authState.send("LOGIN");
+	    authState.send("AUTHENTICATED", loginPayload);
+	    expect(savedContext.authResult).toBe(loginPayload.authResult);
+	});
+```
+
+We need 2 actions for each test:
+
+- `LOGIN` moves the state machine from `unauthenticated` to `authenticating`
+- `AUTHENTICATED` moves it from the `authenticating` state into `authenticated`
+
+The state subscription runs every time and updates `savedContext`. You can then verify the expected result.
+
+You could move action firing into `beforeEach` to DRY this up further. I prefer to make it obvious what each test is testing.
+
+## Bonus: Clean side effects
+
+Fun bonus from using XState 👉 clean, readable, predictable side-effects.
+
+Look at this `login` action on the reducer:
+
+```typescript
+case "login":
+    const { authResult, user } = action;
+    const expiresAt =
+        authResult.expiresIn! * 1000 + new Date().getTime();
+
+    if (typeof localStorage !== "undefined") {
+        localStorage.setItem(
+            "useAuth:expires_at",
+            JSON.stringify(expiresAt)
+        );
+        localStorage.setItem("useAuth:user", JSON.stringify(user));
+    }
+
+    return {
+        ...state,
+        user,
+        expiresAt,
+        authResult
+    };
+```
+
+Bleh. Deals with local storage, handles time, hard to read. You can't look at this and immediately know what's going on and why.
+
+Compare to the XState version:
+
+```typescript
+authenticated: {
+    on: {
+        LOGOUT: "unauthenticated"
+    },
+    entry: ["saveUserToContext", "saveToLocalStorage"],
+    exit: ["clearUserFromContext", "clearLocalStorage"]
+},
+```
+
+Ah! When the user enters the `authenticatd` state, we `saveUserToContext` and `saveToLocalStorage`. When they exit this state, we clear.
+
+Methods for that are defined later. Each does 1 thing.
+
+```typescript
+actions: {
+    saveUserToContext: assign((context, event) => {
+        const { authResult, user } = event;
+        const expiresAt =
+            authResult.expiresIn! * 1000 + new Date().getTime();
+
+        return {
+            user,
+            authResult,
+            expiresAt
+        };
+    }),
+    saveToLocalStorage: (context, event) => {
+        const { expiresAt, user } = context;
+
+        if (typeof localStorage !== "undefined") {
+            localStorage.setItem(
+                "useAuth:expires_at",
+                JSON.stringify(expiresAt)
+            );
+            localStorage.setItem("useAuth:user", JSON.stringify(user));
+        }
+    },
+```
+
+Same code as before but readable and organized. Beautiful 😍
+
+Cheers,<br/>
+~Swizec
+
+PS: continue reading with part 3 👉 [swap useReducer with XState](https://swizec.com/blog/swap-usereducer-with-xstate-codewithswiz-13/)

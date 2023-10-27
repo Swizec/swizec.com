@@ -1,0 +1,185 @@
+---
+title: "Connecting Gumroad to Auth0 for paywalled JAMStack apps"
+description: ""
+published: 2020-02-24
+redirect_from:
+  - /blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/swizec/9336
+categories: "Back End, Front End, Technical"
+hero: ./img/R1Nx5tx.png
+---
+
+Lots of folks were curious how I connect Gummroad and Auth0 on [my custom course platform](https://swizec.com/blog/why-and-how-i-built-my-own-course-platform/) so here's a short tutorial. The same approach works if you swap Gumroad out for Stripe ✌️
+
+Here's the tl;dr:
+
+0.  User visits your JAMStack app (Gatsby for me)
+1.  User clicks Buy Button
+2.  Gumroad checkout pops up
+3.  User purchases
+4.  Gumroad calls a webhook
+5.  AWS Lambda wakes up, creates account on Auth0
+6.  User is redirected back to JAMStack
+7.  User can now login
+
+![](./img/R1Nx5tx.png)
+
+You can replace the Gumroad popup with a redirect to Stripe Checkout. We use that approach in the example app for my [ServerlessReact.Dev](https://serverlessreact.dev) course.
+
+If you want to support free trials, you can use the AWS Lambda to add a role for existing users instead of creating new accounts. That way people can login, use your app, and get extra permissions once they buy.
+
+You can watch me figure this out from scratch on a stream:
+
+[![Click through for source](./img/techletter.app-screenshot-1582560337594.png)](https://www.youtube.com/watch?v=lwaHKXItp2k)
+
+## Start with a buy button
+
+Assuming you've got a JAMStack app – Gatsby, NextJS, or even CreateReactApp are all fine – a buy button is just a bit of React. I like to use [Rebass](https://rebassjs.org/) buttons.
+
+[![Click through for source](./img/techletter.app-screenshot-1582560335267.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20React%20from%20'react'%0Aimport%20%7B%20Button%20%7D%20from%20%22rebass%22%0A%0Aconst%20BuyButton%20%3D%20(%7B%20gumroadID%2C%20cta%20%7D)%20%3D%3E%20(%0A%09%3CButton%0A%20%20%20%20as%3D%22a%22%0A%20%20%20%20href%3D%7B%60https%3A%2F%2Fgumroad.com%2Fl%2F%24%7BgumroadID%7D%3Fwanted%3Dtrue%60%7D%0A%20%20%20%20data-gumroad-product-id%3D%7BgumroadID%7D%0A%20%20%20%20data-gumroad-single-product%3D%22true%22%0A%20%20%20%20mx%3D%7B2%7D%0A%20%20%20%20sx%3D%7B%7B%0A%20%20%20%20%20%20%22%3Ahover%22%3A%20%7B%0A%20%20%20%20%20%20%20%20cursor%3A%20%22pointer%22%2C%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%7D%7D%0A%20%20%3E%0A%20%20%20%20%7Bcta%7D%0A%20%20%3C%2FButton%3E%0A)>)
+
+This renders a button as a link tag, links to Gumroad, and enables the Gumroad popover. Users can purchase without leaving the page and if that doesn't work (no JS, weird browser, etc), they go to Gumroad's checkout page.
+
+![](./img/RtkfTmy.gif)
+
+You'll need to include Gumroad's script tag on your page. [ReactHelmet](https://github.com/nfl/react-helmet) works great for that.
+
+## AWS Lambda Webhook
+
+The webhook is where things get interesting.
+
+Gumroad supports a [Gumroad Ping](https://gumroad.com/ping), which is a POST request sent to a URL of your choice on every purchase. Stripe calls it a [Stripe Webhook](https://stripe.com/docs/webhooks).
+
+Webhooks let you do stuff on important events in 3rd party services. Creating a user in our case.
+
+I set my hook up using Serverless with AWS Lambda. NextJS's `/api` directory would be a good choice too. Or Netlify's cloud functions. They're all the same thing – a JavaScript function that runs when a URL gets a POST request.
+
+[![Click through for source](./img/techletter.app-screenshot-1582560335311.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=yaml&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=service%3A%20serverlessreactdev%0A%0Aprovider%3A%0A%20%20name%3A%20aws%0A%20%20runtime%3A%20nodejs12.x%0A%09iamRoleStatements%3A%0A%20%20%20%20-%20Effect%3A%20Allow%0A%20%20%20%20%20%20Action%3A%0A%20%20%20%20%20%20%20%20-%20secretsmanager%3AGetSecretValue%0A%20%20%20%20%20%20Resource%3A%0A%20%20%20%20%20%20%20%20-%20Fn%3A%3AJoin%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20%22%3A%22%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20-%20arn%3Aaws%3Asecretsmanager%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20Ref%3A%20AWS%3A%3ARegion%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20Ref%3A%20AWS%3A%3AAccountId%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20secret%3A*%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0Afunctions%3A%0A%20%20gumroadping%3A%0A%20%20%20%20handler%3A%20dist%2FgumroadPing.pingHandler%0A%20%20%20%20events%3A%0A%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20path%3A%20gumroadPing%0A%20%20%20%20%20%20%20%20%20%20method%3A%20POST%0A%20%20%20%20%20%20%20%20%20%20cors%3A%20true>)
+
+This config creates a new service, uses Node 12, adds some permissions, and creates a `gumroadping` AWS Lambda function.
+
+A benefit of using AWS directly is that you can use [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) to securely store API keys and keep your infrastructure config in this one file.
+
+`sls deploy` spits out a URL. Gumroad sends a POST request and AWS runs your code.
+
+### pingHandler
+
+`pingHandler` is where that work happens.
+
+[![Click through for source](./img/techletter.app-screenshot-1582560335327.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20qs%20from%20%22querystring%22%0A%0Aconst%20SR_PRODUCTS%20%3D%20%5B%0A%20%20%22https%3A%2F%2Fgum.co%2FIeDvq%22%2C%0A%20%20%22https%3A%2F%2Fgum.co%2FWTeMS%22%2C%0A%20%20%22https%3A%2F%2Fgumroad.com%2Fl%2FIeDvq%22%2C%0A%20%20%22https%3A%2F%2Fgumroad.com%2Fl%2FWTeMS%22%2C%0A%5D%0A%0Aexport%20const%20pingHandler%20%3D%20async%20(%0A%20%20event%3A%20APIGatewayEvent%0A)%3A%20Promise%3CAPIResponse%3E%20%3D%3E%20%7B%0A%20%20const%20ping%3A%20GumroadPing%20%3D%20qs.parse(event.body!)%20as%20any%0A%0A%20%20console.log(%22ping%20for%22%2C%20ping.product_permalink)%0A%0A%20%20if%20(SR_PRODUCTS.includes(ping.product_permalink))%20%7B%0A%20%20%20%20console.log(%22doing%20the%20thing%22)%0A%20%20%20%20const%20user%20%3D%20await%20upsertUser(ping)%0A%0A%20%20%20%20if%20(user)%20%7B%0A%20%20%20%20%20%20const%20auth0%20%3D%20await%20getAuth0Client()%0A%0A%20%20%20%20%20%20await%20auth0.assignRolestoUser(%0A%20%20%20%20%20%20%20%20%7B%20id%3A%20user.user_id!%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%2F%2F%20hardcoded%20Student%20role%20id%20from%20Auth0%20URL%0A%20%20%20%20%20%20%20%20%20%20roles%3A%20%5B%22rol_wyNa81ZMSaFU7wSW%22%5D%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20)%0A%20%20%20%20%7D%0A%20%20%7D%0A%0A%20%20return%20response(200%2C%20%7B%7D)%0A%7D>)
+
+A couple things happen here:
+
+1.  Parse request body with `querystring`
+2.  Check product against a constant whitelist
+3.  Create or update a user on Auth0 with `upsertUser`
+4.  Add authorization role to user
+5.  Say all went well
+
+We always return success and assume errors will throw. When your code throws AWS responds with a 500. That's fine.
+
+We're also hardcoding the `Student` role because Auth0 doesn't work with role names and it's too much work to read the list, find the ID, and add that.
+
+![this_is_fine giphy](./img/media-NTur7XlVDUdqM-giphy.gif)
+
+Step 2 is important because Gumroad pings for all purchases. Wouldn't wanna give access to someone who bought a different product. 🙃
+
+As you can see this code is very scalable and generic. But it doesn't have to be. That's the beauty of cloud functions – they do one thing and one thing only.
+
+### upsertUser
+
+`upsertUser` is where users get created or updated.
+
+Using upserts lets you support free trials and people who repurchase after a refund or whatever. Folks who have an account already.
+
+[![Click through for source](./img/techletter.app-screenshot-1582560335371.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20passwords%20from%20%22generate-password%22%0A%0Aasync%20function%20upsertUser(purchaseData%3A%20GumroadPing)%20%7B%0A%20%20const%20auth0%20%3D%20await%20getAuth0Client()%0A%0A%20%20const%20users%20%3D%20await%20auth0.getUsersByEmail(purchaseData.email)%0A%0A%20%20if%20(users.length%20%3E%200)%20%7B%0A%20%20%20%20return%20users%5B0%5D%0A%20%20%7D%20else%20%7B%0A%20%20%20%20return%20auth0.createUser(%7B%0A%20%20%20%20%20%20connection%3A%20%22Username-Pass-Auth%22%2C%0A%20%20%20%20%20%20email%3A%20purchaseData.email%2C%0A%20%20%20%20%20%20name%3A%20purchaseData.full_name%2C%0A%20%20%20%20%20%20password%3A%20passwords.generate(%7B%0A%20%20%20%20%20%20%20%20length%3A%2018%2C%0A%20%20%20%20%20%20%20%20numbers%3A%20true%2C%0A%20%20%20%20%20%20%20%20symbols%3A%20false%2C%0A%20%20%20%20%20%20%20%20excludeSimilarCharacters%3A%20true%2C%0A%20%20%20%20%20%20%7D)%2C%0A%20%20%20%20%7D)%0A%20%20%7D%0A%7D>)
+
+Get the Auth0 client, find user by email. If user exists, return, otherwise create a new user.
+
+For better security we generate a random secure password. Users have to go through the password reset flow on their first login.
+
+Makes the UX more cumbersome and the whole system more secure. You don't want to store these passwords and you don't want to send them by email. You also don't want them to be guessable.
+
+Infosec matters.
+
+### getAuth0Client
+
+`getAuth0Client` is a helper method to instantiate an Auth0 client. Makes your code more readable :)
+
+[![Click through for source](./img/techletter.app-screenshot-1582560335200.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20%7B%20ManagementClient%20%7D%20from%20%22auth0%22%0A%0Aasync%20function%20getAuth0Client()%20%7B%0A%20%20const%20secrets%20%3D%20await%20auth0Tokens()%0A%20%20const%20auth0%20%3D%20new%20ManagementClient(%7B%0A%20%20%20%20domain%3A%20%60%24%7Bsecrets.domain%7D.auth0.com%60%2C%0A%20%20%20%20clientId%3A%20secrets.clientId%2C%0A%20%20%20%20clientSecret%3A%20secrets.clientSecret%2C%0A%20%20%20%20scope%3A%20%22read%3Ausers%20update%3Ausers%20create%3Ausers%22%2C%0A%20%20%7D)%0A%0A%20%20return%20auth0%0A%7D>)
+
+Call `getAuth0Tokens` to get secrets, instantiate a new `ManagementClient` for Auth0. This one lets you manage users and stuff.
+
+### auth0Tokens
+
+`auth0Tokens` is a helper method to read API tokens and secrets from AWS Secrets Manager. This is important to avoid hardcoding secrets in your code, sharing them with other developers, and making sure they're secure at rest.
+
+You get a sort of triple-blind secret.
+
+Public can't see it. Developers can't see it. Servers can't see it. Secret only exists in memory at runtime. 🔐
+
+Attacking that would require an OS-level hack.
+
+[![Click through for source](./img/techletter.app-screenshot-1582560335184.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20AWS%20from%20%22aws-sdk%22%0A%0Aconst%20secrets%3A%20%7B%20%5Bkey%3A%20string%5D%3A%20Secret%20%7D%20%3D%20%7B%7D%0A%0Aexport%20const%20auth0Tokens%20%3D%20async%20()%20%3D%3E%20%7B%0A%20%20const%20SecretId%20%3D%20%22auth0APITokensServerlessReact%22%0A%20%20const%20ssm%20%3D%20new%20AWS.SecretsManager()%0A%20%20const%20data%20%3D%20await%20ssm%0A%20%20%20%20.getSecretValue(%7B%0A%20%20%20%20%20%20SecretId%2C%0A%20%20%20%20%7D)%0A%20%20%20%20.promise()%0A%0A%20%20if%20(!(%22SecretString%22%20in%20data))%20%7B%0A%20%20%20%20throw%20new%20Error(%60Error%20getting%20secret%20%24%7BSecretId%7D%60)%0A%20%20%7D%0A%0A%20%20if%20(data.SecretString)%20%7B%0A%20%20%20%20%2F%2F%20real%20production%20should%20expire%20this%20cache%0A%20%20%20%20secrets%5BSecretId%5D%20%3D%20JSON.parse(data.SecretString)%0A%20%20%7D%20else%20%7B%0A%20%20%20%20throw%20new%20Error(%60Error%20getting%20secret%20%24%7BSecretId%7D%60)%0A%20%20%7D%0A%0A%20%20return%20secrets%5BSecretId%5D%0A%7D>)
+
+Reads secret from AWS Secrets Manager, stores it in local variable for next time so you don't have to ping ASM every time you need a secret while your code runs.
+
+I should open source this 🤔
+
+### An important sidenote
+
+You'll need 2 Auth0 apps. This one took me for a spin. 😅
+
+1 app for your JAMStack frontend 1 app for your Lambda backend
+
+![](./img/HfAc1hu.png)
+
+## Authenticate and Authorize users
+
+You're creating users for every purchase. Now what?
+
+Use [useAuth](https://github.com/Swizec/useAuth) to handle authentication and authorization in your app.
+
+Assuming standard configuration from useAuth docs, you can paywall any component in your JAMStack app like this:
+
+[![Click through for source](./img/techletter.app-screenshot-1582560335386.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20candidate%20for%20useAuth%20feature%0Afunction%20isAuthorized(user)%20%7B%0A%20%20return%20user%5B%22https%3A%2F%2Fserverlessreact.dev%2Fuser_metadata%22%5D.roles.includes(%0A%20%20%20%20%22Student%22%0A%20%20)%0A%7D%0A%0Aconst%20Paywalled%20%3D%20()%20%3D%3E%20%7B%0A%09const%20%7B%20isAuthenticated%2C%20user%20%7D%20%3D%20useAuth()%0A%09%0A%09if%20(isAuthenticated()%20%26%26%20isAuthorized(user))%20%7B%0A%09%09return%20%3CSpecialContent%20%2F%3E%0A%09%7Delse%7B%0A%09%09return%20%3CBuyButton%20%2F%3E%0A%09%7D%0A%7D>)
+
+`useAuth` handles the Auth0 authentication lifecycle and returns an `isAuthenticated` method and a `user` object.
+
+Call `isAuthenticated` to see if user is logged in with a valid session, use `isAuthorized` to verify they've got the right role. Then let them through.
+
+Otherwise show them the buy button.
+
+### Tell Auth0 to include role metadata
+
+You'll have to add an [Auth0 Rule](https://auth0.com/docs/rules) that includes user roles in response data to your Auth0 config.
+
+[![Click through for source](./img/techletter.app-screenshot-1582560335286.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=function%20(user%2C%20context%2C%20callback)%20%7B%0A%20%20const%20namespace%20%3D%20'https%3A%2F%2Fserverlessreact.dev'%3B%0A%20%20const%20assignedRoles%20%3D%20(context.authorization%20%7C%7C%20%7B%7D).roles%3B%0A%20%20%0A%20%20user.user_metadata%20%3D%20user.user_metadata%20%7C%7C%20%7B%7D%3B%0A%0A%20%20user.user_metadata.roles%20%3D%20assignedRoles%3B%0A%0A%20%20context.idToken%5Bnamespace%20%2B%20'%2Fuser_metadata'%5D%20%3D%20user.user_metadata%3B%0A%0A%20%20callback(null%2C%20user%2C%20context)%3B%0A%7D>)
+
+This was the smallest code that works for me. Cobbled together from online discussions, a few blogs, and some trial and error.
+
+I didn't dive too much into details and I don't know why Auth0 doesn't include `meta_data` by default.
+
+![shrug giphy](./img/media-JRhS6WoswF8FxE0g2R-giphy.gif)
+
+### Bonus UX points
+
+For bonus UX points, you should give people temporary access when they come back from that Gumroad purchase.
+
+Gumroad gives you specific URL params that mean _"This user just bought your course"_. Would be great if they didn't have to then login, change their password, and go through a bazillion steps just to get access.
+
+It's the approach I use on [ServerlessHandbook.dev](https://serverlesshandbook.dev) where there's no logins. Just local storage after a Gumroad redirect.
+
+Just add a check ...
+
+[![Click through for source](./img/techletter.app-screenshot-1582560335270.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=if%20((isAuthenticated()%20%26%26%20isAuthorized(user))%20%7C%7C%20justBackFromGumroad())>)
+
+Make `justBackFromGumroad` check the URL query :)
+
+## ✌️
+
+And that's how you can paywall parts of your JAMStack app.
+
+To learn more about these techniques, check out [ServerlessHandbook.Dev](https://serverlesshandbook.dev) and my new course [ServerlessReact.Dev](https://serverlessreact.dev)
+
+Cheers,  
+~Swizec

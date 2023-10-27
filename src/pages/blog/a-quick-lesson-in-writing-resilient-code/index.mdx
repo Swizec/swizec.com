@@ -1,0 +1,100 @@
+---
+title: "A quick lesson in writing resilient code" 
+description: "On the backend anything can and will fail. How do you deal with that?" 
+published: 2022-03-21
+categories: "Technical, Lessons, Resilience"
+hero: ./img/screenshot-1647876322089.png
+---
+
+Here's a fun exercise: what's wrong with this code?
+
+```javascript
+// consider this pseudocode
+
+async function runsEveryHour() {
+	const items = await db.fetchUnprocessedItems()
+	let successCount = 0
+	
+	try {
+		await db.transaction(async trx => {
+			for (let item of items) {
+				const result = await doSomethingFancy(item, trx)
+				if (result) {
+					successCount += 1
+				}
+			}
+		})
+		
+		console.log(`Processed ${successCount} items`)
+	} catch (err) {
+		console.error("Error processing items", err)
+	}
+}
+```
+
+This is a simplified version of an hourly cronjob we had at work. Wakes up, fetches unprocessed data from the database, starts a new [transaction](https://en.wikipedia.org/wiki/Database_transaction), iterates over the items, and runs `doSomethingFancy` on every element. Reports progress or error at the end.
+
+Looks great, works great.
+
+Until one day we notice this code hasn't done anything in 5 days. It ran, but nothing happened. 🤨
+
+## Consider partial success
+
+The code above is written in an all-or-nothing style. Either you process every item, or none of them.
+
+Using a try/catch ensures clean error handling and `db.transaction` turns the complex database interactions inside `doSomethingFancy` into an atomic operation. If a query fails, the database rolls back. As if nothing ever happened.
+
+You want to use this approach for atomic operations. Like when you're doing a specific task for a specific user. Imagine if charging a credit card failed separately from creating the order. You'd charge the user and never send the item 😬
+
+Background processing tasks are different.
+
+In cases like this, you're often fulfilling specific tasks for *different* users. Or multiple tasks for the same user. They *should* fail independently.
+
+If 1 item out of 200 fails, should the other 199 suffer? Doubt it.
+
+## How to enable partial success
+
+You can overcomplicate this for massive scale with a fan-out approach like I wrote about in the [Serverless Handbook chapter on data pipelines](https://serverlesshandbook.dev/lambda-pipelines). Split the work into small chunks (like 1 item), process each chunk on its own request.
+
+An easier approach when the data is small and time isn't crucial – a background task that takes 10min to run is fine – is to invert the code to allow partial failures.
+
+Like this:
+
+```javascript
+// consider this pseudocode
+
+async function runsEveryHour() {
+	const items = await db.fetchUnprocessedItems()
+	let successCount = 0
+	let errorCount = 0
+	
+	for (let item of items) {
+		try {
+			await db.transaction(async trx => {		
+				const result = await doSomethingFancy(item, trx)
+				if (result) {
+					successCount += 1
+				}
+			})
+		} catch (err) {
+			console.error("Error processing item", item, err)
+			errorCount += 1
+		}
+	}
+		
+	console.log(`Processed ${successCount} items; got ${errorCount} errors`)
+}
+```
+
+We inverted the code to put our loop on the outside. 
+
+Each item on its own runs in a database transaction because the internals of each operation may be complex and need to stay atomic. This allows items to fail separately.
+
+And we got better error reporting as a bonus. 
+
+Instead of seeing *"These 200 items failed"* we get *"This specific item failed"*. Much easier to debug. ✌️
+
+Cheers,<br/>
+~Swizec
+
+PS: even if you know that [anything can and will fail on the backend](https://serverlesshandbook.dev/robust-backend-design), it's easy to miss issues like this in code review. And this was the most obvious case I've seen.

@@ -1,0 +1,198 @@
+---
+title: "Gatsby to NextJS pt1, server-side-render or server-side-generate?"
+description: "Gatsby and NextJS do similar things differently. One is better for websites, the other for webapps. In episode 17 of CodeWithSwiz we explore the biggest difference."
+categories: "CodeWithSwiz, Technical, Gatsby, NextJS, Livecoding"
+published: 2020-11-19
+hero: ./img/screenshot-1605802830206.png
+---
+
+Gatsby and NextJS do similar things differently. One is better for websites, the other for webapps. In episode 17 of CodeWithSwiz we explore the biggest difference.
+
+_CodeWithSwiz is a twice-a-week live show. Like a podcast with video and fun hacking. Focused on experiments. [Join live Wednesdays and Sundays](https://youtube.com/swizecteller)_
+
+[https://www.youtube.com/watch?v=ujglV7whNyc](https://www.youtube.com/watch?v=ujglV7whNyc)
+
+Spring last year I had a flash of insight: Modern web apps are static first! It solves so many problems 🤯
+
+Like [time to first byte performance](https://swizec.com/blog/lessons-from-migrating-a-14-year-old-blog-with-1500-posts-to-gatsby#the-result-of-moving-to-gatsby), [loading spinners of death on bad wifi](https://swizec.com/blog/the-ultimate-test-for-your-webapp:-airplane-wifi), and you can host from CDNs backed by a serverless data source. Works great.
+
+Following that hunch I built [Spark Joy](https://spark-joy.netlify.app/) on a series of streams. The app you see under every email and article.
+
+![Spark Joy feedback widgets in email](./img/Spark-Joy-feedback-widgets-in-email980e59.png)
+
+Click a link, go to a page, answer followup questions. Works great.
+
+Except when the email software says 15 readers clicked a vote and Spark Joy gets 5 votes 🤔
+
+## ServerSideRendering and ServerSideGeneration
+
+When do you save that vote to the database?
+
+With server side rendering your pages are created in advance. You deploy your site, go through the database, render a page for each relevant entry and turn it into HTML with data baked-in.
+
+When users load a page, it hydrates and becomes a React app. You make requests in the browser and save the vote.
+
+This is the approach Gatsby uses.
+
+### Server side rendering
+
+You create pages like this in `gatsby-node.js`:
+
+```javascript
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+
+  const result = await graphql(`
+    query {
+      widgetsapi {
+        allWidget {
+          userId
+          widgetId
+          widgetType
+          followupQuestions
+        }
+      }
+    }
+  `)
+
+  result.data.widgetsapi.allWidget.forEach(
+    ({ userId, widgetId, widgetType, followupQuestions }) => {
+      const votePath = path.resolve("./src/pages/vote.js")
+
+      createPage({
+        path: `/${widgetId}/thumbsup`,
+        component: votePath,
+        context: {
+          userId,
+          widgetId,
+          followupQuestions,
+          widgetType,
+          voteType: "thumbsup",
+        },
+      })
+    }
+  )
+}
+```
+
+The pattern you'll see is:
+
+1.  Fetch data with GraphQL
+2.  Iterate over data
+3.  `createPage` for each with a data-driven URL
+
+Your page becomes static HTML served from a CDN. No servers. You read page params using the `pageContext` prop.
+
+```javascript
+const VotePage = ({ pageContext }) => {
+  const {
+    userId,
+    widgetId,
+    voteType,
+    followupQuestions,
+    widgetType,
+  } = pageContext
+
+  return (
+    <FullScreen>
+      <SEO title="Thank You" />
+
+      <FormView
+        voteType={voteType}
+        onSubmit={onSubmit}
+        followupQuestions={followupQuestions}
+        widgetType={widgetType}
+      />
+    </FullScreen>
+  )
+}
+```
+
+Use props baked-in during deploy, render the page. No loading spinners.
+
+Because this is a static page, you save votes on load. And that's how you lose them. Folks load the page and bail before the save request completes.
+
+More on that next time ✌️
+
+### Server side generation
+
+NextJS supports server side rendering and it's gonna have the same problem: What if users bail before data saves?
+
+A "revolutionary" new approach that NextJS offers is server side generation. You'll recognize this as _"How websites used to work 10 years ago"_.
+
+![](giphy:sarcastic_wow)
+
+With server side generation you generate the page on-demand. User makes a request, serverless lambda (not managed by you) wakes up, fetches data, builds the page. User gets static HTML, it hydrates into a React app.
+
+`getServerSideProps` is how you turn that on:
+
+```javascript
+export async function getServerSideProps({ params }) {
+  const { widgetId } = params
+  const { data } = await client.query({
+    query: gql`
+      query {
+        allWidget {
+          userId
+          widgetId
+          widgetType
+          followupQuestions
+        }
+      }
+    `,
+  })
+
+  // TODO: support a query to fetch this directly
+  const widget = data.allWidget.find((w) => w.widgetId === widgetId) || {}
+
+  return { props: { widget } }
+}
+```
+
+Fetch data using GraphQL, return an object with `props`. Supports redirects and other fun stuff.
+
+Where it differs from websites of old, is that your app uses the same code to render on the server _and_ in the browser. Seamlessly.
+
+```javascript
+const VotePage = ({ widget }) => {
+  const { userId, widgetId, voteType, followupQuestions, widgetType } = widget
+
+  return (
+    <Container sx={{ textAlign: "center" }}>
+      <Head>
+        <title>Thank you</title>
+      </Head>
+
+      <FormView
+        voteType={voteType}
+        onSubmit={onSubmit}
+        followupQuestions={followupQuestions}
+        widgetType={widgetType}
+      />
+    </Container>
+  )
+}
+```
+
+You get data from props and use it to render the page. No loading spinners.
+
+And unlike with Gatsby, you have a chance to save data on every page load _before the page loads_. Force users to wait. We'll try that next time.
+
+## The SSR vs SSG tradeoff
+
+SSR and SSG do the same thing: Serve a page with data baked-in.
+
+The difference is when that happens. When you deploy your site (Gatsby), when the first user hits a page (NextJS), or when every user hits the page (NextJS)?
+
+Each approach gives you different performance characteristics.
+
+1.  Gatsby build-time rendering creates slow deploys and fantastic time to first byte for every user
+2.  NextJS on-demand static pages create fast deploys, fantastic first load for most users, and terrible performance when cache is cold
+3.  NextJS server side generation creates fast deploys, slow page loads, and a chance to do things pre-load
+
+Which is best depends on what you're doing.
+
+Cheers,<br/>
+~Swizec
+
+PS: Gatsby looks like it's moving towards SSG, they now [support filename-based dynamic routing](https://www.gatsbyjs.com/blog/fs-route-api)

@@ -1,0 +1,166 @@
+---
+title: "Better tooling won't fix your API"
+description: "RESTful APIs are like Agile – everyone does it differently and if it isn't working, it's your fault for doing it wrong. 🤨"
+published: 2021-11-30
+categories: "REST, GraphQL, Fullstack, Backend"
+content_upgrade: ServerlessHandbook
+hero: ./img/screenshot-1638291842483.png
+---
+
+RESTful APIs are like Agile – everyone does it differently and if it isn't working, it's your fault for doing it wrong. 🤨
+
+https://twitter.com/Swizec/status/1465031349274701828
+
+I've written before about [How GraphQL blows REST out of the water](https://swizec.com/blog/how-graphql-blows-rest-out-of-the-water/) and about [REST API best practices in a GraphQL world](https://swizec.com/blog/rest-api-best-practice-in-a-graphql-world/). For serious production these days I use RESTful APIs with React Query. Because [React Query gives you almost everything you thought you needed GraphQL for](https://swizec.com/blog/how-react-query-gives-you-almost-everything-you-thought-you-needed-graphql-for/).
+
+And you know what, flip-flopping between REST and GraphQL, using React Query, manually fetching, holding Redux for state management, none of it solved my issues with APIs. They all suck.
+
+What gives 🤨
+
+## Domain modeling
+
+The underlying problem is one of [domain modeling](https://en.wikipedia.org/wiki/Domain-driven_design). How do you translate a fuzzy business domain like accounting or medicine into a rigid system computers understand?
+
+https://twitter.com/Swizec/status/1462910096975884288
+
+Domain modeling is _the_ fundamental activity of software engineers. Everything else comes secondary.
+
+A good design makes your code easy. A bad design gives rise to kludge upon kludge and makes it impossible to write good code.
+
+The edge cases you keep finding are a symptom of a poorly modeled or misunderstood business domain. When you realize this it's often too late to change 💩.
+
+### Domains are easy to mess up
+
+10 years ago I learned an important lesson from a friend. A smart engineer learns from _others_' mistakes 😉
+
+Their startup built a blog recommendation engine for writers. Helps you link relevant articles to support your points. Wonderful.
+
+To build a SaaS around this tech, they added user accounts. A `User` model was born.
+
+They knew some users are writers and others are advertisers. Because ads make money. A `Profile` model was born.
+
+Every `User` can have a `Profile`. _One_ profile.
+
+Until 2 years later a blogger says _"Hey I want to buy ads"_ and an advertiser says _"Hey content marketing is cool, can we use your blogging tools?"_
+
+But a user can only be a blogger or an advertiser. 💩
+
+Refactoring to support multiple profiles per user took months.
+
+The original model of their domain wasn't wrong, just incomplete. They missed an obvious-in-retrospect requirement. Or the domain evolved.
+
+### Taxonomies fail at the edges
+
+![A white-brown bear](./img/A-white-brown-bear2igh9i.png)
+
+Domain modeling likes to fail at the fuzzy edges of taxonomies.
+
+Engineers and computers want things to be strictly classified. A bear is either white or brown. A URL is either a page or an article. A user is either a blogger or an advertiser.
+
+But reality is continuous.
+
+Those hard edges between classes don't exist and white bears can mate with brown to produce [whitebrown bears](https://en.wikipedia.org/wiki/Grizzly–polar_bear_hybrid). Is it a new species? We haven't decided yet 🤷‍♀️
+
+And what's the difference between a web page and an article? They both use the same display machinery to spit out a bunch of HTML.
+
+The [k-means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) offers an interesting insight into the problem of taxonomies.
+
+You give it a bunch of data and say _"Find 3 classes"_. The algorithm groups every datapoint into 1 of 3 classes based on which mean value they resemble most. Yay.
+
+Ask the same algorithm to find 10 classes with the same data and you now have 10 perfectly strict classes plus a whole new way to fight whether something is this or that.
+
+Taxonomies always feel arbitrary at the boundaries between groups.
+
+### Who owns what
+
+Once you have the objects of your domain (like users and pages), it's time to define their relationships. It gets tricky there too.
+
+In many cases, the relationship is obvious. Users own posts and posts belong to users.
+
+That's because a user can make many posts but a post can only be made by 1 user ... unless there's editors and collaboration 🤔
+
+Your troubles don't end when you resolve all this and get it saved in the database. How do you design an API for fetching?
+
+https://twitter.com/Swizec/status/1462943976894332931
+
+I ran into this when modeling appointments and staff recently. How do you fetch all appointments for a staff member?
+
+`/staff/{uuid}/appointments` sounds nice and implies that the `staff` portion of your codebase needs to know about appointments. That doesn't feel very [Separation of Concerns](https://en.wikipedia.org/wiki/Separation_of_concerns).
+
+`/appointments?staff={uuid}` sounds like a filter on the list of appointments. Which feels more Separation of Concerns, but now the `staff` portion of my codebase is reaching into `appointments` in a way that feels unobvious.
+
+Either way is going to feel wrong to someone.
+
+## The RESTful solution
+
+REST as per Roy Fielding's original thesis gives up on all this and offers a basic solution. You can read about [designing clean RESTful APIs in Serverless Handbook chapter 9](https://serverlesshandbook.dev/serverless-rest-api)
+
+You focus on the objects. Each gets an endpoint that uniquely identifies that object.
+
+Different HTTP verbs manipulate those objects:
+
+- `GET` reads an object from `/pages/123`
+- `POST` creates a new object at `/pages`
+- `PATCH` updates an object at `/pages/123`
+- `DELETE` deletes an object at `/pages/123`
+
+If you want objects _and their related objects_, REST says haha you're on your own kid. Make a new request for each.
+
+Hope you have good wifi ✌️
+
+https://twitter.com/Swizec/status/1461790725511782404
+
+## The GraphQL solution
+
+GraphQL focuses on the technical challenges with REST ... and ignores the fundamental problem of domain modeling. 💩
+
+You can read about [designing and building GraphQL APIs in Serverless Handbook Chapter 10](https://serverlesshandbook.dev/serverless-graphql).
+
+Basic GraphQL focuses on objects and gives you the tools to query, slice, and dice the data. Collapses related RESTful requests into 1 and improves performance.
+
+Instead of worrying about `/staff/{uuid}/appointments` vs `/appointments?staff={uuid}`, you'd write a query like this:
+
+```graphql
+query {
+	staff(uuid: ...) {
+		appointment {
+			...
+		}
+	}
+}
+```
+
+_"Get me a staff and all their appointments"_
+
+GraphQL then figures out how to combine fetchers for staff and for appointment to make this work. All the complexity of good data modeling washed away by flexibility 😍
+
+Except the domain is as complicated as ever.
+
+Imagine writing a query that touches 10 tables every time you want to see if a staff member can serve a specific type of appointment. That would suck.
+
+Sure would be nice if the backend took care of that complexity and exposed a nice clean top-level query ...
+
+## The solution you see in reality
+
+Most APIs I've seen are a mix of clean REST and flexible GraphQL.
+
+You get a gaggle of baseline endpoints for core operations and a bunch of endpoints that grew out of a specific client need.
+
+Rarely do teams treat their API as a product of its own or a tool meant for others. They just want _this_ data to get to _that_ UI.
+
+If your client needs different data, a new endpoint is born. If you need related data, it's added. If you need a new filter, you got it. Soon, anything could fetch everything and nobody knows what's where.
+
+New endpoints are born because we're afraid to touch the old ones. Any change could break in unexpected ways. Like aggressive type checking blowing up an iOS client when there's a new property. Oops.
+
+You end up with an API that most closely resembles [Remote Procedure Calls](https://en.wikipedia.org/wiki/Remote_procedure_call). You're making HTTP requests and thinking about it like calling a function.
+
+## It's a people problem
+
+Learning an API is like learning how another person or organization thinks. How do _they_ see the world?
+
+Even if it makes no sense to you, as long as it makes sense to them ¯\\\_(ツ)\\\_/¯
+
+Cheers,<br/>
+~Swizec
+
+PS: it rarely makes sense to them either

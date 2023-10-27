@@ -1,0 +1,189 @@
+---
+title: "Use Netlify's _redirects on Gatsby Cloud"
+description: "Something always goes wrong when you change hosting providers. 😅 For me it was redirects. A vital feature of any site migration."
+published: 2021-06-23
+categories: "CodeWithSwiz, Livecoding, Technical"
+hero: ./img/screenshot-1624460834316.png
+---
+
+Something always goes wrong when you change hosting providers. No matter how many times you've been through this before. 😅
+
+For me it was redirects. A vital feature of any site migration.
+
+_CodeWithSwiz is a weekly live show. Like a podcast with video and fun hacking. Focused on experiments and open source. [Join live most Tuesday mornings](https://youtube.com/swizecteller)_
+
+https://youtu.be/uylcQlyV21o
+
+Last year I [migrated my 13+ year old Wordpress blog to Gatsby](https://swizec.com/blog/lessons-from-migrating-a-14-year-old-blog-with-1500-posts-to-gatsby/). The migration is ongoing, several things remain wonky. You can read about [exporting 1500 wordpress articles to markdown, here](https://swizec.com/blog/how-to-export-a-large-wordpress-site-to-markdown/), and [first steps on the journey here](https://swizec.com/blog/moving-13-years-of-wordpress-blog-to-gatsby-markdown/). From September 2019 😱
+
+## Why thousands of redirects??
+
+Redirects translate between Wordpress URLs and the new, cleaner, Gatsby URLs.
+
+They come in 2 types:
+
+1. Article redirects in frontmatter
+2. Page redirects in `_redirects`
+
+Frontmatter redirects tell Gatsby to translate any old URLs to their new shape. [Cool URLs don't change](https://www.w3.org/Provider/Style/URI) and my SEO tool says swizec.com gets 26,000 backlinks these days. 🚀
+
+Page redirects are for housekeeping.
+
+`/serverless-handbook` links to [`https://serverlesshandbook.dev`](https://serverlesshandbook.dev), `/reactd3js` goes to [`https://reactfordataviz.com`](https://reactfordataviz.com), old images on `/wp-content/` redirect to their new homes in `/static/` (thousands of images), and a few others.
+
+## The incident
+
+All this worked fine until one day I had the bright idea: _"Eh now that Gatsby Cloud offers hosting, why do I keep paying for Netlify, it just slows down deploys"_
+
+I pressed the red button.
+
+![](giphy:big_red_button)
+
+And it worked!
+
+Gatsby Cloud is a great host and Gatsby is a self-contained system. Everything went great!
+
+Switched DNS settings, turned off Netlify, nobody noticed.
+
+Until a few weeks later … wait something's weird. That's a lot of broken links and images. 🤨
+
+## Going from Netlify to Gatsby Cloud
+
+You can go from Netlify to Gatsby Cloud quickly in theory. I was already using Gatsby Cloud for builds and deploying to Netlify.
+
+Gatsby uses plugins to adapt itself for different hosts. Redirects and HTTP headers mostly.
+
+On Netlify you use `gatsby-plugin-netlify`. For Gatsby Cloud you'll change that to `gatsby-plugin-gatsby-cloud`. Their config is about the same.
+
+Change the DNS setting on your domain and that's it.
+
+But you gotta tell Gatsby about all your redirects so the host plugin knows! That's what creates the final config.
+
+## Article redirects with markdown frontmatter
+
+I wanted to keep article-specific redirects simple. Add configuration to each article instead of a global config file.
+
+```
+---
+title: "My cool article"
+description: "You should read this for sure"
+categories: "epic, amazing"
+redirect_from: /
+---
+```
+
+Article frontmatter configures the title, description, categories, and a redirect_from. That's the old URL. Yes they're weird.
+
+You make that work by hooking into Gatsby's page creation lifecycle in `gatsby-node.js`
+
+```javascript
+exports.createPages = async ({ graphql, actions }) => {
+  const result = await graphql(`
+    {
+      allMdx(filter: { frontmatter: { redirect_from: { ne: null } } }) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+            frontmatter {
+              redirect_from
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  if (result.errors) {
+    console.log(result.errors)
+    throw result.errors
+  }
+
+  const allPosts = result.data.allMdx.edges
+
+  // For all posts with redirect_from frontmatter,
+  // extract all values and push to redirects array
+  allPosts.forEach((post) => {
+    const from = post.node.frontmatter.redirect_from
+    const to = post.node.fields.slug
+
+    from.forEach((from) => {
+      actions.createRedirect({
+        fromPath: from,
+        toPath: to,
+        isPermanent: true,
+        redirectInBrowser: true,
+      })
+    })
+  })
+
+  console.log(`${chalk.green("success")} create redirects`)
+}
+```
+
+0. Run when pages are being created
+1. Find files with `redirect_from` fields
+2. Bail if error
+3. Iterate through results
+4. Run `createRedirect` action for each
+
+Other plugins then take those redirects and configure them for your host. Gatsby Cloud's puts them in a `_redirects.json` for example.
+
+_Funfact: this one broke because the slug field on Gatsby Cloud includes /blog/ and on Netlify it didn't_ 🤷‍♀️
+
+## Page redirects with `_redirects`
+
+For known redirects, Netlify's `_redirects` file is fast becoming an industry standard.
+
+```
+/serverless-handbok   https://serverlesshandbook.dev
+/reactd3js   https://reactfordataviz.com
+.
+.
+.
+```
+
+One redirect per line, `from` on the left, `to` on the right. Easy peasy.
+
+Gatsby Cloud doesn't care about this file 💩
+
+Instead you have to add this function to your `gatsby-node.js`.
+
+```javascript
+// gatsby-node.js
+exports.onPreBootstrap = ({ actions }) => {
+  // read _redirects
+  // call createRedirect for each
+
+  const redirects = fs.readFileSync("./static/_redirects").toString()
+
+  for (const line of redirects.split("\n")) {
+    if (line.trim().length > 0) {
+      // found a redirect
+      const [fromPath, toPath] = line.trim().split(/\s+/)
+      actions.createRedirect({
+        fromPath,
+        toPath,
+      })
+    }
+  }
+
+  console.log(`${chalk.green("success")} create redirects from _redirects`)
+}
+```
+
+0. Runs after Gatsby inits, before other machinery
+1. Read the `static/_redirects` file
+2. Iterate line by line
+3. Split by whitespace
+4. Call `createRedirect` action
+
+And after all that I still have a `:splat` config for my redirects that isn't working. Broken images 🥲
+
+Next time you change hosting, check everything my friend 😅
+
+Cheers,<br/>
+~Swizec
+
+PS: lemme know if you find anything's broken

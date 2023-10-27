@@ -1,0 +1,164 @@
+---
+title: "Tech interview best practice that fails in life"
+description: "Tech interviews have a magic answer: The hashmap. And it's not always best on the job."
+published: 2021-01-22
+categories: "Technical, Computer Science"
+hero: ./img/screenshot-1611336874052.png
+---
+
+Tech interviews have a magic answer: The hashmap.
+
+_"Great solution, how would you optimize it?"_
+
+Hashmap!
+
+![](giphy:gasp_yes)
+
+You get the job and start to work. Your vast interview prep (and half of college) prepared you to answer every question with a hashmap. Sometimes a graph.
+
+And in life that instinct is wrong.
+
+I was thinking about this while writing [the performance chapter of Serverless Handbook](https://serverlesshandbook.dev/serverless-performance/). What belief about performance shoots engineers in the foot? 🤔
+
+https://twitter.com/Swizec/status/1351230210109276161
+
+## A note on big-O
+
+We're going to use [Big-O](https://en.wikipedia.org/wiki/Big_O_notation) to describe algorithm complexity. A popularly abused notation in engineering circles.
+
+Formally Big-O talks about function growth at a particular type of limit. Other useful notations include [Big Theta and Big Omega](https://en.wikipedia.org/wiki/Big_O_notation#Family_of_Bachmann%E2%80%93Landau_notations) about average and lower-bound performance respectively.
+
+Proper analysis can be confusing. We'll use the abused version:
+
+- `O(1)` means a single operation lookup (hashmap, certain set operations, reading a variable)
+- `O(logn)` means you divide remaining steps with each iteration (divide and conquer algorithms)
+- `O(n)` means you iterate the full input (iteration algorithms)
+- `O(n^2)` means you iterate the full input for every entry (exponent counts nested loops)
+
+We ignore constant factors – `O(2n) == O(n)` – and that's where interview best practices break down.
+
+## An easy phone screen question
+
+At [Tia](https://asktia.com) we ask senior fullstack candidates this question in the phone screen:
+
+> Given a newspaper article and a sentence, write a function that answers "Can you create the sentence out of words in the article?". Use any language. Words delimited by spaces.
+
+Long for a phone screen, but we pay well 😛
+
+You look at this problem and hashmap is the obvious answer. Count words in the article, count words in the sentence, compare.
+
+```python
+def countWords(list):
+	counts = {}
+	for word in list:
+		if counts[word]:
+			counts[word] += 1
+		else:
+			counts[word] = 1
+	return counts
+
+def canBuildSentence(article, sentence):
+	haystack = countWords(article.split(' '))
+	needle = countWords(sentence.split(' '))
+
+	for word in needle.keys():
+		haystack[word] -= needle[word]
+		if haystack[word] < 0:
+			return False
+
+	return True
+```
+
+A roughly `O(n)` algorithm, fantastic.
+
+You iterate the article to build a hashmap – `O(n)`. Each word lookup is `O(1)` because hashmap. Iterate the sentence, another `O(n)`. Then you iterate the keys from your sentence and do `O(1)` lookups.
+
+![](giphy:very_nice)
+
+### Can you improve performance?
+
+This algorithm is hard on memory. We like to ignore memory constraints in 2021 because memory is cheap.
+
+But you could get ridiculously large inputs.
+
+The [longest sentence in English literature](http://www.plainenglish.co.uk/campaigning/examples/long-sentences.html) contains 13,955 words. The [New Yorker's Plague Year article](https://www.newyorker.com/magazine/2021/01/04/the-plague-year) is around 30,000 words long. Took the entire magazine. Wikipedia's longest article has 634kB of text – about 33,000 words.
+
+&lt;tweet redacted&gt;
+
+Curveballs are fun!
+
+### Constants matter
+
+You're not gonna run out of memory. All that text barely makes a dent next to your execution environment. But do you need to build _two_ hashmaps?
+
+Serverless environments pay per millisecond. Can you shave off milliseconds?
+
+🤔
+
+To check the longest sentence against Joe Biden's endorsements, takes `33000 + 13955 + 13955 = 60,910` operations. Say each one takes 1/100th of a millisecond.
+
+Your algorithm runs in 609 milliseconds. That's slow, mate. User-noticeable latency.
+
+You can remove a hashmap:
+
+```python
+def canBuildSentence(article, sentence):
+	haystack = countWords(article.split(' '))
+
+	for word in sentence.split(' '):
+		haystack[word] -= 1
+		if haystack[word] < 0:
+			return False
+
+	return True
+```
+
+Now you're down to `33000 + 13955 = 46,955` operations. 23% better performance, 23% lower cost, [better conversions, more sales](https://www.cloudflare.com/learning/performance/more/website-performance-conversion-rates/).
+
+Same `O(n)` complexity. 🤯
+
+## When hashmaps aren't the answer
+
+What if you know inputs are small?
+
+A sentence is never longer than 5 _unique_ words and an article never shorter than 5,000. Do you change your approach?
+
+You don't have to. The same algorithm works – 5005 operations.
+
+Or you can leverage [English word frequency](https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists). The top 1000 words cover 85.5% of uses, 10,000 gets you to 97.2%.
+
+There's an 85.5% chance you'll find those 5 words in the first 1000 words of your article. Hmmmm 🤔
+
+A search algorithm might work better:
+
+```python
+def wordInHaystack(word, haystack):
+	for needle in haystack:
+		if needle == word:
+			return True
+	return False
+
+def canBuildSentence(article, sentence):
+	haystack = article.split(' ')
+
+	for word in sentence.split(' '):
+		if !wordInHaystack(word, haystack):
+			return False
+
+	return True
+```
+
+Iterate the article looking for a word. 85.5% of the time, you look at fewer than 1000 words. 15.5% of the time, you look at 5000.
+
+Your algorithm has an [expected operation count](https://en.wikipedia.org/wiki/Expected_value) of `E(5\*(1000\*0.855 + 5000\*0.155)) = 8150`. Which is worse than 5005.
+
+But it's important to check. It works for 2-word sentences and shorter 😇
+
+Or when you get lucky.
+
+Cheers,<br/>
+~Swizec
+
+PS: you can sort both inputs, consume arrays, and compare that way. It's `O(nlogn)` complexity but zero overhead and suitable for streaming/distributed solutions.
+
+PPS: a great discussion on StackOverflow comparing [Quicksort and Mergesort](https://stackoverflow.com/questions/29218440/when-merge-sort-is-preferred-over-quick-sort) – both typical O(nlogn) algorithms – and how they behave differently in real world applications. Fun to skim ✌️

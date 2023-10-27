@@ -1,0 +1,81 @@
+---
+title: "Meetings – a senior engineer's secret weapon"
+description: "Boo meetings, yay code, right? There comes a time in your career when coding is no longer your highest impact contribution. Might even be holding you back. 🙊"
+published: 2021-10-01
+content_upgrade: SeniorMindset
+categories: "Mindset, Learning, SeniorMindset"
+hero: ./img/screenshot-1633105276297.png
+---
+
+I have a confession to make ... I'm starting to enjoy meetings 🙊
+
+10 years ago I published an essay that went viral, even became the most shared article on Business Insider for a time – [Why Programmers Work at Night](https://swizec.com/blog/why-programmers-work-at-night-2/). Later that essay turned into [my first book](http://nightowlsbook.com).
+
+The essay says:
+
+1.  Programmers need to think hard with lots of focus
+2.  Long periods of focus are best
+3.  Anything you do to disturb that focus is a total catastrophe and the worst thing ever
+
+And that's true when your highest impact work is banging out code. Like when building towards a tight deadline, setting up a new system, or on a small team with a clear goal.
+
+You know what to build, you know how, you sit down and you make magic. Bliss. 🤩
+
+But there comes a time in your career when writing code is no longer your highest impact contribution. You can do more. The code is holding you back.
+
+![](giphy:wait_what)
+
+Yes it's fun, but how many times can you build the same old widget? Let others learn, eh.
+
+## A 30min meeting saves 2 days of work
+
+This is a true story. A 30 minute meeting saved the team 2 days of work and cleared any lingering doubt in my mind. Meetings _are_ useful.
+
+https://twitter.com/Swizec/status/1436391521494966273
+
+We were in the middle of a tight sprint. Clearing large chunks of work before a looming project that's going to take weeks and determine the future of our company. No pressure 😅
+
+Out of nowhere the head of engineering swoops in and says: _"I got this email from Twilio. Says we might start dropping SMS messages, if we don't change our integration by Oct 1st. Looks easy, let's just do it"_
+
+🤨
+
+Uhh we literally don't have time for this shit. This is like the worst possible project from the [Eisenhower matrix](https://jamesclear.com/eisenhower-box). Urgent and not important.
+
+[![Eisenhower matrix](./img/Eisenhower-matrixgacjbi.jpeg)](https://jamesclear.com/eisenhower-box)
+
+We decided we'll look into it. Team has final say on work we do or don't accept. 💪
+
+Digging through Twilio's documentation proved our worst fears. Email says _"no changes necessary just enable X, Y, Z"_, head of eng says _"looks like a quick afternoon"_, documentation says _"You have to change how you talk to our API and we handle the rest"_
+
+To make it worse: part of our integration lives in a system none of us have access to. Don't know how it works, didn't even know it existed until we broke it recently by removing a useless function call. [Chesterton's fence style](https://twitter.com/swizec/status/1422655248754110467).
+
+💩
+
+## Do we even need to do this?
+
+This wasn't my first rodeo with SaaS providers dear reader. That email, it smelled like a sales pitch.
+
+You add new phone numbers to finally separate [dev, staging, and production](https://serverlesshandbook.dev/dev-qa-prod) and 3 days later there's an email saying you have to enable some fancy new integration for large volume 🤔. Even the docs keep talking about "messages per second".
+
+We're at the "messages per minute" stage ...
+
+Okay before we go down this road, let's talk to our Twilio account rep and ask _why_ they think we need this.
+
+The PM goes _"Sure Swiz but I have no idea what you're talking about, can you join?"_
+
+Heck yes I can join!
+
+Guess what – they saw that we started buying more numbers, figured we're scaling our SMS marketing, and wanted to offer a better service aimed at high volume senders. A-ha!
+
+![](giphy:leonardo_point)
+
+We explained that no, we bought more numbers to stop sending development messages from production. And we _prefer_ to send every message from the same phone number. We only need 1.
+
+_"Well in that case, you don't need any of this"_
+
+And that's how a 30min chat saved us 2 days of work. Way better ROI than 30min of coding.
+
+Cheers,<br/>
+~Swizec
+
+PS: [When you code, write down everything](https://swizec.com/blog/when-you-code-write-down-everything/). Helps you recover from distraction.

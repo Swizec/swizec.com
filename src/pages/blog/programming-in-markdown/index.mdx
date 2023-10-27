@@ -1,0 +1,225 @@
+---
+title: "Programming in Markdown"
+description: "What if you could focus on the fun _engineering_ part of your job, not on coding? You can!"
+published: 2023-08-01
+categories: "Experiments, Programming, Artificial Intelligence"
+hero: ./img/screenshot-1690902802121.png
+---
+
+What if you could focus on the fun _engineering_ part of your job, not on coding? Here's what I mean 👉
+
+**You** break down problems, design solutions, [work with product](https://swizec.com/blog/working-with-product/), think about strategy and [how software evolves over time](https://swizec.com/blog/what-i-learned-from-software-engineering-at-google/#software-engineering-vs-programming), pick the right APIs, design interfaces, work with vendors, think about resilience, and research unknown solutions to fun problems.
+
+**<hand wave\>** turns your ideas into working code.
+
+That's what it feels like to be a tech lead. I'm deeply involved at the design stage, then lightly involved in implementation. Mostly to review code.
+
+Yes that means I'm slowly getting worse at coding and that's okay. Takes a hot minute to swap those pages back into working memory sometimes 😅
+
+So I decided to try an experiment: Can you do this without a team?
+
+Yes! **Programming in Markdown!**
+
+Results here 👉 https://chat.openai.com/share/a942b81c-7859-44c3-98b4-d22e73818567 code worked for me
+
+## The task
+
+I needed to calculate embeddings for every article on swizec.com for a feature idea. Describing how to do this at a high level is easy:
+
+- iterate through directories
+- find index.mdx files
+- read files
+- feed into OpenAI's API
+- save embeddings in a db
+
+Writing the code would take a while. Verifying the code worked takes seconds. This makes it a perfect fit for AI – slow for me to generate, quick for me to verify.
+
+## How to program in markdown
+
+You talk to the computer like you would a very talented intern. They'll surprise you with how much they know, the intuitive leaps they make, and the boneheaded mistakes they sometimes make.
+
+Figure out how to read this random JSON payload – easy.
+
+Consistently import only libraries that actually exist – nope.
+
+I used ChatGPT with the Code Interpreter plugin because I'm lazy. Using the API should work and I imagine some of the stronger opensource models could make it happen for you.
+
+### Start with a broad outline
+
+You start with a broad outline. This helps the AI (or human engineer) anticipate what's coming and construct a framework. It helps _you_ clarify what you need too.
+
+```markdown
+Write a script that finds all index.mdx files in ~/Documents/websites/swizec.com/src/pages/blog even if they're in subdirectories.
+```
+
+Looking back, this one is pretty weak. I'd include more context now.
+
+### Describe steps in subheadings
+
+You then provide detail on how to do different parts of the task using subheadings. The AI (or human engineer) can use these when they get stuck.
+
+For example:
+
+```markdown
+## When the script finds a file
+
+- it remembers the file path and filename
+- prints the file path + name as a progress indicator
+- it parses the file as mdx and remembers the title
+- it calls the openai api to get an embedding vector of the whole file contents as input
+
+Make sure to write all the code for making an API call, passing in the file contents, and getting the embedding. Use the official OpenAI SDK to make these requests.
+
+When parsing the markdown, assume it contains a frontmatter with the title. Use a library to parse markdown, do not use regex. Include error handling and skip unparseable files.
+```
+
+Writing out steps in bullet points makes them easier to follow. The additional instructions help guide the AI away from doing silly things.
+
+You won't notice the silly things when you first run the generation. They start happening when you iterate on the prompt and the AI tries changing various things because there's no good way to say what exactly you didn't like.
+
+### Provide context from docs
+
+Unlike human engineers, the ChatGPT AI can't go online and look up docs. You'd need to write a custom app for that.
+
+Instead, you can provide context and copypaste examples from docs:
+
+````markdown
+## To compute an embedding
+
+Example code from OpenAI docs to compute an embedding:
+
+\```python
+openai.Embedding.create(
+model="text-embedding-ada-002",
+input="The food was delicious and the waiter..."
+)
+\```
+
+Example response:
+
+\```json
+{
+"object": "list",
+"data": [
+{
+"object": "embedding",
+"embedding": [
+0.0023064255,
+-0.009327292,
+.... (1536 floats total for ada-002)
+-0.0028842222,
+],
+"index": 0
+}
+],
+"model": "text-embedding-ada-002",
+"usage": {
+"prompt_tokens": 8,
+"total_tokens": 8
+}
+}
+\```
+````
+
+That's all it needs. Example code and example response. Then it stops hallucinating ideas on how to do this.
+
+I can see a future where you have an agent that goes _"hey I don't know this"_ and looks it up online. Would be easy-ish to build 🤔
+
+### Review the code and iterate
+
+When you hit _the button_, you'll get your code:
+
+```python
+import os
+import frontmatter
+import sqlite3
+import openai
+import json
+
+# define path and API key
+path = "~/Documents/websites/swizec.com/src/pages/blog"
+openai.api_key = "Your OpenAI Key"
+
+# connect to SQLite database
+conn = sqlite3.connect('embedding_vectors.db')
+cursor = conn.cursor()
+
+# create table if not exists
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS vectors (
+        path TEXT PRIMARY KEY,
+        filename TEXT,
+        title TEXT,
+        vector JSON
+    )
+''')
+
+# walk through the directories
+for root, dirs, files in os.walk(os.path.expanduser(path)):
+    for file in files:
+        if file == "index.mdx":
+            # get the full file path
+            full_path = os.path.join(root, file)
+            print(f'Processing {full_path}')
+
+            # read the file
+            with open(full_path, 'r') as f:
+                try:
+                    post = frontmatter.load(f)
+                    title = post.get('title', 'No Title')
+                except Exception as e:
+                    print(f'Error parsing file {full_path}: {e}')
+                    continue
+
+                # get the embedding
+                try:
+                    response = openai.Embedding.create(
+                        model="text-embedding-ada-002",
+                        input=f.read()
+                    )
+                    embedding = response['data'][0]['embedding']
+                except Exception as e:
+                    print(f'Error generating embedding for {full_path}: {e}')
+                    continue
+
+                # save the embedding
+                cursor.execute('''
+                    INSERT INTO vectors (path, filename, title, vector)
+                    VALUES (?, ?, ?, ?)
+                ''', (full_path, file, title, json.dumps(embedding)))
+
+# commit changes and close connection
+conn.commit()
+conn.close()
+
+print('Done.')
+```
+
+In my case the AI figured out many details on its own. Created a database table, iterated directories (I didn't even know how to do this in python), knew how to use the `frontmatter` library, and knew how to interpret OpenAI's JSON response.
+
+The final prompt you see here – https://chat.openai.com/share/a942b81c-7859-44c3-98b4-d22e73818567 – is my 18th iteration.
+
+The more you iterate on the code, the more you have to add weird little instructions because the AI goes wonky. Feels like it's trying to explore the space of all possible answers in random directions looking for what you'll like.
+
+Adding more instruction solidifies the parts you liked.
+
+## Does it replicate?
+
+Yes!
+
+I tried this again for a friend and incorporated lessons like including a better overview and pasting examples from documentation. Worked like a charm on first try.
+
+👉 https://chat.openai.com/share/5dba4c81-dd67-4247-becc-32e90d1bda5e
+
+Unfortunately I don't have the data my friend is trying to analyze and can't test the code. But it looks right.
+
+## A wild implication
+
+Here's a wild idea, you could use this technique to interview senior+ engineers. Can you describe a solution to the problem well enough that an AI can write the code?
+
+https://twitter.com/Swizec/status/1686083807093612547
+
+Cheers,<br/>
+~Swizec
+
+PS: I originally heard the _"describe your problem in markdown and generate the code"_ idea from Swyx

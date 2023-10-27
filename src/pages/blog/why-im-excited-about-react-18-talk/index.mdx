@@ -1,0 +1,34 @@
+---
+title: "Why I'm excited about React 18 – talk"
+description: "React 18 is coming soon. I hope 🤞 Here's a talk I gave exploring its implications and showing off demos with working code."
+published: 2021-11-01
+categories: "React, Talks"
+hero: ./img/screenshot-1635777307192.png
+---
+
+React 18 is coming soon. I hope 🤞
+
+React 18 is the one with Suspense. The major refactor that enables transparent asynchronous rendering.
+
+Yes that means you can load data without async functions and draw large animations that skip frames without UI blocking.
+
+I showed off what that means with 2 demos at a React Dinners talk during the summer. It was lots of fun. Everyone went _"Wow shiny"_ at suspense-for-cpu and _"Omg gimme now I need this!"_ at suspense-for-fetch. Solves a huge pain in the ass.
+
+https://www.youtube.com/watch?v=m561rXUVkNI
+
+The suspense-for-cpu portion is based on [A better React 18 startTransition demo](https://swizec.com/blog/a-better-react-18-starttransition-demo/) where I use a fractal as the worst case scenario for React rendering. Works without custom performance tricks ✌️
+
+[![startTransition recap](./img/startTransition-recapf7gbj6.gif)](https://swizec.com/blog/a-better-react-18-starttransition-demo/)
+
+The suspense-for-fetch portion is based on [React 18 and the future of async data](https://swizec.com/blog/react-18-and-the-future-of-async-data/)
+
+https://twitter.com/Swizec/status/1418211981958463488
+
+You can try `startTransition` with React alpha versions right now, fetch is under the experimental flag. Coming in 18.x
+
+Can't wait
+
+https://twitter.com/Swizec/status/1420872061262589952
+
+Cheers,<br/>
+~Swizec

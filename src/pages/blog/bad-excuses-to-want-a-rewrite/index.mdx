@@ -1,0 +1,165 @@
+---
+title: "Bad excuses to want a rewrite"
+description: "Here's a sneak peek at a new book I'm writing about Refactoring and Rewriting. It's with a publisher so I might get in trouble for sharing this, but it's a first draft ... they own the final version 😛"
+published: 2022-04-28
+hero: ./img/screenshot-1651160978901.png
+---
+
+_Here's a sneak peek at a new book I'm writing about Refactoring and Rewriting. It's with a publisher so I might get in trouble for sharing this, but it's a first draft ... they own the final version_ 😛
+
+> This code is terrible. We should rewrite.
+
+Literally every new engineer on every team.
+
+1. Does it work?
+2. Has the context changed?
+
+Okay then leave it alone. It’s fine.
+
+Every one of those little things you see that looks weird is a bug fix. A lesson learned. An edge case found. A painful memory enshrined in code.
+
+You start with a simple function that responds to an event and updates the database.
+
+```javascript
+async function handleEvent(event) {
+  const item = await readFromDB(event.item.id)
+
+  if (event.newState) {
+    await item.save({
+      status: event.newState,
+    })
+    await notifyUserOfChange(item)
+  }
+
+  return `Status updated to ${event.newState}`
+}
+```
+
+Pretend this function is called from a queue or notification service. You get an `event` that happened on `event.item` and update the `item.status` field in the database. After saving, you send a notification to the owner of this item. Like an email that says _”Your item is out for delivery”_
+
+One day the notification service sends an event with no item. Due to a weird bug in `readFromDB`, your database locked up for 5 minutes and caused a huge outage.
+
+Both the notification service and the database are outside your control. Best you can do is to check before reading.
+
+```javascript
+async function handleEvent(event) {
+  if (!event.item) {
+    throw new Error(`Missing event.item`)
+  }
+
+  const item = await readFromDB(event.item.id)
+
+  if (event.newState) {
+    await item.save({
+      status: event.newState,
+    })
+    await notifyUserOfChange(item)
+  }
+
+  return `Status updated to ${event.newState}`
+}
+```
+
+You now throw an error when there’s no item in the event. The error handling framework will handle logging and sending the right response status to the notification service.
+
+A few days pass and you notice something strange in the logs. There’s a lot of database errors when calling `item.save`. 🤨 You can barely find the logs you care about through the stack traces and convoluted error messages.
+
+After some digging you find that the notification service is pinging you for items that don’t exist. You can’t fix that even if you wanted to. You can add another check to your code though.
+
+```javascript
+async function handleEvent(event) {
+  if (!event.item) {
+    throw new Error(`Missing event.item`)
+  }
+
+  const item = await readFromDB(event.item.id)
+
+  if (!item) {
+    throw new Error(`Item not found`)
+  }
+
+  if (event.newState) {
+    await item.save({
+      status: event.newState,
+    })
+    await notifyUserOfChange(item)
+  }
+
+  return `Status updated to ${event.newState}`
+}
+```
+
+Great. You make sure the `item` was found in your database before trying to do anything else. Still an error, but a correctly handled one.
+
+A month passes. Your function is doing great.
+
+_”Hey [name|] we had a user complain they got 500 emails about their item being out for delivery. They’re pretty pissed”_
+
+That’s odd.
+
+The notification service must have got stuck in a loop and sent the same event 500 times. Or there was an error in `notifyUserOfChange` after the email goes out, but before we tell the notification service the event was handled. Kept retrying 💩
+
+You add another check. This time looking for idempotency – calling the function with the same arguments creates the same result.
+
+```javascript
+async function handleEvent(event) {
+  if (!event.item) {
+    throw new Error(`Missing event.item`)
+  }
+
+  const item = await readFromDB(event.item.id)
+
+  if (!item) {
+    throw new Error(`Item not found`)
+  }
+
+  if (event.newState && event.newState !== item.status) {
+    await item.save({
+      status: event.newState,
+    })
+    await notifyUserOfChange(item)
+  }
+
+  return `Status updated to ${event.newState}`
+}
+```
+
+Fantastic. Now the status update only happens, if `newState` is different than existing status. No more notification spam 🙌
+
+Until a user says _”Hey I got an out for delivery email 2 days after the item was delivered”_
+
+You check the database and sure enough, the item is marked as “out for delivery” even though you can dig up a log that says it was marked as “delivered” 2 days before. Your database is wrong!
+
+Again, the notification service had a hiccup and sent events out of sequence. You need to make sure transitions are valid before updating your state. Also known as the [actor model of computation](https://en.wikipedia.org/wiki/Actor_model).
+
+```javascript
+async function handleEvent(event) {
+  if (!event.item) {
+    throw new Error(`Missing event.item`)
+  }
+
+  const item = await readFromDB(event.item.id)
+
+  if (!item) {
+    throw new Error(`Item not found`)
+  }
+
+  if (isValidTransition(event, item)) {
+    if (event.newState && event.newState !== item.status) {
+      await item.save({
+        status: event.newState,
+      })
+      await notifyUserOfChange(item)
+    }
+  }
+
+  return `Status updated to ${event.newState}`
+}
+```
+
+Wow look at that code. It’s so ugly – we should rewrite.
+
+Cheers,
+~Swizec
+
+PS: you can share this if you really want me to get into trouble

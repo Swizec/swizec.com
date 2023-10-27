@@ -1,0 +1,120 @@
+---
+title: "Can you automate love?"
+description: "What's the laziest thing you've ever built? For me it's a bot that sends cute pictures every day"
+published: 2021-03-17
+hero: ./img/screenshot-1615997089099.png
+categories: "Serverless, Technical"
+content_upgrade: ServerlessHandbook
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+
+Friend, what's the laziest thing you've ever done?
+
+The internet's best answer is this legendary officer [who ordered a ship to change course to get the morning sun out of his eyes](https://www.reddit.com/r/AskReddit/comments/1rgpdf/what_is_the_laziest_thing_youve_ever_done/cdnafqe/).
+
+But we're engineers, our lazy looks like this 👇
+
+[![](./img/ion_2xpng348731.png)](https://xkcd.com/1319/)
+
+You get tired of a task, start to automate, continue to automate, keep going, and wait what was the task again ...
+
+After 24 years of coding I've got lots of those stories 😅
+
+Like when I replaced a $6000/year editor [with a $2/year gaggle of JavaScript](https://swizec.com/blog/how-a-dollar12-aws-bill-powers-a-dollar50k-business#newsletter-layouting). Great use of serverless.
+
+Or when I was broke and [built a bot that emailed me from the future](https://swizec.com/blog/a-message-from-your-future-self-2). _"hey Swiz, if you keep going like this you'll be broke_
+
+That was fun. Designed my own machine learning financial projection algorithm and everything!
+
+The Google interviewer said: _"Don't mention interest in machine learning on your resume if you have no experience"_. 😂
+
+Rude.
+
+<ContentUpgrades.ServerlessHandbook />
+
+Or that time I used [AWS Lambda and Twilio to answer the door](https://swizec.com/blog/how-i-answer-the-door-with-aws-lambda-and-twilio). Callbox calls a Twilio phone number, Twilio pings a Lambda, Lambda sends you a text, answer the text, door opens.
+
+No more phone calls from packages!
+
+Then I realized you can add the gate code to your address and delivery people let themselves in. Even easier 😂
+
+But it was fun to build.
+
+Been meaning to automate feeding treats to Kiwi 🦜 and got stuck on _"Oh right, I don't know robotics ..."_. Wouldn't that be cool though? Build a robot arm that listens to audio cues and feeds your bird treats so he goes back to his cage instead of destroying the cabinets.
+
+But I digress.
+
+Here is _the_ coolest most laziest almost-finished automation I've ever attempted 👇
+
+## Automating love with serverless
+
+[https://www.youtube.com/watch?v=cvvPLlP4518](https://www.youtube.com/watch?v=cvvPLlP4518)
+
+For Valentine's Day this year, I got a Lovebox for The Girl. A cute little IoT device that spins a 3D printed heart and shows photos from an app.
+
+She loved it.
+
+And she loved it even more when I said _"I'm gonna build a bot to make sure you get a new photo of our relationship every day"_
+
+![](giphy:omg_love)
+
+Lovebox has no API and I spent the first 3 hours of this project [reverse engineering their GraphQL API](https://swizec.com/blog/reverse-engineer-a-graphql-api-to-automate-love-notes-codewithswiz-24). Learned a lot!
+
+Like did you know encrypted https traffic is _easily_ snooped on when you have physical access to the client? 🤯
+
+Finding this GraphQL mutation was the hard part:
+
+```graphql
+mutation sendPixNote(
+  $base64: String
+  $recipient: String
+  $date: Date
+  $options: JSON
+  $contentType: [String]
+) {
+  sendPixNote(
+    base64: $base64
+    recipient: $recipient
+    date: $date
+    options: $options
+    contentType: $contentType
+  ) {
+    _id
+    type
+    recipient
+    url
+    date
+    status {
+      label
+      __typename
+    }
+    base64
+    __typename
+  }
+}
+```
+
+The rest was easy:
+
+1.  Install `graphql-request`, a smol graphql client
+2.  Init with a snooped JWT token
+3.  `await client.request(mutation)`
+4.  sls invoke -f sendNote
+
+And a Serverless AWS Lambda wakes up on your machine as if it was running in production. 30 seconds later, the Lovebox spins 😍
+
+![](./img/NGtwQvgif0fc411.gif)
+
+Next step: S3 bucket with a pool of photos and a daily trigger.
+
+What do you think, will this work? hit reply
+
+Cheers,<br />
+~Swizec
+
+PS: I'm doing a [live serverless Q&A on Monday](https://www.youtube.com/watch?v=WC-mEf4K9as), you should join :)
+
+PPS: look what arrived in the mail! more on this next week
+
+[https://twitter.com/Swizec/status/1371919072342855680](https://twitter.com/Swizec/status/1371919072342855680)

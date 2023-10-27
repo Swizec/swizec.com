@@ -1,0 +1,105 @@
+---
+title: "SSR, SSRwR, SSG, CSR, WTFBBQ???"
+description: "These abbreviations are getting out of hand. It's like a bad interviewer's wet dream."
+categories: "nextjs, gatsby, React, technical"
+published: 2020-11-24
+content_upgrade: ReactCU
+hero: ./img/screenshot-1606234394207.png
+---
+
+These abbreviations are getting out of hand Friend. It's like a bad interviewer's wet dream.
+
+_"Tell me, what is the difference between rehydrated SSR on a gibson supercomputer with 20kilobytes of RAM versus an SSG SPA on a horizontal supercluster with K8s and a11y?"_
+
+I don't know, damn it, I use tech to solve problems and make money. Who cares what it's called, we're not 12 year old Star Trek nerds.
+
+https://twitter.com/ObedParla/status/1330790562677612546
+
+## Knowing the name of the thing vs understanding the thing
+
+> You can know the name of a bird in all the languages of the world and you'll know absolutely nothing about the bird... So let's look at the bird and see what it's doing — that's what counts
+
+https://www.youtube.com/watch?v=lFIYKmos3-s
+
+Nerds like to forget that you don't know much, if all you know is the name. Especially if you step on a nerve.
+
+Debates rage online and in tech teams bikeshedding on the names of things. Super common with folks who just read a book about it. Once you notice, it's everywhere.
+
+Are you using The Strangler Pattern or are you slowly replacing old functionality with new? 🤔
+
+Names help you move faster as a team. But if you see an interviewer fussing about the names of things, run away.
+
+## SSR vs SSG vs SPA vs CSR 🤨
+
+Last week I wrote about [server side rendering and server side generation](https://swizec.com/blog/gatsby-to-nextjs-pt1-server-side-render-or-server-side-generate) and got it backwards. What I called SSG is SSR and what I called SSR is ... checks notes ... CSRwPR
+
+![](giphy:han_solo_shrug)
+
+The whole thing is a spectrum. From full server rendering to full client side rendering.
+
+https://twitter.com/jaredpalmer/status/1330673290977873920
+
+And as taxonomies always are, that table is subtly wrong.
+
+Gatsby pre-renders whole pages not just their shell and they work without JavaScript, but don't remove it. NextJS can do full CSR, but also SSR with rehydration or pre-rendered CSR.
+
+Never trust a taxonomy my friend.
+
+## Which should you use?
+
+On ep18 of CodeWithSwiz 👇 we dug into all this and found _the_ important factor.
+
+https://www.youtube.com/watch?v=tblxgTpDOcQ
+
+**If your page needs data, you're gonna have to get that data.** The only difference is when.
+
+Pages rendered in the browser suffer from the loading spinner effect. Open page, wait for data to load.
+
+Clients do the waiting, and your bandwidth and server use is low – mostly data and lots of small requests. [Sucks on airplane wifi](https://swizec.com/blog/the-ultimate-test-for-your-webapp:-airplane-wifi) with high latency.
+
+Pages rendered on the server suffer from the full page reload problem. You click a link and get a whole new page.
+
+No requests on the client, but you're transferring all the HTML every time. Even the header and footer that always stay the same. Takes up lots of server resources and sucks on networks with low bandwidth.
+
+### Steps between extremes
+
+You can't solve this problem. You can smudge the cost around.
+
+With static site generators like Gatsby, you make those API requests at deploy time. Creates slow deploys and fantastically speedy pages.
+
+No data fetching on the server _or_ the client. Pure speed.
+
+But if each page takes 2 seconds to generate and you're deploying 1000 ... that's 33 minutes. 😅
+
+With hybrids like NextJS, you have a choice.
+
+Use SSR – server side rendering – and you're doing those 2 seconds worth of requests _on every page load for every user_. Maybe that's okay, maybe it isn't.
+
+Use SSG – server side generation – and you're doing those 2 seconds worth of requests on _some page loads for some of the users_. It's a cache.
+
+First user hits your page: 2 second load. Second user hits the cache: blazing speed. Wait a few hours, next user gets 2 second load, page left the cache.
+
+Maybe that's okay, maybe it isn't.
+
+Frameworks like Ruby on Rails Turbolinks and (I think) RemixRun take a different approach still. Each request gets full HTML, but for a specific `<div>` on the page.
+
+Like loading your page in fragments.
+
+## How do you pick then?
+
+_You_ know the performance characteristics for your project. There is no solution.
+
+https://twitter.com/Swizec/status/1330645071729811456
+
+Same page takes 28ms to load with Gatsby, 2s with NextJS's SSR. Yes I used the wrong words in my tweet.
+
+Is that okay? 🤷‍♂️
+
+Do you care about fast initial loads, useful initial loads, average performance, fastest performance, slowest performance? Depends what you're building.
+
+And remember, there is no cake, only tradeoffs.
+
+Cheers,<br/>
+~Swizec
+
+PS: we're launching [a big bundle tomorrow](https://learnetto.com/blackfriday) and courses inside talk about this in more detail

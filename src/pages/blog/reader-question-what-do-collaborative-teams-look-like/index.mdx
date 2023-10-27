@@ -1,0 +1,104 @@
+---
+title: "Reader Question: What do collaborative teams look like?" 
+description: "New members on our team invariably say 2 things:
+
+1. Wow I've never seen a team move this fast
+2. This approach feels weird. I'm uncomfortable
+
+Teams like this are not common." 
+published: 2022-08-27
+content_upgrade: SeniorMindset
+categories: "Productivity, Velocity, Mindset, Management, Teams, Reader question"
+hero: ./img/screenshot-1661614187690.png
+---
+
+Fellow reader Jeremy wrote in with a question:
+
+> How many people do you have working on one story at a time? And what does that actually look like? Mob programming? How do you figure out who “owns” something and ensures it gets finished when async time comes?
+
+It was a comment on a [reader question about the perfect burndown chart](https://swizec.com/blog/reader-question-so-about-that-perfect-burndown-chart/), which was a follow up on [how we made the best burndown chart you've ever seen](https://swizec.com/blog/how-we-made-the-best-burndown-chart-youve-ever-seen/). We've since achieved an even better burndown chart, ending a whole 2 days early 💪
+
+Then we got too big for our britches and well, ouch. Anyway,
+
+Jeremy asks good questions. What _does_ a collaborative team look like?
+
+When new folks join our team invariably say 2 things:
+
+1. Wow I've never seen a team move this fast
+2. This approach feels weird. I'm uncomfortable
+
+Teams like this are not common.
+
+It's my first time working this way in ~17 years in the industry. I think the practice is growing but that could be observation bias on my part.
+
+## How many people do you have working on one story at a time?
+
+I've been part of this team for 2 years now. Other than the manager who introduced this approach, I'm the only founding member left. Startups be like that.
+
+Some folks left, others moved to new teams within the company. [Rocketshipping](https://swizec.com/blog/how-to-rewrite-your-app-while-growing-to-a-dollar100000000-series-b/) 🚀
+
+The team has waxed and waned. At our biggest we had up to 8 people working on a story, at our smallest it was 3.
+
+Work feels the smoothest when there's about 4 of us.
+
+This makes sense because [psychologists say you can't have 1 conversation larger than 4 people](https://www.sciencedirect.com/science/article/abs/pii/S1090513818301491). When your team grows beyond 4, it splits into two fluid teams in a trench coat. It becomes somebody's job to keep the team synced. Usually a [senior engineer who gets nothing done](https://swizec.com/blog/why-senior-engineers-get-nothing-done/).
+
+That doesn't mean a bigger team is slower.
+
+https://twitter.com/Swizec/status/1554146187049140224
+
+## And what does that actually look like? Mob programming?
+
+The day-to-day reality depends what we're working on. A gnarly bug that's wrecking brains can have 5 people on a Zoom working together. A straightforward make-new-page story can mean folks working on small pieces and assembling later.
+
+Here's the general flow of stories:
+
+0. Pick an owner
+1. Organize a swarm meeting
+2. Discuss how we're solving the story
+3. Write a list of subtasks together
+4. Work on subtasks in parallel
+5. Assemble
+6. Verify and hand off to product owner
+
+https://twitter.com/SeniorMindset/status/1562499985521815553
+
+Swarm meetings are the mob programming portion of our approach. We all design a solution together, hash out any disagreements, explore alternatives, and create a list of Tasks To Be Done.
+
+Ideally we define contracts between modules/functions/subtasks in a [type/contract driven development](https://en.wikipedia.org/wiki/Design_by_contract) style. We're working on this muscle. Easy to forget and be frustrated later 😅
+
+This has multiple benefits:
+
+- no surprises in pull requests
+- everyone contributes
+- people know how their work fits the bigger picture
+- less experienced team members learn how to break down large chunks of work, fast
+
+Turning blobby requirements into discrete tasks is [one of the hallmarks of a true senior engineer](https://swizec.com/blog/what-makes-you-a-senior-software-engineer-anyway/). The faster new members can learn that, the better.
+
+## How do you figure out who “owns” something?
+
+https://twitter.com/Swizec/status/1559699006032187392
+
+We use rotating story ownership on a volunteer basis. When you feel ready to flex in a non-technical direction, we cheer you on.
+
+The story owner acts as our project manager.
+
+- organize the swarm meeting
+- translate the discussion into subtasks with rich descriptions
+- work on subtasks
+- liaison with the product owner
+- verify final integration
+
+For bigger stories this can be a whole job. Making sure everyone understands the product owner's wishes, propagating any changes, and verifying the implementation works before asking the PO for final sign-off can mean you don't get to write any code this time.
+
+And that's okay. You're [the core of a surgical team](https://swizec.com/blog/how-to-own-projects-like-a-senior-engineer/). The person with all the responsibility and less of the work.
+
+## Who ensures it gets finished when async time comes?
+
+The story owner.
+
+Cheers,<br/>
+~Swizec
+
+PS: you can learn more about the softer side of engineering from my [Senior Engineer Mindset book](https://swizec.com/senior-mindset/)

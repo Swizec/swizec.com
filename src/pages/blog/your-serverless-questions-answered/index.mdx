@@ -1,0 +1,111 @@
+---
+title: "Your serverless questions, answered"
+description: "When talk comes to serverless, engineers have lots of questions. Here are some answers 😊"
+published: 2021-03-29
+hero: ./img/screenshot-1617032170720.png
+categories: "Serverless, Technical"
+content_upgrade: ServerlessHandbook
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+
+When talk comes to serverless, engineers have lots of questions. Here are some answers 😊
+
+**What the heck is serverless?**
+
+Serverless is other people's servers running your code. The latest step in the evolution from full DoItYourself servers running on a machine you own towards _"I just want a piece of code to run when you hit a URL"_
+
+The core innovation are virtual servers small and fast enough to wake up on every request. This enables perfect automatic scaling to your traffic.
+
+_PS: You can see me answer some of these in a recent video 👇_
+
+https://www.youtube.com/watch?v=WC-mEf4K9as
+
+**‌What would be the best way to change data (like toggling a boolean value via Lambda) to change the state of the SSG/ISR Next.js app?**
+
+A common use-case for serverless is to rebuild your JAMStack static website when data changes. User action or database event triggers your serverless function, your code makes a request to the "Redeploy Webhook" that most providers offer, and voila: updated website.
+
+Calling the webhook is a basic `fetch()` request. You could even do it from the browser ✌️
+
+**‌So should you be using lambda instead of firebase cloud function?**
+
+Choosing providers is tricky. Depends on what you're doing and what you're looking for.
+
+Firebase is great for getting started. Comes with lots of features and application logic. The downside is that their API and documentation can feel like it wasn't built for modern JavaScript.
+
+And when you outgrow Firebase's native way of doing things, or need anything custom at all, you're shit out of luck.
+
+I like AWS Lambda because it's basic 👉 plain JavaScript function running at a URL. Do what you want.
+
+<ContentUpgrades.ServerlessHandbook />
+
+**‌Can you talk about the pros and cons of freelancing with serverless as your specialty?**
+
+In freelancing and consulting circles this is called "positioning" or "niching down". Great terms to Google.
+
+A basic positioning statement would be _"I transition growing B2C startups to serverless so they can scale faster without downtime"_.
+
+The goal is to sell a business benefit and be known as The Person for your thing. Makes you easier to hire, easier to recommend, faster to remember.
+
+**‌Does lambda work with relational database? Or does it just work with dynamo?**
+
+AWS Lambda can connect to any database. If there's a JavaScript library for your database of choice, you can use it.
+
+Dynamo is used in tutorials because it's quick to set up and unlike traditional databases, you need not worry about swamping your database with requests.
+
+But dynamo isn't great for typical application data.
+
+**‌Is not there a problem with the cold start for apps, which has low traffic?**
+
+Cold starts are a common concern with serverless. That's when a new user hits your dormant server and needs to wait for code to warm up.
+
+Huge problem before serverless came along. Services like Heroku, shared hosting, and even (mismanaged) DIY servers experienced huge cold start latency.
+
+1 second to get an API response is no good. 😅
+
+With serverless and JavaScript, cold starts sit in the 100ms to 200ms range. Tiny simple servers are quick to wake up.
+
+If that's too slow, AWS recently added a feature that keeps your lambda warm.
+
+**‌What is your preferred cloud provider for serverless?**
+
+Personally I like AWS. It's become the industry standard, has more services than I'll ever need, and it's free for all but the biggest side projects.
+
+Vercel and Netlify are great for static hosting and simple cloud functions. Access to the rest of AWS's ecosystem can be hard.
+
+Firebase I've used for experiments and it felt cumbersome. My brain doesn't work that way.
+
+Haven't found an excuse yet to try Azure :)
+
+**How about operation like CI/CD on serverless?**
+
+Continuous integration and deployment is where serverless shines!
+
+With infrastructure-as-code you define your whole app in your code. Frontend, backend, server, database, queues, everything. It's all there in your version control.
+
+That means every pull request, every branch, every feature, can have its own deploy with its own infrastructure and custom URLs. Run as many as you want in parallel 🤘
+
+You get a fantastic integration experience.
+
+Wanna automate the testing itself? Serverless is great at running code on demand ;)
+
+**How to handle more complex Database queries where you would normally use an ORM and models? How to share those between functions?**
+
+The JavaScript ecosystem for Object Relational Models (ORM) is kinda rough.
+
+Decent libraries exist from the Backbone era (circa 2012) but they feel weird in modern days. And it's hard to modernize when a lot of existing code depends on your library.
+
+TypeScript-based ORM approaches have cropped up in recent years and they look like small pet projects. You wouldn't wanna bet your company on those just yet.
+
+Prisma feels like the most serious play in this space right now. They've got a great SQL builder with fantastic TypeScript support. I haven't had a chance to try it yet.
+
+You can always use SQL directly. That always works :)
+
+As you can imagine this is why Mongo and DynamoDB are popular in the JavaScript world – save JSON objects, get JSON objects.
+
+Got more questions? [Hit reply](https://twitter.com/swizec)
+
+Cheers,<br/>
+~Swizec
+
+PS: my new [Serverless Handbook](https://serverlesshandbook.dev/) launches on Wednesday and if you buy this week will have a chance to win a signed copy

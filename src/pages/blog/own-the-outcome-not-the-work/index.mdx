@@ -1,0 +1,60 @@
+---
+title: "Own the outcome, not the work"
+description: "Efficient problem-solving in engineering with a shift in perspective – focusing on user outcomes can lead to innovative solutions and change your approach to system design."
+published: 2023-04-26
+content_upgrade: SeniorMindset
+categories: "Mindset, Lessons, Architecture"
+hero: ./img/screenshot-1682520368593.png
+---
+
+One of my favorite engineering things to do is to look at a system, squint a little, and go _"If we move this piece over there, everything becomes easier"_.
+
+We had a good opportunity for that at work recently.
+
+## A rethink can go a long way
+
+My team took over a system for support groups where you can sign up for N sessions with a class. It was about to launch and things were going wrong.
+
+The previous team built a system based on an hourly cron-job: Checks what you're signed up for and adds appointments to your schedule about a week in advance. But only if you've already had the latest appointment so far.
+
+Yes, it was difficult to test and debug. Lots of moving pieces and state that has to be juuuust right.
+
+What's worse, the system had trouble enforcing max group capacity – couldn't reliably count how many people are signed up for a group because appointments didn't exist yet. Wanna cancel your appointment? Wait until it shows up. Bail out of the whole series? Nope, you're stuck with us.
+
+We looked at the flaming hot potato, squinted, and said _"If we create all your appointments as soon as you sign up, all these problems just ... disappear."_
+
+So that's what we did. In about a week, we rearchitected the system and that:
+
+1. made it trivial to test and debug – _no_ moving pieces
+2. made cancelling appointments trivial – existing feature works
+3. made bailing from a group trivial – cancel all appointments
+4. made enforcing capacity trivial – `count(distinct patient) from appointments`
+
+Great success yeah?
+
+## You need the right attitude
+
+Spotting those opportunities comes down to attitude, I think. Best described through the [brick layer parable](https://djchuang.com/origin-story-parable-of-the-three-bricklayers/).
+
+You come upon 3 bricklayers, ask them what they're doing, and get 3 responses.
+
+1. I'm laying bricks
+2. I'm building a wall
+3. I'm building a cathedral
+
+The first bricklayer is the engineer who's a diligent worker, does what they're told, and executes. Picks jira tickets off the board and gets them done few questions asked. They're a great [pair of hands, but not a brain](https://swizec.com/blog/theres-two-types-of-engineers/).
+
+The second bricklayer is that engineer who is lovely to work with. They'll ask just enough questions to keep you honest, help you clarify requirements for a story, and can make a great partner to the right product owner.
+
+The third bricklayer is that engineer who companies rush to hire. They focus on user outcomes and will rip requirements to shreds until they find the simplest possible system that gets the job done. Looking 5 steps ahead this engineer is on an equal footing with the product owner, a true partner. We're building a cathedral, do we really need _this_ wall?
+
+Yes, this engineer is insufferable to the wrong product owner :)
+
+## Focus on the goal
+
+When designing systems and writing code, focus on what you're trying to achieve. Not just the current task at hand.
+
+No amount of clever hackery can save you from building the wrong thing.
+
+Cheers,<br/>
+~Swizec

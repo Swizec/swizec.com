@@ -1,0 +1,121 @@
+---
+title: "Coding is the easy part"
+description: "Behind the scenes of a vendor migration project. What senior+ engineers do so you can focus on the code."
+published: 2023-03-24
+content_upgrade: SeniorMindset
+categories: "Lessons, Mindset, Leadership"
+hero: ./img/screenshot-1679672794724.png
+---
+
+Tutorials make every project look easy. You start at the beginning and code your way to the end. Wonderful.
+
+The real world ... is not like that. I'm leading a vendor migration project right now and this gif captures my experience perfectly.
+
+![](./img/ry-tomgifaj65e6.gif)
+
+The migration sounds easy: We're using a product analytics library. It got acquired. After 2 years, the new company wants to sunset that product and has a drop-in replacement.
+
+But ...
+
+## First, you have to decide
+
+The project started in December – 4 months ago – when our head of engineering tagged me in.
+
+_"Hey Swiz, we have concerns about how this SDK plays with our analytics vendor. Can you look into this?"_
+
+I looked. The old SDK, the one that got acquired, takes your tracking plan and generates a custom client-side library. This gives you TypeScript support for analytics events which is amazing. Highly recommend!
+
+The generated client-side library uses a plugin system to send events directly to your analytics vendor.
+
+But since that SDK got acquired, they wanted to change this. The new company thinks of itself as an analytics vendor and sees our old vendor as a direct competitor. They want to kill the direct integration 💩
+
+The new company wants to send events to itself _then_ stream to other services, if it really has to. This created problems for our HIPAA compliance because we didn't have the right contract in place. Events cannot touch new company's servers.
+
+## Then, you have to buy
+
+After looking at alternatives, we decided to consolidate on the new company. They offer tight integration between tracking plans, analytics, and a few other features.
+
+All HIPAA compliant with the right contract and way easier for product teams to use. Sweet.
+
+Enterprise sales _sucks_. Even from the buyer's perspective. We spent 6+ hours in demo after demo making sure this new vendor can do what we need, do it well, and isn't selling promises from the backlog.
+
+It took two months. I was exhausted. And it almost fell apart in the final meeting when they were like _"You know that price we quoted? It's actually 2x"_.
+
+Kudos to my VP for handling that one.
+
+PS: watching them use every sales trick I've read about in books was cool. They did anchoring, buddy buddy stuff, "going to war for us" with a hidden 3rd party that sets prices ... Great stuff.
+
+## After that, you make a plan
+
+It's now early March and we have to get off the old vendor by April. Otherwise we have to renew the contract for another whole year.
+
+_"Swiz, you can make that happen right?"_
+
+![](./img/giphygif4h7ba1.gif)
+
+I devised a 3 step plan for our migration. It's obvious, but someone had to spend a few minutes thinking about it and then step up to make sure it happens. It's the stepping up part that's valuable.
+
+1.  Redirect events firehose
+2.  Migrate historic data
+3.  Integrate the other goodies
+
+1 and 2 have the deadline. A week out and we're close. I think we'll make it 🤞
+
+We can do 3 when there's time on the product roadmap.
+
+## Herd cats that aren't yours
+
+The problem with that plan is that _the work is outside my control_. Not even owned by my team 😅
+
+Out of the 15 repositories we needed to migrate, 2 are owned by my team, and ~6 we could opportunistically help out because the changes were small. I had to make the list of necessary changes, of course.
+
+Herding cats is hard and I figured making other teams' work super easy will help. My team ran ahead and migrated our repositories. We found the sharp edges and [wrote an SOP](https://swizec.com/blog/nobody-is-coming-to-save-you/) – standard operating procedure.
+
+With that doc in hand I went to every other team and said _"Hai we need your help on this critical project with a tight deadline. It took our team an afternoon, here's a step-by-step document. What's the earliest you can slot this into your schedule?"_
+
+That worked. Migrations went smoothly and teams were able to adjust their schedules ❤️
+
+## Break business processes
+
+_"Hey Swiz, where did all our events go?"_
+
+What do you mean, I said they'd be kinda broken while we do this migration. We're diverting them from one vendor to another. You agreed 2 weeks ago.
+
+I did not fully explain the consequences to all stakeholders. I didn't even realize who all the stakeholders were. People high up in the company got upset when their dashboards dropped to zero.
+
+😅
+
+Sometimes the only way to find a use-case is to break it. [Hyrum's law](https://www.hyrumslaw.com).
+
+People will ignore and downplay any communication until you force their hand. It's unpleasant, but I'm not sure there's a better way. When's the last time you willingly restarted your laptop or clicked on a _"try our new UI"_ button? Exactly 😉
+
+## Find hidden requirements
+
+Remember that sales process I mentioned?
+
+Migrating old data was a key negotiating point. We asked _"Hey can we import our old data?"_ [all of it all at once] and they said _"yes of course you can migrate old data!"_ [within your monthly data limits].
+
+Notice the miscommunication? Yeah it's a big one.
+
+Our initial data import would blow through the monthly budget 5 times over. Thanks to the platform team for flagging that ❤️
+
+Face meet shovel. I had to pull-in our VP to go re-negotiate that contract. That was a tense 2 days. But we did it. End of quarter is a great time to put pressure on sales teams.
+
+The platform team found another surprise: Our events don't all match the tracking plan. Certain teams were using the old analytics vendor through 3rd party integrations and never told anyone.
+
+We can't import those events because they don't match. But we'll have to find a way.
+
+## Argh
+
+![](./img/giphygifggbg21.gif)
+
+The most stressful part has been holding the tension between moving pieces. You tell product teams the deadline is March 24 so platform has time to migrate data by April. You tell platform to start migrating right now and start with the oldest data so you can find sharp edges early.
+
+Meanwhile you're talking to the old vendor to get the deadline pushed. Just in case.
+
+😮‍💨
+
+The 2 hours I've spent coding on this 5 month project were downright relaxing.
+
+Cheers,<br/>
+~Swizec
