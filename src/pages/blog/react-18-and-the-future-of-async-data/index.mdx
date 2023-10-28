@@ -1,6 +1,6 @@
 ---
 title: "React 18 and the future of async data"
-description: "Friend, I have glimpsed the future and it is amazing. React 18 is shipping with <Suspense> and startTransition for deferred component rendering, but not data loading. That's coming in a future 18.x version."
+description: "Friend, I have glimpsed the future and it is amazing. React 18 is shipping with Suspense and startTransition for deferred component rendering, but not data loading. That's coming in a future 18.x version."
 published: 2021-07-22
 categories: "React, Frontend, Technical"
 content_upgrade: ReactCU
@@ -180,7 +180,7 @@ You use a `Suspense` component to show loading states.
 export const BestSellers = () => {
   return (
     <Suspense fallback={<Spinner />}>
-      {/* loading must happen inside a <Suspense> */}
+      {/* loading must happen inside a Suspense */}
       <Content />
     </Suspense>
   )
