@@ -34,7 +34,7 @@ React docs recommend replacing `componentWillReceiveProps` with `componentDidUpd
 
 Instead, we can move our scales into `state` and use `getDerivedStateFromProps`. 🤯
 
-![d3 react 16.3](https://swizec.com/wp-content/uploads/2018/04/d3react16.3-699x1024.png)
+[d3 react 16.3](https://swizec.com/wp-content/uploads/2018/04/d3react16.3-699x1024.png)
 
 That's right, you can have complex objects in state now. It's totally safe.
 
@@ -91,9 +91,9 @@ Now that your scales are always up to date, you can render your chart. Same as u
           { widthScale, heightScale } = this.state;
 
         return (
-          <g transform="{`translate(${x}," ${y})`}="">
+          <g transform={`translate(${x}, ${y})`}>
             {data.map((d, i) => (
-              <rect x={widthScale(i)} y="{height" -="" heightscale(d)}="" width={widthScale.bandwidth()} height={heightScale(d)}>
+              <rect x={widthScale(i)} y={height - heightScale(d)} width={widthScale.bandwidth()} height={heightScale(d)}>
             ))}
           </rect></g>
         );
@@ -104,7 +104,7 @@ Get chart coordinates, `data`, and `height` from props. Grab `widthScale` and `h
 
 Each rectangle is rendered in a loop and takes its coordinates and dimensions from our scales.
 
-The result after a splash of color: A BarChart of random numbers where height and color correlate to the value. [![Simple chart in D3 and React 16.3](https://swizec.com/wp-content/uploads/2018/04/chart-screenshot.png)](https://codesandbox.io/s/lq0yr1lnq) I also made a button that lets you add random values to the chart. That way you can see that it's updating perfectly declaratively. Update props and the chart updates. No need to understand implementation details.
+The result after a splash of color: A BarChart of random numbers where height and color correlate to the value. [Simple chart in D3 and React 16.3](https://swizec.com/wp-content/uploads/2018/04/chart-screenshot.png) I also made a button that lets you add random values to the chart. That way you can see that it's updating perfectly declaratively. Update props and the chart updates. No need to understand implementation details.
 
 You can [play with it on CodeSandbox](https://codesandbox.io/s/lq0yr1lnq).
 

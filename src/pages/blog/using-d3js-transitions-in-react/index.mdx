@@ -104,11 +104,11 @@ Our declarative transitions magic starts in the `render` method.
 
         return (
             <g transform={transform}>
-                <reacttransitiongroup component="g">
+                <ReactTransitionGroup component="g">
                     {this.state.alphabet.map((d, i) => (
-                        <letter d={d} i={i} key={`letter-${d}`}>
+                        <Letter d={d} i={i} key={`letter-${d}`}>
                      ))}
-                </letter></reacttransitiongroup>
+                </Letter></ReactTransitionGroup>
             </g>
         );
     }
@@ -299,7 +299,7 @@ But we did the hard work. Rendering is straightforward:
 
     render() {
         return (
-            <text dy=".35em" y={this.state.y} x={this.state.x} class={this.state.className} style="{{fillOpacity:" this.state.fillopacity}}="">
+            <text dy=".35em" y={this.state.y} x={this.state.x} class={this.state.className} style={{fillOpacity: this.state.fillOpacity}}>
                 {this.props.d}
             </text>
         );

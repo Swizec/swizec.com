@@ -44,7 +44,7 @@ Built-in hooks cover the most common uses cases. You can build your own for ever
 
 ### useState
 
-The `useState` hook replaces pairs of state getters and setters.
+The `{useState}` hook replaces pairs of state getters and setters.
 
 ```javascript
   class myComponent extends React.Component {
@@ -86,7 +86,7 @@ In a class component, you:
 
 Without modern fat arrow syntax, you might run into trouble with binds.
 
-The hook approach moves that boilerplate to React's plate. You call `useState`. It takes a default value and returns a getter and a setter.
+The hook approach moves that boilerplate to React's plate. You call `{useState}`. It takes a default value and returns a getter and a setter.
 
 You call that setter in your change handler.
 
@@ -94,7 +94,7 @@ Behind the scenes, React subscribed your component to that change. Your componen
 
 ### useEffect
 
-`useEffect` replaces the `componentDidMount`, `componentDidUpdate`, `shouldComponentUpdate`, `componentWillUnmount` quadfecta. It's like a trifecta, but four.
+`{useEffect}` replaces the `{componentDidMount}`, `{componentDidUpdate}`, `{shouldComponentUpdate}`, `{componentWillUnmount}` quadfecta. It's like a trifecta, but four.
 
 Say you want a side-effect when your component updates, like make an API call. Gotta run it on mount and update. Want to subscribe to a DOM event? Gotta unsubscribe on unmount.
 
@@ -155,11 +155,11 @@ const myComponent = () => {
 
 So much less code!
 
-`useEffect` runs your function on `componentDidMount` and `componentDidUpdate`. And that second argument, the `[value]` part, tells it to run only when that value changes.
+`{useEffect}` runs your function on `{componentDidMount}` and `{componentDidUpdate}`. And that second argument, the `[value]` part, tells it to run only when that value changes.
 
-No need to double check with a conditional. If your effect updates the component itself through a state setter, the second argument acts as a `shouldComponentUpdate` of sorts.
+No need to double check with a conditional. If your effect updates the component itself through a state setter, the second argument acts as a `{shouldComponentUpdate}` of sorts.
 
-When you return a method from `useEffect`, it acts as a `componentWillUnmount`. Listening to, say, your mouse position looks like this:
+When you return a method from `{useEffect}`, it acts as a `{componentWillUnmount}`. Listening to, say, your mouse position looks like this:
 
 ```javascript
 const [mouseX, setMouseX] = useState()
@@ -177,7 +177,7 @@ Waiting for the day we can use this to do naughty DOM stuff in functional compon
 
 ### useContext
 
-`useContext` cleans up your render prop callbacky hell.
+`{useContext}` cleans up your render prop callbacky hell.
 
 ```javascript
 <somecontext>
@@ -195,7 +195,7 @@ Context becomes just a value in your function. React auto subscribes you to all 
 
 ### useReducer
 
-`useReducer` is like React got Redux built in now. Whoa.
+`{useReducer}` is like React got Redux built in now. Whoa.
 
 You don't really have to know this one. But it comes by default and it's kinda neat. Although I think using it for realz will lead to your components becoming way too big and bloated.
 

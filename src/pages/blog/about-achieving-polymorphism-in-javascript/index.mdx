@@ -14,7 +14,7 @@ The [Toshl beta API](https://developer.toshl.com/) opened up in July is well tho
 
 But for users of my node.js library I wanted to make life even simpler. Let's look at fetching expenses.
 
-After you authenticate - testing [OAuth](http://oauth.net "OAuth") clients sucks, and Toshl invalidates your token _very_ often. Think I had to refresh it four times in a five hour coding spree. - you can talk to `https://api.toshl.com/expenses` to get a list of expenses for the current user.
+After you authenticate - testing [OAuth](http://oauth.net) clients sucks, and Toshl invalidates your token _very_ often. Think I had to refresh it four times in a five hour coding spree. - you can talk to `https://api.toshl.com/expenses` to get a list of expenses for the current user.
 
 This will return the last 30 entries.
 
@@ -26,7 +26,7 @@ One approach is to offer a way of specifying an options hash when calling a func
 
 The answer lies in polymorphism.
 
-Let's say you have a function called `toshl.expenses`, in [Haskell](http://haskell.org "Haskell (programming language)") you could do something like this:
+Let's say you have a function called `toshl.expenses`, in [Haskell](http://haskell.org) you could do something like this:
 
 ```haskell
 expenses::Result
@@ -55,7 +55,7 @@ The syntax is likely wrong but you get what I'm pointing at. You can always call
 
 You can tell what calling `expenses` will do in each case at a glance and checking what type of arguments the function accepts is trivial. Even somebody who isn't familiar with Haskell could understand that code.
 
-Here's that same polymorphic code in [Javascript](http://en.wikipedia.org/wiki/JavaScript "JavaScript"). This time tested working code.
+Here's that same polymorphic code in [Javascript](http://en.wikipedia.org/wiki/JavaScript). This time tested working code.
 
 ```javascript
 exports.Toshl.prototype.expenses = function (params, to, callback) {

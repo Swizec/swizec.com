@@ -12,14 +12,14 @@ _\[This post is part of an ongoing challenge to understand 52 papers in 52 weeks
 
 ![Turing's Bombe machine](./img/8070-8235850748_58418329ec_z.jpg)
 
-What better way to start the 52 papers challenge off than the paper most computer science is based on - [Alan Turing's](http://en.wikipedia.org/wiki/Alan_Turing "Alan Turing") [On Computable Numbers, With an Application to the Entscheidungsproblem](http://classes.soe.ucsc.edu/cmps210/Winter11/Papers/turing-1936.pdf)?
+What better way to start the 52 papers challenge off than the paper most computer science is based on - [Alan Turing's](http://en.wikipedia.org/wiki/Alan_Turing) [On Computable Numbers, With an Application to the Entscheidungsproblem](http://classes.soe.ucsc.edu/cmps210/Winter11/Papers/turing-1936.pdf)?
 
 There are two main takeaways from this paper:
 
 - a hypothetical machine can be constructed that can solve any solvable problem using simple rules (turing machine)
 - the entscheidungsproblem is unsolvable in the general case
 
-The third, despite being discussed off-handedly in the paper, has massive implications as well: Church's lambda-calculus is no more or less powerful than turing machines. What [Turing](http://en.wikipedia.org/wiki/Turing_machine "Turing machine") states as "obvious" later developed into the [Church-Turing thesis](http://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis "Church–Turing thesis"), which stipulates that all systems of computation are equal in their power. If a problem can be solved by one system, then it can be solved in another, and vice-versa.
+The third, despite being discussed off-handedly in the paper, has massive implications as well: Church's lambda-calculus is no more or less powerful than turing machines. What [Turing](http://en.wikipedia.org/wiki/Turing_machine) states as "obvious" later developed into the [Church-Turing thesis](http://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis), which stipulates that all systems of computation are equal in their power. If a problem can be solved by one system, then it can be solved in another, and vice-versa.
 
 Despite many attempts to find stronger computation system, all have eventually been proven to be equal to all the rest. If memory serves, the jury's still out on quantum computation.
 
@@ -27,9 +27,9 @@ But let's start from the beginning.
 
 ## The Entscheidungsproblem
 
-In 1928 Hilbert posed a challenge to the mathematical community - create an algorithm that takes as input a statement in [first-order logic](http://en.wikipedia.org/wiki/First-order_logic "First-order logic") (with possibly a finite number of additional axioms) and answers _"Yes"_ or _"No"_ whether it is universally valid. That is, valid in every structure that can be translated into the basic axioms.
+In 1928 Hilbert posed a challenge to the mathematical community - create an algorithm that takes as input a statement in [first-order logic](http://en.wikipedia.org/wiki/First-order_logic) (with possibly a finite number of additional axioms) and answers _"Yes"_ or _"No"_ whether it is universally valid. That is, valid in every structure that can be translated into the basic axioms.
 
-Having such an algorithm would mean that there is no such thing as an [unsolvable problem](http://en.wikipedia.org/wiki/Undecidable_problem "Undecidable problem"). You could construct an algorithm to solve any problem you can state using first-order logic - logic statements with predicates.
+Having such an algorithm would mean that there is no such thing as an [unsolvable problem](http://en.wikipedia.org/wiki/Undecidable_problem). You could construct an algorithm to solve any problem you can state using first-order logic - logic statements with predicates.
 
 `∀x(C(x)→¬D(x))`, where `C(x)` means "x is a cat", and `D(x)` means "x is a dog". The statement then reads _"for every x, if x is a cat then x is not a dog"_
 
@@ -39,7 +39,7 @@ To answer the question Turing had to begin by formally defining both computabili
 
 ## Computing machines
 
-Turing states that [computable numbers](http://en.wikipedia.org/wiki/Computable_number "Computable number") are those numbers whose decimals can be computed in finite time. His justification is that human minds are limited and a number that takes infinitely long to compute isn't very useful.
+Turing states that [computable numbers](http://en.wikipedia.org/wiki/Computable_number) are those numbers whose decimals can be computed in finite time. His justification is that human minds are limited and a number that takes infinitely long to compute isn't very useful.
 
 He bases his computational machine on the model of a person solving a problem.
 
@@ -49,7 +49,7 @@ He bases his computational machine on the model of a person solving a problem.
 
 An **automatic machine** (a-machine) is a machine whose motion at each stage is completely determined by the configuration. When an a-machine prints only two types of symbols, where first type (figures) consists only of `0` and `1` and the second type are help symbols, it is called a **computing machine**.
 
-The **complete configuration** of the machine is completley defined by its current m-configuration, the scanned square's number and the [complete sequence](http://en.wikipedia.org/wiki/Complete_sequence "Complete sequence") on the tape. What it does next is called a **move** (m-configuration change, printing, changing the active square).
+The **complete configuration** of the machine is completely defined by its current m-configuration, the scanned square's number and the [complete sequence](http://en.wikipedia.org/wiki/Complete_sequence) on the tape. What it does next is called a **move** (m-configuration change, printing, changing the active square).
 
 A **computable sequence or number** is any sequence produced by a circle-free computing machine. That is, a machine that reaches its end state in a finite amount of time.
 
@@ -75,7 +75,7 @@ Each line of the table can then form an expression like qiSjPSkLqm, which reads 
 
 If we then agree to codify all qi as the letter _A_ repeated _i_ times, and Sj as _D_ followed by j _C_'s, we can write down every machine with a sequence of 5 letters (A, C, D, L, R, N) and semicolon - the **standard description**.
 
-We can further replace these with numbers; _A_ is _1_, _C_ is _2_, ..., _;_ is 7, to come up with a **[description number](http://en.wikipedia.org/wiki/Description_number "Description number")** _n_, which describes a computing machine uniquely. A machine described by _n_ will be called `M(n)`.
+We can further replace these with numbers; _A_ is _1_, _C_ is _2_, ..., _;_ is 7, to come up with a **[description number](http://en.wikipedia.org/wiki/Description_number)** _n_, which describes a computing machine uniquely. A machine described by _n_ will be called `M(n)`.
 
 Since a computable sequence can be described by at least one description number, but a description number can only correspond to one computable sequence, it follows that computable sequences and numbers are enumerable. (can be listed)
 
@@ -171,31 +171,4 @@ There are 10 theorems of computability.
 5.  is a reconstruction of Dedekind's theorem using computability instead of real-ness. It states that if _G(a)_ is a propositional function where there exists an α and a β where _G(α) & ¬G(β)_ (G of α and not G of β) and _G(α) & (¬G(β)) → (α&lt;β)_ (if G of α and not G of β, then α is less than β, then there is a computable limit to the section where a computable number falls. This means a computable bounded sequence of computable numbers might not have a computable limit.
 6.  if _α &lt; β_ and _φ(α) &lt; 0 &lt; φ(β)_ where φ is a computable continuous increasing function, then there exists a number that _φ(n) = 0_ and _α &lt; n &lt; β_
 7.  a power series whose coefficients form a computable sequence of computable numbers is computably convergent at all computable points inside its interval of convergence
-8.  the limit of a computably convergent sequence is computable
-9.  the limit of a uniformly computably convergent computable sequence of computable functions is a computable function
-10. the sum of a power series whose coefficients form a computable sequence is a computable function inside its interval of convergence
-
-From these theorems we arrive at some interesting results.
-
-Using 8 we can deduce that π is computable where _π = 4(1-1/3+1/5-...). From \*e = 1+1/2!+1/3!+..._ we can see that e is computable.
-
-Using 5 we can show that all real algebraic numbers are computable and with 6 and 10 we can deduce that the real zeros of the Bessel function (a famous differential equation) are computable.
-
-## Application to the Entscheidungsproblem
-
-After constructing all this scaffolding, Turing finally got to the ultimate point of this paper - answering the entscheidungsproblem.
-
-He provides the rigorous proof over some three pages, but the basic idea is simple: For each computing machine _M_ we construct a formula _Un(M)_ and show that, if there is a general method for determining whether it is provable, then there is a general method for determining whether _M_ ever prints 0.
-
-We already know from earlier that there is no such method since we would have to wait infinitely long to make sure.
-
-Turing then constructs two Lemmas:
-
-1.  If _S1_ appears on the tape in some complete configuration of _M_, then _Un(M)_ is provable.
-2.  If _Un(M)_ is provable, then _S1_ appears on the tape in some complete configuration of _M_.
-
-I don't understand the proofs for these two lemmas well enough to provide a summary that doesn't introduce errors, so I'm not going to do that.
-
-The end result is that the entscheidungsproblem cannot be solved and it is impossible to construct such a machine that would take as input a statement of first-order logic and answer "Yes" or "No" whether it is universally valid.
-
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=b37ad478-4995-4f24-add0-7f4623ee64d1)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+8. 

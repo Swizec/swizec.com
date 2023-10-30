@@ -8,19 +8,19 @@ categories: "Front End, Technical"
 hero: ./img/media-D11LdPWUcAA6SVw.png
 ---
 
-The other day I was dealing with some laggy UI on a project and discovered React.memo as a way of fixing it. I don't know how long React.memo has been a thing but it's new to me and it's amazing.
+The other day I was dealing with some laggy UI on a project and discovered `React.memo` as a way of fixing it. I don't know how long `React.memo` has been a thing but it's new to me and it's amazing.
 
 And when I say laggy UI, I mean _really_ laggy UI.
 
 Here's a gif of me typing full speed at 120wpm into a form.
 
-![](./img/VlpnEbl.gif)
+![typing full speed](./img/VlpnEbl.gif)
 
 Yeah, real bad. 🙈
 
 After a few small tweaks tho ...
 
-![](./img/ihNGHUN.gif)
+![After few tweaks](./img/ihNGHUN.gif)
 
 Let's start with how #1 happened, then what you might do to get to #2. .
 
@@ -30,7 +30,7 @@ PS: this article is heavy in gifs, please be patient
 
 There's a few key components to a slow UI and they all have to do with doing too much on too many state updates. I can't share the exact codebase so here's a rough analog I built in CodeSandbox.
 
-[![Click me to play with code](./img/NuogZIB.gif)](https://codesandbox.io/s/n7zlz8onj0)
+[Click me to play with code](https://codesandbox.io/s/n7zlz8onj0)
 
 In the original code my state structure follows the unidirectional dataflow principle. State for all components lives in `App` and flows down via props.
 
@@ -93,7 +93,7 @@ The result is a faster app with a somewhat cumbersome typing experience.
 
 [![Click to explore code](./img/gNHQMmd.gif)](https://codesandbox.io/s/n7zlz8onj0)
 
-## React.memo
+## `React.memo`
 
 Your best bet isn't to make updates asynchronous, it's to avoid them completely.
 
@@ -115,9 +115,9 @@ export const MemoRecursive = React.memo(
 )
 ```
 
-First argument is a functional component. When rendering, React.memo calls your comparison function, the second argument, and if that returns `true`, it updates your component.
+First argument is a functional component. When rendering, `React.memo` calls your comparison function, the second argument, and if that returns `true`, it updates your component.
 
-I'm using JSON.stringify as a dirty deep equals. You might want to use one of the many fast deep equals libraries out there. Or maybe there's a specific prop value you can check.
+I'm using `JSON.stringify` as a dirty deep equals. You might want to use one of the many fast deep equals libraries out there. Or maybe there's a specific prop value you can check.
 
 The result is an app with smooth UI
 
@@ -127,11 +127,11 @@ Using recursion was a bad example it turns out. Props are never the same so memo
 
 Tried fixing it by building the array head-first instead of tail-first. Didn't quite work.
 
-In the real-world, though, React.memo made a huge difference! Compare these outputs from the Chrome Profiler. I was typing `this is a test` into my input box both times.
+In the real-world, though, `React.memo` made a huge difference! Compare these outputs from the Chrome Profiler. I was typing `this is a test` into my input box both times.
 
-![](./img/media-D11LdPWUcAA6SVw.png)
+![Before optimisations](./img/media-D11LdPWUcAA6SVw.png)
 
-![](./img/media-D11Lj3MVYAAdZ6E.jpg)
+![After optimisations](./img/media-D11Lj3MVYAAdZ6E.jpg)
 
 Took 4 seconds to type and render without these optimizations. 1 second with. 🤘
 

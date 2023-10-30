@@ -8,7 +8,7 @@ categories: "coding, Front End, MobX, react, reactjs, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
-![](https://swizec.com/wp-content/uploads/2016/10/modal-inception.gif)
+![modal-inception](https://swizec.com/wp-content/uploads/2016/10/modal-inception.gif)
 
 Continuing from yesterday's article about [using MobX with create-react-app](https://swizec.com/blog/how-to-use-mobx-with-createreactapp/), we're going to build a simple MobX-driven modal. Why? Because I just did it at The Day Job™, and I think it's neat.
 
@@ -67,7 +67,7 @@ If you only change store properties in actions, then you can model your applicat
 
 Limiting yourself to performing changes in actions increases boilerplateiness a little tiny bit, and gives you this in return:
 
-![](https://swizec.com/wp-content/uploads/2016/10/mobx-debugging.gif)
+![mobx-debugging](https://swizec.com/wp-content/uploads/2016/10/mobx-debugging.gif)
 
 Trust me, you want it. ?
 
@@ -90,9 +90,9 @@ class App extends Component {
     }
 
     openModal2() {
-        this.store.showModal(<app>);
+        this.store.showModal(`<App />`);
     }
-</app>
+}
 ```
 
 Note that your `App` must be an `@observer`. This allows the MobX engine to infer which data store changes are interesting to your component.
@@ -104,27 +104,27 @@ For the modal component itself, we're using `simple-react-modal` because it's go
 ```javascript
 // src/App.js -> render()
 
-<modal
+<Modal
   show={this.store.modal.show}
-  closeonouterclick={true}
-  onclose={this.store.closeModal.bind(this.store)}
+  closeOnOuterClick={true}
+  onClose={this.store.closeModal.bind(this.store)}
 >
-  <a onclick={this.store.closeModal.bind(this.store)} style={closeStyle}>
+  <a onClick={this.store.closeModal.bind(this.store)} style={closeStyle}>
     X
   </a>
 
   {this.store.modal.body}
-</modal>
+</Modal>
 ```
 
 We're deferring to `simple-react-modal` to provide the `Modal` component and take care of the basic styling. Dark backdrop, centered white rectangle, that sort of thing.
 
 We tell it to show itself via the `show` prop, which we feed straight from our data store. To close our modal, we use the `store.closeModal` action, which sets `show` to `false`. Isn't that cool? Flipping a boolean makes a modal show or hide.
 
-For full flexibility, we use `this.store.modal.body` to render the modal's body. React makes it easy to store just about anything in that property. Even `<App />` itself… but only in debug mode ?
+For full flexibility, we use `{this.store.modal.body}` to render the modal's body. React makes it easy to store just about anything in that property. Even `<App />` itself… but only in debug mode ?
 
 And… yeah… that's about it, really. You can open modals from anywhere in your application that has access to the data store. Call `store.showModal(<stuff>)`, and it shows up. Call `store.closeModal()`, and it goes away.
 
 You could tie it to your routing and make it so users can refresh the page and keep the modal. I wish more webapps did that.
 
-PS: if you put the store in `window`, you can call actions in your browser console and see how your app reacts.
+PS: if you put the store in `{window}`, you can call actions in your browser console and see how your app reacts.

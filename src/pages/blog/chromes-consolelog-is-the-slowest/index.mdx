@@ -10,7 +10,7 @@ hero: ./img/1beeaq.jpg
 
 JavaScript is great. You can slice & dice huge datasets on the fly, and play with them, and explore them, and turn them into pictures. All live in the browser.
 
-Not “big data” huge, more like _“Holy shit 5 years ago this would crash my browser”_ huge. Like, you’re playing with a dataset on 177,830 salaries[1](#fn1-30036 "see footnote") in the US software industry, and your computer doesn’t even notice until you do something stupid.
+Not “big data” huge, more like _“Holy shit 5 years ago this would crash my browser”_ huge. Like, you’re playing with a dataset on 177,830 salaries[1](#fn1-30036) in the US software industry, and your computer doesn’t even notice until you do something stupid.
 
 Something like debug your code, reload a bunch of times, and maybe `console.log` the whole dataset to make sure it parsed.
 
@@ -28,7 +28,7 @@ It’s so annoying because everything else is so damn fast! Want to `.map` your 
 
 But debugging your code… eesh. Can’t console.log very well, React dev tools are glacial, and god forbid you try to inspect element if there are thousands of DOM nodes on the page.
 
-Not to mention the initial page setup. Loading and parsing the dataset (CSV) from cache takes about 3 seconds, running the initial `setState` takes about a second. That’s up to 5 seconds between every full page reload and seeing output.
+Not to mention the initial page setup. Loading and parsing the dataset (CSV) from cache takes about 3 seconds, running the initial `setState({data: foo})` takes about a second. That’s up to 5 seconds between every full page reload and seeing output.
 
 5 seconds might not sound like a lot, but it adds up. I don’t know about you, but I run my code at least once every minute. That’s 5 minutes of waiting every hour, 40 minutes in a work day, and 3 working hours in a week.
 
@@ -50,7 +50,7 @@ Firefox makes the output easy to work with, too. But it struggles if you quickly
 
 As far as presentation quality goes: Safari is shiniest, Firefox is practicalest, and Chrome is spartaniest.
 
-Oh, and Firefox wins the overall _“How long do I have to wait before I can test my code?”_ challenge as well[2](#fn2-30036 "see footnote"). You can shave a few milliseconds off the initial `setState({data: foo})` call.
+Oh, and Firefox wins the overall _“How long do I have to wait before I can test my code?”_ challenge as well[2](#fn2-30036). You can shave a few milliseconds off the initial `setState({data: foo})` call.
 
 ![](./img/o1xFBb0.png)
 

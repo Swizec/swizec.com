@@ -19,11 +19,11 @@ So [I built a better demo on stream](https://www.youtube.com/watch?v=6WRRf2ldixY
 
 You can [try the final React 18 startTransition demo here](https://react-fractals-git-react-18-swizec.vercel.app/)
 
-[![React 18 startTransition demo with lag indicator](./img/React-18-startTransition-demo-with-lag-indicatori62e87.gif)](https://react-fractals-git-react-18-swizec.vercel.app/)
+[React 18 startTransition demo with lag indicator](./img/React-18-startTransition-demo-with-lag-indicatori62e87.gif)
 
 The demo shows you what happens when every state change updates 1,000,000+ nodes. Slider on the left grows the tree, makes the problem worse – exponentially. Slider on top leans the tree, updates every node. Use it to see what happens :)
 
-Toggle the `Use startTransition` checkbox to compare behavior with and without the new feature. You should see your inputs laaaaaag without `startTransition`. When it's enabled, the urgent input update happens fast and the slow fractal updates later.
+Toggle the `{Use startTransition}` checkbox to compare behavior with and without the new feature. You should see your inputs laaaaaag without `{startTransition}`. When it's enabled, the urgent input update happens fast and the slow fractal updates later.
 
 If you don't see slowness, enable the artificial 0.1ms delay. That'll do it.
 
@@ -39,7 +39,7 @@ The [pythagoras tree](<https://en.wikipedia.org/wiki/Pythagoras_tree_(fractal)>)
 
 The left slider sets nesting level. At 20 (max) your computer will slow down for sure. My 2020 top-spec MacBook sure did 😅
 
-![Growing a fractal tree](./img/Growing-a-fractal-tree3fj237.gif)
+[Growing a fractal tree](./img/Growing-a-fractal-tree3fj237.gif)
 
 Each layer spawns 2 branches. Every update touches every branch. That's `2^20-1 = 1,048,575` updates for every change in lean angle.
 
@@ -61,23 +61,23 @@ React can pull it off because it breaks up the work instead of doing it all at o
 
 [Modern computers are fast, though](https://swizec.com/blog/screw-web-performance-just-wait-a-little/), so you can get away with a lot before you'll need to think about `startTransition`. Here's a comparison from last year:
 
-![2016 vs. 2020](./img/2016-vs-2020hfi56h.gif)
+[2016 vs. 2020](./img/2016-vs-2020hfi56h.gif)
 
 ## How we debugged the demo
 
-You can look at Chrome's performance tab to see what's up. You're looking for large chunks of synchronous work in event handlers – that's an opportunity for `startTransition`.
+You can look at Chrome's performance tab to see what's up. You're looking for large chunks of synchronous work in event handlers – that's an opportunity for `{startTransition}`.
 
-![Working code, startTransition disabled](./img/Working-code-startTransition-disabledi2c1a3.png)
+[Working code, startTransition disabled](./img/Working-code-startTransition-disabledi2c1a3.png)
 
-When you enable `startTransition`, those big chunks of work split into quick urgent updates followed by the computationally heavy work.
+When you enable `{startTransition}`, those big chunks of work split into quick urgent updates followed by the computationally heavy work.
 
-![startTransition enabled](./img/startTransition-enabledec927e.png)
+[startTransition enabled](./img/startTransition-enabledec927e.png)
 
-Quick way to test you're leveraging `startTransition` ✌️
+Quick way to test you're leveraging `{startTransition}` ✌️
 
 When I first showed my demo to Dan we found a fun alpha bug. An old Webpack polyfill from react-scripts 0.7 triggered a bug in React 18 alpha. Updates getting batched weirdly. They'll fix this before going stable.
 
-![Profiler view when startTransition didn't work](./img/Profiler-view-when-startTransition-didnt-work5c2j6a.png)
+[Profiler view when startTransition didn't work](./img/Profiler-view-when-startTransition-didnt-work5c2j6a.png)
 
 Always remember: realistic timing happens in production.
 
@@ -157,9 +157,9 @@ function changeTreeLean(event) {
 
 Looks weird to split state like that, but it makes sense. You're saying it's okay for these 2 components to be visually out of sync.
 
-Now the input field and the tree update separately. `startTransition` makes a big difference.
+Now the input field and the tree update separately. `{startTransition}` makes a big difference.
 
-[![React 18 startTransition demo](./img/React-18-startTransition-demo3284d8.gif)](https://react-fractals-git-react-18-swizec.vercel.app/)
+[React 18 startTransition demo](./img/React-18-startTransition-demo3284d8.gif)
 
 ### Use React.memo
 
@@ -169,7 +169,7 @@ const Pythagoras = React.memo(() => {
 })
 ```
 
-Wrap expensive components in `React.memo` to give `startTransition` a chance to kick in. React needs to know it's safe to split the render step.
+Wrap expensive components in `React.memo` to give `{startTransition}` a chance to kick in. React needs to know it's safe to split the render step.
 
 ## Show transitioning state
 
@@ -209,7 +209,7 @@ You'll [notice the tree fades out](https://react-fractals-git-react-18-swizec.ve
 
 Take React code from 2016, update to React 18 alpha, touch nothing else ... and it works. No bugs 😱
 
-Had to update `react-scripts` from 0.7 to 4.0 though. An old Webpack polyfill was killing `startTransition`.
+Had to update `react-scripts` from 0.7 to 4.0 though. An old Webpack polyfill was killing `{startTransition}`.
 
 That's why we torture alpha versions my friend. For bugs like that ✌️
 

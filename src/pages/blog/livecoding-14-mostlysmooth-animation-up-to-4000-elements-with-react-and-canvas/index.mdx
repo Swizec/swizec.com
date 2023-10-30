@@ -8,13 +8,11 @@ categories: "Front End, konva, react, react+d3js, reactjs, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
-_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Shorter than 500 words. With pictures. You can follow my channel [here](https://livecoding.tv/swizec). New content almost **every Sunday at 2pm PDT**. There’s live chat. ?_
+_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Shorter than 500 words. With pictures. You can follow my channel [here](https://livecoding.tv/swizec). New content almost every Sunday at 2pm PDT. There’s live chat._
 
-We did it! A few thousand elements smoothly animated with React and canvas! Hooray! \\o/
+We did it! A few thousand elements smoothly animated with React and canvas! Hooray! ![cheering](./img/4OLlufc.gif)
 
-It’s not perfect. We had to throw the baby away with the bath water and drop down a layer below React. The [`updateChildren` issue from last time](https://swizec.com/blog/livecoding-13-rendering-react-components-with-canvas/) proved too hard to solve. Too hard for _me_ to solve at least.
-
-![](./img/4OLlufc.gif)
+It’s not perfect. We had to throw the baby away with the bath water and drop down a layer below React. The [`updateChildren` issue from last time](https://swizec.com/blog/livecoding-13-rendering-react-components-with-canvas/) proved too hard to solve. Too hard for me to solve at least.
 
 We moved our particle rendering logic into `componentDidUpdate` and rolled up our sleeves. Without React’s help, we were forced to manually keep track of new and old particles.
 
@@ -25,11 +23,11 @@ It’s a garbage collection problem in a way. Animation works well the first tim
 The meat of our code looks like this:
 
 ```javascript
-componentDidUpdate() {
+`componentDidUpdate()` {
             let layer = this.refs.the_thing,
-                particles = this.props.particles,
-            for (let i = 0; i < particles.length; i++) {
-                let { id, x, y } = particles[i];
+                `particles` = this.props.`particles`,
+            for (let i = 0; i < `particles`.length; i++) {
+                let { id, x, y } = `particles`[i];
 
                 if (this._particles[id]) {
                     // move particle
@@ -57,15 +55,15 @@ Lovely. `new Circle` creates a particle, `.position` updates its position. `laye
 
 This is great, but it’s not perfect. When I stress-tested it later, I discovered an issue. At 4,000 particles, the animation becomes sad. At 7,000 particles, it’s disgusting.
 
-![](./img/Y6TDJFX.gif)
+![image](./img/Y6TDJFX.gif)
 
 So sad.
 
-Just for shits and giggles, I checked the original pure SVG implementation from a few weeks ago. To my surprise, _it works better_. Better! React renders and updates pure SVG faster than our hard-earned canvas code does.
+Just for shits and giggles, I checked the original pure SVG implementation from a few weeks ago. To my surprise, it works better. Better! React renders and updates pure SVG faster than our hard-earned canvas code does.
 
-![](./img/JWublnt.gif) It takes 7,000 elements to bog down the pure SVG implementation.
+![image](./img/JWublnt.gif) It takes 7,000 elements to bog down the pure SVG implementation.
 
-![](./img/UElqylu.gif) Ugh. So annoying. Back to the drawing board.
+![image](./img/UElqylu.gif) Ugh. So annoying. Back to the drawing board.
 
 There’s a sliver of hope. Take a good look at those gifs.
 

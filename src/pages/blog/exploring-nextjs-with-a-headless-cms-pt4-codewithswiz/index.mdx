@@ -6,7 +6,7 @@ categories: "CodeWithSwiz, Livecoding, Technical"
 hero: ./img/screenshot-1599748425535.png
 ---
 
-getStaticProps, environment vars, and why you shouldn't use yarn link – all in this episode of #CodeWithSwiz
+`getStaticProps`, environment vars, and why you shouldn't use `yarn link` – all in this episode of #CodeWithSwiz
 
 _CodeWithSwiz is a twice-a-week live show. Like a podcast with video and fun hacking. Focused on experiments. [Join live Wednesdays and Sundays](https://youtube.com/swizecteller)_
 
@@ -24,11 +24,11 @@ Paste markdown into the new `Markdown pasta 🍝` textarea and your article tran
 
 Check it out live on [swiz-cms.vercel.app](https://swiz-cms.vercel.app)
 
-[![Preview of markdown machinery](./img/Preview-of-markdown-machineryc69438.gif)](https://swiz-cms.vercel.app)
+[Preview of markdown machinery](./img/Preview-of-markdown-machineryc69438.gif)
 
-## Why yarn link is bad
+## Why `yarn link` is bad
 
-![Cryptic error about React hooks](./img/Cryptic-error-about-React-hooks4jghj1.png)
+[Cryptic error about React hooks](./img/Cryptic-error-about-React-hooks4jghj1.png)
 
 Much of our frustration budget was spent on this cryptic error. _"Naughty naughty, calling hooks in a class component"_
 
@@ -44,14 +44,16 @@ And it leads to having multiple instances of React in the same project. One from
 
 You have to publish your library for every change 😩
 
-    1. see bug
-    2. make change and pepper console logs
-    3. yarn build
-    4. git commit
-    5. npm version patch
-    6. npm publish
-    7. change to target project
-    8. yarn add library
+```
+1. see bug
+2. make change and pepper console logs
+3. yarn build
+4. git commit
+5. npm version patch
+6. npm publish
+7. change to target project
+8. yarn add library
+```
 
 For every change. Yeah it sucks. You learn to maximize debugging info for every change.
 
@@ -63,8 +65,10 @@ NextJS has fantastic support out of the box. We kinda guessed on stream and it w
 
 For local development, create a `.env.local` file. _Do not add to git_
 
-    // /.env.local
-    GIPHY_API_KEY=value
+```bash
+# /.env.local
+GIPHY_API_KEY=value
+```
 
 You can then read these variables on the server and during builds with `process.env.GIPHY_API_KEY`.
 
@@ -72,9 +76,9 @@ They're hidden from the browser for security reasons.
 
 For production and preview secrets, you should use Vercel's or Netlify's UI. They keep secrets encrypted and out of your codebase. Like it should be.
 
-![Prod, preview, dev secrets in Vercel](./img/Prod-preview-dev-secrets-in-Vercel8f710i.png)
+[Prod, preview, dev secrets in Vercel](./img/Prod-preview-dev-secrets-in-Vercel8f710i.png)
 
-## getStaticProps
+## `getStaticProps`
 
 Having env vars on the server and inside builds is great, but our `<LetterBuilder>` plugin needed them in the browser.
 

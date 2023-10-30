@@ -43,19 +43,19 @@ class Flamegraph extends React.Component {
             .range([0, width]);
 
         return (
-            <g transform="{`translate(${x}," ${y})`}="">
+            <g transform={`translate(${x}, ${y})`}>
                 {data.map((d, i) => {
                     const start = data
                         .slice(0, i)
                         .reduce((sum, d) => sum + d.value, 0);
 
                     return (
-                        <react class="fragment" key={`${level}-${d.name}`}>
-                            <flamerect x={xScale(start)} y={0} width={xScale(d.value)} height={RowHeight} name={d.name}>
+                        <React.Fragment key={`${level}-${d.name}`}>
+                            <FlameRect x={xScale(start)} y={0} width={xScale(d.value)} height={RowHeight} name={d.name}>
                             {d.children && (
-                                <flamegraph data={d.children} x={xScale(start)} y={RowHeight} width={xScale(d.value)} level="{level" +="" 1}="">
+                                <Flamegraph data={d.children} x={xScale(start)} y={RowHeight} width={xScale(d.value)} level={level + 1}>
                             )}
-                        </flamegraph></flamerect></react>
+                        </Flamegraph></FlameRect></React.Fragment>
                     );
                 })}
             </g>
@@ -70,7 +70,7 @@ Inside that element, we loop through the `data`, and for each entry, we create a
 
 We decide each element's `x` position based on the sum of all node values up to the current one. And we make sure the child `<Flamegraph>` uses the same width as the current node. This creates the neat stacking effect.
 
-![](https://swizec.com/wp-content/uploads/2018/06/flamegraph-screenshot.png)
+![Flamegraph Screenshot](https://swizec.com/wp-content/uploads/2018/06/flamegraph-screenshot.png)
 
 ###
 
@@ -111,10 +111,10 @@ class FlameRect extends React.Component {
         }
 
         return (
-            <g transform="{`translate(${x}," ${y})`}="" style={{ cursor: "pointer" }} onclick={this.onClick}>
+            <g transform={`translate(${x}, ${y})`} style={{ cursor: "pointer" }} onClick={this.onClick}>
                 <rect x={0} y={0} width={width} height={height} style={{ stroke: "white", fill: color }}>
                 {!hideLabel && (
-                    <text x={5} y={13} style={{ fontsize: "12px" }} ref={this.labelRefCallback}>
+                    <text x={5} y={13} style={{ fontSize: "12px" }} ref={this.labelRefCallback}>
                         {name}
                     </text>
                 )}

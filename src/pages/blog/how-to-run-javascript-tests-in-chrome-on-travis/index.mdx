@@ -8,7 +8,7 @@ categories: "Github, JavaScript, karma, Stack Overflow, Technical, testing"
 hero: ./img/images-26240.png
 ---
 
-![Pull request feedback](./img/images-26240.png "Pull request feedback")
+![Pull request feedback](./img/images-26240.png)
 
 You test your frontend code, right? And you've got a continuous integration system running, right? _Right?_
 
@@ -36,7 +36,7 @@ You want something that replicates your environment on a server, runs the tests 
 
 When you're working Karma runs in the terminal. That's where you see the output. But the tests themselves run in a browser or two.
 
-You point a browser at `http://localhost:9678` and Karma handles the rest.
+You point a browser at `{http://localhost:9678}` and Karma handles the rest.
 
 All fine and good. But you can't do that on Travis. Not directly at least.
 
@@ -44,7 +44,7 @@ People usually resort to PhantomJS. A headless browser that's happy without a GU
 
 I'm currently using CanJS, for instance. It uses a thing that doesn't work in current versions of PhantomJS. It's going to work in the future when PhantomJS catches up. But it doesn't yet.
 
-[Chrome](http://en.wikipedia.org/wiki/Google_Chrome "Google Chrome") is the only option.
+[Chrome](http://en.wikipedia.org/wiki/Google_Chrome) is the only option.
 
 ## The solution
 
@@ -61,11 +61,11 @@ before_install:
 
 We did three things:
 
-- set `CHROME_BIN` as chromium-browser, because that's what's installed
-- set up a fake `DISPLAY`
-- ran `xvfb`, which is a sort of GUI environment faker thingy. I'm not certain how it works, but it always shows up in these kinds of things.
+- set `{CHROME_BIN}` as chromium-browser, because that's what's installed
+- set up a fake `{DISPLAY}`
+- ran `{xvfb}`, which is a sort of GUI environment faker thingy. I'm not certain how it works, but it always shows up in these kinds of things.
 
-Then we uuse `karma.conf.js` to let Karma know, we need a special browser for Travis.
+Then we use `karma.conf.js` to let Karma know, we need a special browser for Travis.
 
 ```javascript
 var configuration = {
@@ -92,4 +92,4 @@ Simple.
 
 Our tests run both locally and on Travis. Rejoice!
 
-![Karma success](./img/images-26241.png "Karma success")
+![Karma success](./img/images-26241.png)

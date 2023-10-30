@@ -21,7 +21,7 @@ The gist is that:
 
 I've been waiting for this since [Experimenting with the new React Concurrent mode](https://swizec.com/blog/experimenting-with-the-new-react-concurrent-mode/) in November 2019 and [Time Slicing for visualizing large datasets](https://medium.com/@swizec/how-to-use-react-suspense-and-time-slicing-to-visualize-large-datasets-b35dd86d3756) in September 2018. I even tried to get [Gatsby working with Suspense](https://swizec.com/blog/towards-a-gatsbysuspense-proofofconcept/) in 2019, but that was clunky.
 
-![](giphy:giddy)
+![giddy](./img/giphy-giddy.png)
 
 ## The goods
 
@@ -81,7 +81,7 @@ Fantastic for large re-draws, data visualization, and anywhere your app feels a 
 
 This will help.
 
-![](giphy:giddy)
+![giddy](./img/giphy-giddy.png)
 
 [`startTransition`](https://github.com/reactwg/react-18/discussions/41) lets you mark an update as a transition. You could hack this with time slicing – `setTimeout` – but that's a delay and may lag. `startTransition` is synchronous.
 

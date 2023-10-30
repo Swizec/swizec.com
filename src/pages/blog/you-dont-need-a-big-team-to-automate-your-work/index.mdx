@@ -10,7 +10,7 @@ hero: ./img/hero.png
 
 The opposite of [folks who follow every FAANG trend](https://swizec.com/blog/how-cvdriven-development-shapes-our-industry/) and over-engineer their companies to death, are the folks who _never_ take advice from the big boys. The ones who read [my recap of Software Engineering at Google](https://swizec.com/blog/what-i-learned-from-software-engineering-at-google/) and said _"Yes of course Google can automate all that work, there's entire teams focusing on that! We gotta grind it out! Ain't nobody got time to make their lives easier!!"_
 
-![](giphy:fillion_speechless)
+![giphy: fillion_speechless](giphy:fillion_speechless)
 
 _You_ can automate your work and speed up your team. That's what engineering is all about! Making tools that improve people's lives. Yours included.
 
@@ -61,23 +61,27 @@ Remember, you don't know what everyone else is doing.
 
 When you're ready, you run a series of commands:
 
-    cd ../database
-    git checkout develop
-    git pull origin develop
-    git checkout staging
-    git pull origin staging
-    git merge develop
-    git push origin staging
+```bash
+cd ../database
+git checkout develop
+git pull origin develop
+git checkout staging
+git pull origin staging
+git merge develop
+git push origin staging
+```
 
 Get the latest `develop` database and the latest `staging` database. Merge. Push.
 
-    cd ../microservice1
-    git checkout develop
-    git pull origin develop
-    git checkout staging
-    git pull origin staging
-    git merge develop
-    git push origin staging
+```bash
+cd ../microservice1
+git checkout develop
+git pull origin develop
+git checkout staging
+git pull origin staging
+git merge develop
+git push origin staging
+```
 
 Do the same for the first microservice. Then the second. Then the third. Then you forget the fourth, do the fifth, and oh hey production bug!
 
@@ -102,7 +106,7 @@ git push origin staging
 
 Put that in every repository, call it `deploy.sh`. Now you can deploy with `./deploy`. Saves 20 seconds per service, is always correct.
 
-![](giphy:wonderful)
+![giphy: wonderful](giphy:wonderful)
 
 ### 4. make a better script
 
@@ -144,11 +148,11 @@ async function deployRepository(path) {
 }
 ```
 
-[Prompts](https://github.com/terkelg/prompts) lets you ask for user input – *"Are you ready to deploy?"* in this case. If they answer "yes", you deploy.
+`{Prompts}` lets you ask for user input – *"Are you ready to deploy?"* in this case. If they answer "yes", you deploy.
 
-Mechanically iterate through the list of commands, use `execSync` to run them in your desired directory – `cwd` – then use [chalk](https://github.com/chalk/chalk) to print a green success message.
+Mechanically iterate through the list of commands, use `{execSync}` to run them in your desired directory – `{cwd}` – then use {chalk} to print a green success message.
 
-Run `deployRepository` in a loop over every microservice and you have yourself a huge timesaver!
+Run `{deployRepository}` in a loop over every microservice and you have yourself a huge timesaver!
 
     node deployAll.js
 

@@ -10,7 +10,7 @@ hero: ./img/HmFKU.png
 
 A while ago I wrote about my school project that involves [generating pretty trees](https://swizec.com/blog/using-prime-numbers-to-generate-pretty-trees/ "Using prime numbers to generate pretty trees") and concluded the post with the idea that I now have to implement some way for the branch lengths to be a bit [random](http://en.wikipedia.org/wiki/Randomness "Randomness") to add more variability.
 
-![Awesome-pantallazo](./img/Awesome-pantallazohe828b.png "Awesome-pantallazo")
+![Awesome-pantallazo](./img/Awesome-pantallazohe828b.png)
 
 There is an easy and an awesome way to doing this. The easy way involves doing everything as usual and then simply adding a small random buzz, fuzz or whatever you could call it to the length of a branch. Obviously this approach would work and the branches wouldn't be of uniform length anymore ... but there's just no fun in that. The results it produces also aren't quite that awesome.
 
@@ -20,7 +20,7 @@ First a little background on how branch lengths were calculated originally. Ever
 
 I wanted to expand on that by randomly selecting a multiplier from the list for every branch I'm looking at. As you can probably expect, this produced rather funny looking trees.
 
-![](./img/HmFKU.png "Random random branch lengths")
+![Random random branch lengths](./img/HmFKU.png)
 
 What's needed is a way to randomly choose the length of a branch, but [probabilistically](http://en.wikipedia.org/wiki/Probability "Probability") making sure that branches on deeper levels of the tree are shorter than the ones before them. This leads us to the idea of needing a weighed random that has a slightly higher probability of returning a certain length over others.
 
@@ -48,7 +48,7 @@ Here's what the final function looks like
        (rand-nth (indexes))))
 ```
 
-![](./img/4pcaV.png "Probability distribution")
+![Probability distribution](./img/4pcaV.png)
 
 To be honest I still haven't quite figured out a good probability distribution to get perfectly looking trees, but here's my current [weight function](http://en.wikipedia.org/wiki/Weight_function "Weight function"). I like to think of it as mathematically somewhat elegant, but it might be a bit slow to calculate at times ... seems to have quite an impact on generating trees when the maximum depth is big-ish. And I need it to have a bigger drop off on the left side where the longer branches are.
 
@@ -64,4 +64,3 @@ To be honest I still haven't quite figured out a good probability distribution t
 ```
 
 Pivot is where the highest probability density needs to be and usually denotes the current depth we are at. If you see anything wrong with my approach go ahead and tell me :)
-

@@ -10,7 +10,7 @@ hero: ../../../defaultHero.jpg
 
 Yesterday I tried [Svelte](https://svelte.dev/) to see what all the fuss is about. Version 3.0.0 came out recently and it smells like Svelte is ready for the big time.
 
-[![](./img/zontalsvgg11a18.svg)](https://svelte.dev/)
+![svelte logo](./img/zontalsvgg11a18.svg)
 
 You can watch the livestream here 👇
 
@@ -33,7 +33,7 @@ Building with Svelte feels like magic. Lemme show you 👇
 
 We built a Marvel Movie timeline; 22 movies sorted by their timeline inside the Marvel Cinematic Universe. The [AMC website](https://www.amctheatres.com/amc-scene/the-best-way-to-rewatch-the-mcu) helped out with a list coz I had no idea there were so many Marvel movies 😅
 
-[![](./img/aedDYza.gif)](https://svelte-app-wswwlsldbg.now.sh/)
+![marvel app demo](./img/aedDYza.gif)
 
 Click 👆 to try it in action. Total JavaScript size just 17.2KB, or 7.2KB when compressed for transfer.
 
@@ -107,11 +107,11 @@ Our `App.svelte` component looks like this.
     <div class="grid-container">
       <Header />
 
-      <button on:click={prevMovie} style="grid-area:b1">👈</button>
+      <button on:click="{prevMovie}" style="grid-area:b1">👈</button>
 
       <Movie {...MarvelMovies[index]} />
 
-      <button on:click={nextMovie} style="grid-area:b3">👉</button>
+      <button on:click="{nextMovie}" style="grid-area:b3">👉</button>
 
       <Footer />
     </div>
@@ -127,7 +127,7 @@ A few interesting things to note about `App.svelte`:
 - Your CSS is scoped to your component so there's no bleed-over
 - Your HTML free-floats at the bottom
 - Just like in JSX, Svelte components become HTML-like elements
-- Dynamic values go in curly braces, `{}`, same as JSX
+- Dynamic values go in `{}` backticks, same as JSX
 
 My favorite way to use custom components and add dynamic values to HTML. Vue's approach never quite made sense to me 😇
 
@@ -183,7 +183,7 @@ Where I think Svelte really shines is building components for re-use. Like the `
       <h2>{title}</h2>
 
       <div class="thumbnail">
-        <img src={image} alt={`${title} movie thumbnail`} />
+        <img src="{image}" alt="{`${title} movie thumbnail`}" />
       </div>
 
       <p>{description}</p>
@@ -275,17 +275,17 @@ function prevMovie() {
 }
 ```
 
-Define a variable, `index`, change it inside methods. When its value changes, the component re-renders.
+Define a variable, `{index}`, change it inside methods. When its value changes, the component re-renders.
 
 😍
 
-As far as I understand, Svelte is smart enough to re-render only the HTML nodes that rely on the `index` variable. Sort of like what you can achieve with MobX and React if you're super careful.
+As far as I understand, Svelte is smart enough to re-render only the HTML nodes that rely on the `{index}` variable. Sort of like what you can achieve with MobX and React if you're super careful.
 
 This does seem easier than React's `setState`. Less to think about.
 
 However, reactivity can come to bite you in the butt with more complex apps. Sometimes it leads to an effect like screen tearing where parts of the UI update before everything is ready.
 
-Imagine if instead of changing `index`, each button click changed `title`, `image`, and `description` separately. You might get each part of the UI updating on its own without waiting for all 3 to finish changing.
+Imagine if instead of changing `{index}`, each button click changed `{title}`, `{image}`, and `{description}` separately. You might get each part of the UI updating on its own without waiting for all 3 to finish changing.
 
 For that, Svelte comes with a built-in [dispatcher](https://svelte.dev/docs#createEventDispatcher). I haven't used it, but looks like it gives you functionality similar to Redux.
 
@@ -301,7 +301,7 @@ We used the `on:` directive to make buttons work
 <button on:click="{prevMovie}" style="grid-area:b1">👈</button>
 ```
 
-Call the `prevMovie` function when the button is clicked.
+Call the `{prevMovie}` function when the button is clicked.
 
 That's it. No binding. No passing params. No nothing. Svelte figures it all out on its own.
 

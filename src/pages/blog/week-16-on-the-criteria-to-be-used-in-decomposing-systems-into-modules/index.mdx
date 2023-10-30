@@ -10,7 +10,7 @@ hero: ../../../defaultHero.jpg
 
 _\[This post is part of an ongoing challenge to understand 52 papers in 52 weeks. You can read previous entries, [here](https://swizec.com/blog/category/52-papers-in-52-weeks), or subscribe to be notified of new posts by [email](http://swiz.ec/52papers-list)]_
 
-In December 1972, David L. Parnas published [_On The Criteria To Be Used In Decomposing Systems Into Modules_](https://www.cs.umd.edu/class/spring2003/cmsc838p/Design/criteria.pdf) and set the stage for the concept of [information hiding](http://en.wikipedia.org/wiki/Information_hiding "Information hiding") in systems design.
+In December 1972, David L. Parnas published [_On The Criteria To Be Used In Decomposing Systems Into Modules_](https://www.cs.umd.edu/class/spring2003/cmsc838p/Design/criteria.pdf) and set the stage for the concept of [information hiding](http://en.wikipedia.org/wiki/Information_hiding) in systems design.
 
 Information hiding is one the main principles used in modern programming so this paper is one big d'oh. But remember, this was written **42 years ago**.
 
@@ -18,7 +18,7 @@ Then again, I run into code that forces me to intimately understand its internal
 
 ## What is modularization
 
-[Modularization](http://en.wikipedia.org/wiki/Modularity "Modularity") gives us three main benefits:
+[Modularization](http://en.wikipedia.org/wiki/Modularity) gives us three main benefits:
 
 1.  shorter dev time - teams can work in parallel
 2.  flexibility - you can change parts of system without affecting others
@@ -26,7 +26,7 @@ Then again, I run into code that forces me to intimately understand its internal
 
 Mind you, we aren't talking about subprograms or objects or whatever. Modularization is something you have to do _before_ any of that, when you're just deciding how to split a problem into responsibilities.
 
-For example, let's take a simple [KWIC index](http://en.wikipedia.org/wiki/Key_Word_in_Context "Key Word in Context"). You get an ordered set of lines, which contains an ordered set of words, which are ordered sets of characters. Lines can be circularly shifted by taking the first word and placing it at the end.
+For example, let's take a simple [KWIC index](http://en.wikipedia.org/wiki/Key_Word_in_Context). You get an ordered set of lines, which contains an ordered set of words, which are ordered sets of characters. Lines can be circularly shifted by taking the first word and placing it at the end.
 
 The KWIC system outputs a listing of all circular shifts in alphabetical order.
 
@@ -35,7 +35,7 @@ These days, that's not very difficult. But in 1972 this was a problem that would
 He proposes two different modularizations:
 
 1.  Input module - reads data lines, stores them in the core for further processing
-2.  [Circular Shift](http://en.wikipedia.org/wiki/Circular_shift "Circular shift") module - prepares an index of circular shifts
+2.  [Circular Shift](http://en.wikipedia.org/wiki/Circular_shift) module - prepares an index of circular shifts
 3.  Alphabetizing module - uses the previous results to alphabetize the circular shift index
 4.  Output module - uses the alphabetized index and stored lines to create a nice output
 5.  Master Control module - makes sure other modules are called in the right order
@@ -97,4 +97,4 @@ We build tightly coupled systems just because it's the first thing that comes to
 
 Code like that sucks to work with so keep information hiding in mind next time you can no longer decide where a new function is supposed to go.
 
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=1cd36eb5-c19b-4e2b-9e2a-90c200f1aec0)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+[Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=1cd36eb5-c19b-4e2b-9e2a-90c200f1aec0)

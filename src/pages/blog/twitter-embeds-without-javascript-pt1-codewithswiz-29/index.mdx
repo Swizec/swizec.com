@@ -8,7 +8,7 @@ hero: ./img/screenshot-1620145256168.png
 
 Continuing our [quest for better Lighthouse scores, more reader privacy, and less JavaScript](https://swizec.com/blog/2-quick-tips-for-250percent-better-lighthouse-scores-codewithswiz-28/), today we attacked the next biggest culprit 👉 Twitter.
 
-![](./img/JhOjnXjpg3bfa13.jpeg)
+![Image](./img/JhOjnXjpg3bfa13.jpeg)
 
 560KB of JavaScript to display unchanging tweets 😱
 
@@ -78,7 +78,7 @@ _And_ you can hook into the embed process with custom plugins. 🤘
 resolve: "gatsby-remark-embedder",
 options: {
 	// StaticTwitterEmbed is new
-  customTransformers: [YoutubeTransformer, StaticTwitterEmbed],
+  customTransformers: [YoutubeTransformer, `StaticTwitterEmbed`],
   services: {
     Instagram: {
       accessToken: process.env.INSTAGRAM_OEMBED_TOKEN,

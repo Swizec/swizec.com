@@ -25,7 +25,7 @@ const bird = {
 console.log(user.address?.street)
 ```
 
-If `.` is chaining, then `?` is the optional part. Obvious.
+If `{.}` is chaining, then `{?}` is the optional part. Obvious.
 
 And wrong. `?.` is the [optional chaining operator for JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining).
 
@@ -57,7 +57,7 @@ const BirdButton = (props: { bird: Bird; onClick?: Function }) => {
 }
 ```
 
-The `?` in TypeScript types means "possibly undefined". The `?.` in JavaScript lets you use that ergonomically. No more `onClick && onClick()` 😍
+The `{?}` in TypeScript types means "possibly undefined". The `?.` in JavaScript lets you use that ergonomically. No more `onClick && onClick()` 😍
 
 You can use `<BirdButton>` all these ways:
 
@@ -79,7 +79,7 @@ You can use `<BirdButton>` all these ways:
 
 Browser and server environment support is good except you need the latest Safari and recent NodeJS.
 
-![Optional chaining browser support](./img/Optional-chaining-browser-supporti6e3fg.png)
+[Optional chaining browser support](./img/Optional-chaining-browser-supporti6e3fg.png)
 
 Not a concern, if you're using a build step in your code like Babel or TSC. Make sure you regularly update your `browserlist` because I hear Babel turns `?.` into lots of code.
 

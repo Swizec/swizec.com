@@ -16,13 +16,13 @@ First we had the `style` prop and that sucked. I hated CSS-in-JS and thought it 
 
 Then came experiments.
 
-Can we make the style prop easier to use? Can we still use class names to style with BEM like we used to? What about CSS files with fat semantic classes? Scoped styles maybe?
+Can we make the `style` prop easier to use? Can we still use class names to style with BEM like we used to? What about CSS files with fat semantic classes? Scoped styles maybe?
 
 None of it quite worked. Everything was awkward in some way.
 
-The style prop is great for individual components and breaks down when you want to change your general font size.
+The `style` prop is great for individual components and breaks down when you want to change your general font size.
 
-Class names give you all the power of CSS and BEM (tiny classes like .font1 .bold .bla). And it breaks down when you reuse components like building blocks. A component has the color defined and if you want to overwrite that you need something that understands classes and decides which one takes power and ugh don't get me started.
+Class names give you all the power of CSS and BEM (tiny classes like `.font1 .bold .bla`). And it breaks down when you reuse components like building blocks. A component has the color defined and if you want to overwrite that you need something that understands classes and decides which one takes power and ugh don't get me started.
 
 I may have once tried to make that work ...
 
@@ -30,7 +30,7 @@ Scoped CSS is better. That's what Vue uses. But it still sucks, if you ask me. Y
 
 But then, then some beautiful soul came up with [styled-components](https://www.styled-components.com/). I was in love.
 
-All the simplicity of scoped CSS with the power of the style prop. You write CSS, yes, _but you can inject JavaScript too_.
+All the simplicity of scoped CSS with the power of the `style` prop. You write CSS, yes, _but you can inject JavaScript too_.
 
 ![](./img/media-26FLdmIp6wJr91JAI-giphy.gif)
 
@@ -40,13 +40,13 @@ The best way to make my argument is with an example. I recently implemented a co
 
 Styled components and a couple libraries [@Diegohaz](https://twitter.com/diegohaz) built on top made it so easy it feels like cheating.
 
-https://twitter.com/Swizec/status/1090146315361636352?ref_src=twsrc%5Etfw
+`https://twitter.com/Swizec/status/1090146315361636352?ref_src=twsrc%5Etfw`
 
 You have 9 steps. Each a different color once done. Blank with a grey outline otherwise.
 
 Here's a CodeSandbox you can try.
 
-https://codesandbox.io/s/vy3ll0220
+`https://codesandbox.io/s/vy3ll0220`
 
 Pretty isn't it? I think it is.
 
@@ -70,9 +70,9 @@ export default ({ step, maxSteps }) => (
 
 Yep that's it. 12 lines of code.
 
-A `<Stepper>` component, the default export, takes the current `step` and max number of steps, `maxSteps`. It renders a `<Steps>` component which deals with layouting. Inside goes an array of `<Step>`s.
+A `<Stepper>` component, the default export, takes the current `{step}` and max number of steps, `{maxSteps}`. It renders a `<Steps>` component which deals with layouting. Inside goes an array of `<Step>`s.
 
-Each `<Step>` gets an index, a flag saying whether it's `last`, and whether it's been `done` yet. Highlighted vs. unhighlighted state.
+Each `<Step>` gets an index, a flag saying whether it's `{last}`, and whether it's been `{done}` yet. Highlighted vs. unhighlighted state.
 
 Steps render a `<Circle>` component, pass-in the props, and inside goes either a number or a star emoji. Star is last.
 
@@ -162,7 +162,7 @@ border-radius: 100%;
 border: 1px solid;
 ```
 
-Border and background color come from our `theme`, based on the combination of `index` and `done` props.
+Border and background color come from our `theme`, based on the combination of `{index}` and `{done}` props.
 
 ```javascript
     border-color: ${ifProp(
@@ -179,9 +179,9 @@ Border and background color come from our `theme`, based on the combination of `
 
 Here's how you read that:
 
-1.  If prop `done` is true, get first argument, otherwise the second.
-2.  With prop `index` run method.
-3.  Get the `steps` palette from theme and take the `index` color.
+1.  If prop `{done}` is true, get first argument, otherwise the second.
+2.  With prop `{index}` run method.
+3.  Get the `steps` palette from theme and take the `{index}` color.
 4.  Otherwise, get the `grey` palette and take the `2`nd color
 
 Palettes are arrays in your theme object. Pure JavaScript. You can see it in the CodeSandbox above.
@@ -192,7 +192,7 @@ A similar process gives you the font color.
     color: ${ifProp("done", "white", palette("grey", 2))};
 ```
 
-If step is `done`, color is `white`, otherwise the 2nd color from the `grey` palette.
+If step is `{done}`, color is `white`, otherwise the 2nd color from the `grey` palette.
 
 Then we have font size, bold fonts, widths and heights, and other normal CSS stuff to round off each step.
 

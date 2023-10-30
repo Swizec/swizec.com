@@ -16,26 +16,26 @@ https://twitter.com/Swizec/status/943380787528835072
 
 You're given a large list of particles that each have a velocity vector and an acceleration vector. Velocity tells you where they move and how fast. Acceleration tells you how velocity changes.
 
-You then have to figure out which particle will stay closest to the center – `<0,0,0>` – in the "long term".
+You then have to figure out which particle will stay closest to the center – `{<0,0,0>}` – in the "long term".
 
 You can math this.
 
-![](https://swizec.com/wp-content/uploads/2017/12/advent-of-code-day20-particles-1024x575.jpg)
+![Advent of Code Day 20 Particles](https://swizec.com/wp-content/uploads/2017/12/advent-of-code-day20-particles-1024x575.jpg)
 
 The particle that is _accelerating_ away from center the slowest is the particle that will eventually stay the closest.
 
 This makes sense when you think about it. No matter the initial position or velocity, each particle is either accelerating towards the center, or a way from it. Even if a particle is moving towards the center, it can still be accelerating away from center. Eventually it will fly far far away.
 
-Say a particle starts at `p = <3,0,0>` and is moving away from center at `v = <3,0,0>`, but its acceleration is towards center – `a = <-1,0,0>`. If we iterate through each tick of the simulation, you'll see what I mean 👇
+Say a particle starts at `p = {<3,0,0>}` and is moving away from center at `v = {<3,0,0>}`, but its acceleration is towards center – `a = {<-1,0,0>}`. If we iterate through each tick of the simulation, you'll see what I mean 👇
 
 ```
-    p = <3,0,0>  v=<3,0,0>  a = <-1,0,0>
-    p = <5,0,0>  v=<2,0,0>  a = <-1,0,0>
-    p = <6,0,0>  v=<1,0,0>  a = <-1,0,0>
-    p = <6,0,0>  v=<0,0,0>  a = <-1,0,0>
-    p = <5,0,0>  v=<-1,0,0> a = <-1,0,0>
-    p = <3,0,0>  v=<-2,0,0> a = <-1,0,0>
-    p = <0,0,0>  v=<-3,0,0> a = <-1,0,0>
+    p = {<3,0,0>}  v={<3,0,0>}  a = {<-1,0,0>}
+    p = {<5,0,0>}  v={<2,0,0>}  a = {<-1,0,0>}
+    p = {<6,0,0>}  v={<1,0,0>}  a = {<-1,0,0>}
+    p = {<6,0,0>}  v={<0,0,0>}  a = {<-1,0,0>}
+    p = {<5,0,0>}  v={<-1,0,0>} a = {<-1,0,0>}
+    p = {<3,0,0>}  v={<-2,0,0>} a = {<-1,0,0>}
+    p = {<0,0,0>}  v={<-3,0,0>} a = {<-1,0,0>}
     ...
 ```
 

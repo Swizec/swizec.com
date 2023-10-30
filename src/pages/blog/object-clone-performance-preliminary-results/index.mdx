@@ -23,7 +23,7 @@ The experiment is set up like this:
 Each individual experiment uses this runner:
 
 ```javascript
-runner(name, method) {
+runner(`{name, method}`) {
         const times = d3.range(0, this.N).map(() => {
             const t1 = new Date();
 
@@ -34,7 +34,7 @@ runner(name, method) {
         });
 
         let results = this.state.results;
-        results.push({name: name,
+        results.push({name: `{name}`,
                       avg: d3.mean(times)});
 
         this.setState({results: results});

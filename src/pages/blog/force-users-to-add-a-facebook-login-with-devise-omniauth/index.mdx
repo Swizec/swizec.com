@@ -14,17 +14,17 @@ Now you want to force some users to add a facebook login to their account. Maybe
 
 It seems like you might need to add a custom Devise strategy. You start googling. Doesn't seem like a lot of work, you just extend `Authorizable` and override the `authorize!` function and then ... do _something_. Seems you'll have to mostly override how authorization works. Will that play well with `omniauthable`?
 
-But that only solves the problem of forcing [Facebook](http://en.wikipedia.org/wiki/Facebook "Facebook") on authorization. Who's going to check the conditions on every page load and sign the user out?
+But that only solves the problem of forcing [Facebook](http://en.wikipedia.org/wiki/Facebook) on authorization. Who's going to check the conditions on every page load and sign the user out?
 
 You set up a filter. Put it in `application_controller` and it's just a big mess. You're still not sure how to tie everything together and the clusterfuck of code is growing and growing.
 
-[https://twitter.com/Swizec/statuses/347024137086173185](https://twitter.com/Swizec/statuses/347024137086173185)
+[Swizec's tweet](https://twitter.com/Swizec/statuses/347024137086173185)
 
 ## Force FB with just 19 sloc
 
 There's a better way!
 
-I stumbled on this solution almost by accident after ending up on an obscure API doc page on my gazillionth google search. Turns out you can force a user to sign up with facebook in just under 19 [lines of code](http://en.wikipedia.org/wiki/Source_lines_of_code "Source lines of code").
+I stumbled on this solution almost by accident after ending up on an obscure API doc page on my gazillionth google search. Turns out you can force a user to sign up with facebook in just under 19 [lines of code](http://en.wikipedia.org/wiki/Source_lines_of_code).
 
 We have to extend how _models_ behave, not create a new Devise strategy. The function we're looking to override is `active_for_authentication?`.
 
@@ -69,4 +69,4 @@ It took me four days to come up with those 19 lines of code because nobody's wri
 
 PS: testing this works the same as testing any other model methods.
 
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=98e2b5a1-87ba-4afc-b043-b54b490c314d)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+[Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=98e2b5a1-87ba-4afc-b043-b54b490c314d)

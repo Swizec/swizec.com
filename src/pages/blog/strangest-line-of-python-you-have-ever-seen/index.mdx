@@ -21,7 +21,7 @@ Essentially they were looking for the shortest implementation of an algorithm th
 @zidarsk8 doesn't really know python all that well so his way to optimize things was basically "SHORTEN ALL THE CODES!" and as a result he came up with this line _nobody_ understands.
 
 ```python
-state = [st for s in state for st in states[(s,letter)]]
+state = `[st for s in state for st in states[(s,letter)]]`
 ```
 
 At first it looks just like a double loop. But then you notice the right-most for is taking the list to iterate over from its own body, which is the iterator of the left-most for loop ...
@@ -39,12 +39,12 @@ from collections import defaultdict
 def run(beseda):
        a, states = open("machine.txt") ,defaultdict(list)
        state, final= a.readline().split()[1:],a.readline().split()[1:]
-       [states[(i.split()[0], i.split()[1])].append(i.split()[3]) for i in a]
+       `[states[(i.split()[0], i.split()[1])].append(i.split()[3]) for i in a]`
        for letter in word:
-               state = [st for s in state for st in states[(s,letter)]]
+               state = `[st for s in state for st in states[(s,letter)]]`
        return any(i in state for i in final)
 
-print [(b,"YES") if run(b) else (b,"NO") for b in OptionParser().parse_args()[1]]
+print `[(b,"YES") if run(b) else (b,"NO") for b in OptionParser().parse_args()[1]]`
 ```
 
 According to our best debugging efforts it works as advertised ... even though we can't actually understand _why_ or how it's even possible that python knows what to do.

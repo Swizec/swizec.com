@@ -17,7 +17,7 @@ https://twitter.com/Swizec/status/1164413095319494656
 
 Screenshots don't have gifs, here:
 
-![](./img/media-EtB1yylKGGAUg-giphy.gif)
+![gif](./img/media-EtB1yylKGGAUg-giphy.gif)
 
 I'm writing this so you don't have to read 8234721 different blog posts, stack overflow answers, and GitHub threads with conflicting info on how to get Jest and fetch to play together.
 
@@ -32,7 +32,7 @@ A couple of ground rules:
 1.  **Our test suite must work offline.** You shouldn't be blocked from coding just because you're on an airplane even if coding on an airplane is a terrible idea and you should really get some sleep instead.
 2.  **Our test suite must be reliable.** You don't want to get different results running at different times. No expiring API keys, no changing responses, no network failures.
 
-We're using Jest because it's winning the JavaScript and TypeScript testing market. fetch() because it's the standard way to make API requests.
+We're using Jest because it's winning the JavaScript and TypeScript testing market. `fetch()` because it's the standard way to make API requests.
 
 Our ground rules mean we have to mock requests – make them return a static object that we set up. Recording and replaying requests would be cool, but as far as I can tell [Ruby VCR](https://github.com/vcr/vcr) hasn't made it to the JavaScript world yet.
 
@@ -87,7 +87,7 @@ Jest has built-in support for mocking entire libraries. That was a nice discover
 
 You put files in a `__mocks__` directory and they overwrite the library you're calling.
 
-![magic giphy](./img/media-12NUbkX6p4xOO4-giphy.gif)
+![gif](./img/media-12NUbkX6p4xOO4-giphy.gif)
 
 To use `fetch-mock` instead of `isomorphic-fetch` in your tests, create a file like this:
 

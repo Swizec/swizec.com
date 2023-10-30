@@ -11,7 +11,7 @@ import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
 Friend, ever seen this meme about the bloat of VC-backed startups?
 
-![](./img/SzYypgjpgchiaa3.jpeg)
+![running joke](./img/SzYypgjpgchiaa3.jpeg)
 
 It's a running joke in the industry. Startup gets funded, startup shovels money into the AWS furnace, Bezos gets rich.
 
@@ -35,7 +35,7 @@ He's right. How much is your time worth? What about your focus?
 
 Would you rather build your project, launch-and-forget, then get back to work ... ooooor spend 20 minutes every other week because your server's down again? I'm sure _you_ like to fret every moment of every day about the alarm that says _"Shit's on fire, user can't do the thing"_
 
-<ContentUpgrades.ServerlessHandbook />
+`<ContentUpgrades.ServerlessHandbook />`
 
 That's advanced for a side-project. Usually it's a user that complains on twitter. You had no idea your app's been down for 3 days 😅
 
@@ -45,7 +45,7 @@ I like the launch-and-forget approach.
 
 `yarn deploy`, wait 3 minutes, ✅
 
-![](giphy:perfection)
+![giphy perfection](giphy:perfection)
 
 Here's what my $12 AWS bill solves:
 
@@ -67,8 +67,8 @@ Here's what it does:
 
 1.  User makes a purchase
 2.  Gumroad sends POST request to a URL
-3.  AWS Gateway routes the request
-4.  AWS Lambda wakes up a new server
+3.  `AWS Gateway` routes the request
+4.  `AWS Lambda` wakes up a new server
 5.  Server runs 20 lines of JavaScript
 6.  Calls API on Auth0
 7.  Creates user, if needed
@@ -100,7 +100,7 @@ But you can throw _anything_ at it!
 
 Up to 1000 embeds in parallel, all good. Embed breaks the code? No worries, running on a separate server from all others. Chrome hangs? Pfft, start a new one!
 
-Resilience managed by AWS Lambda. I never need to think about it 😇
+Resilience managed by `AWS Lambda`. I never need to think about it 😇
 
 ### Reader feedback
 
@@ -118,7 +118,7 @@ One of these days I'll rebuild the frontend to look nicer, but the serverless ba
 
 Friend, my point is that running server code on the web has become ridiculously cheap _and_ easy.
 
-My $12 bill runs all of the above, the biggest cost is serving images from S3 – $5 for hosting, $3 for bandwidth. The smarts running on AWS Lambda are _way_ below the free tier.
+My $12 bill runs all of the above, the biggest cost is serving images from S3 – $5 for hosting, $3 for bandwidth. The smarts running on `AWS Lambda` are _way_ below the free tier.
 
 ![Lambda is free](./img/Lambda-is-freedf7cb4.png)
 

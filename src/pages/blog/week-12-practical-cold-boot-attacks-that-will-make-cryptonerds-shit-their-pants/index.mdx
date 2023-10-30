@@ -10,11 +10,11 @@ hero: ./img/images-7410.png
 
 _ This post is part of an ongoing challenge to understand 52 papers in 52 weeks. You can read previous entries, [here](https://swizec.com/categories/52papers52weeks/) _
 
-![xkcd, cryptonerds](./img/images-7410.png "xkcd, cryptonerds")
+![xkcd, cryptonerds](./img/images-7410.png)
 
 Did you know there was a whole class of attacks that can easily get into your fancy whole-disk-encrypted, pass-phrase protected laptop? Cold boot attacks. Scariest security stuff I've ever read about.
 
-Well, almost as scary as that attack where they can listen to the [USB cord](http://en.wikipedia.org/wiki/Universal_Serial_Bus "Universal Serial Bus") of your keyboard from a distance and sniff out your password ...
+Well, almost as scary as that attack where they can listen to the [USB cord](http://en.wikipedia.org/wiki/Universal_Serial_Bus) of your keyboard from a distance and sniff out your password ...
 
 But I've always assumed my laptop was safe. Hard drive is encrypted. Passcode turns on quickly. Passcode is long. Passcode is hard to type when you're drunk.
 
@@ -24,17 +24,17 @@ Safe!
 
 Except not safe at all. [Lest we remember](https://citp.princeton.edu/research/memory/), by Halderman et al. tells us that all an attacker needs to do to get into my fancy FileVaulted laptop is steal it when it's still turned on. Or in sleep. Or maybe even in hibernate.
 
-A [cold boot attack](http://en.wikipedia.org/wiki/Cold_boot_attack "Cold boot attack") works in three stages:
+A [cold boot attack](http://en.wikipedia.org/wiki/Cold_boot_attack) works in three stages:
 
 - gain physical access to machine
 - power-cycle the machine to a special kernel
 - read and abuse memory
 
-Despite what most people believe, [DRAM](http://en.wikipedia.org/wiki/Dynamic_random-access_memory "Dynamic random-access memory") doesn't lose its contents as soon as you turn it off. It holds memory for a couple of seconds even at room temperature. With sufficient cooling (liquid nitrogen) researchers have observed a decay of just 0.17% after 60 minutes out of a computer!
+Despite what most people believe, [DRAM](http://en.wikipedia.org/wiki/Dynamic_random-access_memory) doesn't lose its contents as soon as you turn it off. It holds memory for a couple of seconds even at room temperature. With sufficient cooling (liquid nitrogen) researchers have observed a decay of just 0.17% after 60 minutes out of a computer!
 
 60 minutes is a long time. Crypto nerd inside you trembling yet?
 
-The authors even created algorithms that find and restore keys for popular [encryption algorithms](http://en.wikipedia.org/wiki/Encryption "Encryption") from partially decayed memory. They were further able to devise a fully automated system that gains read access to a hard drive protected with one of the popular disk encryption systems in under an hour.
+The authors even created algorithms that find and restore keys for popular [encryption algorithms](http://en.wikipedia.org/wiki/Encryption) from partially decayed memory. They were further able to devise a fully automated system that gains read access to a hard drive protected with one of the popular disk encryption systems in under an hour.
 
 Essentially plug in a USB, reboot the machine, wait, read anything you want.
 
@@ -52,7 +52,7 @@ A pattern of bits was written to memory and read at various times after the cell
 
 At **normal operating temperatures** (25C to 44C) decay took between 2.5 and 35 seconds. Despite this variability, all curves exhibited a similar shape - slow decay, followed by very rapid decay, followed by slow decay again.
 
-![Decay at operating temperatures](./img/images-7433.png "Decay at operating temperatures")
+![Decay at operating temperatures](./img/images-7433.png)
 
 At **reduced temperatures** retention was greatly improved. Using canned air, the authors reduced surface temperatures to -50C. This allowed them to read most of the memory modules with 99.9% accuracy after as long as 60 seconds.
 
@@ -62,7 +62,7 @@ The authors also found that **decay patterns** were surprisingly predictable. Mo
 
 With enough runs of the test on the same set of cells you could find an overall order in how the cells degrade. Direction, shape of decay, things like that. The effect is so prominent that when you read an image from decaying memory, you can see pixels aren't randomly jumping around and there is a clear decay pattern. Likely related to manufacturing processes and chip architecture.
 
-![Decaying image at 5s, 30s, 60s, 5min](./img/images-7434.png "Decaying image at 5s, 30s, 60s, 5min")
+![Decaying image at 5s, 30s, 60s, 5min](./img/images-7434.png)
 
 ## Imaging residual memory
 
@@ -72,11 +72,11 @@ Then you can use any of the tools at your disposal to read memory. Just make sur
 
 As such, the authors developed specialised programs with a small memory footprint that read the memory and stream its contents to an external medium where. These tools are essentially tiny operating systems, which also ensures that the host computer's OS won't wipe memory on boot.
 
-The authors have successfully built such programs for **PXE network boot**, which streams memory data via a network, **[USB drives](http://en.wikipedia.org/wiki/USB_flash_drive "USB flash drive")** that boot and dump memory data onto themselves, **EFI netboot\* memory dumper applications, and even memory dump apps for \*\*iPods** that don't impact their usefulness as music players. Easier to mask an attack in the wild.
+The authors have successfully built such programs for **PXE network boot**, which streams memory data via a network, **[USB drives](http://en.wikipedia.org/wiki/USB_flash_drive)** that boot and dump memory data onto themselves, **EFI netboot\* memory dumper applications, and even memory dump apps for \*\*iPods** that don't impact their usefulness as music players. Easier to mask an attack in the wild.
 
 An attacker could use any of these tools to perform an imaging attack.
 
-The simplest would be a [warm boot](http://en.wikipedia.org/wiki/Reboot_%28computing%29 "Reboot (computing)") attack where they just restart the machine using the operating system's restart function. This ensures memory doesn't have a chance to decay, but gives software the opportunity to wipe things.
+The simplest would be a [warm boot](http://en.wikipedia.org/wiki/Reboot_%28computing%29) attack where they just restart the machine using the operating system's restart function. This ensures memory doesn't have a chance to decay, but gives software the opportunity to wipe things.
 
 Cutting and restoring power briefly, deprives software of the chance to wipe memory and is usually quick enough for even the quickest decaying memory to survive without too many errors.
 
@@ -88,7 +88,7 @@ As long as you make sure the memory is cold before cutting power and kept cold u
 
 Once you've got the memory contents with a few bit errors, you have to get the encryption keys. An encryption key that's in use will necessarily have to be in memory. But they are specifically designed so even a tiny corruption will render the key useless.
 
-A 256-bit key with 10% corruption has a [Hamming distance](http://en.wikipedia.org/wiki/Hamming_distance "Hamming distance") of just 12 from the actual key. But brute forcing this still means 256 combinations. Too many.
+A 256-bit key with 10% corruption has a [Hamming distance](http://en.wikipedia.org/wiki/Hamming_distance) of just 12 from the actual key. But brute forcing this still means 256 combinations. Too many.
 
 Luckily, most encryption programs want to be fast. Especially important when they are live-encrypting data between hard drive and memory as is often the case on modern laptops. To achieve higher speeds most encryption programs store precomputed data in memory - key schedules for block ciphers, extended forms of the private key for RSA.
 
@@ -162,4 +162,4 @@ But reading this paper has explained a lot of the more annoying features of my o
 
 Most annoyingly of all, my computer simply shuts down if I leave it alone for more than 5 minutes. A source of great frustration, but I'm going to remind myself of this paper every time I feel like cursing Apple for their "stupid" decisions from now on.
 
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=bcf12825-0166-423e-b9b0-59d06567c08a)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=bcf12825-0166-423e-b9b0-59d06567c08a)

@@ -23,7 +23,7 @@ I don't know how it's implemented internally. If I had to guess, I'd say the eng
 The full generator for Day 15 looks like this 👇
 
 ```javascript
-function* star2generator(factor, startingValue, denominator) {
+`function* star2generator(factor, startingValue, denominator) {
   let val = startingValue
   while (true) {
     val = (val * factor) % 2147483647
@@ -31,7 +31,7 @@ function* star2generator(factor, startingValue, denominator) {
       yield val
     }
   }
-}
+}`
 ```
 
 This starts from a `startingValue` and multiplies `val` with `factor` and mods the result with `2147483647` _forever_. Notice the `while(true)`? When I say forever, I mean _forever_.
@@ -41,9 +41,9 @@ But it won't crash your node runtime or your browser. Because `function*` and `y
 You get the next value like this:
 
 ```javascript
-const A = generator(16807, startA, denomA)
-A.next().value // some number
-A.next().value // next number
+const A = `generator(16807, startA, denomA)`
+`A.next().value // some number`
+`A.next().value // next number`
 ```
 
 The full generator only returns values that are divisible by a `denominator`. That's from part 2 of Day 15. The first part returned every value.
@@ -65,7 +65,7 @@ The generator above can handle both puzzle generators. They only differ in start
 To count the number of matches, I used this function 👇
 
 ```javascript
-function countMatches({
+`function countMatches({
   startA,
   startB,
   generator,
@@ -85,7 +85,7 @@ function countMatches({
   }
 
   return judge
-}
+}`
 ```
 
 The same function can do both Star 1 and Star 2 of the puzzle depending on input.
@@ -104,13 +104,13 @@ Solving for Star 1 and Star 2 then becomes a matter of calling the `matchCount` 
 
 ```
     console.log(
-        countMatches({
+        `countMatches({
             startA: 591,
             startB: 393,
             generator: star2generator,
             denominators: [4, 8],
             sampleSize: 5000000
-        })
+        })`
     );
 ```
 

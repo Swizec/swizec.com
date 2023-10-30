@@ -18,7 +18,7 @@ Despite all that, hitting our corp site, you're downloading 489KB of JavaScript.
 
 ![](https://swizec.com/wp-content/uploads/2017/06/big-files-screenshot.png)
 
-If you look at the `BundleAnalyzerPlugin` output of our Webpack build, you'll see why. The vendors file, all our dependencies, is 238KB of that footprint.
+If you look at the `{BundleAnalyzerPlugin}` output of our Webpack build, you'll see why. The vendors file, all our dependencies, is 238KB of that footprint.
 
 ![](https://swizec.com/wp-content/uploads/2017/06/webpack-chart.png)
 
@@ -34,13 +34,13 @@ Here's how I optimized that to take 55KB off our gzipped vendors file. At least 
 
 See, corp site vendors file is down to 183KB. Overall, JavaScript footprint is down by 53KB. Not bad for gzipped minified code.
 
-Let's look at the unminified `BundleAnalyzerPlugin` output for our corp site.
+Let's look at the unminified `{BundleAnalyzerPlugin}` output for our corp site.
 
 ![](https://swizec.com/wp-content/uploads/2017/06/corp-screen-1.png)
 
 2.1 megs of unminified ungzipped code 😅
 
-The first thing I did was to get rid of Moment's locales following a suggestion in [this issue](https://github.com/moment/moment/issues/2373). Moment is unfortunately not modularizable. They've been working on it for 2 years, so the best you can do is to use the `webpack.IgnorePlugin` to remove them from your build.
+The first thing I did was to get rid of Moment's locales following a suggestion in [this issue](https://github.com/moment/moment/issues/2373). Moment is unfortunately not modularizable. They've been working on it for 2 years, so the best you can do is to use the `{webpack.IgnorePlugin}` to remove them from your build.
 
 Like this:
 
@@ -66,7 +66,7 @@ But J Dalton is amazing and publishes [Lodash as a series of modules](https://ww
 
 Armed with my `grep`, I set to work. The goal:
 
-- import only those Lodash modules that are use
+- import only those Lodash modules that are used
   d
 
 - _install_ only those that are used
@@ -131,7 +131,7 @@ It differs in how this goal is achieved. Dalton's plugin uses proper code analys
 
 My solution goes for modular installation as well modular usage. If I'm not mistaken, this is easier for Webpack to optimize.
 
-And I think Dalton's plugin needs you to explicitly import Lodash when you use it. Mine turns it into a magic super global via `webpack.ProvidePlugin`.
+And I think Dalton's plugin needs you to explicitly import Lodash when you use it. Mine turns it into a magic super global via `{webpack.ProvidePlugin}`.
 
 In a nutshell, when you say `_.map(stuff)`, my solution transforms that into `require('lodash.map')(stuff)`.
 
@@ -156,7 +156,7 @@ We run a `grep -r "_\." <files>` search as a shell command. This returns all lin
 
 With `grep` output in hand, we run a regex that extracts all occurrences of `_.something`. That means chaining doesn't work. If you're used to composing Lodash methods, you're fine; if you're not, you should get used to it.
 
-`babel-lodash-plugin` also doesn't understand chaining by the way.
+`{babel-lodash-plugin}` also doesn't understand chaining by the way.
 
 All occurrences of `_.something` are put in a `Set`. This removes any duplicates (of which there are many) and pares us down to 32 functions in my case.
 
@@ -198,9 +198,9 @@ When we have those unique Lodash function calls, we walk through them, and for e
 - try to import the module
 - if it exists, move on
 - if module doesn't exist, install it and save to package.json
-- create a new `ProvidePlugin` entry for the module
+- create a new `{ProvidePlugin}` entry for the module
 
-The resulting `ProvidePlugin` entries are added to the `plugins` array in our overall config.
+The resulting `{ProvidePlugin}` entries are added to the `plugins` array in our overall config.
 
 ![](https://swizec.com/wp-content/uploads/2017/06/corp-screen-3.png)
 

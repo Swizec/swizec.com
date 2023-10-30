@@ -14,7 +14,7 @@ Webpack 2.2 has reached [release candidate 4](https://github.com/webpack/webpack
 
 My motivation was _"Ugh, I'm tired of these 3min+ local compile times. The amount of waiting is too damn high!"_ The new features are a nice bonus too.
 
-[![](./img/1hh3ii.jpg "made at imgflip.com")](https://imgflip.com/i/1hh3ii)
+[![](./img/1hh3ii.jpg)](https://imgflip.com/i/1hh3ii)
 
 After many days of fiddling, my Webpack is ready. Production compiles take 219 seconds instead of 226, and local dev compilation takes 152 seconds instead of 151. It’s not _that_ worth it, but incremental compiles with Webpack in `watch` mode feel smooth as silk.
 
@@ -30,7 +30,7 @@ Webpack recommends keeping files under 250kB, which sounds like a lot, but it lo
 
 The day when we ship raw ES6 code can't come soon enough.
 
-_BTW: Tree shaking removes unused dependencies (like when you import a whole library but just use a function or two), and dead code elimination removes code that's unreachable, like functions you never call._
+_BTW: Tree shaking removes unused dependencies (like when you `import` a whole library but just use a function or two), and dead code elimination removes code that's unreachable, like functions you never call._
 
 So is upgrading to Webpack 2 even worth it?
 
@@ -66,7 +66,7 @@ This is fragile and a terrible idea. You _will_ forget to update this dependency
 
 _But_ the published version on npm doesn't work. ? I assume they'll fix it for final release.
 
-Why extract-text-webpack-plugin? It makes stylesheet imports better, I'm told.
+Why `extract-text-webpack-plugin`? It makes stylesheet imports better, I'm told.
 
 > It moves every require("style.css") in entry chunks into a separate css output file. So your styles are no longer inlined into the javascript, but separate in a CSS bundle file (styles.css). If your total stylesheet volume is big, it will be faster because the stylesheet bundle is loaded in parallel to the javascript bundle.
 

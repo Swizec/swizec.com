@@ -107,9 +107,7 @@ You can read this as _"There is a program that starts at 0:1 and ends at 0:2 and
 
 In a picture, that AST looks something like this:
 
-![](https://swizec.com/wp-content/uploads/2017/06/fileprogram1.png)
-
-Root `file` node, child `program` node.
+![Root `file` node, child `program` node.](https://swizec.com/wp-content/uploads/2017/06/fileprogram1.png)
 
 Now let's try a variable assignment.
 
@@ -169,7 +167,7 @@ Our body now has a `variableDeclaration` node, which contains a `variableDeclara
 
 In a picture, that looks something like this:
 
-![](https://swizec.com/wp-content/uploads/2017/06/image2.png)
+![variableDeclaration node picture](https://swizec.com/wp-content/uploads/2017/06/image2.png)
 
 You'll notice the AST doesn't talk much about what our code says. There's no lets and equal signs or any of that. Sure, the identifier has a `name` and the init has a `value`, but the rest is an abstraction level higher.
 
@@ -292,7 +290,8 @@ tokens:
        start: 12,
        end: 12,
        loc:
-        SourceLocation { } ]
+        SourceLocation { } }
+ ]
 ```
 
 The list of tokens is a lot more interesting to Babylon than it is to you or I. It explains how to translate your code into a syntax tree.

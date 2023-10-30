@@ -8,17 +8,17 @@ hero: ./img/screenshot-1679411841649.png
 
 The extra space is no more! All fixed. Here's a little backstory that I hope inspires you to build more tools for yourself.
 
-[![](./img/R4Tg3Jpnga08ifc.png)](https://twitter.com/Swizec/status/1637584633671061504)
+[![]](./img/R4Tg3Jpnga08ifc.png)
 
 Back in 2018, I built [TechLetter.App](https://techletter.app) as part of a 24 hour challenge to build and launch an app. I wanted an easy to way to turn markdown into shippable newsletters and thought others might too.
 
-![TechLetterApp in action](./img/TechLetterApp-in-actionaj7e18.gif)
+[![]](./img/TechLetterApp-in-actionaj7e18.gif)
 
 They did not. TechLetter.App turned into the perfect example of Robin Sloane's [An app can be a home-cooked meal](https://www.robinsloan.com/notes/home-cooked-app/). Gets about 30 visits per month. Mostly from me.
 
 I can't imagine living without this tool and ConvertKit's banner that they're sunsetting the old editor with a `Paste HTML` option fills me with dread.
 
-![ConvertKit loves their new editor](./img/ConvertKit-loves-their-new-editordhih2f.jpeg)
+[![]](./img/ConvertKit-loves-their-new-editordhih2f.jpeg)
 
 May have to change email providers over this 😅
 
@@ -77,7 +77,7 @@ export function remarkNameOrFriend() {
 
         node.value = node.label.replace(
           nameOrFriend,
-          '{% if subscriber.first_name != blank %} {{ subscriber.first_name | truncatewords: 1, "" | capitalize }} {% else %} $1 {% endif %}'
+          `{% if subscriber.first_name != blank %} {{ subscriber.first_name | truncatewords: 1, "" | capitalize }} {% else %} $1 {% endif %}`
         )
         node.children = null
       }
@@ -91,7 +91,7 @@ Can you spot the bug?
 It's right here:
 
 ```liquid
-    '{% if subscriber.first_name != blank %} {{ subscriber.first_name | truncatewords: 1, "" | capitalize }} {% else %} $1 {% endif %}'
+    `{% if subscriber.first_name != blank %} {{ subscriber.first_name | truncatewords: 1, "" | capitalize }} {% else %} $1 {% endif %}`
 ```
 
 That has spaces between the liquid tags 🤣
@@ -99,7 +99,7 @@ That has spaces between the liquid tags 🤣
 Needs to be:
 
 ```liquid
-    '{% if subscriber.first_name != blank %}{{ subscriber.first_name | truncatewords: 1, "" | capitalize }}{% else %}$1{% endif %}'
+    `{% if subscriber.first_name != blank %}{{ subscriber.first_name | truncatewords: 1, "" | capitalize }}{% else %}$1{% endif %}`
 ```
 
 And that's the bug that took me 919 days to fix.

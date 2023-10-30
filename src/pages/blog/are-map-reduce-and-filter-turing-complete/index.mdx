@@ -18,7 +18,7 @@ Can you implement an algorithm _just_ with map, reduce, and filter?
 
 No.
 
-Those three functions on their own can't do squat. Writing something like `map(reduce(reduce(map(reduce(filter(4))))))` will not make anything happen.
+Those three functions on their own can't do squat. Writing something like `{map(reduce(reduce(map(reduce(filter(4))))))}` will not make anything happen.
 
 We first have to decide what we're trying to ask.
 
@@ -30,7 +30,7 @@ And well, yes, he's right. But he also isn't. What did Smart Guy (tm) try to tel
 
 Back to basics.
 
-To have a [turing complete language](http://en.wikipedia.org/wiki/Turing_completeness "Turing completeness") you need:
+To have a [turing complete language](http://en.wikipedia.org/wiki/Turing_completeness) you need:
 
 1.  Write cell
 2.  Read cell
@@ -53,9 +53,9 @@ Where does this leave us in regards to our original question? _Can_ we construct
 
 It depends.
 
-In the context of a strict [functional language](http://en.wikipedia.org/wiki/Functional_programming "Functional programming"), with the addition of recursion, yes we probably can.
+In the context of a strict [functional language](http://en.wikipedia.org/wiki/Functional_programming), with the addition of recursion, yes we probably can.
 
-After all, implementing a naive [quicksort](http://en.wikipedia.org/wiki/Quicksort "Quicksort") in [Haskell](http://haskell.org "Haskell (programming language)") takes nothing more than recursion, `car`, `cdr`, `cons` and filter.
+After all, implementing a naive [quicksort](http://en.wikipedia.org/wiki/Quicksort) in [Haskell](http://haskell.org) takes nothing more than recursion, `car`, `cdr`, `cons` and filter.
 
 ```haskell
 quicksort [] = []
@@ -97,7 +97,7 @@ function filter2(predicate, list) {
 
 Turns out `reduce` and `filter` are the same function once you assume branching and comparison are a given. `.concat` is Javascript's version of cons by the way.
 
-We can implement that Haskell example in [Javascript](http://en.wikipedia.org/wiki/JavaScript "JavaScript") as well. Proving that even with Javascript recursion, map, and reduce are enough to do anything.
+We can implement that Haskell example in [Javascript](http://en.wikipedia.org/wiki/JavaScript) as well. Proving that even with Javascript recursion, map, and reduce are enough to do anything.
 
 ```javascript
 function quicksort(list) {
@@ -130,4 +130,4 @@ But are we any closer to discovering our question?
 
 Not really no. We've just shown that given conditionals, a way to slice and append lists, recursion, map, and reduce we can do anything. Even in Javascript.
 
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=5af887dc-447d-4f5a-98dc-08047cfee16f)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+[Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=5af887dc-447d-4f5a-98dc-08047cfee16f)

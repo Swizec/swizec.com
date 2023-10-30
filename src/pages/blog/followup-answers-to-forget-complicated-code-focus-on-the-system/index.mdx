@@ -20,7 +20,7 @@ Then asks:
 
 They're talking about these files from my example of running [Madge](https://github.com/pahen/madge) on a production React app.
 
-![Util files found in code](./img/Util-files-found-in-codeh99767.jpeg)
+![Util files found in code](./img/Util-files-found-in-codeh99767.jpeg "Util files found in code")
 
 The problem with util files is that they're pure architectural complexity. The filename tells you nothing about what's inside and the dependency grows through your code like a weed.
 
@@ -30,11 +30,11 @@ When you inevitably need to evolve these utils in different directions for diffe
 
 ## What is a file neighborhood?
 
-[Neighborhoods](<https://en.wikipedia.org/wiki/Neighbourhood_(graph_theory)>) are a concept in graph theory, but really I got mixed up with [cliques](<https://en.wikipedia.org/wiki/Clique_(graph_theory)>).
+[`Neighborhoods`](https://en.wikipedia.org/wiki/Neighbourhood_(graph_theory)) are a concept in graph theory, but really I got mixed up with [`cliques`](https://en.wikipedia.org/wiki/Clique_(graph_theory)).
 
 Neighborhoods describe nodes that are connected. Cliques describe sets of nodes that are _more_ connected than their next neighboring nodes.
 
-![Cliques in a graph](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/VR_complex.svg/1920px-VR_complex.svg.png)
+![Cliques in a graph](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/VR_complex.svg/1920px-VR_complex.svg.png "Cliques in a graph")
 
 Since we're talking about a graph of file connections – file clique/neighborhood. A group of files that are more tightly connected to each other than to the rest of the system.
 
@@ -77,7 +77,7 @@ const {
 } = require("../../services/insurance/eligibility-error.service");
 ```
 
-See all those `../../`? That's a sign the code isn't structured to group related files together.
+See all those `{../../}`? That's a sign the code isn't structured to group related files together.
 
 ## how do you fix it? how do you prevent it from coming back?
 
@@ -95,7 +95,7 @@ Thanks anon!
 
 A dependency with multiple hops.
 
-A -> B -> C. If C depends on B and B depends on A, then C depends on A.
+`{A -> B -> C}`. If C depends on B and B depends on A, then C depends on A.
 
 This is important to get a true picture of your architectural complexity, but few tools take it into account when visualizing code. Alas.
 

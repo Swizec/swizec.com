@@ -29,7 +29,7 @@ My Lambda makes 2 writes to DynamoDB in a GraphQL Mutation:
 ```typescript
 // Updates thumbsup/down count in a widget
 const widgetUpdateResult = await updateItem({
-  Key: { userId, widgetId },
+  Key: `{userId, widgetId}`,
   UpdateExpression:
     "SET thumbsup = thumbsup + :thumbsup, thumbsdown = thumbsdown + :thumbsdown",
   ExpressionAttributeValues: {
@@ -68,8 +68,8 @@ Rule number 1 of performance tweaks – **measure**. [Serverless Performance](h
 We removed a DynamoDB write and ran the same mutation a bunch of times in a GraphQL Playground. While streaming.
 
 ```graphql
-mutation ($userId: String!, $widgetId: String!, $thumbsup: Boolean) {
-  widgetVote(userId: $userId, widgetId: $widgetId, thumbsup: $thumbsup) {
+mutation (`$userId`: String!, `$widgetId`: String!, `$thumbsup`: Boolean) {
+  widgetVote(userId: `$userId`, widgetId: `$widgetId`, thumbsup: `$thumbsup`) {
     followupQuestions
     voteId
     voter
@@ -83,7 +83,7 @@ Our unscientific test[^1] gave a **258ms average** response time over 14 runs. D
 
 We tried the original code and got **253ms average** response times. Faster than with my brilliant idea.
 
-![](giphy:head_scratch)
+![head scratch](./img/head_scratch.png)
 
 ## Is it the Apollo overhead?
 

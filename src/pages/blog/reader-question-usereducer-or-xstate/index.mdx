@@ -7,11 +7,11 @@ content_upgrade: ReactCU
 hero: ./img/screenshot-1668185187140.png
 ---
 
-Following up from [When your brain is breaking, try Stately.ai](https://swizec.com/blog/when-your-brain-is-breaking-try-stately-ai/), fellow reader S. asked if `useReducer` could ever be relevant when using state machines in React code.
+Following up from [When your brain is breaking, try Stately.ai](https://swizec.com/blog/when-your-brain-is-breaking-try-stately-ai/), fellow reader S. asked if `{useReducer}` could ever be relevant when using state machines in React code.
 
 Yes!
 
-You can use `useReducer` to implement a state machine and clean up your ternary soup. It won't have the safety guarantees of [XState](https://xstate.js.org) or the built-in support for side effects (called actions in xstate), but it's going to be a state machine.
+You can use `{useReducer}` to implement a state machine and clean up your ternary soup. It won't have the safety guarantees of [XState](https://xstate.js.org) or the built-in support for side effects (called actions in xstate), but it's going to be a state machine.
 
 State machines are a way of thinking about your code. They don't care about implementation details. As I wrote in February – [you're building state machines even if you don't know it](https://swizec.com/blog/a-new-vscode-extension-makes-state-machines-shine-on-a-team/#youre-already-building-implicit-state-machines).
 
@@ -74,7 +74,7 @@ switch (state) {
 
 I think that's easier to work with. You may disagree, lots of people do 😅 Personally I like code that _doesn't_ make me feel smart.
 
-To support that with a `useReducer`, you'd write a state machine like this:
+To support that with a `{useReducer}`, you'd write a state machine like this:
 
 ```javascript
 function reducer(state, action) {
@@ -110,16 +110,16 @@ function reducer(state, action) {
 
 If you look carefully, draw a picture of possible transitions, and I didn't make mistakes, you'll get the same animation as last time:
 
-[![Simulated state machine in Stately.ai](./img/Simulated-state-machine-in-Statelyaic45id2.gif)](https://swizec.com/blog/when-your-brain-is-breaking-try-stately-ai/)
+[Simulated state machine in Stately.ai](./img/Simulated-state-machine-in-Statelyaic45id2.gif)
 
-The `useReducer` hook lets you use this in a React component:
+The `{useReducer}` hook lets you use this in a React component:
 
 ```javascript
 // init with the "loading" state
 const [state, dispatch] = useReducer(reducer, "loading")
 ```
 
-All that remains is to call `dispatch` with the right actions at the right moments. Either by integrating deeply with your data loading or relying on `useEffect` when values change.
+All that remains is to call `dispatch` with the right actions at the right moments. Either by integrating deeply with your data loading or relying on `{useEffect}` when values change.
 
 As implemented, the `reducer()` expects calls like `dispatch({type: 'error'})`.
 

@@ -12,11 +12,11 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 Sound on YouTube was borked yesterday. I sounded like Mr. Robot. It all worked well on LiveEdu, but they didn't save the video it looks like. ¯\\\_(ツ)\_/¯
 
-https://www.youtube.com/watch?v=82yCEYf2q3A
+![YouTube video](https://www.youtube.com/watch?v=82yCEYf2q3A)
 
-Anyway, we made some progress from [last time](https://swizec.com/blog/livecoding-38-a-faux-ai-that-writes-javascript/). Our evolutionary approach still gets stuck in a local maximum after just a few iterations, but it no longer gets stuck on a single solution.
+Anyway, we made some progress from [last time](https://swizec.com/blog/livecoding-38-a-faux-ai-that-writes-javascript/). Our evolutionary approach still gets stuck in a local `maximum` after just a few iterations, but it no longer gets stuck on a single solution.
 
-So even though the fitness score is, say, `0.4545` and never changes, the result itself keeps changing. We achieved that by improving the pairing function.
+So even though the fitness score is, say, `{0.4545}` and never changes, the result itself keeps changing. We achieved that by improving the pairing function.
 
 Our algorithm can now choose between two different pairing functions. Either the top 50% of the population breeds pairwise, or we take the top 30 specimens and breed each specimen with all others in the top 30.
 
@@ -38,45 +38,45 @@ Observe:
 
 ```javascript
 16
-{ fitness: 0.45454545454545453,
+{ fitness: {0.45454545454545453},
   code: '*15+',
-  fitnessLast: 0.45454545454545453,
+  fitnessLast: {0.45454545454545453},
   codeLast: '4584',
   size: 200 }
 17
-{ fitness: 0.45454545454545453,
+{ fitness: {0.45454545454545453},
   code: '06*0',
-  fitnessLast: 0.45454545454545453,
+  fitnessLast: {0.45454545454545453},
   codeLast: '4584',
   size: 200 }
 18
-{ fitness: 0.45454545454545453,
+{ fitness: {0.45454545454545453},
   code: '686.+9',
-  fitnessLast: 0.45454545454545453,
+  fitnessLast: {0.45454545454545453},
   codeLast: '4584',
   size: 200 }
 19
-{ fitness: 0.45454545454545453,
+{ fitness: {0.45454545454545453},
   code: '86.+',
-  fitnessLast: 0.45454545454545453,
+  fitnessLast: {0.45454545454545453},
   codeLast: '4584',
   size: 200 }
 20
-{ fitness: 0.45454545454545453,
+{ fitness: {0.45454545454545453},
   code: '28+',
-  fitnessLast: 0.45454545454545453,
+  fitnessLast: {0.45454545454545453},
   codeLast: '0+*-/',
   size: 200 }
 21
-{ fitness: 0.45454545454545453,
+{ fitness: {0.45454545454545453},
   code: '800406',
-  fitnessLast: 0.45454545454545453,
+  fitnessLast: {0.45454545454545453},
   codeLast: '092-092-',
   size: 200 }
 22
-{ fitness: 0.45454545454545453,
+{ fitness: {0.45454545454545453},
   code: '00406*',
-  fitnessLast: 0.45454545454545453,
+  fitnessLast: {0.45454545454545453},
   codeLast: '092-092-',
   size: 200 }
 ```

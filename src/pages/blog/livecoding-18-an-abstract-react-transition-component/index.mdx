@@ -8,23 +8,23 @@ categories: "d3js, Front End, Livecoding, react, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
-_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding ?. Always under 500 words and with pictures. You can follow my channel, [here](https://livecoding.tv/swizec). New content almost **every Sunday at 2pm PDT**. There’s live chat, come say hai ?_
+_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Always under 500 words and with pictures. You can follow my channel, [here](https://livecoding.tv/swizec). New content almost **every Sunday at 2pm PDT**. There’s live chat, come say hai_
 
-This week we made a circle bounce back and forth. ?
+This week we made a circle bounce back and forth.
 
 Trivial, right? Yes, as trivial as it gets. The bouncing circle wasn’t the point, the point was how it’s made. This: [react-transitionable-component](https://github.com/Swizec/react-transitionable-component). My first not-just-a-cool-experiment open source contribution to the React ecosystem.
 
 It’s an abstract component that makes building transitions easy.
 
-Over the past few weeks, I’ve noticed that making a transition always follows the same pattern: move props to state, render from state instead of props, use `d3.transition` to transition prop values on every `componentWillReceiveProps`. What if we can abstract all that work away? ?
+Over the past few weeks, I’ve noticed that making a transition always follows the same pattern: move `props` to `state`, render from `state` instead of `props`, use `d3.transition` to transition prop values on every `componentWillReceiveProps`. What if we can abstract all that work away?
 
 We started with this jumping circle:
 
-> [](//imgur.com/sFBlt)
+![Jumping Circle](//imgur.com/sFBlt)
 
 And ended with this transitioned circle:
 
-> [](//imgur.com/Z256F)
+![Transitioned Circle](//imgur.com/Z256F)
 
 It took me over an hour to realize that zooming-in would have made everyone’s lives easier, but here we are. Tiny little gifs for tiny little screens. Or big screens. The gifs are always tiny.
 
@@ -79,10 +79,9 @@ You’ll notice `TransitionableComponent` doesn’t have a `render()` function. 
 ```javascript
 class Circle extends TransitionableComponent {
     render() {
-        return <circle cx={this.state.cx} cy={this.state.cy} r={this.state.r}>
+        return <circle cx={this.state.cx} cy={this.state.cy} r={this.state.r}/>
     }
 }
-</circle>
 ```
 
 That’s a transitionable circle now. Any props passed into it are transitioned. You have to be careful to use `this.state` instead of `this.props` when using them though.
@@ -90,7 +89,7 @@ That’s a transitionable circle now. Any props passed into it are transitioned.
 Using the `Circle` component looks like this:
 
 ```javascript
-<circle cx="100" cy="100" r="5" easing="cubicInOut" duration="1500"></circle>
+<Circle cx="100" cy="100" r="5" easing="cubicInOut" duration="1500"/>
 ```
 
 See, easy. :)

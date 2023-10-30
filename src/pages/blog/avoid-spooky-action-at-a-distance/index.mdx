@@ -6,7 +6,7 @@ categories: "Software engineering, Architecture, Lessons"
 hero: ./img/screenshot-1693064648023.png
 ---
 
-[name|Friend] unclear state dependencies are the biggest source of code that's difficult to detangle.
+`{name|Friend}`, unclear state dependencies are the biggest source of code that's difficult to detangle.
 
 So much so that [Shared State Bad](https://swizec.com/blog/my-favorite-lessons-from-pragmatic-programmer/) is a programming dogma described in books like Pragmatic Programmer and many others. But shared state is fine, even necessary, when done right. Let me explain.
 
@@ -29,26 +29,26 @@ This caused many hard to fix bugs. Click through the UI in a new sequence of ste
 The intermingled state made it so my code's exact behavior depended on how users (really just me) went through features. Here's a simplified example:
 
 ```pascal
-var counter: integer
+var counter: integer;
 
-counter := 0
+counter := 0;
 
 add:
-	counter := counter + 1
-	writeln(counter)
+	counter := counter + 1;
+	writeln(counter);
 
 sub:
-	counter := counter - 1
-	writeln(counter)
-	goto add
+	counter := counter - 1;
+	writeln(counter);
+	goto add;
 
 fun_feature1:
-	counter := counter + 10
-	goto sub
+	counter := counter + 10;
+	goto sub;
 
 fun_feature2:
-	counter := 2
-	goto fun_feature1
+	counter := 2;
+	goto fun_feature1;
 ```
 
 - `add`: the `add` block adds +1 and prints the value
@@ -104,7 +104,7 @@ Explicitly declared state dependencies with strict guidelines around access patt
 
 ```javascript
 function SomeBeautifulData({ id }) {
-	const { data } = useQuery(
+	const `{ data }` = useQuery(
 		['beautiful-data', id],
 		...
 	)

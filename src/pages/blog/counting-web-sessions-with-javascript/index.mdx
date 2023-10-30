@@ -20,7 +20,7 @@ Wrong.
 
 The best Google Analytics can do is this view:
 
-![GA Count of Sessions view](https://swizec.com/wp-content/uploads/2017/05/histogram_screenshot.jpg)
+![GA Count of Sessions view](https://swizec.com/wp-content/uploads/2017/05/histogram_screenshot.jpg "GA Count of Sessions view")
 
 This histogram tells you that out of the 24,187 people that visited swizec.com in the last 30 days, 24,187 of them started their first session. 2,103 started their 2nd, all the way down to the 127 people who started their 201st session.
 
@@ -32,7 +32,7 @@ This is [how a web session is defined in GA](https://support.google.com/analytic
 
 - 30 minutes of inactivity
 - midnight
-- `utm_campaign` query change
+- `{utm_campaign}` query change
 
 We count something as a new session every 30 minutes (even if the site was left open), on every new day, and following every new ad click. I don't know why Google defined web sessions this way, but if you're building business intelligence, it's best to use standard definitions.
 
@@ -40,9 +40,9 @@ We count something as a new session every 30 minutes (even if the site was left 
 
 Well, you need to keep track of the 3 parameters above, and you need to keep track of a counter. Then you up the counter on every change. That gives you the count and you can do whatever you want.
 
-Save it to the backend via some sort of API perhaps ;)
+Save it to the backend via some sort of API perhaps 😉
 
-![](https://swizec.com/wp-content/uploads/2017/05/localstorage_screenshot.png)
+![Local storage screenshot](https://swizec.com/wp-content/uploads/2017/05/localstorage_screenshot.png "Local storage screenshot")
 
 Here's the solution I came up with. You can use it as [an npm module](https://github.com/Swizec/web-session-counter), or read onwards to learn how it works.
 
@@ -156,7 +156,7 @@ When I say "gist", I mean that's all there is to it. Doesn't look like much, but
 
 We have 3 sets of getters and setters for the `count`, the `lastActive` timestamp, and `lastUtmCampaign`. Getters read values from local storage; setters save them.
 
-The `currentUtmCampaign` getter reads the URL and returns the current value of `utm_campaign`. Having a pair of getters for current and last `utm_campaign` helps us detect changes.
+The `currentUtmCampaign` getter reads the URL and returns the current value of `{utm_campaign}`. Having a pair of getters for current and last `{utm_campaign}` helps us detect changes.
 
 https://twitter.com/svensauleau/status/862401992110551042
 
@@ -193,11 +193,11 @@ Our business logic lies in the `update` and `isNewSession` methods.
 
 If we can use local storage, then we get the current `count` from local storage. If the `count` is zero or `isNewSession` returns `true`, we have to update info in local storage.
 
-We increase the `count`, update the `lastActive` timestamp, and store the current `utm_campaign` value.
+We increase the `count`, update the `lastActive` timestamp, and store the current `{utm_campaign}` value.
 
 To detect new sessions, we use a helper method – `isNewSession`. Some say my code isn't readable, but I think it's not too bad. The function name tells you what it does 😜
 
-The first condition checks if 30 minutes have passed since the last update, the second checks if the date has changed, and the third check if the `utm_campaign` is different. `.some(b => b)` returns `true` if any of the conditions are truthy.
+The first condition checks if 30 minutes have passed since the last update, the second checks if the date has changed, and the third check if the `lastUtmCampaign` is different from the `currentUtmCampaign`. `.some(b => b)` returns `true` if any of the conditions are truthy.
 
 https://twitter.com/Bladtman/status/862432478572752896
 

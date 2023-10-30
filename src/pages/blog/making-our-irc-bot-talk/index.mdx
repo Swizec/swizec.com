@@ -12,15 +12,15 @@ hero: ./img/images-irobot1.jpg
 
 [IRC](http://en.wikipedia.org/wiki/Internet_Relay_Chat "Internet Relay Chat") might seem quaint and outdated, but for keeping in touch with a group of friends it beats [Twitter](http://twitter.com "Twitter"), Facebook and Google+ hands down.
 
-![Robot](./img/images-irobot1.jpg "Robot")
+![Robot](./img/images-irobot1.jpg)
 
 There's a bunch of _others_ on those things. With IRC there's just us ... and a robot overlord.
 
-Mostly \_\_botko\_\_ makes sure to mention when we repost links and keeps irc logs for us. But as soon as [@smotko](https://twitter.com/#!/smotko) added random phrases to make keeping us in place more interesting. We wanted more.
+Mostly `__botko__` makes sure to mention when we repost links and keeps irc logs for us. But as soon as [@smotko](https://twitter.com/#!/smotko) added random phrases to make keeping us in place more interesting. We wanted more.
 
 We wanted our bot to speak.
 
-It's been ages since I coded just for fun, so last night I made \_\_botko\_\_ talk.
+It's been ages since I coded just for fun, so last night I made `__botko__` talk.
 
 ## What to say?
 
@@ -52,7 +52,7 @@ You end up with this sort of data structure.
 
 While this works great for static text, an irc chatroom is a rolling [time series](http://en.wikipedia.org/wiki/Time_series "Time series") that never really ends. Not only will you soon run out of memory, how do you deal with staying relevant?
 
-I had to wait until _**4:03AM**_ for the solution to hit me!
+I had to wait until `4:03AM` for the solution to hit me!
 
 It doesn't have to be complicated at all - just decay the weights of all _next_ items whenever you poke an element. And do the same whenever a new text is added to the Corpus.
 
@@ -111,9 +111,9 @@ Pretty cool right?
 
 ## When to speak?
 
-Okay, that takes care of generating the text. But when should \_\_botko\_\_ speak anyway?
+Okay, that takes care of generating the text. But when should `__botko__` speak anyway?
 
-![How Should You Act on IRC (Internet Relay Chat...](./img/3246-2866792711_027e60dd7e_m.jpg "How Should You Act on IRC (Internet Relay Chat...")
+![How Should You Act on IRC (Internet Relay Chat...](./img/3246-2866792711_027e60dd7e_m.jpg)
 
 You certainly don't want the bot to spam everyone. But you don't want him to be completely quiet most of the time. Speaking every X amount of events is simply too predictable and boring ...
 
@@ -129,7 +129,7 @@ Velocity is measured as the ratio between the timespan of the last 10 messages a
 velocity_rate = (now - 10_messages_ago_time)/(now - 60_messages_ago_time)
 ```
 
-The rate of acceleration change idea took some time to materialize in my head. The idea is that you want to make it likelier for the bot to speak when there is a sudden flurry of activity and fall back to the _velocity_rate_ formula when conditions are mostly stable.
+The rate of acceleration change idea took some time to materialize in my head. The idea is that you want to make it likelier for the bot to speak when there is a sudden flurry of activity and fall back to the `velocity_rate` formula when conditions are mostly stable.
 
 ```python
 v_i = average_speed_of_last_[0+i : i*5]_messages
@@ -150,4 +150,3 @@ All that's left to do now is tweaking the parameters a bit, perhaps iron out a b
 I'm almost tempted to connect this guy to #startups ...
 
 > \[18:27:27] wisdom ACTION uses this quote in blogpost because it's starting \[18:27:43] I almost have to use that ... \[18:27:44] kul, to da si se spet zacel ful pogovarjat, prej
-

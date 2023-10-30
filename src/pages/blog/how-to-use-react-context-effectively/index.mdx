@@ -101,12 +101,10 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div class="App">
-        <provider value={this.state}>
-          <form>
-            <greeting></greeting>
-          </form>
-        </provider>
+      <div className="App">
+        <Provider value={this.state}>
+          <Form />
+        </Provider>
       </div>
     )
   }
@@ -121,11 +119,11 @@ My favorite side-effect of this approach is that important parts of your code ar
 
 As your state grows in complexity, you might want to move this machinery out of `App.js` into its own file. Just make sure your App component knows when something changes.
 
-When rendering we use `Provide` to pass this component state as a context value down to our entire component tree.
+When rendering we use `Provider` to pass this component state as a context value down to our entire component tree.
 
 ### 3. Consuming context state
 
-Consuming your state is a matter of rendering a ``and using the values it provides.
+Consuming your state is a matter of rendering a `Consumer` and using the values it provides.
 
 ```javascript
 // Greeting.js
@@ -134,14 +132,14 @@ import React from "react"
 import { Consumer } from "./GreetContext"
 
 export default () => (
-  <consumer>
+  <Consumer>
     {({ greeting }) => (
       <div>
         <h3>Your greeting 👋</h3>
         {greeting}
       </div>
     )}
-  </consumer>
+  </Consumer>
 )
 ```
 
@@ -170,21 +168,21 @@ import React from "react";
 import { Consumer } from "./GreetContext";
 
 const Input = ({ value, onChange }) => (
-  <input value={value} onchange="{event" ==""> onChange({ value: event.target.value })}
+  <input value={value} onChange={event => onChange({ value: event.target.value })}
     style={{ width: "100%", fontSize: "1.5em" }}
   />
 );
 
 export default () => (
-  <consumer>
+  <Consumer>
     {({ greeting, setGreeting }) => (
       <div>
         <h1>Say hi to Pugson</h1>
-        <img src="./img/profile_images-834049142515187713-cOtVTgLm_400x400.jpg" style={{ height: "60px" }}>
-        <input value={greeting} onchange={setGreeting}>
+        <img src="./img/profile_images-834049142515187713-cOtVTgLm_400x400.jpg" style={{ height: "60px" }}/>
+        <Input value={greeting} onChange={setGreeting}/>
       </div>
     )}
-  </consumer>
+  </Consumer>
 );
 ```
 
@@ -216,10 +214,11 @@ https://www.youtube.com/watch?v=MhmhfaJn0_U
 
 ## What about hooks?
 
-Yes, this approach works with hooks. Replace ``with `useContext`. Everything else stays the same.
+Yes, this approach works with hooks. Replace `Consumer` with `useContext`. Everything else stays the same.
 
 ```javascript
 import GreetingContext from "./GreetingContext"
+import { useContext } from 'react';
 export default () => {
   const { greeting } = useContext(GreetingContext)
 

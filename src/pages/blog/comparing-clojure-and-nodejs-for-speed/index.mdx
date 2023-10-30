@@ -10,7 +10,7 @@ hero: ./img/tumblr_lja8awZaYe1qekjngo1_500.jpg
 
 For the longest of whiles I've been working on a speed comparison between Node.js and Clojure. Today I had some time in a place with unreliable internets and finally gave it a whirl since there was nothing better to do, I certainly wasn't going to merely enjoy the sun.
 
-![](./img/tumblr_lja8awZaYe1qekjngo1_500.jpg "Sun at Rimski Zid")The comparison I chose to go for is hard computation - namely calculating a list of primes up to a certain number. Why this test? Because primes are awesome!
+![Sun at Rimski Zid](./img/tumblr_lja8awZaYe1qekjngo1_500.jpg)The comparison I chose to go for is hard computation - namely calculating a list of primes up to a certain number. Why this test? Because primes are awesome!
 
 I did my best to implement the same algorithm in both. It creates a list of numbers from 3 to N, then filters it of anything that isn't a prime. Through a bit of trial and error this turned out to be the quickest approach, possibly because it means we can run prime-ness tests in parallel on several numbers.
 
@@ -51,7 +51,7 @@ var isPrime = function (n, callback) {
 var primes = function (n, callback) {
     var acc = new Array();
 
-    for (var i=2; i<n; acc.push(i++));<p="">
+    for (var i=2; i<n; acc.push(i++));
 
     async.filter(acc, isPrime, function(results){
 	results.unshift(2);
@@ -61,7 +61,6 @@ var primes = function (n, callback) {
 
 primes(process.argv[2], function (result) {
 });
-</n;>
 ```
 
 This is practically the same code in clojure:
@@ -118,11 +117,11 @@ runs(5);
 
 ## The results
 
-![](./img/BkTG0.png "The raw data")
+![The raw data](./img/BkTG0.png)
 
-![](./img/22s7m.png "First graph")
+![First graph](./img/22s7m.png)
 
-![](./img/qXPSS.png "Second graph")
+![Second graph](./img/qXPSS.png)
 
 As you can see, looking for primes is a bit of an exponential problem. However, if you have a linear solution I would absolutely love to see it.
 

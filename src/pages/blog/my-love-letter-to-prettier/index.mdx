@@ -14,7 +14,7 @@ If you haven't heard, Prettier is an opinionated code formatter. That tells you 
 
 Here's a gif instead 👇
 
-![](https://swizec.com/wp-content/uploads/2017/11/prettier-magic.gif)
+![prettier-magic](https://swizec.com/wp-content/uploads/2017/11/prettier-magic.gif)
 
 You write some nasty code, press save, and Prettier makes it look good.
 
@@ -26,7 +26,7 @@ One thing I do know is that it's a big enough difference that when I ran an [Int
 
 Part of the reason is that my code was no longer idiosyncratic. Not in formatting, at least. There are always going to be _some_ idiosyncrasies, but Prettier resolves most of the stuff that usually trips you up when reading code.
 
-Using parentheses around single argument fat arrow functions, `(a) => b` or `a => b`? Who cares? Prettier fixes it.
+Using parentheses around single argument fat arrow functions, `{(a) => b}` or `{a => b}`? Who cares? Prettier fixes it.
 
 Self-closing JSX tags or not? _shrug_. Prettier.
 
@@ -34,7 +34,7 @@ Splitting long argument lists into many lines or one long line or just a few lin
 
 The amount of decisions you'll never have to make again. You'll never have to worry about in code-review. You'll never have to debate and discuss for hours on end… it's amazing. I mean look at this!
 
-![](https://swizec.com/wp-content/uploads/2017/11/prettier-magic-2.gif)
+![prettier-magic-2](https://swizec.com/wp-content/uploads/2017/11/prettier-magic-2.gif)
 
 Shitty code. Good code.
 
@@ -54,7 +54,7 @@ And so I did. For a codebase that's been growing since before ES6 came out. Yes,
 
 **2.** Set up your `.prettierrc`. I like to set `tabWidth: 4` and `printWidth: 80`. This ensures everyone's Prettier will follow the same rules.
 
-**3.** You run Prettier on all your files. For us, that looked like this: `prettier app/assets/**/*.js --write`. You'll have to change it based on where your code lives
+**3.** You run Prettier on all your files. For us, that looked like this: `{prettier app/assets/**/*.js --write}`. You'll have to change it based on where your code lives
 
 **4.** Submit a PR and pray it gets merged soon because anything else that gets merged before it will introduce conflicts.
 
@@ -62,13 +62,13 @@ And so I did. For a codebase that's been growing since before ES6 came out. Yes,
 
 Congratulations! Your team will never again have to debate whether to use double or single quotes!
 
-![](https://swizec.com/wp-content/uploads/2017/11/Pokemon-celebrate.gif)
+![Pokemon-celebrate](https://swizec.com/wp-content/uploads/2017/11/Pokemon-celebrate.gif)
 
 Oh and no, Prettier won't introduce any bugs. It's been battle tested, and you should be fine. Might want to run a quick smoke test before deploying to production though ☺️
 
 You might find some of your old code funny to look at. All modern and styled and beautiful, yet somehow odd. Odd because it doesn't use all the ES6 things you use today, but looks just like you wrote it yesterday.
 
-![](https://swizec.com/wp-content/uploads/2017/11/new-fav-prettier.gif)
+![new-fav-prettier](https://swizec.com/wp-content/uploads/2017/11/new-fav-prettier.gif)
 
 ## Things I wish Prettier could do, but can't (yet?)
 
@@ -78,10 +78,10 @@ For example, right now when I write `"string'` (mismatched quotes), Prettier com
 
 Or when I get sloppy with closing my parens in a long function chain, what if Prettier could fix it instead of complaining?
 
-```
+```jsx
     export default withRouter(
     connect(state => ({
-    items: state.shoppingCart.items
+    items: `{state.shoppingCart.items}`
     }))(ShoppingCart)
     );
 ```

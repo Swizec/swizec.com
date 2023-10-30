@@ -15,7 +15,7 @@ const ShowData = async () => {
   const res = await fetch("/data-source")
   const json = res.json()
 
-  return <p>{json.text}</p>
+  return <p>{`json.text`}</p>
 }
 ```
 
@@ -25,7 +25,7 @@ This is part of React's [RFC: First class support for promises and async/await](
 
 The goal is to make React Suspense easier to use. It worked!
 
-[![Parallel loading states in a NextJS 13 app](./img/Parallel-loading-states-in-a-NextJS-13-app1ej3c5.gif)](https://www.scholarstream.ai)
+[Parallel loading states in a NextJS 13 app](./img/Parallel-loading-states-in-a-NextJS-13-app1ej3c5.gif)
 
 ## You can use async React in NextJS 13
 
@@ -41,7 +41,7 @@ Yes, we did. Servers have come a long way since then.
 
 My understanding is that Vercel, the company behind NextJS, uses extensive Serverless and Edge function shenanigans to run the tiniest possible server as close as possible to the user to render each component. Like Remix, they need a custom compiler built into NextJS to make this work smoothly.
 
-![Hybrid renders with NextJS, picture from docs](./img/Hybrid-renders-with-NextJS-picture-from-docs9fd18g.png)
+[Hybrid renders with NextJS, picture from docs](./img/Hybrid-renders-with-NextJS-picture-from-docs9fd18g.png)
 
 When a server component needs to render, a new function spins up _for just that render_. With the right config (and payment tier), that function runs on a CDN-like platform that aims for low latency. The function then returns _just that component's HTML_ and NextJS replaces the right section of your UI in the browser.
 
@@ -59,7 +59,7 @@ The base case is to use NextJS 13's new opinionated `/app` structure:
 - `layout.tsx` for the static layout
 - `loading.tsx` for the loading state
 
-![Loading state gif](./img/Loading-state-gif7add0f.gif)
+[Loading state gif](./img/Loading-state-gif7add0f.gif)
 
 ### page.tsx
 
@@ -221,7 +221,7 @@ NextJS [adds a custom param to fetch()](https://beta.nextjs.org/docs/api-referen
 
 In my case, the app fetches a fresh feed every 10 hours. Reload the page before then and you'll get a stable result with no loading indicators. Cache is stable across users and most visitors get a fast nearly static page.
 
-![Fast page on reload](./img/Fast-page-on-reloadhec276.gif)
+[Fast page on reload](./img/Fast-page-on-reloadhec276.gif)
 
 It's unclear to me _where_ that cache lives. Is this something that works with NextJS or just with Vercel? 🤔
 
@@ -240,7 +240,7 @@ const getSummary = cache(async (paper: arxiv.ArxivFeedItem) => {
 const PaperSummary = async (props: { paper: arxiv.ArxivFeedItem }) => {
   const summary = await getSummary(props.paper)
 
-  return <p>{summary.choices[0].text}</p>
+  return <p>{`summary.choices[0].text`}</p>
 }
 ```
 
@@ -252,7 +252,7 @@ The OpenAI call is wrapped in `cache()` to increase performance. For cost optimi
 
 Page level loading states are great, but you may want more fine-grained control. Or to load components in parallel with optimistic first-come rendering.
 
-![Parallel loading states with suspense boundaries](./img/Parallel-loading-states-with-suspense-boundaries5384bf.gif)
+[Parallel loading states with suspense boundaries](./img/Parallel-loading-states-with-suspense-boundaries5384bf.gif)
 
 You do that with `<Suspense>` boundaries.
 
@@ -274,7 +274,7 @@ const FeedItem = async (props: { paper: arxiv.ArxivFeedItem }) => {
       <div>
         Full paper at 👉{" "}
         <a href={paper.link} className={feedStyles.linkPaper}>
-          {paper.title.split(/(\(|\. \()arXiv/)[0]}
+          {`paper.title.split(/(\\(|\\. \\()arXiv/)[0]`}
         </a>
       </div>
     </div>

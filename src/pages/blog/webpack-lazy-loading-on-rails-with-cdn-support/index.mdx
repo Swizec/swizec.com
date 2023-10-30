@@ -10,11 +10,11 @@ hero: ../../../defaultHero.jpg
 
 Webpack is the best module bundler I've ever used. Just this week I used it to reduce the JS footprint of an app from 906KB to 87KB for mobile visitors. An 800KB difference!
 
-[Webpack](http://webpack.github.io/)'s core premise is that you can `require('./foo')` your [JavaScripts](http://en.wikipedia.org/wiki/JavaScript "JavaScript"). That sea of `<script>` tags or concatenated code and variables injected into the global namespace is gone.
+[Webpack](http://webpack.github.io/)'s core premise is that you can `require('./foo')` your [JavaScripts](http://en.wikipedia.org/wiki/JavaScript). That sea of `<script>` tags or concatenated code and variables injected into the global namespace is gone.
 
 In theory we've had that for a while. RequireJS and its AMD have been out for a while, but it's always felt clunky. Don't think I've used it more than once in the wild. Too clunky.
 
-[Browserify](http://browserify.org/) was better. Using [CommonJS](http://en.wikipedia.org/wiki/CommonJS "CommonJS") it brought the same syntax we've had in node.js into the browser. Less clunky and easier to reason about. But to my knowledge, not all that popular in the wild.
+[Browserify](http://browserify.org/) was better. Using [CommonJS](http://en.wikipedia.org/wiki/CommonJS) it brought the same syntax we've had in node.js into the browser. Less clunky and easier to reason about. But to my knowledge, not all that popular in the wild.
 
 The problem with Browserify is that, at least in my experience, it takes a lot of setup to work well. And it's kind of slow. Compile times run into the many seconds range.
 
@@ -76,10 +76,10 @@ config.output = {
 
 There's two tricks here:
 
-1.  We tell Webpack to fingerprint files with `[chunkhash]` unless we're in local development. This gives us long-term caching because of unique filenames
+1.  We tell Webpack to fingerprint files with `[chunkhash]`, unless we're in local development. This gives us long-term caching because of unique filenames
 2.  We prefix the `publicPath` with a CDN URL. This "tricks" Webpack into loading them from there
 
-The `in_dev` and `getCDN` make the config easier to understand. They look like this:
+The `in_dev()` and `getCDN()` functions make the config easier to understand. They look like this:
 
 ```javascript
 function getCDN() {

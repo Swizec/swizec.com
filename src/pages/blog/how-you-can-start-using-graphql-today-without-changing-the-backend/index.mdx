@@ -19,7 +19,7 @@ No seriously, it's _that_ simple.
 
 You can connect GraphQL to your REST API instead of the database. Create a small proxy and start using GraphQL on the frontend today. No backend changes required.
 
-![](./img/h5gaIXC.png)
+![GraphQL Example](./img/h5gaIXC.png)
 
 We explored this idea on a stream 👇
 
@@ -27,7 +27,7 @@ https://www.youtube.com/watch?v=5d_CZHljxuw
 
 Out came a proof of concept that took a 37KB payload from our production API at [Yup](https://yup.com) and turned it into this:
 
-![](./img/YKXYMJT.png)
+![Payload Visualization](./img/YKXYMJT.png)
 
 😍
 
@@ -39,7 +39,7 @@ Nobody even knows which of those fields are still in use. Can't remove any becau
 
 So forever more every client gets every setting that any client in history ever needed.
 
-![ew giphy](./img/media-aNtt9T8SqGNK8-giphy.gif)
+![Ew](./img/media-aNtt9T8SqGNK8-giphy.gif)
 
 With a GraphQL proxy, each client can take just what it needs.
 
@@ -88,7 +88,7 @@ here's what I found
 
 [full code on Github](https://github.com/Swizec/graphql-rest-proxy)
 
-### serverless.yml
+### `serverless.yml`
 
 Host on AWS Lambda so you don't have to deal with servers. Focus on the code.
 
@@ -116,7 +116,7 @@ functions:
 
 Run `sls deploy` and you get a server that runs your `graphql.handler` method on every GET and POST request.
 
-### graphql.ts – Apollo AWS Lambda server
+### `graphql.ts` – Apollo AWS Lambda server
 
 Apollo is great for building GraphQL servers. Good community support, integrates well with Lambda, great developer experience. 👌
 
@@ -164,7 +164,7 @@ export const handler = server.createHandler({
 
 This creates a GraphQL server. Send a POST request and it maps queries to resolvers. Send a GET request and you see an Apollo playground so you can try your queries.
 
-![](./img/YKXYMJT.png)
+![Payload Visualization](./img/YKXYMJT.png)
 
 ### schemas
 
@@ -344,7 +344,7 @@ Maybe you could have 1 parameter that accepts a JSON string 🤔
 
 If you decide to go down this route, expect a schlep followed by _"Yay we have GraphQL now"_ from everyone else on your team. You'll be their hero.
 
-![hero giphy](./img/media-ek4CUx2FONgHaMz9V5-giphy-downsized-medium.gif)
+![Hero](./img/media-ek4CUx2FONgHaMz9V5-giphy-downsized-medium.gif)
 
 I think it's worth it.
 

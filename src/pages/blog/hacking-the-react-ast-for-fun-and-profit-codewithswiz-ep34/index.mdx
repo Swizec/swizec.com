@@ -18,13 +18,13 @@ On [ServerlessHandbook.dev](https://serverlesshandbook.dev) there is a paywall. 
 
 This works.
 
-![](./img/GxSe68gif99i1jh.gif)
+![GxSe68gif99i1jh illustration](./img/GxSe68gif99i1jh.gif)
 
 But it doesn't look good. Content's not styled.
 
 You're supposed to see this:
 
-![](./img/vOm4Lmgif2364g6.gif)
+![vOm4Lmgif2364g6 illustration](./img/vOm4Lmgif2364g6.gif)
 
 ## Current working solution
 
@@ -57,7 +57,7 @@ export function SnipContent({ children }) {
 }
 ```
 
-Take the children, render to a string, split by the lock, take first part, render back out as HTML.
+Take the `children`, render to a string, split by the lock, take first part, render back out as HTML.
 
 When this happens, we throw out all the styling machinery. ThemeUI doesn't see these components, doesn't add CSS classes.
 
@@ -65,13 +65,13 @@ Wrapping in ThemeUI's root wrapper doesn't work either. It's a CSS-in-JS library
 
 ## Attempt 1: Hack React's AST
 
-We have those ThemeUI classes – they're in the `children` prop!
+We have those ThemeUI classes – they're in the `{children}` prop!
 
 ![What children looks like](./img/What-children-looks-like33g3ea.png)
 
-The `children` prop is a portion of React's AST. An [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) that represents the data structure of your React app. React uses this to run DOM events, deal with effects, and render.
+The `{children}` prop is a portion of React's AST. An [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) that represents the data structure of your React app. React uses this to run DOM events, deal with effects, and render.
 
-Our content hides in the `type: MDXContent` node. We weren't able to dig into that.
+Our content hides in the `{type: MDXContent}` node. We weren't able to dig into that.
 
 For a brief moment it looked like we might be able to hack [React's Fiber implementation](https://github.com/acdlite/react-fiber-architecture), but that was too much. If I understand correctly, fibers are _the_ syntax tree that React uses, but they're based on functions calling functions. Not a hackable data structure.
 
@@ -138,7 +138,7 @@ You _could_ compile with `mdx(data)` from the `@mdx-js/mdx` package, but that de
 
 Including the full MDX runtime in your client code would work ... and destroy your Lighthouse scores. It's a big pile of code.
 
-![](giphy:sigh)
+![sigh](giphy:sigh)
 
 ## What I feared: The real solution
 

@@ -36,15 +36,15 @@ _"The code is right there! Why can't I just use it 😩"_ ~ me, every time
 
 You start a monolith with some sensible design. Fat controllers, fat models, fat services, fat components. _Somewhere_ in your code lives The Business Logic and everything else calls that.
 
-![Example of concern-based architecture](./img/Example-of-concern-based-architecture4fe0hb.png)
+![Example of concern-based architecture](./img/Example-of-concern-based-architecture4fe0hb.png "Example of concern-based architecture")
 
-Sliced based on areas of concern. Fantastic. The `User` module has functions to handle users, the `Article` module for articles, and `Comment` for comments.
+Sliced based on areas of concern. Fantastic. The `{User}` module has functions to handle users, the `{Article}` module for articles, and `{Comment}` for comments.
 
 The control flow to add a comment goes like this:
 
-![Control flow to add a comment](./img/Control-flow-to-add-a-commentf4ch4i.png)
+![Control flow to add a comment](./img/Control-flow-to-add-a-commentf4ch4i.png "Control flow to add a comment")
 
-You call `addComment` on the `Comment` module and it talks to the `Article` module to get the article and check if comments are enabled. Then it talks to the `User` module to get the commenter and check if they're allowed to make comments. Finally it writes the comment.
+You call `addComment` on the `{Comment}` module and it talks to the `{Article}` module to get the article and check if comments are enabled. Then it talks to the `{User}` module to get the commenter and check if they're allowed to make comments. Finally it writes the comment.
 
 Looks sensible as code:
 
@@ -70,13 +70,13 @@ The answer almost doesn't matter in a monolith. You can `import * from 'Articles
 
 Throw everything on a pile, let computers do the searching.
 
-![](giphy:problem_solved)
+![Problem solved](./img/problem_solved.png "Problem solved")
 
 ### Microservices force the decision
 
 In a microservice world, those modules live on separate machines. Different repositories even.
 
-![Turning modules into microservices](./img/Turning-modules-into-microservicesd31ffh.png)
+![Turning modules into microservices](./img/Turning-modules-into-microservicesd31ffh.png "Turning modules into microservices")
 
 Each of those cross-module calls turns into an API request. With [all the necessary error handling](https://serverlesshandbook.dev/robust-backend-design)
 
@@ -128,7 +128,7 @@ I did the deploy and assumed all was fine. As it was the last 20 times.
 
 Then the Product Owner slacks me _"Hey Swiz I can't login"_
 
-Ah shit ... dig into logs, find the only new commit on `auth-service`. Suspicous! No idea what the commit is doing or how. Rollback that one little service and voila the system comes back 🥳
+Ah shit ... dig into logs, find the only new commit on `{auth-service}`. Suspicous! No idea what the commit is doing or how. Rollback that one little service and voila the system comes back 🥳
 
 To make it even more fun: another service failed to deploy at all. _And everything was fine_
 

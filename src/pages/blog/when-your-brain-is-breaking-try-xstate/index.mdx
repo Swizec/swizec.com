@@ -57,7 +57,7 @@ And you create long and complex conditionals that nobody on your team can read. 
 
 Everything's connected, nothing makes sense.
 
-![conspiracy_theory_board giphy](./img/media-l0IylOPCNkiqOgMyA-giphy.gif)
+![conspiracy_theory_board](./img/media-l0IylOPCNkiqOgMyA-giphy.gif)
 
 ## How you fix the mess with hashmaps
 
@@ -111,7 +111,7 @@ Here's a state machine for each of the `useState`s in our smol mess example.
 
 ![A 2-state state machine](./img/yCtO4VE.png)
 
-Circles are states, arrows are transitions. You can draw a state machine like this for almost anything\[^1].
+Circles are states, arrows are transitions. You can draw a state machine like this for almost anything[^1].
 
 That's where [XState](https://xstate.js.org/) shines – it's designed for state machines. It can even visualize them for you 😍
 
@@ -127,9 +127,9 @@ First you need to define the state machine. Flip your mindset from mapping state
 
 I like to do this in the [XState visualizer](https://xstate.js.org/viz/). Helps you see what you're doing.
 
-[![3-state state machine visualized with XState](./img/cHQdm62.png)](https://xstate.js.org/viz/?gist=7d8dc2133f897c61857d5509fb780658)
+![3-state state machine visualized with XState](./img/cHQdm62.png)
 
-👆 Click to see the full machine in XState visualizer
+[You can see the full state machine in the XState visualizer by clicking here.](https://xstate.js.org/viz/?gist=7d8dc2133f897c61857d5509fb780658)
 
 You define XState machines by listing states, their meta data, and performable actions. Each action points to the next state.
 
@@ -200,6 +200,6 @@ Happy hacking
 Cheers,<br/>
 ~Swizec
 
-\[^1] finite state machines can't solve every solvable problem. [Pushdown automata](https://en.wikipedia.org/wiki/Pushdown_automaton) (state machines with a stack) are more powerful and [Turing machines](https://en.wikipedia.org/wiki/Turing_machine) (state machine with an infinite memory) can solve anything
+[^1]: finite state machines can't solve every solvable problem. [Pushdown automata](https://en.wikipedia.org/wiki/Pushdown_automaton) (state machines with a stack) are more powerful and [Turing machines](https://en.wikipedia.org/wiki/Turing_machine) (state machine with an infinite memory) can solve anything
 
 PS: you can use XState in server code, too

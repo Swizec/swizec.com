@@ -18,13 +18,11 @@ Who the hell accidentally spends all night building fractals? Me… I guess.
 
 ![](https://swizec.com/wp-content/uploads/2016/11/growing-pythagoras-tree.gif)
 
-Pretty, innit? Built with React, and it's going to stop working when I `npm run build`. Still don't know why. I'll figure _that_ out next week.
+Pretty, innit? Built with React, and it's going to stop working when I `{npm run build}`. Still don't know why. I'll figure _that_ out next week.
 
 Here's how the [Pythagoras tree](<https://en.wikipedia.org/wiki/Pythagoras_tree_(fractal)>) works:
 
 > The construction of the Pythagoras tree begins with a square. Upon this square are constructed two squares, each scaled down by a linear factor of ½√2, such that the corners of the squares coincide pairwise. The same procedure is then applied recursively to the two smaller squares, ad infinitum.
-
-?
 
 That becomes four bullet points:
 
@@ -61,13 +59,13 @@ const Pythagoras = ({ maxlvl, w, x, y, lvl, left, right }) => {
     }
 
     return (
-        <g transform={`translate(${x} ${y})="" ${rotate}`}="">
-            <rect width={w} height={w} x={0} y={0} style="{{fill:" interpolateviridis(lvl="" maxlvl)}}="">
+        <g transform={`translate(${x} ${y}) ${rotate}`}>
+            <rect width={w} height={w} x={0} y={0} style={{fill: interpolateViridis(lvl/maxlvl)}}>
 
-            <pythagoras w={nextLeft} x={w-nextLeft} y={-nextLeft} lvl={lvl+1} maxlvl={maxlvl} right="">
+            <Pythagoras w={nextLeft} x={w-nextLeft} y={-nextLeft} lvl={lvl+1} maxlvl={maxlvl} right />
 
-            <pythagoras w={nextRight} x={0} y={-nextRight} lvl={lvl+1} maxlvl={maxlvl} left="">
-        </pythagoras></pythagoras></rect></g>
+            <Pythagoras w={nextRight} x={0} y={-nextRight} lvl={lvl+1} maxlvl={maxlvl} left />
+        </g>
     );
 };
 
@@ -91,7 +89,7 @@ If we're in a `left` rectangle, we set up a left rotation; if `right` then a rig
 
 To draw the rectangle, we:
 
-- `translate` to `(x, y`), that means "move there"
+- `translate` to `(x, y)`, that means "move there"
 - add the rotation
 - now our coordinate system is moved and rotate
 - draw a rectangle at `(0, 0)`
@@ -104,13 +102,13 @@ And that's how you build a fractal in React. It won't work in production, but it
 The animation is done in [App.js](https://github.com/Swizec/react-fractals/blob/master/src/App.js) with a timer that updates the `maxlvl` prop every 500ms. Calling the root node of `Pythagoras` looks like this:
 
 ```javascript
-<pythagoras
+<Pythagoras
   w={100}
   x={320 - 50}
   y={480 - 100}
   lvl={0}
-  maxlvl="{this.state.currentMax}/"
-></pythagoras>
+  maxlvl={this.state.currentMax}
+/>
 ```
 
 Start `lvl` at `0` and set the `maxlvl`. Those are important. At `maxlvl` past 12 or 13, it stops working. It takes too much CPU power to ever render.
@@ -122,8 +120,6 @@ Yes, I tried. The naive algorithm isn't good enough. You could optimize by takin
 Look at [Andrew Hoyer's](http://andrew-hoyer.com/experiments/fractals/) Pythagoras tree. That thing is beautiful and flexible and dances like tree-shaped worm.
 
 ![](https://swizec.com/wp-content/uploads/2016/11/andrew-hoyer-tree.gif)
-
-?
 
 I can't figure out how to calculate those angles and rectangle sizes. I know that using `.5` in the `Factor` is for `45` degree angles.
 

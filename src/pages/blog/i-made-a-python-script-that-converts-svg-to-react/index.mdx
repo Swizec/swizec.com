@@ -44,7 +44,7 @@ def dash_to_camelcase(value):
             yield str.capitalize
 
     c = camelcase()
-    return "".join(c.next()(x) if x else '-' for x in value.split("-"))
+    return "".join(next(c)(x) if x else '-' for x in value.split("-"))
 
 for subdir, dirs, files in os.walk('./top'):
     for file in files:

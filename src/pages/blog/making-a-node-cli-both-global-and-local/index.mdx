@@ -10,7 +10,7 @@ hero: ../../../defaultHero.jpg
 
 Here's a fun engineering problem for ya: You want to build a CLI tool. It should run as a command anywhere in the terminal.
 
-```
+```bash
     $ do-the-thing
 ```
 
@@ -20,7 +20,7 @@ That's not too hard.
 
 Now what if you want that CLI to be easily updateable? Still not hard. What if you want different projects to be able to run different versions of your CLI? To avoid issues with breaking changes in future versions.
 
-![](./img/media-l41Yi3OQTfDfMGLde-giphy.gif)
+![Image](./img/media-l41Yi3OQTfDfMGLde-giphy.gif)
 
 ## Make a globally executable Node CLI
 
@@ -32,7 +32,7 @@ Here's how you do it.
 
 **2)** Inside this project, create a `cli.js` file. This will be your executable. No real code in here, just handling the execution and possibly argument parsing.
 
-```
+```bash
     // ./cli.js
 
     #!/usr/bin/env node
@@ -48,7 +48,7 @@ You can now run this code with `./cli.js` and it should run the command. Superb.
 
 **3)** To turn `cli.js` into a command, you have to add a `"bin"` directive to your `package.json` file. Bin tells npm which commands should become global bash commands.
 
-```
+```bash
     // package.json
 
     {
@@ -66,7 +66,7 @@ We set `command.js` as the `main` entry point into our module because that makes
 
 **4)** Install globally.
 
-```
+```bash
     $ npm install -g your-thing
 ```
 
@@ -96,7 +96,7 @@ The hackiest.
 
 Something like this:
 
-```
+```bash
     // cli.js
 
     let command = null;
@@ -108,7 +108,7 @@ Something like this:
     }
 ```
 
-Start with an empty command. Then try to import the closest `node_modules` to current working directory. If that fails, load whatever Node can find. Usually that's the global installation because it starts searching at `cli.js`, which is global.
+Start with an empty `command`. Then try to import the closest `node_modules` to current working directory. If that fails, load whatever Node can find. Usually that's the global installation because it starts searching at `cli.js`, which is global.
 
 Now you can run `do-the-thing` from any project on your computer and each project can have its own version of your CLI. 👌
 

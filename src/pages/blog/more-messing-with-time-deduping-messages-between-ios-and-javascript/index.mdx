@@ -12,7 +12,7 @@ I've written about time before: [Days are not 60∙60∙24 seconds](https://swiz
 
 https://www.youtube.com/watch?v=edjQCrodD20?ecver=2
 
-Here's another for the Things You Never Thought Could Go Wrong pile: Deduping messages in a chat application.
+Here's another for the `Things You Never Thought Could Go Wrong` pile: Deduping messages in a chat application.
 
 For months now, we've had this elusive bug at [Yup](https://www.yup.com) that nobody could figure out. When a student and a tutor are talking, if the tutor refreshes his or her webapp, student messages are doubled. Not because there's a display issue, oh no, because they're all saved twice.
 
@@ -44,10 +44,9 @@ Here's what a typical message looks like:
     sent_at: <timestamp>,
     sent_from: <sender>,
     sent_to: <recipient>,
-    content_type: <img text="">,
+    content_type: <img text>,
     text: <message>
 }
-</message></recipient></sender></timestamp></number>
 ```
 
 `chat_id` tells you which session a message belongs to, `sent_at` when it was sent, `sent_from` who sent it, `sent_to` who's receiving it (because the system can send messages to either human), `content_type` whether you should render the text or assume it's an image URL, and `text` gives you the content.
@@ -144,6 +143,6 @@ end
 
 ## Fin
 
-And that's how you fix what looks like a frontend bug by writing writing code on the backend and re-engineering your biggest database table.
+And that's how you fix what looks like a frontend bug by writing code on the backend and re-engineering your biggest database table.
 
 Score for the fullstack generalists! 💪🏼

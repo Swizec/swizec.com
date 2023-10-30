@@ -18,7 +18,7 @@ No, I'm exploring the idea that you can use blockchains as generic validated dat
 
 Every other app or client attached to the same blockchain can read your state, use it, and add to it.
 
-![](./img/media-krhB8ydCQiYZq-giphy.gif)
+![Blockchain Redux GIF](./img/media-krhB8ydCQiYZq-giphy.gif)
 
 Ideally, you shouldn't have to know _how_ it works.
 
@@ -26,7 +26,7 @@ My ultimate goal is to give you this 👇
 
 1.  `import { createStore } from 'blockchain-redux'`
 2.  `blockchain = createStore(rootReducer)`
-3.  `blockchain.dispatch()` and `blockchain.getState()`
+3.  `{blockchain.dispatch()}` and `{blockchain.getState()}`
 4.  You have a globally distributed validated data store
 
 This weekend, we got very close.
@@ -41,7 +41,7 @@ The goal is to store and share measurements from anyone who plays with the bench
 
 Right now, on [my local machine](https://www.youtube.com/watch?v=D3WH5nI9Nj4&feature=youtu.be&t=3345), each click adds a block to the blockchain, and every other instance has to reload the page to fetch the updates. I want to make this work live.
 
-![](https://swizec.com/wp-content/uploads/2018/04/Screen-Shot-on-2018-04-03-at-124014.png)
+![Blockchain Redux Code Screenshot](https://swizec.com/wp-content/uploads/2018/04/Screen-Shot-on-2018-04-03-at-124014.png)
 
 Each block holds data that looks like this:
 
@@ -119,7 +119,7 @@ class App extends Component {
 </api>
 ```
 
-We initialize `blockchain` as an empty object, then use `createStore` to overwrite it with our blockchain store in `componentDidMount`. This is because it needs to talk to Firebase during initialization.
+We initialize `{blockchain}` as an empty object, then use `createStore` to overwrite it with our blockchain store in `componentDidMount`. This is because it needs to talk to Firebase during initialization.
 
 Firebase is used as a central hub right now. Eventually, I want to replace it with direct communication between nodes via WebRTC or similar.
 
@@ -147,15 +147,14 @@ In App.js, we set its value like this:
 ```javascript
 // App.js
 render() {
-    return <blockchaincontext class="provider" value={this.blockchain}>
-            <introcopy>
-
-            <benchmarks>
-        </benchmarks></introcopy></blockchaincontext>
+    return <BlockchainContext.Provider value={this.blockchain}>
+            <IntroCopy />
+            <Benchmarks />
+        </BlockchainContext.Provider>
 }
 ```
 
-We now have `this.blockchain` shared via context. Any component that needs to read from our blockchain has to use `<BlockchainContext.Consumer>`.
+We now have `{this.blockchain}` shared via context. Any component that needs to read from our blockchain has to use `<BlockchainContext.Consumer>`.
 
 ### Read from the chain
 
@@ -165,7 +164,7 @@ In `<IntroCopy>`, we render the current length of our blockchain like this:
 import BlockchainContext from "./BlockchainContext";
 
 export default () => (
-    <react class="fragment">
+    <React.Fragment>
         <div class="App-heading App-flex">
             <h2>
                 Let's benchmark the <span class="App-react">DOM</span>{" "}
@@ -173,12 +172,16 @@ export default () => (
             </h2>
         </div>
         <div class="App-instructions App-flex">
-            <blockchaincontext class="consumer">
+            <BlockchainContext.Consumer>
                 {({ getWholeChain = () => [] }) => (
-                    There are {getWholeChain().length} nodes on the chain
+                    <>
+                        There are {getWholeChain().length} nodes on the chain
+                    </>
                 )}
-            </blockchaincontext>
-</div></react>
+            </BlockchainContext.Consumer>
+        </div>
+    </React.Fragment>
+)
 ```
 
 We wrap a paragraph in a `BlockchainContext.Consumer`, which takes a function as children. That function gets the context `value` as its argument, which lets us call `getWholeChain()` on our blockchain to read its length.
@@ -261,7 +264,7 @@ Just like Redux 🤓
 
 Unlike just Redux, magic happens, and a new block is added to the blockchain.
 
-![](https://swizec.com/wp-content/uploads/2018/04/screenshot-gif.gif)
+![Blockchain Redux Code Screenshot](https://swizec.com/wp-content/uploads/2018/04/screenshot-gif.gif)
 
 And you thought it wasn't useful. Ha!
 

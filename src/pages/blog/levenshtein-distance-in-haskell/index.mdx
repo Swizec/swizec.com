@@ -8,9 +8,9 @@ categories: "Algorithm, Dynamic programming, Edit distance, Haskell, Languages, 
 hero: ../../../defaultHero.jpg
 ---
 
-When you have to figure out the difference between two strings your best bet is either H*amming distance* or _[Levenshtein distance](http://en.wikipedia.org/wiki/Levenshtein_distance "Levenshtein distance")_.
+When you have to figure out the difference between two strings your best bet is either H*amming distance* or _Levenshtein distance_.
 
-Because [hamming distance](http://en.wikipedia.org/wiki/Hamming_distance "Hamming distance") only works on strings of equal lengths, you're usually better off using levenshtein distance. Its name is also harder to spell so you know it's better!
+Because hamming distance only works on strings of equal lengths, you're usually better off using levenshtein distance. Its name is also harder to spell so you know it's better!
 
 It is defined as _the minimum amount of edits needed to transform one string into another_. Like this:
 
@@ -36,7 +36,7 @@ The meat of the algorithm goes like this:
                    )
 ```
 
-## [Dynamic programming](http://en.wikipedia.org/wiki/Dynamic_programming "Dynamic programming") and Haskell
+## Dynamic programming and Haskell
 
 Doing this in Haskell becomes tricky because we don't have state so we can't really keep track of what we already know. Translating this into a recursive problem is our only option.
 
@@ -91,5 +91,4 @@ levenshtein s1 s2
 
 If anyone's got an even better idea for implementing Levenshtein distance in Haskell, I'd love to hear!
 
-edit: A Reddit commenter provides a far better [Levenshtein distance function](http://www.reddit.com/r/programming/comments/w4gs6/levenshtein_distance_in_haskell/c5a6jjz).
-
+edit: A Reddit commenter provides a far better Levenshtein distance function.

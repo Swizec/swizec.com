@@ -20,7 +20,7 @@ But a lot of those examples are in old versions of D3, and what if you're using 
 
 Let's do that for this example of [113th Congressional District](https://bl.ocks.org/mbostock/4657115) from March 2016.
 
-![](https://swizec.com/wp-content/uploads/2017/08/2017-08-31-at-3.17-PM.png)
+![113th Congressional District](https://swizec.com/wp-content/uploads/2017/08/2017-08-31-at-3.17-PM.png)
 
 The code starts with the usual HTML declarations, loading scripts, and a block of `<style>` stuff. Assuming we started our React app with `create-react-app`, we copy all the style info into `App.css`. That way we never have to worry about it again.
 
@@ -54,18 +54,17 @@ class CongressionalDistricts extends Component {
     }
 
     render() {
-        const { usData, usCongress } = this.state;
+        const `{usData, usCongress}` = this.state;
 
         if (!usData || !usCongress) {
             return null;
         }
 
-        return <g ref="anchor">;
+        return <g ref="anchor"></g>;
     }
 }
 
 export default CongressionalDistricts;
-</g>
 ```
 
 Our `CongressionalDistricts` component has three parts. We're going to load data in `componentWillMount`, do all of our significant rendering in `componentDidUpdate`, and render an anchor element in `render`.
@@ -106,7 +105,7 @@ So we copy the projection and path setup into `componentDidUpdate` like this:
 // src/CongressionalDistricts.js
     componentDidUpdate() {
         const svg = d3.select(this.refs.anchor),
-              { width, height } = this.props;
+              `{width, height}` = this.props;
 
         const projection = d3.geoAlbers()
                              .scale(1280)
@@ -161,7 +160,7 @@ Now for the coup-de-grace: A massive copypasta that puts all the rendering code 
 
     componentDidUpdate() {
         const svg = d3.select(this.refs.anchor),
-              { width, height } = this.props;
+              `{width, height}` = this.props;
 
         const projection = d3.geoAlbers()
                              .scale(1280)

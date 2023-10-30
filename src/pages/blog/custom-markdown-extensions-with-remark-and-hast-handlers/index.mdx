@@ -22,13 +22,13 @@ https://www.youtube.com/watch?v=QtSSNLh_PBs
 
 I use markdown to write these letters. And my blogs. And my workshop materials.
 
-One of the tools that helps me do that is [TechLetterApp](https://techletter.app/). Takes my Markdown and turns code, youtube links, and tweets into screenshots. Makes them work in email :)
+One of the tools that helps me do that is [TechLetterApp](https://techletter.app/). Takes my Markdown and turns code, youtube links, and tweets into screenshots. Makes them work in email :)]
 
 But TechLetterApp had a terrible bug.
 
-![](./img/Mg1nuYD.png)
+![bug image](./img/Mg1nuYD.png)
 
-Code blocks would eat each other. Linking to Twitter usernames with an `@` corrupted the output. Image links got confused as well. `[![]()]()`.
+Code blocks would eat each other. Linking to Twitter usernames with an `{@}` corrupted the output. Image links got confused as well. `![![]()]()`.
 
 Basically, the Markdown parser was shit.
 
@@ -241,7 +241,7 @@ Takes an AST `node` as its prop and returns a linked image. At first the image i
 
 `useState` keeps track of the current image URL. `useEffect` runs a `fetch` request talking to my screenshot lambda.
 
-![](./img/sEoa8lP.gif)
+![Spinner and image gif](./img/sEoa8lP.gif)
 
 ## Putting it all together
 

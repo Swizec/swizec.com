@@ -19,7 +19,7 @@ https://twitter.com/Swizec/status/1489051279007510534
 
 After a quarter long project with far more details than fit in this article, we launched a major revamp of a user facing feature. Saves 40 hours of manual labor _per week_ for our ops team, enables users to book and manage their own weekly therapy appointments. Huzzah!
 
-[![Therapy booking screen](./img/Therapy-booking-screen9g0ji5.png)](https://asktia.com)
+![Therapy booking screen](./img/Therapy-booking-screen9g0ji5.png)
 
 Throughout development and even the pilot launch, this worked great.
 
@@ -138,8 +138,6 @@ If you `wantUniques` we return a random option for each time, otherwise you get 
 
 This code works and follows all the best practices of functional programming. No data is getting mutated, every iteration makes new copies, and it works great. Chef's kiss.
 
-![](giphy:chefs_kiss)
-
 ### Copying arrays sneakily blows up complexity
 
 When you look at this code, it's `O(n)`. You iterate over `newSlots` once to add them to a map and again at the end to uniquefy. Looks great.
@@ -167,7 +165,7 @@ For each `newSlot` we make a full copy of 2 arrays:
 
 And that's where this `O(n)` algorithm turns into `O(n^2)`. The spread operator iterates over elements 1-by-1 and moves them into a new array. There are faster ways to clone an array by manually moving memory around, but I don't think JavaScript supports them.
 
-[![Spread is O(n)](./img/Spread-is-On347dda.png)](https://stackoverflow.com/questions/57032373/whats-the-time-complexity-of-javascript-spread-syntax-in-arrays)
+![Spread is O(n)](./img/Spread-is-On347dda.png)
 
 When N is small, this is not a problem.
 
@@ -249,8 +247,6 @@ The trace went down to 3.34 seconds 🤘
 User-facing request takes 3.34 seconds, `calendar-service` manages 2.58 seconds with concurrency, and `tmd-server` is fast as lightning. No more gap between getting data and returning the result.
 
 ![No more processing gap](./img/No-more-processing-gap3a58ae.jpeg)
-
-![](giphy:elmo_burn)
 
 Now before you go replacing all your array spreads with mutating data, make sure you need to. Measure.
 

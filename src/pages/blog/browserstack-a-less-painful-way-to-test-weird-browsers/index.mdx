@@ -14,15 +14,13 @@ Me, I had to do it earlier this week. My experience building websites for a web 
 
 https://twitter.com/Swizec/status/1107895195163451393?ref_src=twsrc%5Etfw
 
-![](./img/media-116a8zosxwA0SI-giphy.gif)
+![funny gif](./img/media-116a8zosxwA0SI-giphy.gif)
 
 Microsoft Edge did not disappoint.
 
 `Array.flat()` doesn't work on Edge. On _every other browser_ it flattens nested arrays. On Edge it blows up and says the method doesn't exist.
 
 ![CanIuse for Array.flat](./img/o9Z0rYC.png)
-
-CanIuse for Array.flat
 
 Okay not _every_ browser. Only the ones that people use.
 
@@ -36,7 +34,7 @@ In this project I was also using [chroma-js](https://gka.github.io/chroma.js/) t
 
 Except on Edge this created invalid hex values. Colors no work at all.
 
-Had to hack it together like this `` `rgba(${chroma(color).alpha(0.5).rgba().join(',')})``
+Had to hack it together like this: `` `rgba(${chroma(color).alpha(0.5).rgba().join(',')})` ``
 
 🤨
 
@@ -46,13 +44,13 @@ https://twitter.com/Swizec/status/1107905401276624900?ref_src=twsrc%5Etfw
 
 `.getBoundingClientRect()` doesn't work on Edge. Well it does but it returns a `ClientRect` instead of a `DOMRect`. They work the same except when they don't.
 
-For example DOMRect has `x` and `y` coordinates. `ClientRect` only has `top` and `left`. Oh and ClientRect only exists on Edge. Of course.
+For example, `DOMRect` has `x` and `y` coordinates. `ClientRect` only has `top` and `left`. Oh and ClientRect only exists on Edge. Of course.
 
 This meant I had to fix my [`useDimensions`](https://github.com/Swizec/useDimensions) library. Project relies on it a lot to measure stuff and build responsive data visualizations.
 
 Oh and flexbox doesn't work correctly. Instead of spacing evenly it bunches everything on the left. Of course.
 
-![](./img/media-26ufcVAp3AiJJsrIs-giphy.gif)
+![funny gif](./img/media-26ufcVAp3AiJJsrIs-giphy.gif)
 
 ## The hero in this story is BrowserStack
 
@@ -68,13 +66,11 @@ Edge probably runs on their servers and streams an image to the tab. Still, feel
 
 ![BrowserStack open screen](./img/lGhiEHR.png)
 
-BrowserStack open screen
-
 BrowserStack really does support all browsers 👌
 
 You can use it for free for 15 minutes I think. I needed more so I ponied up a whopping $19 for a freelancer plan. That gave me 100 minutes.
 
-![](./img/GqIcx7k.png)
+![browser plan](./img/GqIcx7k.png)
 
 You can even run things from localhost. No idea how they made that work. Type `http://localhost:3000` into the URL bar and it actually goes to your localhost.
 
@@ -82,7 +78,7 @@ Just don't type `localhost:3000` because Edge doesn't know how to deal with that
 
 And here's proof. Edge running inside Chrome showing my homepage.
 
-![](./img/9yvIsIG.png)
+![Homepage screenshot](./img/9yvIsIG.png)
 
 Amazing.
 

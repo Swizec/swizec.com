@@ -55,7 +55,7 @@ for (let i = 0; i < arr.length; i++) {
 
 You take a piece of memory, set it to `0`, then walk through an array of memory locations, and add them to your original piece of memory. That memory spot keeps changing.
 
-This is a hairy situation because [another thread](<https://en.wikipedia.org/wiki/Thread%5C_(computing)>) might change that same spot of memory. If that happens, your result could be incorrect.
+This is a hairy situation because `[another thread](<https://en.wikipedia.org/wiki/Thread%5C_(computing)>)` might change that same spot of memory. If that happens, your result could be incorrect.
 
 We can fix that with a functional/immutable approach, like this:
 
@@ -71,21 +71,21 @@ Great. Very useful in multi-threaded programming.
 
 Guess what isn't multithreaded, though. JavaScript. 😁
 
-Unless you're dealing with [LocalStorage](https://swizec.com/blog/a-fast-mutex-lamport-lock-with-javascript-promises/) or [web workers](https://en.wikipedia.org/wiki/Web_worker), JavaScript can never suffer from problems of multiple threads and shared state. At least not in the way that more traditional runtime environments might.
+Unless you're dealing with `[LocalStorage](https://swizec.com/blog/a-fast-mutex-lamport-lock-with-javascript-promises/)` or `[web workers](https://en.wikipedia.org/wiki/Web_worker)`, JavaScript can never suffer from problems of multiple threads and shared state. At least not in the way that more traditional runtime environments might.
 
 Sure, you have asynchronous code, and if you're not careful, that's going to mess you up. That same `.reduce()` call above is resilient against asynchronousness, the `for` approach is not.
 
 But the real trick isn't that we used an immutable approach and that was magically better. The trick is that we changed how we think of summing numbers.
 
-We changed `sum` into the final stage of a [state machine](https://en.wikipedia.org/wiki/Finite-state_machine). Our result was no longer an expression of `state and some steps`, but a pure expression of `state`.
+We changed `sum` into the final stage of a `[state machine](https://en.wikipedia.org/wiki/Finite-state_machine)`. Our result was no longer an expression of `state and some steps`, but a pure expression of `state`.
 
 ## Good apps are state machines
 
-You can think of our `sum` example above as constructing a custom [state machine](https://en.wikipedia.org/wiki/Finite-state_machine) for just that array in particular. It contains as many states as there are elements in the array. Each state knows the current total sum. The final state knows the entire sum.
+You can think of our `sum` example above as constructing a custom `[state machine](https://en.wikipedia.org/wiki/Finite-state_machine)` for just that array in particular. It contains as many states as there are elements in the array. Each state knows the current total sum. The final state knows the entire sum.
 
 This is where a picture would help.
 
-![](https://swizec.com/wp-content/uploads/2017/05/thishelps.jpg)
+![thishelps](https://swizec.com/wp-content/uploads/2017/05/thishelps.jpg)
 
 In this particular state machine, transitions only go in one direction. With bigger apps, it gets hairier. States can transition in many ways, and the states themselves are more complex, too.
 

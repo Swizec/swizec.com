@@ -20,7 +20,7 @@ When I look at a state machine definition, my mind translates it into a picture.
 const smolStateMachine = {
 	start: {
 		saveAction: {
-			doStuff: () => ...
+			doStuff: `{() => ...}`
 			next: 'step1'
 		}
 	},
@@ -29,7 +29,7 @@ const smolStateMachine = {
 			next: 'start'
 		},
 		saveAction: {
-			doStuff: () => ...
+			doStuff: `{() => ...}`
 			next: 'step2'
 		}
 	},
@@ -43,7 +43,7 @@ const smolStateMachine = {
 
 When you know what to look for, this gaggle of dictionaries becomes a picture like this:
 
-![The picture behind a gaggle of dictionaries that define a state machine](./img/The-picture-behind-a-gaggle-of-dictionaries-that-define-a-state-machine784252.png)
+[The picture behind a gaggle of dictionaries that define a state machine](./img/The-picture-behind-a-gaggle-of-dictionaries-that-define-a-state-machine784252.png)
 
 First level keys are states, second level keys are arrows, third level keys define what those arrows do.
 
@@ -118,7 +118,7 @@ But it looks like a mess.
 
 ## What about both?
 
-![](giphy:why_not_both)
+![Why not both?](giphy:why_not_both)
 
 Whether you like categories or searching may be generational. In [File not Found](https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z) for The Verge, Monica Chin writes about conundrum college professors are struggling with – young students don't understand folders. Why organize your research when everything is searchable?
 

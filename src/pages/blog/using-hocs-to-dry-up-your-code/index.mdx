@@ -83,7 +83,7 @@ The same approach _should_ work with any component-based library like Preact, In
 
 So how does this work? How did a HOC replace 25 lines of JavaScript with a single `@backbone(ToolboxView)` decorator? Let me show you.
 
-## How HOCses improve your code
+## How HOCs improve your code
 
 The first step is to take everything generic out of your component and put it into a new one. This will be what your HOC _does_.
 
@@ -98,7 +98,7 @@ In our example that boilerplate is:
 
 Soooo… everything. ?
 
-We're leaving React's `render()` method out of the HOC to give consumers better flexibility, and we're adding the ability to set Backbone params. Those are important.
+We're leaving React's `{render()}` method out of the HOC to give consumers better flexibility, and we're adding the ability to set Backbone params. Those are important.
 
 ### Step 1: the core of a HOC
 
@@ -162,11 +162,11 @@ Looks almost the same as [our original implementation](https://swizec.com/blog/b
 
 `constructor` sets up `autorun` so our component can react to MobX store changes. This automatically turns our Backbone'd components into observers, but I like to include the `@observer` call when using them anyway. Helps with readability :)
 
-The `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` methods ensure our Backbone View gets rendered, re-rendered, and cleaned up when appropriate. Each method includes a hook for users of our HOC to add their own lifecycle logic. I haven't really had a use for this yet, but I think it's a good idea to have.
+The `{componentDidMount}`, `{componentDidUpdate}`, and `{componentWillUnmount}` methods ensure our Backbone View gets rendered, re-rendered, and cleaned up when appropriate. Each method includes a hook for users of our HOC to add their own lifecycle logic. I haven't really had a use for this yet, but I think it's a good idea to have.
 
 `_init`, `_render`, and `_cleanup` handle the actual Backbone stuff. They're helper methods that make it easier to reuse bits in different React lifecycle methods.
 
-`get anchor` is like a `render()` method but not. We _could_ render here, but that would reduce flexibility. Instead, we give consumers an easy way to render the Backbone anchor point wherever.
+`get anchor` is like a `{render()}` method but not. We _could_ render here, but that would reduce flexibility. Instead, we give consumers an easy way to render the Backbone anchor point wherever.
 
 ### Step 2: Making it a HOC
 
@@ -195,14 +195,14 @@ Our HOC then looks like this:
 ```javascript
 function backbone(BackboneView) {
         return function (WrappedComponent) {
-                return class Backbone extens WrappedComponent {
+                return class Backbone extends WrappedComponent {
                         // your HOC core
                 }
         }
 }
 ```
 
-Now the logic inside your HOC can use `BackboneView` to decide which component to use. This means that you don't need a new HOC for every Backbone View you want to make available in React. Wonderful.
+Now the logic inside your HOC can use `{BackboneView}` to decide which component to use. This means that you don't need a new HOC for every Backbone View you want to make available in React. Wonderful.
 
 ### Step 4: Using it
 
@@ -226,13 +226,13 @@ class Toolbox extends Component {
 }
 ```
 
-`backboneProps` lets us define parameters fed into the Backbone View – the HOC accesses them as `this.backboneProps`.
+`backboneProps` lets us define parameters fed into the Backbone View – the HOC accesses them as `{this.backboneProps}`.
 
-Inside `render()`, we use `this.anchor` anywhere we want to place the anchor point for our Backbone View. In this case we're rendering just that, but in others we might want to wrap it with useful markup that makes it look better in its new context.
+Inside `{render()}`, we use `this.anchor` anywhere we want to place the anchor point for our Backbone View. In this case we're rendering just that, but in others we might want to wrap it with useful markup that makes it look better in its new context.
 
 ## Conclusion
 
-HOCs are great, and I wish I started using them earlier. There's definitely going to be a chapter about HOCses in the [new version of React+D3](https://swizec.com/reactd3js/). Some prime targets for this stuff in there.
+HOCs are great, and I wish I started using them earlier. There's definitely going to be a chapter about HOCs in the [new version of React+D3](https://swizec.com/reactd3js/). Some prime targets for this stuff in there.
 
 And yes, you _can_ use them without decorators. It's just not as pretty. Something like this:
 

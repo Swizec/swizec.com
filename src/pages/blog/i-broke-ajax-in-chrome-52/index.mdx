@@ -44,13 +44,13 @@ function doWeirdness(bug) {
 }
 ```
 
-![2 fetches, 1 callback](https://swizec.com/wp-content/uploads/2016/08/chrome-eats-objects.gif)
+![Two fetches, one callback](https://swizec.com/wp-content/uploads/2016/08/chrome-eats-objects.gif)
 
 If you press Cmd+R, the bug happens. If you press Cmd+Shift+R, it does not. That’s a new clue that points at either Chrome’s speed optimizations, or worse, the network stack. Can we call it a network stack? I guess Chrome _is_ almost an operating system at this point …
 
 Adding `console.log(newBug == bug)` prints `false`, which implies that Chrome does _not_ think both instances are the same object. This invalidates my original hypothesis. ?
 
-So what does Backbone’s `Model.fetch` method do?
+So what does Backbone’s `{Model.fetch}` method do?
 
 ```javascript
 fetch: function(options) {
@@ -70,7 +70,7 @@ fetch: function(options) {
 
 A lot of this stuff is unnecessary in ES6, but Backbone is from the before times.
 
-We start with a default value for options - `{parse: true}`, then use the `var = this` trick because we don’t have arrow functions. Then we copy the `options.success` callback to a variable and define our own. You can think of it as a wrapper.
+We start with a default value for options - `{parse: true}`, then use the `{var = this}` trick because we don’t have arrow functions. Then we copy the `{options.success}` callback to a variable and define our own. You can think of it as a wrapper.
 
 Inside the success wrapper, we parse data returned from the server and set new values on our model. Then we trigger a `sync` event. This could be where the bug happens.
 
@@ -82,7 +82,7 @@ If I copy this method to my own model definition, we can inspect where it fails.
 
 The success wrapper doesn’t fire. ?
 
-Let’s see what happens inside `sync` … ugh, it’s a long function. I’m not pasting it here. It does some setup, then defers to `$.ajax` to perform an ajax request to the server.
+Let’s see what happens inside `{sync}` … ugh, it’s a long function. I’m not pasting it here. It does some setup, then defers to `{$.ajax}` to perform an ajax request to the server.
 
 Can we make the same bug happen without Backbone, then?
 
@@ -122,7 +122,7 @@ request.get("bla.json").end(() => {
 });
 ```
 
-![Superagent repros too](https://swizec.com/wp-content/uploads/2016/08/superagent-bug.gif)
+![Superagent reproductions too](https://swizec.com/wp-content/uploads/2016/08/superagent-bug.gif)
 
 Yeeeeep.
 

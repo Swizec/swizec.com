@@ -16,7 +16,7 @@ https://twitter.com/Swizec/status/928761345750605825
 
 Every once in a while, you would refresh [our webapp](https://www.yup.com) and stare at the loading animation forever. Yes, we have one of those because we're cool.
 
-![](https://swizec.com/wp-content/uploads/2017/11/yuploader.gif)
+![Loading animation](https://swizec.com/wp-content/uploads/2017/11/yuploader.gif)
 
 We worked hard on it, and it looks great. But we don't want you to be stuck staring at it never getting to the page.
 
@@ -24,17 +24,21 @@ We traced the problem down to a JavaScript error during app initialization. Some
 
 This shows up as a cryptic error 👇
 
-    Uncaught TypeError: Cannot read property 'call' of undefined
-        at __webpack_require__
+```
+Uncaught TypeError: Cannot read property 'call' of undefined
+    at __webpack_require__
+```
 
 It happens on this line inside `manifest.js` 👇
 
-    // Execute the module function
-    modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+```javascript
+// Execute the module function
+`{modules[moduleId].call(module.exports, module, module.exports, __webpack_require__)}`;
+```
 
 Now `manifest.js` is a generated file, so there isn't much you can do to fix it. In fact, you shouldn't have to fix it. Or even consider modifying it. Ever.
 
-Webpack generates this file when you compile your code and uses it to bootstrap your code. It builds a list of modules inside that `modules` dictionary and executes them when you run `import` or `require()`.
+Webpack generates this file when you compile your code and uses it to bootstrap your code. It builds a list of modules inside that `{modules}` dictionary and executes them when you run `import` or `{require()}`.
 
 Usually, this either always works or never works.
 
@@ -60,7 +64,7 @@ At up to 3 minutes per compile, it was slow going.
 
 I changed this and that and nothing worked.
 
-![](https://swizec.com/wp-content/uploads/2017/11/tired-at-computer.gif)
+![Tired at computer](https://swizec.com/wp-content/uploads/2017/11/tired-at-computer.gif)
 
 Then I found this old article Jake Archibald published in 2013. [Deep dive into the murky waters of script loading](https://www.html5rocks.com/en/tutorials/speed/script-loading/)
 
@@ -94,7 +98,7 @@ So instead, we used `defer` for a long time. This downloads scripts without wait
 
 Wonderful.
 
-But preloading is even better 👉 `<link rel="preload" href="bla" onload="loadJsFiles(this.href) />`. With preloading, you're loading scripts without waiting for them, potentially before the user even opens your site, then executing a callback to say _"Ok we got the script, now what?"_
+But preloading is even better 👉 `<link rel="preload" href="bla" onload="{loadJsFiles(this.href)} />`. With preloading, you're loading scripts without waiting for them, potentially before the user even opens your site, then executing a callback to say _"Ok we got the script, now what?"_
 
 In our case, the _"now what"_ part would create a `script` DOM node and insert it into the page. That makes it execute.
 
@@ -131,4 +135,4 @@ And everything works.
 
 2013-era JavaScript strikes again. Still relevant.
 
-![](https://swizec.com/wp-content/uploads/2017/11/cosby-facepalm.gif)
+![face palm](https://swizec.com/wp-content/uploads/2017/11/cosby-facepalm.gif)

@@ -8,9 +8,9 @@ categories: "Abstract syntax tree, Bytecode, Code generation (compiler), Compile
 hero: ./img/--bZymaKlKOg-T6fxqifZAcI-AAAAAAAAudI-fGph9nXdrrY-s1600-20090528_Marvel_Superheroes-742088.jpg
 ---
 
-So you want to create a [programming language](http://en.wikipedia.org/wiki/Programming_language "Programming language")? Awesome!
+So you want to create a [programming language](http://en.wikipedia.org/wiki/Programming_language)? Awesome!
 
-![English: Male superhero placeholder with copyr...](./img/English-Male-superhero-placeholder-with-copyrgg5081.png "English: Male superhero placeholder with copyr...")
+![Superhero placeholder](./img/English-Male-superhero-placeholder-with-copyrgg5081.png)
 
 Should you do it? Definitely not. Better yet, go ahead, but don't take it lightly.
 
@@ -30,19 +30,19 @@ Turns out that \_"if this then if this then that else that" \_cannot be parsed w
 
 Writing a compiler is fun! And by fun I mean it makes you feel like driving a metal rod through your brain. It's fun in that rewarding _Holy crap, did I just survive that!? I survived \_that\_? Damn._
 
-![Parse tree of Python code with inset tokenization](https://upload.wikimedia.org/wikipedia/en/thumb/a/ac/Python_add5_parse.png/300px-Python_add5_parse.png "Parse tree of Python code with inset tokenization")
+![Parse tree of Python code](https://upload.wikimedia.org/wikipedia/en/thumb/a/ac/Python_add5_parse.png/300px-Python_add5_parse.png)
 
 The complexity is immense. The difficulty of discovering there's a problem at all ... even immenser.
 
 A compiler works in several stages:
 
 1.  **Lexical analysis** - parses out comments and whitespace, unifies the language used (a list of lexemes, you use JFlex or something)
-2.  **[Syntactical analysis](http://en.wikipedia.org/wiki/Parsing "Parsing")** - checks the syntax is correct and builds the [Abstract Syntax Tree](http://en.wikipedia.org/wiki/Abstract_syntax_tree "Abstract syntax tree") (using a linear grammar with a tool like java_cup)
-3.  **[Semantic analysis](http://en.wikipedia.org/wiki/Compiler "Compiler")** - takes care of the semantics of the language (only call functions, supply correct parameters etc. - type checking)
+2.  **[Syntactical analysis](http://en.wikipedia.org/wiki/Parsing)** - checks the syntax is correct and builds the [Abstract Syntax Tree](http://en.wikipedia.org/wiki/Abstract_syntax_tree) (using a linear grammar with a tool like java_cup)
+3.  **[Semantic analysis](http://en.wikipedia.org/wiki/Compiler)** - takes care of the semantics of the language (only call functions, supply correct parameters etc. - type checking)
 4.  **Frames** - essentially memory management. Give functions some breathing space, pointers to their memory and so on.
-5.  **[Intermediate code generation](http://en.wikipedia.org/wiki/Code_generation_%28compiler%29 "Code generation (compiler)")** - this stage turns the AST into a tree of assembler-like instructions
+5.  **[Intermediate code generation](http://en.wikipedia.org/wiki/Code_generation_%28compiler%29)** - this stage turns the AST into a tree of assembler-like instructions
 6.  **Code linearization** - next step is to change that tree into a linear set of instructions, make sure registers are used well and so on. At this point you can run an interpreter.
-7.  There are a few more stages before reaching [machine code](http://en.wikipedia.org/wiki/Machine_code "Machine code"); luckily we stopped here.
+7.  There are a few more stages before reaching [machine code](http://en.wikipedia.org/wiki/Machine_code); luckily we stopped here.
 
 The really fun part is that, given a random issue, any of those stages can be the problem. Even though separately they all look like they're working perfectly.
 
@@ -59,7 +59,7 @@ For starters, you don't even know if there is or isn't a bug. Your only chance a
 
 One of two things will happen. The code will run smoothly and output the correct result.
 
-![FPGARetrocomputing](./img/FPGARetrocomputing3g3g7c.jpeg "FPGARetrocomputing")
+![FPGARetrocomputing](./img/FPGARetrocomputing3g3g7c.jpeg)
 
 Or there will be a syntax error. Or a semantic error. Or the result will be simply _wrong_.
 
@@ -67,11 +67,11 @@ You now have to carefully look through the example code and decide that it is in
 
 Once you've decided the target code is correct it's time to look through your compiler.
 
-In the case of syntax/semantic errors the task is simple - look at the output of the appropriate stage and decide that after several months of everything working, hey your grammar is actually wrong. Or hey, your [type checker](http://en.wikipedia.org/wiki/Type_system "Type system") is actually doing that one thing wrong. Or maybe your name checker is being silly ... whatever.
+In the case of syntax/semantic errors the task is simple - look at the output of the appropriate stage and decide that after several months of everything working, hey your grammar is actually wrong. Or hey, your [type checker](http://en.wikipedia.org/wiki/Type_system) is actually doing that one thing wrong. Or maybe your name checker is being silly ... whatever.
 
 Easily fixed.
 
-The really nasty buggers are those logical errors - the code didn't come up with the right result. There is no real symptom to look at. Your only hope of success is carefully inspecting the [intermediate code](http://en.wikipedia.org/wiki/Bytecode "Bytecode") and seeing if anything looks wrong.
+The really nasty buggers are those logical errors - the code didn't come up with the right result. There is no real symptom to look at. Your only hope of success is carefully inspecting the [intermediate code](http://en.wikipedia.org/wiki/Bytecode) and seeing if anything looks wrong.
 
 Even once you've found the problem, there's still the issue of what's actually causing it.
 
@@ -85,5 +85,4 @@ That's why it can take decades to discover a bug in a compiler used by millions 
 
 Seriously, the people out there who make compilers and languages used by millions of people are _superheroes._ I can't imagine doing that and keep even a semblance of my fragile sanity.
 
-![Superheroes](./img/--bZymaKlKOg-T6fxqifZAcI-AAAAAAAAudI-fGph9nXdrrY-s1600-20090528_Marvel_Superheroes-742088.jpg "Superheroes")
-
+![Superheroes](./img/--bZymaKlKOg-T6fxqifZAcI-AAAAAAAAudI-fGph9nXdrrY-s1600-20090528_Marvel_Superheroes-742088.jpg)

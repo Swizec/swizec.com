@@ -18,7 +18,7 @@ Rewriting it all in React for a quick test is out of the question. You're not ev
 
 Enter [`D3blackbox`](https://d3blackbox.com).
 
-Turn your code into a function, pass it into `D3blackbox()`, voila: Self-contained React component.
+Turn your code into a function, pass it into `{D3blackbox()}`, voila: Self-contained React component.
 
 https://codesandbox.io/s/km3l21y60r
 
@@ -48,11 +48,11 @@ const Barchart = D3blackbox(function (anchor, props) {
 export default Barchart
 ```
 
-`D3blackbox` is a higher order component that takes a render function.
+`{D3blackbox}` is a higher order component that takes a render function.
 
 It renders an anchor element and gives your renderer a React ref and all the props. You take over that anchor element with D3, or any other library, and do what you want.
 
-`D3blackbox` makes sure to call your renderer on mount and every component update. You're never going to see a stale render, I promise.
+`{D3blackbox}` makes sure to call your renderer on mount and every component update. You're never going to see a stale render, I promise.
 
 ## 3. Render your component
 
@@ -74,7 +74,7 @@ https://codesandbox.io/s/9jm82v2lry
 
 ## What about hooks?
 
-Yep, there's a hook version too. `useD3`
+Yep, there's a hook version too. `{useD3}`
 
 Same principle: anchor element, call D3 code on every update. Except with hooks there's less code you have to write.
 
@@ -97,17 +97,17 @@ const MyD3Component = ({ x, y }) => {
 </g>
 ```
 
-You call `useD3`, give it a render function, and receive a React ref. Your render function should take care of all the rendering, and the component where you call the hook needs to render the anchor element.
+You call `{useD3}`, give it a render function, and receive a React ref. Your render function should take care of all the rendering, and the component where you call the hook needs to render the anchor element.
 
 I recommend always adding a `transform` so you can position your components in an SVG.
 
-The `useD3` hook takes care of setting up a `useRef` and a `useEffect` hook so you don't have to worry about that.
+The `{useD3}` hook takes care of setting up a `{useRef}` and a `{useEffect}` hook so you don't have to worry about that.
 
 Meet your deadline in 2 minutes :)
 
 ## What about other code?
 
-You got it! There's nothing D3-specific in `D3blackbox` and `useD3` at all.
+You got it! There's nothing D3-specific in `{D3blackbox}` and `{useD3}` at all.
 
 They're generic wrappers for 3rd party code that wants to take over rendering inside a DOM element. React controls the wrapper, 3rd party render function controls the children.
 

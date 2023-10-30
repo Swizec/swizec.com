@@ -16,13 +16,13 @@ https://www.youtube.com/watch?v=1eoa259yPBk
 
 I can do this!
 
-![](./img/image-photos-8500000-Single-Ladies-single-ladies-8586971-424-550.jpg)
+![GatsbyJS](./img/image-photos-8500000-Single-Ladies-single-ladies-8586971-424-550.jpg)
 
 GatsbyJS is a React-based static site generator. The reason I'm so invested is because almost everything I build with React is a static site. Landing pages, single data visualizations, stuff like that. All static.
 
 Gatsby has a plugin, `gatsby-transformer-remark`, that lets you write copy-focused pages in Markdown. React gets tedious when you want to focus on writing copy.
 
-![](./img/xEuspE9.gif)
+![gatsby-transformer-remark](./img/xEuspE9.gif)
 
 This remark transformer comes with a feature I love: `tableOfContents`. Looks at your header tags and generates a table of contents. Great for making your site easier to navigate.
 
@@ -37,15 +37,15 @@ I decided to fix that and use absolute links.
 So we looked at the `CONTRIBUTING.md` doc in Gatsby's repository, and it was wonderful. Tells you everything you need to set up a development environment so you can work on Gatsby and your test site immediately picks up on it.
 
 1.  Fork and clone Gatsby ✅
-2.  Run `yarn run bootstrap` ✅
+2.  Run `{yarn run bootstrap}` ✅
 
 Wait… no… that didn't work. Step 2 and we're already blocked. 😭
 
 We filed a [helpful issue](https://github.com/gatsbyjs/gatsby/issues/2395) complaining that nothing works and everything is broken. The command didn't run through, dependencies were missing, and everything blew up in our face.
 
-2 hours later, we had installed some 30 missing packages and aaaaalmost got a clean `yarn test` run. Very important to have all your tests passing before you start poking around a large codebase.
+2 hours later, we had installed some 30 missing packages and aaaaalmost got a clean `{yarn test}` run. Very important to have all your tests passing before you start poking around a large codebase.
 
-A very helpful person named `m-allanson` saved our asses. They found a commit from Gatsby's head maintaner that changed something in a config – removed `yarn workspaces` whatever the hell that is – and was just 23 hours old.
+A very helpful person named `m-allanson` saved our asses. They found a commit from Gatsby's head maintaner that changed something in a config – removed `{yarn workspaces}` whatever the hell that is – and was just 23 hours old.
 
 All our troubles were because of a commit from less than a day ago. Talk about timing!
 
@@ -81,6 +81,6 @@ async function getTableOfContents(markdownNode) {
 }
 ```
 
-Note the `console.log`. That's where we have to hook into the toc abstract syntax tree and change the links.
+Note the `{console.log}`. That's where we have to hook into the toc abstract syntax tree and change the links.
 
 Not sure how yet, but how hard can it be 🤔

@@ -72,7 +72,7 @@ A `data` setter and getter help us JSONify data transparently. Users can pass si
 
 The `calculateHash` function right now just uses SHA256, but I think this is where a [proof of work](https://en.wikipedia.org/wiki/Proof-of-work_system) or a [proof of stake](https://en.wikipedia.org/wiki/Proof-of-stake) algorithm would come into play in a real blockchain. Haven't figured that part out yet :)
 
-Kind of surprisingly, that's all we need to build a blockchain. You could build it like this `new Block({ previousBlock: new Block({ previousBlock: genesisBlock, data: {hai: "world"}}), data: {hai2: "world2"}})`
+Kind of surprisingly, that's all we need to build a blockchain. You could build it like this `{new Block({ previousBlock: new Block({ previousBlock: genesisBlock, data: {hai: "world"}}), data: {hai2: "world2"}})`
 
 But that's cumbersome, so let's add a Redux.
 

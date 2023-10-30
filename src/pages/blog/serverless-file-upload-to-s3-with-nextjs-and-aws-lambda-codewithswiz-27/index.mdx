@@ -13,7 +13,7 @@ The Girl loves her daily cute photos, but she's bored of repeats. What if adding
 
 And now it is!
 
-![](./img/kUItXrgif543bff.gif)
+![blob](./img/kUItXrgif543bff.gif)
 
 👉 [full UI code](https://github.com/Swizec/lovebox-uploader)
 👉 [full AWS code](https://github.com/Swizec/lovebox-lambda/blob/main/src/presignedUrl.ts)
@@ -45,7 +45,7 @@ Amazon S3 uses pre-signed URLs to make file uploads secure. Each URL is good for
 
 The Lambda that generates a new pre-signed URL follows the REST API pattern. GraphQL would be overkill because we're fetching 1 value.
 
-We add it in `serverless.yml`
+We add it in `{serverless.yml}`
 
 ```yaml
 # serverless.yml
@@ -61,7 +61,7 @@ functions:
           cors: true
 ```
 
-`presignedUrl` calls the `getUrl` method when you hit the `/presignedurl` path with a GET request.
+`{presignedUrl}` calls the `{getUrl}` method when you hit the `/presignedurl` path with a GET request.
 
 ### Prep params
 
@@ -90,7 +90,7 @@ export async function getUrl(event: APIGatewayEvent) {
     const readUrl = `https://lovebox-stash.s3.amazonaws.com/${filename}`;
 ```
 
-We grab the `filetype` param from the querystring and verify it exists. We'll need it to generate the file name and tell S3 what type of file to expect.
+We grab the `{filetype}` param from the querystring and verify it exists. We'll need it to generate the file name and tell S3 what type of file to expect.
 
 Then we generate a new UUID for the image name, define a 5min expiration, and create a URL our client can use to display the image after upload.
 
@@ -141,7 +141,7 @@ You get an API response like this:
 }
 ```
 
-The file is private so maybe the `readUrl` isn't useful 🤔
+The file is private so maybe the `{readUrl}` isn't useful 🤔
 
 ## The NextJS UI
 
@@ -149,7 +149,7 @@ NextJS made it quick to spin up a new React app.
 
 I was hoping to leverage server-side-generation to fetch the upload URL, but the UX wasn't great. You need a new URL for every file to enable multi-file upload and the upload works better when you know the file type.
 
-![](giphy:shrug)
+![](./img/giphy-shrug.gif)
 
 We cleaned out the default homepage and added a `<LoveboxDropzone />` component.
 
@@ -171,7 +171,7 @@ export default function Home() {
             </main>
 ```
 
-`LoveboxDropzone` handles the upload UI and logic.
+`{LoveboxDropzone}` handles the upload UI and logic.
 
 ### LoveboxDropzone
 
@@ -204,7 +204,7 @@ export function LoveboxDropzone() {
 }
 ```
 
-react-dropzone gives you a `useDropzone` hook that returns the props you need to render. You give it a callback to handle files.
+react-dropzone gives you a `{useDropzone}` hook that returns the props you need to render. You give it a callback to handle files.
 
 Ours looks like this:
 
@@ -218,13 +218,13 @@ const onDrop = useCallback(async (acceptedFiles) => {
 }, [])
 ```
 
-`useCallback` ensures a stable function reference – avoids re-renders. `setUploading(true/false)` shows a spinner from `react-spinner` so users know an upload is in progress.
+`{useCallback}` ensures a stable function reference – avoids re-renders. `{setUploading(true/false)}` shows a spinner from `react-spinner` so users know an upload is in progress.
 
-`await Promise.all` runs each file upload in parallel and waits for them all to finish. Makes the UX faster when you upload a bunch 😊
+`{await Promise.all}` runs each file upload in parallel and waits for them all to finish. Makes the UX faster when you upload a bunch 😊
 
 ### The file upload
 
-The `uploadFile` function handles each individual file.
+The `{uploadFile}` function handles each individual file.
 
 ```javascript
 // components/LoveboxDropzone.js
@@ -259,7 +259,7 @@ Uploads happen in 3 stages:
 2.  Read file as a binary blob
 3.  Upload to S3 via upload url
 
-We do 1 and 2 in parallel with `Promise.all` to improve UX.
+We do 1 and 2 in parallel with `{Promise.all}` to improve UX.
 
 You'll notice there's no error handling. If something goes wrong, the user will never know. Spinner spins forever.
 
@@ -267,7 +267,7 @@ That's okay for a quick hack. ✌️
 
 ### fetch pre-signed upload url
 
-We've got an AWS Lambda that works as a REST API and generates upload urls on demand. We can use a `fetch()` request. No need to get fancy.
+We've got an AWS Lambda that works as a REST API and generates upload urls on demand. We can use a `{fetch()}` request. No need to get fancy.
 
 ```javascript
 async function getPresignedUploadUrl(file) {
@@ -279,13 +279,13 @@ async function getPresignedUploadUrl(file) {
 }
 ```
 
-Lambda `URL` is a constant (should be an ENV var), add `filetype` to query params, fetch. Parsing `json()` throws an error if the request fails. That's good enough.
+Lambda `{URL}` is a constant (should be an ENV var), add `{filetype}` to query params, fetch. Parsing `json()` throws an error if the request fails. That's good enough.
 
 Using React Query would be overkill because we don't need a caching layer. Each response only works once.
 
 ### read file as a binary blob
 
-Modern browsers offer a full-on file API. You have `File` objects with meta data and you can read their contents into memory with the `FileReader`.
+Modern browsers offer a full-on file API. You have `{File}` objects with meta data and you can read their contents into memory with the `{FileReader}`.
 
 A lot like a filesystem except it runs in memory.
 
@@ -303,13 +303,13 @@ async function readFile(file) {
 }
 ```
 
-Unfortunately the `FileReader` API predates promises. We tack a custom promise on top of its event-based interface.
+Unfortunately the `{FileReader}` API predates promises. We tack a custom promise on top of its event-based interface.
 
-`onload` resolves the promise with data, `onabort` and `onerror` reject. In async/await land this translates to a returned value and errors.
+`{onload}` resolves the promise with data, `{onabort}` and `{onerror}` reject. In async/await land this translates to a returned value and errors.
 
 ### upload to S3 via upload url
 
-The final upload is another `fetch()` call. React Query would again be overkill because we're making unique requests.
+The final upload is another `{fetch()}` call. React Query would again be overkill because we're making unique requests.
 
 ```javascript
 const res = await fetch(uploadUrl, {
@@ -322,7 +322,7 @@ const res = await fetch(uploadUrl, {
 })
 ```
 
-Make a `PUT` request to the `uploadUrl`, push file data into the body, set `Content-Type` to the file type.
+Make a `PUT` request to the `{uploadUrl}`, push file data into the body, set `Content-Type` to the file type.
 
 ## And it works 🎉
 

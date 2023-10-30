@@ -122,7 +122,7 @@ function UserInfo(props: { user: User }) {
     <div>
       {user.avatar ? <img src={user.avatar} /> : <DefaultAvatar />}
       <label>{user.name || "Unknown"}</label>
-      <p>{typeof user.karma === "undefined" ? "🐣" : user.karma}</p>
+      <p>{`typeof user.karma === "undefined"` ? "🐣" : user.karma}</p>
     </div>
   )
 }
@@ -138,7 +138,7 @@ Add one more and you get 16. At 5 nullable properties, you're looking at 32 comb
 
 And if you're treating `undefined` and `null` as different, that formula becomes `3^N(nulls)`.
 
-![](giphy:cary_elwes_laughing)
+![](./img/cary_elwes_laughing.png)
 
 ## How to solve exploding complexity
 

@@ -23,7 +23,7 @@ function controller(req, res) {
 }
 ```
 
-The code uses [JavaScript object destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to pull the `reason`, `idempotencyKey`, and `charge` properties out of request body and assign them to local variables. Why I wrote this as two separate blocks of code is anyone's guess.
+The code uses [JavaScript object destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to pull the `reason`, `{idempotencyKey}`, and `{charge}` properties out of request body and assign them to local variables. Why I wrote this as two separate blocks of code is anyone's guess.
 
 This is known as a [Big Ball of Mud](https://en.wikipedia.org/wiki/Big_ball_of_mud) – code with no coherent design. It happens when you keep adding changes without rethinking how the problem changed over time. Common with quick bug fixes and big scary systems you're afraid to break.
 
@@ -33,7 +33,7 @@ Say Alice writes a feature to fetch a list of articles from an internal API. It 
 
 ```javascript
 async function getArticles() {
-  const res = await fetch(process.env.ARTICLES_URL + "/articles")
+  const res = await fetch(`{process.env.ARTICLES_URL}` + "/articles")
 
   if (!res.ok) {
     throw new Error("Failed to get articles")
@@ -56,7 +56,7 @@ You quickly add authentication to unblock testing. The way you've seen it done e
 ```javascript
 async function getArticles() {
 	const res = await fetch(
-		process.env.ARTICLES_URL + '/articles',
+		`{process.env.ARTICLES_URL}` + '/articles',
 		headers: {
 			...getAuthHeaders()
 		}
@@ -70,18 +70,18 @@ async function getArticles() {
 }
 ```
 
-The `getAuthHeaders` function returns all necessary headers for authentication. You never looked into how it works, but it's worked in the past. All good.
+The `{getAuthHeaders}` function returns all necessary headers for authentication. You never looked into how it works, but it's worked in the past. All good.
 
 ### Not quite the right functionality
 
 After testing Bob realizes that listing all articles is silly. What people want are _their_ articles.
 
-The API supports user filtering through a URL param. Bob adds `userId` to the request:
+The API supports user filtering through a URL param. Bob adds `{userId}` to the request:
 
 ```javascript
 async function getArticles(userId) {
 	const res = await fetch(
-		process.env.ARTICLES_URL + '/' + userId + '/articles',
+		`{process.env.ARTICLES_URL}` + '/' + `{userId}` + '/articles',
 		headers: {
 			...getAuthHeaders()
 		}
@@ -100,7 +100,7 @@ Oh wait, that should be optional. Sometimes we do want all articles, like for th
 ```javascript
 async function getArticles(userId) {
 	const res = await fetch(
-		process.env.ARTICLES_URL + (userId ? '/' + userId | '') + '/articles',
+		`{process.env.ARTICLES_URL}` + (userId ? '/' + `{userId}` | '') + '/articles',
 		headers: {
 			...getAuthHeaders()
 		}
@@ -114,7 +114,7 @@ async function getArticles(userId) {
 }
 ```
 
-Great. A quick ternary expression and the `userId` portion of the URL is optional.
+Great. A quick ternary expression and the `{userId}` portion of the URL is optional.
 
 ### Expanding requirements
 
@@ -125,7 +125,7 @@ Carol is on it! She doesn't quite know what all the code is doing, but she can a
 ```javascript
 async function getArticles(userId, startDate, endDate) {
 	const res = await fetch(
-		process.env.ARTICLES_URL + (userId ? '/' + userId | '') + '/articles' + (startDate && endDate ? `?startDate=${startDate}&endDate=${endDate}` : ''),
+		`{process.env.ARTICLES_URL}` + (userId ? '/' + `{userId}` | '') + '/articles' + (startDate && endDate ? `?startDate=${startDate}&endDate=${endDate}` : ''),
 		headers: {
 			...getAuthHeaders()
 		}
@@ -139,7 +139,7 @@ async function getArticles(userId, startDate, endDate) {
 }
 ```
 
-If `startDate` and `endDate` are defined, add a URL fragment with query params.
+If `{startDate}` and `{endDate}` are defined, add a URL fragment with query params.
 
 ## Rethink your approach when the code gets messy
 
@@ -155,7 +155,7 @@ Instead of jamming another bug fix into the mess, she takes 10 minutes to rewrit
 
 ```javascript
 async function getArticles(userId, startDate, endDate) {
-	const url = new URL(process.env.ARTICLES_URL)
+	const url = new URL(`{process.env.ARTICLES_URL}`)
 	if (userId) {
 		url.pathname = `/${userId}/articles`
 	} else {

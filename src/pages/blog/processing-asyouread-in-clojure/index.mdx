@@ -8,8 +8,7 @@ categories: "Clojure, Function, Java, Languages, life, Programming, Uncategorize
 hero: ../../../defaultHero.jpg
 ---
 
-- [![Six hard disk drives with cases opened showing...](https://swizec.com/wp-content/uploads/2010/04/300px-SixHardDriveFormFactors.jpg "Six hard disk drives with cases opened showing...")](http://commons.wikipedia.org/wiki/Image:SixHardDriveFormFactors.jpg)
-
+- [Six hard disk drives with cases opened showing...](https://swizec.com/wp-content/uploads/2010/04/300px-SixHardDriveFormFactors.jpg "Six hard disk drives with cases opened showing")
   Image via [Wikipedia](http://commons.wikipedia.org/wiki/Image:SixHardDriveFormFactors.jpg)
 
 Sometimes we're given a stupid [algorithm](http://en.wikipedia.org/wiki/Algorithm "Algorithm") or two to implement at this or that course at uni. This time 'round they wanted us to implement something called external [matrix](http://en.wikipedia.org/wiki/Matrix_%28mathematics%29 "Matrix (mathematics)") transposition ... the idea is that you have to [transpose](http://en.wikipedia.org/wiki/Transpose "Transpose") a matrix live from the [hard drive](http://en.wikipedia.org/wiki/Hard_disk_drive "Hard disk drive") because it is potentially so bloody huge you can't store a single row in memory.
@@ -33,7 +32,7 @@ So here is my implementation, probably not the most elegant thing out there sinc
    (char (.read rdr)))
 
 (defn delimiter? [c]
-  (if (or (< (int c) (int '\0)) (> (int c) (int '\9)) (= c nil)) true false))
+  (if (or (< (int c) (int '\0')) (> (int c) (int '\9)) (= c nil)) true false))
 
 (defn digit [c place]
   (* (- (int c) 48) (Math/pow 10 (- place 1))))
@@ -81,4 +80,4 @@ And if anyone's interested, here's the rest of the code that opens a file where 
 
 PS: that try/catch in there is fugly, but I didn't know how else to check for EOF \*blush\*
 
-[![Reblog this post [with Zemanta]](https://img.zemanta.com/reblog_e.png?x-id=40a33885-b638-42dc-8b23-c0933a1af6bb)](http://reblog.zemanta.com/zemified/40a33885-b638-42dc-8b23-c0933a1af6bb/ "Reblog this post [with Zemanta]")
+[Reblog this post [with Zemanta]](http://reblog.zemanta.com/zemified/40a33885-b638-42dc-8b23-c0933a1af6bb/)

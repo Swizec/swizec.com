@@ -18,7 +18,7 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 It was working, you see. Then it wasn't. Infinite loop on page load.
 
-![](./img/media-6lScd4x2D5Oko-giphy.gif)
+![Infinite loop on load](./img/media-6lScd4x2D5Oko-giphy.gif)
 
 Next time! I promise.
 
@@ -46,11 +46,11 @@ The part that's new is calling `listenForNextBlock` after replacing the local ch
 
 ![Listen for the next block](https://swizec.com/wp-content/uploads/2018/04/wait-for-next-block.png)
 
-We have a local chain and want to make sure we catch the next block that shows up. So we fetch the latest index with `store.getLastBlock().index`, increment by 1, and listen for changes on `blockchain/${nextIndex}`.
+We have a local chain and want to make sure we catch the next block that shows up. So we fetch the latest index with `{store.getLastBlock().index}`, increment by 1, and listen for changes on `blockchain/${nextIndex}`.
 
 When that block shows up, we call `valueHandler`.
 
-`valueHandler` then parses the value and calls `store.addBlock()`, which validates the block fits our chain, and if it does fit, it gets added. If the block makes it to our local chain, then the redux-y stuff kicks in, wakes up all subscribed components, and re-renders happen.
+`valueHandler` then parses the value and calls `{store.addBlock()}`, which validates the block fits our chain, and if it does fit, it gets added. If the block makes it to our local chain, then the redux-y stuff kicks in, wakes up all subscribed components, and re-renders happen.
 
 ## Completely transparent to your app
 
@@ -95,23 +95,22 @@ class App extends Component {
         }
 
         return (
-        <div class="App">
-            <blockchaincontext class="provider" value={this.blockchain}>
-                <introcopy>
+             <div className="App">
+                 <BlockchainContext.Provider value={this.blockchain}>
+                     <IntroCopy/>
 
-                <blockchaincontext class="consumer">
-                    {blockchain => (
-                        <benchmarks blockchain={blockchain}>
-                    )}
-                </benchmarks></blockchaincontext>
+                     <BlockchainContext.Consumer>
+                         {blockchain => (
+                             <Benchmarks blockchain={blockchain} />
+                         )}
+                     </Benchmarks></BlockchainContext.Consumer>
 
-                <div style={{ padding: "3vh" }}>
-
-        </div>
-         );
+                     <div style={{ padding: "3vh" }} /> 
+                 </BlockchainContext.Provider>
+             </div>
+            );
     }
 }
-</introcopy></blockchaincontext></div>
 ```
 
 Initialize the store in `componentDidMount`, subscribe to changes, run `forceUpdate` to get around async issues, unsubscribe on unmount.
@@ -119,23 +118,23 @@ Initialize the store in `componentDidMount`, subscribe to changes, run `forceUpd
 The best way to make this store available to the rest of your app is via the new context API using `<Context.Provider value={this.blockchain}>`.
 
 Then inside `<IntroCopy />`, where you display the node count, you do something like this.
-
+ 
 ```javascript
 // IntroCopy.js
 
 // functional component boilerplate ...
 // ... render stuff
 
-<blockchaincontext class="consumer">
+<BlockchainContext.Consumer>
     {({ getWholeChain = () => [] }) => (
         There are {getWholeChain().length} nodes on the chain
     )}
-</blockchaincontext>
+</BlockchainContext.Consumer>
 
 // ... more other render stuff
 ```
 
-Value passed into render prop is the whole `blockchain` store. Take out `getWholeChain` and show the length. You could use `getState()` to get the latest block value, for example.
+Value passed into render prop is the whole `blockchain` store. Take out `getWholeChain` and show the length. You could use `{getState()}` to get the latest block value, for example.
 
 Lots of stuff you can do.
 

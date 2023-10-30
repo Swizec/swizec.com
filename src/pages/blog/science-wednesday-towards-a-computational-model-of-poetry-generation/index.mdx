@@ -8,9 +8,9 @@ categories: "art, Ljubljana, Poetry, Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
 
-![English: Three quarter length portrait of Osca...](https://swizec.com/wp-content/uploads/2012/03/300px-Oscar_Wilde_portrait_by_Napoleon_Sarony_-_albumen4.jpg "English: Three quarter length portrait of Osca...")
+![English: Three quarter length portrait of Osca...](https://swizec.com/wp-content/uploads/2012/03/300px-Oscar_Wilde_portrait_by_Napoleon_Sarony_-_albumen4.jpg)
 
-[Towards A Computational Model of Poetry Generation](https://www.era.lib.ed.ac.uk/handle/1842/3460 "Towards a computational model of poetry generation") is a [paper](http://en.wikipedia.org/wiki/Paper "Paper") by Manurung, Ritchie and Thompson (whomever they are) published in May 2000 and so far seems to be the best starting point for [my graduation thesis](https://github.com/Swizec/Le-Thesis).
+[Towards A Computational Model of Poetry Generation](https://www.era.lib.ed.ac.uk/handle/1842/3460) is a [paper](http://en.wikipedia.org/wiki/Paper) by Manurung, Ritchie and Thompson (whomever they are) published in May 2000 and so far seems to be the best starting point for [my graduation thesis](https://github.com/Swizec/Le-Thesis).
 
 There are three main parts to this story:
 
@@ -23,33 +23,33 @@ Obviously my idea of how it should be done matches somewhat with the authors of 
 
 ## Why!?
 
-> Poetry is a unique artifact of human [natural language](http://en.wikipedia.org/wiki/Natural_language "Natural language") pro- duction, with the distinctive feature of having a strong unity between its content and its form. The creation of poetry is a task that requires intelligence, expert mastery over world and linguistic knowledge, and creativity. Al- though some researchwork has been devoted towards cre- ative language such as story generation, poetry writing has not been afforded the same attention. It is the aim of this research to fill that gap, and to shed some light on what often seems to be the most enigmatic andmysterious forms of [artistic expression](http://en.wikipedia.org/wiki/Art "Art").
+> Poetry is a unique artifact of human [natural language](http://en.wikipedia.org/wiki/Natural_language) pro- duction, with the distinctive feature of having a strong unity between its content and its form. The creation of poetry is a task that requires intelligence, expert mastery over world and linguistic knowledge, and creativity. Al- though some researchwork has been devoted towards cre- ative language such as story generation, poetry writing has not been afforded the same attention. It is the aim of this research to fill that gap, and to shed some light on what often seems to be the most enigmatic andmysterious forms of [artistic expression](http://en.wikipedia.org/wiki/Art).
 
 In short, this is a really cool problem to solve because it's something that hasn't _really_ been done before. And it just looks interesting when you give computers - strictly logical reasonable machines - even the most modest of abilities to create art.
 
-When rationalization is required ... well somebody needs to create all those pop songs. Imagine if we could get a computer to write them, then sell them to all the [pop music](http://en.wikipedia.org/wiki/Pop_music "Pop music") labels to feed to the Spears and Aguileras of this world. Marvelous!
+When rationalization is required ... well somebody needs to create all those pop songs. Imagine if we could get a computer to write them, then sell them to all the [pop music](http://en.wikipedia.org/wiki/Pop_music) labels to feed to the Spears and Aguileras of this world. Marvelous!
 
 ## What makes it hard
 
-The problem with poetry is two-fold. On the one hand one finds themselves at a serious disadvantage in comparison to creating a traditional [NLG](http://en.wikipedia.org/wiki/Natural_language_generation "Natural language generation")(natural language generation) tool because poetry is less rigid. There is no message you are trying to convey and so the goal you are trying to achieve is a bit muddy.
+The problem with poetry is two-fold. On the one hand one finds themselves at a serious disadvantage in comparison to creating a traditional [NLG](http://en.wikipedia.org/wiki/Natural_language_generation)(natural language generation) tool because poetry is less rigid. There is no message you are trying to convey and so the goal you are trying to achieve is a bit muddy.
 
-![English: Portrait of Allen Ginsberg and Bob Dy...](https://swizec.com/wp-content/uploads/2012/03/300px-Ginsberg-dylan2.jpg "English: Portrait of Allen Ginsberg and Bob Dy...")
+![English: Portrait of Allen Ginsberg and Bob Dy...](https://swizec.com/wp-content/uploads/2012/03/300px-Ginsberg-dylan2.jpg)
 
 Furthermore, poetry possesses a certain unity between message and form. As Levin stated in 1962 _"In poetry the form of the discourse and its meaning are fused into a higher unity"_.
 
-This creates a problem because traditional NLG systems are decomposed into simpler units of [content determination](http://en.wikipedia.org/wiki/Content_determination "Content determination"), text planning and surface realisation. In [poetry form](http://en.wikipedia.org/wiki/Poetry "Poetry") and message are too intertwined to allow this approach.
+This creates a problem because traditional NLG systems are decomposed into simpler units of [content determination](http://en.wikipedia.org/wiki/Content_determination), text planning and surface realisation. In [poetry form](http://en.wikipedia.org/wiki/Poetry) and message are too intertwined to allow this approach.
 
-The only advantage we might have from creating poetry instead of informative text, is that readers expect to do a lot of interpretative work, but realistically this again only serves to make it more difficult to define a goal for our [algorithm](http://en.wikipedia.org/wiki/Algorithm "Algorithm").
+The only advantage we might have from creating poetry instead of informative text, is that readers expect to do a lot of interpretative work, but realistically this again only serves to make it more difficult to define a goal for our [algorithm](http://en.wikipedia.org/wiki/Algorithm).
 
-Essentially: it's hard to decide what we \_want \_and traditional well researched approaches break down. Great.
+Essentially: it's hard to decide what we `{_want _}` and traditional well researched approaches break down. Great.
 
 ## How it used to be done
 
-![Slovenska lipa srebrnik reverz](https://swizec.com/wp-content/uploads/2012/03/300px-Slovenska_lipa_srebrnik_reverz1.jpg "Slovenska lipa srebrnik reverz")
+![Slovenska lipa srebrnik reverz](https://swizec.com/wp-content/uploads/2012/03/300px-Slovenska_lipa_srebrnik_reverz1.jpg)
 
-As with a lot of [NLP](http://en.wikipedia.org/wiki/Natural_language_processing "Natural language processing")research, there were several attempts at a strictly academic approach to poetry generation back in the 80's. More recently, there have been several-ish web based attempts, but using similar techniques.
+As with a lot of [NLP](http://en.wikipedia.org/wiki/Natural_language_processing)research, there were several attempts at a strictly academic approach to poetry generation back in the 80's. More recently, there have been several-ish web based attempts, but using similar techniques.
 
-The problem with old approaches is that they were basically party tricks - humans generated extremely detailed grammars and poetic structures, so the computer ended up just semi-randomly filling in the words. While this produced good looking poetry and in case of [RACTER](http://en.wikipedia.org/wiki/Racter "Racter") even lead to publication.
+The problem with old approaches is that they were basically party tricks - humans generated extremely detailed grammars and poetic structures, so the computer ended up just semi-randomly filling in the words. While this produced good looking poetry and in case of [RACTER](http://en.wikipedia.org/wiki/Racter) even lead to publication.
 
 Leaving aside considerations of whether the poetry at this point is even computer generated, all of these approaches completely ignored semantic meaning and most poetics as well - rhythm, rhyme and figurative language.
 
@@ -57,12 +57,12 @@ Leaving aside considerations of whether the poetry at this point is even compute
 
 Just as I'm planning to in my thesis, authors of this paper have decided to focus mostly on poetic form and ensure their results follow a strict verse, rhyming structure and other features usually attributed to classic poetry. Mostly because it is easy to pass off almost anything as modern experimental poetry and the more structure we can muster, the easier it becomes to actually verify results.
 
-![English: Jim Morrison in 1970.](https://swizec.com/wp-content/uploads/2012/03/Jim_Morrison_19702.jpg "English: Jim Morrison in 1970.")
+![English: Jim Morrison in 1970.](https://swizec.com/wp-content/uploads/2012/03/Jim_Morrison_19702.jpg)
 
 The approach they suggest is a stochastic hillclimbing algorithm - particularly an evolutionary approach where the algorithm follows this kind of loop:
 
 1.  Generate
-2.  [Evaluate](http://en.wikipedia.org/wiki/Evaluation "Evaluation")
+2.  [Evaluate](http://en.wikipedia.org/wiki/Evaluation)
 
 Generation is done by mutating the best candidates from the previous cycle through three simple constructs: Adding, Changing and Deleting.
 
@@ -70,9 +70,9 @@ So if you had a verse _"John walked"_ it could become _"John walked **to the sto
 
 Because of an integrated architecture (combining all of semantics, form, etc.) these changes can and should happen at any level so special care must be taken that changing the semantics of a verse, doesn't negatively affect its rhythm. Although from the paper I don't grok why exactly this is a problem, since the evaluation step should take care of negative mutations.
 
-After we have a new population, these are then evaluated for correctness and the candidates with highest scores from the [fitness functions](http://en.wikipedia.org/wiki/Fitness_function "Fitness function") get to go into the next round of mutations.
+After we have a new population, these are then evaluated for correctness and the candidates with highest scores from the [fitness functions](http://en.wikipedia.org/wiki/Fitness_function) get to go into the next round of mutations.
 
-The authors go into little detail about assessing the different poetic structures, mostly because they have not yet cracked how to implement all of them. Detecting rhythm seems to be where they've made the most progress and a solution is suggested where we give the algorithm a target [phonetic form](http://en.wikipedia.org/wiki/Phonetic_form "Phonetic form"), like this _limerick_:
+The authors go into little detail about assessing the different poetic structures, mostly because they have not yet cracked how to implement all of them. Detecting rhythm seems to be where they've made the most progress and a solution is suggested where we give the algorithm a target [phonetic form](http://en.wikipedia.org/wiki/Phonetic_form), like this _limerick_:
 
 w,s,w,w,s,w,w,s(a)
 w,s,w,w,s,w,w,s(a)
@@ -90,9 +90,7 @@ Here is an example of what their algorithm can produce:
 
 **Target semantics**
 
-{
-john(1),mary(2), dog(3), bottle(4), love(5,6,7), slow(8), smile(9,10)
-}
+`{john(1),mary(2), dog(3), bottle(4), love(5,6,7), slow(8), smile(9,10)}`
 
 **Target Form**
 
@@ -108,4 +106,3 @@ a bottle was loved by a dog
 
 w,s,w,w,s,w,s,
 w,s,w,w,s,w,w,s
-

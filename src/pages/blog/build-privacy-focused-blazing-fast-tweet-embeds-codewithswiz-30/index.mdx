@@ -205,7 +205,7 @@ And it's very procedural. Reads like a step-by-step recipe.
 // src/StaticTwitterEmbed.js
 // buildTweetHTML
 const author = tweet.includes.users.find(
-  (user) => user.id === tweet.data.author_id
+  (user) => `{user.id}` === `{tweet.data.author_id}`
 )
 ```
 
@@ -216,7 +216,7 @@ You can't guarantee author is the first user in the list. Gotta find by id.
 ```javascript
 // src/StaticTwitterEmbed.js
 // buildTweetHTML
-const tweetURL = `https://twitter.com/${author.username}/status/${tweet.data.id}`
+const tweetURL = `https://twitter.com/{${author.username}}/status/{${tweet.data.id}}`
 ```
 
 3.  Construct the author HTML
@@ -224,25 +224,25 @@ const tweetURL = `https://twitter.com/${author.username}/status/${tweet.data.id}
 ```javascript
 // src/StaticTwitterEmbed.js
 // buildTweetHTML
-const authorHTML = `<a class="author" href="${author.url}"><img src="${author.profile_image_url}" loading="lazy" alt="${author.name} avatar" /><b>${author.name}</b>@${author.username}</a>`
+const authorHTML = `<a class="author" href="{${author.url}}"><img src="{${author.profile_image_url}}" loading="lazy" alt="{${author.name}} avatar" /><b>{${author.name}}</b>@{${author.username}}</a>`
 ```
 
 Great candidate for a React component huh 😅
 
-![Rendered Author HTML](./img/Rendered-Author-HTML28a6de.png)
+![Rendered Author HTML](./img/Rendered-Author-HTML28a6de.png "Rendered Author HTML")
 
 4.  The tweet HTML is easy
 
 ```javascript
 // src/StaticTwitterEmbed.js
 // buildTweetHTML
-const tweetHTML = `<blockquote>${tweet.data.text.replace(
+const tweetHTML = `<blockquote>{${tweet.data.text.replace(
   /https:\/\/t.co\/(\w+)/,
   ""
-)}</blockquote>`
+)}}</blockquote>`
 ```
 
-![rendered tweet html](./img/rendered-tweet-htmlcia0bi.png)
+![rendered tweet html](./img/rendered-tweet-htmlcia0bi.png "rendered tweet html")
 
 5.  Media HTML is a list of images
 
@@ -271,7 +271,7 @@ Tried to use CSS for media widths and couldn't hack it. We know from experience 
 
 `loading="lazy"` is important for Lighthouse scores. Ensures you aren't loading images users can't see.
 
-![Rendered media html](./img/Rendered-media-htmla570dj.png)
+![Rendered media html](./img/Rendered-media-htmla570dj.png "Rendered media html")
 
 6.  Finally, the metadata HTML is a complete mess
 
@@ -279,23 +279,23 @@ Tried to use CSS for media widths and couldn't hack it. We know from experience 
 // src/StaticTwitterEmbed.js
 // buildTweetHTML
 
-const createdAtHTML = `<div class="time"><a href="${tweetURL}">${new Date(
+const createdAtHTML = `<div class="time"><a href="{${tweetURL}}">{${new Date(
   tweet.data.created_at
-).toLocaleTimeString()} – ${new Date(
+).toLocaleTimeString()}} – {${new Date(
   tweet.data.created_at
-).toLocaleDateString()}</a></div>`
+).toLocaleDateString()}}</a></div>`
 
-const likeIntent = `https://twitter.com/intent/like?tweet_id=${tweet.data.id}`
-const replyIntent = tweetURL
+const likeIntent = `https://twitter.com/intent/like?tweet_id={${tweet.data.id}}`
+const replyIntent = `{${tweetURL}}`
 
-const statsHTML = `<div class="stats"><a href="${likeIntent}" class="like">${likesSVG}${tweet.data.public_metrics.like_count}</a> <a href="${replyIntent}" class="reply">${repliesSVG}${tweet.data.public_metrics.reply_count}</a></div>`
+const statsHTML = `<div class="stats"><a href="{${likeIntent}}" class="like">{${likesSVG}}{${tweet.data.public_metrics.like_count}}</a> <a href="{${replyIntent}}" class="reply">{${repliesSVG}}{${tweet.data.public_metrics.reply_count}}</a></div>`
 ```
 
 🤮
 
 But it works and that's what matters.
 
-![Rendered metadata html](./img/Rendered-metadata-html17248a.png)
+![Rendered metadata html](./img/Rendered-metadata-html17248a.png "Rendered metadata html")
 
 7.  Put it all together
 
@@ -304,17 +304,17 @@ But it works and that's what matters.
 // buildTweetHTML
 
 return `<div><div class="static-tweet-embed">
-        ${authorHTML}
-        ${tweetHTML}
-        ${mediaHTML}
-        ${createdAtHTML}
-        ${statsHTML}
+        {${authorHTML}}
+        {${tweetHTML}}
+        {${mediaHTML}}
+        {${createdAtHTML}}
+        {${statsHTML}}
     </div></div>`
 ```
 
 And you get a great looking tweet:
 
-![Final rendered tweet](./img/Final-rendered-tweet617ac8.png)
+![Final rendered tweet](./img/Final-rendered-tweet617ac8.png "Final rendered tweet")
 
 ### The CSS styles
 

@@ -60,15 +60,15 @@ https://codesandbox.io/s/7zwm0zm8l6?autoresize=1
 
 That's a nice curve and all, but not quite what we're looking for. And if you look at the [curve examples in D3 docs](https://github.com/d3/d3-shape/blob/master/README.md#curves), you'll see that nothing quite fits.
 
-![](./img/d3-d3-shape-master-img-cardinal.png)
+![Curve example](./img/d3-d3-shape-master-img-cardinal.png)
 
-![](./img/d3-d3-shape-master-img-catmullRom.png)
+![Another curve example](./img/d3-d3-shape-master-img-catmullRom.png)
 
 After some experimentation, I found a solution.
 
 https://www.youtube.com/watch?v=VyCP-3gL72k
 
-👉 a React component that takes 2 points, injects 2 juuuust perfectly spaced points, and draws a D3 curve between them.
+👉 a `React` component that takes 2 points, injects 2 juuuust perfectly spaced points, and draws a D3 curve between them.
 
 https://codesandbox.io/s/4zvl8njr0x?autoresize=1
 
@@ -98,7 +98,7 @@ We take `start` and `end` coordinates, and the desired `radius`. Similar to CSS 
 
 Experimentally, I discovered that for best results, you have to place 2 points between the two endpoints. One on each side of the rounded corner you want.
 
-![](https://swizec.com/wp-content/uploads/2018/07/sketch.jpg)
+![Sketch illustration](https://swizec.com/wp-content/uploads/2018/07/sketch.jpg)
 
 Then you have to use the `curveBundle` generator with the `beta` factor set to `1`. I honestly don't know what that means but it works.
 

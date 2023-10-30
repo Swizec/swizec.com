@@ -11,15 +11,15 @@ After years of using React, it still packs a surprise. Did you know you can upda
 
 Yep. [From the docs](https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes):
 
-https://twitter.com/Swizec/status/1672387721090985984
+> [React quote](https://twitter.com/Swizec/status/1672387721090985984)
 
 If you're like me, you wouldn't think to do this. You'd go with a `useEffect` instead.
 
-Updating state during render is unintuitive because every `setState` triggers a re-render, but you're rendering _right now_. So how can you re-render while rendering without breaking something?
+Updating state during render is unintuitive because every `{setState}` triggers a re-render, but you're rendering _right now_. So how can you re-render while rendering without breaking something?
 
 The clue comes in a different part of the docs, in the [setState caveats section](https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes):
 
-> Calling the `set` function during rendering is only allowed from within the currently rendering component. React will discard its output and immediately attempt to render it again with the new state. This pattern is rarely needed, but you can use it to **store information from the previous renders**.
+> Calling the `{set}` function during rendering is only allowed from within the currently rendering component. React will discard its output and immediately attempt to render it again with the new state. This pattern is rarely needed, but you can use it to **store information from the previous renders**.
 
 It's a performance and UX optimization of sorts. Here's the difference.
 
@@ -75,7 +75,7 @@ No flash of stale state, fewer spooky interaction effects between various `useEf
 
 Here's a Codesandbox. I had to prove to myself that this works. Going to be useful in a few special cases like updating default values for form fields and menus that hide on scroll.
 
-https://codesandbox.io/s/update-state-during-render-3gjn33
+> [CodeSandbox example](https://codesandbox.io/s/update-state-during-render-3gjn33)
 
 Cheers,<br/>
 ~Swizec

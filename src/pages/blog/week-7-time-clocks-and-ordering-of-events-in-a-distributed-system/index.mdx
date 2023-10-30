@@ -10,7 +10,7 @@ hero: ./img/images-4760.png
 
 _\[This post is part of an ongoing challenge to understand 52 papers in 52 weeks. You can read previous entries, [here](https://swizec.com/blog/category/52-papers-in-52-weeks), or subscribe to be notified of new posts by [email](http://swiz.ec/52papers-list)]_
 
-Have you ever wondered what it takes tell which event [happened before](http://en.wikipedia.org/wiki/Happened-before "Happened-before") which in a distributed system?
+Have you ever wondered what it takes tell which event [happened before](http://en.wikipedia.org/wiki/Happened-before) which in a distributed system?
 
 Neither have I, but it's a problem Leslie Lamport solved in 1978 with his paper [_Time, Clocks, and the Ordering of Events in a Distributed System_](http://www.stanford.edu/class/cs240/readings/lamport.pdf). The paper even won the Dijkstra award in 2000.
 
@@ -22,7 +22,7 @@ But in a distributed system the idea of "happened before" fast becomes hazy. Whe
 
 We usually look at the clock to decide whether _a_ happened before _b_, but a well defined system can only rely only on information within the system. That's why Lamport defined "happened before" without using real clocks.
 
-![Distributed system](./img/images-4760.png "Distributed system")
+![Distributed system](./img/images-4760.png)
 
 In the image, each line represents a process, a dot is an event and a squiggly line is a message being sent between two processes. Sending a message and receiving a message are both events as well.
 
@@ -38,7 +38,7 @@ We assume events can't happen before themselves because that doesn't make sense 
 
 Using these rules, you can follow the progress of time by following process and message lines. If you draw time borders with a dashed line, you'll get a diagram like this:
 
-![Diagram with time](./img/images-4761.png "Diagram with time")
+![Diagram with time](./img/images-4761.png)
 
 You can look at → through the lense of causality: _a_ happens before _b_, if it can affect _b_. In this case, process _P_ at time _p3_, can't know what _Q_ is doing in _q3_ until the message from _q5_ is received in _p4_. It can only guess what _Q_ intends to do.
 
@@ -46,7 +46,7 @@ This goes right at the gist of our problem: it is not immediately obvious how on
 
 ## Logical clocks solution
 
-To elegantly solve the problem Lamport introduces logical clocks, now known as [Lamport timestamps](http://en.wikipedia.org/wiki/Lamport_timestamps "Lamport timestamps"). Simple counters that assign numbers to events.
+To elegantly solve the problem Lamport introduces logical clocks, now known as [Lamport timestamps](http://en.wikipedia.org/wiki/Lamport_timestamps). Simple counters that assign numbers to events.
 
 Every process _Pi_ is going to have its own clock function _Ci_ that assigns a number _Ci(a)_ to any event in that process. We assume these clocks aren't tied to the physical concept of time, so all it takes to make this system of clocks correct are a few rules.
 
@@ -70,7 +70,7 @@ Lamport then goes on to describe how to use clocks to design a system that can o
 
 The important part is that a distributed algorithm can execute the events in its state machine in the correct order, because each process is meticulous about updating the timestamps that define event and message ordering.
 
-![A more organised diagram](./img/images-4773.png "A more organised diagram")
+![A more organised diagram](./img/images-4773.png)
 
 ## Anomalous behaviour
 
@@ -122,4 +122,4 @@ My favourite part of the paper was its simplicity and relative obviousness. Now 
 
 No wonder this is one of the most cited papers in computer science.
 
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=797ec3ec-ebad-4c86-8c4f-0ed17595b04b)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=797ec3ec-ebad-4c86-8c4f-0ed17595b04b)](http://www.zemanta.com/?px)

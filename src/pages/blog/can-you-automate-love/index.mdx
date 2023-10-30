@@ -15,7 +15,7 @@ The internet's best answer is this legendary officer [who ordered a ship to chan
 
 But we're engineers, our lazy looks like this 👇
 
-[![](./img/ion_2xpng348731.png)](https://xkcd.com/1319/)
+[comic](https://xkcd.com/1319/)
 
 You get tired of a task, start to automate, continue to automate, keep going, and wait what was the task again ...
 
@@ -49,7 +49,7 @@ Here is _the_ coolest most laziest almost-finished automation I've ever attempte
 
 ## Automating love with serverless
 
-[https://www.youtube.com/watch?v=cvvPLlP4518](https://www.youtube.com/watch?v=cvvPLlP4518)
+[video](https://www.youtube.com/watch?v=cvvPLlP4518)
 
 For Valentine's Day this year, I got a Lovebox for The Girl. A cute little IoT device that spins a 3D printed heart and shows photos from an app.
 
@@ -57,7 +57,7 @@ She loved it.
 
 And she loved it even more when I said _"I'm gonna build a bot to make sure you get a new photo of our relationship every day"_
 
-![](giphy:omg_love)
+[caption](giphy:omg_love)
 
 Lovebox has no API and I spent the first 3 hours of this project [reverse engineering their GraphQL API](https://swizec.com/blog/reverse-engineer-a-graphql-api-to-automate-love-notes-codewithswiz-24). Learned a lot!
 
@@ -100,11 +100,11 @@ The rest was easy:
 1.  Install `graphql-request`, a smol graphql client
 2.  Init with a snooped JWT token
 3.  `await client.request(mutation)`
-4.  sls invoke -f sendNote
+4.  `sls invoke -f sendNote`
 
 And a Serverless AWS Lambda wakes up on your machine as if it was running in production. 30 seconds later, the Lovebox spins 😍
 
-![](./img/NGtwQvgif0fc411.gif)
+![lovebox spin gif](./img/NGtwQvgif0fc411.gif)
 
 Next step: S3 bucket with a pool of photos and a daily trigger.
 
@@ -117,4 +117,4 @@ PS: I'm doing a [live serverless Q&A on Monday](https://www.youtube.com/watch?v=
 
 PPS: look what arrived in the mail! more on this next week
 
-[https://twitter.com/Swizec/status/1371919072342855680](https://twitter.com/Swizec/status/1371919072342855680)
+[tweet](https://twitter.com/Swizec/status/1371919072342855680)

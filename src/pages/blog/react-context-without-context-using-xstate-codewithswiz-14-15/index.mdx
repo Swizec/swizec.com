@@ -28,7 +28,7 @@ React Context is the workhorse behind [wormhole state management](https://swizec
 function RandomComponent() {
   const { user } = useAuth()
 
-  return <h2>Hello {user.username}</h2>
+  return <h2>Hello `{user.username}`</h2>
 }
 ```
 
@@ -120,7 +120,7 @@ Because you export an _instance_ of an object, you can access that instance anyw
 
 What that means for you is that you now have global shared state without a context provider.
 
-![](giphy:whoa)
+![whoa](./img/giphy-whoa.gif)
 
 Thanks to [XState's React integration](https://xstate.js.org/docs/packages/xstate-react/), you can safely access this shared state.
 
@@ -140,7 +140,7 @@ export const useAuth: useAuthInterface = () => {
 
 When state updates, entry and exit actions update `state.context`. When your components depend on those values, they re-render.
 
-![](giphy:magic)
+![magic](./img/giphy-magic.gif)
 
 ## What about configuration?
 

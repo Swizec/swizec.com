@@ -27,7 +27,7 @@ class EnvironmentHelper {
     }
 ```
 
-`URLSearchParams` parses the `window.location.search` string into a Map and you `.get()` the `env` param. If the param isn't there, the value is `null`.
+`URLSearchParams` parses the `{window.location.search}` string into a Map and you `.get()` the `env` param. If the param isn't there, the value is `null`.
 
 Your spidey senses were tingling so you made sure `window` is defined. Lets you run this code in server-side rendering.
 
@@ -68,7 +68,7 @@ Going to break in QA environments and that's okay. The QA team knows to add `?en
 
 That's a _great_ idea!
 
-You [npm install js-cookie](https://www.npmjs.com/package/js-cookie) and get to work.
+You `{npm install js-cookie}` and get to work.
 
 ```javascript
 import Cookies from "js-cookie";

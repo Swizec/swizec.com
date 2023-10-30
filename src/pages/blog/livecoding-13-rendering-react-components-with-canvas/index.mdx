@@ -20,7 +20,7 @@ With the release candidate version of D3v4, importing the entire library no long
 
 Our slow implementation was back. \\o/
 
-![](./img/7nSJGIgifei7030.gif)
+![](./img/7nSJGIgifei7030.gif " ")
 
 Then we turned to [react-konva](https://github.com/lavrton/react-konva), _“a JavaScript library for drawing complex canvas graphics using React.”_ In theory, we should be able to render our particles using HTML5 canvas without changing our code too much.
 
@@ -31,11 +31,11 @@ To my surprise, the conversion _was_ simple.
 We had to change our main render method to use a Konva `Stage` instead of an `<svg>` node:
 
 ```javascript
-<stage width={this.props.svgWidth} height={this.props.svgHeight}>
-  <layer>
-    <particles particles={this.props.particles}></particles>
-  </layer>
-</stage>
+`<Stage width={this.props.svgWidth} height={this.props.svgHeight}>
+  <Layer>
+    <Particles particles={this.props.particles}></Particles>
+  </Layer>
+</Stage>`
 ```
 
 We also wrapped it in a big `<div>` to help D3 detect the mouse events we need for particle generation. Yes, we could have moved away from D3 for those, but it was already coded up, so why change?
@@ -43,9 +43,9 @@ We also wrapped it in a big `<div>` to help D3 detect the mouse events we need f
 We had to change the `Particles` render method to use Konva’s `Circle` component.
 
 ```javascript
-<group>
+`<Group>
   {particles.map((particle) => (
-    <circle
+    <Circle
       radius="1.8"
       x={particle.x}
       y={particle.y}
@@ -53,12 +53,12 @@ We had to change the `Particles` render method to use Konva’s `Circle` compone
       fill="black"
     />
   ))}
-</group>
+</Group>`
 ```
 
 Things Just Worked™. Kind of. Our animation looked less than smooth, even with just 200 particles. With a few thousand, it was comically bad.
 
-![](./img/9a7hzpgifj7ae2j.gif)
+![](./img/9a7hzpgifj7ae2j.gif " ")
 
 Not cool, React. Not cool. Canvas is supposed to be super fast! Maybe this _is_ a bit faster than the SVG approach? It’s hard to tell.
 
@@ -70,7 +70,7 @@ Yikes.
 
 The culprit seems to be a function called `updateChildren` deep in the bowels of React.
 
-We’ll find a workaround on Sunday the 10th of July. There are several promising venues to explore, anything from using better Konva components (FastLayer is a thing) to avoiding prop updates as the driver of our animation. Somehow. We’ll figure it out.
+We’ll find a workaround on Sunday the 10th of July. There are several promising venues to explore, anything from using better Konva components (FastLayer is a thing) to avoiding prop updates as the driver of our animation. Somehow `updateChildren`. We’ll figure it out.
 
 See you next time.
 

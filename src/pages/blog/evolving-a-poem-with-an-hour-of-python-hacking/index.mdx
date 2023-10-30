@@ -8,19 +8,18 @@ categories: "Uncategorized"
 hero: ../../../defaultHero.jpg
 ---
 
-- [![Three quarter length portrait of Oscar Wilde (...](https://swizec.com/wp-content/uploads/2010/12/300px-Oscar_Wilde_3g07095u.jpg "Three quarter length portrait of Oscar Wilde (...")](http://commons.wikipedia.org/wiki/File:Oscar_Wilde_3g07095u.jpg)
+- [Three quarter length portrait of Oscar Wilde (...](https://swizec.com/wp-content/uploads/2010/12/300px-Oscar_Wilde_3g07095u.jpg)
 
-  Image via [Wikipedia](http://commons.wikipedia.org/wiki/File:Oscar_Wilde_3g07095u.jpg)
 
 On Monday I got a little bored at class. This is something that is likely to happen when you're stuck at classes for nearly the whole day.
 
-During a break a classmate of mine showed me something cool. It was a Java applet that used genetic [algorithms](http://en.wikipedia.org/wiki/Algorithm "Algorithm") (we think it was just basic [evolution](http://en.wikipedia.org/wiki/Evolution "Evolution")) to create a model of a car that can travel over rugged terrain ... Actually thanks to Zemanta I found the link -> [Go here for a very cool genetic algorithm demo](http://www.qubit.devisland.net/ga/)
+During a break a classmate of mine showed me something cool. It was a Java applet that used genetic [algorithms](http://en.wikipedia.org/wiki/Algorithm) to create a model of a car that can travel over rugged terrain ... Actually thanks to Zemanta I found the link -> [Go here for a very cool genetic algorithm demo](http://www.qubit.devisland.net/ga/)
 
-This gave me a cool idea to retry making an algorithm I was making a year ago in [Lisp](http://en.wikipedia.org/wiki/Lisp_%28programming_language%29 "Lisp (programming language)").
+This gave me a cool idea to retry making an algorithm I was making a year ago in [Lisp](http://en.wikipedia.org/wiki/Lisp_%28programming_language%29).
 
 Because wi-fi wasn't working I wrote it in python this time, simply because I don't need to reference documentation to write python.
 
-So I made something cool. (I think) In an hour of solid hacking I created a simple evolutionary algorithm that given enough time can create pretty much any piece of text by performing random [mutations](http://en.wikipedia.org/wiki/Mutation "Mutation") and breeding strings together. My classmates can verify that it only took an hour.
+So I made something cool. (I think) In an hour of solid hacking I created a simple evolutionary algorithm that given enough time can create pretty much any piece of text by performing random [mutations](http://en.wikipedia.org/wiki/Mutation) and breeding strings together. My classmates can verify that it only took an hour.
 
 Sure, nothing very impressive on a grand scale of things. I mean, what's cool about taking a bunch of random characters and applying random transformations to them to create a known piece of text right?
 
@@ -38,14 +37,14 @@ Ok so the basics of evolution algorithms are pretty simple. You take a populatio
 
 Yep, pretty much like natural selection+evolution in nature.
 
-Obviously this means that choosing a proper breeding and [fitness functions](http://en.wikipedia.org/wiki/Fitness_function "Fitness function") is crucial here. The mutation function isn't very interesting ... and in fact as I discovered it's almost better if you don't have it at all. The real reason it's usually there is because it helps the algorithm get out of local minimums.
+Obviously this means that choosing a proper breeding and [fitness functions](http://en.wikipedia.org/wiki/Fitness_function) is crucial here. The mutation function isn't very interesting ... and in fact as I discovered it's almost better if you don't have it at all. The real reason it's usually there is because it helps the algorithm get out of local minimums.
 
 ```python
 def mutate(a):
     return "".join([random.choice(ALPHABET) if abs(random.random()-0.5) < MUTATE_CHANCE else k for k in a])
 ```
 
-Basically _mutate_ just goes through the string and [randomly](http://en.wikipedia.org/wiki/Randomness "Randomness") changes characters, if some event with a low chance of happening occurs.
+Basically _mutate_ just goes through the string and [randomly](http://en.wikipedia.org/wiki/Randomness) changes characters, if some event with a low chance of happening occurs.
 
 ```python
 def distance(a, b):
@@ -85,7 +84,7 @@ Oh and I had problems with inbreeding. It's funny, but if the population was too
 
 ## Performance
 
-I haven't really put this algorithm through its paces, but I was pleasantly surprised when it only took 10 generations to evolve a [simple sentence](http://en.wikipedia.org/wiki/Simple_sentence "Simple sentence") and only about 150 generations to create a stanza of Hamlet.
+I haven't really put this algorithm through its paces, but I was pleasantly surprised when it only took 10 generations to evolve a [simple sentence](http://en.wikipedia.org/wiki/Simple_sentence) and only about 150 generations to create a stanza of Hamlet.
 
 The Oscar Wilde poem mentioned earlier is taking a bit longer. After 1000 generations it seems to be mostly prancing around the 5-8 differences range and showing a general downward trend. The lowest peak I saw was at 4. It will probably finish eventually, but perhaps some tweaking of the settings is needed.
 
@@ -150,4 +149,3 @@ Voila!
 Not sure that would be at all useful, but it might just be something pretty cool and nerdy to make some day.
 
 Comments regarding the suggested algorithm especially wanted!
-

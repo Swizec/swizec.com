@@ -36,15 +36,15 @@ In this article, we'll use 2 of them. Media and peer connection.
 
 ## RTCPeerConnection connects clients without servers
 
-![RTCPeerConnection process sketch](https://swizec.com/wp-content/uploads/2018/05/RTCPeerConnection-process-sketch.png)
+![RTCPeerConnection process sketch](https://swizec.com/wp-content/uploads/2018/05/RTCPeerConnection-process-sketch.png "RTCPeerConnection process sketch")
 
 You establish a connection between 2 clients on the same page like this 👇
 
-1.  Instantiate two `RTCPeerConnection` objects
+1.  Instantiate two `{RTCPeerConnection}` objects
 2.  Add each other as ICE candidates
-3.  `createOffer` on the 1st object
+3.  `{createOffer}` on the 1st object
 4.  set local/remote "description" on both
-5.  `createAnswer` on the 2nd object
+5.  `{createAnswer}` on the 2nd object
 6.  set remote/local "description" on both
 7.  Enjoy your direct communication
 
@@ -334,4 +334,4 @@ That won't do for a distributed decentralized blockchain ☹️
 
 Next step: Serverless WebRTC signaling. Stay tuned.
 
-&lt;strong*This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should subscribe to [My Youtube](https://www.youtube.com/TheSwizec) channel to catch me live.*
+<strong>This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding. Usually shorter than 500 words. Often with pictures. Livecoding happens almost **every Sunday at 2pm PDT** on multiple channels. You should subscribe to [My Youtube](https://www.youtube.com/TheSwizec) channel to catch me live. </strong>

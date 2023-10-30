@@ -8,7 +8,7 @@ categories: "Haskell, Languages, Programming, Spaghetti code, Toshl, Uncategoriz
 hero: ./img/images-3841.png
 ---
 
-![Fixing others' code](./img/images-3841.png "Fixing others' code")
+![Fixing others' code](./img/images-3841.png)
 
 Fixing old code is always a humbling experience. Especially your own.
 
@@ -24,7 +24,7 @@ But not [this project](https://github.com/Swizec/Personal-Runway). This is my cr
 
 It's really neat.
 
-But man is it built out of some truly atrocious code. It started as a [Haskell](http://haskell.org "Haskell (programming language)") learning experiment over new year's break two years ago and, you know, back then I really thought I was a great engineer.
+But man is it built out of some truly atrocious code. It started as a [Haskell](http://haskell.org) learning experiment over new year's break two years ago and, you know, back then I really thought I was a great engineer.
 
 Last night I almost cried.
 
@@ -38,9 +38,9 @@ The Haskell and node.js part communicate via mongodb.
 
 I didn't even use a mongodb library. Hacked something together because mongoose - ORM-like mongodb library for node - was too slow for some reason. And I have no idea how Haskell does it. Monads continue to confuse me.
 
-To make matters even more worse, I didn't use any libraries to talk to either [Toggl](http://www.toggl.com "Toggl.com") or [Toshl](http://toshl.com/). Partly because Toshl only released an official API this summer and other than [my half baked attempt from two weeks ago](https://swizec.com/blog/about-achieving-polymorphism-in-javascript/) there are no libraries, partly because I don't know why.
+To make matters even more worse, I didn't use any libraries to talk to either [Toggl](http://www.toggl.com) or [Toshl](http://toshl.com/). Partly because Toshl only released an official API this summer and other than [my half baked attempt from two weeks ago](https://swizec.com/blog/about-achieving-polymorphism-in-javascript/) there are no libraries, partly because I don't know why.
 
-The Toshl part is the worst. I fake user interactions to log into their service and export a [CSV file](http://en.wikipedia.org/wiki/Comma-separated_values "Comma-separated values") with data, then parse it locally.
+The Toshl part is the worst. I fake user interactions to log into their service and export a [CSV file](http://en.wikipedia.org/wiki/Comma-separated_values) with data, then parse it locally.
 
 Yes that includes sending plaintext passwords over https. Yes it also includes saving said password in a file on the server.
 
@@ -85,7 +85,7 @@ var workspaces = function (callback) {
 };
 ```
 
-Much better than essentially having `__request` function repeated every time.
+Much better than essentially having `{__request}` function repeated every time.
 
 Had I been using an actively developed library maybe my project wouldn't break. Somebody else would make sure my code still knew how to talk with Toggl by virtue of updating their library.
 
@@ -99,4 +99,4 @@ Another time maybe. When I once more muster the courage to go fixing my old code
 
 I just hope I still know enough Haskell to fix the algorithmic part if it ever breaks. No comments. No explanation of the algorithm. D'oh.
 
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=36ac71d4-54e8-45d0-a899-64e537bd545a)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=36ac71d4-54e8-45d0-a899-64e537bd545a)

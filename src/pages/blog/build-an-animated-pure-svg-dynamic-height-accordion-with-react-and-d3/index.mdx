@@ -62,7 +62,7 @@ Render everything inside an SVG, use `foreignObject` to support auto text layout
 
 In a nutshell 👇
 
-![](https://swizec.com/wp-content/uploads/2018/06/accordionflow-sketch.jpg)
+![Accordion Flow Sketch](https://swizec.com/wp-content/uploads/2018/06/accordionflow-sketch.jpg)
 
 - `<AccordionFlow>` renders rows
 - `<AccordionFlow>` holds an array of known or default row heights, used for vertical positioning
@@ -91,11 +91,11 @@ It starts by creating an array of arrays to represent our data. Each has an `<Ic
 // index.js prep data
 
 const icons = [<circle />, <rectangle />, <triangle />],
-  flowData = d3range(10).map(i => [
+  flowData = d3.range(10).map(i => [
     icons[i % 3],
     contentUpdated => (
-      <DynamicContent title="{`Row" ${i}`}="" contentupdated={contentUpdated}>
-        {d3range(10)
+      <DynamicContent title={`Row ${i}`} contentUpdated={contentUpdated}>
+        {d3.range(10)
           .slice(0, i)
           .map(() => faker.lorem.paragraph())}
       </DynamicContent>
@@ -103,7 +103,7 @@ const icons = [<circle />, <rectangle />, <triangle />],
   ]);
 ```
 
-Icon is a plain component. We're rendering it as a compound component with no frills. ``is wrapped in a function because it's going to be used as a render prop. It gets the callback function it can call to dynamically update its height after initial rendering.
+Icon is a plain component. We're rendering it as a compound component with no frills. `DynamicContent` is wrapped in a function because it's going to be used as a render prop. It gets the callback function it can call to dynamically update its height after initial rendering.
 
 We need this so `AccordionFlow` can know when to push other rows out of the way.
 
@@ -143,7 +143,7 @@ class AccordionFlow extends React.Component {
           strokeWidth="2.5"
         />
         {data.map(([icon, content], i) => (
-          <row icon={icon} content={content} y={heights.slice(0, i).reduce((sum, h) => sum + h, 0)}
+          <Row icon={icon} content={content} y={heights.slice(0, i).reduce((sum, h) => sum + h, 0)}
             width={450}
             key={i}
             reportHeight={height => {
@@ -216,13 +216,13 @@ class Row extends React.Component {
 }
 ```
 
-Our `Row` component uses `state` to keep track of whether it's `open` and its vertical positio `y`.
+Our `Row` component uses `state` to keep track of whether it's `open` and its vertical position `y`.
 
 We use `toggleOpen` to flip the `open` switch. Right now, that just means the difference between `content` being rendered or not.
 
 The fun stuff happens in `contentRefCallback`. We use this as a [React ref callback](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs), which is a method that React calls when a new element is rendered into the DOM.
 
-We use this opportunity to save the ref as a component property for future reference, get its height using `getBoundingClientRect`, and call the `reportHeight` callback to tell ``about our new height.
+We use this opportunity to save the ref as a component property for future reference, get its height using `getBoundingClientRect`, and call the `reportHeight` callback to tell `AccordionFlow` about our new height.
 
 Something similar happens in `contentUpdated`. It's a callback we pass into the `content` render prop so it can tell us when something changes. We then re-check our new height and report it up the hierarchy.
 
@@ -237,17 +237,17 @@ The `render` method puts all of this together.
 
     return (
       <g transform={`translate(5, ${y})`} ref={this.rowRef}>
-        <g onclick={this.toggleOpen} style={{ cursor: "pointer" }}>
+        <g onClick={this.toggleOpen} style={{ cursor: "pointer" }}>
           {icon}
         </g>
         {this.state.open ? (
-          <foreignobject x={20} y={-20} width={width} style={{ border: "1px solid red" }}>
+          <foreignObject x={20} y={-20} width={width} style={{ border: "1px solid red" }}>
             <div ref={this.contentRefCallback}>
               {typeof content === "function"
                 ? content(this.contentUpdated)
                 : content}
             </div>
-          </foreignobject>
+          </foreignObject>
         ) : null}
       </g>
     );
@@ -316,17 +316,15 @@ class DynamicContent extends React.Component {
       { paragraphs, spinner } = this.state;
 
     return (
-      <react class="fragment">
+      <React.Fragment>
         <h3>{title}</h3>
-        {paragraphs.map(c => {c}
-
-        )}
-        <p>
-          {spinner && (
+        {paragraphs.map((p, index) => <p key={index}>{p}</p>)}
+        {
+          spinner && (
             <Spinner name="cube-grid" color="green" fadeIn="none" style={{ margin: "0 auto" }} />
-          )}
-
-
+          )
+        }
+      </React.Fragment>
     );
   }
 }

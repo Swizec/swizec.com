@@ -24,11 +24,11 @@ The main render code looks like this:
 
 ```javascript
                 <div class="App-intro">
-                    <threescene width={800} height={600} style="{{margin:" '0="" auto'="" }}="">
-                        <perspectivecamera fov={75} aspect={800/600} near={0.1} far={1000} position="{{x:" 0,="" y:="" z:="" 30}}="">
+                    <threescene width={800} height={600} style={`{margin:" '0="" auto'="" }}`}>
+                        <perspectivecamera fov={75} aspect={800/600} near={0.1} far={1000} position={`{x:" 0,="" y:="" z:="" 30}`}>
 
-                            <cube rotation={rotation1} position="{{x:" 2,="" y:="" 0,="" z:="" 25}}="">
-                            <cube 10="" rotation={rotation2} position="{{x:" -10,="" y:="" 5,="" z:="" }}="">
+                            <cube rotation={rotation1} position={`{x:" 2,="" y:="" 0,="" z:="" 25}`}>
+                            <cube 10="" rotation={rotation2} position={`{x:" -10,="" y:="" 5,="" z:="" }`}>
 
                         </cube></cube></perspectivecamera>
                     </threescene>
@@ -59,11 +59,11 @@ class ThreeScene extends Component {
 
         this.refs.anchor.appendChild(this.renderer.domElement);
     }
-    componentDidUpdate() {
+    componentDidUpdate(){
         this.updateThree(this.props);
     }
 
-    updateThree(props) {
+    updateThree(props){
         const { width, height } = props;
 
         this.renderer.setSize(width, height);
@@ -80,9 +80,9 @@ class ThreeScene extends Component {
         const { width, height, style } = this.props;
 
         return (
-            <div ref="anchor" style="{[{width," height},="" style]}="">
-                 {this.props.children}
-            </div>
+          <div ref="anchor" style={`{[{width," height},="" style]}`}>
+                {this.props.children}
+          </div>
         )
     }
 }
@@ -99,7 +99,7 @@ Context is messy but it gives every child access to the scene and renderer. They
 
 In `componentDidMount`, we manually update the DOM and `appendChild` to the rendered anchor element. This mounts our Three.js canvas to the DOM.
 
-![](https://swizec.com/wp-content/uploads/2017/06/dom-screenshot.jpg)
+![Screenshot of DOM](https://swizec.com/wp-content/uploads/2017/06/dom-screenshot.jpg)
 
 ## Step 2: A `<PerspectiveCamera>`
 

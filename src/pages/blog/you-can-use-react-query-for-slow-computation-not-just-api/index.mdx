@@ -236,7 +236,7 @@ function Factors({ number }) {
 }
 ```
 
-We set the cache key to `["factors", number]` and use `getFactors` in the query function. Then we let React Query handle our loading and error states.
+We set the cache key to `{["factors", number]}` and use `getFactors` in the query function. Then we let React Query handle our loading and error states.
 
 The end result is a neat UI that caches slow computations for reuse. ✌️
 

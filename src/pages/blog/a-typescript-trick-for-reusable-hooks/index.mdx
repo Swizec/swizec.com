@@ -43,7 +43,7 @@ You use the state machine like this:
 const GoNext = () => {
   const { nextState } = useMyLittleStateMachine();
 
-  return <Link to={`/important_flow/{nextState}`}>Go Next</Link>;
+  return <Link to={`/important_flow/`${nextState}`}>Go Next</Link>;
 };
 ```
 
@@ -157,13 +157,13 @@ Context is of generic type `T` as specified when the hook is used.
 const GoNextUser = (user: User) => {
   const { nextState } = useMyLittleStateMachine<User>(user);
 
-  return <Link to={`/important_flow/{nextState}`}>Go Next</Link>;
+  return <Link to={`/important_flow/`${nextState}`}>Go Next</Link>;
 };
 
 const GoNextComment = (comment: Comment) => {
   const { nextState } = useMyLittleStateMachine<Comment>(comment);
 
-  return <Link to={`/important_flow/{nextState}`}>Go Next</Link>;
+  return <Link to={`/important_flow/`${nextState}`}>Go Next</Link>;
 };
 ```
 
@@ -172,10 +172,10 @@ Call the hook and _tell it the type of its parameter_. You've done this before w
 You can go even further. Make the component generic.
 
 ```typescript
-const GoNext = (context: T) => {
+const GoNext<T> = (context: T) => {
   const { nextState } = useMyLittleStateMachine<T>(context);
 
-  return <Link to={`/important_flow/{nextState}`}>Go Next</Link>;
+  return <Link to={`/important_flow/`${nextState}`}>Go Next</Link>;
 };
 ```
 

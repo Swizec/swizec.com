@@ -12,7 +12,7 @@ Input fields that are limited to one of 6,000 possible values… That’s a usab
 
 Dump it in a dropdown, and you overwhelm your users. How many even know vanilla dropdowns support search? And besides, you can't style those. Your designer will throw a shit fit. Default browser crap in his beautiful design? No, no, that won't do.
 
-![](https://swizec.com/wp-content/uploads/2016/11/vanilla-dropdown.gif)
+![vanilla dropdown gif](https://swizec.com/wp-content/uploads/2016/11/vanilla-dropdown.gif)
 
 Looks vanilla, works vanilla. First open is slow, but search is fast if you know it exists. If you don't, you're screwed.
 
@@ -37,26 +37,44 @@ const options = [
 ];
 
 const field = ({ options }) => (
-    <select name="university" value="one" options={options} onchange="{val" ==""> console.log(val)}
-    />
+    `<Select name="university" value="one" options={options} onchange="{val}" ==""> console.log(val)</Select>`
 );
-The <Select> component does everything: input field, styled non-vanilla dropdown, mouse interaction, keyboard shortcuts, filtering. The only gotcha is that options have to be an array of { value, label } objects. Even if both value and label are the same, I tried.A few seconds to render the dropdown. A few seconds to filter. The browser's UI thread blocked, and you can't even see what you're typing.5,258 entries is a lot of entries ?Step 2: react-virtualized-selectBrian Vaughn's react-virtualized-select solves the first problem – opening the dropdown. It's a higher order component that does a thing and then your thing works better.I think it implements paging and hides it behind scroll events. Only a few elements render at a time, and everyone's life is better.Here's how you use it:
+```
+
+The `Select` component does everything: input field, styled non-vanilla dropdown, mouse interaction, keyboard shortcuts, filtering. The only gotcha is that options have to be an array of `{ value, label }` objects. Even if both value and label are the same, I tried.
+
+A few seconds to render the dropdown. A few seconds to filter. The browser's UI thread blocked, and you can't even see what you're typing.
+
+5,258 entries is a lot of entries ?
+
+Step 2: react-virtualized-select
+
+Brian Vaughn's react-virtualized-select solves the first problem – opening the dropdown. It's a higher order component that does a thing and then your thing works better.
+
+I think it implements paging and hides it behind scroll events. Only a few elements render at a time, and everyone's life is better.
+
+Here's how you use it:
+
+```javascript
 import Select from 'react-virtualized-select';
 import 'react-select/dist/react-select.css';
-import 'react-virtualized/styles.css'
-import 'react-virtualized-select/styles.css'const options = [
+import 'react-virtualized/styles.css';
+import 'react-virtualized-select/styles.css';
+
+const options = [
     // ...
     { value: 'Stanford University', label: 'Stanford' },
     // ...
-];const field = ({ options }) => (
-    </select> console.log(val)}
-    />
+];
+
+const field = ({ options }) => (
+    `<Select name="university" value="one" options={options} onchange="{val}" ==""> console.log(val)</Select>`
 );
 ```
 
 We changed the `import Select from` to use `react-virtualized-select` and… that's all. ?
 
-![](https://swizec.com/wp-content/uploads/2016/11/react-virtualized-select.gif)
+![react virtualized select gif](https://swizec.com/wp-content/uploads/2016/11/react-virtualized-select.gif)
 
 It opens quickly, and I was typing that whole time that nothing was happening. Browser's UI thread still blocking.
 
@@ -72,8 +90,8 @@ Here's how you use it:
 import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
-import 'react-virtualized/styles.css'
-import 'react-virtualized-select/styles.css'
+import 'react-virtualized/styles.css';
+import 'react-virtualized-select/styles.css';
 
 const options = [
     // ...
@@ -84,10 +102,19 @@ const options = [
 const filterOptions = createFilterOptions({ options });
 
 const field = ({ options }) => (
-    <select name="university" value="one" options={options} filteroptions={filterOptions} onchange="{val" ==""> console.log(val)}
-    />
+    `<Select name="university" value="one" options={options} filteroptions={filterOptions} onchange="{val}"> console.log(val)</Select>`
 );
-We added a filterOptions prop to Select, which specifies a custom filter implementation, and we used createFilterOptions to instantiate that implementation. No need to worry about how it actually works because It Just Works™.Looks good, works good. Faster even than the vanilla browser implementation ?The only gotcha is that you have to pass the same options to both Select and createFilterOptions. Dynamically generating { value, label } objects from an array won't work.The good news is that the memoization MobX does for @computed values is good enough, so you can do something like this:
+```
+
+We added a `filterOptions` prop to `Select`, which specifies a custom filter implementation, and we used `createFilterOptions` to instantiate that implementation. No need to worry about how it actually works because It Just Works™.
+
+Looks good, works good. Faster even than the vanilla browser implementation ?
+
+The only gotcha is that you have to pass the same options to both `Select` and `createFilterOptions`. Dynamically generating `{ value, label }` objects from an array won't work.
+
+The good news is that the memoization MobX does for @computed values is good enough, so you can do something like this:
+
+```javascript
 class FormData {
     @observable universities = ['Stanford', 'UVA', ...];
 
@@ -100,5 +127,10 @@ class FormData {
         return createFilterOptions({ options });
     }
 }
-I don't know if it would work with Redux. As long as you're careful about the reference thing, you should be fine.But is it a good idea?Yes. Use this approach for all select fields. Even the small ones! There's no harm, and it's faster. Winning.</select>
 ```
+
+I don't know if it would work with Redux. As long as you're careful about the reference thing, you should be fine.
+
+But is it a good idea?
+
+Yes. Use this approach for all select fields. Even the small ones! There's no harm, and it's faster. Winning.

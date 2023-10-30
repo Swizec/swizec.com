@@ -24,7 +24,7 @@ That quote made it click. D'oh! So obvious.
 
 You see, the problem with arc transitions is that their path definition has a funny shape. It looks like this:
 
-```
+```plaintext
     M100.6434055594246,-99.8203632756589A8,8,0,0,1,112.2823856114007,-99.46188154973098A150,150,0,0,1,-104.56274177607584,107.54828233063364A8,8,0,0,1,-104.38099615277264,95.90520136696549L-64.39381262786019,59.38549403963366A8,8,0,0,1,-53.635344263429694,59.35696964757701A80,80,0,0,0,61.78081312913049,-50.82451307295977A8,8,0,0,1,62.30830828934212,-61.57007978883599Z
 ```
 
@@ -44,7 +44,7 @@ Or an error. 😬
 
 ![Naively implemented transition. Notice the arcs change shape sometimes](https://swizec.com/wp-content/uploads/2018/03/naive-transition-d3-pie.gif)
 
-![](./img/media-sDZhdjNDsIq1q-giphy.gif)
+![smiling face](./img/media-sDZhdjNDsIq1q-giphy.gif)
 
 ## Tweens to the rescue
 
@@ -54,7 +54,7 @@ The idea is to move from blindly transitioning path definitions to transitioning
 
 Tweening functions are what makes transitions work, by the way. They take an argument, `t`, and return the value of your prop at that specific "time" of your transition.
 
-![](https://swizec.com/wp-content/uploads/2018/03/transition-sketch.png)
+![transition sketch](https://swizec.com/wp-content/uploads/2018/03/transition-sketch.png)
 
 Our tween generator is going to need:
 
@@ -92,10 +92,9 @@ Each interpolator starts from an `oldData` angle and moves towards a `newData` a
 
 This function then returns our actual interpolation function. It takes the argument `t`, feeds it into our two interpolators, adjusts values on the `copy` object, feeds that into the `arc` generator, and returns a new path definition.
 
-![](./img/media-3o7btPCcdNniyf0ArS-giphy.gif)
+![smiling face](./img/media-3o7btPCcdNniyf0ArS-giphy.gif)
 
 You use it like this 👇
-
 ```javascript
 // Piechart.js
 d3.select(this.refs.elem)
@@ -109,7 +108,6 @@ d3.select(this.refs.elem)
     })
   )
 ```
-
 Select an element, a `<path>`, start a transition, make it last `80` milliseconds, `attrTween` the path definition, `d`, attribute using the tween returned from `arcTween`.
 
 Better? 🤪
@@ -121,7 +119,7 @@ We build our piechart from 2 components:
 1.  Piechart – takes data, feeds into a `d3.pie()` generator, renders a bunch of arcs in a loop
 2.  Arc - takes data for an arc, feeds it into a `d3.arc()` generator, renders a `<path>` element, handles transitions
 
-You can see the [full code on GitHub](https://github.com/Swizec/react-d3-pie)
+You can see the [full code on GitHub](https://github.com/Swizec/react-d3-pie).
 
 ## Piechart component
 
@@ -142,17 +140,17 @@ class Piechart extends Component {
         const _data = groupByFunc(data, groupBy);
 
         return (
-            <g transform="{`translate(${x}," ${y})`}="">
+            <g transform={`translate(${x}, ${y})`}>
                 {this.pie(_data).map((d, i) => (
-                    <arc d={d} color={color(d)}>
+                    <Arc key={i} d={d} color={color(i)}>
                 ))}
-                <text x="0" textanchor="middle">
+                <text x="0" textAnchor="middle">
                     {data.length}
                 </text>
-                <text y="18" x="0" textanchor="middle">
+                <text y="18" x="0" textAnchor="middle">
                     datapoints
                 </text>
-            </arc></g>
+            </g>
         );
     }
 }
@@ -215,7 +213,7 @@ class Arc extends Component {
         const { color, pathD } = this.state;
 
         return (
-            <path d={pathD} style={{ fill: color }} onmouseover={this.hover} onmouseout={this.unhover} ref="elem">
+            <path d={pathD} style={{ fill: color }} onMouseOver={this.hover} onMouseOut={this.unhover} ref="elem">
         );
     }
 }
@@ -239,7 +237,7 @@ Now that `<Arc>` is rendering from state, we can use D3 transitions to make upda
 Our goal is to take the new props, use D3 to transition appropriate attributes on the base DOM node, then update state with the new values to ensure React's engine knows what's going on.
 
 ```javascript
-// Piechart.js in <arc>
+// Piechart.js in <Arc>
 
     componentWillReceiveProps(newProps) {
         this.setState({
@@ -258,7 +256,7 @@ Our goal is to take the new props, use D3 to transition appropriate attributes o
                 })
             );
     }
-</arc>
+</Arc>
 ```
 
 We update color state right away. This triggers a render, eventually.

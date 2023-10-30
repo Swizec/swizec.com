@@ -12,7 +12,7 @@ hero: ./img/photos-images-original-000-415-209-3b4.png
 
 But there's no write. You can't login, you can't upvote, and you can't post. You can't do anything but read. And you need writes to make a [Hacker News App](https://school.shoutem.com/lectures/hacker-news-app-part-2-upvoting-commenting/).
 
-![](./img/photos-images-original-000-415-209-3b4.png)
+![Post image](./img/photos-images-original-000-415-209-3b4.png)
 
 Without a public write API, the only thing left to do was to reverse engineer HackerNews forms and fake them with `fetch()` requests. Technically, this falls under [cross site request forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery), but it isn't malicious.
 
@@ -34,7 +34,7 @@ I'm going to show you how this works on two examples: A Login form and an Upvote
 
 HackerNews's login form looks like this:
 
-![](https://swizec.com/wp-content/uploads/2017/08/login-screenshot.png)
+![Login form](https://swizec.com/wp-content/uploads/2017/08/login-screenshot.png)
 
 Which in HTML looks like this:
 
@@ -78,12 +78,12 @@ Looking at this HTML tells us HackerNews uses a POST request to to the `/login` 
 The Upvote action isn't a form; it's a link that looks like this:
 
 ```html
-<a id="up_14918911" onclick="return vote(event, this, "up")" href="vote?id=14918911&how=up&auth=0855997b736abc0c65600fee44fbf9bbf3bca65c&goto=news"><div class="votearrow" title="upvote"></div></a>
+<a id="up_14918911" onclick="return vote(event, this, 'up')" href="vote?id=14918911&how=up&auth=0855997b736abc0c65600fee44fbf9bbf3bca65c&goto=news"><div class="votearrow" title="upvote"></div></a>
 ```
 
 This tells us that voting happens through JavaScript. We can look for the `vote()` function in [HackerNews's javascript code](https://news.ycombinator.com/hn.js?S3M7ra4yMVMIVvYSGhjv). Lucky for us, it is neither obfuscated nor minified. This makes it easy to read right in Chrome DevTools.
 
-![](https://swizec.com/wp-content/uploads/2017/08/code-screenshot.png)
+![Code snippet](https://swizec.com/wp-content/uploads/2017/08/code-screenshot.png)
 
 The `vote()` function looks like this:
 
@@ -95,9 +95,9 @@ function vote(ev, el, how) {
   vis($('down_' + id), how == 'un');
   var unv = '';
   if (how != 'un') {
-    unv = " | <a id="un_" + id
-      + "" onclick="return vote(event, this,\"un\")" href=""
-      + up.href.replace(" how="up','how=un')" +="" "'="">" + (how == 'up' ? 'unvote' : 'undown') + "</a>"
+    unv = " | <a id='un_" + id
+      + "' onclick='return vote(event, this,\"un\")' href='"
+      + up.href.replace('how=up','how=un') + "'>'" + (how == 'up' ? 'unvote' : 'undown') + "</a>"
   }
   $('unv_' + id).innerHTML = unv;
   new Image().src = el.href;
@@ -120,17 +120,17 @@ We can confirm our findings by making the actions and inspecting their requests 
 
 Due to redirects, you have to enable `Preserve Log`. Somehow I had never noticed that feature existed before doing this.
 
-![](https://swizec.com/wp-content/uploads/2017/08/preserve-logs.png)
+![Preserve logs checkbox](https://swizec.com/wp-content/uploads/2017/08/preserve-logs.png)
 
 As we assumed, the login request sends `goto`, `acct`, and `pw`, and sets a cookie.
 
-![](https://swizec.com/wp-content/uploads/2017/08/login-request-screenshot.png)
+![Login request](https://swizec.com/wp-content/uploads/2017/08/login-request-screenshot.png)
 
 ---
 
 Inspecting the upvote request follows a similar process. This is what we find:
 
-![](https://swizec.com/wp-content/uploads/2017/08/upvote-request-screenshot.png)
+![Upvote request](https://swizec.com/wp-content/uploads/2017/08/upvote-request-screenshot.png)
 
 No surprises here. We have to send a GET request to the upvote URL that's unique for every upvote button. We also send our login cookie so we can assume the server is doing some sort of validation between who's logged in and what the auth token says.
 
@@ -212,7 +212,7 @@ We use `cheerio.load` to parse the HTML and look for the upvote URL with `doc(#u
 You can find the correct ID in the upvote button's HTML. Here it is again:
 
 ```html
-<a id="up_14918911" onclick="return vote(event, this, "up")" href="vote?id=14918911&how=up&auth=0855997b736abc0c65600fee44fbf9bbf3bca65c&goto=news"><div class="votearrow" title="upvote"></div></a>
+<a id="up_14918911" onclick="return vote(event, this, 'up')" href="vote?id=14918911&how=up&auth=0855997b736abc0c65600fee44fbf9bbf3bca65c&goto=news"><div class="votearrow" title="upvote"></div></a>
 ```
 
 This part: `<a id="up_..."`. It's unique for every upvote link and helps us find the right one.
@@ -256,7 +256,7 @@ HackerNews makes it easy. For others, it might be trickier.
 
 Use your new superpower responsibly.
 
-![](https://swizec.com/wp-content/uploads/2017/08/mr-robot.jpg)
+![Mr. Robot](https://swizec.com/wp-content/uploads/2017/08/mr-robot.jpg)
 
 1.  There are ways to prevent cross-site requests with [CORS policies](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), domain filtering, and stuff like that. [↩](#ffn1)
 2.  All HN actions have a `goto` field or argument, I assume it tells the server where to redirect after the request. [↩](#ffn2)

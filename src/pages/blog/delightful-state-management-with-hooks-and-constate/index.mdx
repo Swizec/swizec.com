@@ -72,9 +72,9 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <field>
-          <field></field>
-        </field>
+        <Field>
+          <Field></Field>
+        </Field>
       </div>
     )
   }
@@ -94,7 +94,7 @@ Something like this, then 👇
 ```javascript
 const Field = ({ onChange, value, error }) => (
     <>
-        <input value={value} onchange={onChange}/>
+        <input value={value} onChange={onChange}/>
         {error}
     </>
 )
@@ -151,8 +151,8 @@ class Login extends React.Component {
         const { user, pass, error } = this.state;
         return (
             <form>
-                <Field value={user.value} error={user.error} onchange={this.onChangeUser}/>
-                <Field value={pass.value} error={pass.error} onchange={this.onChangePass}/>
+                <Field value={user.value} error={user.error} onChange={this.onChangeUser}/>
+                <Field value={pass.value} error={pass.error} onChange={this.onChangePass}/>
                 {error}
             </form>
         )
@@ -176,7 +176,7 @@ The modern context API makes it pretty painless to create ad-hoc contexts that s
 const FormContext = React.createContext()
 ```
 
-This creates a `FormContext` We're using it in a contrived way and I'll explain why.
+This creates a `FormContext`. We're using it in a contrived way and I'll explain why.
 
 ```javascript
 class Field extends React.Component {
@@ -209,11 +209,11 @@ class Field extends React.Component {
 }
 
 const ContextField = ({ name }) => (
-    <FormContext class="consumer">
+    <FormContext.Consumer>
         {(state) => (
-            <Field value={name} returnValue={value ==""} state.onChange(value, name) />
+            <Field value={state[name]} returnValue={value => state.onChange(value, name)} />
         )}
-    </FormContext>
+    </FormContext.Consumer>
 )
 ```
 
@@ -250,11 +250,11 @@ class Login extends React.Component {
   render() {
     const { error } = this.state
     return (
-      <FormContext class="provider" value={this.state}>
-        <ContextField name="user">
-          <ContextField name="pass">{error}</ContextField>
-        </ContextField>
-      </FormContext>
+      <FormContext.Provider value={this.state}>
+        <ContextField name="user" />
+        <ContextField name="pass" />
+        {error}
+      </FormContext.Provider>
     )
   }
 }
@@ -285,7 +285,8 @@ const Field = ({ value, returnValue }) => {
     }, [state])
     return (
         <>
-            <input value={state} onChange={event ==""}> setState(event.target.value)} />
+            <input value={state} onChange={event => setState(event.target.value)} />
+            {error}
         </>
     )
 }
@@ -309,16 +310,16 @@ Something like this 👇
 
 ```javascript
 function useForm() {
-    const [user, setuser] = useState("");
-    const [pass, setpass] = useState("");
+    const [user, setUser] = useState("");
+    const [pass, setPass] = useState("");
     const [error, setError] = useState("");
     return { user, pass, error, setUser, setPass, setError };
 }
-const FormContainer = createContainer(userForm);
-const ContextField = ({ name }) => (
+const FormContainer = createContainer(useForm);
+const ContextField = ({ name }) => {
     const state = useContext(FormContainer.Context);
-    return <field value={state[name]} returnvalue={state[`set${name}`}>
-)
+    return <Field value={state[name]} returnValue={value => state[`set${name}`](value)} />
+}
 function Error() {
     const { error, setError, user, pass } = useContext(FormContainer.Context);
     useEffect(() => {
@@ -327,17 +328,19 @@ function Error() {
         }
     }, [user, pass])
     return (
-        {error}
+        <>{error}</>
     )
 }
 function Login() {
-    <ContextField class="provider" />
-    <ContextField name="user" />
-    <ContextField name="pass"/>
-    <Error />
+    return (
+        <FormContainer.Provider>
+            <ContextField name="user" />
+            <ContextField name="pass"/>
+            <Error />
+        </FormContainer.Provider>
+    )
 }
 ```
-
 😱
 
 Beautiful!
@@ -348,7 +351,7 @@ Here's how it works:
 2.  Our hook returns its external API as an object.
 3.  We use Constate's `createContainer` method to wrap it in a container
 4.  Like before, ContextField is our context-based wrapper. It takes a name and uses it to get initial value and returnValue API from state. In this case it dynamically decides which `setX` method to use.
-5.  `Error` is a new method. Because of context, we can extract form error handling into a new component. Once more `useEffect` runs our validations when `user` or `pass` change.
+5.  `Error` is a new method. Because of context, we can extract form error handling into a new component. Once more, `useEffect` runs our validations when `user` or `pass` change.
 6.  The `Login` form is now our simplest component. Renders context, fields, and error.
 
 Delightful state management with hooks and Constate. QED

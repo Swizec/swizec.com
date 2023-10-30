@@ -11,7 +11,7 @@ https://twitter.com/Swizec/status/1399831783613423616
 
 That was a typo, it's supposed to say "scare".
 
-We had fixed yet another timezone bug in our codebase ... an API call that removed UTC offset from `startDate`, but not `endDate`. Made 3 hours of data unfindable 🙃
+We had fixed yet another timezone bug in our codebase ... an API call that removed UTC offset from `{startDate}`, but not `{endDate}`. Made 3 hours of data unfindable 🙃
 
 Small obvious fix in the end, but it took 2 engineers over an hour to find and verify.
 
@@ -46,7 +46,7 @@ fetch(..., {
 
 `new Date('2021-06-05')` gives you a timestamp set to midnight in the user's timezone. 5pm UTC in San Francisco, 3pm UTC in New York, etc. And when the server expects midnight UTC, you got a problem.
 
-We did that for `startDate` but not for `endDate`.
+We did that for `{startDate}` but not for `{endDate}`.
 
 🤦‍♀️
 
@@ -62,7 +62,7 @@ For countries that choose to end it ... on the winter or the summer time ... the
 
 Wait that's not better at all!
 
-![](giphy:sigh)
+![sigh](./img/sigh.png)
 
 If you have not been scarred by timezones my friend, consider yourself lucky. It's coming.
 
@@ -76,7 +76,7 @@ Sounds a lot like timezones 🤔
 
 You know what they say: A beginner looks at the problem, sees that regex can solve it, now they have 2 problems.
 
-![](giphy:hue_hue_hue)
+![hue_hue_hue](./img/hue_hue_hue.png)
 
 Regular expressions are great. Little bits of inscrutable logic that parse strings. Versatile as heck.
 
@@ -92,7 +92,7 @@ Checks that you have at least 1 letter, then an `@`, then more letters, followed
 
 The correct regex for email validation looks like this:
 
-```
+```javascript
     (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
 ```
 
@@ -154,15 +154,15 @@ I have been lucky enough to avoid this whole mess.
 
 Here's a smol taste instead, paste this in your console:
 
-```
+```javascript
     '🏳' + '\u200d' + '🌈'
 ```
 
 🏳️‍🌈
 
-\`\\u200d' is a [zero-width-joiner](https://www.bram.us/2016/08/27/fun-with-javascript-and-emoji/) character. Combines emojis. See how you make an emoji family:
+`\\u200d` is a [zero-width-joiner](https://www.bram.us/2016/08/27/fun-with-javascript-and-emoji/) character. Combines emojis. See how you make an emoji family:
 
-```
+```javascript
     [...'👨‍👩‍👧‍👦']
 ```
 

@@ -15,7 +15,7 @@ What if I told you modern tools let you build and launch a small webapp in 30 mi
 
 That's the challenge I posed at Silicon Valley Code Camp this weekend. The audience didn't believe me, so it was time to perform some magic. 🧙
 
-[![](./img/fPf1rIR.gif)](https://www.youtube.com/watch?v=Kx0y6Yemutg)
+![Confetti Fell All Over](./img/fPf1rIR.gif)
 
 Here's the app 👉 [ishotdogtaco.com](https://ishotdogtaco.com)
 
@@ -44,7 +44,7 @@ Your app comes in two parts:
 - **server** for sharing and persisting data between clients, heavy slow operations, data analysis, etc.
 - **web/mobile** for user-facing UI, single user logic, etc.
 
-You use [serverless technologies](https://serverlesshandbook.dev/) to host your server. A few lines of configuration, some javascript code, and you're ready to accept requests. Plus it's scalable.
+You use [serverless technologies](https://serverlesshandbook.dev/) to host your server. A few lines of configuration, some `JavaScript` code, and you're ready to accept requests. Plus it's scalable.
 
 No need to deal with Kubernetes and Dockers and setting up your own DNS configs and dev environments and whatnot. It's pretty neat.
 
@@ -54,7 +54,7 @@ Since your frontend and backend are decoupled, you can host them separately. Let
 
 Your app is live, fast, and scales well.
 
-[![](./img/static-fff0598333278989c0aa583cfdb3f08c-590cf-03_hotdog.jpg)](https://ishotdogtaco.com)
+![Hot-Dog](./img/static-fff0598333278989c0aa583cfdb3f08c-590cf-03_hotdog.jpg)
 
 ### The server side
 
@@ -91,12 +91,12 @@ const resolvers = {
     },
 
     Mutation: {
-        vote: async (_: any, { isHotDog }: { isHotDog: boolean }) => {
+        vote: async (_: any, { isHotDog }: `{ isHotDog: boolean }`) => {
             const voteId = uuidv4();
             const createdAt = new Date().toISOString();
 
             const result = await updateItem({
-                Key: { voteId },
+                Key: `{ voteId }`,
                 UpdateExpression:
                     "SET createdAt = :createdAt, isHotDog = :isHotDog",
                 ExpressionAttributeValues: {
@@ -132,7 +132,7 @@ The database is DynamoDB because that's quickest to set up.
 
 Oh and I promised a _documented_ API. Apollo takes care of that when you open the GraphQL playground.
 
-[![](./img/T7ot8NW.png)](https://iu03h69r48.execute-api.us-east-1.amazonaws.com/dev/graphql)
+![GraphQL Playground](./img/T7ot8NW.png)
 
 ### The web side
 
@@ -224,7 +224,7 @@ Host it with Netlify or Zeit and voila: A live webapp with SSL and fast CDN setu
 
 ## But why?
 
-![but_why giphy](./img/media-s239QJIh56sRW-giphy-downsized-medium.gif)
+![But Why](./img/media-s239QJIh56sRW-giphy-downsized-medium.gif)
 
 Because the [Cube Rule](https://cuberule.com/) is an amazing unified theory of food identification.
 

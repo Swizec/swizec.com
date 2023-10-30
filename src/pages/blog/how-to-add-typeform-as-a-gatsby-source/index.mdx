@@ -27,23 +27,21 @@ To get great testimonials, you have to ask a specific series of questions.
 
 Straight from [Sean D'Souza's Brain Audit](https://brainaudit.com/)
 
-[![The Brain Audit is a great intro to understanding users](./img/The-Brain-Audit-is-a-great-intro-to-understanding-usersdija36.jpeg)](https://brainaudit.com/)
+[The Brain Audit is a great intro to understanding users](./img/The-Brain-Audit-is-a-great-intro-to-understanding-usersdija36.jpeg)
 
 Add a few connecting words and you get beauties like this:
 
-> I’ve got 25 years of web dev experienced but I learned to feel more confident in my decisions and I love the no BS straight shooting opinionism. The newsletter usually bings a big smile to my face and I’d recommend it to everyone. It's a wealth of experience and knowledge being shared very openly and honestly, even the bad stuff.
+> I’ve got 25 years of web dev experienced but I learned to feel more confident in my decisions and I love the no BS straight shooting opinionism. The newsletter usually brings a big smile to my face and I’d recommend it to everyone. It's a wealth of experience and knowledge being shared very openly and honestly, even the bad stuff.
 
 And this:
 
 > I was worried the advice would be too generic or too tech specific. But I learned what value engineers add to an org and **how to build a career as opposed to climbing the ladder**. My favorite were **the long term perspectives** which do not focus only on one aspect of career like salary and roles. The Senior Mindset series in particular helps with gaining context around the industry. Going to use this to **get promoted** and be more comfortable about **the value I add and asking for a raise**.
 
-![](giphy:chefs_kiss)
-
 For a newsletter I like to add demographics info. Helps to know if your writing lands with VPs in BigTech or individual contributors in tiny startups.
 
 Just don't be like me and mess up the URL that adds everyone's email to the feedback. Can't followup to add faces and names to the good ones. Everything's anonymous 💩
 
-## A custom gatsby-typeform-source plugin
+## A custom `gatsby-typeform-source` plugin
 
 The goal is to write a [Gatsby page query](https://www.gatsbyjs.com/docs/how-to/querying-data/page-query/) and bake Typeform data into your site at deploy time. [Gatsby v4 offers more rendering options](https://www.gatsbyjs.com/docs/conceptual/rendering-options/) similar to NextJS, but my data changes once a year. Static is best.
 
@@ -149,7 +147,7 @@ function fetchResponses(token, formId) {
 }
 ```
 
-`token` is your personal API token from Typeform settings. `formId` is the ID of the form you want.
+`{token}` is your personal API token from Typeform settings. `{formId}` is the ID of the form you want.
 
 We create a new client then get the form and the list of responses. For simplicity we set `pageSize: 1000` so we don't have to deal with pagination. 1000 is max though.
 
@@ -323,7 +321,7 @@ description: "What readers think of Swizec's newsletter"
 ---
 
 import { graphql } from "gatsby"
-import { TypeformResponse } from "../components/TypeformResponse.js"
+import TypeformResponse  from "../components/TypeformResponse.js"
 
 export const pageQuery = graphql`
   query {
@@ -360,7 +358,7 @@ Set a title and description, import a React component and Gatsby's graphql hook.
 
 The tricky surprise was that Typeform's API _skips questions that weren't answered_. Saying `answers[3]` can return answers to different questions for different people 🙃
 
-A smol helper function solves that problem:
+A small helper function solves that problem:
 
 ```javascript
 function getAnswer(question, answers) {
@@ -374,7 +372,7 @@ The rest is about slapping together HTML components to show a testimonial. You c
 
 I think it came out great!
 
-[![A testimonial](./img/A-testimonialeei0d4.png)](https://swizec.com/testimonials/)
+[A testimonial](./img/A-testimonialeei0d4.png)
 
 Think I should opensource the `gatsby-typeform-source` plugin? Hit reply
 

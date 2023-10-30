@@ -20,7 +20,7 @@ But there’s a trick to keep them around → show them an image first!
 
 Check this out:
 
-![](./img/my70wtC.gif)
+![image](./img/my70wtC.gif)
 
 See how you barely notice the page refresh? That’s on purpose.
 
@@ -30,7 +30,7 @@ The main `App.render()` method is wrapped in a conditional statement that checks
 // src/App.js
 
 render() {
-    if (this.state.techSalaries.length < 1) {
+    if (`{this.state.techSalaries.length}` < 1) {
         return (
             <preloader>
         );
@@ -52,7 +52,7 @@ const Preloader = () => (
     <div class="App container">
         <h1>The average H1B in tech pays $86,164/year</h1>
         <p class="lead">Since 2012 the US tech industry has sponsored 176,075 H1B work visas. Most of them paid <b>$60,660 to $111,668</b> per year (1 standard deviation). <span>The best city for an H1B is <b>Kirkland, WA</b> with an average individual salary <b>$39,465 above local household median</b>. Median household salary is a good proxy for cost of living in an area.</span></p>
-        <img src={StaticViz} style="{{width:" '100%'}}="">
+        <img src={`StaticViz`} style={`{width: '100%'}`}="">
         <h2 class="text-center">Loading data ...</h2>
     </div>
 );
@@ -72,4 +72,4 @@ It sounds dumb, but increases user satisfaction 341324%.
 
 If it works …
 
-![](./img/media-jPAdK8Nfzzwt2-giphy.gif)
+![image](./img/media-jPAdK8Nfzzwt2-giphy.gif)

@@ -16,7 +16,7 @@ Another step in my [Automagic Poetry Generation](https://github.com/Swizec/Le-Th
 
 I'm making an evolutionary algorithm to generate poetry, but it needs a good base to start from. Random data is preferred, but being completely random means you waste the first couple of epochs just getting to something solid to work from - that's a waste of time.
 
-To make everything a bit smoother, I've written a [markov chain](http://en.wikipedia.org/wiki/Markov_chain "Markov chain") generator in [Haskell](http://haskell.org "Haskell (programming language)") that generates the initial population. The principle is very simple:
+To make everything a bit smoother, I've written a [Markov chain](http://en.wikipedia.org/wiki/Markov_chain) generator in [Haskell](http://haskell.org) that generates the initial population. The principle is very simple:
 
 1.  Read seed poem from file
 2.  Tokenize
@@ -28,7 +28,7 @@ To make everything a bit smoother, I've written a [markov chain](http://en.wikip
 
 Simple.
 
-A quick brush up for people who don't breathe "hardcore" [Comp Sci](http://en.wikipedia.org/wiki/Computer_science "Computer science") stuff: A markov chain is essentially a probabilistic state automata, usually represented with a probability matrix. You take the current state and translate it into the next state by observing the proper probabilities.
+A quick brush up for people who don't breathe "hardcore" [Comp Sci](http://en.wikipedia.org/wiki/Computer_science) stuff: A markov chain is essentially a probabilistic state automata, usually represented with a probability matrix. You take the current state and translate it into the next state by observing the proper probabilities.
 
 The output is a random string that looks a lot like some drunk tweets you might see on a friday night.
 
@@ -149,4 +149,3 @@ produce gen s map =
   let (gen', next) = next_token gen map s
   in s:(produce gen' next map)
 ```
-

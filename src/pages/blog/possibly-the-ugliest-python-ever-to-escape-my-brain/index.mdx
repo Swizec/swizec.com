@@ -20,15 +20,15 @@ Lensing [data](http://en.wikipedia.org/wiki/Data "Data") from one format to anot
     def one(z):
         d = dict(stitch(*[[b for b in zip(a.keys(), a.values()) if b[0] in ['count', 'step_conv_ratio', 'overall_conv_ratio']] for a in z]))
 
-        d['overall_conv_ratio'] = d['overall_conv_ratio']/len(funnel['meta']['dates'])
-        d['step_conv_ratio'] = d['step_conv_ratio']/len(funnel['meta']['dates'])
+        d['overall_conv_ratio'] = d['overall_conv_ratio']/len(`funnel['meta']['dates']`)
+        d['step_conv_ratio'] = d['step_conv_ratio']/len(`funnel['meta']['dates']`)
         return d
 
     print map(one,
-              zip(*[v['steps'][:entry['counts']['p']] for v in funnel['data'].values()]))
+              zip(*[v['steps'][:`entry['counts']['p']`] for v in `funnel['data']`.values()]))
 ```
 
-![The funnel of the Mauretania.](https://swizec.com/wp-content/uploads/2012/02/Funnel_of_the_Mauretania3.jpg "The funnel of the Mauretania.")
+![The funnel of the Mauretania.](https://swizec.com/wp-content/uploads/2012/02/Funnel_of_the_Mauretania3.jpg)
 
 Can you guess what all of that does? Me neither, let me try to explain.
 
@@ -64,7 +64,7 @@ Hopefully I can defend this code, explain why it's ugly.
 
 ```python
 map(one,
-    zip(*[v['steps'][:entry['counts']['p']] for v in funnel['data'].values()]))
+    zip(*[v['steps'][:`entry['counts']['p']`] for v in `funnel['data']`.values()]))
 ```
 
 This code takes the data for each day, iterates over it to take only the _steps_ key, cuts its list at an appropriate length (the funnel's got 60+ steps, I have extra data to tell me how much is actually applicable). Then zips all the steps together.
@@ -77,8 +77,8 @@ Then we apply the one function on each tuple:
 def one(z):
         d = dict(stitch(*[[b for b in zip(a.keys(), a.values()) if b[0] in ['count', 'step_conv_ratio', 'overall_conv_ratio']] for a in z]))
 
-        d['overall_conv_ratio'] = d['overall_conv_ratio']/len(funnel['meta']['dates'])
-        d['step_conv_ratio'] = d['step_conv_ratio']/len(funnel['meta']['dates'])
+        d['overall_conv_ratio'] = d['overall_conv_ratio']/len(`funnel['meta']['dates']`)
+        d['step_conv_ratio'] = d['step_conv_ratio']/len(`funnel['meta']['dates']`)
         return d
 ```
 
@@ -101,4 +101,3 @@ Finally, the conversion values are turned into the average by simply dividing wi
 This is the cleanest and most elegant way I could come up with to solve this problem - there's bound to be something cleaner and easier. Actually, _please_ tell me there's a better way!
 
 Generally speaking, is there even a good approach to take for converting data returned from somewhere into the kind of data you need somewhere else? Or are we doomed to forever spend most of our time figuring out how to get API's talking to one another?
-

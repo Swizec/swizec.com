@@ -26,30 +26,28 @@ Building the piechart itself was quick: Fetch and parse data with `d3.tsv('data.
 // src/App.js
 
 componentDidMount() {
-        d3.tsv('data.dat')
-          .row(({imports, year}) => ({imports: Number(imports),
-                                      year: Number(year)}))
-          .get((data) => {
-              this.setState({data: data,
-                             currentIndex: 0});
-          });
-    }
-
-    render() {
-        let pie = null;
-
-        if (this.state.data.length) {
-            const yearData = this.state.data[this.state.currentIndex],
-                  pieData = [{value: yearData.imports},
-                             {value: 100-yearData.imports}];
-
-            pie = <animatedpiechart data={pieData} x="400" y="300" r="100">;
-        }
-
-        // return an svg, add the pie, etc
-    }
+    d3.tsv('data.dat')
+        .row(({imports, year}) => ({imports: Number(imports),
+                                  year: Number(year)}))
+        .get((data) => {
+            this.setState({data: data,
+                        currentIndex: 0});
+        });
 }
-</animatedpiechart>
+
+render() {
+    let pie = null;
+
+    if (this.state.data.length) {
+        const yearData = this.state.data[this.state.currentIndex],
+              pieData = [{value: yearData.imports},
+                         {value: 100-yearData.imports}];
+
+        pie = <animatedpiechart data={pieData} x="400" y="300" r="100" />;
+    }
+
+    // return an svg, add the pie, etc
+}
 ```
 
 That’s how you’d use the `AnimatedPiechart` component once it works. The component itself wasn’t quick to build, too. It looks like this:
@@ -58,32 +56,31 @@ That’s how you’d use the `AnimatedPiechart` component once it works. The com
 // src/AnimatedPiechart.js
 
 class Arc extends Component { // this would be TransitionableComponent
-    render() {
-        const arc = d3.arc()
-                      .innerRadius(this.props.innerRadius)
-                      .outerRadius(this.props.outerRadius);
+render() {
+    const arc = d3.arc()
+                  .innerRadius(this.props.innerRadius)
+                  .outerRadius(this.props.outerRadius);
 
-        return (
-            <path d={arc(this.props.data)} style="{{fill:" this.props.color}}="">
-        );
-    }
+    return (
+        <path d={arc(this.props.data)} style={`{fill:${this.props.color}}`} />
+    );
+}
 }
 
 const AnimatedPiechart = ({ x, y, r, data }) => {
     let pie = d3.pie()
-                .value((d) => d.value)(data),
+            .value((d) => d.value)(data),
         translate = `translate(${x}, ${y})`,
         colors = d3.scaleOrdinal(d3.schemeCategory10);
 
     return (
         <g transform={translate}>
-            {pie.map((d, i) => (
-                <arc key={`arc-${i}`} data={d} innerradius="0" outerradius={r} color={colors(i)}>
-             ))}
-        </arc></g>
+        {pie.map((d, i) => (
+            <Arc key={`arc-${i}`} data={d} innerRadius="0" outerRadius={r} color={colors(i)} />
+         ))}
+        </g>
     );
 };
-</path>
 ```
 
 A piechart is a collection of arcs. As such it doesn’t need to do much: use `d3.pie()` to turn a dataset into a piechart, then walk through it and render arcs.

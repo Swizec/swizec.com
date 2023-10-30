@@ -55,7 +55,7 @@ The `Particle` component is a circle. It looks like this:
 import React, { PropTypes } from 'react';
 
 const Particle = ({ x, y }) => (
-    <circle cx={x} cy={y} r="1.8">
+    <circle cx={x} cy={y} r="1.8"></circle>
 );
 
 Particle.propTypes = {
@@ -64,7 +64,6 @@ Particle.propTypes = {
 };
 
 export default Particle;
-</circle>
 ```
 
 It takes `x` and `y` coordinates and returns an SVG circle.
@@ -79,9 +78,9 @@ import Particle from './Particle';
 
 const Particles = ({ particles }) => (
     <g>{particles.map(particle =>
-        <particle key={particle.id} {...particle}="">
+        <Particle key={particle.id} {...particle}="">
         )}
-    </particle></g>
+    </Particle></g>
 );
 
 Particles.propTypes = {
@@ -115,13 +114,13 @@ import Header from './Header';
 class App extends Component {
     render() {
         return (
-            <div onmousedown="{e" ==""> this.props.startTicker()} style={{overflow: 'hidden'}}>
-                 <header>
-                 <svg width={this.props.svgWidth} height={this.props.svgHeight} ref="svg" style="{{background:" 'rgba(124,="" 224,="" 249,="" .3)'}}="">
-                     <particles particles={this.props.particles}></particles>
+            <div onMouseDown={() => this.props.startTicker()} style={{overflow: 'hidden'}}>
+                 <Header />
+                 <svg width={this.props.svgWidth} height={this.props.svgHeight} ref="svg" style={{background: 'rgba(124,224,249,.3)'}}>
+                     <Particles particles={this.props.particles} />
                  </svg>
-                 <footer n={this.props.particles.length}>
-             </footer></header></div>
+                 <Footer n={this.props.particles.length} />
+             </div>
         );
     }
 }
@@ -192,6 +191,7 @@ class App extends Component {
         let [x, y] = d3.touches(this.refs.svg)[0];
         this.props.updateMousePos(x, y);
     }
+}
 ```
 
 There are some events to think about:
@@ -273,7 +273,12 @@ class AppContainer extends Component {
         const state = store.getState();
 
         return (
-            <app {...state}="" startticker={::this.startTicker} startparticles={::this.startParticles} stopparticles={::this.stopParticles} updatemousepos={::this.updateMousePos}>
+            <App {...state} 
+                 startTicker={this.startTicker.bind(this)} 
+                 startParticles={this.startParticles.bind(this)} 
+                 stopParticles={this.stopParticles.bind(this)} 
+                 updateMousePos={this.updateMousePos.bind(this)}
+            />
         );
     }
 };
@@ -283,7 +288,6 @@ AppContainer.contextTypes = {
 };
 
 export default AppContainer;
-</app>
 ```
 
 We import stuff, then we define `AppContainer` as a proper React `Component`. We need to use lifecycle methods, which aren’t available in stateless components.
@@ -298,7 +302,7 @@ Contexts are nice because they let us implicitly pass properties. The context ca
 
 That’s where the monad comparison comes from … my foray into Haskell may have broken me. I see monads everywhere.
 
-In case you were wondering, that `{::this.startTicker}` syntax comes from ES2016. It’s equivalent to `{this.startTicker.bind(this)}`. Enable `stage-0` in your Babel config to use it.
+In case you were wondering, that `{this.startTicker.bind(this)}` syntax is a way to bind the function to the current context. 
 
 ### AppContainer talks to the store
 
@@ -357,190 +361,4 @@ It dispatches the `tickTime` action on every `requestAnimationFrame`. Every time
 
 `startTicker` updates the store in two steps:
 
-1.  Check `tickerStarted` flag and only start the ticker if it hasn’t been started yet. This way we don’t try to run multiple animation frames per render frame. As a result, we can be naive about binding `startTicker` to `onMouseDown`.
-2.  Create a `ticker` function that generates particles, dispatches the `tickTime` action, and recursively calls itself on every `requestAnimationFrame`. We check the `tickerStarted` flag every time so we can potentially stop time.
-
-Yes, that means we are asynchronously dispatching redux actions. It’s okay; that sort of Just Working (tm) is one of the main benefits of immutable data.
-
-The `maybeCreateParticles` function itself isn’t too interesting. It gets `(x, y)` coordinates from `store.mousePos`, checks the `generateParticles` flag, and dispatches the `createParticles` action.
-
-That’s the container. [83 lines of code](https://github.com/Swizec/react-particles-experiment/blob/master/src/containers/AppContainer.jsx).
-
-## 1 Reducer
-
-Sweet. With the actions firing and the drawing done, it’s time to look at the entire logic of our particle generator. We’ll get it done in just 33 lines of code and some change.
-
-Ok. Honestly? It’s a bunch of change. But the 33 lines that make up `CREATE_PARTICLES` and `TIME_TICK` changes are the most interesting.
-
-All of our logic goes in the reducer. [Dan Abramov says](http://redux.js.org/docs/basics/Reducers.html) to think of reducers as the function you’d put in `.reduce()`. Given a state and a set of changes, how do I create the new state?
-
-A simplistic example would look like this:
-
-```javascript
-let sum = [1, 2, 3, 4].reduce((sum, i) => sum + i, 0);
-```
-
-For every number, take the previous sum and add the number.
-
-Our particle generator is a more complicated version of that. It takes the current application state, incorporates an action, and returns the new application state. To keep things simple, we’ll put everything into the same reducer and use a big `switch` statement to decide what to do based on `action.type`.
-
-In bigger applications, we’d split this into multiple reducers, but the base principles stay the same.
-
-Let’s start with the basics:
-
-```javascript
-// src/reducers/index.js
-const Gravity = 0.5,
-  randNormal = d3.random.normal(0.3, 2),
-  randNormal2 = d3.random.normal(0.5, 1.8);
-
-const initialState = {
-  particles: [],
-  particleIndex: 0,
-  particlesPerTick: 5,
-  svgWidth: 800,
-  svgHeight: 600,
-  tickerStarted: false,
-  generateParticles: false,
-  mousePos: [null, null],
-};
-
-function particlesApp(state = initialState, action) {
-  switch (action.type) {
-    default:
-      return state;
-  }
-}
-
-export default particlesApp;
-```
-
-This is our reducer.
-
-We started with the gravity constant and two random generators. Then we defined the default state:
-
-- an empty list of particles
-- a particle index, which I’ll explain in a bit
-- the number of particles we want to generate on each tick
-- default svg sizing
-- and the two flags and `mousePos` for the generator
-
-Our reducer doesn’t change anything yet. It’s important to always return at least an unchanged state.
-
-### Update the state to animate
-
-For most actions, our reducer updates a single value. Like this:
-
-```javascript
-// src/reducers/index.js
-    switch (action.type) {
-        case 'TICKER_STARTED':
-            return Object.assign({}, state, {
-                tickerStarted: true
-            });
-        case 'START_PARTICLES':
-            return Object.assign({}, state, {
-                generateParticles: true
-            });
-        case 'STOP_PARTICLES':
-            return Object.assign({}, state, {
-                generateParticles: false
-            });
-        case 'UPDATE_MOUSE_POS':
-            return Object.assign({}, state, {
-                mousePos: [action.x, action.y]
-            });
-```
-
-Even though we’re only changing values of boolean flags and two-digit arrays, _we have to create a new state_. Always create a new state. Redux relies on application state being immutable.
-
-That’s why we use `Object.assign({}, ...` every time. It creates a new empty object, fills it with the current state, then overwrites specific values with new ones.
-
-Either do that every time, or use a library for immutable data structures. That might work better, but I haven’t tried it yet.
-
-The two most important state updates – animation tick and create particles – look like this:
-
-```javascript
-        case 'CREATE_PARTICLES':
-            let newParticles = state.particles.slice(0),
-                i;
-
-            for (i = 0; i < action.N; i++) {
-                let particle = {id: state.particleIndex+i,
-                                x: action.x,
-                                y: action.y};
-
-                particle.vector = [particle.id%2 ? -randNormal() : randNormal(),
-                                   -randNormal2()*3.3];
-
-                newParticles.unshift(particle);
-            }
-
-            return Object.assign({}, state, {
-                particles: newParticles,
-                particleIndex: state.particleIndex+i+1
-            });
-        case 'TIME_TICK':
-            let {svgWidth, svgHeight} = state,
-                movedParticles = state.particles
-                                      .filter((p) =>
-                                          !(p.y > svgHeight || p.x < 0 || p.x > svgWidth))
-                                      .map((p) => {
-                                          let [vx, vy] = p.vector;
-                                          p.x += vx;
-                                          p.y += vy;
-                                          p.vector[1] += Gravity;
-                                          return p;
-                                      });
-
-            return Object.assign({}, state, {
-                particles: movedParticles
-            });
-```
-
-That looks like a bunch of code. Sort of. It’s spread out.
-
-The first part – `CREATE_PARTICLES` – copies all current articles into a new array and adds `action.N` new particles to the beginning. In my tests, this proved smoother than adding particles at the end. Each particle starts life at `(action.x, action.y)` and gets a random movement vector.
-
-This is bad from Redux’s perspective. Reducers are supposed to be pure functions, and randomness is inherently impure. I think it’s fine in this case.
-
-The other possible approach would shove this logic into the action. That has benefits, but makes it harder to see all logic in one place. Anyway …
-
-The second part – `TIME_TICK` – doesn’t copy the particles (although maybe it should). Arrays are passed by reference, so we’re mutating existing data either way. This is bad, but it’s not _too_ bad. It definitely works faster :)
-
-We filter out any particles that have left the visible area. For the rest, we add the movement vector to their position. Then we change the `y` part of the vector using our `Gravity` constant.
-
-That’s an easy way to implement acceleration.
-
-That’s it. Our reducer is done. Our particle generator works. Our thing animates smoothly. \\o/
-
-![Particle generator gif](https://swizec.com/wp-content/uploads/2016/03/particles-step-5.gif)
-
-## Important Discoveries
-
-Building this particle generator in React and Redux, I made three important discoveries:
-
-1.  **Redux is much faster than I thought**. You’d think creating a new copy of the state tree on each animation loop was crazy, but it works well. We’re probably creating only a shallow copy for the most part, which explains the speed.
-2.  **Adding to JavaScript arrays is slow**. Once we hit about 300 particles, adding new ones becomes visibly slow. Stop adding particles and you get smooth animation. This indicates that something about creating particles is slow: either adding to the array, or creating React component instances, or creating SVG DOM nodes.
-3.  **SVG is also slow**. To test the above hypothesis, I made the generator create 3000 particles on first click. The animation speed is _terrible_ at first and becomes okayish at around 1000 particles. This suggests that shallow copying big arrays and moving existing SVG nodes around is faster than adding new stuff. Here’s a gif:
-
-![](./img/ug478Me.gif)
-
-# Fin
-
-There you go. Animations done with React, Redux, and d3. New superpower? Maybe.
-
-Here’s the recap:
-
-- React handles rendering
-- d3 calculates stuff
-- Redux handles state
-- element coordinates are state
-- change coordinates on every `requestAnimationFrame`
-- magic
-
-Don’t forget: this and other cool stuff will show up in the new version of my book, [React+d3](https://swizec.com/reactd3js/), that’s launching this month.
-
-:)
-
-**Thanks** to Primoz Cigler, Sigurt Bladt Dinesen, and Will Fanguy for reading drafts of this article
+1.  Check

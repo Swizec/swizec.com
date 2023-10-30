@@ -8,11 +8,11 @@ categories: "Application programming interface, django, Login, RSS, SQL, Uncateg
 hero: ../../../defaultHero.jpg
 ---
 
-- [![Moss](https://swizec.com/wp-content/uploads/2010/08/2686845422_d924cc453e_m.jpg "Moss")](http://www.flickr.com/photos/50811886@N00/2686845422)
+- [![Moss](https://swizec.com/wp-content/uploads/2010/08/2686845422_d924cc453e_m.jpg)](http://www.flickr.com/photos/50811886@N00/2686845422)
 
   Image by [warrenski](http://www.flickr.com/photos/50811886@N00/2686845422) via Flickr
 
-Welcome to another installment of Swizec's [Django](http://www.djangoproject.com "Django (web framework)") protip. Previously we discussed a better way to [structure your django apps](https://swizec.com/blog/django-protip-1-a-better-app-structure/), but nobody cared about that because everybody is rather silly. This time we'll be talking about how awesome forms are and why you should be using them for pretty much everything. At the end, I'll show you some neat [tips and tricks](http://en.wikipedia.org/wiki/Tips_%26_Tricks "Tips & Tricks") I discovered during my Django Epiphany.
+Welcome to another installment of Swizec's [Django](http://www.djangoproject.com) protip. Previously we discussed a better way to [structure your django apps](https://swizec.com/blog/django-protip-1-a-better-app-structure/), but nobody cared about that because everybody is rather silly. This time we'll be talking about how awesome forms are and why you should be using them for pretty much everything. At the end, I'll show you some neat [tips and tricks](http://en.wikipedia.org/wiki/Tips_%26_Tricks) I discovered during my Django Epiphany.
 
 ### Why forms
 
@@ -22,9 +22,9 @@ When you look at code a lot of web developers produce (and yes, even I did it pl
 $page = (isset($_GET['page'])) ? intval($_GET['page']) : 0;
 ```
 
-Anyone notice a security flaw? Then think of this, what happens if the page is set to -1? Sure, if errors aren't being displayed right to the user nothing too important. But if they get shown an [SQL](http://en.wikipedia.org/wiki/SQL "SQL") error ... or worse ...
+Anyone notice a security flaw? Then think of this, what happens if the page is set to -1? Sure, if errors aren't being displayed right to the user nothing too important. But if they get shown an [SQL](http://en.wikipedia.org/wiki/SQL) error ... or worse ...
 
-However people are usually at least a little bit more careful about POST data because they realise that hey, this is something a person filled in a [web form](http://en.wikipedia.org/wiki/Form_%28web%29 "Form (web)") and perhaps the data should go through a series of a little bit more stringent tests before it gets chucked into the [database](http://en.wikipedia.org/wiki/Database "Database"). Hell, maybe we could even tell the user where they screwed up and if the planets are in constelation, why not also make sure those required fields are actually filled out ... you know, so we don't get any weird inconsistencies in our database.
+However people are usually at least a little bit more careful about POST data because they realise that hey, this is something a person filled in a [web form](http://en.wikipedia.org/wiki/Form_%28web%29) and perhaps the data should go through a series of a little bit more stringent tests before it gets chucked into the [database](http://en.wikipedia.org/wiki/Database). Hell, maybe we could even tell the user where they screwed up and if the planets are in constelation, why not also make sure those required fields are actually filled out ... you know, so we don't get any weird inconsistencies in our database.
 
 But still, it's a lot of work to do all of that by hand every god damn time. If only there were something easier, more transparent and plain old automagical ...
 
@@ -34,7 +34,7 @@ In django, all of this comes automagically. There is this thing called a "form",
 
 If you're into that sort of stuff you even get building the form in a html, so the users can use it, completely for free and magically with all the required "Hey bozo, you filled so and so field wrong. Fix it!". For every field! Magic.
 
-But since most of my time is spent on developing [API](http://en.wikipedia.org/wiki/Application_programming_interface "Application programming interface")'s rather than user-facing [websites](http://en.wikipedia.org/wiki/Website "Website") let me show you how to use forms effectively in that sort of environment. For the html stuff just go check out the [django form docs](http://docs.djangoproject.com/en/dev/topics/forms/).
+But since most of my time is spent on developing [API](http://en.wikipedia.org/wiki/Application_programming_interface)'s rather than user-facing [websites](http://en.wikipedia.org/wiki/Website) let me show you how to use forms effectively in that sort of environment. For the html stuff just go check out the [django form docs](http://docs.djangoproject.com/en/dev/topics/forms/).
 
 The basic use of forms goes a little bit like this (hopefully your forms are in a separate file from your views, this is just an example :P)
 
@@ -163,7 +163,7 @@ def clean(self):
 
 ### Conclusion
 
-Anyhow, that's it as far as forms are concerned. Do sound off in the comments or on twitter if I fucked up somewhere. I know geeks like to argue. Come back next week when I'll be talking about different magical things you can do with decorators and why they are uber awesome to use in django (or well any other type of python development really)
+Anyhow, that's it as far as forms are concerned. Do sound off in the comments or on twitter if I messed up somewhere. I know geeks like to argue. Come back next week when I'll be talking about different magical things you can do with decorators and why they are uber awesome to use in django (or well any other type of python development really)
 
 ###### Related articles by Zemanta
 
@@ -172,4 +172,4 @@ Anyhow, that's it as far as forms are concerned. Do sound off in the comments or
 - [Django and SaaS](http://tidbids.posterous.com/saas-with-django-and-postgresql) (tidbids.posterous.com)
 - [Things i hate in django](http://almirkaric.com/2010/5/2/things-i-hate-in-django/) (almirkaric.com)
 
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=c1b237d5-fb11-4a02-a61d-ebecc9071b07)](http://www.zemanta.com/ "Enhanced by Zemanta")
+[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=c1b237d5-fb11-4a02-a61d-ebecc9071b07)](http://www.zemanta.com/)

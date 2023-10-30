@@ -14,7 +14,7 @@ https://www.youtube.com/watch?v=Ukm3mRWZtCk
 
 After that [chatroom windowing feature](https://swizec.com/blog/you-dont-want-to-build-your-own-list-virtualization/) I built a few weeks ago, I've been thinking a lot about how fast native DOM manipulation has gotten.
 
-I've been listening to the [_"DOM is slow"_](https://www.google.com/search?q=dom+is+slow&oq=dom+is+slow&aqs=chrome..69i57j0l5.1249j0j1&sourceid=chrome&ie=UTF-8) mantra my whole life. But with that feature, I discovered that the DOM is pretty fast, actually.
+I've been listening to the ["DOM is slow"](https://www.google.com/search?q=dom+is+slow&oq=dom+is+slow&aqs=chrome..69i57j0l5.1249j0j1&sourceid=chrome&ie=UTF-8) mantra my whole life. But with that feature, I discovered that the DOM is pretty fast, actually.
 
 Did you know it's faster and easier to throw out your DOM nodes and render from scratch? That surprised me.
 
@@ -34,7 +34,7 @@ We're testing how fast it is to
 
 ## React using local state
 
-![](https://swizec.com/wp-content/uploads/2018/02/react-dom.gif)
+![React DOM](https://swizec.com/wp-content/uploads/2018/02/react-dom.gif)
 
 React is fast. Between `15ms` and `21ms` on average to prepend, insert, and append 1000 nodes. Removing 30,000 nodes is slower because it has to change a lot of individual nodes.
 
@@ -48,38 +48,38 @@ Neat. 👌
 
 ## Naive vanilla JS
 
-![](https://swizec.com/wp-content/uploads/2018/02/naive-js-dom.gif)
+![Naive JS DOM](https://swizec.com/wp-content/uploads/2018/02/naive-js-dom.gif)
 
 The naive approach is slow. Faster than you'd expect, good for small lists, but not a scalable solution. The more nodes you render, the slower it gets.
 
 The core of this benchmark is the render code. Drops all nodes and renders from scratch every time.
 
 ```javascript
-    naiveRender() {
-        let start = new Date();
-        // remove all existing nodes
-        // from https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-        let scratchpad = this.refs.scratchpad;
+naiveRender() {
+    let start = new Date();
+    // remove all existing nodes
+    // from https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+    let scratchpad = this.refs.scratchpad;
 
-        while (scratchpad.firstChild) {
-            scratchpad.removeChild(scratchpad.firstChild);
-        }
-
-        // append all nodes from scratch
-        this.nodes.forEach(k => {
-            let node = document.createElement("div");
-            node.appendChild(document.createTextNode(k));
-            scratchpad.appendChild(node);
-        });
-
-        let end = new Date();
-        this.times.push(end - start);
-
-        // update meta info
-        this.refs.time.innerHTML = `<code>${end - start}ms</code>`;
-        this.refs.currentCount.innerHTML = this.nodes.length;
-        this.refs.avgTime.innerHTML = this.averageTime;
+    while (scratchpad.firstChild) {
+        scratchpad.removeChild(scratchpad.firstChild);
     }
+
+    // append all nodes from scratch
+    this.nodes.forEach(k => {
+        let node = document.createElement("div");
+        node.appendChild(document.createTextNode(k));
+        scratchpad.appendChild(node);
+    });
+
+    let end = new Date();
+    this.times.push(end - start);
+
+    // update meta info
+    this.refs.time.innerHTML = `<code>${end - start}ms</code>`;
+    this.refs.currentCount.innerHTML = this.nodes.length;
+    this.refs.avgTime.innerHTML = this.averageTime;
+}
 ```
 
 You can see the [full benchmark on GitHub](https://github.com/Swizec/dom-benchmark/blob/master/src/benchmarks/VanillaBenchmark.js).
@@ -90,7 +90,7 @@ Curiously similar performance curve to dev-mode React. 🤔
 
 ## Smart vanilla JS
 
-![](https://swizec.com/wp-content/uploads/2018/02/smart-js-dom.gif)
+![Smart JS DOM](https://swizec.com/wp-content/uploads/2018/02/smart-js-dom.gif)
 
 A slightly smart vanilla JS approach is _blazing fast_. Constant performance around `2ms`. Wat 🤨
 
@@ -142,4 +142,4 @@ That's what React is doing for you 👉 Spending a little runtime to save a lot 
 
 Can't wait to add Vue and Preact to the mix.
 
-![](./img/media-l2JehIXdp8F7Up5sc-giphy.gif)
+![Final Image](./img/media-l2JehIXdp8F7Up5sc-giphy.gif)

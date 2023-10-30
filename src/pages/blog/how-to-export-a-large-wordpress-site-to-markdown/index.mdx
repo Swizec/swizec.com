@@ -1,6 +1,6 @@
 ---
 title: "How to export a large Wordpress site to Markdown"
-description: 'Migrating from Wordpress to Markdown sounds easy. Mention it to any developer and they''ll say "Pfft, an afternoon of work at worst". Suddenly it''s 6months later and you''re losing your mind.'
+description: 'Migrating from Wordpress to Markdown sounds easy. Mention it to any developer and they''ll say "Pfft, an afternoon of work at worst". Suddenly it''s 6months later and you're losing your mind.'
 published: 2020-08-31
 hero: ./img/screenshot-1598892501072.png
 ---
@@ -15,15 +15,15 @@ Migrating from Wordpress to Markdown sounds easy. Mention it to any developer an
 
 Suddenly it's 6months later and you're losing your mind.
 
-[When I started migrating in September 2019](https://swizec.com/blog/moving-13-years-of-wordpress-blog-to-gatsby-markdown/), there were no good scripts. Best I could find was somebody's 7 year old college project – [wordpress-to-markdown](https://github.com/DengYiping/wordpress-to-markdown).
+When I started migrating in September 2019, there were no good scripts. Best I could find was somebody's 7 year old college project – [wordpress-to-markdown](https://github.com/DengYiping/wordpress-to-markdown).
 
 Complete with bugs, old JavaScript, and gnarly edge cases on my humongous site. Your site accumulates lots of cruft in 14 years 😅
 
-https://twitter.com/Swizec/status/1298308910072307713
+`https://twitter.com/Swizec/status/1298308910072307713`
 
-Nowadays you have [wordpress-export-to-markdown](https://github.com/lonekorean/wordpress-export-to-markdown) from @lonekorean. Works better and is easier to use.
+Nowadays you have [wordpress-export-to-markdown](https://github.com/lonekorean/wordpress-export-to-markdown) from `@lonekorean`. Works better and is easier to use.
 
-// https://twitter.com/kyleshevlin/status/1298309307587424256
+`https://twitter.com/kyleshevlin/status/1298309307587424256`
 
 But the output isn't what I wanted. Great for simple cases, doesn't deal with all the edge cases on a large technical site.
 
@@ -31,7 +31,7 @@ But the output isn't what I wanted. Great for simple cases, doesn't deal with al
 
 The core challenge is two-fold: The easy part and the hard part.
 
-**The easy part** is that Worpdress outputs valid XML that you have to parse. Tons of good libraries for this, problem solved.
+`**The easy part**` is that Worpdress outputs valid XML that you have to parse. Tons of good libraries for this, problem solved.
 
 You also want to download images.
 
@@ -41,11 +41,11 @@ Gatsby, NextJS, Hugo, and other Markdown-based site generators prefer that you k
 
 I lost many images to [link rot](https://en.wikipedia.org/wiki/Link_rot) ☹️
 
-**The hard part** is that Wordpress HTML is not valid HTML.
+`**The hard part**` is that Wordpress HTML is not valid HTML.
 
 And that's where the fun begins.
 
-![](giphy:rock_on)
+![](./img/giphy-rock_on)
 
 ## The basic setup
 
@@ -460,104 +460,3 @@ Core structure is an AST traversal with a loop over candidates:
 ```javascript
 function cleanupShortcodes() {
   const shortCodeOpenTag = /\[\w+ .*\]/g
-  const shortCodeCloseTag = /\[\/\w+]/g
-  const embedShortCode = /\[\w+ (https?:\/\/.*)\]/g
-  const captionShortCode = /\[caption.*\]/g
-
-  return (tree) => {
-    visit(tree, "text", (node, index, parent) => {
-      if (parent.type === "paragraph" && node.value) {
-        // clean it up
-      }
-    })
-  }
-}
-```
-
-Inside the loop you then:
-
-1.  Turn embed shortcodes into plain URLs with regex
-
-```javascript
-// preserve embed shortcodes as plain URLs
-if (node.value.match(embedShortCode)) {
-  node.value = node.value.replace(embedShortCode, "$1")
-}
-```
-
-2.  Turn `[caption]` shortcodes into image nodes
-
-```javascript
-// turn [caption] shortcodes into clean images
-if (node.value.match(captionShortCode)) {
-  visit(parent, "text", (node) => {
-    node.value = ""
-  })
-  visit(parent, "link", (node) => {
-    node.type = "image"
-    node.title = node.children[0].title
-    node.alt = node.children[0].alt
-    node.url = node.children[0].url
-    node.children = []
-  })
-}
-```
-
-This changes the parent paragraph node into an image and deletes all children text nodes.
-
-3.  Remove other shortcodes
-
-```javascript
-// remove other shortcodes
-node.value = node.value
-  .replace(shortCodeOpenTag, "")
-  .replace(shortCodeCloseTag, "")
-```
-
-I couldn't find a use for them ✌️
-
-### Edge case 5: Underscores in links
-
-This one was frustrating. Embed links can include underscores, like when you embed a tweet from `@_developit`.
-
-Markdown stringification escapes underscores because it thinks they're emphasis and doesn't understand that some text nodes are link nodes despite not being links.
-
-```markdown
-https://twitter.com/_developit/status/1300154097170083842
-```
-
-That breaks your embed machinery. 🤪
-
-You can fix it with a dirty regex hack:
-
-```javascript
-let content = markdown.contents
-content = content.replace(/(?<=https?:\/\/.*)\\_(?=.*\n)/g, "_")
-```
-
-The reverse lookup with `(?<=)` ensures you don't touch escaped underscores anywhere other than links.[^1]
-
-## The solution
-
-You can use my script 👉 [github/Swizec/wordpress-to-markdown](https://github.com/Swizec/wordpress-to-markdown)
-
-```
-    $ git clone https://github.com/Swizec/wordpress-to-markdown
-
-    # download your wordpress xml
-    # change filename on convert.js line 27
-
-    $ yarn
-    $ yarn convert
-
-    # sip margaritas
-```
-
-Deals with every edge case described above, produces clean markdown output. Even runs it through Prettier ✌️
-
-PRs welcome.
-
-Cheers,<br/>
-~Swizec
-
-[^1] the look-behind and look-ahead support in PCRE regexes means they are technically more powerful than regular languages. On the level of pushdown automata I think.

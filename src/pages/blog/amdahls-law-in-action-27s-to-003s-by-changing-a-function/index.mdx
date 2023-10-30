@@ -8,15 +8,15 @@ categories: "Amdahl, Amdahl's law, Evolutionary algorithm, Haskell, Hello world 
 hero: ../../../defaultHero.jpg
 ---
 
-Perhaps the most important lesson I've learned while studying computer science is that of [Amdahl's law](http://en.wikipedia.org/wiki/Amdahl%27s_law "Amdahl's law").
+Perhaps the most important lesson I've learned while studying computer science is that of [Amdahl's law](http://en.wikipedia.org/wiki/Amdahl%27s_law).
 
-![Graph Illustrating Amdahl's Law](./img/Graph-Illustrating-Amdahls-Law797aba.png "Graph Illustrating Amdahl's Law")
+[Graph Illustrating Amdahl's Law](./img/Graph-Illustrating-Amdahls-Law797aba.png)
 
-![Amdahl's law](./img/Amdahls-lawfe44ba.png "Amdahl's law")
+[Amdahl's law](./img/Amdahls-lawfe44ba.png)
 
 Amdahl's law is generally used to predict the maximum speedup by improving a single component of a system (say, a function or a database). But the implications are simple: _Improve the thing that will **actually** help._
 
-As programmers, however, we would rather contemplate just what is [the fastest way to concatenate a string](http://www.codinghorror.com/blog/2009/01/the-sad-tragedy-of-micro-optimization-theater.html). Or whether [PHP](http://www.php.net "PHP") is much faster than Ruby. And just how much more traffic you can handle with 5 or 10 fcgi workers. And so on. The internet is riddled with these questions. And let's not forget the age old debate of speed improvements by using raw [SQL](http://www.iso.org/iso/catalogue_detail.htm?csnumber=45498 "SQL") instead of an [ORM](http://en.wikipedia.org/wiki/Object-relational_mapping "Object-relational mapping").
+As programmers, however, we would rather contemplate just what is [the fastest way to concatenate a string](http://www.codinghorror.com/blog/2009/01/the-sad-tragedy-of-micro-optimization-theater.html). Or whether [PHP](http://www.php.net) is much faster than Ruby. And just how much more traffic you can handle with 5 or 10 fcgi workers. And so on. The internet is riddled with these questions. And let's not forget the age old debate of speed improvements by using raw [SQL](http://www.iso.org/iso/catalogue_detail.htm?csnumber=45498) instead of an [ORM](http://en.wikipedia.org/wiki/Object-relational_mapping).
 
 Once upon a time I even wrote a web framework where I made sure to _always use the fastest pattern of doing X in PHP_. I knew databases were slow, so I did a lot of the work regarding JOINs and such in PHP.
 
@@ -24,9 +24,9 @@ Yeah.
 
 ## Optimizing where it matters
 
-The other day I finally assembled all the bits and pieces for an [evolutionary algorithm](http://en.wikipedia.org/wiki/Evolutionary_algorithm "Evolutionary algorithm") in [Haskell](http://haskell.org "Haskell (programming language)").
+The other day I finally assembled all the bits and pieces for an [evolutionary algorithm](http://en.wikipedia.org/wiki/Evolutionary_algorithm) in [Haskell](http://haskell.org).
 
-I'm trying to print _[Hello World](http://en.wikipedia.org/wiki/Hello_world_program "Hello world program")_ by performing random changes on a population of strings - eventually I want to create an extensible framework for evolutionary algorithms that will let me [write poetry programmatically](http://swizec.github.com/Le-Thesis/).
+I'm trying to print _[Hello World](http://en.wikipedia.org/wiki/Hello_world_program)_ by performing random changes on a population of strings - eventually I want to create an extensible framework for evolutionary algorithms that will let me [write poetry programmatically](http://swizec.github.com/Le-Thesis/).
 
 It took **27 seconds** to go 5 epochs. Just five generations.
 
@@ -51,7 +51,7 @@ levenshtein   Evaluators.Basic  91.5  100.0
 levenshtein.d Evaluators.Basic   8.5    0.0
 ```
 
-The [levenshtein distance function I implemented](https://swizec.com/blog/levenshtein-distance-in-haskell/ "Levenshtein distance in Haskell") costs 100% of [computation time](http://en.wikipedia.org/wiki/Time_complexity "Time complexity")!
+The [levenshtein distance function I implemented](https://swizec.com/blog/levenshtein-distance-in-haskell/) costs 100% of [computation time](http://en.wikipedia.org/wiki/Time_complexity)!
 
 After replacing my function with [the implementation suggested by Reddit](http://www.reddit.com/r/programming/comments/w4gs6/levenshtein_distance_in_haskell/c5a6jjz) life instantly became much easier. It now takes just 0.03 seconds to compute 5 epochs of the algorithm.
 
@@ -85,4 +85,3 @@ breedTwo.(...) Operators.Basic    1.3    0.6
 select.\       Selectors.Basic    1.1    0.3
 lev'''.xa      Evaluators.Basic   1.1    0.6
 ```
-

@@ -33,7 +33,7 @@ I built the dumbest possible UI:
 ```javascript
 function ConsentForms({ appointment }) {
   // makes an API call
-  const { forms } = useConsentForms(appointment.id);
+  const { forms } = useConsentForms(`{appointment.id}`);
 
   return (
     <ul>
@@ -63,10 +63,10 @@ const consentForms = {
 }
 
 exports.getForms = (appointment) => {
-	if (isVirtual(appointment)) {
+	if (isVirtual(`{appointment}`)) {
 		return consentForms.virtual
 	} else {
-		if (isAcupuncture(appointment)) {
+		if (isAcupuncture(`{appointment}`)) {
 			return consentForms.acupuncture
 		} else {
 			return consentForms.default

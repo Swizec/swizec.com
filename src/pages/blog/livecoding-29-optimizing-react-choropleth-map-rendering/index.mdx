@@ -10,9 +10,9 @@ hero: ../../../defaultHero.jpg
 
 _This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding ?. Always under 500 words and with pictures. You can follow my channel [here](https://livecoding.tv/swizec). New streams almost every Sunday at 2pm PDT. There’s live chat, come say hai ?_
 
-Yesterday was supposed to be all about cutting up a large-ish codebase into small chunks that are easier to explain step-by-step. I was a great plan, but it didn't _quite_ happen.
+Yesterday was supposed to be all about cutting up a large-ish codebase into small chunks that are easier to explain step-by-step. It was a great plan, but it didn't _quite_ happen.
 
-Instead of doing that, I went down the rabbit hole of optimizing the choropleth map from [Livecoding 24](https://swizec.com/blog/livecoding-24-a-choropleth-in-reactjs/). Turns out my H1B visualization wasn't slow because the dataset was big. It was slow because the map re-renders 3,220 county polygons on every update. ?
+Instead of doing that, I went down the rabbit hole of optimizing the choropleth map from [Livecoding 24](https://swizec.com/blog/livecoding-24-a-choropleth-in-reactjs/). Turns out my H1B visualization wasn't slow because the dataset was big. It was slow because the map `re-renders 3,220 county polygons` on every update. ?
 
 Let me explain.
 
@@ -48,9 +48,9 @@ const countyValueMap = _.fromPairs(
 Then rendering `County` components in a loop, like this:
 
 ```javascript
-{counties.map((feature) => (
+{`counties.map((feature) => (
 
-))}
+))`}
 ```
 
 That `value` prop used to be `_.find(counties, {countyID: feature.id})` and that was dumb.

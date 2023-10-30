@@ -49,7 +49,7 @@ If you guessed _"Oh, that should be simple"_, you were right.
 ```javascript
 const GridRow = ({ row, x, y, ry }) =>
     row.map((cell, i) => (
-        <div style={{ background: y == ry && x == i ? "red" : cell == "#" "black" "white", width: "5px", height: display: "inline-block" }} key={i}>
+        <div style={{ background: y == ry && x == i ? "red" : cell == "#" ? "black" : "white", width: "5px", height: "5px", display: "inline-block" }} key={i}>
              
         </div>
     ));
@@ -66,8 +66,8 @@ Once more a simple one, walk through an array of rows, render `GridRow` componen
 ```javascript
 const Grid = ({ grid, x, y }) =>
   grid.map((row, i) => (
-    <div key={i} style={{ display: "flex", justifycontent: "center" }}>
-      <gridrow row={row} x={x} y={y} ry={i}></gridrow>
+    <div key={i} style={{ display: "flex", justifyContent: "center" }}>
+      <GridRow row={row} x={x} y={y} ry={i} />
     </div>
   ));
 ```
@@ -123,11 +123,11 @@ class Day22 extends Component {
 
     return (
       <div>
-        <h3 style={{ display: "flex", justifycontent: "center" }}>
-          bursts: {bursts}, pos: ({x}, {y}), infected: {infected}
+        <h3 style={{ display: "flex", justifyContent: "center" }}>
+          bursts: {`{bursts}`}, pos: ({`{x}`}, {`{y}`}), infected: {`{infected}`}
         </h3>
         <div style={{ border: "1px solid red" }}>
-          <grid grid={grid} x={x} y={y}></grid>
+          <Grid grid={grid} x={x} y={y} />
         </div>
       </div>
     );

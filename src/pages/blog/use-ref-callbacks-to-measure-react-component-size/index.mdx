@@ -26,14 +26,14 @@ A minimal size reporting component looks like this 👇
 class ReportSize extends React.Component {
   refCallback = (element) => {
     if (element) {
-      this.props.getSize(element.getBoundingClientRect());
+      this.props.getSize(`{element.getBoundingClientRect()}`);
     }
   };
 
   render() {
     return (
       <div ref={this.refCallback} style={{ border: "1px solid red" }}>
-        {faker.lorem.paragraphs(Math.random() * 10)}
+        `{faker.lorem.paragraphs(Math.random() * 10)}`
       </div>
     );
   }
@@ -45,7 +45,7 @@ The `render` method outputs a `<div>` with a ref callback and a red border. Insi
 After React places this element, it calls `refCallback` with a reference to the rendered DOM node. We can then use [`getBoundingClientRect`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect) to measure its size.
 
 ```javascript
-{
+`{
   "x": 8,
   "y": 158.8125,
   "width": 544,
@@ -54,7 +54,7 @@ After React places this element, it calls `refCallback` with a reference to the 
   "right": 552,
   "bottom": 498.8125,
   "left": 8
-}
+}`
 ```
 
 All sorts of useful info!
@@ -83,20 +83,20 @@ The key is enabling size reporting when you logically know size is going to chan
 shuffle = () => {
     this.doReportSize = true;
     this.setState({
-      text: faker.lorem.paragraphs(Math.random() * 10)
+      text: `{faker.lorem.paragraphs(Math.random() * 10)}`
     });
   };
 
   refCallback = element => {
     if (element) {
       this.elementRef = element;
-      this.props.getSize(element.getBoundingClientRect());
+      this.props.getSize(`{element.getBoundingClientRect()}`);
     }
   };
 
   componentDidUpdate() {
     if (this.doReportSize) {
-      this.props.getSize(this.elementRef.getBoundingClientRect());
+      this.props.getSize(`{this.elementRef.getBoundingClientRect()}`);
       this.doReportSize = false;
     }
   }
