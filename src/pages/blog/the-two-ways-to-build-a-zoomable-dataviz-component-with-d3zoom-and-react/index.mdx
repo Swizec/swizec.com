@@ -18,11 +18,9 @@ Then you have a choice to make. Do you want to zoom your whole component like it
 
 In a side-by-side comparison, the two zoom effects look like this 👇
 
-![Two ways to zoom with React and d3.zoom](https://swizec.com/wp-content/uploads/2017/08/two-different-zooms.gif)![](two-zoom.gif)
+![Two ways to zoom with React and d3.zoom](https://swizec.com/wp-content/uploads/2017/08/two-different-zooms.gif)
 
 Both scatterplots use the same random data. Left side zooms like an image, right side zooms the space between datapoints. It even works on a phone, look.
-
-> [](//imgur.com/DHceJ)
 
 So how do you make that?
 
@@ -43,7 +41,7 @@ const random = d3.randomNormal(5, 1);
 class Chart extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = { 
       data: d3.range(200).map((_) => [random(), random()]),
       zoomTransform: null,
     };
@@ -55,8 +53,8 @@ class Chart extends React.Component {
         [props.width + 100, props.height + 100],
       ])
       .extent([
-        [-100, -100],
-        [props.width + 100, props.height + 100],
+        [0, 0],
+        [props.width, props.height],
       ])
       .on("zoom", this.zoomed.bind(this));
   }
@@ -77,42 +75,33 @@ class Chart extends React.Component {
 
     return (
       <svg width={width} height={height} ref="svg">
-        <scatterplot
+        <Scatterplot
           data={this.state.data}
           x={0}
           y={0}
           width={width / 2}
           height={height}
-          zoomtransform={zoomTransform}
-          zoomtype="scale"
-        ></scatterplot>
-        <scatterplot
+          zoomTransform={zoomTransform}
+          zoomType="scale"
+        />
+        <Scatterplot
           data={this.state.data}
           x={width / 2}
           y={0}
           width={width / 2}
           height={height}
-          zoomtransform={zoomTransform}
-          zoomtype="detail"
-        ></scatterplot>
+          zoomTransform={zoomTransform}
+          zoomType="detail"
+        />
       </svg>
     );
   }
 }
 ```
 
-Our chart component breaks down into 4 parts:
-
-1.  We use the `constructor` to generate random `[x, y]` coordinate pairs and a `d3.zoom` behavior. `scaleExtent` defines min and max scaling factor – from `-5` to `5` – and `translateExtent` and `extent` define movement boundaries. How much do we allow our chart to move around while zooming? We use `100px` in every direction.
-2.  In `componentDidMount` and `componentDidUpdate`, we call our zoom behavior on the rendered SVG. This attaches touch, drag, and scroll events to the DOM. D3 normalizes them into a single `zoom` event for us.
-3.  The `zoomed` function is our zoom event callback. We update component state with `d3.event.transform`, which is where D3 puts the information we need to zoom our chart.
-4.  Our `render` method draws two `<Scatterplot />` components inside an `<svg>` element and gives them some props.
-
 ## &lt;Scatterplot /> component draws datapoints and zooms itself
 
 The `<Scatterplot />` component follows the full integration approach I outline in [React+D3v4](https://www.swizec.com/reactd3js). We have D3 stuff in an `updateD3` function and we call it when props change to update the internal states of D3 objects.
-
-One complication we run into is that we use the same scatterplot component for two different types of zoom. That means some bloat, but it's manageable.
 
 ```javascript
 class Scatterplot extends React.Component {
@@ -128,7 +117,7 @@ class Scatterplot extends React.Component {
 
     this.xScale = d3.scaleLinear()
                     .domain([0, d3.max(data, ([x, y]) => x)])
-                    .range([0, width]),
+                    .range([0, width]);
     this.yScale = d3.scaleLinear()
                     .domain([0, d3.max(data, ([x, y]) => y)])
                     .range([0, height]);
@@ -155,30 +144,12 @@ class Scatterplot extends React.Component {
 
     return (
       <g transform={this.transform} ref="scatterplot">
-        {data.map(([x, y]) => <circle cx={this.xScale(x)} cy={this.yScale(y)} r={4}>)}
-      </circle></g>
+        {data.map(([x, y]) => <circle cx={this.xScale(x)} cy={this.yScale(y)} r={4} />)}
+      </g>
     )
   }
 }
 ```
-
-Much like the `<Chart />` component, you can think of `<Scatterplot />` as having 4 parts:
-
-1.  `constructor` and `componentWillUpdate` call `updateD3` with fresh props to update internal D3 state
-2.  `updateD3` sets up two linear scales for us. `xScale` translates between data values and horizontal coordinates, `yScale` translates between data values and vertical coordinates
-3.  The third part is split between the bottom of `updateD3` and `get transform`. It handles zooming.
-
-Inside `updateD3` we zoom the space between datapoints by changing our scale's domains. `zoomTransform.rescaleX` takes a scale and returns a changed scale. We take its domain and update `xScale`. Same for `yScale`. This updates both the scatterplot's positioning and spacing between datapoints.
-
-This will never make intuitive sense to me, but it works.
-
-`get transform` also handles zooming. It creates an SVG `transform` attribute which we use to position and scale a scatterplot. We use `translate()` to move a chart into position and `scale()` to make it bigger or smaller depending on the factor `zoomTransform` gives us.
-
-Even if we're not zooming, we still `translate()` the chart so that we can move it around the page and show two scatterplots side by side.
-
-1.  The fourth part is our `render` method. It creates a grouping element, walks through our data and renders circles.
-
-You can play with this example on CodePen.
 
 See the Pen [Two different zooms with D3 and React](https://codepen.io/swizec/pen/XaBrym/) by Swizec Teller ([@swizec](https://codepen.io/swizec)) on [CodePen](https://codepen.io).
 

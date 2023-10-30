@@ -14,7 +14,7 @@ https://www.youtube.com/watch?v=N6PvDbyvj48
 
 This Sunday, we dipped our toes in [AR.js](https://github.com/jeromeetienne/AR.js). We didn't get very far with anything real, but fun was had and things were learned.
 
-> [](//imgur.com/TGatk)
+[![](//imgur.com/TGatk.png)](//imgur.com/TGatk)
 
 AR.js is an open source library by [Jerome Etienne](https://twitter.com/jerome_etienne) that promises to bring _"Efficient Augmented Reality for the Web - 60fps on mobile!"_. And it did. Right after I updated my phone to a beta version of iOS11.
 
@@ -57,8 +57,7 @@ class App extends Component {
     render() {
         return (
             <div class="App">
-                <scene artoolkit="{{sourceType:" 'webcam',="" trackingmethod:="" 'best'}}="">
-
+                <scene artoolkit={`{sourceType:" 'webcam',="" trackingmethod:="" 'best'}}`}>
                     <a-anchor hit-testing-enabled="true">
                         <a-entity minecraft="" minecraft-head-anim="yes" minecraft-body-anim="hiwave" material="opacity: 0.5">
                         <a-box position="0 0 0.5" material="opacity: 0.5;"></a-box>
@@ -87,7 +86,7 @@ AR.js is a marker-based augmented reality engine, which means it needs a recogni
 
 Like this →
 
-![](./img/AR.js-data-images-HIRO.jpg)
+![AR.js-data-images-HIRO](./img/AR.js-data-images-HIRO.jpg)
 
 The experiment [code is on Github](https://github.com/Swizec/ar-js-experiment).
 

@@ -6,7 +6,7 @@ categories: "CodeWithSwiz, Technical, Firebase, useAuth, Livecoding"
 hero: ./img/screenshot-1611074585283.png
 ---
 
-Firebase continues to be 💩. No wonder people keep asking for support in [useAuth](https://useauth.dev).
+Firebase continues to be 💩. No wonder people keep asking for support in `[useAuth](https://useauth.dev)`.
 
 [https://twitter.com/tannerlinsley/status/1348848141496328192](https://twitter.com/tannerlinsley/status/1348848141496328192)
 
@@ -14,7 +14,7 @@ _CodeWithSwiz is a weekly live show. Like a podcast with video and fun hacking. 
 
 [https://www.youtube.com/watch?v=GmTd0_2AFc4](https://www.youtube.com/watch?v=GmTd0_2AFc4)
 
-Good progress this week! We got a [Firebase UI](https://firebase.google.com/docs/auth/web/firebaseui) login dialog to show up 🥳
+Good progress this week! We got a `[Firebase UI](https://firebase.google.com/docs/auth/web/firebaseui)` login dialog to show up 🥳
 
 ![FirebaseUI login and signup widget](./img/FirebaseUI-login-and-signup-widget493747.gif)
 
@@ -51,7 +51,7 @@ This episode we:
 
 1.  Improved imports
 2.  Figured out how to initialize Firebase
-3.  Discovered the `onAuthStateChange` observer
+3.  Discovered the `{onAuthStateChange}` observer
 4.  Got frustrated at Google's SEO where any error message you google points to Firebase docs that _do not_ mention that error message
 5.  Fiddled with TypeScript types
 6.  Fired off the login flow
@@ -72,13 +72,11 @@ You import `firebase/auth` into nothing. Refer to it through the `Firebase` obje
 
 Just like we used to do in 2010 when "JavaScript Bundler" meant _"Joe with a pickaxe crafting a giant file with `<script>` tags in exactly the right sequence"_
 
-![](giphy:shrug)
-
 ### Correctly initialize Firebase
 
 We found the incantantion to init Firebase. You must create an app. A project is not enough.
 
-Then you click the app and find a `firebaseConfig` object.
+Then you click the app and find a `{firebaseConfig}` object.
 
 ![Firebase Config](./img/Firebase-Config1ga47i.png)
 
@@ -104,9 +102,9 @@ The 2nd argument – `"useAuth"` – tells Firebase to initialize this as a sep
 
 Final API will have to let you choose. 🤔
 
-### `onAuthStateChange` observer
+### `{onAuthStateChange}` observer
 
-`onAuthStateChange` was a great find! Lets you hook into the authentication flow and update your state machine.
+`{onAuthStateChange}` was a great find! Lets you hook into the authentication flow and update your state machine.
 
 ```typescript
 // src/providers/FirebaseUI.ts
@@ -166,7 +164,7 @@ But it never gets there 🤔
 
 ## Thank you
 
-Aaaaand I figured out what's wrong! You have to wrap `signInSuccessWithAuthResult` in a `callbacks:{}` object. Because of course you do.
+Aaaaand I figured out what's wrong! You have to wrap `signInSuccessWithAuthResult` in a `{callbacks:{}}` object. Because of course you do.
 
 ![🎉 it works](./img/🎉-it-worksabi714.gif)
 

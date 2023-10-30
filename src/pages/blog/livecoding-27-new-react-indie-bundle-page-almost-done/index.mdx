@@ -16,7 +16,7 @@ Launching the first version tomorrow is getting tight ?
 
 To be honest, nothing crazy technical happened in this livecoding session. Slapping together content in React components followed by more slapping together of content.
 
-![](https://swizec.com/wp-content/uploads/2016/11/Screen-Shot-2016-11-21-at-13.40.35-1024x539.png)
+![React Indie Bundle page](https://swizec.com/wp-content/uploads/2016/11/Screen-Shot-2016-11-21-at-13.40.35-1024x539.png)
 
 It's really a somewhat repetitive process. Maybe there's a market for building React-ready templates? Just like most templates you buy now are built with Bootstrap so they're easy to customize, it would be cool if in the future we could get some that are built with React.
 
@@ -59,29 +59,28 @@ Which you have to manually retype, or copypasta, into an `Author` component like
 ```HTML4strict
 export const Author = ({ src, name, title, description, links }) => (
     <div>
-        <div class="box-hex flat-shadow box-huge">
-            <div class="box-dummy">
-            <figure class="box-inner">
-                <img class="svg-inject" src={src} alt={name} style="{{height:" "217px"}}="">
+        <div className="box-hex flat-shadow box-huge">
+            <div className="box-dummy">
+            <figure className="box-inner">
+                <img className="svg-inject" src={`{src}`} alt={`{name}`} style="{{height: "217px"}}="">
             </figure>
         </div>
-        <h3 class="text-center">
-            {name}
-            <small class="block">{title}</small>
+        <h3 className="text-center">
+            `{name}`
+            <small className="block">{`{title}`}</small>
         </h3>
-        <p class="text-center">{description}</p>
-        <ul class="list-inline text-center social-icons social-simple">
-            {Object.keys(links).map((type, i) => (
-                <li key={i}>
-                    <a href={links[type]} target="_self">
-                        <i class="{`fa" fa-${type}`}="">
-                    </i></a><i class="{`fa" fa-${type}`}="">
-                </i></li><i class="{`fa" fa-${type}`}="">
-             ))}
-        </i></ul><i class="{`fa" fa-${type}`}="">
-    </i></div><i class="{`fa" fa-${type}`}="">
+        <p className="text-center">{`{description}`}</p>
+        <ul className="list-inline text-center social-icons social-simple">
+            {`{Object.keys(links).map((type, i) => (
+                <li key={`{i}`}>
+                    <a href={`{links[type]}`} target="_self">
+                        <i className="{{`fa fa-${type}`}}"></i>
+                    </a>
+                </li>
+             ))}`}
+        </ul>
+    </div>
 );
-</i></div>
 ```
 
 \_The template would give you `<Person />` by default. Is React still too hard for designers to grok? I know many of them understand HTML ?Then again, if you look at that, you'll see that the conversion looks a bit like this:- `class` becomes `className`

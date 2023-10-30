@@ -96,7 +96,7 @@ export class TwitterLiteEmbed extends HTMLElement {
   shadowRoot!: ShadowRoot;
   // holds tweet data from API
   private tweet: Tweet | null = null;
-  // referenc to content node
+  // reference to content node
   private contentRef!: HTMLDivElement;
   // used as a lock for fetching
   private fetchingStatus: "canStart" | "fetching" | "fetched" | "error" =
@@ -120,7 +120,7 @@ export class TwitterLiteEmbed extends HTMLElement {
     oldVal: unknown,
     newVal: unknown
   ) {
-    // call hydrateTweet if URL changes
+    // call `hydrateTweet` if URL changes
   }
 
   private async hydrateTweet() {
@@ -157,7 +157,7 @@ Now any DOM node coming from a `<twitter-lite>` HTML turns into a `TwitterLiteEm
 
 Calling Twitter's API from the browser would defeat the privacy angle _and_ leak your API keys to the public. Not great.
 
-To get around that issue, `<twitter-lite>` assumes your site runs a light endpoint at `/api/fetch-tweet`. Easy to do with both Gatsby and NextJS by plopping a bit of code in your `/api/` directory. It then runs as a serverless function.
+To get around that issue, `<twitter-lite>` assumes your site runs a light endpoint at `/api/fetch-tweet`. Easy to do with both Gatsby and NextJS by putting a bit of code in your `/api/` directory. It then runs as a serverless function.
 
 You can see an [example implementation, here](https://github.com/Swizec/twitter-lite-embed/blob/main/api-server.mjs).
 
@@ -166,7 +166,7 @@ Works in 2 parts:
 - boilerplate for a serverless function
 - API call to fetch the tweet using the [twitter-lite](https://github.com/draftbit/twitter-lite) library
 
-I haven't tested with NextJS, but on Gatsby deployed to Gatsby Cloud, you can plop that whole file in `/api/fetch-tweet` and it Just Works 🤘
+I haven't tested with NextJS, but on Gatsby deployed to Gatsby Cloud, you can put that whole file in `/api/fetch-tweet` and it Just Works 🤘
 
 ## Why not SSR?
 

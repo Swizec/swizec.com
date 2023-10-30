@@ -48,8 +48,8 @@ let grant = new Grant({
     state: true,
   },
   slack: {
-    key: YOUR_SLACK_KEY,
-    secret: YOUR_SLACK_SECRET,
+    key: `{YOUR_SLACK_KEY}`,
+    secret: `{YOUR_SLACK_SECRET}`,
     scope: [
       "chat:write:bot",
       "chat:write:user",
@@ -82,7 +82,7 @@ router.get("/handle_slack_callback", (req, res) => {
 
 Now you can go to `https://swizec.ngrok.io/connect/slack` and do the dance.
 
-![oauth-dance](https://swizec.com/wp-content/uploads/2016/10/oauth-dance.gif)
+![oauth-dance](https://swizec.com/wp-content/uploads/2016/10/oauth-dance.gif "oauth-dance")
 
 Save that `access_token`. It lets you post to Slack as an app.
 
@@ -94,7 +94,7 @@ Now comes the tricky part: making Slack and Twilio talk to each other. Here’s 
 
 The key trick to reading this diagrams: the vertical line is time. Starts on top, flows down.
 
-![](./img/lE932wgif08159c.gif)
+![flow of events](./img/lE932wgif08159c.gif "flow of events")
 
 Step-by-step in code, that gif looks like this:
 
@@ -130,7 +130,7 @@ router.post("/call/recording/:callSid", (req, res, next) => {
 
   const twilio = require("twilio"),
     WebClient = require("@slack/client").WebClient;
-  const webSlack = new WebClient(TOKEN_FROM_BEFORE);
+  const webSlack = new WebClient(`{TOKEN_FROM_BEFORE}`);
   // Sets up Slack message
   let data = {
     attachments: [
@@ -176,7 +176,7 @@ If the time is up, we say something. In most cases, the pause will be interrupte
 
 The message we sent looks like this:
 
-![](./img/lFiUoxb.png)
+![slack message](./img/lFiUoxb.png "slack message")
 
 ### Slack button pressed
 
@@ -187,7 +187,7 @@ router.post("/slack/response", (req, res, next) => {
   const callSid = payload.callback_id.split(":")[1];
   const action = payload.actions[0];
   const twilio = require("twilio");
-  const client = twilio(settings.twilio.accountSid, settings.twilio.authToken); // you get these in your Twilio dashboard
+  const client = twilio(`{settings.twilio.accountSid}`, `{settings.twilio.authToken}`); // you get these in your Twilio dashboard
   let continueAt = "",
     lettingIn = false;
   if (action.value === "open_door") {

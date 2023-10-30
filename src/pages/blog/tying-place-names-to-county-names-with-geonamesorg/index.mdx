@@ -45,7 +45,7 @@ Notice the problem? One has town names, the other has county names. I don’t th
 
 There’s an API with libraries for many languages, but it doesn’t return county names. I wish it did, because scraping their HTML search results felt dirty. Those do return a county name.
 
-![](./img/WMXH9Ti.png)
+![](./img/WMXH9Ti.png "Search results table")
 
 Scraping geonames’ search using Python and [pyquery](https://pythonhosted.org/pyquery/) looks like this:
 
@@ -103,7 +103,7 @@ Then we create a `csvreader` and skip the header with `reader.next()`. We follow
 
 We’re going to use a `counties` dictionary to avoid pinging Geonames for things we already know. We loop through rows in our input file with `for row in reader`. Each row is now an array of strings called `row`.
 
-`location` is in `row[3]`. If we don’t have it yet, we make a request to `geonames.net/search.html` with a `q` search term and a `username`. This lets us use the donate-only service, which is faster and more reliable. We’re also making a lot of requests – not paying would be a dick move.
+`location` is in `{row[3]}`. If we don’t have it yet, we make a request to `geonames.net/search.html` with a `q` search term and a `username`. This lets us use the donate-only service, which is faster and more reliable. We’re also making a lot of requests – not paying would be a dick move.
 
 `pq(url)` gives us a jQuery-like interface to the HTML response. We access the `<small>` in 2nd column of 2nd row of table with class restable with `d('table.restable tr:eq(2) td:eq(2) small')` then get its `text()` value. That’s the county name.
 

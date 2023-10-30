@@ -13,7 +13,7 @@ Engineers often jump into Redux, MobX, XState, or Recoil before they really need
 
 You are not Google, Facebook, Amazon, or Uber. You're shooting yourself in the foot by blindly following their patterns. Probably.
 
-[![](./img/5ooOfMY.png)](https://www.youtube.com/watch?v=62AMy1QIpzk)
+![](./img/5ooOfMY.png)
 
 _This article is based on my talk at Reactive Conf Meetup #4 in May_ 👆
 
@@ -67,7 +67,7 @@ Before you know it, you've read most of the codebase and you're still not sure h
 
 You wanted a banana. You got [a gorilla holding the banana and the entire jungle](https://www.johndcook.com/blog/2011/07/19/you-wanted-banana/).
 
-![gorilla_holding_banana giphy](./img/media-iXOoi6i2l9PZvCN0zU-giphy-downsized-medium.gif)
+![](./img/media-iXOoi6i2l9PZvCN0zU-giphy-downsized-medium.gif)
 
 ## An example
 
@@ -91,7 +91,7 @@ const ClickCounter = () => {
 }
 ```
 
-`count` holds the current number of clicks, `setCount` lets us update the value on every click.
+`{count}` holds the current number of clicks, `{setCount}` lets us update the value on every click.
 
 Simple enough.
 
@@ -169,7 +169,7 @@ const ClickCounter = () => {
 }
 ```
 
-We've split `count` into an object – `{ A, B }`.
+We've split `{count}` into an object – `{ A, B }`.
 
 Now a single piece of state can hold multiple values. Separate counts for separate button clicks.
 
@@ -207,7 +207,7 @@ What if we want 2 buttons to update the same state?
 
 https://codesandbox.io/s/wormhole-state-pattern-4-czh8n?file=/src/App.js
 
-You can pass both the `count` and `setCount` to your components as props. But this is getting messy.
+You can pass both the `{count}` and `{setCount}` to your components as props. But this is getting messy.
 
 ```javascript
 const AlternativeClick = ({ count, setCount }) => {
@@ -230,7 +230,7 @@ const AlternativeClick = ({ count, setCount }) => {
 
 We've created a component that's hard to move and needs to understand too much of parent logic. Concerns are split, abstractions are weird, and we've created a mess.
 
-You can fix it a little by passing just the parts of state it needs and a more customized `setCount`. But that's a lot of work.
+You can fix it a little by passing just the parts of state it needs and a more customized `{setCount}`. But that's a lot of work.
 
 ### step 5
 
@@ -280,7 +280,7 @@ export const SharedCountProvider = ({ children }) => {
 }
 ```
 
-The context provider uses a rich `state` variable to keep your state. This is `{ A, B }` for us.
+The context provider uses a rich `{state}` variable to keep your state. This is `{ A, B }` for us.
 
 The `contextValue` is a richer piece of state that also holds everything you need to manipulate that state. Often this would be a `dispatch` method from your reducer, or custom state setters like we have here.
 
@@ -291,7 +291,7 @@ Our `setSharedCount` method gets a `key` and `val` and updates that part of stat
 setSharedCount("B", 10)
 ```
 
-We then have a side-effect that watches `state` for changes and triggers re-renders when needed. This avoids deep re-renders every time we redefine our dispatch methods or whatever.
+We then have a side-effect that watches `{state}` for changes and triggers re-renders when needed. This avoids deep re-renders every time we redefine our dispatch methods or whatever.
 
 Makes the React tree more stable ✌️
 
@@ -334,7 +334,7 @@ const AlternativeClick = () => {
 }
 ```
 
-Gets `count` and `incB` from custom hook. Uses them.
+Gets `{count}` and `incB` from custom hook. Uses them.
 
 😍
 

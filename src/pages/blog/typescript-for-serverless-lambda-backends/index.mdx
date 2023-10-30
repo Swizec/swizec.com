@@ -33,7 +33,7 @@ With no community to be found there's only one conclusion 👉 I'm forcing Kotli
 
 Hell, it was easier to find LOLCODE resources for that [LOLCODE-to-JavaScript compiler](https://swizec.com/blog/lolcodetojavascript-compiler-babel-macro/) the other day ...
 
-![screw_this giphy](./img/media-n4aziifHh5BrSCMZwz-giphy.gif)
+[![screw_this giphy](./img/media-n4aziifHh5BrSCMZwz-giphy.gif "screw_this giphy")]
 
 So I said screw it and got the whole project working in TypeScript in 3 days. ✌️
 
@@ -66,7 +66,7 @@ Until both the person leading the lets-move-to-JVM charge left the company and h
 
 Backend people are a special breed, they all seem to love Java and Java-like things so much.
 
-![shrug giphy](./img/media-13Qumr2SLqrl5e-giphy.gif)
+[![shrug giphy](./img/media-13Qumr2SLqrl5e-giphy.gif "shrug giphy")]
 
 So here I was with this unfinished prototype, no skills in Kotlin, a deep seated distrust of all things Java from college, and an open deadline. Get it working when you can, nothing's on fire right now.
 
@@ -96,7 +96,7 @@ So how do you use TypeScript to write an AWS Lambda function?
 
 Let's write a `Hello World` function. I'm extracting this from my real code and haven't tested it. Think of this code as a guide, not a copypasta.
 
-![pirate_code giphy](./img/media-Znz2cbofYIlMc-giphy.gif)
+[![pirate_code giphy](./img/media-Znz2cbofYIlMc-giphy.gif "pirate_code giphy")]
 
 You start by installing the TypeScript compiler. You'll need node support too.
 
@@ -118,7 +118,7 @@ At this point it's a good idea to open a new terminal window so the new CLI comm
 
 Oh and you should [setup serverless AWS credentials](https://serverless.com/framework/docs/providers/aws/guide/credentials/). It's a little tedious, but you only gotta do it once for all your projects.
 
-### tsconfig.json
+### `tsconfig.json`
 
 Before you can seamlessly compile the whole project, you need to configure TypeScript. I copypasta'd this JSON from a blogpost and it works great. Sensible defaults I'd say 😇
 
@@ -144,11 +144,11 @@ Before you can seamlessly compile the whole project, you need to configure TypeS
 
 This tells the TypeScript compiler that you're targeting `es2017` – the latest JavaScript standard supported by Node 8.10, which is the latest Node that AWS supports. You're using `commonjs` modules, writing compiled files to `./dist` and so on.
 
-tsconfig.json supports many options but you aren't likely to need them. At least not at first.
+`tsconfig.json` supports many options but you aren't likely to need them. At least not at first.
 
-### The package.json
+### The `package.json`
 
-Next we'll need a package.json file with some scripts. These will help you build and deploy your code.
+Next we'll need a `package.json` file with some scripts. These will help you build and deploy your code.
 
 ```json
 {
@@ -164,7 +164,7 @@ We run `tsc` to build the project, and `sls deploy` to deploy. Adding the build 
 
 Always important to deploy the latest code. Gets very frustrating if you don't 😅
 
-### serverless.yml
+### `serverless.yml`
 
 We use `serverless.yml` to configure the Serverless framework. Using this file means you:
 
@@ -204,7 +204,7 @@ Yep. All that in those few lines of Yaml. Once you deploy Serverless will give y
 
 But first you gotta write it
 
-### The hello function – src/hello.ts
+### The hello function – `src/hello.ts`
 
 Before you write the function, there's a couple dependencies I'd recommend. They make TypeScript work smoother with node and AWS.
 
@@ -233,7 +233,7 @@ And that's it.
 
 You're importing the type definition for the `APIGatewayEvent`. That specifies which properties it does and doesn't have, gives you code completion, and helpful tooltips in VS Code.
 
-To make an endpoint, you export a function. Often called `handler` but can be anything. You specified the exact name in your serverless.yml earlier (`handler: dist/hello.handler`).
+To make an endpoint, you export a function. Often called `handler` but can be anything. You specified the exact name in your `serverless.yml` earlier (`handler: dist/hello.handler`).
 
 This function takes an `event`, does whatever it wants, and returns a response with a `statusCode` and a `body`. 200 means `OK`.
 

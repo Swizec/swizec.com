@@ -12,13 +12,13 @@ A few days ago I decided to buy some bitcoin. Then I noticed it fluctuates a lot
 
 I have since lost $5 by playing and gained $30 by leaving it alone. Obviously I suck at this ...
 
-I know! Let's make a bot that does this! A low frequency trading bot, that sounds like fun. And let's write it in [Haskell](http://haskell.org "Haskell (programming language)"), just to keep things interesting. Marrying the strictest of languages with the messiest of resources - the internet ... what could possibly go wrong?
+I know! Let's make a bot that does this! A low frequency trading bot, that sounds like fun. And let's write it in [Haskell](http://haskell.org), just to keep things interesting. Marrying the strictest of languages with the messiest of resources - the internet ... what could possibly go wrong?
 
 First order of business - a REST client.
 
 ## REST client
 
-Before my bot can do any trading and intricate [algorithmic trading](http://en.wikipedia.org/wiki/Algorithmic_trading "Algorithmic trading"), it needs to talk to the marketplace of choice. I picked Bitstamp because they're the only ones that let me do this without a US bank account.
+Before my bot can do any trading and intricate [algorithmic trading](http://en.wikipedia.org/wiki/Algorithmic_trading), it needs to talk to the marketplace of choice. I picked Bitstamp because they're the only ones that let me do this without a US bank account.
 
 Writing a REST client in most languages is simple. Reading Bitstamp's ticker in Python looks like this:
 
@@ -34,7 +34,7 @@ That's it. Everything you need for a set of values nicely accessible as a dictio
 
 In Haskell, well in Haskell figuring out how to do that took me all night, then a bit of the morning and finally a helpful tweet from a stranger to tell me just how I was misusing monads.
 
-First of all, we are going to need a bunch of imports. The ones we _really_ care about are the _http-conduit_ library and the _Aeson_ parser of [JSON](http://json.org/ "JSON") strings. Everything else is there because ... well I'm not sure actually, but it seems to be necessary, otherwise things don't work.
+First of all, we are going to need a bunch of imports. The ones we _really_ care about are the _http-conduit_ library and the _Aeson_ parser of [JSON](http://json.org/) strings. Everything else is there because ... well I'm not sure actually, but it seems to be necessary, otherwise things don't work.
 
 ```haskell
 {-# LANGUAGE OverloadedStrings #-}
@@ -50,7 +50,7 @@ import Control.Monad.Trans
 
 I am not perfectly certain what the OverloadedStrings bit at the top does. It's some sort of compiler directive and most haskell libraries I find in the wild tell me I will be a much happier man if I turn it on. Shrug.
 
-All it takes now is making an [HTTP request](http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol "Hypertext Transfer Protocol") and parsing the response as JSON. Simple, right?
+All it takes now is making an [HTTP request](http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) and parsing the response as JSON. Simple, right?
 
 Well, Haskell is strict and you can't just parse things all willy nilly. We need to tell the parser what we expect, what we want to do with the result and what _type_ it's going to be. Can't just have a bag of stuff! Nope, needs to be a well defined bag of things.
 
@@ -65,7 +65,7 @@ data Ticker = Ticker
               } deriving Show
 ```
 
-Great. We have a _Ticker_ type that has a bunch of numbers and some names. That \_Show \_part seems to say that we'll be able to print this out to the console. Smashing!
+Great. We have a _Ticker_ type that has a bunch of numbers and some names. The \_Show \_part seems to say that we'll be able to print this out to the console. Smashing!
 
 That's not enough though, it is time for some strange hieroglyphics that tell _Aeson_ how exactly parsing works.
 
@@ -107,10 +107,10 @@ main = do
 
 Nothing.
 
-Yup, the output we get is Nothing. It is at this point you realize _someone_ isn't using JSON correctly and all those numbers are actually strings. Strings. Now how the hell do you tell Haskell to automagically transform those into Numbers before putting them in the Ticker object?
+Yup, the output we get is Nothing. It is at this point you realize _someone_ isn't using JSON correctly and all those numbers are actually strings. Strings. Now how the hell do you tell Haskell to automagically transform those into Numbers before putting them in the `Ticker` object?
 
 Messy messy internet.
 
-But hey! Got Haskell to talk to a [REST API](http://en.wikipedia.org/wiki/Representational_state_transfer "Representational state transfer"). How cool is that!?
+But hey! Got Haskell to talk to a [REST API](http://en.wikipedia.org/wiki/Representational_state_transfer). How cool is that!?
 
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=5492ac2c-3abf-45a3-9680-dd8c31c07973)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=5492ac2c-3abf-45a3-9680-dd8c31c07973)

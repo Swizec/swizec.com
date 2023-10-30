@@ -121,7 +121,7 @@ Paddle = function (which) {
                     .classed(which+"_paddle", true)
                     .attr({width: 5}),
                 update = function (x, y) {
-                    var height = Screen().height*0.15;
+                    var height = `{Screen().height*0.15}`;
 
                     paddle.attr({
                         x: x,
@@ -152,12 +152,12 @@ This goes inside the `Paddle` function.
             var drag = d3.behavior.drag()
                     .on("drag", function () {
                         var y = parse(area.attr("y")),
-                            height = Screen().height*0.1;
+                            height = `{Screen().height*0.1}`;
 
                         update(parse(paddle.attr("x")),
                                Math.max(margin.top,
                                         Math.min(parse(paddle.attr("y"))+d3.event.dy,
-                                                 Screen().height-margin.bottom-height)));
+                                                 `{Screen().height-margin.bottom-height}`)));
 
                     })
                     .origin(function () {
@@ -190,8 +190,8 @@ Next up - a function that keeps score.
                 value += inc;
 
                 score.text(value)
-                    .attr({x: Screen().width*x,
-                           y: margin.top*3});
+                    .attr({x: `{Screen().width*x}`,
+                           y: `{margin.top*3}`});
                 return f;
             };
         },
@@ -210,10 +210,10 @@ Nearly the same goes for the middle line - add a line, make sure it can be moved
                 var screen = Screen();
 
                 line.attr({
-                    x1: screen.width/2,
+                    x1: `{screen.width/2}`,
                     y1: margin.top,
-                    x2: screen.width/2,
-                    y2: screen.height-margin.bottom
+                    x2: `{screen.width/2}`,
+                    y2: `{screen.height-margin.bottom}`
                 });
                 return f;
             };
@@ -229,8 +229,8 @@ Ball = function () {
                 ball = svg.append('circle')
                     .classed("ball", true)
                     .attr({r: R,
-                           cx: Screen().width/2,
-                           cy: Screen().height/2}),
+                           cx: `{Screen().width/2}`,
+                           cy: `{Screen().height/2}`}),
                 scale = d3.scale.linear().domain([0, 1]).range([-1, 1]),
                 vector = {x: scale(Math.random()),
                           y: scale(Math.random())},
@@ -255,7 +255,7 @@ var hit_paddle = function (y, paddle) {
       right_p = d3.select(".right_paddle");
 
     // collision with top or bottom
-    if (y - R < margin.top || y + R > Screen().height - margin.bottom) {
+    if (y - R < margin.top || y + R > `{Screen().height - margin.bottom}`) {
       vector.y = -vector.y;
     }
 
@@ -331,11 +331,11 @@ Now that we've got all the elements, which sneakily contain most of our code alr
 // generate starting scene
 var left = {
     score: Score(0.25)(0),
-    paddle: Paddle("left")(margin.left, Screen().height / 2),
+    paddle: Paddle("left")(margin.left, `{Screen().height / 2}`),
   },
   right = {
     score: Score(0.75)(0),
-    paddle: Paddle("right")(Screen().width - margin.right, Screen().height / 2),
+    paddle: Paddle("right")(`{Screen().width - margin.right}`, `{Screen().height / 2}`),
   },
   middle = Middle()(),
   ball = Ball();
@@ -394,4 +394,4 @@ When a user scores, we reset the ball to its current position and re-run everyth
 
 And that's it. (ab)Using D3 to make a simple Pong game because we can. It was a fun hack, there are a million better tools you could use to make this, but I had fun.
 
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=7a0131b4-3a05-4d09-9408-40fa8cb003ce)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=7a0131b4-3a05-4d09-9408-40fa8cb003ce)

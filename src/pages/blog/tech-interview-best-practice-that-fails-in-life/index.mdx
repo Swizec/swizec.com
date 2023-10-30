@@ -12,7 +12,7 @@ _"Great solution, how would you optimize it?"_
 
 Hashmap!
 
-![](giphy:gasp_yes)
+![gasp_yes](giphy:gasp_yes)
 
 You get the job and start to work. Your vast interview prep (and half of college) prepared you to answer every question with a hashmap. Sometimes a graph.
 
@@ -30,12 +30,12 @@ Formally Big-O talks about function growth at a particular type of limit. Other 
 
 Proper analysis can be confusing. We'll use the abused version:
 
-- `O(1)` means a single operation lookup (hashmap, certain set operations, reading a variable)
-- `O(logn)` means you divide remaining steps with each iteration (divide and conquer algorithms)
-- `O(n)` means you iterate the full input (iteration algorithms)
-- `O(n^2)` means you iterate the full input for every entry (exponent counts nested loops)
+- `{O(1)}` means a single operation lookup (hashmap, certain set operations, reading a variable)
+- `{O(logn)}` means you divide remaining steps with each iteration (divide and conquer algorithms)
+- `{O(n)}` means you iterate the full input (iteration algorithms)
+- `{O(n^2)}` means you iterate the full input for every entry (exponent counts nested loops)
 
-We ignore constant factors – `O(2n) == O(n)` – and that's where interview best practices break down.
+We ignore constant factors – `{O(2n) == O(n)}` – and that's where interview best practices break down.
 
 ## An easy phone screen question
 
@@ -69,11 +69,11 @@ def canBuildSentence(article, sentence):
 	return True
 ```
 
-A roughly `O(n)` algorithm, fantastic.
+A roughly `{O(n)}` algorithm, fantastic.
 
-You iterate the article to build a hashmap – `O(n)`. Each word lookup is `O(1)` because hashmap. Iterate the sentence, another `O(n)`. Then you iterate the keys from your sentence and do `O(1)` lookups.
+You iterate the article to build a hashmap – `{O(n)}`. Each word lookup is `{O(1)}` because hashmap. Iterate the sentence, another `{O(n)}`. Then you iterate the keys from your sentence and do `{O(1)}` lookups.
 
-![](giphy:very_nice)
+![very_nice](giphy:very_nice)
 
 ### Can you improve performance?
 
@@ -115,7 +115,7 @@ def canBuildSentence(article, sentence):
 
 Now you're down to `33000 + 13955 = 46,955` operations. 23% better performance, 23% lower cost, [better conversions, more sales](https://www.cloudflare.com/learning/performance/more/website-performance-conversion-rates/).
 
-Same `O(n)` complexity. 🤯
+Same `{O(n)}` complexity. 🤯
 
 ## When hashmaps aren't the answer
 
@@ -159,6 +159,6 @@ Or when you get lucky.
 Cheers,<br/>
 ~Swizec
 
-PS: you can sort both inputs, consume arrays, and compare that way. It's `O(nlogn)` complexity but zero overhead and suitable for streaming/distributed solutions.
+PS: you can sort both inputs, consume arrays, and compare that way. It's `{O(nlogn)}` complexity but zero overhead and suitable for streaming/distributed solutions.
 
-PPS: a great discussion on StackOverflow comparing [Quicksort and Mergesort](https://stackoverflow.com/questions/29218440/when-merge-sort-is-preferred-over-quick-sort) – both typical O(nlogn) algorithms – and how they behave differently in real world applications. Fun to skim ✌️
+PPS: a great discussion on StackOverflow comparing [Quicksort and Mergesort](https://stackoverflow.com/questions/29218440/when-merge-sort-is-preferred-over-quick-sort) – both typical `{O(nlogn)}` algorithms – and how they behave differently in real world applications. Fun to skim ✌️

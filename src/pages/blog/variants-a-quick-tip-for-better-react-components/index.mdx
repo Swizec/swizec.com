@@ -26,7 +26,7 @@ const Header = () => {
 
 Fantastic! You have a header that works everywhere.
 
-![](giphy:job_well_done)
+![](./img/job_well_done.gif "Job well done")
 
 ## A new page appears
 
@@ -39,15 +39,15 @@ obviously 🙄
 You add a prop.
 
 ```typescript
-const Header = (props: { showSignup: boolean }) => {
+const Header = (props: { `showSignup`: boolean }) => {
   return (
     <Box>
       <Logo />
       <MenuItem />
       <MenuItem />
-      {!props.showSignup && <UserMessages />}
-      {!props.showSignup && <UserProfile />}
-      {props.showSignup && <SignupButton />}
+      {!`props.showSignup` && <UserMessages />}
+      {!`props.showSignup` && <UserProfile />}
+      {`props.showSignup` && <SignupButton />}
     </Box>
   )
 }
@@ -67,23 +67,23 @@ _"Oh and let's pretend this is a fullscreen modal, add a close button. Keep the 
 
 Two booleans!
 
-![](./img/aqV7k1png2f49bb.png)
+![](./img/aqV7k1png2f49bb.png "Two booleans")
 
 ```typescript
 const Header = (props: {
-  showSignup: boolean
-  hideMenu: boolean
-  showClose: boolean
+  `showSignup`: boolean
+  `hideMenu`: boolean
+  `showClose`: boolean
 }) => {
   return (
     <Box>
       <Logo />
-      {!props.hideMenu && <MenuItem />}
-      {!props.hideMenu && <MenuItem />}
-      {!props.showSignup && <UserMessages />}
-      {!props.showSignup && <UserProfile />}
-      {props.showSignup && <SignupButton />}
-      {props.showClose && <CloseButton />}
+      {!`props.hideMenu` && <MenuItem />}
+      {!`props.hideMenu` && <MenuItem />}
+      {!`props.showSignup` && <UserMessages />}
+      {!`props.showSignup` && <UserProfile />}
+      {`props.showSignup` && <SignupButton />}
+      {`props.showClose` && <CloseButton />}
     </Box>
   )
 }
@@ -91,7 +91,7 @@ const Header = (props: {
 
 Well that's not confusing at all. With 3 booleans, your header has 8 possible incantations.
 
-![Possible incantations of Header component](./img/Possible-incantations-of-Header-component2cg616.png)
+![Possible incantations of Header component](./img/Possible-incantations-of-Header-component2cg616.png "Possible incantations of Header component")
 
 Add one more ask from design and you're up to 16.
 
@@ -115,7 +115,7 @@ How many of those 8 incantations are valid?
 
 I count 3.
 
-![Identify your variants](./img/Identify-your-variants690727.png)
+![Identify your variants](./img/Identify-your-variants690727.png "Identify your variants")
 
 Then why allow the other 5? If 5 out of 8 ways to use your component are bugs, something's wrong.
 
@@ -123,25 +123,25 @@ Here's what you do 👉 turn those flags into a variant prop. Use TypeScript and
 
 ```typescript
 const Header = (props: { variant: "homepage" | "funnel" }) => {
-  let hideMenu, showClose, showSignup
+  let `hideMenu`, `showClose`, `showSignup`
 
-  switch (variant) {
+  switch (`variant`) {
     case "homepage":
-      showSignup = true
+      `showSignup` = true
     case "funnel":
-      hideMenu = true
-      showClose = true
+      `hideMenu` = true
+      `showClose` = true
   }
 
   return (
     <Box>
       <Logo />
-      {!hideMenu && <MenuItem />}
-      {!hideMenu && <MenuItem />}
-      {!showSignup && <UserMessages />}
-      {!showSignup && <UserProfile />}
-      {showSignup && <SignupButton />}
-      {showClose && <CloseButton />}
+      {!`hideMenu` && <MenuItem />}
+      {!`hideMenu` && <MenuItem />}
+      {!`showSignup` && <UserMessages />}
+      {!`showSignup` && <UserProfile />}
+      {`showSignup` && <SignupButton />}
+      {`showClose` && <CloseButton />}
     </Box>
   )
 }

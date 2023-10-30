@@ -18,7 +18,7 @@ And yet, 30 requests for 3.1MB.
 
 Our problem: Third-party libraries. There's a bunch of stuff that we need, like Backbone and Handlebars and Lodash and jQuery and so on. Most of them we loaded from public CDN. Some of them we bundled locally into a `vendor.js` file; this is where the huge size came from.
 
-You see, when all your apps share a `vendor.js` file, and some of them are React and some are Backbone, guess what happens? All apps load both React _and_ Backbone.
+You see, when all your apps share a `{vendor.js}` file, and some of them are React and some are Backbone, guess what happens? All apps load both React _and_ Backbone.
 
 We achieved this vendor/app split following [Webpack's official guide on code splitting libraries](https://webpack.js.org/guides/code-splitting-libraries/). It suggests using the `CommonChunksPlugin` to extract common code into a top-level file.
 
@@ -37,7 +37,7 @@ plugins: [
 ];
 ```
 
-`manifest.js` is meant to contain Webpack's runtime, and `vendor.js` contains your more stable third-party dependencies. This is meant to improve caching. _shrug_
+`{manifest.js}` is meant to contain Webpack's runtime, and `{vendor.js}` contains your more stable third-party dependencies. This is meant to improve caching. _shrug_
 
 On top of that, we had a bunch of global libraries configured as externals and loaded them in top-level `<script>` tags. Not a bad approach per se, but something like the AWS SDK is almost 500kb of _compressed_ JavaScript. When you're using only one function… yeah, no bueno.
 
@@ -101,15 +101,15 @@ plugins: [
   ]);
 ```
 
-All our `entry` files, or apps as we call them, go in `Apps`. This helps us iterate over them when building the `plugins` config.
+All our `entry` files, or apps as we call them, go in `{Apps}`. This helps us iterate over them when building the `plugins` config.
 
-What used to be externals loaded in global `script` tags become `GlobalModules`. Each is translated into a `ProvidePlugin` configuration, which essentially replaces all occurrences of `$` with `require('jquery')`, `moment` with `require('moment')`, and so on.
+What used to be externals loaded in global `script` tags become `{GlobalModules}`. Each is translated into a `ProvidePlugin` configuration, which essentially replaces all occurrences of `$` with `require('jquery')`, `moment` with `require('moment')`, and so on.
 
 With this approach, we don't have to change any code that relies on global libs' availability.
 
 Armed with these vars, we dynamically generate a list of Webpack `plugins`. Each app gets its own vendor file – `_vendor.js` – and at the end, all files together get a common `manifest` file with the Webpack runtime. Again, to prevent cache churning.
 
-Oh, and there's the helpful `isVendor` function, which I got from [Juho's SurviveJS - Webpack](https://leanpub.com/survivejs-webpack) book. You should buy it. It's great.
+Oh, and there's the helpful `{isVendor}` function, which I got from [Juho's SurviveJS - Webpack](https://leanpub.com/survivejs-webpack) book. You should buy it. It's great.
 
 ```javascript
 function isVendor(module, count) {

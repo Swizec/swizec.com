@@ -18,11 +18,11 @@ County names are only unique per-state, not per-all-of-the-country. Now you know
 
 Fixing that problem let me turn this picture from livecoding:
 
-![](./img/A9CQw9a.png)
+![](./img/A9CQw9a.png "livecoding output first image")
 
 Into this picture:
 
-![](./img/REu8pM0.png)
+![](./img/REu8pM0.png "livecoding output second image")
 
 The latter has less gray and more blue. That’s good. It means there are fewer counties that didn’t match our dataset. Some remain. I don’t know how to fix those.
 
@@ -91,15 +91,15 @@ class CountyMap extends Component {
             // Add a single <path> for state borders
             return (
                 <g>
-                    {counties.map((feature) => <county geopath={this.geoPath} feature={feature} key={feature.id} quantize={this.quantize} data="{_.find(this.props.medianIncomes," {countyid:="" feature.id})}="">)}
+                    {counties.map((feature) => <county geopath={this.geoPath} feature={feature} key={feature.id} quantize={this.quantize} data=`{_.find(this.props.medianIncomes, {countyid: feature.id})}`>)}
 
-                     <path d={this.geoPath(statesMesh)} style="{{fill:" 'none',="" stroke:="" '#fff',="" strokelinejoin:="" 'round'}}="">
+                     <path d={this.geoPath(statesMesh)} style="{fill: 'none', stroke: '#fff', strokelinejoin: 'round'}">
                 </path></county></g>
             );
         }
     }
 }
-</path></county></path>
+
 ```
 
 I hope that makes sense. It follows [my standard React+D3js approach](https://swizec.com/reactd3js/).
@@ -116,9 +116,9 @@ const County = ({ data, geoPath, feature, quantize }) => {
         color = ChoroplethColors[quantize(data.medianIncome)];
     }
 
-    return (<path d={geoPath(feature)} style="{{fill:" color}}="" title={feature.id}>)
+    return (<path d={geoPath(feature)} style="{fill: color}" title={feature.id}></path>)
 };
-</path></path>
+
 ```
 
 With some setup and a bit of data loading, those two components create a choropleth map of median household incomes in the United States. [Watch the video](https://www.livecoding.tv/swizec/videos/YYKW3-comparing-177k-software-salaries) to see how it all fits together.

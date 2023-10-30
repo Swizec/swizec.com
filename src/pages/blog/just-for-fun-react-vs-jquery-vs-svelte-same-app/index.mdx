@@ -40,7 +40,7 @@ It's funny, jQuery is so old now (2 years since new versions stopped coming) I f
 
 Pushed web development forward for its entire 10 year run. Oh the memories ...
 
-![memory_lane giphy](./img/media-kcSG1rpAKxpao-giphy.gif)
+![memory_lane](./img/media-kcSG1rpAKxpao-giphy.gif)
 
 So, how does jQuery stack up to React and how does React stack up to Svelte? Let's see 👇
 
@@ -96,17 +96,17 @@ function App() {
     }
   }, [cats, showCount]);
 
-  const moreCats = () = > {
+  const moreCats = () => {
     setShowCount(showCount + 1);
   };
 
   return (
     <div className="App">
-      <h1 >These are cats.</h1 >
-      <h2 >Cats are cool </h2>
+      <h1>These are cats.</h1>
+      <h2>Cats are cool</h2>
       <Kitties cats={cats} count={showCount} />
-      <button onClick={moreCats} >More cats! </button >
-    </div >
+      <button onClick={moreCats}>More cats!</button>
+    </div>
   );
 }
 ```
@@ -115,7 +115,7 @@ We got `useState` for the count of cats, and a `useEffect` to deal with fetching
 
 React handles the rest.
 
-![magic giphy](./img/media-12NUbkX6p4xOO4-giphy.gif)
+![magic](./img/media-12NUbkX6p4xOO4-giphy.gif)
 
 ## jQuery app
 
@@ -139,7 +139,7 @@ function renderCats(cats, count) {
   $("#kitties").html("");
 
   cats.slice(0, count).forEach(cat => {
-    $("#kitties").append($("<div >").append($("<img>").attr("src", cat.url)));
+    $("#kitties").append($("<div>").append($("<img>").attr("src", cat.url)));
   });
 }
 ```
@@ -188,7 +188,7 @@ Check out the `<Kitty />` component
     export let url;
 </script>
 
-<style >
+<style>
     img {
       width: 300px;
     }
@@ -223,7 +223,7 @@ Then you got the component that drives state and renders a bunch of kitties with
   function moreCats() {
     showCount += 1;
 
-    if (showCount>  cats.length) {
+    if (showCount > cats.length) {
       fetchCats(showCount).then(newCats => {
         cats = [...cats, ...newCats];
       });
@@ -232,7 +232,7 @@ Then you got the component that drives state and renders a bunch of kitties with
 </script>
 ```
 
-The script looks similar to React Hooks. You got some variables with state and you got a `moreCats` method that drives it.
+The script looks similar to React Hooks. You got some variables with state and you got a `moreCats` function that drives it.
 
 Repeating that array merging logic twice is a little less elegant than the `useEffect` hook, but probably easier to understand how it works 🤔
 
@@ -240,12 +240,12 @@ Rendering is neat too
 
 ```javascript
 <main>
-	<h1 >These are cats.</h1 >
+  <h1>These are cats.</h1>
   <h2>Cats are cool 😸</h2>
-	{#each cats.slice(0, showCount) as {id, url}}
+  {#each cats.slice(0, showCount) as {id, url}}
     <Kitty id={id} url={url} />
   {/each}
-  <button on:click={moreCats}>More cats! </button >
+  <button on:click={moreCats}>More cats!</button>
 </main>
 ```
 

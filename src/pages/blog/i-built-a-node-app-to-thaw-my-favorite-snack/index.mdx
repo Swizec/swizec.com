@@ -28,15 +28,15 @@ https://twitter.com/Swizec/status/1050288715178770432
 
 The greatest contribution to computer science known to man! Or woman.
 
-🥕 thaw-carrots -t 90
+`🥕 thaw-carrots -t 90`
 
 Install globally with npm or yarn – `npm install -g thaw-carrots`, run with your favorite temperature, and `thaw-carrots` will keep your CPU busy just enough to give you a nice even warm throughout your best carrot thawing areas.
 
 ## Here's how it works 👇
 
-With just 14 dependencies this might be the smallest node app you've ever seen. Thanks to [@lukeed05](https://twitter.com/lukeed05) and his obsession with zero dependency code.
+With just 14 dependencies this might be the smallest node app you've ever seen. Thanks to `[@lukeed05](https://twitter.com/lukeed05)` and his obsession with zero dependency code.
 
-[thaw-carrots](https://github.com/Swizec/thaw-carrots) uses [mri](https://github.com/lukeed/mri) to parse command line arguments, [kleur](https://github.com/lukeed/kleur) and [single-line-log](https://github.com/freeall/single-line-log) for pretty console output, and [systeminformation](https://github.com/sebhildebrandt/systeminformation)to read CPU temperatures.
+`[thaw-carrots](https://github.com/Swizec/thaw-carrots)` uses `[mri](https://github.com/lukeed/mri)` to parse command line arguments, `[kleur](https://github.com/lukeed/kleur)` and `[single-line-log](https://github.com/freeall/single-line-log)` for pretty console output, and `[systeminformation](https://github.com/sebhildebrandt/systeminformation)`to read CPU temperatures.
 
 The approach is simple:
 
@@ -58,7 +58,7 @@ async function thawMyCarrots(targetTemp) {
   while (1) {
     if (avg(temps) < targetTemp) {
       if (children.length < 10) {
-        children.push(fork(`${__dirname}/eat-cpu`))
+        children.push(fork(`{__dirname}/eat-cpu`))
       }
     } else if (avg(temps) > targetTemp) {
       if (children.length > 0) {
@@ -75,7 +75,7 @@ async function thawMyCarrots(targetTemp) {
       kleur.bold.red(temp.main.toFixed(2)),
       "\nCores at",
       kleur.bold.gray(temp.cores),
-      `\nChildren: ${children.length}`
+      `\nChildren: {children.length}`
     )
     sleep.msleep(500)
   }
@@ -102,11 +102,11 @@ The low memory requirement disqualifies calculating primes, playing with big num
 
 Those fools!
 
-My first attempt was using the [collatz conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture). Finite calculation, lots of addition and division and multiplication, handles big numbers okay, can run for a long time to find the full chain. No need to keep anything in memory while you're running.
+My first attempt was using the `[collatz conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture)`. Finite calculation, lots of addition and division and multiplication, handles big numbers okay, can run for a long time to find the full chain. No need to keep anything in memory while you're running.
 
 But my CPU was too good at that. Didn't warm up for shit. And when the numbers got really high, Collatz fast became too slow to compute. Didn't have the fine grained control.
 
-Then I found [this little gem from @sqren](https://gist.github.com/sqren/5083d73f184acae0c5b7). A gist called "cpu-intensive.js". Perfect!
+Then I found `[this little gem from @sqren](https://gist.github.com/sqren/5083d73f184acae0c5b7)`. A gist called "cpu-intensive.js". Perfect!
 
 Looks like this:
 
@@ -130,7 +130,7 @@ One wasn't enough so I'm running up to 10 in parallel 🔥
 
 ## 🥕
 
-You can see [thaw-carrots on GitHub](https://github.com/Swizec/thaw-carrots). Install via npm.
+You can see `[thaw-carrots on GitHub](https://github.com/Swizec/thaw-carrots)`. Install via npm.
 
 Can't wait to try it at the office today. Nom!
 

@@ -37,7 +37,7 @@ All this worked fine until one day I had the bright idea: _"Eh now that Gatsby C
 
 I pressed the red button.
 
-![](giphy:big_red_button)
+![](./img/big_red_button.png)
 
 And it worked!
 
@@ -63,7 +63,7 @@ But you gotta tell Gatsby about all your redirects so the host plugin knows! Tha
 
 I wanted to keep article-specific redirects simple. Add configuration to each article instead of a global config file.
 
-```
+```markdown
 ---
 title: "My cool article"
 description: "You should read this for sure"
@@ -72,7 +72,7 @@ redirect_from: /
 ---
 ```
 
-Article frontmatter configures the title, description, categories, and a redirect_from. That's the old URL. Yes they're weird.
+Article frontmatter configures the title, description, categories, and a `redirect_from`. That's the old URL. Yes they're weird.
 
 You make that work by hooking into Gatsby's page creation lifecycle in `gatsby-node.js`
 
@@ -136,7 +136,7 @@ _Funfact: this one broke because the slug field on Gatsby Cloud includes /blog/ 
 
 For known redirects, Netlify's `_redirects` file is fast becoming an industry standard.
 
-```
+```plaintext
 /serverless-handbok   https://serverlesshandbook.dev
 /reactd3js   https://reactfordataviz.com
 .

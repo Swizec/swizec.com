@@ -110,7 +110,7 @@ function initStateMachine() {
 }
 ```
 
-You'll use this in multiple tests so having a function helps. It takes your state machine – `authMachine` – seeds it with initial context and starts an [interpreter](https://xstate.js.org/docs/guides/interpretation.html#interpreting-machines).
+You'll use this in multiple tests so having a function helps. It takes your state machine – `{authMachine}` – seeds it with initial context and starts an [interpreter](https://xstate.js.org/docs/guides/interpretation.html#interpreting-machines).
 
 [Jest](https://jestjs.io/) runs tests within a `describe` block in sequence[\[1\]](https://stackoverflow.com/questions/39831961/are-tests-inside-one-file-run-in-parallel-in-jest). That means you can share setup between tests.
 
@@ -128,7 +128,7 @@ beforeEach(() => {
 })
 ```
 
-Create a shared `authState` and `savedContext`, giving them values makes TypeScript's type inference kick in. Means you don't have to specify your own types.
+Create a shared `{authState}` and `{savedContext}`, giving them values makes TypeScript's type inference kick in. Means you don't have to specify your own types.
 
 In a `beforeEach` block you then instantiate a fresh state machine for each test and subscribe to changes. This lets you keep track of the latest application state.
 
@@ -163,7 +163,7 @@ We need 2 actions for each test:
 - `LOGIN` moves the state machine from `unauthenticated` to `authenticating`
 - `AUTHENTICATED` moves it from the `authenticating` state into `authenticated`
 
-The state subscription runs every time and updates `savedContext`. You can then verify the expected result.
+The state subscription runs every time and updates `{savedContext}`. You can then verify the expected result.
 
 You could move action firing into `beforeEach` to DRY this up further. I prefer to make it obvious what each test is testing.
 

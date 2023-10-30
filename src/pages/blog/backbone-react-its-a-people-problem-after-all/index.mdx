@@ -51,7 +51,7 @@ class Thing extends Backbone.View {
 		this.model = new Backbone.Model({active: false});
 		this.listenTo(this.model, 'change', this.render);
 
-		this.template = Handlebars.compile('<button class={{#if active}}active{{/if}}>Button</button>');
+		this.template = Handlebars.compile('<button class={`{#if active}active{/if}`}>Button</button>');
 	}
 
 	toggleActive() {

@@ -30,7 +30,7 @@ The code works, it's readable, doesn't look _that_ crazy. Anyone can jump in and
 
 But the code feels off.
 
-You have this `array.keys()` construct that returns an [Array Iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators) based on its keys. But arrays don't have keys, they have indexes ...
+You have this `array.keys()` construct that returns an `[Array Iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)` based on its keys. But arrays don't have keys, they have indexes ...
 
 Oh except in JavaScript where for historical reasons `array.1` and `array[1]` both work. Indexes double as keys on the array object.
 
@@ -66,7 +66,7 @@ Isn't that better?
 
 ## A small decision can wreck your codebase
 
-Write Less Code and Lean Into Your Tools are two of the [25 lessons I learned in 25 years of coding](https://swizec.com/blog/25-lessons-from-25-years-of-coding/). Writing too much code and solving problems others have solved almost always leads to gnar. But it's easy to avoid.
+Write Less Code and Lean Into Your Tools are two of the `[25 lessons I learned in 25 years of coding](https://swizec.com/blog/25-lessons-from-25-years-of-coding/)`. Writing too much code and solving problems others have solved almost always leads to gnar. But it's easy to avoid.
 
 A more sinister approach to gnarly code are little decisions that wreck the rest of your codebase.
 
@@ -85,7 +85,7 @@ function useArticles() {
 }
 ```
 
-[React Query](https://swizec.com/blog/how-react-query-gives-you-almost-everything-you-thought-you-needed-graphql-for/) handles complexities of React state for us and triggers re-renders when data loads. `query.data` starts as undefined, then turns into an array of articles. Each change re-renders every component using this query.
+`[React Query](https://swizec.com/blog/how-react-query-gives-you-almost-everything-you-thought-you-needed-graphql-for/)` handles complexities of React state for us and triggers re-renders when data loads. `query.data` starts as undefined, then turns into an array of articles. Each change re-renders every component using this query.
 
 Can you spot what's going to suck about using this hook? Or any function with a similar issue?
 
@@ -131,7 +131,7 @@ Notice a pattern?
 
 ### Validate at the edges!
 
-One little decision in `useArticles` created a situation where [Defensive Coding Leads to Bloat](https://swizec.com/blog/how-defensive-coding-leads-to-bloat/). You wrote a function that requires every single consumer of your code to add a null check. 💩
+One little decision in `{useArticles}` created a situation where `[Defensive Coding Leads to Bloat](https://swizec.com/blog/how-defensive-coding-leads-to-bloat/)`. You wrote a function that requires every single consumer of your code to add a null check. 💩
 
 A 4-character fix at the source cleans up the whole codebase:
 

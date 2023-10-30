@@ -10,13 +10,13 @@ hero: ../../../defaultHero.jpg
 
 Sometimes you need to ask a users for multiple answers to a single question. But what's the best way to go about it?
 
-![Checkbox-field](https://swizec.com/wp-content/uploads/2012/04/Screen-Shot-2012-04-13-at-10.43.12-PM.png "Checkbox-field")
+![Checkbox-field](https://swizec.com/wp-content/uploads/2012/04/Screen-Shot-2012-04-13-at-10.43.12-PM.png)
 
-A multiselect input [field](http://en.wikipedia.org/wiki/Field_%28mathematics%29 "Field (mathematics)") is kind of strange for the user, sticks out and doesn't really behave like everything else on the web.
+A multiselect input field is kind of strange for the user, sticks out and doesn't really behave like everything else on the web.
 
-A bunch of [checkboxes](http://en.wikipedia.org/wiki/Checkbox "Checkbox") is better for the user ... but have you ever tried handling a form with dynamically created checkboxes? Let alone creating useful tests and consolidating everything into a single list of values. No decent forms framework will let you do that easily.
+A bunch of checkboxes is better for the user ... but have you ever tried handling a form with dynamically created checkboxes? Let alone creating useful tests and consolidating everything into a single list of values. No decent forms framework will let you do that easily.
 
-I had to solve this similar problem for a [time and attendance software](http://www.nextpunch.com/) I worked on, so I made a [Javascript](http://en.wikipedia.org/wiki/JavaScript "JavaScript") thing to convert a select field into a [checkbox-field](http://swizec.github.com/checkbox-field/). Then I made it into a simple jquery plugin thing for everyone to use :)
+I had to solve this similar problem for a time and attendance software I worked on, so I made a Javascript thing to convert a select field into a checkbox-field. Then I made it into a simple jquery plugin thing for everyone to use :)
 
 [Check out the demo!](http://swizec.github.com/checkbox-field/)
 
@@ -47,7 +47,7 @@ $multiselect.find("option").each(function (i, el) {
 });
 ```
 
-And to make sure data is synced up between its three representations (multiselect, visual checkboxes, the [data structure](http://en.wikipedia.org/wiki/Data_structure "Data structure") itself), all it takes is this:
+And to make sure data is synced up between its three representations (`multiselect`, visual checkboxes, the data structure itself), all it takes is this:
 
 ```javascript
 var Checkbox = Backbone.Model.extend({
@@ -69,11 +69,11 @@ var Checkbox = Backbone.Model.extend({
 });
 ```
 
-Yep, that's the whole model and that's all it takes to sync everything up. Pretty cool huh? I remember trying to do this with just [jQuery](http://jquery.com/ "JQuery") once ... I nearly stabbed my eyes out to end the misery.
+Yep, that's the whole model and that's all it takes to sync everything up. Pretty cool huh? I remember trying to do this with just jQuery once ... I nearly stabbed my eyes out to end the misery.
 
 All in all the whole thing is just _123 sloc_, which can only mean one thing: Backbone is cool.
 
-If you use my [checkbox-field](http://swizec.github.com/checkbox-field/) library, it's only going to be a single sloc for you:
+If you use my checkbox-field library, it's only going to be a single sloc for you:
 
 ```javascript
 $("#my_selector").checkboxField();
@@ -82,4 +82,3 @@ $("#my_selector").checkboxField();
 That's it :)
 
 Let me know what you think.
-

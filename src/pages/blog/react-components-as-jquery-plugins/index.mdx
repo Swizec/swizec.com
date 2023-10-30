@@ -10,15 +10,15 @@ hero: ./img/p5x14.jpg
 
 Did you know, you can use React without rewriting your whole app?
 
-A client recently asked me for a shiny graph. They had an [API](http://en.wikipedia.org/wiki/Application_programming_interface "Application programming interface") that spits out a lot of data, and they wanted an interactive visualization that would help users make decisions. Deadline was tight, technology restrictions were _"As long as it works"_, and specs were loose.
+A client recently asked me for a shiny graph. They had an [API](http://en.wikipedia.org/wiki/Application_programming_interface) that spits out a lot of data, and they wanted an interactive visualization that would help users make decisions. Deadline was tight, technology restrictions were _"As long as it works"_, and specs were loose.
 
 _"A-ha!"_, I thought, _"This is a job for [React+d3.js](https://swizec.com/reactd3js)!"_. Small, well-contained, perfect. The best kind of project for testing new technologies.
 
 ![React evil plot](./img/p5x14.jpg)
 
-But their web app was built in Joomla or Wordpress or something. And their front-end stack was [jQuery](http://en.wikipedia.org/wiki/JQuery "JQuery"). When I asked the engineer about integration, he talked about framework plugins that create views in PHP and load [JavaScript](http://en.wikipedia.org/wiki/JavaScript "JavaScript") files and stuff.
+But their web app was built in Joomla or Wordpress or something. And their front-end stack was [jQuery](http://en.wikipedia.org/wiki/JQuery). When I asked the engineer about integration, he talked about framework plugins that create views in PHP and load [JavaScript](http://en.wikipedia.org/wiki/JavaScript) files and stuff.
 
-It sounded a lot like gems for [Ruby on Rails](http://en.wikipedia.org/wiki/Ruby_on_Rails "Ruby on Rails"). Tiny packages that work as self-contained apps designed to be integrated into larger projects.
+It sounded a lot like gems for [Ruby on Rails](http://en.wikipedia.org/wiki/Ruby_on_Rails). Tiny packages that work as self-contained apps designed to be integrated into larger projects.
 
 They'd been at it for over a year already. The whole thing built out of these framework plugin component things that put most of the hard work on the server, and use JavaScript sparingly.
 
@@ -30,11 +30,11 @@ But how?
 
 ## The solution
 
-Well, at the end of the day it's still just a website. There's a modern browser, [HTML](http://en.wikipedia.org/wiki/HTML "HTML"), [the DOM](http://en.wikipedia.org/wiki/Document_Object_Model "Document Object Model") model, CSS, all the basics.
+Well, at the end of the day it's still just a website. There's a modern browser, [HTML](http://en.wikipedia.org/wiki/HTML), [the DOM](http://en.wikipedia.org/wiki/Document_Object_Model) model, CSS, all the basics.
 
 But there's no ES6, no fancy build system, no JavaScript module management. None of the fancy pants future stuff.
 
-And you don't need any of that stuff anyway. Not on the deploy side. Not on the user side. You only need that stuff when you're developing. Once [Webpack](http://webpack.github.io/) is done compiling your code, you've got run of the mill present-day ES5 that runs in any mostly modern browser. I'll tell you more about Webpack later, keep reading.
+And you don't need any of that stuff anyway. Not on the deploy side. Not on the user side. You only need that stuff when you're developing. Once `{Webpack}` is done compiling your code, you've got run of the mill present-day ES5 that runs in any mostly modern browser. I'll tell you more about `{Webpack}` later, keep reading.
 
 I made my client happy by exporting the whole visualization component into a global function that they could call anywhere. It only took a a bit of forethought:
 
@@ -44,13 +44,12 @@ const React = require('react'),
 
 function RenderChart(options) {
     React.render(
-        <counter>,
+        <Counter>,
         document.querySelectorAll(options.selector)[0]
     );
 }
 
 window.RenderChart = RenderChart;
-</counter>
 ```
 
 Now my client could integrate the React component by just:
@@ -135,11 +134,10 @@ const React = require('react'),
 
 function RenderCounter(selector) {
     React.render(
-        <counter>,
+        <Counter>,
         document.querySelectorAll(selector)[0]
     );
 }
-</counter>
 ```
 
 This will allow us to both export the function, and set it as a global. Like this:
@@ -175,7 +173,7 @@ if (typeof jQuery !== 'undefined') {
         $.extend(Plugin.prototype, {
             init: function () {
                 this.component = React.render(
-                    <counter value={this.settings.value}>,
+                    <Counter value={this.settings.value}/>,
                     this.element
                 );
                 return this;
@@ -192,7 +190,6 @@ if (typeof jQuery !== 'undefined') {
         });
     })(jQuery);
 }
-</counter>
 ```
 
 Whew, that's a lot of code.

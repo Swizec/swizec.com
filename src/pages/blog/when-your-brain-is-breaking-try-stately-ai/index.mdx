@@ -11,7 +11,7 @@ Two years ago I wrote [When your brain is breaking, try XState](https://swizec.c
 
 ![Simulate your state machine in stately.ai](./img/Simulate-your-state-machine-in-statelyai8g1i16.gif)
 
-XState turns ternary soup into a well-defined set of state transitions. Great, if your brain thinks about problems as state machines. Terrible, if you have that one nutter on your team who won't shut up about the beauty of state machines and keeps stuffing them into your code.
+`XState` turns ternary soup into a well-defined set of state transitions. Great, if your brain thinks about problems as state machines. Terrible, if you have that one nutter on your team who won't shut up about the beauty of state machines and keeps stuffing them into your code.
 
 _"Damn it Swiz why can't you write 3 nested ifs like a normal person!"_
 
@@ -20,18 +20,18 @@ And yeah, this is fine
 ```javascript
 return (
   <div>
-    {isLoading && <Spinner />}
-    {!isLoading && !data && <NotFound />}
-    {!isLoading && isError && <Ooopsies />}
-    {!isLoading && data && (
+    {`isLoading`} && <Spinner />}
+    {!`isLoading` && !`data` && <NotFound />}
+    {!`isLoading` && `isError` && <Ooopsies />}
+    {!`isLoading` && `data` && (
       <>
-        <List data={data} count={10} />
-        {!showMore && <Button onClick={onShowMore} />}
+        <List `data`={`data`} count={10} />
+        {!`showMore` && <Button onClick={onShowMore} />}
       </>
     )}
-    {!isLoading && data && showMore && (
+    {!`isLoading` && `data` && `showMore` && (
       <>
-        <List data={data} count={data.length} />
+        <List `data`={`data`} count={`data`.length} />
         <Button onClick={onHideMore} />
       </>
     )}
@@ -70,13 +70,13 @@ The problem with XState and state machines in general is that unless you're the 
 
 You have no idea what it means. You could analyze it, visualize a picture in your brain, but all that's too much effort when you're wondering _"Why can't I click this button and have this thing happen???"_
 
-Because it's an impossible transition and XState is doing its job, dummy. You need to wire up a new transition.
+Because it's an impossible transition and `XState` is doing its job, dummy. You need to wire up a new transition.
 
 But how!? Yeah that's, uh, gonna take 20min to explain ... 😅
 
 ## How Stately.ai solves the problem
 
-Since that post 2 years ago, David – creator of XState – and team have been hard at work on [Stately.ai](https://stately.ai), a tool for building state machines visually 😍
+Since that post 2 years ago, David – creator of `XState` – and team have been hard at work on [Stately.ai](https://stately.ai), a tool for building state machines visually 😍
 
 I wrote about an initial version in [A new VSCode extension makes state machines shine on a team](https://swizec.com/blog/a-new-vscode-extension-makes-state-machines-shine-on-a-team/). That was great but not quite ready yet.
 
@@ -84,7 +84,7 @@ Now there's a web editor and it. is. wonderful.
 
 https://twitter.com/Swizec/status/1587503973828767745
 
-The idea of Stately.ai is that instead of writing object soup and visualizing in your head, _you start with the picture_. Draw the state machine first, collaborate on getting it right, then export into code.
+The idea of `Stately.ai` is that instead of writing object soup and visualizing in your head, _you start with the picture_. Draw the state machine first, collaborate on getting it right, then export into code.
 
 I even tried it when talking through a complex problem with my product owner who isn't an engineer. Worked great!
 
@@ -102,13 +102,13 @@ Then add transitions for error and loaded states.
 
 ![Loaded and error state](./img/Loaded-and-error-state612gig.png)
 
-Loaded data can transition into a `not_found` state on its own.
+Loaded `data` can transition into a `not_found` state on its own.
 
 ![Add states and transitions visually](./img/Add-states-and-transitions-visually3f738b.gif)
 
-Later, you'll have to implement the `data loaded` guard as a function. XState takes a map of functions for that.
+Later, you'll have to implement the `data loaded` guard as a function. `XState` takes a map of functions for that.
 
-And once data is loaded, users can flip between `show_less` and `show_more`.
+And once `data` is loaded, users can flip between `show_less` and `show_more`.
 
 ![Adding even more states and transitions](./img/Adding-even-more-states-and-transitions08ch6i.gif)
 
@@ -118,11 +118,11 @@ Before you put all that into code, the simulator can help you debug any issues a
 
 A lot of dead states in my example. Would be nice to add the ability to retry after an error or when there's no data.
 
-Once you're happy with your state machine, the Stately.ai editor can export it into code.
+Once you're happy with your state machine, the `Stately.ai` editor can export it into code.
 
 ![Stately.ai code export](./img/Statelyai-code-exportabceg2.png)
 
-Plug that into XState, combine with your favorite UI library, and you're ready to go 😍
+Plug that into `XState`, combine with your favorite UI library, and you're ready to go 😍
 
 ## Does it _work_ work?
 
@@ -139,4 +139,4 @@ You need to [play with it](https://stately.ai) :)
 Cheers,<br/>
 ~Swizec
 
-PS: this is what I mean by [focus on fundamentals](https://swizec.com/blog/reader-question-should-you-learn-the-latest-hotness/). XState and Stately are tools that come and go, but [state machines have been with us since 1956](https://en.wikipedia.org/wiki/Moore_machine).
+PS: this is what I mean by [focus on fundamentals](https://swizec.com/blog/reader-question-should-you-learn-the-latest-hotness/). `XState` and Stately are tools that come and go, but [state machines have been with us since 1956](https://en.wikipedia.org/wiki/Moore_machine).

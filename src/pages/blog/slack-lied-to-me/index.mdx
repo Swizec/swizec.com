@@ -28,31 +28,31 @@ Instead, they don’t. Following the basic instructions, you get a grey bot imag
 
 And so it begins. Outdated documentation. ?
 
-Basic API spec says that you should post messages with an `as_user: true` flag, which makes the bot use its default settings from Step 1.
+Basic API spec says that you should post messages with an `{as_user: true}` flag, which makes the bot use its default settings from Step 1.
 
 ```ruby
 #Setup stuff, goes in a global file somewhere. config/initializers/slack.rb for instance
 
-<p>Slack.configure do |config|</p>
+Slack.configure do |config|
 
-<p>config.token = ENV[‘SLACK_API_TOKEN’]</p>
+config.token = ENV['SLACK_API_TOKEN']
 
-<p>end</p>
+end
 
 #Instantiate client
 
-<p>client = Slack::Web::Client.new</p>
+client = Slack::Web::Client.new
 
 #Send message to #general channel
 
-<p>client.chat_postMessage(channel: ‘#general’, text: ‘Hello World’, as_user: true)</p>
+client.chat_postMessage(channel: '#general', text: 'Hello World', as_user: true)
 ```
 
 That code throws an error `-> user not in channel`. So you dig through the documentation and find `channels_join`. But that throws an error, too `-> user is a bot`.
 
 Bots can’t join channels.
 
-If you remove `as_user: true`, then you can post, but you post without an avatar and without a username. Ugh.
+If you remove `{as_user: true}`, then you can post, but you post without an avatar and without a username. Ugh.
 
 The easiest workaround is to explicitly add a username and an avatar to your post call. It makes half of Step 1 redundant, but your bot messages look great, and your team gets excited.
 
@@ -72,16 +72,16 @@ Adding attachments looks like this for me:
 
 ```ruby
 client.chat_postMessage(
-	channel: '#bot-test',
-	text: "this is *bold*",
-	attachments: [{
-    color: 'warning',
-    fallback: title,
-    title: title,
-    title_link: session_url,
-    text: "*executed_at*\t*created_at*\t*user*\t*event*",
-    ts: Time.now.to_f
-}])
+    channel: '#bot-test',
+    text: "this is *bold*",
+    attachments: [{
+        color: 'warning',
+        fallback: title,
+        title: title,
+        title_link: session_url,
+        text: "*executed_at*\t*created_at*\t*user*\t*event*",
+        ts: Time.now.to_f
+    }])
 ```
 
 It creates a message like this:

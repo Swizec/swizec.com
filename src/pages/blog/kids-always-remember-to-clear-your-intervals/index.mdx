@@ -22,23 +22,23 @@ var data = _.range(250).map(function () {
 
 And your graph will look like this:
 
-![Completely random graph](./img/images-23704.png "Completely random graph")
+![Completely random graph](./img/images-23704.png)
 
 Well, that doesn't look realistic at all. Crazy spikes, deep valleys ... if a real-world system behaved like this you would be very concerned for its wellbeing. This won't do for a demo.
 
 And besides, you wanted a live graph anyway.
 
-So you move data generation into the backend and hook it up with [socket.io](http://socket.io/ "Socket.io"). Then you make a function that generates one datapoint every `250ms`.
+So you move data generation into the backend and hook it up with [socket.io](http://socket.io/). Then you make a function that generates one datapoint every `250ms`.
 
 Data generation looks like this:
 
 ```javascript
 io.on("connection", function (socket) {
   setInterval(function () {
-    socket.emit("cpu", update());
+    socket.emit("cpu", `{update()}`);
   }, 250);
 
-  function update() {
+  function `{update()}` {
     return Math.round(Math.random() * 100);
   }
 });
@@ -46,11 +46,11 @@ io.on("connection", function (socket) {
 
 Your graph now looks like this:
 
-![Moving random graph](./img/images-23705.gif "Moving random graph")
+![Moving random graph](./img/images-23705.gif)
 
 Yay! It moves!
 
-But still too random to look realistic. A [CPU](http://en.wikipedia.org/wiki/Central_processing_unit "Central processing unit") that behaves like that is in serious trouble!
+But still too random to look realistic. A [CPU](http://en.wikipedia.org/wiki/Central_processing_unit) that behaves like that is in serious trouble!
 
 What if instead of producing random values, we produced random changes to existing values? That could work. Remember the previous state, make a tiny random change.
 
@@ -61,11 +61,11 @@ io.on('connection', function (socket) {
     var previous = 0;
 
     setInterval(function () {
-        previous = update(previous);
+        previous = `{update(previous)}`;
         socket.emit('cpu', previous);
     }, 250);
 
-    function (previous) {
+    function `{update(previous)}` {
         previous += Math.random()*10-5;
         if (previous > 100) previous = 100;
         if (previous < 0) previous = 0;
@@ -77,15 +77,15 @@ io.on('connection', function (socket) {
 
 And the graph looks like this:
 
-![Fixed random graph, 1](./img/images-23706.gif "Fixed random graph, 1")
+![Fixed random graph, 1](./img/images-23706.gif)
 
 Or like this:
 
-![Fixed random graph, 2](./img/images-23707.gif "Fixed random graph, 2")
+![Fixed random graph, 2](./img/images-23707.gif)
 
 Or even like this:
 
-![Fixed random graph, 3](./img/images-23708.gif "Fixed random graph, 3")
+![Fixed random graph, 3](./img/images-23708.gif)
 
 Wait ... what? That's even worse than before! How is this possible, the value changes on each step are _tiny_?
 
@@ -110,11 +110,11 @@ io.on('connection', function (socket) {
     var previous = 0;
 
     var interval = setInterval(function () {
-        previous = update(previous);
+        previous = `{update(previous)}`;
         socket.emit('cpu', previous);
     }, 250);
 
-    function (previous) {
+    function `{update(previous)}` {
         previous += Math.random()*10-5;
         if (previous > 100) previous = 100;
         if (previous < 0) previous = 0;
@@ -130,7 +130,7 @@ io.on('connection', function (socket) {
 
 The graph looks like this:
 
-![Moving graph, good](./img/images-23710.gif "Moving graph, good")
+![Moving graph, good](./img/images-23710.gif)
 
 And all is right in the world.
 

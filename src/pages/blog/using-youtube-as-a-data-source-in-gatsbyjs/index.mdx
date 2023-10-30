@@ -79,7 +79,7 @@ Your basic approach goes like this:
 2.  Give up and realize you'll have to build it yourself
 3.  Strongly consider building a releasable plugin
 4.  Decide you're better off building a one-off integration
-5.  Spend the next hour fiddling inside `gatsby-node.js`
+5.  Spend the next hour fiddling inside `{gatsby-node.js}`
 
 Your goal is to read your data source and create Gatsby data nodes for each object you want to make available.
 
@@ -117,7 +117,7 @@ exports.sourceNodes = async ({ boundActionCreators }) => {
 };
 ```
 
-When Gatsby builds my site, it goes into `gatsby-nodes` and calls my node builder function. This uses `ypi` to fetch a list of videos from the hardcoded [Learn While You Poop playlist](https://www.youtube.com/playlist?list=PLF8WgaD4xmjWuh7FTYTealxehOuNor_2S).
+When Gatsby builds my site, it goes into `{gatsby-nodes}` and calls my node builder function. This uses `ypi` to fetch a list of videos from the hardcoded [Learn While You Poop playlist](https://www.youtube.com/playlist?list=PLF8WgaD4xmjWuh7FTYTealxehOuNor_2S).
 
 Yes, that means building the site is now slow. It has to talk to YouTube's API every time, but it’s worth it.
 
@@ -224,6 +224,6 @@ Component = ({ data }) => {
 
 Full page coming soon.
 
-![](./img/media-u0v3z2iQLxyHC-giphy.gif)
+![Full page coming soon](./img/media-u0v3z2iQLxyHC-giphy.gif)
 
 Should I make a real YouTube source plugin for Gatsby? [Ping me on Twitter](https://twitter.com/Swizec).

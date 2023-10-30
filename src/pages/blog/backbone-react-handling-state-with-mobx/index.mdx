@@ -20,9 +20,7 @@ I know this is a trivial example, but it shows a powerful concept. That `+1` but
 
 ![The Backbone view](./img/ZlUUWAf.gif)
 
-The Backbone view
-
-All three components share the same MobX data store, which has a single observable value called `N`. It looks like this:
+All three components share the same MobX data store, which has a single observable value called `{N}`. It looks like this:
 
 ```javascript
 class CounterStore {
@@ -69,7 +67,7 @@ class ReactButton extends Component {
         return (
             <div>
                 <p>React Button:</p>
-                <button onclick="{action('inc-counter'," this.buttonclicked.bind(this))}="">Jump click count +10</button>
+                <button onclick="{action('inc-counter'," this.buttonClicked.bind(this))}="">Jump click count +10</button>
             </div>
         );
     }
@@ -79,7 +77,7 @@ class ReactButton extends Component {
 class CurrentCount extends Component {
     render() {
         const { N } = this.props.counterStore;
-        return (<p>Current count in counterStore: {N}</p>)
+        return (<p>Current count in counterStore: `{N}`</p>)
     }
 }
 ```
@@ -167,8 +165,8 @@ It works like this:
 
 * when initializing the view in `_init` it:
 
-- creates a new `BackboneButton` instance and gives it the _value_ of `N` from our store
-- listens for changes to `N` on the view’s internal state and communicates them upstream with a MobX action
+- creates a new `BackboneButton` instance and gives it the _value_ of `{N}` from our store
+- listens for changes to `{N}` on the view’s internal state and communicates them upstream with a MobX action
 
 This approach is a leaky abstraction. The `_init` method has to know intimate details about the Backbone view you’re wrapping. There’s no way to get around that because MobX needs those getters and setters to observe state changes.
 

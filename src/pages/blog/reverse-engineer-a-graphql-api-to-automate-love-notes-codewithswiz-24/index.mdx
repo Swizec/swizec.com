@@ -66,7 +66,7 @@ You run the app on your phone, enable proxying, set up SSL proxy, and use the Lo
 
 SSL proxying is important. It lets you read the content of encrypted https connections and the target app doesn't even notice. Classic [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attack.
 
-[![List of API requests in Charles Proxy](./img/List-of-API-requests-in-Charles-Proxy1f47e3.png)](https://youtu.be/cvvPLlP4518?t=679)
+![List of API requests in Charles Proxy](./img/List-of-API-requests-in-Charles-Proxy1f47e3.png)
 
 You get a request trace that you can export to the Charles Proxy desktop app.
 
@@ -80,7 +80,7 @@ Looks like every note is sent as a base64-encoded PNG image. We tried pictures a
 
 The `recipient` must be my Lovebox's ID, `contentType` needs further exploration but `["Text"]` and `["Image"]` both worked, and `deviceId` looks like my phone. Not sure that's important.
 
-GraphQL ~~query~~ mutation in the request looks like this:
+GraphQL mutation in the request looks like this:
 
 ```graphql
 mutation sendPixNote(
@@ -142,7 +142,7 @@ Apollo's GraphQL Playground client lets you do that by changing variables bottom
 
 And the Lovebox displayed a blue fish.
 
-[![Blue fish on the box](./img/Blue-fish-on-the-boxd3dgf5.png)](https://youtu.be/cvvPLlP4518?t=2215)
+![Blue fish on the box](./img/Blue-fish-on-the-boxd3dgf5.png)
 
 Huzzah!
 
@@ -220,7 +220,7 @@ Later we'll add a cronjob trigger.
 $ sls invoke local -f sendNote
 ```
 
-![](giphy:fingers_crossed)
+![](https://media.giphy.com/media/xjZtu4qi1biIo/giphy.gif)
 
 [https://twitter.com/Swizec/status/1364050018064162824](https://twitter.com/Swizec/status/1364050018064162824)
 

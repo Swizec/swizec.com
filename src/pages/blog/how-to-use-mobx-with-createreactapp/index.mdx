@@ -14,9 +14,9 @@ hero: ../../../defaultHero.jpg
 
 Instead, you run `create-react-app MyThing`, and it sets everything up.
 
-If you like MobX, there's a crucial piece missing: decorators. You don't have to use decorators with MobX, but that's like saying you don't _have to_ use JSX with React. You don't "have to”; you "want to". Because that's what the library was designed for.
+If you like MobX, there's a crucial piece missing: decorators. You don't have to use decorators with MobX, but that's like saying you don't _have to_ use JSX with React. You don't "have to” - you "want to". Because that's what the library was designed for.
 
-MobX is a state management competitor to Redux, by the way. I like it because there's almost no boilerplate. We've been using at The Day Job™ and it's been amaze so far.
+MobX is a state management competitor to Redux, by the way. I like it because there's almost no boilerplate. We've been using it at The Day Job™ and it's been amaze so far.
 
 A React component that reacts to MobX data store changes would use the `@observer` decorator. Like this:
 
@@ -26,7 +26,7 @@ import { observer } from "mobx-react"
 @observer
 class Hello extends Component {
   render() {
-    return <h1>Hello {this.props.store.name}</h1>
+    return <h1>Hello {`this.props.store.name`}</h1>
   }
 }
 ```
@@ -64,4 +64,4 @@ Ok, so here's what you do when setting up a new React app:
 
 **5)** Run `npm install --save mobx mobx-react`. This installs MobX.
 
-You're ready to go. Happy hacking! ?
+You're ready to go. Happy hacking!

@@ -35,9 +35,9 @@ _"Now I want Button to open the shopping cart and I want ClickMe to close the pa
 Okay, we can do that.
 
 ```javascript
-const Button = () => <button onclick={openCart}>Button</button>;
+const Button = () => <button onclick={`{openCart}`}>Button</button>;
 
-const ClickMe = () => <button onclick={closePage}>ClickMe</button>;
+const ClickMe = () => <button onclick={`{closePage}`}>ClickMe</button>;
 ```
 
 _"Wonderful. Beautiful buttons. I want a third button, and this one should close the currently open modal."_
@@ -54,17 +54,16 @@ const GenericButton = ({ onClick, label }) => (
 )
 
 const Button = () => (
-    <genericbutton onclick={openCart} label="Button">
+    <GenericButton onclick={`{openCart}`} label="Button" />
 )
 
 const ClickMe = () => (
-    <genericbutton onclick={closePage} label="ClickMe">
+    <GenericButton onclick={`{closePage}`} label="ClickMe" />
 )
 
 const CloseModal = () => (
-    <genericbutton onclick={closeModal} label="Close Modal">
+    <GenericButton onclick={`{closeModal}`} label="Close Modal" />
 )
-</genericbutton></genericbutton></genericbutton>
 ```
 
 _"Wonderful. Can we make all those buttons 20px font?"_
@@ -75,7 +74,7 @@ You've just DRY'd up your code, and here's your first victory. Buttons use a com
 
 ```javascript
 const GenericButton = ({ onClick, label }) => (
-    <button 20="" onclick={onClick} style={{ fontsize: }}>
+    <button onclick={onClick} style={{ fontSize: 20 }}>
         {label}
     </button>
 )
@@ -83,7 +82,7 @@ const GenericButton = ({ onClick, label }) => (
 
 All your buttons now have a bigger font. DRY Magic.
 
-![](./img/media-12NUbkX6p4xOO4-giphy.gif)
+![DRY Magic](./img/media-12NUbkX6p4xOO4-giphy.gif)
 
 A true victory for engineering. You pat yourself on the back for an architecture well designed, code cleaned up. You followed some great engineering principles! 👏
 
@@ -95,23 +94,22 @@ Okay, that's annoying, why 3 different buttons, but you can extend `GenericButto
 
 ```javascript
 const GenericButton = ({ onClick, label, style }) => (
-    <button onclick={onClick} style={{ fontsize: 20, ...style }}>
+    <button onclick={onClick} style={{ fontSize: 20, ...style }}>
         {label}
     </button>
 )
 
 const Button = () => (
-    <genericbutton onclick={openCart} label="Button" style={{ background: 'green' }}>
+    <GenericButton onclick={`{openCart}`} label="Button" style={{ background: 'green' }} />
 )
 
 const ClickMe = () => (
-    <genericbutton onclick={closePage} label="ClickMe" style={{ background: 'blue' }}>
+    <GenericButton onclick={`{closePage}`} label="ClickMe" style={{ background: 'blue' }} />
 )
 
 const CloseModal = () => (
-    <genericbutton onclick={closeModal} label="Close Modal" style={{ background: 'green' }}>
+    <GenericButton onclick={`{closeModal}`} label="Close Modal" style={{ background: 'red' }} />
 )
-</genericbutton></genericbutton></genericbutton>
 ```
 
 You had to add styles to every call of `GenericButton`, but that's okay. At least you have components so you didn't have to find every single invocation of any button and change them.
@@ -124,7 +122,7 @@ A-ha! You were smart. You wrote `GenericButton` so styles provided through props
 
 `{{ fontSize: 20, ...style }}` versus `{{ ... style, fontSize: 20 }}`.
 
-![](./img/media-d3mlE7uhX8KFgEmY-giphy.gif)
+![A-ha moment](./img/media-d3mlE7uhX8KFgEmY-giphy.gif)
 
 _"CloseModal and Button should be disabled when they're inactive"_
 
@@ -132,7 +130,7 @@ Hmm… 2 of your 3 buttons need new behavior. Best add it to the base implementa
 
 ```javascript
 const GenericButton = ({ onClick, label, active, style }) => (
-  <button onclick={onClick} disabled style={{ fontsize: 20, ...style }}>
+  <button onclick={onClick} disabled={`{!active}`} style={{ fontSize: 20, ...style }}>
     {label}
   </button>
 );
@@ -153,7 +151,7 @@ const GenericButton = ({ onClick, label, active, style }) => {
   active = active === undefined ? true : active;
 
   return (
-    <button onclick={onClick} disabled style={{ fontsize: 20, ...style }}>
+    <button onclick={onClick} disabled={`{!active}`} style={{ fontSize: 20, ...style }}>
       {label}
     </button>
   );
@@ -202,6 +200,6 @@ But one day! One glorious day, your PM gives you a task. A task from the gods. Y
 
 You are a god of prediction! You knew it all along!
 
-![](./img/media-ibGFpMv1Uoais-giphy.gif)
+![Excitement](./img/media-ibGFpMv1Uoais-giphy.gif)
 
 You delete your code and start from scratch. The feature is so different that you can't use any of it.

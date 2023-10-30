@@ -16,7 +16,7 @@ I wanted to inject interestingness into the animated particles experiment. Take 
 
 It did not go so well.
 
-> [](//imgur.com/dERre)
+> [""](//imgur.com/dERre)
 
 Sure, I had _some_ idea that deriving electrostatic force equations from scratch was hard, but it’s 2016, we know this stuff! Teachers show it to us in middle school and high school and college too. How hard can it be?
 
@@ -28,11 +28,11 @@ The article does link to [Coulomb’s law](https://en.wikipedia.org/wiki/Coulomb
 
 How cool is it that we had a real life theoretical physicist on the live stream? Wow.
 
-The formula he gave says that force between a static charge and a particle is equal to `1/r^2`, where `r` is the euclidian distance between two points. We get it using Pythagorus’ formula:
+The formula he gave says that force between a static charge and a particle is equal to `1/r^2`, where `r` is the euclidean distance between two points. We get it using Pythagorus’ formula:
 
-    dx = x1 - x2
-    dy = y1 - y2
-    r^2 = dx^2 + dy^2
+    `dx = x1 - x2`
+    `dy = y1 - y2`
+    `r^2 = dx^2 + dy^2`
 
 Remember middle school maths and asking the professor _“But miiiissss when will I ever need this in real life?”_. When you’re coding cool stuff, that’s when.
 
@@ -45,15 +45,15 @@ We use the calculation for each static charge. Like this:
 ```javascript
 // reducer that moves each particle
 
-p.x += vx * multiplier;
-p.y += vy * multiplier;
+`p.x += vx * multiplier;`
+`p.y += vy * multiplier;`
 
 state.charges.forEach((charge) => {
-  let dx = p.x - charge.x,
-    dy = p.y - charge.y,
+  let `dx = p.x - charge.x`,
+    `dy = p.y - charge.y`,
     r2 = dx * dx + dy * dy,
-    rX = (dx < 0 ? -(1 / r2) : 1 / r2) * charge.strength,
-    rY = (dy < 0 ? -(1 / r2) : 1 / r2) * charge.strength;
+    `rX = (dx < 0 ? -(1 / r2) : 1 / r2) * charge.strength`,
+    `rY = (dy < 0 ? -(1 / r2) : 1 / r2) * charge.strength`;
 
   p.x += rX;
   p.y += rY;
@@ -64,7 +64,7 @@ First we calculate each particle’s new position, then go through the list of c
 
 And voila.
 
-> [](//imgur.com/dERre)
+> [""](//imgur.com/dERre)
 
 This week I want to play with an interesting dataset of some sort. Something that takes a lot of moving parts to showcase … ideas?
 

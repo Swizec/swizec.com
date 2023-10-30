@@ -24,7 +24,7 @@ Until spooky things started to happen. Events un-cancelling long after they were
 
 🤨
 
-What could it be!? A distributed systems problem with updates being dropped? Wonky eventual consistency? Silent errors we don't notice? Accidentally [unresolved promises](https://swizec.com/blog/finding-unresolved-promises-in-javascript/) causing issues?
+What could it be!? A distributed systems problem with updates being dropped? Wonky eventual consistency? Silent errors we don't notice? Accidentally [`unresolved promises`](https://swizec.com/blog/finding-unresolved-promises-in-javascript/) causing issues?
 
 Nope it was nothing fun like that. A *massive* amount of logging revealed we were overwriting our own data. Changing events to drop fields 🤦‍♀️
 
@@ -38,11 +38,11 @@ Say you create an event on the user's calendar. Friday 1pm for an hour. You POST
 
 ```javascript
 {
-	calendar_id: 1234
+	calendar_id: 1234,
 	attendees: [
 		{ user_id: 1234 }
 	],
-	start: '2022-10-28T20:00:00.000Z'
+	start: '2022-10-28T20:00:00.000Z',
 	end: '2022-10-28T21:00:00.000Z'
 }
 ```
@@ -55,12 +55,12 @@ That's right, you send the whole object again.
 
 ```javascript
 {
-	calendar_id: 1234
+	calendar_id: 1234,
 	attendees: [
 		{ user_id: 1234 }
 	],
-	start: '2022-10-28T20:00:00.000Z'
-	end: '2022-10-28T21:00:00.000Z'
+	start: '2022-10-28T20:00:00.000Z',
+	end: '2022-10-28T21:00:00.000Z',
 	status: 'cancelled'
 }
 ```
@@ -71,12 +71,12 @@ That's right, you send the whole object again!
 
 ```javascript
 {
-	calendar_id: 1234
+	calendar_id: 1234,
 	attendees: [
 		{ user_id: 1234 },
 		{ user_id: 1235 }
 	],
-	start: '2022-10-28T20:00:00.000Z'
+	start: '2022-10-28T20:00:00.000Z',
 	end: '2022-10-28T21:00:00.000Z'
 }
 ```
@@ -95,11 +95,11 @@ First we create the event:
 
 ```javascript
 {
-	calendar_id: 1234
+	calendar_id: 1234,
 	attendees: [
 		{ user_id: 1234 }
 	],
-	start: '2022-10-28T20:00:00.000Z'
+	start: '2022-10-28T20:00:00.000Z',
 	end: '2022-10-28T21:00:00.000Z'
 }
 ```
@@ -128,13 +128,13 @@ The system merges all this data into the final object:
 
 ```javascript
 {
-	event_id: ...
-	calendar_id: 1234
+	event_id: ...,
+	calendar_id: 1234,
 	attendees: [
 		{ user_id: 1234 },
 		{ user_id: 1235 }
 	],
-	start: '2022-10-28T20:00:00.000Z'
+	start: '2022-10-28T20:00:00.000Z',
 	end: '2022-10-28T21:00:00.000Z',
 	status: 'cancelled'
 }

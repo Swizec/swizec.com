@@ -16,7 +16,7 @@ _CodeWithSwiz is a twice-a-week live show. Like a podcast with video and fun hac
 
 This has made lots of people very confused. Me included. Come back 6 months later trying to fix a bug and why is there a `dispatch({ type: 'startAuthenticating' })` in 5 different places wtf??
 
-![](giphy:confused)
+![giphy:confused](giphy:confused)
 
 _"Don't invent new state management schemes, got it"_ right? No. Don't make your core state messy and confusing 😉
 
@@ -94,7 +94,7 @@ export const useAuth: useAuthInterface = () => {
         navigate,
         customPropertyNamespace
     } = useContext(AuthContext);
-```
+``` 
 
 Anything inside `useAuth` now has access to these values. Helper methods can check `state`, `dispatch` reducer actions, and look at the meta values.
 

@@ -12,7 +12,7 @@ _\[This post is part of an ongoing challenge to understand 52 papers in 52 weeks
 
 [The Myriad Virtues of Wavelet Trees](http://www.sciencedirect.com/science/article/pii/S0890540108001594) is a 2009 CS paper written by Ferragina, Giancarlo, and Manzini. The holiday cheer the past few days made this one hard to understand and write about ... something about focus.
 
-It talks about using Wavelet Trees as a stand-alone [compression algorithm](http://en.wikipedia.org/wiki/Data_compression "Data compression") and as on top of some popular string encodings like run-length encoding, [move-to-front transform](http://en.wikipedia.org/wiki/Move-to-front_transform "Move-to-front transform") and the [Burrows-Wheeler transform](http://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform "Burrows–Wheeler transform"). The results are pretty cool, but not revolutionary. The authors just improved some additive terms in lower and upper bounds of achievable compression.
+It talks about using Wavelet Trees as a stand-alone [compression algorithm](http://en.wikipedia.org/wiki/Data_compression) and as on top of some popular string encodings like run-length encoding, [move-to-front transform](http://en.wikipedia.org/wiki/Move-to-front_transform) and the [Burrows-Wheeler transform](http://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform). The results are pretty cool, but not revolutionary. The authors just improved some additive terms in lower and upper bounds of achievable compression.
 
 ## Background knowledge
 
@@ -20,11 +20,11 @@ Before we can get into the meat of this paper, you'll need to know about Wavelet
 
 **Wavelet Trees** recursively partition the source alphabet into pairs of subsets, then mark which branch of the tree a particular symbol goes into. To reconstruct elements at you just walk the tree until you find the leaf and voila, done.
 
-![Wavelet tree for the string "abracadabra"](./img/images-6200.png 'Wavelet tree for the string "abracadabra"')
+![Wavelet tree for the string "abracadabra"](./img/images-6200.png)
 
 Phew, that was simple. Now we just need the transforms.
 
-We can do to lower the [entropy](http://en.wikipedia.org/wiki/Entropy "Entropy") of a string to make it easier to compress. Entropy is a measure of how disorganised our string is. You can also think of it as information density.
+We can do to lower the [entropy](http://en.wikipedia.org/wiki/Entropy) of a string to make it easier to compress. Entropy is a measure of how disorganised our string is. You can also think of it as information density.
 
 The paper references two transforms whose aim is to turn a fuzzy string into a string with many runs of the same character: move to front and Burrows-Wheeler transform.
 
@@ -34,7 +34,7 @@ To reverse the encoding you just re-do the same algorithm again, except replacin
 
 The **Burrows-Wheeler transform** is a bit more complicated. This one uses sorted rotations of a string. Basically, take all permutations, sort them alphabetically, take the last column.
 
-![BANANA Burrows-Wheeler transform](./img/images-6213.png "BANANA Burrows-Wheeler transform")
+![BANANA Burrows-Wheeler transform](./img/images-6213.png)
 
 Reversing a transformed string is simple as well - take the transformed string and sort it. Now you have two columns. Take these pairs of characters and sort them to create more columns. Repeat until you have all the permutations of the original string and take the one where the end-of-file character is last. Voila.
 
@@ -44,7 +44,7 @@ After you have a string transformed into a form with less entropy there are a nu
 
 So how can wavelet trees help make all this better?
 
-The authors analyse Wavelet Trees as stand-alone compressors and as compressors of run-length encoded strings - [RLE](http://en.wikipedia.org/wiki/Run-length_encoding "Run-length encoding") Wavelet Trees - and gap encoded string - GE Wavelet Trees. They also show a theoretical justification for Wavelet Trees being better in practice than move-to-front coding.
+The authors analyse Wavelet Trees as stand-alone compressors and as compressors of run-length encoded strings - [RLE](http://en.wikipedia.org/wiki/Run-length_encoding) Wavelet Trees - and gap encoded string - GE Wavelet Trees. They also show a theoretical justification for Wavelet Trees being better in practice than move-to-front coding.
 
 The meat of the article is using Wavelet Trees to compress the output of the Burrows-Wheeler transform and introducing the concept of Generalised Wavelet Trees, which can reach compression almost on the level of theoretical bound for optimal coding even for mixed strings.
 
@@ -52,7 +52,7 @@ Ultimately, we're going to beat the theoretical compression limit _H0 = -Σi=1h(
 
 For highly compressible strings this bound doesn't make much sense, so the authors found a better one, _H0_\*:
 
-![0-th order entropy for highly compressible strings](./img/images-6217.png "0-th order entropy for highly compressible strings")
+![0-th order entropy for highly compressible strings](./img/images-6217.png)
 
 Our approach is going to beat this by having symbol codewords depend on _k_ preceding symbols, giving us k-th order entropy of _Hk_(s)\* - the maximum achievable compression by looking at _no more than k_ preceding symbols.
 
@@ -64,25 +64,25 @@ To combine wavelet trees and run length encoding for a string we first define a 
 
 This has a lower bound with a glorious equation, essentially saying that the length of a _CRLE(s)_ string is the sum of its parts and is shorter than twice the length of _s_ multiplied by _H0_(s)\* and _b+1_.
 
-![Length of C<sub>RLE</sub>](./img/images-6221.png "Length of C<sub>RLE</sub>")
+![Length of C<sub>RLE</sub>](./img/images-6221.png)
 
-Now we can combine wavelet trees and run length encoding into 'rle*wt', or **RLE Wavelet Trees**, which first encodes the string with \_CPF* to make a [Wavelet Tree](http://en.wikipedia.org/wiki/Wavelet_Tree "Wavelet Tree"), then compresses its internal nodes with _CRLE_. This produces shorter strings than just _CRLE_ with a bound of:
+Now we can combine wavelet trees and run length encoding into 'rle*wt', or **RLE Wavelet Trees**, which first encodes the string with \_CPF* to make a [Wavelet Tree](http://en.wikipedia.org/wiki/Wavelet_Tree), then compresses its internal nodes with _CRLE_. This produces shorter strings than just _CRLE_ with a bound of:
 
-![New bound](./img/images-6222.png "New bound")
+![New bound](./img/images-6222.png)
 
 I'm not entirely certain I understand why this equation says the bound is lower than before, so let's just believe the authors. This produces better compressed strings.
 
 For string 'dabbdabc' our algorithm would produce a skewed Wavelet Tree, with 'b' in the left-most leaf since it appears the most.
 
-![Skewed Wavelet Tree](./img/images-6223.png "Skewed Wavelet Tree")
+![Skewed Wavelet Tree](./img/images-6223.png)
 
 To get GE Wavelet Trees, 'ge*wt', we first define a gap encoding called \_CGap*, which encodes binary strings by noting where 1's are located in the string. This creates a lower bound for compression of:
 
-![C<sub>Gap</sub> bound](./img/images-6224.png "C<sub>Gap</sub> bound")
+![C<sub>Gap</sub> bound](./img/images-6224.png)
 
 As with _CRLE_ before, we make a Wavelet Tree from our string then use _CGap_ to encode the internal nodes. Because we're just encoding the number of occurrences of a substring between boundaries, we can compress strings very well.
 
-![ge_wt bound](./img/images-6225.png "ge_wt bound")
+![ge_wt bound](./img/images-6225.png)
 
 ## RLE wavelet trees and bwt
 

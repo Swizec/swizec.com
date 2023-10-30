@@ -20,12 +20,12 @@ Luckily, that's a very simple fix:
 
 ```python
 # codegolf version (90 characters):
-[{0:"fizzbuzz"}.get(x%(3*5),{0:"fizz"}.get(x%3,{0:"buzz"}.get(x%5,x)))for x in range(101)]
+[`{0:"fizzbuzz"}`.get(x%(3*5),`{0:"fizz"}`.get(x%3,`{0:"buzz"}`.get(x%5,x)))for x in range(101)]
 
 # slightly more readable:
-[{0: "fizzbuzz"}.get(x%(3*5),
-                     {0: "fizz"}.get(x%3,
-                                     {0: "buzz"}.get(x%5, x)))
+[`{0: "fizzbuzz"}`.get(x%(3*5),
+                     `{0: "fizz"}`.get(x%3,
+                                     `{0: "buzz"}`.get(x%5, x)))
  for x in range(101)]
 ```
 
@@ -45,4 +45,4 @@ The best Scala solution so far is 106 characters.
 
 No really, I will send a bottle of beer anywhere in the world if you write a shorter solution. Of course, if feasible, I would prefer to take you out for a beer than use snail mail :)
 
-![Beer bottles by photos for fun](./img/122-295555757_6d62ff89ee.jpg "Beer bottles by photos for fun")
+![Beer bottles by photos for fun](./img/122-295555757_6d62ff89ee.jpg)

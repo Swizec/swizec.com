@@ -8,13 +8,13 @@ categories: "Application programming interface, django, Form (web), Google AppEn
 hero: ../../../defaultHero.jpg
 ---
 
-Officially this is something that cannot be done. Or rather that shouldn't be done. When you look at the [google appengine](http://code.google.com/appengine/ "Google App Engine") docs on "[uploading](http://en.wikipedia.org/wiki/Uploading_and_downloading "Uploading and downloading") to blobstore" this is what they have to say:
+Officially this is something that cannot be done. Or rather that shouldn't be done. When you look at the [google appengine](http://code.google.com/appengine) docs on "[uploading](http://en.wikipedia.org/wiki/Uploading_and_downloading) to blobstore" this is what they have to say:
 
 > Blobs are useful for serving large files, such as video or image files, and for allowing users to upload large data files.
 >
-> To prompt a user to upload a Blobstore value, your app presents a [web form](http://en.wikipedia.org/wiki/Form_%28web%29 "Form (web)") with a file upload field.
+> To prompt a user to upload a Blobstore value, your app presents a [web form](http://en.wikipedia.org/wiki/Form_%28web%29) with a file upload field.
 
-So ok, obviously the official documentation isn't of much use here since it only talks about letting users upload files. But I needed something different. I needed to fetch an image from an url (gotten by intricate means, different story) and store it in the blobstore so it could later be served to many users. Obviously since [file access](http://en.wikipedia.org/wiki/File_system "File system") isn't permitted on appengine the only choice left was storing the file in the blobstore.
+So ok, obviously the official documentation isn't of much use here since it only talks about letting users upload files. But I needed something different. I needed to fetch an image from an url (gotten by intricate means, different story) and store it in the blobstore so it could later be served to many users. Obviously since [file access](http://en.wikipedia.org/wiki/File_system) isn't permitted on appengine the only choice left was storing the file in the blobstore.
 
 Naturally someone else has had this problem before right?
 
@@ -22,7 +22,7 @@ No. There are no solutions I could find online. None. Nada. Zilch. Niente.
 
 After a few hours of hacking a week or so ago, however, I got it working.
 
-Essentially the solution is to fake a form post to the blobstore url the [API](http://en.wikipedia.org/wiki/Application_programming_interface "Application programming interface") creates. An interesting gotcha is that a redirect happens. Initially I thought I was making the form post right back to my application, but apparently you're first posting to the blobstore, then the blobstore posts back to you. For some reason I couldn't keep the associated meta-data to go through with the request so there's an ugly-ish workaround that happens.
+Essentially the solution is to fake a form post to the blobstore url the [API](http://en.wikipedia.org/wiki/Application_programming_interface) creates. An interesting gotcha is that a redirect happens. Initially I thought I was making the form post right back to my application, but apparently you're first posting to the blobstore, then the blobstore posts back to you. For some reason I couldn't keep the associated meta-data to go through with the request so there's an ugly-ish workaround that happens.
 
 Another thing that's important to note for this tutorial/howto is that I am using django-nonrel and that the initial event that starts the process is triggered by appengine's task queue.
 
@@ -61,7 +61,7 @@ class ArticleProcForm(forms.Form):
 @form_valid(ArticleProcForm, 'POST')
 def article(request):
     try:
-        article = Article.objects.get(id=request.form.cleaned_data['article'])
+        article = Article.objects.get(id={request.form.cleaned_data['article']})
     except Article.DoesNotExist:
         return HttpResponse(json.dumps({'status': 'Bad Article'}))
 
@@ -91,7 +91,7 @@ def article(request):
 Here is basically what happens in the important bit:
 
 1.  Download image from url and change it to a StringIO
-2.  Make an UploadFile (basically a bundle of [byte-string](http://en.wikipedia.org/wiki/String_%28computer_science%29 "String (computer science)")-data and desired filename)
+2.  Make an UploadFile (basically a bundle of [byte-string](http://en.wikipedia.org/wiki/String_%28computer_science%29)-data and desired filename)
 3.  Create an upload_url with the blobstore API
 4.  Fake a file-upload form post
 
@@ -130,7 +130,7 @@ def get_uploads(request, field_name=None, populate_post=False):
 
     if hasattr(request,'__uploads') == False:
         request.META['wsgi.input'].seek(0)
-        fields = cgi.FieldStorage(request.META['wsgi.input'], environ=request.META)
+        fields = cgi.FieldStorage({request.META['wsgi.input']}, environ=request.META)
 
         request.__uploads = {}
         if populate_post:
@@ -163,7 +163,7 @@ class ImageForm(forms.Form):
 @form_valid(ImageForm, 'GET')
 @cache_response
 def image(request):
-    blob = BlobInfo.gql("WHERE filename='%s' LIMIT 1" % request.form.cleaned_data['id'])[0]
+    blob = BlobInfo.gql("WHERE filename='%s' LIMIT 1" % {request.form.cleaned_data['id']})[0]
 
     return HttpResponse(BlobReader(blob.key()).read(),
                         content_type=blob.content_type)
@@ -184,4 +184,4 @@ You can get it [at github](http://github.com/Swizec/urllib2_file), feel free to 
 - [App Engine SDK 1.3.5 Released With New Task Queue, Python Precompilation, and Blob Features](http://googleappengine.blogspot.com/2010/06/app-engine-sdk-135-released-with-new.html) (googleappengine.blogspot.com)
 - [Parsing file uploads at 500 mb/s with node.js](http://debuggable.com/posts/parsing-file-uploads-at-500-mb-s-with-node-js:4c03862e-351c-4faa-bb67-4365cbdd56cb) (debuggable.com)
 
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=82ae7610-8dea-47af-9e81-485f91ffacd6)](http://www.zemanta.com/ "Enhanced by Zemanta")
+[Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=82ae7610-8dea-47af-9e81-485f91ffacd6)

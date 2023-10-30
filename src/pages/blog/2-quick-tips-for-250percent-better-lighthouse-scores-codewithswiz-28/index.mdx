@@ -87,7 +87,7 @@ Like this:
 import coverImg from "../images/cover.png"
 
 // ...
-;<img src={coverImg} />
+`<img src={coverImg} />`
 ```
 
 That works. You can import images like they're code in every modern JavaScript environment.
@@ -100,12 +100,12 @@ Here's what you can do since Gatsby v3 – a new image component with a fantasti
 import { StaticImage } from "gatsby-plugin-image"
 
 // ...
-;<StaticImage
+`<StaticImage
   src="../images/cover.png"
   alt="Serverless Handbook cover"
   loading="eager"
   objectFit="cover"
-/>
+/>`
 ```
 
 `StaticImage` loads your image at build-time, optimizes into different formats, resizes to fit your container, and handles rendering in the browser.
@@ -113,7 +113,7 @@ import { StaticImage } from "gatsby-plugin-image"
 The final result is an `<img>` tag like this:
 
 ```html
-<img
+`<img
   data-gatsby-image-ssr=""
   data-main-image=""
   style="object-fit: cover; object-position: 50 50; opacity: 1;"
@@ -127,7 +127,7 @@ The final result is an `<img>` tag like this:
     /static/12464dcff493620208d29a0abec73bb7/69e59/cover.png 1877w
   "
   alt="Serverless Handbook cover"
-/>
+/>`
 ```
 
 Notice how many different sizes there are. That's so your phone loads the 469px image and your computer loads 1877px. Huge difference in file size.

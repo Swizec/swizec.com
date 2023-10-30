@@ -14,7 +14,7 @@ We were building our own Windows clone. In [Turbo Pascal](https://en.wikipedia.o
 
 If you're too young to know about textual user interfaces, they looked like this:
 
-![](./img/wikipedia-commons-c-c5-Fdedit.png)
+![Textual user interfaces](./img/wikipedia-commons-c-c5-Fdedit.png)
 
 It's got windows, buttons, a mouse cursor, and everything else you'd want in a modern user interface. Except graphics. It's all made with ASCII characters.
 
@@ -126,13 +126,13 @@ So?
 
 You're going to go into your super fancy logic and insert a bunch of if statements all the time?
 
-if goNext and currentScreen is 'phone' and userSubscribed and…
+if goNext and `{currentScreen}` is 'phone' and `{userSubscribed}` and…
 
 Fuck.That.
 
 Here's how you do it:
 
-    [() => userSubscribed ? <CreditCard /> : <DoTheThing />, ...]
+    [() => `{userSubscribed}` ? <CreditCard /> : <DoTheThing />, ...]
 
 Put functions in your previous/next logic! Core logic stays simple, end result for user is a complex tree of options.
 

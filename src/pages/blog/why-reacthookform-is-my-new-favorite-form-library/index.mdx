@@ -48,7 +48,7 @@ That sure blew up 😅
 
 State up the wazoo, re-renders on any field change, and you haven't even thought about validation, error states, dirty states, and all the rest that goes into a form.
 
-You're smart and you can make this work. I know you can .
+You're smart and you can make this work. I know you `can`.
 
 But imagine a monster form like I was dealing with last week.
 
@@ -58,7 +58,7 @@ https://twitter.com/Swizec/status/1288627385990918144
 
 ## Custom form generators help
 
-You can [build a form generator](https://swizec.com/blog/why-you-should-build-a-form-generator/) to remove the repetitive work.
+You `can` [build a form generator](https://swizec.com/blog/why-you-should-build-a-form-generator/) to remove the repetitive work.
 
 Helper component, a loop or two, and off you go, right?
 
@@ -114,7 +114,7 @@ function valueSetter(name) {
 ;<Input name="lastName" value={lastName} setValue={valueSetter("lastName")} />
 ```
 
-Your form state lives inside an object – one key per field. You can always see current state and you always know what's going on.
+Your form state lives inside an object – one key per field. You `can` always see current state and you always know what's going on.
 
 For easy updates you've got the `valueSetter` method that returns a function to update a single field.
 
@@ -124,7 +124,7 @@ You're triggering a full re-render for every field change, you don't have valida
 
 _PS: dirty fields are fields that changed and the value hasn't been saved yet_
 
-![loser giphy](./img/media-mcH0upG1TeEak-giphy.gif)
+![loser giphy](./img/media-mcH0upG1TeEak-giphy.gif "loser giphy")
 
 ## react-hook-form makes everything better
 
@@ -161,7 +161,7 @@ The `register` method returns a React ref and sets up the form machinery.
 
 And when you're ready to submit, values come as an object with a key for every field.
 
-![love giphy](./img/media-26FLdmIp6wJr91JAI-giphy.gif)
+![love giphy](./img/media-26FLdmIp6wJr91JAI-giphy.gif "love giphy")
 
 You get HTML5 validations out of the box. They show up in the `errors` object. Like this:
 
@@ -188,9 +188,9 @@ const { register, handleSubmit, errors } = useForm()
 
 By default validations run on change.
 
-![](./img/8OoC3l4.gif)
+![on change validation](./img/8OoC3l4.gif "on change validation")
 
-And you can change that with a line of code 😍
+And you `can` change that with a line of code 😍
 
 ```javascript
 const { register, handleSubmit, errors } = useForm({
@@ -198,7 +198,7 @@ const { register, handleSubmit, errors } = useForm({
 })
 ```
 
-![](./img/DnFojjm.gif)
+![on blur validation](./img/DnFojjm.gif "on blur validation")
 
 ### Add context for more flexibility
 
@@ -237,7 +237,7 @@ const Input = ({ name, placeholder }) => {
 
 Every field validates a 2 character `minLength` and displays its own errors.
 
-![](./img/t10OP3q.gif)
+![context sweep](./img/t10OP3q.gif "context sweep")
 
 Using them in a form looks easy now:
 
@@ -245,7 +245,7 @@ Using them in a form looks easy now:
 <Input name="firstName" />
 ```
 
-![excited giphy](./img/media-UO5elnTqo4vSg-giphy.gif)
+![excited giphy](./img/media-UO5elnTqo4vSg-giphy.gif "excited giphy")
 
 ### Add Yup for big validations
 
@@ -255,15 +255,15 @@ Render a form, pepper it with `<Input name="X" />` fields and voila. Happy boss,
 
 And then it's time for real validations. Not `minLength` or `required`. _Real_ validations. The kind where `lastName` is required, but only if `firstName` is filled in.
 
-![gulp giphy](./img/media-13YroVUrUrLCec-giphy-downsized-medium.gif)
+![gulp giphy](./img/media-13YroVUrUrLCec-giphy-downsized-medium.gif "gulp giphy")
 
-You can add [yup](https://github.com/jquense/yup) for that. react-hook-form supports it out of the box ✌️
+You `can` add [yup](https://github.com/jquense/yup) for that. react-hook-form supports it out of the box ✌️
 
 Here's the example above that validates you wrote the whole address, but only if you wrote the street name.
 
 https://codesandbox.io/s/dreamy-rain-xoc5s
 
-![](./img/SrY8mvc.gif)
+![complete address validation](./img/SrY8mvc.gif "complete address validation")
 
 To make that happen you 👇
 
@@ -309,7 +309,7 @@ And change your `register` call back to vanilla:
 
 And you've got reusable field components that work with any form. Pop them in, set the schema, get validations and error handling and all the rest.
 
-![peace giphy](./img/media-xUPGcyuPRNjODvvOFO-giphy.gif)
+![peace giphy](./img/media-xUPGcyuPRNjODvvOFO-giphy.gif "peace giphy")
 
 Happy hacking
 

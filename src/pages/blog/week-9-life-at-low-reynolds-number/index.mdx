@@ -10,13 +10,13 @@ hero: ./img/images-5749.png
 
 _\[This post is part of an ongoing challenge to understand 52 papers in 52 weeks. You can read previous entries, [here](https://swizec.com/categories/52papers52weeks)]_
 
-Have you ever wondered how [micro-organisms](http://en.wikipedia.org/wiki/Microorganism "Microorganism") can just live in a drop of water like that? I have and now I have an answer.
+Have you ever wondered how [micro-organisms](http://en.wikipedia.org/wiki/Microorganism) can just live in a drop of water like that? I have and now I have an answer.
 
 Part of the answer anyway ... the part explaining how come water looks so solid to those creatures and how that affects their behaviour. The answer comes from a talk [Life at Low Reynolds Number](http://jila.colorado.edu/perkinsgroup/Purcell_life_at_low_reynolds_number.pdf) given by E. M. Purcell and published as a paper in June 1976.
 
 ## What is a Reynold's number
 
-In fluid dynamics [Reynold's number](http://en.wikipedia.org/wiki/Reynold%27s_number) is the ratio between inertial and [viscous forces](http://en.wikipedia.org/wiki/Viscosity "Viscosity") for an object moving through a fluid. It depends on the object's dimensions - usually just one significant dimension - its velocity, and the fluid's density and viscosity.
+In fluid dynamics [Reynold's number](http://en.wikipedia.org/wiki/Reynold%27s_number) is the ratio between inertial and [viscous forces](http://en.wikipedia.org/wiki/Viscosity) for an object moving through a fluid. It depends on the object's dimensions - usually just one significant dimension - its velocity, and the fluid's density and viscosity.
 
 You can think of it as a measure of how well a particular object is going to travel through a particular fluid at a certain velocity.
 
@@ -26,7 +26,7 @@ In the formula, 'ρ' is the fluid's density, 'v' is the object's velocity, 'L' i
 
 For a person swimming in water 'Re' would be in the order of 104, for a small fish it can go as far down as 102. Which might be why they're so difficult to catch with your bare hands. Water just feels more solid to them than to you.
 
-But at the [microscopic scale](http://en.wikipedia.org/wiki/Microscopic_scale "Microscopic scale"), for something like a paramecium or a bacteria, the 'Re' of water will go as far down as 10-4. At that scale, inertia simply stops existing.
+But at the [microscopic scale](http://en.wikipedia.org/wiki/Microscopic_scale), for something like a paramecium or a bacteria, the 'Re' of water will go as far down as 10-4. At that scale, inertia simply stops existing.
 
 At Reynold's numbers that small, the only thing that matters are forces currently exhibited on a body. Past activity doesn't matter and even time itself becomes irrelevant.
 
@@ -38,7 +38,7 @@ Think about what swimming is like for a person in water. You push yourself off o
 
 To swim, you deform your body in a cyclical reciprocal motion.
 
-![Scallop theorem](./img/images-5750.png "Scallop theorem")
+![Scallop theorem](./img/images-5750.png)
 
 But at low Reynold's numbers that doesn't really work. Hard as you might try, you are never going to move forward fast enough to bring your limbs back into starting position. In fact, doing so will just move you back the same distance it moved you forward.
 
@@ -48,7 +48,7 @@ To solve this problem, animals have to use cyclical motion that isn't reciprocal
 
 ## The flagellum
 
-![Flagella](./img/images-5755.png "Flagella")
+![Flagella](./img/images-5755.png)
 
 One common solution for locomotion at a low Reynold's number is the flagellum - a lash-like growth on the outside of the cell that can move like a whip.
 
@@ -59,11 +59,11 @@ With a flagellum, cells can simulate two of the simplest theoretical means of pr
 
 The flexible oar works because it can bend in such a way it doesn't push in the wrong direction when recoiling and a corkscrew works much like a ship's propeller. Propellers are complicated and Purcell says it's merely coincidental that our intuitive understanding matches what actually goes on.
 
-Perhaps even more surprisingly, [E. Coli](http://en.wikipedia.org/wiki/Escherichia_coli "Escherichia coli") uses its flagellum as a corkscrew. It's odd for a living organism to have a rotary motor and joint, but experiments performed by Silverman and Simon showed this is the case.
+Perhaps even more surprisingly, [E. Coli](http://en.wikipedia.org/wiki/Escherichia_coli) uses its flagellum as a corkscrew. It's odd for a living organism to have a rotary motor and joint, but experiments performed by Silverman and Simon showed this is the case.
 
 After a speculative paper by Howard they used a type of antibody to glue a particular strain (no flagellum, only hooks) of E. Coli together. When glued to the microscope glass, the bacteria were spinning.
 
-![Velocity components of glued E. Coli](./img/images-5781.png "Velocity components of glued E. Coli")
+![Velocity components of glued E. Coli](./img/images-5781.png)
 
 The graph shows two velocity components of such a spinning cell and as you can see _Vx_ and _Vy_ are 90° out of phase. This means the cell is going in a circle.
 
@@ -73,7 +73,7 @@ To be honest I don't fully understand this part of the paper, but the basic tene
 
 We're interested in force exhibited on the surrounding liquid and the screw's torque. The linear equations for these can be expressed in a four element matrix.
 
-![Corkscrew as a matrix](./img/images-5782.png "Corkscrew as a matrix")
+![Corkscrew as a matrix](./img/images-5782.png)
 
 After some mathematical magic that wasn't fully explained, it becomes obvious this matrix must be a-diagonal, if we want the corkscrew to work. Something about the difference between the experimental wire moving perpendicular or parallel to its length.
 
@@ -81,7 +81,7 @@ A slinky works much better than a round wire though. Supposedly because it's fla
 
 The end result of all this is that using corkscrews is really _really_ inefficient. They use a lot of energy to not do much at all.
 
-![1% efficiency of a corkscrew](./img/images-5783.png "1% efficiency of a corkscrew")
+![1% efficiency of a corkscrew](./img/images-5783.png)
 
 ## Why swim at all?
 
@@ -97,12 +97,12 @@ But what they can do is shoot around looking for greener pastures.
 
 All they have to do is outrun diffusion, which in the average parameters means moving by about 30 μm. Then waiting around for diffusion to feed you, then moving away again.
 
-![Movement patterns of E. Coli](./img/images-5786.png "Movement patterns of E. Coli")
+![Movement patterns of E. Coli](./img/images-5786.png)
 
 As it turns out, observed bacteria choose a direction at random, then keep moving until the situation is better than what it was where they left off. If you hit a rough patch, it doesn't make sense to stop moving, and if conditions are improving, they might improve a bit more if you keep moving.
 
 Having a minimum distance you have to travel every time you move has funny effects like that.
 
-![Outrunning diffusion](./img/images-5787.png "Outrunning diffusion")
+![Outrunning diffusion](./img/images-5787.png)
 
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=d304cead-e01d-477e-be17-965830b4e680)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+![Enhanced by Zemanta](./img/zemified_e.png)

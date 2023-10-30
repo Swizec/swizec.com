@@ -13,7 +13,7 @@ We've talked about [how a $12 AWS bill runs a $50k business](https://swizec.com/
 
 Think about the load on this newsletter builder:
 
-![](./img/xbHqpVgif6a75jc.gif)
+![load on newsletter builder](./img/xbHqpVgif6a75jc.gif)
 
 How do you think it works?
 
@@ -45,7 +45,7 @@ export default () => (
 // LetterRender.js
 export default React.forwardRef((props, ref) => {
   const { markdown } = useContext(MarkdownContext)
-  const rendered = useRemark(markdown)
+  const rendered = useRemark(`{markdown}`)
 
   return (
     <div ref={ref}>
@@ -69,7 +69,7 @@ export default React.forwardRef((props, ref) => {
 See this line?
 
 ```javascript
-const rendered = useRemark(markdown)
+const rendered = useRemark(`{markdown}`)
 ```
 
 That's the frontend secret sauce.
@@ -84,7 +84,7 @@ function Screenshot({ node }) {
   const reloadImage = async () => {
     setImage(loaderImg)
     try {
-      const res = await fetch(node.url),
+      const res = await fetch(`{node.url}`),
         response = await res.json()
 
       if (response.status === "success") {
@@ -105,11 +105,11 @@ function Screenshot({ node }) {
 }
 ```
 
-Screenshot is important 👉 makes an API request `const res = await fetch(node.url)` _every time you sneeze_.
+Screenshot is important 👉 makes an API request `const res = await fetch(`{node.url}`)` _every time you sneeze_.
 
 Look at this:
 
-![](./img/YlbnBOgif950176.gif)
+![Many requests](./img/YlbnBOgif950176.gif)
 
 soooooo many requests, every character triggers a new one 😂
 
@@ -159,7 +159,7 @@ At rest, serverless does nothing. No requests, no server, no cost.
 
 When ALL THE REQUESTS COME, serverless rallies the troops.
 
-![](./img/giphygifd9ci1j.gif)
+![Rallying troops](./img/giphygifd9ci1j.gif)
 
 Each request **creates a new server in milliseconds**. Fastest I've seen was in the 20ms range for small functions. The [screenshot lambda](https://github.com/Swizec/lambda-screenshot-as-a-service) takes about half a second. Needs to run Chrome and Chrome is fat 🙃
 

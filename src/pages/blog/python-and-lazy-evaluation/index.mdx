@@ -8,11 +8,11 @@ categories: "Lazy evaluation, Prime number, python, Sequence, Time complexity, U
 hero: ./img/6182-6115496574_35ca6b4cf8_z.jpg
 ---
 
-[![Lazy, by CurlysGirly](./img/6182-6115496574_35ca6b4cf8_z.jpg "Lazy, by CurlysGirly")](http://www.flickr.com/photos/tarasantilli/6115496574/)
+[Lazy, by CurlysGirly](./img/6182-6115496574_35ca6b4cf8_z.jpg)
 
 I woke up this morning with a clear thought in mind _"Generators are awesome! I will write a post about using them for lazy evaluation! Hoorah"_
 
-After much dabbling I realized how wrong I was. [Python](http://www.python.org/ "Python (programming language)")'s generators are indeed cool. They give us the use of [infinite lists](http://en.wikipedia.org/wiki/Lazy_evaluation "Lazy evaluation") and they're useful for conserving memory usage, but lazy evaluation they can't quite do.
+After much dabbling I realized how wrong I was. Python's generators are indeed cool. They give us the use of infinite lists and they're useful for conserving memory usage, but lazy evaluation they can't quite do.
 
 Let's make a generator for natural numbers:
 
@@ -33,13 +33,13 @@ def take(n, iterable):
     "Return first n items of the iterable as a list"
     return list(islice(iterable, n))
 
-print take(5, generator())
+print(take(5, generator()))
 # [1, 2, 3, 4, 5]
 ```
 
-Cool, we've implemented python's native _range_ function. Handy, bot nothing special.
+Cool, we've implemented python's native _range_ function. Handy, but nothing special.
 
-The power of generators lies in using something more than _+1_ as the core function. How about implementing a [naive algorithm](http://en.wikipedia.org/wiki/Algorithm "Algorithm") for listing prime numbers?
+The power of generators lies in using something more than _+1_ as the core function. How about implementing a naive algorithm for listing prime numbers?
 
 ```python
 def primes():
@@ -48,7 +48,7 @@ def primes():
                    for i in islice(generator(), n)):
             yield n
 
-print take(10, primes())
+print(take(10, primes()))
 # [1, 2, 3, 5, 7, 11, 13, 17, 19, 23]
 ```
 
@@ -66,16 +66,16 @@ def primes():
                                       primes())):
             yield n
 
-print take(10, primes())
+print(take(10, primes()))
 ```
 
-This produces an [infinite recursion](http://en.wikipedia.org/wiki/Infinite_loop "Infinite loop") and the script dies after spitting out a bunch of errors. It might look like we aren't doing anything to stop the recursion, we actually are.
+This produces an infinite recursion and the script dies after spitting out a bunch of errors. It might look like we aren't doing anything to stop the recursion, we actually are.
 
 Internally _primes()_ is stopped by the _takewhile_ since it only takes from the generator while a condition is met. And externally it's stopped by the _take()_ since it finishes after 10 primes have been yielded.
 
 ## No laziness :(
 
-By no means are generators bad - using generator comprehensions instead of [list comprehensions](http://en.wikipedia.org/wiki/List_comprehension "List comprehension") is a **great** idea. It will save plenty of memory when you're doing something like this:
+By no means are generators bad - using generator comprehensions instead of list comprehensions is a **great** idea. It will save plenty of memory when you're doing something like this:
 
 ```python
 # builds a big list and immediately discards it
@@ -87,7 +87,7 @@ By no means are generators bad - using generator comprehensions instead of [list
 2666664666667000000L
 ```
 
-As noted in _[Improving your code with modern idioms](http://python3porting.com/improving.html)_ a lot of cool tricks like that have been backported from python 3 and you should start using them.
+As noted in _Improving your code with modern idioms_ a lot of cool tricks like that have been backported from python 3 and you should start using them.
 
 But what's happened to our dreams of lazy evaluation?
 

@@ -8,13 +8,13 @@ categories: "collatzconjecture, Haskell, Languages, Math, Memoization, Number Th
 hero: ../../../defaultHero.jpg
 ---
 
-![xkcd collatz conjecture](https://swizec.com/wp-content/uploads/2012/01/collatz_conjecture3.png "xkcd collatz conjecture")
+![xkcd collatz conjecture](https://swizec.com/wp-content/uploads/2012/01/collatz_conjecture3.png)
 
-After an awesome [longboarding](http://en.wikipedia.org/wiki/Longboarding "Longboarding") session yesterday afternoon I decided to play around with [infinite sequences](http://en.wikipedia.org/wiki/Sequence "Sequence") in [Haskell](http://haskell.org "Haskell (programming language)") - it's supposed to be one of the more (most?) powerful features of Haskell - because it's a [lazy language](http://en.wikipedia.org/wiki/Evaluation_strategy "Evaluation strategy") apparently.
+After an awesome longboarding session yesterday afternoon I decided to play around with infinite sequences in Haskell - it's supposed to be one of the more (most?) powerful features of Haskell - because it's a lazy language apparently.
 
-My first impulse of creating a primes generator was nipped in the bud by a long page of [prime number generators in Haskell](http://www.haskell.org/haskellwiki/Prime_numbers). Scary, complex, mindboggling.
+My first impulse of creating a primes generator was nipped in the bud by a long page of prime number generators in Haskell. Scary, complex, mindboggling.
 
-[Project Euler](http://projecteuler.net/ "Project Euler") posed a much better challenge: _Which starting number, under one million, produces the longest collatz chain?_
+[Project Euler](http://projecteuler.net/) posed a much better challenge: _Which starting number, under one million, produces the longest collatz chain?_
 
 The solution I came up with was a simple brute force generator of infinitely many collatz sequences. Then I would take the first 1,000,000 find the maximum and that's that.
 
@@ -51,7 +51,7 @@ longest' (max_i, max_l) =
 
 That's odd ... even odder still is running both algorithms one after another only takes 33 seconds. Huh?
 
-It would seem I'm using [memoization](http://en.wikipedia.org/wiki/Memoization "Memoization") incorrectly. I've heard it performs funny in recursive functions. The theory I formulated last night was that because haskell was lazy each execution chain was constructed to its end and the intermittent memoized values never got used until the whole function was called again.
+It would seem I'm using memoization incorrectly. I've heard it performs funny in recursive functions. The theory I formulated last night was that because haskell was lazy each execution chain was constructed to its end and the intermittent memoized values never got used until the whole function was called again.
 
 Looking at the code samples this morning, though, I discovered this:
 

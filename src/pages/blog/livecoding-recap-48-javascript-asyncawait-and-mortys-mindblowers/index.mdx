@@ -15,19 +15,19 @@ _This is a Livecoding Recap – an almost-weekly post about interesting things d
 
 https://www.youtube.com/watch?v=a4g81widnGM
 
-This Sunday, I created an excuse to learn JavaScript async/await: [Morty's Mindblowers](http://mortysmindblowers.fun).
+This Sunday, I created an excuse to learn JavaScript `async/await`: [Morty's Mindblowers](http://mortysmindblowers.fun).
 
-Async/await is meant to be the bestest way to deal with asynchronous code in JavaScript. Even better than promises. And since the web is littered with async/await tutorials, it must be really hard, right?
+`Async/await` is meant to be the bestest way to deal with asynchronous code in JavaScript. Even better than promises. And since the web is littered with `async/await` tutorials, it must be really hard, right?
 
 ¯\\\_(ツ)\_/¯
 
-No… [just like Promises](https://swizec.com/blog/javascript-promises-are-just-like-monads-and-i-can-explain-both-in-less-than-2-minutes/), it's nothing but a monad. A nice syntax sugarified monad, but still a monad. You can learn how to use async/await in 10 seconds.
+No… [just like Promises](https://swizec.com/blog/javascript-promises-are-just-like-monads-and-i-can-explain-both-in-less-than-2-minutes/), it's nothing but a monad. A nice syntax sugarified monad, but still a monad. You can learn how to use `async/await` in 10 seconds.
 
 https://twitter.com/Swizec/status/914613801785319425
 
 [Watch](https://youtu.be/a4g81widnGM?t=2070). Read 👇
 
-If you know Promises, you know async/await. Congratz! 👏
+If you know Promises, you know `async/await`. Congratz! 👏
 
 Let's say you want to fetch a list of images from Imgur and narrow it down to videos. With Promises, it looks like this:
 
@@ -60,7 +60,7 @@ Ok, so this code is pretty readable, right? Fetch data, then parse it, then do t
 
 <ContentUpgrades.ServerlessHandbook />
 
-With async/await, that same code looks like this:
+With `async/await`, that same code looks like this:
 
 ```javascript
 class Imgur {
@@ -74,7 +74,7 @@ class Imgur {
 
         if (json.success) {
             return json.data.filter(({ type }) => type === 'video/mp4');
-        }else{
+        } else {
             throw new Error(json.data.error);
         }
     }
@@ -84,19 +84,19 @@ class Imgur {
 
 I don't know if that's more readable, but I can see the appeal. Your code looks just like any other code. No need to think about async stuff at all.
 
-You have to put `async` in front of your function name. That wraps it in a Promise. Anything you return is in a Promise monad. Time bubble to use the metaphor from my [JavaScript Promises in 2 minutes](https://swizec.com/blog/javascript-promises-are-just-like-monads-and-i-can-explain-both-in-less-than-2-minutes/) article.
+You have to put `async` in front of your function name. That wraps it in a Promise. Anything you return is in a promise monad. Time bubble to use the metaphor from my [JavaScript Promises in 2 minutes](https://swizec.com/blog/javascript-promises-are-just-like-monads-and-i-can-explain-both-in-less-than-2-minutes/) article.
 
 You peek into that monad using the `await` keyword. It's like wrapping your code in a `.then` callback.
 
 That's really all there is to it. Once you say `json = await res.json()`, anything that uses that `json` variable gets wrapped in a `.then()` call.
 
-![](https://swizec.com/wp-content/uploads/2017/10/This-subreddits-reaction-when-asked-how-we-make-our-gifs-look-so-damn-good-Imgur.gif)
+![ubvpl.gif](https://swizec.com/wp-content/uploads/2017/10/ubvpl.gif)
 
 Any time you use the `Imgur.gifs()` method, you have to say `await` and your function must be wrapped in `async`.
 
 Oh, and you can wrap built-in React lifecycle hooks in `async` and it works as expected. That part is neat. However, you can't have async getters. That would be cool.
 
-So yeah, we got the JavaScript async/await stuff working in a couple minutes, then we spent some half an hour figuring out how Imgur's API works, and an hour or two trying to use flexbox to make the `<video>` tag shrink and grow.
+So yeah, we got the JavaScript `async/await` stuff working in a couple minutes, then we spent some half an hour figuring out how Imgur's API works, and an hour or two trying to use flexbox to make the `<video>` tag shrink and grow.
 
 And in the end, we got [Morty's Mindblowers](http://mortysmindblowers.fun). It uses cut scenes from an episode of Rick & Morty to show you random gifs from Imgur's frontpage.
 

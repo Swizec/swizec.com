@@ -12,7 +12,7 @@ Exploring how GPT can help continues. This time I built a browser extension that
 
 You can try it out here 👉 [WhatIsPoint.xyz](https://whatispoint.xyz). Full [code on GitHub](https://github.com/Swizec/article-threader), if you'd like to explore.
 
-The backend is a Vercel Serverless function, a NextJS /api route. It uses a NodeJS library to extract main text from a URL and sends it to OpenAI with a prompt. I talked more about those details in [Building apps with OpenAI and ChatGPT](https://swizec.com/blog/building-apps-with-openai-and-chatgpt/).
+The backend is a Vercel Serverless function, a NextJS `/api` route. It uses a NodeJS library to extract main text from a URL and sends it to OpenAI with a prompt. I talked more about those details in [Building apps with OpenAI and ChatGPT](https://swizec.com/blog/building-apps-with-openai-and-chatgpt/).
 
 Now, how do you make that into a browser extension?
 
@@ -38,7 +38,7 @@ Here's what you'll need:
 2.  A dedicated page in your NextJS app
 3.  A few package.json commands
 4.  `gsed`
-5.  Optional, remote-enabled /api routes
+5.  Optional, remote-enabled `/api` routes
 
 I based my hackery on a [nextjs-chrome-extension](https://github.com/Pondorasti/nextjs-chrome-extension) repository, which itself is based on [Creating a Chrome Extension with NextJS](https://aaronscherer.me/blog/post/creating-a-chrome-extension-with-nextjs).
 
@@ -150,9 +150,9 @@ For reasons unknown extensions can't have underscores in file names. 🤷‍♀�
 
 Run `brew install gsed` on a mac. You'll know what to do, if you're not on a mac.
 
-### Optional, remote-enabled /api routes
+### Optional, remote-enabled `/api` routes
 
-By default NextJS /api routes are _not_ meant to work as an API. They're for local use by your project.
+By default NextJS `/api` routes are _not_ meant to work as an API. They're for local use by your project.
 
 Cross-domain access is blocked by CORS. This is good for security and making sure bad actors don't abuse your endpoint and run up your costs. The URLs aren't secret or anything.
 

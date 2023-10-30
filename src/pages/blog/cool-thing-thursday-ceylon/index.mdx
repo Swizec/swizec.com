@@ -18,23 +18,23 @@ void hello() {
 }
 ```
 
-The brain child of [Red Hat](http://www.redhat.com "Red Hat"), Ceylon promises to be \_"a language for writing large programs in teams", \_its striking design goal being code clearly readable even by people who aren't Ceylon programmers.
+The brain child of [Red Hat](http://www.redhat.com), Ceylon promises to be "`a language for writing large programs in teams`", "`its striking design goal being code clearly readable even by people who aren't Ceylon programmers.`"
 
 I haven't had a chance to play with it, but all the code samples are very readable. So far so good!
 
-In short, Ceylon is a static typed [object oriented language](http://en.wikipedia.org/wiki/Object-oriented_programming "Object-oriented programming") that runs on **Java** and **JavaScript** virtual machines and introduces many interesting features from [functional programming languages](http://en.wikipedia.org/wiki/Functional_programming "Functional programming") such as Scala.
+In short, Ceylon is a static typed [object oriented language](http://en.wikipedia.org/wiki/Object-oriented_programming) that runs on **Java** and **JavaScript** virtual machines and introduces many interesting features from [functional programming languages](http://en.wikipedia.org/wiki/Functional_programming) such as Scala.
 
 That's right kids, it runs in a browser.
 
 ## Why's it cool?
 
-![Ceylon](./img/ceylon-ceylon-lang.org-master-images-ceylon_homebanner_elephant.png "Ceylon")
+[Ceylon](./img/ceylon-ceylon-lang.org-master-images-ceylon_homebanner_elephant.png)
 
 Leaving aside for a moment it compiles to two different intermediate codes (java bytecode and javascript) and just how astoundingly _awesome_ that is, I also have a soft spot for anything JavaScript.
 
-Really, though, the most striking feature is **Ceylon's [type system](http://en.wikipedia.org/wiki/Type_system "Type system")**.
+Really, though, the most striking feature is **Ceylon's [type system](http://en.wikipedia.org/wiki/Type_system)**.
 
-First of all, there are no [primitive types](http://en.wikipedia.org/wiki/Primitive_data_type "Primitive data type"), everything is magically pulled out of thin air by something called _principal typing._ Apparently that means it can understand how types work straight from their descriptions, rather than relying on some arcane knowledge.
+First of all, there are no [primitive types](http://en.wikipedia.org/wiki/Primitive_data_type), everything is magically pulled out of thin air by something called _principal typing._ Apparently that means it can understand how types work straight from their descriptions, rather than relying on some arcane knowledge.
 
 > For every expression, a unique, most specific type may be determined, without the need to analyze the rest of the expression in which it appears. And all types used internally by the compiler are _denotable_ - that is, they can be expressed within the language itself.
 
@@ -54,7 +54,7 @@ Let that sink in for a bit.
 
 Now think how useful this can be when you want to have a list of items that will be of different types. Yep, pretty awesome.
 
-There's also **typesafe null and &lt;stuff>**, known to readers of this blog as _[That thing Swizec can't for the life of him understand](https://swizec.com/blog/monads-monads-monads-monads/ "Monads, monads, monads, monads")._
+There's also **typesafe null and <stuff>**, known to readers of this blog as _[That thing Swizec can't for the life of him understand](https://swizec.com/blog/monads-monads-monads-monads/)._
 
 ```ceylon
 String? name = ...
@@ -93,4 +93,3 @@ But there's also a bunch of stuff we've come to expect from any modern language 
 Most importantly, it's not a moving target like Scala! They have milestones and after a milestone is reached they are promising no API's and syntax and whatnot are going to change until the next milestone comes out. Very important if you ever put things in production.
 
 Can't wait to find an excuse to play with Ceylon.
-

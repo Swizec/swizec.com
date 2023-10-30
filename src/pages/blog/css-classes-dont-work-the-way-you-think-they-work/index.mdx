@@ -8,7 +8,9 @@ categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
+```html
     <p class="blue green red">This is some text</p>
+```
 
 Which color is this text going to be?
 
@@ -44,7 +46,7 @@ Maybe this is obvious to everyone but me, but I spent an embarrassing amount of 
 
 ```javascript
 const P = ({ className, children }) => (
-    <p class="{`italic" blue="" ${classname}`}="">{children}</p>
+    <p class={`italic blue ${className}`}>{children}</p>
 ); // default P
 
 // ...

@@ -1,4 +1,5 @@
 ---
+
 title: "How to populate react-redux-form with dynamic default values"
 description: ""
 published: 2018-01-25
@@ -57,17 +58,16 @@ class UserForm extends Component {
   }
   render() {
     return (
-      <form model="user" onsubmit="{(values)" ==""> this.handleSubmit(values)}
-      >
-        <div class="field">
+      <form model="user" onSubmit={`{values} =>` this.handleSubmit(values)}>
+        <div className="field">
           <label>First name:</label>
-          <control class="text" model="user.firstName">
-        </control></div>
+          <Control className="text" model="user.firstName" />
+        </div>
 
-        <div class="field">
+        <div className="field">
           <label>Last name:</label>
-          <control class="text" model="user.lastName">
-        </control></div>
+          <Control className="text" model="user.lastName" />
+        </div>
 
         <button type="submit">
           Submit

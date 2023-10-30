@@ -18,7 +18,7 @@ Like [time to first byte performance](https://swizec.com/blog/lessons-from-migra
 
 Following that hunch I built [Spark Joy](https://spark-joy.netlify.app/) on a series of streams. The app you see under every email and article.
 
-![Spark Joy feedback widgets in email](./img/Spark-Joy-feedback-widgets-in-email980e59.png)
+![Spark Joy feedback widgets in email](./img/Spark-Joy-feedback-widgets-in-email980e59.png "Spark Joy feedback widgets in email")
 
 Click a link, go to a page, answer followup questions. Works great.
 
@@ -93,7 +93,7 @@ const VotePage = ({ pageContext }) => {
     widgetType,
   } = pageContext
 
-  return (
+  return `{
     <FullScreen>
       <SEO title="Thank You" />
 
@@ -104,7 +104,7 @@ const VotePage = ({ pageContext }) => {
         widgetType={widgetType}
       />
     </FullScreen>
-  )
+  `
 }
 ```
 
@@ -120,7 +120,7 @@ NextJS supports server side rendering and it's gonna have the same problem: What
 
 A "revolutionary" new approach that NextJS offers is server side generation. You'll recognize this as _"How websites used to work 10 years ago"_.
 
-![](giphy:sarcastic_wow)
+![sarcastic wow](./img/sarcastic_wow.gif "sarcastic wow")
 
 With server side generation you generate the page on-demand. User makes a request, serverless lambda (not managed by you) wakes up, fetches data, builds the page. User gets static HTML, it hydrates into a React app.
 
@@ -157,7 +157,7 @@ Where it differs from websites of old, is that your app uses the same code to re
 const VotePage = ({ widget }) => {
   const { userId, widgetId, voteType, followupQuestions, widgetType } = widget
 
-  return (
+  return `{
     <Container sx={{ textAlign: "center" }}>
       <Head>
         <title>Thank you</title>
@@ -170,7 +170,7 @@ const VotePage = ({ widget }) => {
         widgetType={widgetType}
       />
     </Container>
-  )
+  `
 }
 ```
 

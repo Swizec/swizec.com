@@ -10,11 +10,11 @@ hero: ../../../defaultHero.jpg
 
 I finally started writing code for my [thesis](http://swizec.github.com/Le-Thesis/). Hooray!
 
-![A row of businesses in downtown Haskell.](https://upload.wikimedia.org/wikipedia/en/thumb/8/89/Haskell_wiki.JPG/300px-Haskell_wiki.JPG "A row of businesses in downtown Haskell.")
+![A row of businesses in downtown Haskell.](https://upload.wikimedia.org/wikipedia/en/thumb/8/89/Haskell_wiki.JPG/300px-Haskell_wiki.JPG)
 
-To get my feet wet I decided to write a basic framework for [evolutionary algorithms](http://en.wikipedia.org/wiki/Evolutionary_algorithm "Evolutionary algorithm") in [Haskell](http://haskell.org "Haskell (programming language)"). Nothing too major, just a way to easily assemble different evaluation, mutation and selection functions.
+To get my feet wet I decided to write a basic framework for [evolutionary algorithms](http://en.wikipedia.org/wiki/Evolutionary_algorithm) in [Haskell](http://haskell.org). Nothing too major, just a way to easily assemble different evaluation, mutation and selection functions.
 
-For starters I'm going to evolve a _"[Hello World!](http://en.wikipedia.org/wiki/Hello_world_program "Hello world program")"_ string. How hard could it be? Took me [an hour to evolve a poem in python](https://swizec.com/blog/evolving-a-poem-with-an-hour-of-python-hacking/) based on character mutations ...
+For starters I'm going to evolve a _"[Hello World!](http://en.wikipedia.org/wiki/Hello_world_program)"_ string. How hard could it be? Took me [an hour to evolve a poem in python](https://swizec.com/blog/evolving-a-poem-with-an-hour-of-python-hacking/) based on character mutations ...
 
 Turns out it's a lot more difficult to do in Haskell.
 
@@ -22,7 +22,7 @@ Trouble starts as soon as you try generating a random population, because gettin
 
 ## Random Generators
 
-The main problem comes from how [pseudo-random](http://en.wikipedia.org/wiki/Pseudorandom_number_generator "Pseudorandom number generator") generators work. Essentially you start with a _seed_ - it can be anything, I hear current time is a good starting seed - then every time somebody needs a new random number, you perform some formula on the _seed_ and get a number.
+The main problem comes from how [pseudo-random](http://en.wikipedia.org/wiki/Pseudorandom_number_generator) generators work. Essentially you start with a _seed_ - it can be anything, I hear current time is a good starting seed - then every time somebody needs a new random number, you perform some formula on the _seed_ and get a number.
 
 The next number then depends on the previous number and so on until infinity. Your garden variety recursively defined series. Not very random at all, but works well enough for most.
 
@@ -66,4 +66,3 @@ Very useful when you want to test your code actually works!
 There's just one problem with this approach - it's very difficult to up and decide that hey, this particular function right here, should be somewhat random from now on! You now have to tell the whole system and everyone using the function, that you'd like a random generator please.
 
 Whether you should want to do that without telling anyone ... well, that's a whole other story.
-

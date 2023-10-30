@@ -53,7 +53,7 @@ class ReportSize extends React.Component {
   render() {
     return (
 
-        {faker.lorem.paragraphs(Math.random() * 10)}
+        `{faker.lorem.paragraphs(Math.random() * 10)}`
 
     );
   }
@@ -74,7 +74,7 @@ class ReportSize extends React.Component {
   render() {
     return (
 
-        {faker.lorem.paragraphs(Math.random() * 10)}
+        `{faker.lorem.paragraphs(Math.random() * 10)}`
 
     );
   }
@@ -92,7 +92,7 @@ I verified the input is all correct until it goes into the html-to-markdown comp
 
 ## How compilers work
 
-![](./img/EDCVI2Q.png)
+![Compiler Working](./img/EDCVI2Q.png)
 
 Compilers work in 3 stages.
 
@@ -235,7 +235,7 @@ Rehype parses my JSX-containing code blocks as if they were HTML. I thought they
 
 After digging, I discovered that Rehype uses [Parse5](https://github.com/inikulin/parse5) – an HTML5 compliant parser used in the entire Node ecosystem. With 75,000,000 downloads per month ... yeah I'm the one who's wrong.
 
-![im_wrong giphy](./img/media-tI5T4zw7zVze8-giphy.gif)
+![im_wrong](./img/media-tI5T4zw7zVze8-giphy.gif)
 
 Fixing stringification is boring. You'll dig and dig and do nothing fun for days. Shit's boring, we did it for my compilers class in college.
 
@@ -243,7 +243,7 @@ Plus you've got a battle-tested stringifier right there. You need to give it the
 
 ## MacGyver a fix in the middle
 
-![macgyver giphy](./img/media-16KdaesKdaAI8-giphy.gif)
+![macgyver](./img/media-16KdaesKdaAI8-giphy.gif)
 
 Compiler middleware is the best place to add your fix.
 
@@ -327,7 +327,7 @@ class ReportSize extends React.Component {
   render() {
     return (
       <div ref="{this.refCallback}" style="{{" border:="" &#34;1px="" solid="" red&#34;="" }}="">
-        {faker.lorem.paragraphs(Math.random() * 10)}
+        `{faker.lorem.paragraphs(Math.random() * 10)}`
       </div>
     );
   }

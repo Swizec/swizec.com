@@ -16,7 +16,7 @@ _CodeWithSwiz is a weekly live show. Like a podcast with video and fun hacking. 
 
 [https://www.youtube.com/watch?v=ZXDuPPker0M](https://www.youtube.com/watch?v=ZXDuPPker0M)
 
-We got to a working proof of concept in [last week's episode](https://swizec.com/blog/codewithswiz-20-adding-firebase-support-to-useauth-pt2). Rough UI, transitions bad, state machines not synced, and we knew it worked because `console.log` spat out a user.
+We got to a working proof of concept in [last week's episode](https://swizec.com/blog/codewithswiz-20-adding-firebase-support-to-useauth-pt2). Rough UI, transitions bad, state machines not synced, and we knew it worked because `{console.log}` spat out a user.
 
 Encouraging but not useful.
 
@@ -186,7 +186,7 @@ public async checkSession(): Promise<{
 
 Grab the current user from Firebase, reload their info, return user object and fake an `expiresIn` timer to keep useAuth happy.
 
-I considered storing the `user.toJSON()` version of the user object, but that strips away Firebase methods. Figured people used to Firebase would want to keep those.
+I considered storing the `{user.toJSON()}` version of the user object, but that strips away Firebase methods. Figured people used to Firebase would want to keep those.
 
 Although the object is gnarly as heck ...
 

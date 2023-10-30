@@ -40,11 +40,11 @@ It went so not well, in fact, that we never got to the real work. I don't know h
 
 This ate all the time I had, and we got nothing done.
 
-I mean, sure, we explored how the markdown AST stuff works, where we need to add the slug (it's deep inside children of children), and made a reasonable hypothesis that we can get the slug using `markdownNode.fields.slug`.
+I mean, sure, we explored how the markdown AST stuff works, where we need to add the slug (it's deep inside children of children), and made a reasonable hypothesis that we can get the slug using `{markdownNode.fields.slug}`.
 
-The hypothesis stems from this: We know that each Gatsby node has a `fields.slug`. Don't know where it comes from, but docs assure us it's there. Not sure `markdownNode` is _that_ node, but what else could it be?
+The hypothesis stems from this: We know that each Gatsby node has a `{fields.slug}`. Don't know where it comes from, but docs assure us it's there. Not sure `{markdownNode}` is _that_ node, but what else could it be?
 
-`markdownNode` is the node that we are extending, therefore it must be the same thing as a normal Gatsby node. It's just called `markdownNode` here because we're operating on markdown.
+`{markdownNode}` is the node that we are extending, therefore it must be the same thing as a normal Gatsby node. It's just called `{markdownNode}` here because we're operating on markdown.
 
 This is the function we're tweaking by the way 👇
 
@@ -68,6 +68,6 @@ async function getTableOfContents(markdownNode) {
 }
 ```
 
-That `tocAst` is where we inject our tweak. I think 🤔
+That `{tocAst}` is where we inject our tweak. I think 🤔
 
 Oh right! The newbie mistake fix 👉 Matthew of Gatsby fame informed me that my `yarn.lock` was probably out of date. It was.

@@ -10,7 +10,7 @@ hero: ../../../defaultHero.jpg
 
 Let's take an example from [my day job](https://www.yup.com). An onboarding step for new tutors is a subject exam. It starts with this page:
 
-![](https://swizec.com/wp-content/uploads/2016/12/Screen-Shot-2016-12-02-at-07.59.53.png)
+![Example Image](https://swizec.com/wp-content/uploads/2016/12/Screen-Shot-2016-12-02-at-07.59.53.png)
 
 In this case, the applicant has already flunked chemistry, we're not accepting physics, and they can still take a math exam. To build this, we need data about the current user, about the subjects, and how they relate to each other.
 
@@ -53,13 +53,13 @@ This approach embraces [duck typing](https://en.wikipedia.org/wiki/Duck_typing).
 
 But when your model looks like this:
 
-![](https://swizec.com/wp-content/uploads/2016/12/Screen-Shot-2016-12-02-at-08.21.44.png)
+![Example Image](https://swizec.com/wp-content/uploads/2016/12/Screen-Shot-2016-12-02-at-08.21.44.png)
 
 Do you really want to type all of that out? No, you don't.
 
 `extendObservable` is a convenient approach for these situations. It gives you infinite flexibility and makes properties deeply observable.
 
-That means using things like `user.subject_statuses[0].can_start_exam` Just Works™. You should be careful about undefineds, though. Until the API call goes through, anything beyond `user.` is undefined. That part is annoying.
+That means using things like `{user.subject_statuses[0].can_start_exam}` Just Works™. You should be careful about undefineds, though. Until the API call goes through, anything beyond `user.` is undefined. That part is annoying.
 
 Sidenote:
 
@@ -70,7 +70,7 @@ when(() => user.subject_statuses,
         () => // do stuff with data)
 ```
 
-![](./img/media-IeLOBZb7ZdQ1G-giphy.gif)
+![Example Image](./img/media-IeLOBZb7ZdQ1G-giphy.gif)
 
 ## Connecting models is where things get awkward
 
@@ -145,9 +145,9 @@ const SubjectPicker = inject('mainStore')(observer(({ mainStore }) => {
 }));
 ```
 
-Assume we put an instance of `MainStore` in a ``as `mainStore`. That gives us global access via `inject` and cleans up our codebase.
+Assume we put an instance of `MainStore` in a `{MobxProvider}` as `mainStore`. That gives us global access via `inject` and cleans up our codebase.
 
-A simplified ``component would look like this:
+A simplified `{Subject}` component would look like this:
 
 ```javascript
 const Subject = observer(({ subject }) => (
@@ -162,7 +162,7 @@ Not as pretty as the screenshot, but all that HTML and styling is irrelevant rig
 
 Now, the trouble; can you see it?
 
-It's that `subject.userStatus.can_start_exam` bit. You see, we've found ourselves staring at a piece of data that lies _between_ concepts.
+It's that `{subject.userStatus.can_start_exam}` bit. You see, we've found ourselves staring at a piece of data that lies _between_ concepts.
 
 Ask a subject if it's startable and it needs to know who you're asking about. Ask a user and it needs to know which subject you're asking about. It _smells_ like a computable value, but where?
 

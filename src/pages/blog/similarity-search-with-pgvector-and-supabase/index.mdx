@@ -114,11 +114,11 @@ For each user we:
 ```javascript
 for (const row of res.rows) {
   const answers = res.rows
-    .filter((r) => r.userProfileId === row.userProfileId)
+    .filter((r) => r.`userProfileId` === row.`userProfileId`)
     .map((r) => `${r.question}: ${r.answer}`)
     .join(" ");
 
-  console.log(`Processing ${row.userProfileId}...`);
+  console.log(`Processing ${row.`userProfileId`}...`);
 
   const embeddingRes = await openai.embeddings.create({
     model: "text-embedding-ada-002",
@@ -134,7 +134,7 @@ for (const row of res.rows) {
     DO UPDATE SET embedding = EXCLUDED.embedding
 `;
 
-  await db.query(upsertQuery, [row.userProfileId, JSON.stringify(embedding)]);
+  await db.query(upsertQuery, [row.`userProfileId`, JSON.stringify(embedding)]);
 }
 ```
 
@@ -164,7 +164,7 @@ const findSimilarUsers = async (userProfileId) => {
       ) LIMIT 5;
     `;
 
-    const res = await client.query(nearestQuery, [userProfileId]);
+    const res = await client.query(nearestQuery, [`userProfileId`]);
     const similarUsers = res.rows;
 
     for (const user of similarUsers) {
@@ -175,7 +175,7 @@ const findSimilarUsers = async (userProfileId) => {
         WHERE "UserProfile".id = $1;
       `;
 
-      const userInfo = await client.query(infoQuery, [user.userProfileId]);
+      const userInfo = await client.query(infoQuery, [user.`userProfileId`]);
       console.log(`First Name: ${userInfo.rows[0].firstName}`);
       console.log("Survey Answers:");
       userInfo.rows.forEach((row) => {

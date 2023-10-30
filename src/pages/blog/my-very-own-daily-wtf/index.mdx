@@ -8,9 +8,9 @@ categories: "Development Tools, HTML, Java, JavaScript, jQuery, Languages, Progr
 hero: ./img/8226-8364284798_807d9de35e_m.jpg
 ---
 
-People often hire me to grab their [codebase](http://en.wikipedia.org/wiki/Codebase "Codebase") by the horns and introduce a modicum of engineering standards. Eventually I get to implement new features, but they usually come at the cost of heavy refactoring before I can even get started.
+People often hire me to grab their [codebase](http://en.wikipedia.org/wiki/Codebase) by the horns and introduce a modicum of engineering standards. Eventually I get to implement new features, but they usually come at the cost of heavy refactoring before I can even get started.
 
-![JavaScript](./img/8226-8364284798_807d9de35e_m.jpg "JavaScript")
+![JavaScript](./img/8226-8364284798_807d9de35e_m.jpg)
 
 A good month ago a founder emails me _"Hey, I have this product, customer development at a point where big customers are waiting with fat checks to use product. I can't even get it to run, original developers nowhere to be seen. Can you help?"_
 
@@ -22,9 +22,9 @@ I'll do it! How bad could it be?
 
 It could be very bad.
 
-Part of the project is done in [Java](http://www.oracle.com/technetwork/java/ "Java (programming language)"). This makes sense, strict typing is the only logical decision considering what the codebase is doing.
+Part of the project is done in [Java](http://www.oracle.com/technetwork/java/). This makes sense, strict typing is the only logical decision considering what the codebase is doing.
 
-Everything else is done in [JavaScript](http://en.wikipedia.org/wiki/JavaScript "JavaScript"). The communication protocol between Java and server JavaScript and frontend JavaScript ... well that's got a ban on parameter names being longer than three characters.
+Everything else is done in [JavaScript](http://en.wikipedia.org/wiki/JavaScript). The communication protocol between Java and server JavaScript and frontend JavaScript ... well that's got a ban on parameter names being longer than three characters.
 
 Okay, saving bandwidth, right? We're talking about a high volume of data so let's keep those json objects small.
 
@@ -38,7 +38,7 @@ Why write _label_ when you can have _lbl_? And so on and on ... in almost two mo
 
 It gets better.
 
-How do you make a [boolean value](http://en.wikipedia.org/wiki/Boolean_data_type "Boolean data type") fit this protocol? By doing this:
+How do you make a [boolean value](http://en.wikipedia.org/wiki/Boolean_data_type) fit this protocol? By doing this:
 
 ```javascript
 function fix(boolean_value) {
@@ -50,7 +50,7 @@ So much for saving space. Encode 1bit values into 24bit strings! Booyah!
 
 Oh I wish that was all, here's another interesting thing I discovered ... this is repeated through much of the code and I don't dare touch it because I don't know what crazy things will break.
 
-Did I mention there's no [unit tests](http://en.wikipedia.org/wiki/Unit_testing "Unit testing")? How about that I'm discouraged for writing them? Yep. But hey, it's not like this application needs to go through a proper security audit when it's done ... oh wait, it does.
+Did I mention there's no [unit tests](http://en.wikipedia.org/wiki/Unit_testing)? How about that I'm discouraged for writing them? Yep. But hey, it's not like this application needs to go through a proper security audit when it's done ... oh wait, it does.
 
 ```javascript
 if (!thing || thing === 'null') ...
@@ -73,11 +73,10 @@ function getPurple(cake) {
 
 I don't know how to even _begin_ refactoring that so it makes sense ... it's just ... what? Who does that!?
 
-However, the worst thing, the absolute worst thing is that some time in the past this application was moved from traditional [jQuery](http://jquery.com/ "JQuery") to [Backbone](http://backbonejs.org/). Nothing wrong with that, great move I'd say, I love Backbone!
+However, the worst thing, the absolute worst thing is that some time in the past this application was moved from traditional [jQuery](http://jquery.com/) to [Backbone](http://backbonejs.org/). Nothing wrong with that, great move I'd say, I love Backbone!
 
-They forgot to move most things. A lot of times Backbone is just a thin wrapper around old stuff. Most of the code doesn't even leverage Backbone and there's still a bunch of _\\\\\\\$.ajax_ peppered everywhere.
+They forgot to move most things. A lot of times Backbone is just a thin wrapper around old stuff. Most of the code doesn't even leverage Backbone and there's still a bunch of `$.ajax` peppered everywhere.
 
-And don't even get me started on \_"Hey, we changed name X in the protocol, can you change all references to that please" \_in a weakly typed language with no unit tests ... fun times. I never know when something's going to blow up because I forgot to click on a button when testing.
+And don't even get me started on _"Hey, we changed name X in the protocol, can you change all references to that please"_ in a weakly typed language with no unit tests ... fun times. I never know when something's going to blow up because I forgot to click on a button when testing.
 
 Grep only gets you so far ...
-

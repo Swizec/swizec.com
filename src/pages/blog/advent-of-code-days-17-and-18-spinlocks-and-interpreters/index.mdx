@@ -26,13 +26,13 @@ Unlike a real spinlock, the puzzle spinlock is trying to eat up infinite memory 
 
 > For example, if the spinlock were to step 3 times per insert, the circular buffer would begin to evolve like this (using parentheses to mark the current position after each iteration of the algorithm):
 >
-> (0), the initial state before any insertions.
+> `(0)`, the initial state before any insertions.
 >
-> 0 (1): the spinlock steps forward three times (0, 0, 0), and then inserts the first value, 1, after it. 1 becomes the current position.
+> `0 (1)`: the spinlock steps forward three times `(0, 0, 0)`, and then inserts the first value, 1, after it. 1 becomes the current position.
 >
-> 0 (2) 1: the spinlock steps forward three times (0, 1, 0), and then inserts the second value, 2, after it. 2 becomes the current position.
+> `0 (2) 1`: the spinlock steps forward three times `(0, 1, 0)`, and then inserts the second value, 2, after it. 2 becomes the current position.
 >
-> 0 2 (3) 1: the spinlock steps forward three times (1, 0, 2), and then inserts the third value, 3, after it. 3 becomes the current position.
+> `0 2 (3) 1`: the spinlock steps forward three times `(1, 0, 2)`, and then inserts the third value, 3, after it. 3 becomes the current position.
 
 The question was _"What is the value right after 2017 gets inserted into the buffer?"_.
 
@@ -74,7 +74,7 @@ star1 steps = buffer!!pos
 
 A little slow maybe, but it worked.
 
-For Star 2, they wanted us to find the value after `0` when 50,000,000 iterations are performed. This did not go so well.
+For Star 2, they wanted us to find the value after `0` when `50,000,000` iterations are performed. This did not go so well.
 
 ```haskell
 star2::Int -> Int
@@ -221,6 +221,6 @@ They communicate with `snd` and `rcv`.
 
 We have to expand our `sound` register into a message queue and add some logic for how it's shared between the two programs. Additionally, the puzzle wants us to pause execution of each program while it waits for the queue to get values.
 
-![](./img/media-3oEdvc4JCV2HJa7UQ0-giphy.gif)
+![Person trying to manage multiple tasks](./img/media-3oEdvc4JCV2HJa7UQ0-giphy.gif)
 
 Sounds hard. So I went to bed.

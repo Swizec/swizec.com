@@ -46,7 +46,7 @@ Clever.
 
 Based around an 8-bit processor running at 1.79MHz (the latest iPhone's got two 1,500MHz processors) and with just 2048 bytes of RAM the NES is relatively easy to emulate on modern computers. In fact, this whole paper is based on the idea that handling NES's memory footprint as a data point is possible.
 
-![2048 bytes](./img/images-3095.png)
+![2048 bytes](./img/images-3095.png "2048 bytes")
 
 As a direct result of these limitations, NES programs use fixed memory locations for most things. For instance, Super Mario's lives are always stored at address `0x75F`.
 
@@ -66,7 +66,7 @@ But on "a scale from simple to fancy the algorithm for finding them is a 3". The
 
 The orderings are tight when every location participates in the ordering at least once, and maximal when you can't find a longer ordering.
 
-![A single maximal tight valid lexicographic ordering](./img/images-3096.png)
+![A single maximal tight valid lexicographic ordering](./img/images-3096.png "A single maximal tight valid lexicographic ordering")
 
 In practice we ignore all RAMs until the first player input and slice the recording to avoid problems with momentarily decreasing values. The whole memory output is sliced every few frames with the idea of finding objective functions that increase steadily and don't get confused by local noise.
 
@@ -76,7 +76,7 @@ This vector's **value fraction** is calculated as _i/|V|_ where _i_ is the lowes
 
 We then weight them with _VF(Mm) - VF(M0)_ where M's are memory slices.
 
-![Objective functions for Super Mario](./img/images-3097.png)
+![Objective functions for Super Mario](./img/images-3097.png "Objective functions for Super Mario")
 
 ## Learning how to play
 
@@ -96,7 +96,7 @@ It currently needs an hour to produce 16 seconds of gameplay.
 
 As mentioned, the first approach was finding the best scoring keypress to play on each frame, which at best makes Mario twitch in place and die of old age.
 
-![Naive Mario](./img/images-3108.gif)
+![Naive Mario](./img/images-3108.gif "Naive Mario")
 
 A better approach was looking 10 frames into the future and using the best scoring 10-keystroke motif. It's rare for a single keystroke to make much of a difference in a single frame anyway.
 
@@ -122,7 +122,7 @@ Mario finishes level 1-1 like it's nothing, then gets stuck in a local maximum o
 
 ## Backtracking
 
-![Stuck Mario](./img/images-3109.gif)
+![Stuck Mario](./img/images-3109.gif "Stuck Mario")
 
 Mario gets stuck because coins are better than enemies and once you're up on the ledge the only way to make RAMs grow all to wait out the music counter and those tiny scrolls. This is a local maximum.
 
@@ -171,4 +171,4 @@ It does very well on some other games, and kind of poorly on some other games st
 
 As authors are wont to do, Tom7 promises he will do more stuff as Future Work™. Some venues to explore include multiplayer games, better search methods, improving the input model and reducing the number of magic constants. Let's hope he gets around to it.
 
-[![Enhanced by Zemanta](https://img.zemanta.com/zemified_e.png?x-id=680a770d-1c8f-42a0-aa5b-de8448261354)](http://www.zemanta.com/?px "Enhanced by Zemanta")
+[![Enhanced by Zemanta](./img/images-3095.png)](http://www.zemanta.com/?px "Enhanced by Zemanta")

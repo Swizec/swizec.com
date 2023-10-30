@@ -26,20 +26,20 @@ https://twitter.com/Swizec/status/1007281218570711040
 
 We learned about the new React context API and built a [silly little app](https://swizec.github.io/react-context-example/) that shows off two benefits of context: 1. Shared state between components 2. No prop drilling
 
-[![](https://swizec.com/wp-content/uploads/2018/06/context-app.gif)](https://swizec.github.io/react-context-example/)
+![context app gif](https://swizec.com/wp-content/uploads/2018/06/context-app.gif)
 
 [Here’s the source on GitHub.](https://github.com/Swizec/react-context-example)
 
-We used `React.createContext()` to create a context:
+We used `{React.createContext()}` to create a context:
 
 ````javascript
-const LockContext = React.createContext()
+const LockContext = `{React.createContext()}`
 ```
 
 And a top level component to hold the state and callback we wanted to share. It's like a Redux or MobX store, you want your state and your callbacks to travel together.
 
 ```javascript
-class ContextualThing extends React.Component {
+class `{ContextualThing}` extends React.Component {
     state = {
         locked: false
     };
@@ -73,10 +73,10 @@ When state and callbacks go hand in hand, they're easier to manage. Helps you th
 
 But I forgot to mention the state machine part in the webinar 😅
 
-Each `ToggleRow` renders as many table cells as you ask it to:
+Each `{ToggleRow}` renders as many table cells as you ask it to:
 
 ```javascript
-const ToggleRow = ({ n }) => (
+const `{ToggleRow}` = ({ n }) => (
   <row>
     {new Array(n).fill(0).map((_) => (
       <cell>
@@ -87,12 +87,12 @@ const ToggleRow = ({ n }) => (
 );
 ```
 
-Notice the lack of prop drilling. `<ToggleRow>` gets only a number, `n`. Nothing about callbacks or the locked state. It doesn't even pass any props into `<LockToggle>`.
+Notice the lack of prop drilling. `{<ToggleRow>}` gets only a number, `n`. Nothing about callbacks or the locked state. It doesn't even pass any props into `{<LockToggle>}`.
 
-That's because `LockToggle` is a smart context component 👇
+That's because `{LockToggle}` is a smart context component 👇
 
 ```javascript
-const LockToggle = () => (
+const `{LockToggle}` = () => (
   <lockcontext class="consumer">
     {({ locked, toggleLock }) => (
       <button onclick={toggleLock} style={{ fontsize: "1.5em" }}>
@@ -103,11 +103,11 @@ const LockToggle = () => (
 );
 ```
 
-LockToggle renders a context consumer, which takes a function as children render prop. This render prop gets the necessary `locked` state and `toggleLock` callback in its arguments and returns a button that flips the lock.
+`{LockToggle}` renders a context consumer, which takes a function as children render prop. This render prop gets the necessary `locked` state and `toggleLock` callback in its arguments and returns a button that flips the lock.
 
 Et voilà: shared lock/toggle between components without prop drilling.
 
-![](./img/media-krhB8ydCQiYZq-giphy.gif)
+![lock toggle gif](./img/media-krhB8ydCQiYZq-giphy.gif)
 
 I also answered a lot of questions about when you should use context versus Redux or MobX. Watch the stream 😉
 

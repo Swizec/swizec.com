@@ -67,14 +67,11 @@ const Pythagoras = ({ w,x, y, heightFactor, lean, left, right, lvl, maxlvl }) =>
     }
 
     return (
-        <g transform={`translate(${x} ${y})="" ${rotate}`}="">
-            <rect width={w} height={w} x={0} y={0} style="{{fill:" interpolateviridis(lvl="" maxlvl)}}="">
-
-            <pythagoras w={nextLeft} x={0} y={-nextLeft} lvl={lvl+1} maxlvl={maxlvl} heightfactor={heightFactor} lean={lean} left="">
-
-            <pythagoras w={nextRight} x={w-nextRight} y={-nextRight} lvl={lvl+1} maxlvl={maxlvl} heightfactor={heightFactor} lean={lean} right="">
-
-        </pythagoras></pythagoras></rect></g>
+        <g transform={`translate(${x} ${y}) ${rotate}`}>
+            <rect width={w} height={w} x={0} y={0} style={{fill: `interpolateViridis(${lvl / maxlvl})`}}/>
+            <Pythagoras w={nextLeft} x={0} y={-nextLeft} lvl={lvl + 1} maxlvl={maxlvl} heightFactor={heightFactor} lean={lean} left/>
+            <Pythagoras w={nextRight} x={w - nextRight} y={-nextRight} lvl={lvl + 1} maxlvl={maxlvl} heightFactor={heightFactor} lean={lean} right/>
+        </g>
     );
 };
 ```
@@ -171,9 +168,9 @@ onMouseMove(event) {
 render() {
     // ...
     <svg ref="svg"> //...
-    <pythagoras w={this.state.baseW} h={this.state.baseW} heightfactor={this.state.heightFactor} lean={this.state.lean} x={this.svg.width/2-40} y={this.svg.height-this.state.baseW} lvl={0} maxlvl="{this.state.currentMax}/">
+    <Pythagoras w={this.state.baseW} h={this.state.baseW} heightFactor={this.state.heightFactor} lean={this.state.lean} x={this.svg.width/2-40} y={this.svg.height-this.state.baseW} lvl={0} maxlvl={`{this.state.currentMax}`}/>
+    </svg>
 }
-</pythagoras></svg>
 ```
 
 A couple of things happen here:
@@ -204,7 +201,7 @@ onMouseMove(event) {
 }
 ```
 
-`d3mouse` – which is an imported `mouse` function from `d3-selection` – gives us cursor position relative to the SVG element. Two linear scales give us `scaleFactor` and `scalelean` values, which we put into component state.
+`d3mouse` – which is an imported `mouse` function from `d3-selection` – gives us cursor position relative to the SVG element. Two linear scales give us `scaleFactor` and `scaleLean` values, which we put into component state.
 
 If you're not used to D3 scales, this reads as:
 

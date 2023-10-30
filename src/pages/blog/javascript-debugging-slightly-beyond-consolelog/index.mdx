@@ -8,7 +8,7 @@ categories: "Frontend Web, JavaScript, Technical"
 hero: ./img/images-25871.png
 ---
 
-![debugger;](./img/images-25871.png "debugger;")
+![debugger;](./img/images-25871.png)
 
 My favourite tool for javascript debugging is `console.log`.
 
@@ -16,15 +16,15 @@ I mean, I _love_ `console.log`. If I ever get a programming tattoo, it's going t
 
 https://twitter.com/Swizec/status/1417914800743485440
 
-[Pascal](http://en.wikipedia.org/wiki/Pascal_%28programming_language%29 "Pascal (programming language)") acting up? Not sure what's going on? `writeln`
+[Pascal](http://en.wikipedia.org/wiki/Pascal_%28programming_language%29) acting up? Not sure what's going on? `writeln`
 
-[Python](http://www.python.org/ "Python (programming language)") being silly? `print`
+[Python](http://www.python.org/) being silly? `print`
 
 C acting funny? `printf`
 
-[CSS](http://en.wikipedia.org/wiki/Cascading_Style_Sheets "Cascading Style Sheets") weird? `border: 1px solid red`
+[CSS](http://en.wikipedia.org/wiki/Cascading_Style_Sheets) weird? `border: 1px solid red`
 
-[HTML](http://en.wikipedia.org/wiki/HTML "HTML") messing with you? Nah, [Chrome](http://www.google.com/chrome "Google Chrome")'s element inspector.
+[HTML](http://en.wikipedia.org/wiki/HTML) messing with you? Nah, [Chrome](http://www.google.com/chrome)'s element inspector.
 
 But as much as I love `console.log`, sometimes it just does not do. Sure, if you have a proper test suite `console.log` is always enough. But you don't always have a proper test suite.
 
@@ -49,7 +49,7 @@ You know for certain the function was called, what the argument value was, and y
 Perfect for calling the code once. But what if it's part of a list building mechanism?
 
 ```javascript
-a_lot_of_things.map(function (thing) {
+`a_lot_of_things`.map(function (thing) {
   var label = do_something(thing);
   $("ul").append($("<li></li>").html(label));
 });
@@ -62,7 +62,7 @@ But we're stretching the limits of `console.log` here.
 Now what if somebody does this?
 
 ```javascript
-async.map(a_lot_of_things, function (thing) {
+async.map(`a_lot_of_things`, function (thing) {
   var label = do_something(thing);
   $("ul").append($("<li></li>").html(label));
 });
@@ -87,7 +87,7 @@ var do_something = function (arg1, callback) {
   }, 100);
 };
 
-async.map(a_lot_of_things, function (thing) {
+async.map(`a_lot_of_things`, function (thing) {
   do_something(thing, function (label) {
     $("ul").append($("<li></li>").html(label));
   });
@@ -122,15 +122,15 @@ Instead of that second print statement, `console.log("foo changed?", foo)`, we'd
 
 But it doesn't just stop. It gives you a debugger.
 
-![The debugger, initial view](./img/images-25868.png "The debugger, initial view")
+![The debugger, initial view](./img/images-25868.png)
 
-You can't see it in the screenshot, but even [GIFs](http://en.wikipedia.org/wiki/Graphics_Interchange_Format "Graphics Interchange Format") are stopped. A moment ago that Santa was dancing, now everything is in _"Holy shit, he's debugging!"_ mode.
+You can't see it in the screenshot, but even [GIFs](http://en.wikipedia.org/wiki/Graphics_Interchange_Format) are stopped. A moment ago that Santa was dancing, now everything is in _"Holy shit, he's debugging!"_ mode.
 
 The code that triggered `debugger;` is in the middle. A bunch of inspection tools are on the right. On top of the screen is an _"I'm done now, please continue"_ button.
 
 But more importantly, the console is in current scope! You can do whatever you want.
 
-![Console is in current scope](./img/images-25870.png "Console is in current scope")
+![Console is in current scope](./img/images-25870.png)
 
 And once you've found the culprit, you can just refresh the page. No waiting for all the `alert()`s to show up.
 

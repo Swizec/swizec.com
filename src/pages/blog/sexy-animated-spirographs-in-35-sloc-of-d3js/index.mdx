@@ -12,7 +12,7 @@ You probably remember spirographs as kid's toys from your youth. I had a simple 
 
 Endless amounts of fun when I was two or three years old. I think ... I don't really remember much from that time, but I remember having those thingies and loving playing with them. One of my earliest memories even!
 
-![Spirograph](./img/Spirographhfie73.jpeg "Spirograph")![]()
+![Spirograph](./img/Spirographhfie73.jpeg)
 
 Last night I was making an animation example for the d3.js book I'm writing and ended up with the idea of progressively drawing out cool looking parametric equations. Little did I know, those are actually spirographs! Learned something while I was learning something.
 
@@ -22,7 +22,7 @@ My failure in common knowledge aside, it's possible to animate the drawing of pa
 
 ## Animating spirographs
 
-![After a few steps](https://swizec.com/wp-content/uploads/2013/03/0007_04_04.png "After a few steps")
+![After a few steps](https://swizec.com/wp-content/uploads/2013/03/0007_04_04.png)
 
 We'll make an animation timer and for each tick we'll draw a new step of the spirograph. After the spirograph is finished, we'll stop the timer. To make the animation more interesting to watch, we'll also fake a brush flying around (just a black dot).
 
@@ -87,7 +87,7 @@ var brush = svg.append("circle").attr({ r: 4 }),
   previous = position(0);
 ```
 
-The _t_scale_ is going to translate time into a parameter, _x_ and _y_ calculate proper positions on the final image using the coordinates returned by the position function.
+The `t_scale` is going to translate time into a parameter, `x` and `y` calculate proper positions on the final image using the coordinates returned by the position function.
 
 We also put a simple circle on the image - this will represent the brush - and we need to take note of the previous position so we can draw lines between our current and previous state.
 
@@ -122,11 +122,11 @@ Finally, we simply start the timer.
 var timer = d3.timer(step, 500);
 ```
 
-The timer will start running after 500 milliseconds and repeatedly call the _step \_function until it returns \_true._
+The timer will start running after 500 milliseconds and repeatedly call the `step` function until it returns `true`.
 
 You can check the animation out via [the magic of github pages](http://swizec.github.com/d3.js-book-examples/ch4/timers.html). The final spirograph looks like this:
 
-![A parametric equation visualised](https://swizec.com/wp-content/uploads/2013/03/0007_04_05.png "A parametric equation visualised")
+![A parametric equation visualised](https://swizec.com/wp-content/uploads/2013/03/0007_04_05.png)
 
 Figured out the problem yet?
 
@@ -136,5 +136,4 @@ Another problem is that using a slower computer, or doing anything that lags the
 
 For instance, this is what happens when I switch desktops around while the browser is drawing.
 
-![Glitchy spirograph](https://swizec.com/wp-content/uploads/2013/03/glitchy-spirograph.png "Glitchy spirograph")
-
+![Glitchy spirograph](https://swizec.com/wp-content/uploads/2013/03/glitchy-spirograph.png)

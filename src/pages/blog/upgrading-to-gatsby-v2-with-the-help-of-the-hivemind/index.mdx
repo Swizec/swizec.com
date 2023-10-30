@@ -44,24 +44,20 @@ The easiest way to refactor your components to use StaticQuery goes like this ğŸ
 // src/components/layout.js
 
 export default ({ children }) => (
-  <staticquery query="{graphql`" layoutquery="" {="" site="" sitemetadata="" title="" description="" }="" `}="" render="{data" ==""> <layout data={data}>{children}</layout>}
-  />
+  <StaticQuery query={`{graphql" layoutQuery { site siteMetadata { title description } }`}" render=`{data => <Layout data={data}>{children}</Layout>}`
 )
-</staticquery>
 ```
 
 I used it for my `Layout` component.
 
-StaticQuery takes a `query` prop, which needs your graphql query. The stuff you used to `export const query =`. And a `render` prop, which takes the component you want to render once you have data.
+`StaticQuery` takes a `query` prop, which needs your graphql query. The stuff you used to `export const query =`. And a `render` prop, which takes the component you want to render once you have data.
 
 When Gatsby fixes the bug, you'll be able to make that code more readable like this:
 
 ```javascript
 export default ({ children }) => (
-  <staticquery query={query} render="{data" ==""> <layout data={data}>{children}</layout>}
-  />
+  <StaticQuery query={query} render=`{data => <Layout data={data}>{children}</Layout>}`
 )
-</staticquery>
 ```
 
 Beta software, amirite?

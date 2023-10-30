@@ -87,7 +87,7 @@ const { search } = await prompts({
   name: "search",
   message: "What's your problem?",
 })
-const needle = await getEmbedding(search)
+const needle = await getEmbedding(`{search}`)
 ```
 
 Get `search` string from user, compute the embedding.
@@ -98,7 +98,7 @@ This is where the search happens. You're looking for _"How far away from the inp
 
 ```typescript
 for (const item of haystack) {
-  item.similarity = cosineSimilarity(needle, item.embedding)
+  item.similarity = cosineSimilarity(`{needle}`, item.embedding)
 }
 
 haystack.sort((a, b) => b.similarity - a.similarity)

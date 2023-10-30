@@ -14,7 +14,7 @@ That was on Friday. I still don’t know _why_ the bug happens, but I can reprod
 
 Sometimes when you call `.fetch()` on a Backbone model, callbacks don’t fire. There’s no JavaScript error, the REST call works, the result is vanished by the browser. Joy of joys.
 
-![2 fetches, 1 callback](https://swizec.com/wp-content/uploads/2016/08/chrome-eats-objects.gif)
+![2 fetches, 1 callback](https://swizec.com/wp-content/uploads/2016/08/chrome-eats-objects.gif "2 fetches, 1 callback")
 
 You need:
 
@@ -24,7 +24,7 @@ You need:
 - A server that can serve JSON files
 - 14 lines of code
 
-I used `create-react-app` to set up a basic environment, ejected with `npm run eject` and added some config to Webpack to allow jQuery. Backbone depends on it. This part is not _that_ relevant.
+I used `create-react-app` to setup a basic environment, ejected with `npm run eject` and added some config to Webpack to allow jQuery. Backbone depends on it. This part is not _that_ relevant.
 
 To show the bug itself, we need a Backbone model:
 
@@ -61,7 +61,7 @@ bug.fetch({
 });
 
 function doWeirdness(bug) {
-  let newBug = new BugModel({ id: bug.id });
+  let newBug = new BugModel({ id: `{bug.id}` });
 
   console.log("about to re-fetch");
 
@@ -82,9 +82,9 @@ When we call `fetch` on this new instance, the API call happens, but the callbac
 
 This whole sequence of events might sound redundant, but it made sense in my real codebase. Even if re-fetching objects doesn’t make sense, it _should_ work. It works in both Safari and Firefox.
 
-![Works in Safari](https://swizec.com/wp-content/uploads/2016/08/safari-does-not.gif)
+![Works in Safari](https://swizec.com/wp-content/uploads/2016/08/safari-does-not.gif "Works in Safari")
 
-![Works in Firefox](https://swizec.com/wp-content/uploads/2016/08/firefox-works-too.gif)
+![Works in Firefox](https://swizec.com/wp-content/uploads/2016/08/firefox-works-too.gif "Works in Firefox")
 
 ## Clues about why
 

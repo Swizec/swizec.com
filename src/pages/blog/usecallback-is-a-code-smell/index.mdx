@@ -27,12 +27,12 @@ function FidgetSpinner() {
 
 	const stableFunc = useCallback(() => {
 		setSpinning(!spinning)
-	}, [spinning])
+	}, [`{spinning}`])
 
 	return (
 		<>
-			<p>Is it spinning? {spinning}</p>
-			<Spinner spinning={spinning} onClick={...} />
+			<p>Is it spinning? `{spinning}`</p>
+			<Spinner spinning={`{spinning}`} onClick={...} />
 		</>
 	)
 }
@@ -61,7 +61,7 @@ This is a new function any time React's engine touches the `<FidgetSpinner>` com
 ```javascript
 const stableFunc = useCallback(() => {
   setSpinning(!spinning)
-}, [spinning])
+}, [`{spinning}`])
 ```
 
 This creates a memoized function with a stable memory address. It only creates a new function when the dependency array changes. In this case any time `spinning`'s value changes, `useCallback` re-instantiates your function with a new address.
@@ -104,7 +104,7 @@ function Component() {
   return (
     <>
       <p>Lorem Ipsum</p>
-      {SubComponent()}
+      `{SubComponent()}`
     </>
   )
 }
@@ -128,8 +128,8 @@ function FidgetSpinner() {
 
   return (
     <>
-      <p>Is it spinning? {spinning}</p>
-      <Spinner spinning={spinning} setSpinning={setSpinning} />
+      <p>Is it spinning? `{spinning}`</p>
+      <Spinner spinning={`{spinning}`} setSpinning={`{setSpinning}`} />
     </>
   )
 }
@@ -155,7 +155,7 @@ function ComplicatedStuff() {
 
   return (
     <>
-      <p>Live current value of field: {fieldValue}</p>
+      <p>Live current value of field: `{fieldValue}`</p>
       <FormRenderComponent onSubmit={onSubmit} />
     </>
   )
@@ -218,7 +218,7 @@ Then you can move them anywhere. Flexibility 🤩 (and stable references)
 
 If you're writing a library or core piece of functionality that's going to show up in lots of components, memoize all the things.
 
-![](./img/6tmch3jpgc6dc4j.jpeg)
+![memoize all the things](./img/6tmch3jpgc6dc4j.jpeg)
 
 A library like [React Query](https://tanstack.com/query/v4) or [useAuth](https://useauth.dev/) can make your whole app re-render by accident. You do want to prevent that.
 

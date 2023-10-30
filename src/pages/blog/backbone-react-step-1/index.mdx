@@ -8,7 +8,7 @@ categories: "backbone, backbonejs, Front End, react, reactjs, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
-![](./img/cP6CtSB.gif)
+![Image](./img/cP6CtSB.gif)
 
 It’s happening! We’re moving [Yup](https://www.yup.com) to React! ??
 
@@ -16,7 +16,7 @@ We’ve got 37,380 lines of Backbone and Handlebars JavaScript with architectura
 
 We’ve had a bug for the past 4 or 5 months that everyone on the team and every user has seen. We’ve even got in-the-wild video recordings of it, but nobody has been able to reproduce it reliably enough to even begin debugging it, let alone fix it.
 
-![](./img/460503jpghh8646.jpeg)
+![Image](./img/460503jpghh8646.jpeg)
 
 After many months of poking and prodding and cajoling and covertly moving our codebase from ES5 to ES6, I got the green light to embark on an epic re-architecture refactor adventure. The refactor to end all refactors. The update to take us to infinity and beyond.
 
@@ -35,7 +35,7 @@ Today, I built a quick proof-of-concept for how we can put large swaths of exist
 Right now, our app is built out of Backbone views like this:
 
 ```javascript
-class BackboneButton extends Backbone.View {
+`class BackboneButton extends Backbone.View {
   constructor() {
     super();
 
@@ -60,19 +60,19 @@ class BackboneButton extends Backbone.View {
 
     this.model.set({ N: N + 1 });
   }
-}
+}`
 ```
 
 This is a typical Backbone pattern. You have a `model` that holds some state, a Handlebars `template` that puts variable values into HTML, an `events` hash, and a `change` listener. The user clicks a button and triggers a jQuery event, which calls the `buttonClick` callback. `buttonClick` updates the model, which triggers a `change` event. This triggers a component re-render, which inserts updated HTML into the page.
 
-![](./img/8DOZxSY.gif)
+![Image](./img/8DOZxSY.gif)
 
 It’s reactive and almost functional. Pure beauty. Not so great in practice… it’s kind of a mess. Don’t believe me? Re-read the 2nd paragraph about Heisenbugs.
 
 The first step to using these views in a React app is a wrapper that looks like this:
 
 ```javascript
-class ButtonWrapper extends React.Component {
+`class ButtonWrapper extends React.Component {
     button = new BackboneButton();
 
     componentDidUpdate() {
@@ -95,8 +95,7 @@ class ButtonWrapper extends React.Component {
             </div>
         );
     }
-}
-</div>
+}`
 ```
 
 Our React component that doesn’t do much: it renders a `<div>` element and uses Backbone’s `setElement` function to tell a Backbone view that this is where it should live.

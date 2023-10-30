@@ -26,7 +26,7 @@ You are almost guaranteed to build an RPC-shaped API, if you're building 1 speci
 
 ## What's tRPC
 
-[tRPC](https://trpc.io) is a ... framework? ... for building end-to-end type safe RPC APIs.
+`[tRPC](https://trpc.io)` is a ... framework? ... for building end-to-end type safe RPC APIs.
 
 That means you get full type support with autocomplete on the server and the client. _And_ runtime validation that your inputs and outputs match your API spec 😍
 
@@ -34,7 +34,7 @@ Best part: Without manually specifying or copying types in a bunch of places. Ty
 
 ## What's tRPC like to use
 
-Here's example code from [a project I'm building for AI Summit](https://swizec.com/blog/similarity-search-with-pgvector-and-supabase/). We're trying to match conference attendees based on interests and suggest they meet. Excited to see if this works 🤞
+Here's example code from `[a project I'm building for AI Summit](https://swizec.com/blog/similarity-search-with-pgvector-and-supabase/)`. We're trying to match conference attendees based on interests and suggest they meet. Excited to see if this works 🤞
 
 I rolled into an existing project and can't give you the full tutorial. Just the parts I know about – adding an endpoint and calling it from React.
 
@@ -49,7 +49,7 @@ export const matchingRouter = createTRPCRouter({});
 You define your endpoints as keys in that object. Each endpoint is a resolver function that gets an input and returns a response.
 
 ```typescript
-  getMatches: publicProcedure
+  `getMatches:` publicProcedure
     .input(z.string())
     .query(async ({ input, ctx }) => {
 			const matches = // read data from a database or whatever
@@ -59,7 +59,7 @@ You define your endpoints as keys in that object. Each endpoint is a resolver fu
     }),
 ```
 
-Here I'm using [zod](https://github.com/colinhacks/zod) to specify my input type _and_ perform run-time validation. The tRPC + Zod integration is nice enough that VSCode knows that the `input` argument is a string 😍
+Here I'm using `[zod](https://github.com/colinhacks/zod)` to specify my input type _and_ perform run-time validation. The tRPC + Zod integration is nice enough that VSCode knows that the `input` argument is a string 😍
 
 You can specify complex shapes and VSCode flawlessly picks up on that.
 
@@ -82,7 +82,7 @@ export const api = createTRPCNext<AppRouter>({
 You then use queries same as you would with React Query. I think tRPC even uses React Query under the hood.
 
 ```typescript
-api.matching.getMatches.useQuery("clnb896di0002c949ugw700yc", {
+`api.matching.getMatches.useQuery("clnb896di0002c949ugw700yc",` {
   onSuccess: (data) => {
     console.log("hai", data);
   },
@@ -113,7 +113,7 @@ You define the router as `.mutation` instead of query and make calls with `useMu
 
 I liked it!
 
-Super productive to work with, easy to jump into. Not sure I'd use it for a large project with [a deep backend](https://swizec.com/blog/the-backend-iceberg/) or when you have a bunch of clients that need to read the same data but in different shapes.
+Super productive to work with, easy to jump into. Not sure I'd use it for a large project with `[a deep backend](https://swizec.com/blog/the-backend-iceberg/)` or when you have a bunch of clients that need to read the same data but in different shapes.
 
 Feels like tRPC works best when you use the backend-for-frontend pattern. But I _love_ that there's no fiddling with API definitions or any of that stuff.
 

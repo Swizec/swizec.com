@@ -15,13 +15,13 @@ https://www.youtube.com/watch?v=vZ7bzIkSJoY
 
 _CodeWithSwiz is a weekly live show. Like a podcast with video and fun hacking. Focused on experiments and open source. [Join live most Tuesday mornings](https://youtube.com/swizecteller)_
 
-Here's what /downloads looks like, if you haven't bought [Serverless Handbook](https://serverlesshandbook.dev)
+Here's what `/downloads` looks like, if you haven't bought [Serverless Handbook](https://serverlesshandbook.dev)
 
-![Paywall when internet is good](./img/Paywall-when-internet-is-good1hhd17.gif)
+![Paywall when internet is good](./img/Paywall-when-internet-is-good1hhd17.gif "Paywall when internet is good")
 
 And here's what it looks like if your internet is slow ...
 
-![Paywall when internet is bad](./img/Paywall-when-internet-is-bad8bged4.gif)
+![Paywall when internet is bad](./img/Paywall-when-internet-is-bad8bged4.gif "Paywall when internet is bad")
 
 Awkward.
 
@@ -57,7 +57,7 @@ Unless they disable JavaScript, which normal humans don't. Yes I know, there's d
 
 But when internet is slow this becomes a problem. React takes so long to run that you can casually finish reading a whole chapter or download all the files before the paywall stops you.
 
-![](giphy:awkward)
+![](./img/giphy-awkward.gif "awkward")
 
 ## How we fixed it
 
@@ -72,7 +72,7 @@ const hasLock =
 
 // 👇
 
-const hasLock = LOCKED_PAGES.includes(pagePath);
+const hasLock = `LOCKED_PAGES.includes(pagePath)`;
 ```
 
 Used to work in browser only and look for a special lock div. Static rendering was unlocked by default.
@@ -83,7 +83,6 @@ Now looks at a list of configured locked pages.
 
 ```javascript
 // layout.js
-
 {
   props.children;
 }
@@ -95,7 +94,7 @@ Now looks at a list of configured locked pages.
   contentUnlocked ? (
     <main id="content">{props.children}</main>
   ) : (
-    <main id="content" dangerouslySetInnerHTML={{ __html: html }} />
+    <main id="content" dangerouslySetInnerHTML={`{ __html: html }`} />
   );
 }
 <Paywall />;
@@ -109,7 +108,6 @@ Now it renders the full page when it's unlocked and a custom-crafted chunk of HT
 
 ```javascript
 // layout.js
-
 let html;
 
 if (!contentUnlocked) {
@@ -127,7 +125,7 @@ In our case, `props.children` holds the full React fragment for page content wit
 
 That means we can hackily split by `<div id="lock"></div>`, take the head, and render with `dangerouslySetInnerHTML`. Now there's no flash of unlocked content 🥳
 
-![No flash of unlocked content](./img/No-flash-of-unlocked-content30ibgg.gif)
+![No flash of unlocked content](./img/No-flash-of-unlocked-content30ibgg.gif "No flash of unlocked content")
 
 The styling is messy because we rendered those children outside a `<ThemeProvider>`.
 

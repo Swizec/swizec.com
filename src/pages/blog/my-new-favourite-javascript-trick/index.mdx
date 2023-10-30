@@ -11,11 +11,11 @@ hero: ../../../defaultHero.jpg
 
 import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
-Using returns and [callbacks](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29 "Callback (computer programming)") in the same function.
+Using returns and [callbacks](http://en.wikipedia.org/wiki/Callback_%28computer_programming%29) in the same function.
 
 Sounds like crazy talk I know, but hear me out, I have good reason. I think.
 
-Let's say you want to make several [TCP](http://en.wikipedia.org/wiki/Transmission_Control_Protocol "Transmission Control Protocol") servers in a node.js application. Have to listen on multiple ports or whatever. Using a factory function is your best bet to avoiding code repetition, right?
+Let's say you want to make several [TCP](http://en.wikipedia.org/wiki/Transmission_Control_Protocol) servers in a node.js application. Have to listen on multiple ports or whatever. Using a factory function is your best bet to avoiding code repetition, right?
 
 You end up with something like this:
 
@@ -42,7 +42,7 @@ Simple. Call a function, give it a port, get notified when server is ready to li
 
 Wait, that's not good. What if you want to reference the server later? To close it, for instance.
 
-<ContentUpgrades.Javascript />
+`<ContentUpgrades.Javascript />`
 
 That's where using returns alongside callbacks comes in.
 
@@ -109,7 +109,7 @@ var server = function (port) {
 };
 ```
 
-Not much has changed. More things were bound to `this` and the [return value](http://en.wikipedia.org/wiki/Return_statement "Return statement") became a function because I feel [partial application](http://en.wikipedia.org/wiki/Partial_application "Partial application") makes this code cleaner.
+Not much has changed. More things were bound to `this` and the [return value](http://en.wikipedia.org/wiki/Return_statement) became a function because I feel [partial application](http://en.wikipedia.org/wiki/Partial_application) makes this code cleaner.
 
 You'd call the `server` factory like this now: `this.servers[port] = server(port)(callback)`. The main benefit of this approach is that we can generate servers in a loop and activate them at a later time.
 
@@ -117,7 +117,7 @@ We've essentially decoupled server generation and server startup. Might come in 
 
 The `stuff` object from before is now going to have a `stuff.connections` as well, which references all currently open connections to each port. Neat!
 
-Another trick I sneaked into these examples is [Javascript](http://en.wikipedia.org/wiki/JavaScript "JavaScript")'s powerful [dynamic scoping](http://en.wikipedia.org/wiki/Scope_%28computer_science%29 "Scope (computer science)"). Getting semi-random functions to run in the same scope like that can really clean up your code.
+Another trick I sneaked into these examples is [Javascript](http://en.wikipedia.org/wiki/JavaScript)'s powerful [dynamic scoping](http://en.wikipedia.org/wiki/Scope_%28computer_science%29). Getting semi-random functions to run in the same scope like that can really clean up your code.
 
 At the expense of being almost too clever sometimes. Use at your own peril.
 

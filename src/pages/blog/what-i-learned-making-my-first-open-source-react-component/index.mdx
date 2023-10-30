@@ -12,7 +12,7 @@ Dude, open source is hard. People really do this every day!? 🤨
 
 I open sourced my [react-lazyload-fadein](https://github.com/Swizec/react-lazyload-fadein) component this weekend. 75 stars already. I guess people like it 💪
 
-![](./img/Swizec-react-lazyload-fadein-raw-master-react-lazyload-fadein.gif)
+![react-lazyload-fadein raw master image](./img/Swizec-react-lazyload-fadein-raw-master-react-lazyload-fadein.gif)
 
 It builds on top of react-lazyload to give you a nice fade-in effect when your component is ready. Lazyload means users load less stuff and your page appears faster because you're not rendering complex expensive components until they're visible. Fade-in means they don't pop onto the page and startle your user.
 
@@ -42,7 +42,9 @@ Point is, you are trying to publish an isolated component. You still need _some_
 
 [Use `nwb` instead](https://github.com/insin/nwb/blob/master/docs/guides/ReactComponents.md#developing-react-components-and-libraries-with-nwb).
 
-    nwb new react-component react-bla
+````
+nwb new react-component react-bla
+````
 
 This sets you up. A `src` folder for your code, a `demo` folder for your demo app (plus dev server and hot loading, yay\\o/), a `test` folder that you should use and I didn't, some build stuff for shipping…
 
@@ -89,11 +91,15 @@ They prefer `import { FadeIn } from 'react-lazyload-fadein'`? They can do that, 
 
 Wanna use function as children, my favorite? Yep, it works.
 
-    <FadeIn>{onload => <MyThing onLoad={onload} />}</FadeIn>
+```javascript
+<FadeIn>{`onload` => <MyThing onLoad={`onload`} />}</FadeIn>
+```
 
 Using render props in your codebase? That works too.
 
-    <FadeIn render={onload => <MyThing onLoad={onload} />} />
+```javascript
+<FadeIn render={`onload` => <MyThing onLoad={`onload`} />} />
+```
 
 You shouldn't have to compromise your code style to use my component. My job isn't to encourage this or that pattern. My job is to give you a tool that you can use to make your life easier.
 
@@ -104,8 +110,8 @@ render() {
     const { children, render } = this.props;
     return (
         <div>
-            {children && children(this.onLoad)}
-            {render && render(this.onLoad)}
+            {children && children(`this.onLoad`)}
+            {render && render(`this.onLoad`)}
         </div>
     )
 }
@@ -115,7 +121,7 @@ Yeah, sooooo hard. Just do it.
 
 ## Do it more often
 
-![](https://swizec.com/wp-content/uploads/2018/02/shia-labeouf-do-it-1.gif)
+![Shia Labeouf saying Do It](https://swizec.com/wp-content/uploads/2018/02/shia-labeouf-do-it-1.gif)
 
 > People don't want to learn to fish. People want fish.
 

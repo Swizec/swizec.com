@@ -10,7 +10,7 @@ What's the most algorithmically fun code you've written recently? 🤔
 
 Here's mine: A dataviz using a grid of triangles that fits into the client's logo.
 
-![Dataviz that fits in a logo](./img/Dataviz-that-fits-in-a-logo1e72d3.gif)
+![Dataviz fits in a logo](./img/Dataviz-that-fits-in-a-logo1e72d3.gif)
 
 Nearly broke my brain. It's good practice.
 
@@ -20,8 +20,6 @@ Each contiguous area of colored triangles represents a score. The number of tria
 
 The logo designer had a 20 page brief on how the logo is conceptually constructed out of equilateral triangles, can be reconstructed into many shapes, used for visual flourish with conceptual consistency across ... blah
 
-![](giphy:blahblah)
-
 Designers have their fun, engineers have ours.
 
 How the heck do you build this? Are there formulas governing its shape? Where do the triangles come from? Can you cut it up into React components? What about an animated transition ... 🤔
@@ -30,7 +28,7 @@ How the heck do you build this? Are there formulas governing its shape? Where do
 
 We started with a Codepen hacked in [Processing](https://processing.org/), a visual coding language.
 
-[![Clickable triangles](./img/Clickable-triangles6eigf0.gif)](https://codepen.io/willjrobinson-the-styleful/pen/NWjgXvE)
+![Clickable triangles](./img/Clickable-triangles6eigf0.gif)
 
 This was our playground. A place to explore the rules the grid, how the logo moves, and how far we can push before it starts to look like nothing.
 
@@ -118,9 +116,7 @@ I wanted a parametrized shape – thickness, proportions, the size of each tria
 
 The final result may be the mathiest code I've ever written. There's edge cases where a combination of parameters breaks the shape, but overall works great.
 
-https://twitter.com/Swizec/status/1427303347250372611
-
-Edge cases documented as errors. Good enough 😇
+The code that I've attached here throws intentional errors where I knew it would fail.
 
 ```javascript
 function useTriangles({ triBase, innerTriSide, thickness }) {
@@ -192,15 +188,13 @@ Now that you're rendering the visually grouped list of triangles, the last step 
 
 Why do the color groups look like vertical slices?
 
-![](giphy:thinking_hard)
-
 Because triangles come from a grid! The double-loop goes column by column.
 
 You have to sort those triangles before assigning to groups! 🤯
 
 For groups that flow in a weird-shaped circle, you sort triangles by their angle around the center. Looking from the center of each triangle – the centroid.
 
-[![Triangle centroid](./img/Triangle-centroid14i743.png)](https://en.wikipedia.org/wiki/Centroid)
+![Triangle centroid](./img/Triangle-centroid14i743.png)
 
 D3 can calculate centroids for us. We'll need 2 – one for each direction of a triangle. Pretend they're at `(0, 0)`.
 
@@ -256,4 +250,4 @@ Point is: Use conventional tools for unconventional means.
 Cheers,<br/>
 ~Swizec
 
-PS: to solve the candle problem, you have to realize that _the box_ is an item separate from thumbtacks. You can use it as a shelf for the candle.
+PS: to solve the candle problem, you have to realize that the box is an item separate from thumbtacks. You can use it as a shelf for the candle.

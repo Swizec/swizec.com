@@ -31,7 +31,7 @@ const object = {
 
 JSON response from an API or reading from a database. Perhaps a blob you've built up on the frontend.
 
-How do you access the 3rd level `greet`, if `object`, `deepProp`, and `deeperProp` might be undefined?
+How do you access the 3rd level `greet`, if `{object}`, `{deepProp}`, and `{deeperProp}` might be undefined?
 
 You could rely on JavaScript's evaluation semantics. Last value from expression is returned.
 
@@ -68,7 +68,7 @@ const greeting = _.get(object, "deepProp.deeperProp.greet")
 
 Personally not a fan. Feels unnecessary.
 
-<ContentUpgrades.Javascript />
+`<ContentUpgrades.Javascript />`
 
 ## Use optional chaining
 

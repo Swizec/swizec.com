@@ -8,7 +8,7 @@ categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
-![Conway glider](https://swizec.com/wp-content/uploads/2016/08/glider.gif)
+![Conway glider](https://swizec.com/wp-content/uploads/2016/08/glider.gif "Conway glider")
 
 Why? Because.
 
@@ -33,11 +33,11 @@ Conway’s Game of Life inside Google Docs, of course. It highlights the basics 
 3.  Any live cell with more than three live neighbours dies, as if by over-population.
 4.  Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-![](./img/glidergif56df35.gif)
+![glider gif](./img/glidergif56df35.gif "glider gif")
 
-![](./img/linkergif395aig.gif)
+![linker gif](./img/linkergif395aig.gif "linker gif")
 
-![](./img/wikipedia-commons-0-07-Game_of_life_pulsar.gif)
+![wikipedia-commons-0-07-Game_of_life_pulsar](./img/wikipedia-commons-0-07-Game_of_life_pulsar.gif "wikipedia-commons-0-07-Game_of_life_pulsar gif")
 
 I showed one of them some gifs and he said _“Oh dude, I’m excited! That looks so cool”_. All the confirmation I needed to go waste 3 hours of my life figuring out how to build this! ?
 
@@ -77,7 +77,7 @@ function onOpen() {
 
 Docs runs this code when you open your document. It adds a menu that looks like this:
 
-![Menu](https://swizec.com/wp-content/uploads/2016/08/menu.png)
+![Menu](https://swizec.com/wp-content/uploads/2016/08/menu.png "Menu")
 
 `Step Game` runs an iteration of the game loop, `Clear Game` clears all cells. Black background means a living cell and white background means a not-living cell.
 
@@ -110,7 +110,7 @@ function stepGame() {
 
 You can think of the spreadsheet as 2-dimensional memory. First dimension is the row, second is the column. You can store styling information, the value itself, and notes. Docs lets you access directly on both dimension, but it’s slow.
 
-Having 2D memory also means there will be a lot of these nested for loop constructs in your code. You’re limited to O(n2) algorithms at best.
+Having 2D memory also means there will be a lot of these nested for loop constructs in your code. You’re limited to `O(n2)` algorithms at best.
 
 Applying Conway rules to each cell looks like this:
 

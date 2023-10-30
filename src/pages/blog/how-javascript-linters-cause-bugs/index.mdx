@@ -11,7 +11,7 @@ hero: ../../../defaultHero.jpg
 
 import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
 
-![](https://swizec.com/wp-content/uploads/2017/09/DJoDVIiVYAAOcPs.jpg-large.jpeg)
+![Image](https://swizec.com/wp-content/uploads/2017/09/DJoDVIiVYAAOcPs.jpg-large.jpeg)
 
 I was doing code review for a coworker, and it soon became obvious that he used a linter and that the linter gave him a bright idea: _use strict comparisons_.
 
@@ -21,14 +21,14 @@ You're ensuring not only that your _values_ are equal or unequal, you ensure the
 
 Things like this:
 
-```
+``` 
     > "0" == 0
     true
 ```
 
 And like this:
 
-```
+``` 
     > true == 1
     true
     > false == 0
@@ -65,14 +65,16 @@ And your linter would be right. `===` fixes all of those examples.
 
 But here's one situation where it gets tricky. Checking undefinedness:
 
+``` 
     > null == undefined
     true
     > null === undefined
     false
+```
 
 Under loose comparison, `null` and `undefined` are equal. Under strict, they're not.
 
-<ContentUpgrades.Javascript />
+`<ContentUpgrades.Javascript />`
 
 This can cause all sorts of issues.
 
@@ -90,7 +92,7 @@ But if your `elem` doesn't have a `data-url="..."` attribute, jQuery returns `un
 A better approach is to use `if (url)` because `undefined` is falsey and so is an empty string. That makes your code robust against `data-url=""` :)
 
 ```javascript
-function scroll({ elem, offset, duration }) {
+function scroll(`{elem, offset, duration}`) {
   duration = duration !== null ? duration : 2000
 }
 ```

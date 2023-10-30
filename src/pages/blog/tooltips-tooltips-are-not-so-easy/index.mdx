@@ -12,7 +12,7 @@ People often ask: _"Hey can you make a tooltips tutorial? I can't figure this ou
 
 Pssh yeah I can make a tooltips tutorial. You kiddin me? It's just a floating square how hard can that be.
 
-![](./img/media-RHJxHbbaeIOyNf8jf7-giphy.gif)
+![Random GIF](./img/media-RHJxHbbaeIOyNf8jf7-giphy.gif)
 
 And then it was an hour later and I still couldn't decide just where to put state and whether we should use context or what.
 
@@ -63,17 +63,15 @@ Our `tooltip` state holds a `show` flag, tooltip coordinates, and `content`. `or
 To make changing this state easier, we sneakily include `setTooltip` in the object passed into React Context itself.
 
 ```javascript
-<tooltipcontext
-  class="provider"
-  value={{ ...tooltip, settooltip }}
-></tooltipcontext>
+<TooltipContext.Provider value={{ ...tooltip, setTooltip }}>
+</TooltipContext.Provider>
 ```
 
 Now any consumer can change values in context. Whoa
 
-![](./img/media-SDogLD4FOZMM8-giphy.gif)
+![Random GIF](./img/media-SDogLD4FOZMM8-giphy.gif)
 
-## The &lt;Tooltip> component
+## The `<Tooltip>` component
 
 Our `<Tooltip>` component doesn't do much on its own. It's a wrapper that handles positioning, visibility, and supports a nascent orientation API. We can use `orientLeft` to align our tooltip left or right. A fuller API would also have top/bottom and a bunch of similar features.
 
@@ -82,10 +80,10 @@ const Tooltip = ({ width, height, children }) => {
   const { x, y, show, orientLeft } = useContext(TooltipContext)
 
   return (
-    <g transform="{`translate(${orientLeft" ?="" x="" -="" width="" :="" x},="" ${y})`}="" style={{ visibility: show 'visible' 'hidden' }}>
-      <foreignobject width={width} height={height}>
+    <g transform={`translate(${orientLeft ? x - width : x}, ${y})`} style={{ visibility: show ? 'visible' : 'hidden' }}>
+      <foreignObject width={width} height={height}>
         {children}
-      </foreignobject>
+      </foreignObject>
     </g>
   )
 }
@@ -134,15 +132,17 @@ function App() {
   });
 
   return (
-      <tooltipcontext class="provider" value={{ ...tooltip, settooltip }}>
-        <svg width="800" height="600">
-          {* // where you put tooltip triggerers *}
+    <TooltipContext.Provider value={{ ...tooltip, setTooltip }}>
+      <svg width="800" height="600">
+        {
+          // where you put tooltip triggerers
+        }
 
-          <tooltip width={150} height={60}>
-            <tooltipp>{tooltip.content}</tooltipp>
-          </tooltip>
-        </svg>
-      </tooltipcontext>
+        <Tooltip width={150} height={60}>
+          <p>{tooltip.content}</p>
+        </Tooltip>
+      </svg>
+    </TooltipContext.Provider>
   );
 }
 ```
@@ -153,19 +153,9 @@ That part took me a while to figure out. Yes with React hooks you still need to 
 
 Render our Tooltip as a sibling to all the other SVG stuff. Any components that want to render a tooltip will share the same one. That's how it usually works.
 
-`<TooltipP>` is a styled component by the way.
+`<p>` is styled with a green background, rounded corners, and a bit of padding.
 
-```javascript
-const TooltipP = styled.p`
-  background: ${chroma("green").brighten().hex()};
-  border-radius: 3px;
-  padding: 1em;
-`
-```
-
-Nice green background, rounded corners, and a bit of padding.
-
-![](https://swizec.com/wp-content/uploads/2018/12/tooltip-closeup-1.png)
+![Tooltip example](https://swizec.com/wp-content/uploads/2018/12/tooltip-closeup-1.png)
 
 I am no designer 😅
 
@@ -206,10 +196,10 @@ const Arc = ({ d, r, color, offsetX, offsetY }) => {
 
   return (
     <path
-      d={arc(d)}
+      d={arc.render(d)}
       fill={color}
-      onmouseover={mouseOver}
-      onmouseout={mouseOut}
+      onMouseOver={mouseOver}
+      onMouseOut={mouseOut}
       style={{ cursor: "pointer" }}
     />
   )
@@ -222,7 +212,7 @@ We create a `selected` flag and its setter with a `useState` hook and we hook in
 
 Then we've got that `const arc` stuff. It creates an arc path shape generator. Radius depends on `selected` status.
 
-All that is followed by our mouse eve handling fucntions.
+All that is followed by our mouse eve handling functions.
 
 ```javascript
 const mouseOver = () => {
@@ -259,10 +249,10 @@ With all that defined, rendering our arc is a matter of returning a path with so
 ```javascript
 return (
   <path
-    d={arc(d)}
+    d={arc.render(d)}
     fill={color}
-    onmouseover={mouseOver}
-    onmouseout={mouseOut}
+    onMouseOver={mouseOver}
+    onMouseOut={mouseOut}
     style={{ cursor: "pointer" }}
   />
 )
@@ -280,9 +270,9 @@ const StockingDonut = ({ data, x, y, r }) => {
 
   const color = chroma.brewer.set3
   return (
-    <g transform="{`translate(${x}," ${y})`}="">
+    <g transform={`translate(${x}, ${y})`}>
       {pie(data).map(d => (
-        <arc d={d} color={color[d.index]} r={r} key={d.index} offsetx={x} offsety={y}/>
+        <Arc d={d} color={color[d.index]} r={r} key={d.index} offsetX={x} offsetY={y}/>
       ))}
     </g>
   )
@@ -291,7 +281,7 @@ const StockingDonut = ({ data, x, y, r }) => {
 
 `d3.pie` takes our data and returns all the info you need to build a donut. Start angles, end angles, stuff like that.
 
-Render a grouping element that centers our donut on `(x, y)` coordiantes, render `<Arc>`s in a loop.
+Render a grouping element that centers our donut on `(x, y)` coordinates, render `<Arc>`s in a loop.
 
 Make sure to pass offsetX and offsetY into each arc. Arcs are positioned relatively to our donut center, which means they don't know their absolute position to pass into the tooltip context. Offsets help with that.
 
@@ -301,7 +291,7 @@ And that's how you make tooltips in SVG with React hooks. Same concepts and comp
 
 You need a global way to store info about the tooltip and some way to trigger it from sibling components.
 
-![](https://swizec.com/wp-content/uploads/2018/12/christmas-stockings-1-1024x750.png)
+![Dataviz example](https://swizec.com/wp-content/uploads/2018/12/christmas-stockings-1-1024x750.png)
 
 ## PS: A neat way to useData
 

@@ -137,7 +137,7 @@ You can see how the `breedPairs` and `rank` functions work [on Github](https://g
 
 This current approach did not produce a single working piece of code. This was the best solution with a score of `0.5535714285714286`
 
-    " pci  s |ePke "
+    "` pci  s |ePke `"
 
 At least it's syntactically valid 🤔
 
@@ -147,7 +147,7 @@ This field of research is known as [genetic programming](https://en.wikipedia.or
 
 The experiment failed, and the code is slow.
 
-Maybe we should switch to Python? Or parallelize the generation generator. Evolution is, after all, highly parallelizable and there _are_ 4 cores in my computer…
+Maybe we should switch to Python? Or parallelize the `generation` generator. Evolution is, after all, highly parallelizable and there _are_ 4 cores in my computer…
 
 Fundamentally, we're gonna have to change the level of abstraction. You cannot evolve code as if it was a random series of characters. Maybe if our algorithm could understand syntax, or at least JavaScript symbols, and evolve an [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), then it might work.
 

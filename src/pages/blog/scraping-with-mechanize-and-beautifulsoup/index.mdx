@@ -8,15 +8,15 @@ categories: "BeautifulSoup, Clients, Cross-site request forgery, HTML, HTTP cook
 hero: ../../../defaultHero.jpg
 ---
 
-![Scraping](./img/Scraping754128.jpeg "Scraping")
+![Scraping](./img/Scraping754128.jpeg)
 
-Scraping is one of those annoying little things that will never be solved for the general case. Sometimes you want to [extract articles](http://www.zemanta.com/fruitblog/the-uncanny-valley-of-web-scraping/), other times you're looking for data in organized tables ... and sometimes it's all hidden behind a form with [cross-site request forgery](http://en.wikipedia.org/wiki/Cross-site_request_forgery "Cross-site request forgery")protection (csrf).
+Scraping is one of those annoying little things that will never be solved for the general case. Sometimes you want to [extract articles](http://www.zemanta.com/fruitblog/the-uncanny-valley-of-web-scraping/), other times you're looking for data in organized tables ... and sometimes it's all hidden behind a form with [cross-site request forgery](http://en.wikipedia.org/wiki/Cross-site_request_forgery)protection (`csrf`).
 
 And it's never _actually_ organized. Even with the best of websites, I don't think I've ever encountered a scraping job that couldn't be described as _"A small and simple general model with heaps upon piles of annoying little exceptions"_
 
 At best scraping a bunch of data from a website is a somewhat fiddly job, at worst you'll be wishing you'd done it manually and be done with it.
 
-When you're done, you will lie awake at night, praying to the gods of the internets, hoping nobody sneezes at the [HTML](http://en.wikipedia.org/wiki/HTML "HTML") of that page.
+When you're done, you will lie awake at night, praying to the gods of the internets, hoping nobody sneezes at the [HTML](http://en.wikipedia.org/wiki/HTML) of that page.
 
 ## Mechanize
 
@@ -42,10 +42,10 @@ Pain in the ass.
 ```python
 import urllib, urllib2
 
-req = urllib2.Request("http://example.com/form/submit/url"
+req = urllib2.Request("http://example.com/form/submit/url",
                       data=urllib.urlencode({'field1': 'value',
                                              'field2': 'value',
-                                             'filed3': 'value'}),
+                                             'field3': 'value'}),
                       headers={'User-Agent': 'Mozilla something',
                                'Cookie': 'name=value; name2=value2'})
 response = urllib2.urlopen(req)
@@ -79,7 +79,7 @@ browser.submit()
 
 Now isn't that much easier and cleaner?
 
-The cool thing about Mechanize is that it also lets you do a lot of browsing around. _browser.links_ gives you all the links on a page, _browser.forms_ all the forms and so on. You can even use _browser.follow_link_ to naturally walk around the whole website like a user might.
+The cool thing about Mechanize is that it also lets you do a lot of browsing around. `browser.links` gives you all the links on a page, `browser.forms` all the forms and so on. You can even use `browser.follow_link` to naturally walk around the whole website like a user might.
 
 Which is very useful when you're handling websites that either don't want or don't expect bots.
 
@@ -89,7 +89,7 @@ Ok, now we can get to the data. But how do we get the data itself?
 
 Unfortunately this is the fiddly part of the process and there isn't much you can do about that. Your best bet is using BeautifulSoup to at least make the process of handling poorly written HTML without a big fuss. It will even make sure everything is unicode. Win!
 
-At least [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/) makes browsing [DOM](http://en.wikipedia.org/wiki/Document_Object_Model "Document Object Model") a breeze:
+At least [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/) makes browsing [DOM](http://en.wikipedia.org/wiki/Document_Object_Model) a breeze:
 
 ```python
 from bs4 import BeautifulSoup
@@ -106,4 +106,3 @@ logo_img = soup.find('header').find('div', id="logo").img
 That's it.
 
 The next time you have to scrape some data off a website I suggest using Mechanize and BeautifulSoup. That way you can worry about the fiddly bits, not the infrastructure.
-

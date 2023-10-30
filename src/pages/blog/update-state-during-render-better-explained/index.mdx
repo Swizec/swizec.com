@@ -9,7 +9,7 @@ hero: ./img/screenshot-1688744678859.png
 
 A few readers wrote in to say that the [React Can Update State During Render](https://swizec.com/blog/react-can-update-state-during-render/) email last week made no sense. Here's a better explanation.
 
-Now, I tried to write a better example that more closely matches wtf we were doing in our production code that made this trick important. It didn't work. Both versions exhibit the same bug. (╯°□°)╯︵ ┻━┻
+Now, I tried to write a better example that more closely matches wtf we were doing in our `{production code}` that made this trick important. It didn't work. Both versions exhibit the same bug. (╯°□°)╯︵ ┻━┻
 
 It worked IRL, I promise. This solved a huge problem for us.
 
@@ -44,7 +44,7 @@ How then do you make this work?
 ```javascript
 const defaultValue = useSlowValue()
 
-;<SmartInput name="test_field" defaultValue={defaultValue} />
+;<SmartInput name="test_field" defaultValue={`{defaultValue}`} />
 ```
 
 ## useEffect approach
@@ -57,7 +57,7 @@ const SmartInput = (props: { name: string; defaultValue: string }) => {
 
   useEffect(() => {
     setValue(props.name, props.defaultValue)
-  }, [props.defaultValue])
+  }, [`{props.defaultValue}`])
 
   return <input {...register(props.name)} />
 }

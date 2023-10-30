@@ -15,37 +15,37 @@ Async/await is great. Makes your code easier to read 👌 But the error handling
 
 Yes try catch is great, it might even make your code easier to read. Combined with JavaScript's modern block scoping it gives rise to the vile side of exception handling.
 
-check this out 👇
+Check this out 👇
 
 Say you're using [@lukeed05's httpie](https://github.com/lukeed/httpie) to scream at a server.
 
-![](./img/media-DyvM7QQUUAAiUvA.png)
+![image](./img/media-DyvM7QQUUAAiUvA.png)
 
 A post request to a naughty server. But the naughty server says no.
 
 What do you do? Add a try catch. Wanna handle those JavaScript errors and show a message to the user.
 
-![](./img/media-DyvNQaxUwAILdut.png)
+![image](./img/media-DyvNQaxUwAILdut.png)
 
 You're talking to a naughty server and handling errors like you're supposed to. 👏
 
 What about not errors? You can take the data and do something.
 
-![](./img/media-DyvNXUrUUAELUz2.png)
+![image](./img/media-DyvNXUrUUAELUz2.png)
 
 Oh no what just happened!? 😱
 
-You're getting a "Naughty server said no" error even though _you_ made the mistake. You can't just access properties on undefinedStuff. JavaScript doesn't like that.
+You're getting a "Naughty server said no" error even though _you_ made the mistake. You can't just access properties on `undefinedStuff`. JavaScript doesn't like that.
 
 Blaming the server for your mistakes, tsk
 
-![](./img/c552b61f64ea71b300d847d9d5e8fb19-tumblr_inline_orekae8QzG1sz9gyq_540.gif)
+![image](./img/c552b61f64ea71b300d847d9d5e8fb19-tumblr_inline_orekae8QzG1sz9gyq_540.gif)
 
 Oh I know! We can move using data to after the catch block, right? That should work.
 
-![](./img/media-DyvN3fQU0AAfjCq.png)
+![image](./img/media-DyvN3fQU0AAfjCq.png)
 
-Nope. Now data isn't defined because `const { data }` only works within that try block. 🤦‍♂️
+Nope. Now `data` isn't defined because `{ data }` only works within that try block. 🤦‍♂️
 
 You could solve that with a `var`, but that's old school JavaScript and we all agreed we'd stop using it.
 
@@ -53,13 +53,13 @@ You could solve that with a `var`, but that's old school JavaScript and we all a
 
 What about this?
 
-![](./img/media-DyvOHz8VYAEpl6r.png)
+![image](./img/media-DyvOHz8VYAEpl6r.png)
 
 This works. But pre-declaring your variables like it's 1978? No thanks. That's why [variable hoisting](https://en.wikipedia.org/wiki/JavaScript_syntax#hoisting) was invented in the first place, lol.
 
 You _could_ wrap your code in another level of try/catch ...
 
-![](./img/vlYmz7Q.png)
+![image](./img/vlYmz7Q.png)
 
 And that's never ever going to get out of hand is it? 😅
 
@@ -67,7 +67,7 @@ I'm gonna be honest with you: There's no solution. Not a nice one. Not in JavaSc
 
 Other languages let you catch specific error types. As far as I know, JavaScript doesn't (can't?) support that :/
 
-![](./img/media-9Y5BbDSkSTiY8-giphy.gif)
+![image](./img/media-9Y5BbDSkSTiY8-giphy.gif)
 
 ## We have stumbled upon the basic truth of exception handling
 
@@ -75,8 +75,8 @@ It sucks. It always sucks. Whichever way you do it, it's going to make your head
 
 You see there's 2 ways software can approach errors:
 
-1.  Error passing
-2.  Exceptions
+1. Error passing
+2. Exceptions
 
 ### Error passing
 
@@ -86,7 +86,7 @@ The logic behind error passing is simple: Every function can return an error, or
 
 Great in theory. Except now _every function has to check for errors._. Our code looked like this:
 
-![](./img/SO4GEYh.png)
+![image](./img/SO4GEYh.png)
 
 1st argument out of a function is an error object, 2nd argument is the result. Check for errors, go into the error path, no errors, do the stuff.
 
@@ -108,9 +108,9 @@ Many moons ago someone had the bright idea that hey error passing sucks, let's u
 
 Something like this:
 
-1.  Error handling sucks
-2.  Passing errors around and staying vigilant at all times leads to bugs
-3.  What if we had a sort of error context that handles it behind the scenes?
+1. Error handling sucks
+2. Passing errors around and staying vigilant at all times leads to bugs
+3. What if we had a sort of error context that handles it behind the scenes?
 
 So instead of functions returning errors, they _raise_ exceptions and hope for the best 🤞
 
@@ -136,7 +136,7 @@ JavaScript's missing piece are exception types.
 
 Take this Python code for example:
 
-![](./img/gcHfor6.png)
+![image](./img/gcHfor6.png)
 
 Beautiful ❤️
 
@@ -156,7 +156,7 @@ Error handling is always going to suck. I'm sorry.
 
 But you can emulate the python/ruby/java/etc approach in JavaScript and make your life a little easier. You'll have to coordinate with your team because there's no language support, but something like this might work:
 
-![](./img/2zhKRu7.png)
+![image](./img/2zhKRu7.png)
 
 Of course then you have to set `myType` on every error you raise and that's tedious too 🤔
 

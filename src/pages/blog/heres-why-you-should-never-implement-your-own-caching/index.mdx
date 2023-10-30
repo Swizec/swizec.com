@@ -24,7 +24,7 @@ AppVersion.where(platform: platform)
           .last
 ```
 
-This looks innocent, but it builds an array of all `AppVersion` models, then sorts it in Ruby, then takes the last one and discards the rest. It's kind of okay when the table is small, but it’s _terrible_ when the table grows big.
+This looks innocent, but it builds an array of all `{AppVersion}` models, then sorts it in Ruby, then takes the last one and discards the rest. It's kind of okay when the table is small, but it’s _terrible_ when the table grows big.
 
 Ruby on Rails's and your database's default caching strategies can't cache this call. You have to run it every time.
 
@@ -80,18 +80,18 @@ class AppVersion < ActiveRecord::Base
 
 ?
 
-Overall, this is the `AppVersion` model. It stores information about each new app version the server encounters. When a user logs in, we call `AppVersion.check_app_version(user.device)`.
+Overall, this is the `{AppVersion}` model. It stores information about each new app version the server encounters. When a user logs in, we call `{AppVersion.check_app_version(user.device)}`.
 
 This function:
 
-1.  Fetches the `latest` app version
-2.  1.1. \`latest\` returns saved value if it exists
-3.  1.2. if not, \`latest\` saves its result in a class instance variable
-4.  If we got a version, we check if the new app is of a newer version
-5.  If user's device is newer, we create a new `AppVersion` entry
-6.  Then we update the class instance variable
-7.  If device is not newer, we update the `last_seen_at` timestamp
-8.  If this is the first time ever that we're checking – there's no `latest` – then we make a new latest and update the class instance variable
+1. Fetches the `latest` app version
+   1. `{latest}` returns saved value if it exists
+   2. if not, `{latest}` saves its result in a class instance variable
+2. If we got a version, we check if the new app is of a newer version
+3. If user's device is newer, we create a new `{AppVersion}` entry
+4. Then we update the class instance variable
+5. If device is not newer, we update the `{last_seen_at}` timestamp
+6. If this is the first time ever that we're checking – there's no `latest` – then we make a new latest and update the class instance variable
 
 Seems reasonable, right? Calculate value, save value, update value when needed. We rely on class instance variables persisting across requests.
 
@@ -152,4 +152,4 @@ The fixed code works because `Rails.cache` can be configured to use an external 
 
 Problem solved, crisis averted, lesson learned. Don't be clever. Use the tools your frameworks give you. ?
 
-1.  Apple promotes reviews for the latest app version. It hides previous reviews. If you have frequent updates, like you should, and you have good reviews, like you hope, then all your expensive traffic sees _"This app has not received enough ratings to show an average"_. How encouraging! (By the way, you pay for traffic because this is the real world and if you build it they will come does not work.) [↩](#ffn1)
+1. Apple promotes reviews for the latest app version. It hides previous reviews. If you have frequent updates, like you should, and you have good reviews, like you hope, then all your expensive traffic sees _"This app has not received enough ratings to show an average"_. How encouraging! (By the way, you pay for traffic because this is the real world and if you build it they will come does not work.) [↩](#ffn1)

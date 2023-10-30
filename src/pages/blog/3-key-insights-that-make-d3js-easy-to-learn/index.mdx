@@ -8,7 +8,7 @@ categories: "Front End, Technical"
 hero: ./img/wikipedia-commons-thumb-d-df-Function_color_example_3.svg-440px-Function_color_example_3.svg.png
 ---
 
-The other day somebody asked me how to learn D3.js from scratch. I quipped that it took me writing a book to really learn it. It's one hell ofa library.
+The other day somebody asked me how to learn D3.js from scratch. I quipped that it took me writing a book to really learn it. It's one hell of a library.
 
 Most people don't go that far. They don't have to. Most people start with a problem, find similar examples, do some copy pasta, tweak until it works and end up with a working visualization they don't understand. You'd be surprised how few people actually understand how their D3 dataviz works.
 
@@ -28,11 +28,11 @@ Let's take an example from [D3's docs](https://github.com/d3/d3/wiki/Gallery), a
 
 Mike Bostock, the creator of D3, built this chart in 43 lines of code. Here they are 👇
 
-![Bar Chart codea](https://swizec.com/wp-content/uploads/2018/02/barchartcode.png)
+![Bar Chart code](https://swizec.com/wp-content/uploads/2018/02/barchartcode.png)
 
 There are two parts to this code: Data manipulation and DOM manipulation.
 
-[![Bar chart data manipulation code](https://swizec.com/wp-content/uploads/2018/02/barchartcode-data.png)](Bar)
+[![Bar chart data manipulation code](https://swizec.com/wp-content/uploads/2018/02/barchartcode-data.png)](Bar chart data manipulation code)
 
 Bostock here first prepares his data:
 
@@ -47,7 +47,7 @@ In the DOM manipulation part, he puts shapes and objects into an SVG. This is th
 
 DOM manipulation in D3 happens via D3 selections. They're a lot like jQuery `$(something)`. Personally I like to do this part with React as described in my book, [React+D3v4](https://swizec.com/reactd3js).
 
-Here Bostock does a few things
+Here Bostock does a few things:
 
 - selects the `<svg>` node (d3.select)
 - appends a grouping `<g>` node (.append) with an SVG positioning attribute (translate)
@@ -70,14 +70,14 @@ Scales are D3's most versatile concept. They help you translate between two diff
 
 They're like the mathematical functions you learned about in school. A domain maps to a range using some sort of formula.
 
-![](./img/wikipedia-commons-thumb-d-df-Function_color_example_3.svg-440px-Function_color_example_3.svg.png)
+![Function color example](./img/wikipedia-commons-thumb-d-df-Function_color_example_3.svg-440px-Function_color_example_3.svg.png)
 
 Colored shapes in the domain map to colors in the range. No formula for this one, which makes it an ordinal scale.
 
 ```javascript
-    let shapes = d3.scaleOrdinal()
-                     .domain(['red triangle', 'orange rectangle', ...)
-                     .range(['red', 'orange', ...)
+let shapes = d3.scaleOrdinal()
+  .domain(['red triangle', 'orange rectangle', ...])
+  .range(['red', 'orange', ...]);
 ```
 
 Once you have this scale, you can use it to translate from shapes to colors. `shapes('red triangle')` returns `'red'` for example.
@@ -101,16 +101,12 @@ But here's a key insight about the magic of layouts: They're the data part.
 You take a `forceLayout` for example and feed it your data. It returns an object with a `tick` event callback.
 
 ```javascript
-var simulation = d3
-  .forceSimulation()
-  .force(
-    "link",
-    d3.forceLink().id(function (d) {
-      return d.id
-    })
-  )
+var simulation = d3.forceSimulation()
+  .force("link", d3.forceLink().id(function (d) {
+    return d.id
+  }))
   .force("charge", d3.forceManyBody())
-  .force("center", d3.forceCenter(width / 2, height / 2))
+  .force("center", d3.forceCenter(width / 2, height / 2));
 ```
 
 This `simulation` now handles everything about rendering nodes. Changes their positions on every `tick` callback.
@@ -125,6 +121,6 @@ It took me a while to get this and once I did, all the fancy looking visualizati
 
 To summarize, you need to grok 3 key insights for D3 to make sense. Once they click, a whole new world opens up.
 
-1.  Code is split into data and DOM manipulation
-2.  Scales are great and used a lot
-3.  You're always in control of rendering
+1. Code is split into data and DOM manipulation
+2. Scales are great and used a lot
+3. You're always in control of rendering

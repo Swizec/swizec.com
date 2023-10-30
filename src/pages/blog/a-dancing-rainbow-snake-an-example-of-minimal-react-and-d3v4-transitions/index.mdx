@@ -34,7 +34,7 @@ You can play with the code on CodePen, tweak params, try the dancing rainbow sna
 
 See the Pen [React D3 transition animation - rainbow field](http://codepen.io/swizec/pen/QdVoOg/) by Swizec Teller ([@swizec](http://codepen.io/swizec)) on [CodePen](http://codepen.io).
 
-We have two components: `App` and `Dot`. App sets up the grid of dots, and `Dot` handles each circle's transitions and coloration.
+We have two components: `App` and `{Dot}`. App sets up the grid of dots, and `{Dot}` handles each circle's transitions and coloration.
 
 I tried adding a fly-in transition as well, but [ReactTransitionGroup](https://facebook.github.io/react/docs/animation.html#low-level-api-reacttransitiongroup) dies on 2500 nodes. ? I have a video of that fail somewhere on snapchat.
 
@@ -69,13 +69,13 @@ Here's a diagram of how `scalePoint` works:
 
 ![](./img/d3-d3-scale-master-img-point.png)
 
-To render the grid, we use two nested loops going from 0 to N. `d3.range` builds an array for us so we can `.map` over it. We return a ``component for each iteration.
+To render the grid, we use two nested loops going from 0 to N. `d3.range` builds an array for us so we can `.map` over it. We return a `{Dot}` component for each iteration.
 
 Looking at this code: `x={pos(x)} y={pos(y)}`, you can see why D3 scales are so neat. All positioning calculation boiled down to a 1-parameter function call. \\o/
 
 ## Dot
 
-The Dot component has a few more moving parts. It needs a `constructor`, a transition callback – `flash`, a `color` getter, and a `render` method.
+The `{Dot}` component has a few more moving parts. It needs a `constructor`, a transition callback – `flash`, a `color` getter, and a `render` method.
 
 ```javascript
 class Dot extends Component {
@@ -98,7 +98,7 @@ class Dot extends Component {
   render() {
     const { x, y, r, colorize } = this.state;
 
-    return <circle cx={x} cy={y} r={r} ref="circle" onmouseover={this.flash.bind(this)} style="{{fill:" colorize="" ?="" this.color="" :="" 'black'}}="">
+    return <circle cx={x} cy={y} r={r} ref="circle" onmouseover={this.flash.bind(this)} style={{fill: colorize ? this.color : 'black'}}>
   }
 }
 </circle>
@@ -110,7 +110,7 @@ Normally, you want to avoid state and render all components from props. Function
 
 Guess what transitions are… props that change over time :)
 
-So we put props in state and render from state. This lets us keep a stable platform while running transitions. It ensures that changes re-rendering `Dot` from above won't interfere with D3 transitions.
+So we put props in state and render from state. This lets us keep a stable platform while running transitions. It ensures that changes re-rendering `{Dot}` from above won't interfere with D3 transitions.
 
 Not super important in our particular example because those changes never happen. But I had many interesting issues in this [animated typing example](https://swizec.com/blog/using-d3js-transitions-in-react/).
 

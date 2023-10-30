@@ -16,7 +16,7 @@ I had to align a curvy line with elements that aren't under my control. This lit
 
 https://twitter.com/Swizec/status/1105494223011241984?ref_src=twsrc%5Etfw
 
-SVG in the background detects position of itself, positions of the title and circle, and uses those to define the `start` and `end` line of my curve. 👌
+SVG in the background detects position of itself, positions of the title and circle, and uses those to define the `{start}` and `{end}` line of my curve. 👌
 
 Many ways you can do this.
 
@@ -33,8 +33,6 @@ https://twitter.com/Swizec/status/1105494221232910336?ref_src=twsrc%5Etfw
 This seemed like a neat approach so I turned it into [an open source React Hook](https://github.com/Swizec/useDimensions). You might enjoy it.
 
 ![useDimensions source](./img/Tm1Bmdw.png)
-
-useDimensions source
 
 Yep that's it. It really is that simple.
 
@@ -67,7 +65,7 @@ const MyComponent = () => {
 }
 ```
 
-`useDimensions` returns a 2-element array. First the `ref`, second the dimensions.
+`useDimensions` returns a 2-element array. First the `{ref}`, second the dimensions.
 
 This is so multiple `useDimensions` hooks in the same component don't step on each others' toes. Create as many refs and measurement objects as you'd like.
 

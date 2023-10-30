@@ -37,7 +37,7 @@ Keeping up was a full-time job.
 
 What if you could observe a user's behavior – replies, favs, clicks, long pauses – feed that into an algorithm, and create a _personalized feed_. Like a personal newspaper.
 
-![](giphy:brilliant)
+![brilliant](giphy:brilliant)
 
 <ContentUpgrades.Serverless />
 
@@ -47,7 +47,7 @@ I read lots of Wikipedia about machine learning and AI and got to work. Soon the
 
 No pictures survive but it was wonderful.
 
-A [reinforcement-learning](https://en.wikipedia.org/wiki/Reinforcement_learning) approach that interpreted user actions on the fly. You could _see the code learn_. Point at your RSS feeds, read as normal, see your homepage change.
+A `{reinforcement-learning}` approach that interpreted user actions on the fly. You could _see the code learn_. Point at your RSS feeds, read as normal, see your homepage change.
 
 😍
 
@@ -55,9 +55,9 @@ Now how do you scale this?
 
 When it runs on the server in your bedroom it's a cool toy for you and your friends. A slow flaky toy.
 
-Can you make it internet scale? A popular buzzword back then. Everyone's the next Google! We need _internet scale_ right meow!!!
+Can you make it Internet scale? A popular buzzword back then. Everyone's the next Google! We need _Internet scale_ right meow!!!
 
-![](giphy:yeah_right)
+![yeah right](giphy:yeah_right)
 
 ## 2010 was a dash early for serverless 😬
 
@@ -65,11 +65,11 @@ Using Django, a neural net implemented in SQL, and running on a traditional serv
 
 Lesson learned: Don't implement neural networks as foreign keys in a database. At least use a graph db ... those weren't well-known yet.
 
-We ate the hype and used internet scale serverless technologies. Called "managed cloud" or "platform as a service" back then. Depends who you ask ... it was new.
+We ate the hype and used Internet scale serverless technologies. Called "managed cloud" or "platform as a service" back then. Depends who you ask ... it was new.
 
-[Google App Engine](https://en.wikipedia.org/wiki/Google_App_Engine) was all the rage and _definitely_ the future. [Bigtable](https://en.wikipedia.org/wiki/Bigtable) was the hot new database offering with infinite scale.
+`{Google App Engine}` was all the rage and _definitely_ the future. `{BigTable}` was the hot new database offering with infinite scale.
 
-![](giphy:heck_yeah)
+![heck yeah](giphy:heck_yeah)
 
 Getting it all to work was ... rough. So fricken complicated!
 
@@ -87,7 +87,7 @@ Those servers fed back into a queue that fed into a BigTable that fed into a que
 
 You could take an article, look at its keywords, query vectors in the database, and assign a _"How much will user like this?"_ score.
 
-![](giphy:brilliant)
+![brilliant](giphy:brilliant)
 
 ## 🔥
 
@@ -101,7 +101,7 @@ Then we released the iPad app. Back when if you built it they did come.
 500 downloads
 1000 ...
 
-![](./img/UnIt6Agif3hdejj.gif)
+![download growth](./img/UnIt6Agif3hdejj.gif)
 
 We were backed up for days. The queue filled up with thousands of articles. You clicked a button, we imported 500 feeds, 3000 articles, and died. Trying to build _your_ neural net.
 

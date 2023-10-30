@@ -24,7 +24,7 @@ Let's say you've been a good programmer, and you’ve followed a faux flux appro
 
 You have a main component that is _the_ source of truth. Child components have a bit of their own state, and they use callback chains to propagate changes back up the tree.
 
-![](https://swizec.com/wp-content/uploads/2016/10/photo.png)
+![img](https://swizec.com/wp-content/uploads/2016/10/photo.png)
 
 In theory, following the unidirectional dataflow paradigm: data/state flows down the tree, changes flow up the tree.
 
@@ -61,9 +61,9 @@ class Store {
   @observable rawData = [];
   @observable filteringBy = null;
   @observable filter = () => true;
-  @observalbe someRandomBool = false;
+  @observable someRandomBool = false;
 
-  @computed filteredData() {
+  @computed get filteredData() {
     return this.rawData.filter(this.filter);
   }
 }
@@ -83,7 +83,7 @@ class App extends Component {
   store = new Store();
 
   render() {
-    // change all this.state to this.store
+    // change all `this.state` to `this.store`
   }
 }
 ```

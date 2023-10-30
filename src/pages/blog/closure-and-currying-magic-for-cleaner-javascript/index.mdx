@@ -8,7 +8,7 @@ categories: "closures, functions, JavaScript, jQuery, Languages, Plug-in (comput
 hero: ../../../defaultHero.jpg
 ---
 
-Sometimes you find a piece of [javascript](http://en.wikipedia.org/wiki/JavaScript "JavaScript"), a perfect piece of javascript, it does _exactly_ what you need! Perfect! You could spend hours, even days, getting something to work and someone's already done it, shared the code on the internets even!
+Sometimes you find a piece of [javascript](http://en.wikipedia.org/wiki/JavaScript), a perfect piece of javascript, it does _exactly_ what you need! Perfect! You could spend hours, even days, getting something to work and someone's already done it, shared the code on the internets even!
 
 Hooray!
 
@@ -22,11 +22,11 @@ var data = [],
 var a_switch = "blah";
 
 function do_something() {
-  // use subset of globals
+  // use subset of `globals`
 }
 
 function something_else() {
-  // use some other globals
+  // use some other `globals`
 }
 
 // etc.
@@ -36,7 +36,7 @@ function update() {
 }
 ```
 
-The code works ... if you only need to use it once. What if you need two independent widgets? Well, you could take the time to recode all of that so it becomes [purely functional](http://en.wikipedia.org/wiki/Purely_functional "Purely functional").
+The code works ... if you only need to use it once. What if you need two independent widgets? Well, you could take the time to recode all of that so it becomes [purely functional](http://en.wikipedia.org/wiki/Purely_functional).
 
 But that's going to be a problem - the code heavily relies on state. Ok maybe object oriented? Object oriented kind of sucks in javascript and you'd have to recode all of that, have to perfectly understand it etc.
 
@@ -47,7 +47,7 @@ Pain in the arse!
 There's a better way - put it in a closure.
 
 ```javascript
-var my_widget = function (data_function) {
+var my_widget = function (`data_function`) {
   // to populate later
   var data = [],
     oldData = [],
@@ -55,18 +55,18 @@ var my_widget = function (data_function) {
   var an_index = 1;
 
   function do_something() {
-    // use subset of globals
+    // use subset of `globals`
   }
 
   function something_else() {
-    // use some other globals
+    // use some other `globals`
   }
 
   // etc.
 
   function update(index) {
     an_index = index;
-    data = data_function();
+    data = `data_function`();
     // use all of the above
   }
 
@@ -78,35 +78,35 @@ Now you get to create the widget with a simple function call. Hooray!
 
 And the function returns its own update function so you can run an update whenever you need. All the state and weirdness is neatly packaged inside the closure, the code itself doesn't need to know anything about the outside state.
 
-By changing the update function a little bit you can even affect the internal state of the closure by calling the [curried function](http://en.wikipedia.org/wiki/Currying "Currying").
+By changing the update function a little bit you can even affect the internal state of the closure by calling the [curried function](http://en.wikipedia.org/wiki/Currying).
 
-## Closures upon [closures](http://en.wikipedia.org/wiki/Closure_%28computer_science%29 "Closure (computer science)")
+## Closures upon [closures](http://en.wikipedia.org/wiki/Closure_%28computer_science%29)
 
 Here's where it gets even more magical. Stacking closures to achieve true greatness.
 
 Code is the best way to explain what I mean ...
 
 ```javascript
-// these functions are used to slice up data
-var slice_functions = {
+// these `functions` are used to slice up data
+var `slice_functions` = {
         students: function (item) { return !!item.cs_student; },
         others: function (item) { return !item.cs_student; },
         everyone: function (item) { return true; }
     },
-        slice_func = slice_functions.students,
+        slice_func = `slice_functions`.students,
 
-// these functions provide cleaned up data
-// all must use the same main slice_func
-        data_functions = {
+// these `functions` provide cleaned up data
+// all must use the same main `slice_func`
+        `data_functions` = {
             year_vs_pay: function (year) {
-                var data = DATA.filter(slice_func).filter(function (item) {
+                var data = DATA.filter(`slice_func`).filter(function (item) {
                     return item.years_study == year;
                 }),
                 // ...
                 return fin_data;
             },
             study_vs_pay: function (study) {
-                var data = DATA.filter(slice_func).filter(function (item) {
+                var data = DATA.filter(`slice_func`).filter(function (item) {
                     return item.study_time == study;
                 }),
                 // ...
@@ -117,7 +117,7 @@ var slice_functions = {
 
 Those are our data functions, when creating new widgets we can provide them as the _data_function_ argument shown above.
 
-Now comes the tricky part - we can externally change the _slice_func_ and all the data_functions (now safely tucked inside closures) **change** their behaviour by using the new slice_function since variables inside closures are pointers rather than copies.
+Now comes the tricky part - we can externally change the _`slice_func`_ and all the `data_functions` (now safely tucked inside closures) **change** their behaviour by using the new `slice_function` since variables inside closures are pointers rather than copies.
 
 Magic!
 
@@ -125,5 +125,4 @@ We have reached a situation where all code is tucked neatly inside closures. The
 
 And yet, through the magic of closures, we get to globally change their behaviour without worrying about internal state _or_ having to call a specific function to do something on an object.
 
-To me this feels cleaner than any abstraction [object oriented programming](http://en.wikipedia.org/wiki/Object-oriented_programming "Object-oriented programming") has ever come up with.
-
+To me this feels cleaner than any abstraction [object oriented programming](http://en.wikipedia.org/wiki/Object-oriented_programming) has ever come up with.

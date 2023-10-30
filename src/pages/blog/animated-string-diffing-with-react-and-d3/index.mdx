@@ -26,11 +26,10 @@ What I like about this demo is that it’s a great example of declarative transi
                            .ease(d3.easeCubicInOut);
 
         return (
-            <g transform="{`translate(${x}," ${y})`}="">
+            <g transform={`translate(${x}, ${y})`}>
                 <reacttransitiongroup component="g">
                     {this.state.text.map((l, i) =>
-                        <letter letter={l} i={i} key={i} transition={transition}>
-                     )}
+                        <letter letter={l} i={i} key={i} transition={transition}>)}
                 </letter></reacttransitiongroup>
             </g>
         );
@@ -56,8 +55,6 @@ For example: if you use the letter itself for the key prop, this example breaks 
 ![](./img/zkgtGiR.gif)
 
 You only get one chance to show each character. Repeat it and React won’t care - it’s the same component as far as React is concerned. Empty spaces show up because we use character index from the original string to calculate horizontal positioning.
-
-?
 
 Okay then, what if we use the index? Each letter has its own, so that’s good, and it’s easy to set up, so that’s great.
 
@@ -226,11 +223,10 @@ There’s one more thing. We have to update how rendering happens. Invoking the 
 // FancyText.jsx -> render()
 
  return (
-            <g transform="{`translate(${x}," ${y})`}="">
+            <g transform={`translate(${x}, ${y})`}>
                 <reacttransitiongroup component="g">
                     {this.state.textWithIds.map(([l, id], i) =>
-                        <letter letter={l} i={i} key={id} transition={transition}>
-                     )}
+                        <letter letter={l} i={i} key={id} transition={transition}>)}
                 </letter></reacttransitiongroup>
             </g>
         );

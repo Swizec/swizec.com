@@ -23,13 +23,13 @@ https://twitter.com/Swizec/status/1450624141070008321
 
 ## The halting problem rears its head
 
-Finding unresolved promises is an instance of [the halting problem](https://swizec.com/blog/week-1-turings-on-computable-numbers/) – a provably unsolvable problem.
+Finding unresolved promises is an instance of [the halting problem](https://swizec.com/blog/week-1-turings-on-computable-numbers/) – a provably unsolvable problem.
 
 There is no algorithm you can write that can look at any piece of code and answer _"Will this always finish for every input?"_. You can't do it by hand either.
 
 Google finds a few cases where people talk about unresolved promises. The answer is always _"Don't write fundamentally broken code"_
 
-![](giphy:sarcastic_thanks)
+![sarcastic_thanks](giphy:sarcastic_thanks)
 
 The typical halting problem solution is to add a time constraint. If a function doesn't resolve within N seconds, we assume it's stuck. It may not be, but we assume it is and kill the program.
 
@@ -74,7 +74,7 @@ Code in practice omits the 2nd parameter to focus on fulfilled reactions. Common
 const promise = Promise.resolve(17)
 promise.then(value => value + 1)
        .then(value => value + 1)
-       .then(function (value) => { console.log(value) })
+       .then(function (value) { console.log(value) })
 ```
 
 Each call to `.then` creates a new promise, which resolves with the return value of the reaction. Notice that the last call _implicitly_ resolves with `undefined`. Because in JavaScript a function without a return implicitly returns `undefined`.
@@ -310,7 +310,7 @@ process.on("unhandledRejection", (err, promise) => {
 })
 ```
 
-You can also try Node's [async_hooks](https://nodejs.org/api/async_hooks.html) module to hook into the promise/async lifecycle and attempt to detect long running promises. You could compare start/end times to a max timeout, for example, and log a warning.
+You can also try Node's `async_hooks` module to hook into the promise/async lifecycle and attempt to detect long running promises. You could compare start/end times to a max timeout, for example, and log a warning.
 
 My attempt at [using async_hooks to detect long running promises in JavaScript](https://gist.github.com/Swizec/30df527907e3488a546075b3ec691dd9) was fun, but not super useful. You can't get a reference to execution context (only a C pointer). Means you can see that _something_ is slow, but not what. 💩
 

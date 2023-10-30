@@ -12,7 +12,7 @@ https://www.youtube.com/watch?v=NQqDJoLqMtE
 
 I'm trying something new. Today the video is stronger than the post. Watch it ?
 
-On Tuesday, I implemented a JavaScript queue backed by local storage. It's goal in life is to ensure we don't lose events when tracking usage funnels on our app.
+On Tuesday, I implemented a JavaScript queue backed by local storage. Its goal in life is to ensure we don't lose events when tracking usage funnels on our app.
 
 Yes, losing an event that takes 600ms to send is an edge case.
 
@@ -34,13 +34,13 @@ And what if the same user runs multiple tabs? What if some events that you want 
 
 Here's how the [Lamport lock algorithm](http://www.cs.rochester.edu/research/synchronization/pseudocode/fastlock.html) works:
 
-![](https://swizec.com/wp-content/uploads/2017/03/algorithm-pic.png)
+![Lamport lock algorithm](https://swizec.com/wp-content/uploads/2017/03/algorithm-pic.png)
 
-You need 2 shared memory locations, `A` and `B`.
+You need 2 shared memory locations, `{A}` and `{B}`.
 
-When a new thread needs the lock, it first sets `A` to its `id`. Then it checks if `B` is free. If `B` is _not_ free, we retry. If `B` _is_ free, we set `B` to `id`. Then we check that `A` is still equal to `id`.
+When a new thread needs the lock, it first sets `{A}` to its `{id}`. Then it checks if `{B}` is free. If `{B}` is _not_ free, we retry. If `{B}` _is_ free, we set `{B}` to `{id}`. Then we check that `{A}` is still equal to `{id}`.
 
-If `A` has changed, we're potentially facing a lock contention. So we wait long enough for others to realize we're doing stuff and back off. Then we check that `B` is still `id`. If `B` is _not_ equal to `id`, then we've lost the lock and we go back to beginning. If `B` _is_ equal to `id`, it means we've won the lock and we do stuff.
+If `{A}` has changed, we're potentially facing a lock contention. So we wait long enough for others to realize we're doing stuff and back off. Then we check that `{B}` is still `{id}`. If `{B}` is _not_ equal to `{id}`, then we've lost the lock and we go back to beginning. If `{B}` _is_ equal to `{id}`, it means we've won the lock and we do stuff.
 
 It sounds confusing because it _is_ confusing. Study the flowchart. Drawing it helped me understand how this works. And I'm not sure I could _prove_ that it works.
 
@@ -112,7 +112,7 @@ Yes, that's an arbitrary value. No, saving to local storage should never take mo
 
 Look at the code and the flowchart side-by-side. I made sure they're the same ?
 
-![](https://swizec.com/wp-content/uploads/2017/03/together-screenshot.png)
+![Code and flowchart side-by-side](https://swizec.com/wp-content/uploads/2017/03/together-screenshot.png)
 
 Don't believe me that it works? [Read Lamport's original paper](https://www.microsoft.com/en-us/research/publication/fast-mutual-exclusion-algorithm/?from=http://research.microsoft.com/en-us/um/people/lamport/pubs/fast-mutex.pdf); it includes correctness proofs.
 

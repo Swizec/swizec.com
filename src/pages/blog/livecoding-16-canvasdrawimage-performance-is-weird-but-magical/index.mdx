@@ -16,7 +16,7 @@ So sad.
 
 BUT! We learned stuff about `canvas.drawImage`, _and_ I poked around after the stream and made this glorious bastard. 14,000 smoothly animated particles! \\o/
 
-![](./img/eSfblPT.gif)
+![Canvas drawImage Performance](./img/eSfblPT.gif)
 
 Cool, huh? Such a shame it didn’t work during the stream. Then 3 people would’ve stayed!
 
@@ -39,13 +39,13 @@ drawParticle(particle) {
 
 Using `.drawImage` like this tells canvas to take pixels from the top left corner and copy them to a new place. A fast operation in theory, but something went wrong for us.
 
-![](./img/902lShK.gif)
+![Canvas drawImage Example](./img/902lShK.gif)
 
 Terrible. Even worse than before. Copying those few pixels thousands of times grinds our animation to a halt. With a few thousand elements, each frame render takes a few seconds.
 
 But at least the `.drawImage`. approach makes it easy to render arbitrary images instead of particles. Instead of using `this.canvas` as the source, you can use an arbitrary `Image()` object, which you can fill with an image from any URL on the internet.
 
-![](./img/K3JIWBY.gif)
+![Canvas drawImage with Image() object](./img/K3JIWBY.gif)
 
 Strange … that feels smoother, doesn’t it? I’m not going crazy, right?
 
@@ -83,7 +83,7 @@ case ‘TIME_TICK’:
 
 We start by tracking timestamps for each frame and calculating a multiplier. Then, we multiply every position and vector change with the multiplier and voilà: time-based (instead of frame-based) physics.
 
-![](./img/tQ1aiHw.gif)
+![Time-based physics](./img/tQ1aiHw.gif)
 
 So smooth! I had to increase the number of particles generated on every animation tick up to 2000 just to see anything interesting going on. Insane.
 
@@ -91,7 +91,7 @@ Mission accomplished, right? It’s smooth up to 8,000 particles, and we can’t
 
 I wonder what happens if we put the minion sprite and the better physics together.
 
-![](./img/JW4MSzk.gif)
+![14,000 smoothly animated minions](./img/JW4MSzk.gif)
 
 Ho boy! 14,000 smoothly animated minions! \\o/
 

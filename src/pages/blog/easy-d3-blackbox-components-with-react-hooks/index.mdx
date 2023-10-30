@@ -18,7 +18,7 @@ D3 likes to set up objects with internal state. You call them and out comes a be
 
 Something like this for example 👇
 
-[![](https://swizec.com/wp-content/uploads/2018/11/animated-line.gif)](http://blockbuilder.org/kafunk/91f7b870b79c2f104f1ebacf4197c9dc)
+![Animated line example](https://swizec.com/wp-content/uploads/2018/11/animated-line.gif)
 
 No, I don't know how that example works. And that's the point.
 
@@ -69,14 +69,13 @@ export default function D3blackbox(D3render) {
 
     render() {
       const { x, y } = this.props;
-      return <g transform="{`translate(${x}," ${y})`}="" ref={this.anchor}>;
+      return <g transform={`translate(${x}, ${y})`} ref={this.anchor} />;
     }
   };
 }
-</g>
 ```
 
-17 sloc function that returns a class-based component with an `anchor`, two lifecycle methods, and a rendered ``element. That's our anchor.
+17 sloc function that returns a class-based component with an `anchor`, two lifecycle methods, and a rendered `g` element. That's our anchor.
 
 Using this HOC looks like wrapping some D3 code in a `D3blackbox` call.
 
@@ -123,9 +122,8 @@ const D3blackbox = ({ x, y, render }) => {
     render(d3.select(refAnchor.current));
   });
 
-  return <g ref={refAnchor} transform="{`translate(${x}," ${y})`}="">;
+  return <g ref={refAnchor} transform={`translate(${x}, ${y})`} />;
 };
-</g>
 ```
 
 We have a `D3blackbox` component that takes coordinates and a render method as props. It uses the `useRef` hook to add a React ref to our functional component and `useEffect` to automatically call your `render` method on component mount and update.
@@ -137,8 +135,9 @@ Then it renders the anchor element as an SVG group.
 You use it like this:
 
 ```javascript
-<d3blackbox x={0} y={400} render="{svg" ==""> // D3 code} />
-</d3blackbox>
+<D3blackbox x={0} y={400} render={svg => {
+  // D3 code goes here
+}} />
 ```
 
 😍

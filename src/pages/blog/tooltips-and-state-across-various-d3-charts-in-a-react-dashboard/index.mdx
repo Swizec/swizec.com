@@ -20,8 +20,6 @@ We built a simple dashboard with 3 scatterplots because scatterplots are easy to
 
 ![Scatterplots with synchronized tooltips](./img/hi9Ipxl.gif)
 
-Scatterplots with synchronized tooltips
-
 Here's a CodeSandbox, try it out 👇
 
 https://codesandbox.io/s/nr2z3qlm00
@@ -92,16 +90,16 @@ export default ({
     .range([padding, height - padding]);
 
   return (
-    <g transform="{`translate(${x}," ${y})`}="">
+    <g transform={`translate(${x}, ${y})`}>
       {data.map(d => (
-        <circle key={d.id} cx={xScale(xDimension(d))} cy={yScale(yDimension(d))} r={3} onmouseover="{()" ==""> setTooltip(d)}
+        <circle key={d.id} cx={xScale(xDimension(d))} cy={yScale(yDimension(d))} r={3} onMouseOver={()=> setTooltip(d)}
           onMouseOut={() => setTooltip(false)}
         />
       ))}
       {tooltip && (
-        <tooltip x={xScale(xDimension(tooltip))} y={yScale(yDimension(tooltip))} info={tooltip}>
+        <Tooltip x={xScale(xDimension(tooltip))} y={yScale(yDimension(tooltip))} info={tooltip} />
       )}
-    </tooltip></circle></g>
+    </g>
   );
 };
 ```
@@ -116,11 +114,11 @@ We return a grouping element using the `transform` prop to position at `(x, y)`,
 
 Each circle gets a position based on our scale and a passed-in value accessor. `xDimension` or `yDimension`. This lets us re-use the same scatterplot for random looks into our data you'll see. `onMouseOver` we set the tooltip to current datapoint, `onMouseOut` we reset it back to `false`.
 
-Then we render the ``component.
+Then we render the `Tooltip` component.
 
-## Third, you need a``
+## Third, you need a Tooltip
 
-The ``component takes coordinates and content. Renders them in an SVG `foreignObject` so we can leverage HTML's built-in text formatting abilities.
+The `Tooltip` component takes coordinates and content. Renders them in an SVG `foreignObject` so we can leverage HTML's built-in text formatting abilities.
 
 Reflowing text in SVG yourself is painful 😉
 
@@ -128,7 +126,7 @@ Reflowing text in SVG yourself is painful 😉
 // src/Scatterplot.js
 
 const Tooltip = ({ x, y, info }) => (
-  <foreignobject x="{x" +="" 10}="" y="{y" width={100} height={50}>
+  <foreignObject x={x + 10} y={y} width={100} height={50}>
     <div>
       <strong>{info.name}</strong>
 
@@ -138,7 +136,7 @@ const Tooltip = ({ x, y, info }) => (
         {info.number1.toFixed(2)}, {info.number2.toFixed(2)}
       </p>
     </div>
-  </foreignobject>
+  </foreignObject>
 );
 ```
 
@@ -187,21 +185,21 @@ function App() {
     <div class="App">
       <h1>React & D3 dashboard with synced tooltips</h1>
       <h2>For simplicity, it's scatterplots ✌️</h2>
-      <tooltipcontext class="provider" value={state}>
+      <TooltipContext.Provider value={state}>
         <svg width="800" height="600">
-          <scatterplot x={0} y={0} width={200} height={200} data={data} xdimension="{d" ==""> d.number1}
+          <Scatterplot x={0} y={0} width={200} height={200} data={data} xDimension={d => d.number1}
             yDimension={d => d.number2}
           />
 
-          <scatterplot x={250} y={0} width={200} height={200} data={data} xdimension="{d" ==""> d.number1}
+          <Scatterplot x={250} y={0} width={200} height={200} data={data} xDimension={d => d.number1}
             yDimension={d => stateToNumber(d.state)}
           />
 
-          <scatterplot x={0} y={250} width={200} height={200} data={data} xdimension="{d" ==""> stateToNumber(d.state)}
+          <Scatterplot x={0} y={250} width={200} height={200} data={data} xDimension={d => stateToNumber(d.state)}
             yDimension={d => alphabet(d.name[0])}
           />
-        </scatterplot></scatterplot></scatterplot></svg>
-      </tooltipcontext>
+        </svg>
+      </TooltipContext.Provider>
     </div>
   );
 }
@@ -215,17 +213,15 @@ We start with some fake data. `useMemo` makes sure we calculate it once and keep
 
 Two ordinal scales help us turn state names and zip codes into linear numbers. Easier than changing our scatterplots to support ordinal data.
 
-The `useTooltip` hook from earlier gives us a state object that we'll feed into our `tooltipContext`. Again a good opportunity to make this easier to use, but need to play around some more.
+The `useTooltip` hook from earlier gives us a state object that we'll feed into our `TooltipContext`. Again a good opportunity to make this easier to use, but need to play around some more.
 
-For the rendering, we wrap our dashboard with `tooltipContext.Provider`, give it our state, render an SVG element, and plop down three scatterplots.
+For the rendering, we wrap our dashboard with `TooltipContext.Provider`, give it our state, render an SVG element, and plop down three scatterplots.
 
 This is where making scatterplots flexible comes handy. We're reusing the same component, giving it different params, and it gives us different insights into the same dataset.
 
 The result, a dashboard with synchronized tooltips.
 
 ![Scatterplots with synchronized tooltips](./img/hi9Ipxl.gif)
-
-Scatterplots with synchronized tooltips
 
 ✌️
 

@@ -16,7 +16,7 @@ Wouldn't that be cool?
 
 Instead, I got a squished [Baymax healthcare companion](http://disney.wikia.com/wiki/Baymax). 🤔
 
-![](https://swizec.com/wp-content/uploads/2018/08/CleanShot_2018-08-03_at_09.01.09-1.png)
+![Image](https://swizec.com/wp-content/uploads/2018/08/CleanShot_2018-08-03_at_09.01.09-1.png)
 
 ReactVR, recently renamed to [react-360](https://github.com/facebook/react-360), doesn't have 3D modeling primitives like spheres and boxes. Instead, it asks you to import 3D models and build your scenes with that.
 
@@ -36,16 +36,16 @@ To display a 3D model in VR space, you put it in a react-360 `<View>` component,
 class Baymax extends React.Component {
   render() {
     return (
-      <view>
-        <ambientlight intensity={1.0} color="#ffffff">
-          <pointlight
-            intensity={0.4}
-            style={{ transform: [{ translate: [0, 4, -1] }] }}
-          >
-            <entity source={{ obj: baymax }}></entity>
-          </pointlight>
-        </ambientlight>
-      </view>
+      `<View>`
+        `<AmbientLight intensity={1.0} color="#ffffff">`
+          `<PointLight`
+            `intensity={0.4}`
+            `style={{ transform: [{ translate: [0, 4, -1] }] }}`
+          `>`
+            `<Entity source={{ obj: baymax }}></Entity>`
+          `</PointLight>`
+        `</AmbientLight>`
+      `</View>`
     );
   }
 }
@@ -79,7 +79,7 @@ And that's where react-360 starts to shine. 360 degrees on 3 axes is a lot of sp
 
 What I believe react-360 is truly optimized for is putting 2D panels in 3D space and giving your users more room to use different controls.
 
-![](https://swizec.com/wp-content/uploads/2018/08/CleanShot_2018-08-03_at_09.23.27-1.png)
+![Image](https://swizec.com/wp-content/uploads/2018/08/CleanShot_2018-08-03_at_09.23.27-1.png)
 
 It's kind of a shame that this is the case, but there's a lot you can do with 2D in 3D. Imagine a data dashboard for your infrastructure that uses full 3-axis 360 views to place charts all around you instead of trying to squish everything into a small browser window.
 
@@ -93,21 +93,21 @@ This builds that panel on the left 👇
 const TopPosts = props => {
     if (!props.posts) {
         return (
-            <view style={styles.wrapper}>
-                <text>Loading...</text>
-            </view>
+            `<View style={styles.wrapper}>`
+                `<Text>Loading...</Text>`
+            `</View>`
         );
     }
 
     return (
-        <view style={styles.wrapper}>
-            <text style={styles.postButtonName}>
-                Posts: {props.posts.length}
-            </text>
-            {props.posts.map((post, i) => (
-                <postbutton key={post.id} index={i} name={post.name} author={post.author} preview={post.preview}>
-            ))}
-        </postbutton></view>
+        `<View style={styles.wrapper}>`
+            `<Text style={styles.postButtonName}>`
+                `Posts: {props.posts.length}`
+            `</Text>`
+            `{props.posts.map((post, i) => (`
+                `<PostButton key={post.id} index={i} name={post.name} author={post.author} preview={post.preview}>`
+            `))}`
+        `</PostButton></View>`
     );
 };
 ```

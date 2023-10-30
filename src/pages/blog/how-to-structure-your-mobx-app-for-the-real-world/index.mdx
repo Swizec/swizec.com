@@ -39,7 +39,7 @@ Yes, MobX works with mutable state and change observers and all that fun stuff. 
 
 But you know what's cool? You get all the benefits of that anyway. MobX wraps your state changes in getters and setters, but it _could_ potentially back those with an immutable data structure and actions _could_ build a changelog for a time traveling debugger.
 
-That might be a fun project. I could use a time traveling debugger for MobX ?
+That might be a fun project. I could use a time traveling debugger for MobX `{?}`
 
 Models are another piece of the puzzle.
 
@@ -55,7 +55,7 @@ Models are also a great place to put actions that talk to your backend. Save, fe
 
 You should think of this as pseudocode.
 
-Let's build a box of [kakis](https://en.wikipedia.org/wiki/Diospyros_kaki "Japanese persimmons"). I have one of those on my kitchen counter right now because they grow in my girlfriend's mom's backyard. Who knew? ¯*(ツ)*/¯
+Let's build a box of [kakis](https://en.wikipedia.org/wiki/Diospyros_kaki). I have one of those on my kitchen counter right now because they grow in my girlfriend's mom's backyard. Who knew? ¯\*(ツ)*/¯
 
 ![](https://swizec.com/wp-content/uploads/2016/11/Slack-for-iOS-Upload-1.jpg)
 
@@ -161,15 +161,15 @@ class App extends Component {
     const mainStore = this.mainStore;
 
     return (
-      <provider mainstore={mainStore}>
+      <Provider mainStore={mainStore}>
         <div>
-          <button onclick={mainStore.getBoxFromMail.bind(mainStore)}>
+          <button onClick={mainStore.getBoxFromMail.bind(mainStore)}>
             Get Mail
           </button>
 
-          <box></box>
+          <Box />
         </div>
-      </provider>
+      </Provider>
     );
   }
 }
@@ -190,15 +190,15 @@ Let me show you.
 
 import { inject, observer } from 'mobx-react';
 
-const SealedOrOpened = observer(({ box }) => (
+const SealedOrOpened = observer(({ box }) => {
     if (box.sealed) {
         return 'Sealed and Closed';
-    }else if (!box.sealed && !box.opened) {
+    } else if (!box.sealed && !box.opened) {
         return 'You should open the box';
-    }else{
+    } else {
         return 'Take some kakis!';
     }
-));
+});
 
 // this helper normally goes somewhere else
 const If = ({ cond, children }) => cond ? children : null;
@@ -208,22 +208,23 @@ const Box = inject('mainStore')(observer(({ mainStore }) => {
 
     return (
     <div>
-        <sealedoropened box={box}>
-        <if cond={box.canOpen}>
-            <button onclick={box.open.bind(box)}>Open box</button>
-        </if>
+        <SealedOrOpened box={box} />
+          
+        <If cond={box.canOpen}>
+            <button onClick={box.open.bind(box)}>Open box</button>
+        </If>
 
-        <if cond={box.opened}>
+        <If cond={box.opened}>
             <ul>
-                {box.kakis.map(kaki => <kaki>)}
-            </kaki></ul>
-            <button onclick={box.takekaki.bind(box)}>
+                {box.kakis.map(kaki => <li>{kaki}</li>)}
+            </ul>
+            <button onClick={box.takekaki.bind(box)}>
                 Take a kaki
             </button>
-        </if>
-    </sealedoropened></div>
+        </If>
+    </div>
     );
-));
+}));
 ```
 
 That's the `Box` component in spirit. It renders some text telling you what to do with the box and gives you a button that opens it. Yes, I know there should be a button to take off the sticky tape, too.
@@ -242,4 +243,4 @@ Oh, and that `observer` thingy? That ensures your components re-render when stat
 
 Next week, I'm going to write about persisting those changes to a backend of some sort. I’m still working on how to make that part effortless and clean :)
 
-Maybe I should make a _Building Webapps With React and MobX_ book ? [Tell me](mailto:hi@swizec.com) if you're interested.
+Maybe I should make a _Building Webapps With React and MobX_ book `{?}` [Tell me](mailto:hi@swizec.com) if you're interested.

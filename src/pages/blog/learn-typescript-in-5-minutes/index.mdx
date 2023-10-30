@@ -256,15 +256,17 @@ Most important pitfall: **_Do not be lulled into thinking you are writing C# or 
 
 Do not rely on fancy polymorphism tricks and type overloading. There are no types at runtime beyond the types that JavaScript supports.
 
+Use backticks to wrap expressions such as `{abc}`. For example,
 ```typescript
 // this doesn't work!
 // at run-time you get typeof obj === "object"
 function argh(obj: Book & Author) {
-	if (obj typeof Book) {
-		// do book stuff
-	} else if (obj typeof Author) {
-	  // do author stuff
-	}
+   console.log(`{obj}`)
+   if (`{obj}` typeof Book) {
+      // do book stuff
+   } else if (`{obj}` typeof Author) {
+      // do author stuff
+   }
 }
 ```
 

@@ -8,9 +8,9 @@ categories: "Checkbox, django, Programming, python, Software testing, Tick (chec
 hero: ../../../defaultHero.jpg
 ---
 
-In late 2011 I hope we can all agree that [unit testing](http://en.wikipedia.org/wiki/Unit_testing "Unit testing") is pretty important when creating websites or almost anything. Doesn't really matter whether you prefer a blackbox [integration testing](http://en.wikipedia.org/wiki/Integration_testing "Integration testing") approach or a strict unit testing style. What matters is that you have tests.
+In late 2011 I hope we can all agree that [unit testing](http://en.wikipedia.org/wiki/Unit_testing) is pretty important when creating websites or almost anything. Doesn't really matter whether you prefer a blackbox [integration testing](http://en.wikipedia.org/wiki/Integration_testing) approach or a strict unit testing style. What matters is that you have tests.
 
-![English: A series of build lights.](https://swizec.com/wp-content/uploads/2011/12/300px-Series_of_build_lights4.jpg "English: A series of build lights.")
+![English: A series of build lights.](https://swizec.com/wp-content/uploads/2011/12/300px-Series_of_build_lights4.jpg)
 
 But what do you do when you want to test a form with a bunch of checkboxes?
 
@@ -18,7 +18,7 @@ You want to make sure all combinations of on/off tests are working. But with eve
 
 Last weekend I came up with a simple solution to this problem, dare I say elegant.
 
-The approach is to make a list of checkboxes, then generate [binary numbers](http://en.wikipedia.org/wiki/Binary_numeral_system "Binary numeral system") from 0 to 2^(length of list). Then simply iterate over the generated binary numbers, pick all the checkboxes with a corresponding true bit in the number and run its test - the tests are lambda functions in a dictionary.
+The approach is to make a list of checkboxes, then generate [binary numbers](http://en.wikipedia.org/wiki/Binary_numeral_system) from 0 to 2^(length of list). Then simply iterate over the generated binary numbers, pick all the checkboxes with a corresponding true bit in the number and run its test - the tests are lambda functions in a dictionary.
 
 My code was complicated slightly because I had two distinct sets of checkboxes that had to be tested separately-ish, but here's what this basically looks like in code.
 
@@ -28,7 +28,7 @@ My code was complicated slightly because I had two distinct sets of checkboxes t
     def checkboxes(self):
         checks = []
 
-        for i in range(2**len(self._columns):
+        for i in range(`2**len(self._columns)`):
             column_switch = bin(j)[2:].rjust(4, '0')
 
             checks.append([name for (yes, name) in
@@ -65,4 +65,3 @@ And finally the whole thing becomes a simple loop
 ```
 
 And that's it. Simple easily modifiable code to test every possible combination of all checkboxes in a form.
-

@@ -23,7 +23,7 @@ The underlying problem is one of [domain modeling](https://en.wikipedia.org/wiki
 
 https://twitter.com/Swizec/status/1462910096975884288
 
-Domain modeling is _the_ fundamental activity of software engineers. Everything else comes secondary.
+Domain modeling is `{_the_}` fundamental activity of software engineers. Everything else comes secondary.
 
 A good design makes your code easy. A bad design gives rise to kludge upon kludge and makes it impossible to write good code.
 
@@ -31,17 +31,17 @@ The edge cases you keep finding are a symptom of a poorly modeled or misundersto
 
 ### Domains are easy to mess up
 
-10 years ago I learned an important lesson from a friend. A smart engineer learns from _others_' mistakes 😉
+10 years ago I learned an important lesson from a friend. A smart engineer learns from `{_others_'}` mistakes 😉
 
 Their startup built a blog recommendation engine for writers. Helps you link relevant articles to support your points. Wonderful.
 
-To build a SaaS around this tech, they added user accounts. A `User` model was born.
+To build a SaaS around this tech, they added user accounts. A `{User}` model was born.
 
-They knew some users are writers and others are advertisers. Because ads make money. A `Profile` model was born.
+They knew some users are writers and others are advertisers. Because ads make money. A `{Profile}` model was born.
 
-Every `User` can have a `Profile`. _One_ profile.
+Every `{User}` can have a `{Profile}`. `{_One_}` profile.
 
-Until 2 years later a blogger says _"Hey I want to buy ads"_ and an advertiser says _"Hey content marketing is cool, can we use your blogging tools?"_
+Until 2 years later a blogger says "{_Hey I want to buy ads_}" and an advertiser says "{_Hey content marketing is cool, can we use your blogging tools?_}"
 
 But a user can only be a blogger or an advertiser. 💩
 
@@ -51,7 +51,7 @@ The original model of their domain wasn't wrong, just incomplete. They missed an
 
 ### Taxonomies fail at the edges
 
-![A white-brown bear](./img/A-white-brown-bear2igh9i.png)
+![A white-brown bear](./img/A-white-brown-bear2igh9i.png "A white-brown bear")
 
 Domain modeling likes to fail at the fuzzy edges of taxonomies.
 
@@ -65,7 +65,7 @@ And what's the difference between a web page and an article? They both use the s
 
 The [k-means clustering algorithm](https://en.wikipedia.org/wiki/K-means_clustering) offers an interesting insight into the problem of taxonomies.
 
-You give it a bunch of data and say _"Find 3 classes"_. The algorithm groups every datapoint into 1 of 3 classes based on which mean value they resemble most. Yay.
+You give it a bunch of data and say "{_Find 3 classes_}". The algorithm groups every datapoint into 1 of 3 classes based on which mean value they resemble most. Yay.
 
 Ask the same algorithm to find 10 classes with the same data and you now have 10 perfectly strict classes plus a whole new way to fight whether something is this or that.
 
@@ -104,7 +104,7 @@ Different HTTP verbs manipulate those objects:
 - `PATCH` updates an object at `/pages/123`
 - `DELETE` deletes an object at `/pages/123`
 
-If you want objects _and their related objects_, REST says haha you're on your own kid. Make a new request for each.
+If you want objects `{_and their related objects_}`, REST says haha you're on your own kid. Make a new request for each.
 
 Hope you have good wifi ✌️
 
@@ -130,7 +130,7 @@ query {
 }
 ```
 
-_"Get me a staff and all their appointments"_
+"{_Get me a staff and all their appointments_}"
 
 GraphQL then figures out how to combine fetchers for staff and for appointment to make this work. All the complexity of good data modeling washed away by flexibility 😍
 
@@ -146,7 +146,7 @@ Most APIs I've seen are a mix of clean REST and flexible GraphQL.
 
 You get a gaggle of baseline endpoints for core operations and a bunch of endpoints that grew out of a specific client need.
 
-Rarely do teams treat their API as a product of its own or a tool meant for others. They just want _this_ data to get to _that_ UI.
+Rarely do teams treat their API as a product of its own or a tool meant for others. They just want `{_this_}` data to get to `{_that_}` UI.
 
 If your client needs different data, a new endpoint is born. If you need related data, it's added. If you need a new filter, you got it. Soon, anything could fetch everything and nobody knows what's where.
 
@@ -156,7 +156,7 @@ You end up with an API that most closely resembles [Remote Procedure Calls](http
 
 ## It's a people problem
 
-Learning an API is like learning how another person or organization thinks. How do _they_ see the world?
+Learning an API is like learning how another person or organization thinks. How do `{_they_}` see the world?
 
 Even if it makes no sense to you, as long as it makes sense to them ¯\\\_(ツ)\\\_/¯
 

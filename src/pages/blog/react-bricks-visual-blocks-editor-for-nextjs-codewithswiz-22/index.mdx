@@ -18,7 +18,7 @@ Give me markdown or give me death.
 
 And then we got this page up in 20 minutes. It's pretty, easy to edit, and anyone can use it to run experiments. No custom code.
 
-[![](./img/USh3X7pnghj01jg.png)](https://cms-experiment.vercel.app/)
+![Image](./img/USh3X7pnghj01jg.png)
 
 We even got the founder to leave a totally real review.
 
@@ -50,7 +50,7 @@ But this one was nice. Felt stable. I couldn't get it to lose my work.
 
 Except that one time I didn't notice a required field and couldn't save and refreshed the page. But that's on me.
 
-![](giphy:oops)
+![oops](./img/oops.png)
 
 ### Deploy
 
@@ -118,7 +118,7 @@ Something like this:
 }
 ```
 
-Then there's the `[slug].tsx` component that represents each page. You can [see it here](https://github.com/Swizec/cms_experiment/blob/master/pages/%5Bslug%5D.tsx).
+Then there's the `{[slug].tsx}` component that represents each page. You can [see it here](https://github.com/Swizec/cms_experiment/blob/master/pages/%5Bslug%5D.tsx).
 
 There's a `getStaticProps` that phones home and fetches this JSON. The page then uses a `<PageViewer>` component to render.
 
@@ -147,7 +147,7 @@ Works great because NextJS is smart enough to call this once. First visitor gets
 
 ## But Why?
 
-![](giphy:but_why)
+![but_why](./img/but_why.png)
 
 Adrian said it best on stream:
 

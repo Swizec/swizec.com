@@ -8,13 +8,13 @@ categories: "Algorithm, Approximation algorithm, Combinatorics, Linear programmi
 hero: ../../../defaultHero.jpg
 ---
 
-A major part of [my thesis](https://github.com/Swizec/Le-Thesis)involves finding an algorithm to discover a good substring cover of text in order to properly syllabify said text. But what is the substring cover problem anyway and what does it entail?
+A major part of [my thesis](https://github.com/Swizec/Le-Thesis) involves finding an algorithm to discover a good substring cover of text in order to properly syllabify said text. But what is the substring cover problem anyway and what does it entail?
 
-![algorithms doodle](https://swizec.com/wp-content/uploads/2012/01/11259239_fe6b60af02_m5.jpg "algorithms doodle")
+![algorithms doodle](https://swizec.com/wp-content/uploads/2012/01/11259239_fe6b60af02_m5.jpg)
 
 [The Minimum Substring Cover Problem](http://cs.haifa.ac.il/~dhermeli/Publications/WAOA2007.pdf) paper from Hermelin, Rawitz, Rizzi and Vialette dating back to 2007 (judging by the filename) serves as a good entry point into this topic.
 
-There are actually a lot of cover problems, the most famous being Minimum [Set Cover](http://en.wikipedia.org/wiki/Set_cover_problem "Set cover problem") and [Minimum Vertex Cover](http://en.wikipedia.org/wiki/Vertex_cover "Vertex cover") problems. In this type of problems we are faced with two sets of elements and we want to cover one of the sets with another, by using the "least" elements from the covering set. I put "least" in quotes because the definition depends on what we want - maybe we want to use the least number of elements, perhaps we want the shortest elements ... whatever.
+There are actually a lot of cover problems, the most famous being Minimum [Set Cover](http://en.wikipedia.org/wiki/Set_cover_problem) and [Minimum Vertex Cover](http://en.wikipedia.org/wiki/Vertex_cover) problems. In this type of problems we are faced with two sets of elements and we want to cover one of the sets with another, by using the "least" elements from the covering set. I put "least" in quotes because the definition depends on what we want - maybe we want to use the least number of elements, perhaps we want the shortest elements ... whatever.
 
 For an example consider this:
 
@@ -34,11 +34,11 @@ You could easily argue C_2 is better, because it uses the least amount of elemen
 
 Ok, so now we know that finding the minimum substring cover of a set of strings depends a whole lot on what you actually want. Always a good sign, having a well-known problem where people can't even agree on what the best solution looks like.
 
-The paper goes on to explain in great theoretical detail that, because this problem is similar to minimum vertex cover, minimum set cover and similar problems, it is [NP-hard](http://en.wikipedia.org/wiki/NP-hard "NP-hard") to approximate. This means that the problem is at least as hard as the hardest problems in NP, but it doesn't necessarily mean that there is no polynomial solution - it just hasn't been found yet.
+The paper goes on to explain in great theoretical detail that, because this problem is similar to minimum vertex cover, minimum set cover and similar problems, it is [NP-hard](http://en.wikipedia.org/wiki/NP-hard) to approximate. This means that the problem is at least as hard as the hardest problems in NP, but it doesn't necessarily mean that there is no polynomial solution - it just hasn't been found yet.
 
-Luckily, if we constrain some parameters of the problem, it becomes/remains [APX-hard](http://en.wikipedia.org/wiki/APX "APX") - _problems in this class have efficient algorithms that can find an answer within some fixed percentage of the optimal answer._
+Luckily, if we constrain some parameters of the problem, it becomes/remains [APX-hard](http://en.wikipedia.org/wiki/APX) - _problems in this class have efficient algorithms that can find an answer within some fixed percentage of the optimal answer._
 
-The article then proposes two [approximation algorithms](http://en.wikipedia.org/wiki/Approximation_algorithm "Approximation algorithm") for finding minimum substring covers of S.
+The article then proposes two [approximation algorithms](http://en.wikipedia.org/wiki/Approximation_algorithm) for finding minimum substring covers of S.
 
 ## Local-Ratio Algorithms
 
@@ -58,7 +58,7 @@ This algorithm is guaranteed to terminate after a polynomial amount of recursive
 
 In sensible terms the algorithm basically does this: Add everything with zero weight to a partial solution, if this isn't the solution, it selects an uncovered substring in S and tries to cover it by examining all substrings in C_s.
 
-## [Linear Programming](http://en.wikipedia.org/wiki/Linear_programming "Linear programming") Rounding
+## [Linear Programming](http://en.wikipedia.org/wiki/Linear_programming) Rounding
 
 Originally the linear programming rounding algorithm was developed by Hajiaghayi et all. for the Minimum Multicolored Subgraph problem when l=2. It has now been expanded for any constant value of l.
 
@@ -73,4 +73,3 @@ s.t. SUM*(f in F*l(s)) y_f >= 1 every s in S
 SUM*(c in f in F_l(s)) y_f
 
 Then there are a bunch of proofs that this algorithm works and is indeed very awesome ... but by this time my eyes started glazing over and the September deadline for my thesis started looking _very_ near.
-

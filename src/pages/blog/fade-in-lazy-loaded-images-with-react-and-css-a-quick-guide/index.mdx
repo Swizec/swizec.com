@@ -10,7 +10,7 @@ hero: ../../../defaultHero.jpg
 
 Say you want to lazy load some images on your website. You don't want them to just pop into existence and scare the user. A nice fade in effect works much better.
 
-![](https://swizec.com/wp-content/uploads/2018/01/gif.gif)
+![gif](https://swizec.com/wp-content/uploads/2018/01/gif.gif)
 
 Here's the problem: There's no good pre-built React component for this. Or I suck at finding it.
 
@@ -41,7 +41,7 @@ class FadeIn extends React.Component {
 
     return (
       <Lazyload height={height} offset={150}>
-        <transition in={loaded} timeout={duration}>
+        <transition in={`{loaded}`} timeout={duration}>
           {(state) => (
             <div
               style={{
@@ -74,7 +74,7 @@ All you have to do is trigger the `onLoad` callback once your content is ready. 
 ```javascript
 <FadeIn height={400}>
 {onLoad =>
-  <img class={cx('img')} src={subheader2} onload={onLoad}>
+  <img class={`{cx('img')}`} src={subheader2} onload={onLoad}>
 }
 </FadeIn>
 ```

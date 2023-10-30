@@ -7,13 +7,13 @@ content_upgrade: ReactCU
 hero: ./img/screenshot-1602169279345.png
 ---
 
-XState promises to be like useReducer+Context combined and the simplest way to handle complex state in React apps. But can it deliver? On this episode of #CodeWithSwiz, we gave it a shot.
+XState promises to be like `useReducer`+`Context` combined and the simplest way to handle complex state in React apps. But can it deliver? On this episode of #CodeWithSwiz, we gave it a shot.
 
 _CodeWithSwiz is a twice-a-week live show. Like a podcast with video and fun hacking. Focused on experiments. [Join live Wednesdays and Sundays](https://youtube.com/swizecteller)_
 
 https://www.youtube.com/watch?v=ftbH90Sd7aU
 
-[useAuth](https://github.com/Swizec/useAuth) was always meant to become _the_ best way to add authentication to your React and JAMStack apps. Regardless of auth provider.
+`useAuth` was always meant to become _the_ best way to add authentication to your React and JAMStack apps. Regardless of auth provider.
 
 But as time passed, contributors grew (up to 19), pull requests mounted (70 closed or merged 🤘), and bugs got fixed, the codebase became a mess. Hard to reason about, difficult to understand, bleh to work with.
 
@@ -33,13 +33,13 @@ https://www.youtube.com/watch?v=VQruDDBxyi8
 
 Among the neglected pull requests we found a fantastic candidate for a useAuth docs page! Thanks Eric Hodges, you're amazing 😍
 
-[![](./img/kHQSi9pngi2389a.png)](https://chakra-ui-test-delta.now.sh/)
+[![Eric Hodges contribution](./img/kHQSi9pngi2389a.png)](https://chakra-ui-test-delta.now.sh/)
 
 You can try it on his demo deploy 👆
 
 ## 2: Identify possible states
 
-![XState visualization of the useAuth state machine](./img/XState-visualization-of-the-useAuth-state-machineb9h548.png)
+[XState visualization of the useAuth state machine](./img/XState-visualization-of-the-useAuth-state-machineb9h548.png)
 
 Refactoring a `useReducer` to [XState](https://xstate.js.org/) starts by identifying your states. Each `case` corresponds to a transition between states.
 
@@ -120,7 +120,7 @@ Isn't that more readable?
 
 [XState's visualizer](https://xstate.js.org/viz/) even draws helpful diagrams.
 
-![XState visualization of the useAuth state machine](./img/XState-visualization-of-the-useAuth-state-machinege50fd.png)
+[XState visualization of the useAuth state machine](./img/XState-visualization-of-the-useAuth-state-machinege50fd.png)
 
 ## 4: Move your state into context
 
@@ -218,7 +218,7 @@ Want to make this refactor invisible to users of [useAuth](https://github.com/Sw
 
 ## Fin
 
-In conclusion, XState is like an inverted useReducer. Cases become transitions, the space between cases becomes state machine states, reducer state becomes context.
+In conclusion, XState is like an inverted `useReducer`. Cases become transitions, the space between cases becomes state machine states, reducer state becomes context.
 
 Cheers,<br/>
 ~Swizec

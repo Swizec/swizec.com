@@ -14,15 +14,15 @@ D3 is amazing.
 
 D3 can do stuff like this
 
-[![](./img/tNfXLwD.gif)](https://www.nytimes.com/interactive/2014/upshot/mapping-the-spread-of-drought-across-the-us.html)
+![D3 Example1](./img/tNfXLwD.gif)
 
 And like this
 
-[![](./img/Djk8yKX.gif)](https://bl.ocks.org/kerryrodden/7090426)
+![D3 Example2](./img/Djk8yKX.gif)
 
 D3 can even do 3D globe effects like this 😱
 
-[![](./img/24R4Mll.png)](http://bl.ocks.org/dwtkns/4973620)
+![D3 Example3](./img/24R4Mll.png)
 
 No wonder D3 is so popular. Like 82,000 stars on GitHub popular.
 
@@ -56,27 +56,27 @@ Here's how it went when I first tried to learn D3.
 
 _"A-ha! I have an idea"_
 
-![](./img/media-dgKrQw280pFGsAa1ld-giphy.gif)
+![Describe the GIF](./img/media-dgKrQw280pFGsAa1ld-giphy.gif)
 
 I took my idea and looked for a dataset. Some people have the dataset first. That's probably smart.
 
 And then ...
 
-![](./img/media-WxKe34zkYomreUH1XH-giphy.gif)
+![Describe the GIF](./img/media-WxKe34zkYomreUH1XH-giphy.gif)
 
-I had no idea how to start. I knew D3 was great. I knew it could do what I wanted. But WHAT DO I DO!?
+I had no idea how to start. I knew D3 was great. I knew it could do what I wanted. But `WHAT DO I DO!`?
 
 So I looked for an example ... and discovered this mess
 
-![](./img/z7HIM2z.png)
+![Code Image](./img/z7HIM2z.png)
 
 Ugh ... what is this code even doing? No matter, copy paste and hope for the best, right? As long as it works.
 
 And then you tweak and tinker and move stuff around until the project looks right. A working visualization great success!
 
-![](./img/9echESi.png)
+![Result Image 1](./img/9echESi.png)
 
-![](./img/media-a0h7sAqON67nO-giphy.gif)
+![Result Image 2](./img/media-a0h7sAqON67nO-giphy.gif)
 
 Sure you don't quite understand how it works and you'd struggle to change anything ... but hey who understands their D3 code anyway? Almost no-one.
 
@@ -107,34 +107,34 @@ The code above is part of a bar chart. Straight from D3's documentation.
 
 Here it is again
 
-![](./img/static-barchartcode-6fbc274eed4cba9b32493cab9607ff61-d9514.png)
+![Code Image](./img/static-barchartcode-6fbc274eed4cba9b32493cab9607ff61-d9514.png)
 
 Doesn't make a lot of sense does it? How does that 👆 create this 👇
 
-![](./img/9echESi.png)
+![Bar Chart](./img/9echESi.png)
 
 Here's how.
 
 First you have Data Manipulation.
 
-![](./img/static-barchartcode-data-b62f3f758e2a1b37cb436d66a54846d1-d9514.png)
+![Dat Manipulation Image](./img/static-barchartcode-data-b62f3f758e2a1b37cb436d66a54846d1-d9514.png)
 
-- some sizing variables (margin, width, height)
-- two scales to help with data-to-coordinates conversion (x, y)
-- load the dataset (d3.tsv) and update scale domains
+- some sizing variables (`margin`, `width`, `height`)
+- two scales to help with data-to-coordinates conversion (`x`, `y`)
+- load the dataset (`d3.tsv`) and update scale domains
 - use scales to calculate attributes during DOM manipulation
 
 And here's the part that paints stuff on your screen
 
-![](./img/static-barchart-dom-0d48cb4e05c4cbfcf2201b136ba2e6e3-d9514.png)
+![DOM Manipulation Image](./img/static-barchart-dom-0d48cb4e05c4cbfcf2201b136ba2e6e3-d9514.png)
 
 DOM manipulation in D3 happens via D3 selections. They're a lot like jQuery `$(something)`. Personally I like to do this part with React.
 
 Our example does a few things here
 
-- selects the `<svg>` node (d3.select)
+- selects the `<svg>` node (`d3.select`)
 - appends a grouping `<g>` node (.append) with an SVG positioning attribute (translate)
-- adds a bottom axis by appending a `<g>`, moving it, then calling `d3.axisBottom` . D3 has built-in axis generators
+- adds a bottom axis by appending a `<g>`, moving it, then calling `d3.axisBottom`. D3 has built-in axis generators
 - adds a left axis using the same approach but rotating the ticks
 - appends a text label "Frequency" to the left axis
 - uses `selectAll.data` to make a virtual selection of `.bar` nodes and attach some data, then for every new data value (.enter), appends a `<rect>` node and gives it attributes
@@ -151,14 +151,14 @@ Scales are D3's most versatile concept. They help you translate between two diff
 
 Scales work like the mathematical functions you learned about in school. A domain maps to a range using some sort of formula.
 
-![](./img/wikipedia-commons-thumb-d-df-Function_color_example_3.svg-440px-Function_color_example_3.svg.png)
+![Function Diagram](./img/wikipedia-commons-thumb-d-df-Function_color_example_3.svg-440px-Function_color_example_3.svg.png)
 
 Colored shapes in the domain map to colors in the range. No formula for this one, which makes it an ordinal scale.
 
 ```javascript
 let shapes = d3.scaleOrdinal()
-        .domain(['triangle', 'rectangle', ...)
-        .range(['red', 'orange', ...)
+        .domain(['triangle', 'rectangle', ...])
+        .range(['red', 'orange', ...])
 ```
 
 Once you have this scale, you can use it to translate from shapes to colors. `shapes('triangle')` returns `'red'`, rectangle is orange, etc..
@@ -175,11 +175,11 @@ Sure `.enter.append` looks like magic, but D3 layouts are the real mind=blown in
 
 For example, a force layout using forces between nodes to place them on the screen.
 
-![](./img/Dwk9P9c.gif)
+![Force Layout](./img/Dwk9P9c.gif)
 
 I don't know how that works and that's the point. You don't have to. The layout does it for you.
 
-Here's a key insight about layouts: _Layouts are the data part._
+Here's a key insight about layouts: `_Layouts are the data part._`
 
 You take a `forceLayout` and feed it your data. It returns an object with a `tick` event callback.
 
@@ -204,7 +204,7 @@ A layout handles your data visualization in the abstract. You're still in contro
 
 Once I figured this out, all fancy visualizations out there started making sense.
 
-![](./img/media-65HMb0y6hAxiyezDbC-giphy.gif)
+![Great Success](./img/media-65HMb0y6hAxiyezDbC-giphy.gif)
 
 What's something surprising you learned recently? Have you tried D3? tweet me
 

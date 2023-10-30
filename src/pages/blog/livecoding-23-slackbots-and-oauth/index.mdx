@@ -18,17 +18,17 @@ One line of code, two clicks of set up, and you’re sending messages to Slack l
 
 Champ! King of the world. ??
 
-![](./img/jdqcwa6.png)
+![Champ, king of the world](./img/jdqcwa6.png)
 
 Oh, you want to _actually_ receive the promised POST requests from those message buttons? Boy, do I have a trip for you!
 
 First, you have to set up a Slack app. Not an ad-hoc custom integration like you’ve had until now. Oh no, you need a _real_ app. It takes a few clicks on this screen:
 
-![](./img/X3cgSTS.png)
+![Setting up a Slack app](./img/X3cgSTS.png)
 
 Then it’s going to say that this app is part of your team, _but it’s not_. You have to set up OAuth, have a server that can do OAuth, and then authorize your team with this new app. You need to add an `https` URL on this screen:
 
-![](./img/pr9miPw.png)
+![Adding HTTPS URL](./img/pr9miPw.png)
 
 On the server side, you’re in for a world of doubya-tee-eff, mate. If you’re on express.js, then you can use [Grant](https://github.com/simov/grant) to set up Slack OAuth somewhat painlessly. _In theory_, this is all it takes:
 
@@ -68,25 +68,25 @@ app.use(grant);
 
 This uses express’s in-memory session storage, which means that as soon as you restart the server, sessions will be forgotten. The good news is that you don’t have to hold on to them; you just need them long enough to do the OAuth dance.
 
-Oh ,and that `callback` parameter Grant asks for? That is _not_ the same as the `Redirect URL` that Slack asks for. Set them to the same value, and you’re going for an endless redirect ride. Learned that the hard way. ☺️
+Oh ,and that `{callback}` parameter Grant asks for? That is _not_ the same as the `Redirect URL` that Slack asks for. Set them to the same value, and you’re going for an endless redirect ride. Learned that the hard way. ☺️
 
 Go to `<server>/connect/slack` and do the OAuth dance for your team. If all goes well, Slack rewards you with this message:
 
-![](./img/tKSzdCf.png)
+![Slack rewards](./img/tKSzdCf.png)
 
 If you go to Slack’s app management panel, you should see something like this:
 
-![](./img/fXYJiPV.png)
+![Slack's app management panel](./img/fXYJiPV.png)
 
 /partyhard
 
 Your app is officially set up for your team. The slash command you created while debugging and trying to figure out what’s up works. You say `/hai` and it says `pong`.
 
-![](./img/IIb41yd.gif)
+![Your app is set up](./img/IIb41yd.gif)
 
 But when you click a button on a message that you sent, you still get the error. No POST request hits your server. It’s an immediate error. It doesn’t even _try_ to do the thing.
 
-![](./img/jdqcwa6.png)
+![Error message](./img/jdqcwa6.png)
 
 It’s an identity issue, I think. Based on [last week’s livecoding](https://swizec.com/blog/livecoding-22-a-dooranswering-slackbot/), we’re sending Slack messages based on an ad-hoc integration API key. But we’re a real app, so we should send them as the app.
 

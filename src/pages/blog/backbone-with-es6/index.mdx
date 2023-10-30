@@ -42,7 +42,7 @@ var Counter = Backbone.View.extend({
 
   model: new Backbone.Model(),
 
-  template: Handlebars.compile("{count} <button>++</button>"),
+  template: Handlebars.compile("`{count}` <button>++</button>"),
 
   events: {
     "click button": "buttonClick",

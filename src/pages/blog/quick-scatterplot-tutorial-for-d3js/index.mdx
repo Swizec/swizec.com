@@ -8,13 +8,13 @@ categories: "d3.js, Github, Graphics, HTML, Scatter plot, Uncategorized, Vector"
 hero: ../../../defaultHero.jpg
 ---
 
-![When I code](https://swizec.com/wp-content/uploads/2012/09/scatterplot-finished.png "When I code")
+![When I code](https://swizec.com/wp-content/uploads/2012/09/scatterplot-finished.png)
 
-One of the many interesting things [Github](http://github.com "GitHub") does are punchcards for repositories that can tell you when people work on their code. Unfortunately, they're only per-repository and I was interested in per-user Github punchcards.
+One of the many interesting things [Github](http://github.com) does are punchcards for repositories that can tell you when people work on their code. Unfortunately, they're only per-repository and I was interested in per-user Github punchcards.
 
 So I made my own.
 
-Collecting the data was fairly straightforward, finding a simple tutorial/example of a [scatterplot](https://en.wikipedia.org/wiki/Scatter_plot "Scatter plot") in [d3.js](https://d3js.org/) proved to be less than trivial.
+Collecting the data was fairly straightforward, finding a simple tutorial/example of a [scatterplot](https://en.wikipedia.org/wiki/Scatter_plot) in [d3.js](https://d3js.org/) proved to be less than trivial.
 
 ## Scatterplotting
 
@@ -52,9 +52,9 @@ For starters, we're going to need some simple HTML and a bit of CSS to make thin
 <script src="script.js"></script>
 ```
 
-The _div_ is where our scatterplot will end up. It doesn't need any styling since we'll do that with d3 directly, but splashing some CSS on stuff in the graph is going to make things look much better.
+The `div` is where our scatterplot will end up. It doesn't need any styling since we'll do that with d3 directly, but splashing some CSS on stuff in the graph is going to make things look much better.
 
-Going into _script.js_ we start off by defining the width, height and padding for our graph. Due to d3's magic we'll later be able to change these and have the graph scale itself properly without further intervention.
+Going into `script.js` we start off by defining the width, height and padding for our graph. Due to d3's magic we'll later be able to change these and have the graph scale itself properly without further intervention.
 
 ```javascript
 var w = 940,
@@ -74,9 +74,9 @@ var svg = d3
   .attr("height", h);
 ```
 
-This tells d3 that we want to put some svg in the _punchcard_ div and how big we want it.
+This tells d3 that we want to put some svg in the `punchcard` div and how big we want it.
 
-The next step is defining our _x \_and \_y_ scales. They're helpful for translating data into x,y positions on the graph since they're usually not the same.
+The next step is defining our `x` and `y` scales. They're helpful for translating data into x,y positions on the graph since they're usually not the same.
 
 ```javascript
 var x = d3.scale
@@ -89,7 +89,7 @@ var x = d3.scale
     .range([pad, h - pad * 2]);
 ```
 
-We specified that _x \_coordinates map from values between 0 and 23 to coordinates between the left padding and however big the graph is. Similarly for \_y_ coordinates.
+We specified that `x` coordinates map from values between 0 and 23 to coordinates between the left padding and however big the graph is. Similarly for `y` coordinates.
 
 D3 will handle everything else for us.
 
@@ -118,7 +118,7 @@ svg
   .call(yAxis);
 ```
 
-[![Scatterplot simple axes](https://swizec.com/wp-content/uploads/2012/09/scatterplot-simple-axes.png "Scatterplot simple axes")](https://swizec.com/wp-content/uploads/2012/09/scatterplot-simple-axes.png)
+![Scatterplot simple axes](https://swizec.com/wp-content/uploads/2012/09/scatterplot-simple-axes.png)
 
 As you can see, d3 was nice enough to figure out on its own how many ticks to draw and where to put them. This usually makes graphs more readable, but in our case we do want all the ticks.
 
@@ -152,11 +152,11 @@ var xAxis = d3.svg
     });
 ```
 
-The _.tickFormat_ method allows us to give d3 a function that calculates what a label should look like and we used _.ticks_ to specify how many ticks we want.
+The `.tickFormat` method allows us to give d3 a function that calculates what a label should look like and we used `.ticks` to specify how many ticks we want.
 
-[![Nicely  labeled scatterplot](https://swizec.com/wp-content/uploads/2012/09/scatterplot-labeled-axes.png "Nicely  labeled scatterplot")](https://swizec.com/wp-content/uploads/2012/09/scatterplot-labeled-axes.png)
+![Nicely  labeled scatterplot](https://swizec.com/wp-content/uploads/2012/09/scatterplot-labeled-axes.png)
 
-Much better, but since we'll be loading the data asynchronously, let's tell the user what's going on by placing _"Loading ..."_ roughly in the middle of the plot.
+Much better, but since we'll be loading the data asynchronously, let's tell the user what's going on by placing `"Loading ..."` roughly in the middle of the plot.
 
 ```javascript
 svg
@@ -171,7 +171,7 @@ svg
   });
 ```
 
-[![Scatterplot loading ...](https://swizec.com/wp-content/uploads/2012/09/scatterplot-loading.png "Scatterplot loading ...")](https://swizec.com/wp-content/uploads/2012/09/scatterplot-loading.png)
+![Scatterplot loading ...](https://swizec.com/wp-content/uploads/2012/09/scatterplot-loading.png)
 
 Loading the data can be done with one of d3's many data loading functions.
 
@@ -181,7 +181,7 @@ d3.json(Data_url, function (punchcard_data) {
 
 Within that function we are now going to draw the actual scatterplot.
 
-The data I loaded is organized into triplets _\[day, hour, N]_ where the combination of _day_ and _hour_ tells us where to draw a circle and _N_ tells us how big it should be.
+The data I loaded is organized into triplets `[day, hour, N]` where the combination of `day` and `hour` tells us where to draw a circle and `N` tells us how big it should be.
 
 We should define another scale for the radius of the circles.
 
@@ -202,7 +202,7 @@ var max_r = d3.max(
     .range([0, 12]);
 ```
 
-Everything from _zero_ to _max_r_ will be mapped to radiuses between _0_ and _12_ pixels.
+Everything from `zero` to `max_r` will be mapped to radiuses between `0` and `12` pixels.
 
 To make d3 put some data on our graph we need to tell it to load up our data into the graph and give a transformation that results in circles.
 
@@ -226,15 +226,15 @@ svg
   });
 ```
 
-After removing the _"Loading ..." \_we gave d3 our data, then said that for each datum a \_circle_ should be appended to the graph and given attributes _cx, cy_ and _r_ that determine where this circle will be displayed and how big it's going to be.
+After removing the `"Loading ..."`, we gave d3 our data, then said that for each datum a `circle` should be appended to the graph and given attributes `cx, cy` and `r` that determine where this circle will be displayed and how big it's going to be.
 
-Notice we're using functions to compute these values, but because we're lazy we just rely on d3 doing all of the actual calculations with the _x, y_ and _r_ scales we defined earlier.
+Notice we're using functions to compute these values, but because we're lazy we just rely on d3 doing all of the actual calculations with the `x, y` and `r` scales we defined earlier.
 
-[![The final scatterplot](https://swizec.com/wp-content/uploads/2012/09/scatterplot-finished1.png "The final scatterplot")](https://swizec.com/wp-content/uploads/2012/09/scatterplot-finished1.png)
+![The final scatterplot](https://swizec.com/wp-content/uploads/2012/09/scatterplot-finished1.png)
 
 On pictures everything looks great now, but the circles appear very suddenly. Wouldn't it be nice if there was a sexy transition going on?
 
-To do that we shove a ._transition()_ and a _.delay(800)_ before defining the radius.
+To do that we shove a `.transition()` and a `.delay(800)` before defining the radius.
 
 ```javascript
 svg
@@ -368,4 +368,3 @@ d3.json(Data_url, function (punchcard_data) {
     });
 });
 ```
-

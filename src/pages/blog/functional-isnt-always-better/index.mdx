@@ -8,15 +8,15 @@ categories: "Clojure, Functional programming, JavaScript, Languages, Lisp, Progr
 hero: ../../../defaultHero.jpg
 ---
 
-![A BDSM-style collar that buckles in the back. ...](https://swizec.com/wp-content/uploads/2011/10/300px-BDSM_collar_back3.jpg "A BDSM-style collar that buckles in the back. ...")
+![A BDSM-style collar that buckles in the back.](https://swizec.com/wp-content/uploads/2011/10/300px-BDSM_collar_back3.jpg)
 
-For a long time now I've been completely in love with [functional programming](http://en.wikipedia.org/wiki/Functional_programming "Functional programming") to the point that I write functional-style code even in run of the mill normal languages.
+For a long time now I've been completely in love with [functional programming](http://en.wikipedia.org/wiki/Functional_programming) to the point that I write functional-style code even in run of the mill normal languages.
 
 There are many reasons I like functional code, the paper _[Why functional programming matters](http://www.cse.chalmers.se/~rjmh/Papers/whyfp.html)_, by John Hughes sums up my opinion perfectly.
 
-A few days ago I came upon a problem that killed my idea of functional code being superior and awesome beyond belief. This might have happened because I'm not a very good functional programmer yet, or the tool I was using (javascript) just doesn't support the right things ... but I doubt I would have written it any better in clojure.
+A few days ago I came upon a problem that killed my idea of functional code being superior and awesome beyond belief. This might have happened because I'm not a very good functional programmer yet, or the tool I was using (`javascript`) just doesn't support the right things ... but I doubt I would have written it any better in clojure.
 
-The problem is one of turning a list of values, say, _\[A, B, C, D]_ into a list of pairs with itself, like so _\[\[A,B], \[A,C], \[A,D], \[B, C], \[B,D], \[C,D]]._
+The problem is one of turning a list of values, say, _`[A, B, C, D]`_ into a list of pairs with itself, like so _`[[A,B], [A,C], [A,D], [B, C], [B,D], [C,D]]`_.
 
 Should be simple enough right? You just make another list shifted by one to the left, make a zip, then repeat until the second list is empty. This solution turns out to be horrible, looks ugly and I'm not even going to show it. So here's my second functional solution ... it's a lot cleaner.
 
@@ -37,7 +37,7 @@ function pairs_functional2(data) {
                    }, []);
 ```
 
-A little [syntactic sugar](http://en.wikipedia.org/wiki/Syntactic_sugar "Syntactic sugar") wouldn't hurt ... writing a lambda in javascript isn't the cleanest of beasts. That final reduce down there also isn't the best of things from a functional standpoint. I don't like that push, but honestly I didn't know how to do that better.
+A little [syntactic sugar](http://en.wikipedia.org/wiki/Syntactic_sugar) wouldn't hurt ... writing a lambda in `javascript` isn't the cleanest of beasts. That final reduce down there also isn't the best of things from a functional standpoint. I don't like that push, but honestly I didn't know how to do that better.
 
 Here's an iterative solution for comparison:
 
@@ -57,5 +57,4 @@ I haven't looked at performance, but both implementations are functionally the s
 
 I'm tempted to do an implementation in clojure just to see if this thing looks so ugly in javascript on account of the syntax ...
 
-PS: the original implementation uses underscore.js so it works in all browsers just as the iterative would. Also I don't think javascript natively has enough such functions ... it would be even uglier.
-
+PS: the original implementation uses underscore.js so it works in all browsers just as the iterative would. Also I don't think `javascript` natively has enough such functions ... it would be even uglier.
