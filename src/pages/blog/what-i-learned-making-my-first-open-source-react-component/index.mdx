@@ -89,11 +89,15 @@ They prefer `import { FadeIn } from 'react-lazyload-fadein'`? They can do that, 
 
 Wanna use function as children, my favorite? Yep, it works.
 
-    <FadeIn>{onload => <MyThing onLoad={onload} />}</FadeIn>
+```javascript
+<FadeIn>{(onload) => <MyThing onLoad={onload} />}</FadeIn>
+```
 
 Using render props in your codebase? That works too.
 
-    <FadeIn render={onload => <MyThing onLoad={onload} />} />
+```javascript
+<FadeIn render={(onload) => <MyThing onLoad={onload} />} />
+```
 
 You shouldn't have to compromise your code style to use my component. My job isn't to encourage this or that pattern. My job is to give you a tool that you can use to make your life easier.
 
