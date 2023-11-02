@@ -1,6 +1,11 @@
 import { Box, Flex, Button, Heading } from "theme-ui"
-import { FormCK, ArticleListing } from "@swizec/gatsby-theme-course-platform"
-import { StaticQuery, graphql } from "gatsby"
+import { FormCK } from "@swizec/gatsby-theme-course-platform"
+import { LatestBlogs } from "../article-listings/LatestBlogs.js"
+import { LatestSeniorMindset } from "../article-listings/LatestSeniorMindset.js"
+import { LatestJavaScript } from "../article-listings/LatestJavaScript.js"
+import { LatestReact } from "../article-listings/LatestReact.js"
+import { LatestBackend } from "../article-listings/LatestBackend.js"
+import { LatestIndieHacking } from "../article-listings/LatestIndieHacking.js"
 import Workshops from "./workshops"
 import Courses from "./courses"
 import Talks from "./talks"
@@ -25,45 +30,21 @@ Subscribe below 👇
 
 <Box sx={{ p: [2, 4] }}>&nbsp;</Box>
 
-# [Read the latest articles](/blog/)
+# Latest articles
 
-<StaticQuery
-  query={graphql`
-    query {
-      allMdx(
-        filter: { internal: { contentFilePath: { regex: "/blog/.+/" } } }
-        sort: { frontmatter: { published: DESC } }
-        limit: 5
-      ) {
-        nodes {
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            description
-            published
-          }
-        }
-      }
-    }
-  `}
-  render={(data) =>
-    data.allMdx.nodes.map((props, i) => <ArticleListing {...props} key={i} />)
-  }
-/>
+<LatestBlogs />
 
 <Button as="a" href="/blog/" mb={[2, 3, 3]}>
-  Continue to more latest articles 👉 /blog
+  Read more latest articles 👉 /blog
 </Button>
 
 <Box sx={{ p: [2, 4] }}>&nbsp;</Box>
 
-# Or try a curated collection of top hits
+# Try a curated collection
 
 Learning from tutorials is great! You follow some steps, learn a smol lesson, and feel like you got this. Then you go into an interview, get a question from the boss, or encounter a new situation and o-oh.
 
-I aim to bring you the good stuff you learn by doing. To expose the seedy underbelly of production code.
+I aim to bring you the good stuff you only learn by doing. To expose the seedy underbelly of production code. The good bits that take months and years to find.
 
 <Heading as="h2" >
 
@@ -73,19 +54,23 @@ I aim to bring you the good stuff you learn by doing. To expose the seedy underb
 
 Getting that senior title is easy. Just stick around. Being a true senior takes a new way of thinking. Do you know it?
 
-[Read senior mindset essays 👉](/collections/seniormindset/)
+<LatestSeniorMindset />
+
+[Read more Senior Mindset essays 👉](/collections/seniormindset/)
 
 <Box sx={{ p: [1, 2] }}>&nbsp;</Box>
 
 <Heading as="h2">
 
-[Read JavaScript lessons from production](/collections/javascript/)
+[Read JavaScript and TypeScript lessons from production](/collections/javascript/)
 
 </Heading>
 
-I took a bet on JavaScript in 2005 when it was known as DHTML. It's been my favorite language ever since.
+I took a bet on JavaScript in 2005 when it was known as DHTML. It's been my favorite language ever since. Since 2019, I've been full into TypeScript – perfect balance between flexibility and correctness.
 
-[Read JavaScript lessons from production 👉](/collections/javascript/)
+<LatestJavaScript />
+
+[Read more JavaScript and TypeScript lessons from production 👉](/collections/javascript/)
 
 <Box sx={{ p: [1, 2] }}>&nbsp;</Box>
 
@@ -97,7 +82,9 @@ I took a bet on JavaScript in 2005 when it was known as DHTML. It's been my favo
 
 React is here to stay. It solves many problems you may not even know existed. These essays are the good stuff I learned over the years.
 
-[Read React lessons from production 👉](/collections/react/)
+<LatestReact />
+
+[Read more React lessons from production 👉](/collections/react/)
 
 <Box sx={{ p: [1, 2] }}>&nbsp;</Box>
 
@@ -109,6 +96,8 @@ React is here to stay. It solves many problems you may not even know existed. Th
 
 I've been building web backends since ~2004 when they were just called websites. With these curated essays I want to share the hard lessons learned.
 
+<LatestBackend />
+
 [Read serverless and backend articles inspired by production 👉](/collections/serverless/)
 
 <Box sx={{ p: [1, 2] }}>&nbsp;</Box>
@@ -119,21 +108,11 @@ I've been building web backends since ~2004 when they were just called websites.
 
 </Heading>
 
-Indie Hacking has been near and dear to me for over a decade. Diversifying your income is a wonderful habit.
+Indie Hacking has been near and dear to me for over a decade. Diversifying your income is a wonderful habit. I don't write about running a side business as much as I used to, but many of these lessons permeate my approach to software engineering and the Senior Mindset.
 
-[Read essays about running an indie business 👉](/collections/indie-hacking/)
+<LatestIndieHacking />
 
-<Box sx={{ p: [1, 2] }}>&nbsp;</Box>
-
-<Heading as="h2">
-
-[Learn from stories about fullstack web development](/collections/fullstack-web/)
-
-</Heading>
-
-BigTech frowns on fullstack's lack of specialization, everyone else drowns in its complexity. But fullstack runs the web.
-
-[Read fullstack web lessons from production 👉](/collections/fullstack-web/)
+[Read more essays about running an indie business 👉](/collections/indie-hacking/)
 
 <Box sx={{ p: [2, 4] }}>&nbsp;</Box>
 
