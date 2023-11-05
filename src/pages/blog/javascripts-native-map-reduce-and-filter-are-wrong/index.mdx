@@ -20,10 +20,10 @@ The gist that he posted looks like this:
   .join("")
   .match(/\d{3}|\d+$/g)
   .map(function (s) {
-    return s.split("").reverse().join("");
+    return s.split("").reverse().join("")
   })
   .reverse()
-  .join(" ");
+  .join(" ")
 //produces "20 000 001"
 ```
 
@@ -34,8 +34,6 @@ Now this might just look like so much brain sputtering madness to you, but it's 
 _tl;dr --> JavaScript is starting to mix functional and objective programming in a bad bad way_
 
 I'm not exactly certain when [JavaScript](http://en.wikipedia.org/wiki/JavaScript "JavaScript") got native implementations of these as I've been using libraries like [underscore.js](http://documentcloud.github.com/underscore/ "Underscore.js") for a while now to achieve this exact same thing. Actually wikipedia tells me this has been added in version 1.6 way back in November 2005. Six years ago and I didn't know a thing about it.
-
-<!--more-->
 
 That's just sad. Why don't more tutorials online talk about these features? How are people supposed to learn how awesome JavaScript is when most of the community works only with a very small subset of the language?
 
@@ -50,17 +48,15 @@ Considering the horror show I just described, writing the rest of this post leav
 The way map, reduce, filter and others are implemented in JavaScript is that they are methods of the [Array](http://en.wikipedia.org/wiki/Associative_array "Associative array") class. And you call them as such:
 
 ```javascript
-[0, 1, 2].map(function (i) {
-  return i + 1;
-}); // adds 1 to every member
-
-[0, 1, 2].reduce(function (a, b) {
-  return a + b;
-}); // sums members
-
-[0, 1, 2].filter(function (i) {
-  return i > 0;
-}); // removes members smaller than 1
+;[0, 1, 2].map(function (i) {
+  return i + 1
+}) // adds 1 to every member
+;[0, 1, 2].reduce(function (a, b) {
+  return a + b
+}) // sums members
+;[0, 1, 2].filter(function (i) {
+  return i > 0
+}) // removes members smaller than 1
 ```
 
 As you can see all of these functions are a way to call a certain function on every member of the array. Nothing too special here, anyone who's ever even sniffed at functional programming should understand how these three functions work.
@@ -102,4 +98,3 @@ That's just confusing and bloody horrible from a language design standpoint don'
 Why couldn't they just create new global functions for these awesome functional programming concepts ... I mean, the whole idea there is that functions get parameters and only parameters, functions in functional languages are supposed to be context independent. But here you have context dependent functional functions ... it's just a mess.
 
 Is JavaScript fast becoming like [PHP](http://www.php.net/ "PHP") with its confused standard library? Or is it just going through a little identity crysis?
-

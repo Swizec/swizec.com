@@ -14,12 +14,12 @@ export const pageQuery = graphql`
   query {
     allMdx(
       filter: {
-        fileAbsolutePath: { regex: "/blog/.+/" }
+        internal: { contentFilePath: { regex: "/blog/.+/" } }
         frontmatter: {
           categories: { regex: "/Serverless|Backend|Backend Web/gi" }
         }
       }
-      sort: { fields: frontmatter___published, order: DESC }
+      sort: { frontmatter: { published: DESC } }
     ) {
       nodes {
         fields {

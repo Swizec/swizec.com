@@ -99,26 +99,24 @@ module.exports = {
             output: "/rss.xml",
             title: "swizec.com RSS Feed",
             match: "^/blog/|^/interviews/",
-            query: `
-              {
-                allMdx(
-                    filter: { fileAbsolutePath: { regex: "/blog/.+/" } }
-                    sort: { fields: frontmatter___published, order: DESC }
-                    limit: 50
-                ) {
-                    nodes {
-                        frontmatter {
-                            title
-                            description
-                            published
-                        }
-                        fields {
-                            slug
-                        }
-                    }
-                }
-            }
-              `,
+            query: `{
+  allMdx(
+    filter: {internal: { contentFilePath: {regex: "/blog/.+/"}}}
+    sort: {frontmatter: {published: DESC}}
+    limit: 50
+  ) {
+    nodes {
+      frontmatter {
+        title
+        description
+        published
+      }
+      fields {
+        slug
+      }
+    }
+  }
+}`,
             serialize: ({ query: { site, allMdx } }) => {
               return allMdx.nodes.map((node) => {
                 const url = new URL(site.siteMetadata.siteUrl)

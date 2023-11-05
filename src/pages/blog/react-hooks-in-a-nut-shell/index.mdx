@@ -8,8 +8,6 @@ categories: "Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
-<!-- wp:html -->
-
 There's no hook emoji… croissants look like hooks, right?
 
 Mmmm… croissants with some sort of nut cream filling. Get it, hooks in a nutshell? Ha
@@ -164,13 +162,13 @@ No need to double check with a conditional. If your effect updates the component
 When you return a method from `useEffect`, it acts as a `componentWillUnmount`. Listening to, say, your mouse position looks like this:
 
 ```javascript
-const [mouseX, setMouseX] = useState();
-const handleMouse = (e) => setMouseX(e.screenX);
+const [mouseX, setMouseX] = useState()
+const handleMouse = (e) => setMouseX(e.screenX)
 
 useEffect(() => {
-  window.addEventListener("mousemove", handleMouse);
-  return () => window.removeEventListener(handleMouse);
-});
+  window.addEventListener("mousemove", handleMouse)
+  return () => window.removeEventListener(handleMouse)
+})
 ```
 
 Neat 👌
@@ -190,7 +188,7 @@ Waiting for the day we can use this to do naughty DOM stuff in functional compon
 👇
 
 ```javascript
-const state = useContext(SomeContext);
+const state = useContext(SomeContext)
 ```
 
 Context becomes just a value in your function. React auto subscribes you to all updates.
@@ -205,45 +203,16 @@ You should [watch Ryan's talk](https://youtu.be/wXLf18DsV-I?t=1457) to learn mor
 
 https://youtu.be/wXLf18DsV-I?t=1538
 
-<!-- /wp:html -->
-
-<!-- wp:heading -->
-
 ## So?
-
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
 
 Will hooks change the way you write React forever? We'll see. The internet is excited.
 
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-
 You can write your own hooks. Repositories of hooks are popping up like crazy. I'm sure your internet will be full of them for the next while.
-
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
 
 Most importantly 👇
 
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-
 You can write your own hooks and re-use functionality between components. It's just a function.
 
-<!-- /wp:paragraph -->
+Dan and Sophie say this is the future of React. All functional. No classes.
 
-<!-- wp:paragraph -->
-
-Dan and Sophie say this is the future of React. All functional. No classes.  
 But right now, it's just a Request For Comments. So comment away.
-
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-
-<!-- /wp:paragraph -->

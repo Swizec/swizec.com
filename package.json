@@ -14,22 +14,25 @@
         "card": "npx repng src/components/twitter-card.js -d static -f card.png -w 1024 -h 512"
     },
     "dependencies": {
-        "@mdx-js/mdx": "^1.6.16",
-        "@mdx-js/react": "^1.6.16",
+        "@mdx-js/react": "^2.3.0",
         "@netlify/plugin-gatsby": "^3.7.2",
-        "@swizec/gatsby-theme-course-platform": "4.0.0-6",
+        "@swizec/gatsby-theme-course-platform": "4.0.0-88",
         "@typeform/api-client": "^1.7.0",
-        "gatsby": "^4.11.0",
-        "gatsby-plugin-feed": "^4.11.0",
-        "gatsby-plugin-gatsby-cloud": "^4.11.0",
-        "gatsby-plugin-image": "^2.22.0",
-        "gatsby-plugin-netlify": "^4.2.0",
-        "gatsby-plugin-typography": "^4.11.0",
+        "gatsby": "^5.12.8",
+        "gatsby-plugin-feed": "^5.12.2",
+        "gatsby-plugin-gatsby-cloud": "^5.12.1",
+        "gatsby-plugin-image": "^3.12.2",
+        "gatsby-plugin-mdx": "^5.12.2",
+        "gatsby-plugin-netlify": "^5.1.1",
+        "gatsby-plugin-sharp": "^5.12.2",
+        "gatsby-plugin-theme-ui": "^0.16.1",
+        "gatsby-plugin-typography": "^5.12.0",
+        "gatsby-remark-images": "^7.12.2",
+        "gatsby-transformer-sharp": "^5.12.2",
         "glob": "^7.1.6",
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
         "react-typography": "^0.16.20",
-        "theme-ui": "0.7.3",
         "typeface-exo": "^1.1.13",
         "typeface-yrsa": "^1.1.13",
         "typography": "^0.16.21",
@@ -37,11 +40,11 @@
         "typography-theme-irving": "^0.16.19"
     },
     "resolutions": {
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1"
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
     },
     "engines": {
-        "node": "16.x || 18.x"
+        "node": "18.x"
     },
     "devDependencies": {
         "chalk": "^4.1.1",
@@ -49,7 +52,6 @@
         "mime-types": "^2.1.27",
         "node-fetch": "^2.6.0",
         "prettier": "^2.0.5",
-        "remark-frontmatter": "2.0.0",
         "to-vfile": "^6.1.0",
         "unist-util-visit": "^3.0.0",
         "url": "^0.11.0"

@@ -16,8 +16,6 @@ Over the weekend I started working on producing some graphs and useful understan
 
 Turns out exporting to [CSV](http://en.wikipedia.org/wiki/Comma-separated_values "Comma-separated values") then trying to import into a processable python data structure is less than easy when your tables were designed so that they look good as tables, are easy for humans to use and make sense when you look at them. The problem with python's handling of CSV is that it doesn't have any idea what my data actually looks like so it just produces a list of lists with values of all the cells.
 
-<!--more-->
-
 My problem was that we were collecting three values for every day ... but until about a month in, we were only collecting two values. On top of that six rows translate into what is actually a single row of data with a certain range of values. In a table it's easier for people to use as six rows, but trying to draw a graph from that ... well you'd want a single row.
 
 ![](https://swizec.com/wp-content/uploads/2011/10/Screen-Shot-2011-10-03-at-11.50.58-AM.png "Chunk of the spreadsheet")
@@ -33,4 +31,3 @@ After quite a bit of muscling around and playing with more list comprehensions t
 It pains me to admit it, but it took much too long to write a lens between the spreadsheet data and the data structure I can now actually use. Don't do this to yourselves and just make sure that whenever you are collecting data for a long lasting experiment, write some sort of easy interface that pops values right into the database.
 
 It will make your life easier.
-

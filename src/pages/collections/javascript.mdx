@@ -1,5 +1,5 @@
 ---
-title: "Read JavaScript lessons from production"
+title: "Read JavaScript and TypeScript lessons from production"
 description: "Learning from tutorials is great! You follow some steps, learn a smol lesson, and feel like you got this. Then you go into an interview, get a question from the boss, or encounter a new situation and o-oh."
 content_upgrade: Javascript
 ---
@@ -14,10 +14,10 @@ export const pageQuery = graphql`
   query {
     allMdx(
       filter: {
-        fileAbsolutePath: { regex: "/blog/.+/" }
+        internal: { contentFilePath: { regex: "/blog/.+/" } }
         frontmatter: { categories: { regex: "/JavaScript|TypeScript/gi" } }
       }
-      sort: { fields: frontmatter___published, order: DESC }
+      sort: { frontmatter: { published: DESC } }
     ) {
       nodes {
         fields {

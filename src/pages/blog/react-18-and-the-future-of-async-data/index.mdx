@@ -1,6 +1,6 @@
 ---
 title: "React 18 and the future of async data"
-description: "Friend, I have glimpsed the future and it is amazing. React 18 is shipping with <Suspense> and startTransition for deferred component rendering, but not data loading. That's coming in a future 18.x version."
+description: "Friend, I have glimpsed the future and it is amazing. React 18 is shipping with Suspense and startTransition for deferred component rendering, but not data loading. That's coming in a future 18.x version."
 published: 2021-07-22
 categories: "React, Frontend, Technical"
 content_upgrade: ReactCU
@@ -11,9 +11,9 @@ Friend, I have glimpsed the future and it is amazing.
 
 https://twitter.com/Swizec/status/1418211981958463488
 
-[React 18 is shipping with `<Suspense>`](https://swizec.com/blog/trying-out-react-18-alpha/) and [startTransition](https://swizec.com/blog/a-better-react-18-starttransition-demo/) for deferred component rendering, but not data loading. That's coming in a future 18.x version.
+[React 18 is shipping with `Suspense`](https://swizec.com/blog/trying-out-react-18-alpha/) and [startTransition](https://swizec.com/blog/a-better-react-18-starttransition-demo/) for deferred component rendering, but not data loading. That's coming in a future 18.x version.
 
-To explore that future, I built a side-by-side comparison of current best practice – [React Query](https://swizec.com/blog/how-react-query-gives-you-almost-everything-you-thought-you-needed-graphql-for/) – and future `<Suspense>` for data fetching. Using the latest experimental version of React.
+To explore that future, I built a side-by-side comparison of current best practice – [React Query](https://swizec.com/blog/how-react-query-gives-you-almost-everything-you-thought-you-needed-graphql-for/) – and future `Suspense` for data fetching. Using the latest experimental version of React.
 
 https://codesandbox.io/s/react-suspense-vs-no-suspense-8mssr?file=/src/WithSuspense.js
 
@@ -134,9 +134,9 @@ You can shove all your data loading into parent components and keep renders pure
 
 Load data where you use it. Let React Query coordinate.
 
-## The future with `<Suspense>`
+## The future with `Suspense`
 
-`<Suspense>` turns async states into first-class citizens of React. You don't have to think about it. At all 🤯
+`Suspense` turns async states into first-class citizens of React. You don't have to think about it. At all 🤯
 
 Took me a while to grok this.
 
@@ -174,20 +174,20 @@ Fetch data from an API, parse the json, return the result or throw an error. No 
 
 ### Show loading states
 
-You use a `<Suspense>` component to show loading states.
+You use a `Suspense` component to show loading states.
 
 ```javascript
 export const BestSellers = () => {
   return (
     <Suspense fallback={<Spinner />}>
-      {/* loading must happen inside a <Suspense> */}
+      {/* loading must happen inside a Suspense */}
       <Content />
     </Suspense>
   )
 }
 ```
 
-Any component inside `<Suspense>` can say _"Halt! Don't render me yet"_. React waits until every "halt" is resolved to render the children.
+Any component inside `Suspense` can say _"Halt! Don't render me yet"_. React waits until every "halt" is resolved to render the children.
 
 That's true for sibling components as well!
 

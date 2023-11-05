@@ -2,6 +2,7 @@ import merge from "deepmerge"
 import { courseTheme } from "@swizec/gatsby-theme-course-platform"
 import "typeface-exo"
 import "typeface-yrsa"
+import codeTheme from "@theme-ui/prism/presets/duotone-light.json"
 
 const customTheme = {
   container: {
@@ -31,6 +32,14 @@ const customTheme = {
         maxWidth: "60ch",
         margin: "0 auto",
       },
+    },
+    pre: {
+      ...codeTheme,
+    },
+    code: {
+      ...codeTheme,
+      fontSize: "0.9em",
+      px: 0,
     },
   },
 }
