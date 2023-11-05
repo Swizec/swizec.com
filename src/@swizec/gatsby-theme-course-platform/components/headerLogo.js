@@ -1,5 +1,5 @@
 import React from "react"
-import { Image, Flex, Link, Box, Container } from "theme-ui"
+import { Image, Flex, Link } from "theme-ui"
 import swizecAvatar from "../../../images/swizec-head-avatar.webp"
 
 const HeaderLogo = () => (
@@ -8,6 +8,7 @@ const HeaderLogo = () => (
       <Image
         src={swizecAvatar}
         width={35}
+        height={35}
         alt="Swizec Teller - a geek with a hat"
         title="Swizec Teller - a geek with a hat"
       />
