@@ -28,7 +28,7 @@ exports.onPreBootstrap = ({ actions }) => {
 }
 
 exports.createPages = async ({ graphql, actions }) => {
-  //   await createArticleRedirects({ graphql, actions })
+  await createArticleRedirects({ graphql, actions })
 }
 
 async function createArticleRedirects({ graphql, actions }) {
