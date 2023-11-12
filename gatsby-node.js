@@ -29,6 +29,27 @@ exports.onPreBootstrap = ({ actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   await createArticleRedirects({ graphql, actions })
+
+  exports.createPages = function (_ref2, options) {
+    var reporter = _ref2.reporter,
+      actions = _ref2.actions
+
+    // if (options.customDomain) {
+    console.log("HELLO THERE", actions.createRedirect)
+
+    reporter.info("Configuring redirects for self-hosted Plausible Analytics")
+    actions.createRedirect({
+      fromPath: "/stats/js/script.js",
+      toPath: "https://plausible.io/js/plausible.js",
+      statusCode: 304,
+    })
+    actions.createRedirect({
+      fromPath: "/stats/api/event",
+      toPath: "https://plausible.io/api/event",
+      statusCode: 200,
+    })
+    // }
+  }
 }
 
 async function createArticleRedirects({ graphql, actions }) {

@@ -42,7 +42,7 @@ module.exports = {
   trailingSlash: "always",
   plugins: [
     "@swizec/gatsby-theme-course-platform",
-    "gatsby-plugin-netlify",
+    "@vercel/gatsby-plugin-vercel-builder",
     {
       resolve: "gatsby-plugin-typography",
       options: {
@@ -57,7 +57,6 @@ module.exports = {
         formId: "jLgVKKLf",
       },
     },
-    "gatsby-plugin-gatsby-cloud",
     {
       resolve: "gatsby-plugin-manifest",
       options: {

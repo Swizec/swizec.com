@@ -15,12 +15,11 @@
     },
     "dependencies": {
         "@mdx-js/react": "^2.3.0",
-        "@netlify/plugin-gatsby": "^3.7.2",
         "@swizec/gatsby-theme-course-platform": "4.0.0-96",
         "@typeform/api-client": "^1.7.0",
+        "@vercel/gatsby-plugin-vercel-builder": "^2.0.9",
         "gatsby": "^5.12.8",
         "gatsby-plugin-feed": "^5.12.2",
-        "gatsby-plugin-gatsby-cloud": "^5.12.1",
         "gatsby-plugin-image": "^3.12.2",
         "gatsby-plugin-mdx": "^5.12.2",
         "gatsby-plugin-netlify": "^5.1.1",
