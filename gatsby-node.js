@@ -9,47 +9,23 @@ sharp.simd(false)
 exports.onPreBootstrap = ({ actions }) => {
   // read _redirects
   // call createRedirect for each
-
-  const redirects = fs.readFileSync("./static/_redirects").toString()
-
-  for (const line of redirects.split("\n")) {
-    if (line.trim().length > 0) {
-      // found a redirect
-      const [fromPath, toPath] = line.trim().split(/\s+/)
-      actions.createRedirect({
-        fromPath,
-        toPath,
-        redirectInBrowser: true,
-      })
-    }
-  }
-
-  console.log(`${chalk.green("success")} create redirects from _redirects`)
 }
 
 exports.createPages = async ({ graphql, actions }) => {
   await createArticleRedirects({ graphql, actions })
+  await createRedirectsFromConfigFile({ actions })
 
-  exports.createPages = function (_ref2, options) {
-    var reporter = _ref2.reporter,
-      actions = _ref2.actions
-
-    // if (options.customDomain) {
-    console.log("HELLO THERE", actions.createRedirect)
-
-    reporter.info("Configuring redirects for self-hosted Plausible Analytics")
-    actions.createRedirect({
-      fromPath: "/stats/js/script.js",
-      toPath: "https://plausible.io/js/plausible.js",
-      statusCode: 304,
-    })
-    actions.createRedirect({
-      fromPath: "/stats/api/event",
-      toPath: "https://plausible.io/api/event",
-      statusCode: 200,
-    })
-    // }
-  }
+  console.log("Configuring redirects for self-hosted Plausible Analytics")
+  actions.createRedirect({
+    fromPath: "/stats/js/script.js",
+    toPath: "https://plausible.io/js/plausible.js",
+    statusCode: 200,
+  })
+  actions.createRedirect({
+    fromPath: "/stats/api/event",
+    toPath: "https://plausible.io/api/event",
+    statusCode: 200,
+  })
 }
 
 async function createArticleRedirects({ graphql, actions }) {
@@ -101,4 +77,23 @@ async function createArticleRedirects({ graphql, actions }) {
   })
 
   console.log(`${chalk.green("success")} create redirects`) // eslint-disable-line no-console
+}
+
+async function createRedirectsFromConfigFile({ actions }) {
+  const redirects = fs.readFileSync("./static/_redirects").toString()
+
+  for (const line of redirects.split("\n")) {
+    if (line.trim().length > 0) {
+      // found a redirect
+      const [fromPath, toPath] = line.trim().split(/\s+/)
+      console.log(`Creating redirect from ${fromPath} to ${toPath}`)
+      actions.createRedirect({
+        fromPath,
+        toPath,
+        redirectInBrowser: true,
+      })
+    }
+  }
+
+  console.log(`${chalk.green("success")} create redirects from _redirects`)
 }
