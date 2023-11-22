@@ -45,6 +45,7 @@
 /blog/advent-code-day-22-sporifica-virus/swizec/7995  https://reactfordataviz.com/articles/advent-of-code-day-22-sporifica-virus
 /blog/trick-make-big-dataviz-load-super-fast/swizec/7126  https://reactfordataviz.com/articles/a-trick-to-make-your-big-dataviz-load-super-fast
 /blog/feed  /rss.xml
+/blog/feed/  /rss.xml
 
 /blog/reader-question:-how-do-you-learn-programming-topics /blog/reader-question-how-do-you-learn-programming-topics
 /blog/the-ultimate-test-for-your-webapp:-airplane-wifi /blog/the-ultimate-test-for-your-webapp-airplane-wifi
