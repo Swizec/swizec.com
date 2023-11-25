@@ -2,7 +2,6 @@ import { visit } from "unist-util-visit"
 import type { Node } from "unist"
 import fsExtra from "fs-extra"
 import path from "path"
-import chalk from "chalk"
 import * as vfile from "to-vfile"
 import mime from "mime-types"
 import glob from "glob"
@@ -14,13 +13,14 @@ import { remark } from "remark"
 import remarkMdx from "remark-mdx"
 import remarkFrontmatter from "remark-frontmatter"
 import prettier from "prettier"
+import { write } from "bun"
 
 const streamPipeline = util.promisify(stream.pipeline)
 const articlesPath = path.join(__dirname, "../src/pages/blog")
 const ACCEPTED_FILES = ["jpg", "jpeg", "png", "gif", "svg"]
 
 glob(path.join(articlesPath, "/*/*.mdx"), {}, async (err, files) => {
-  await Promise.all(files.map((file) => processArticle(file)))
+  await Promise.allSettled(files.map((file) => processArticle(file)))
 
   console.log("Done.")
 })
@@ -74,25 +74,14 @@ async function processArticle(file: string) {
 
   if (shouldWriteFile) {
     let content = markdown?.toString()
+    content = content
+      .replace(/(?<=https?:\/\/.*)\\_(?=.*\n)/g, "_")
+      .replace(/^\<(http.*)\>$/gm, "$1")
+
     content = await prettier.format(content, { parser: "mdx" })
 
-    await vfile.write({
-      path: file,
-      content,
-    })
+    await write(file, content)
   }
-
-  //   content = content
-  //     .replace(/(?<=https?:\/\/.*)\\_(?=.*\n)/g, "_")
-  //     .replace(/^\<(http.*)\>$/gm, "$1")
-  //   content = await prettier.format(content, { parser: "mdx" })
-
-  //   if (shouldWriteFile) {
-  //     await vfile.write({
-  //       path: file,
-  //       content,
-  //     })
-  //   }
 }
 
 // glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
@@ -244,7 +233,7 @@ async function fixImageNodeToLocalFile(
   imgDir: string
 ): Promise<boolean> {
   let title = node.title || node.alt || node.url.slice(node.url.length - 10)
-  title += Math.random().toString(20).substr(2, 6)
+  title += "-" + Math.random().toString(20).substr(2, 6)
 
   const slugTitle = slugify(title, {
     remove: /[*+~.()'"!?/:@,]/g,
