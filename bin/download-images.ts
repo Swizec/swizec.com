@@ -21,6 +21,8 @@ const ACCEPTED_FILES = ["jpg", "jpeg", "png", "gif", "svg"]
 
 glob(path.join(articlesPath, "/*/*.mdx"), {}, async (err, files) => {
   await Promise.all(files.map((file) => processArticle(file)))
+
+  console.log("Done.")
 })
 
 interface ImageNode extends Node {
@@ -30,9 +32,9 @@ interface ImageNode extends Node {
   alt: string
 }
 
-// await downloadImage("https://i.imgur.com/Yqy08nQ.jpeg", "./blabla")
-
 async function processArticle(file: string) {
+  //   console.info(`Processing ${file}`)
+
   const imgDir = path.join(path.dirname(file), "img")
 
   const mdxFile = await vfile.read(file)
@@ -43,7 +45,6 @@ async function processArticle(file: string) {
     .use(remarkFrontmatter)
     .use(() => async (tree) => {
       let nodes: ImageNode[] = []
-      let paragraphErrorsFixed = 0
 
       visit(tree, "image", (node: ImageNode) => {
         if (node.url && node.url.startsWith("http")) {
@@ -54,7 +55,6 @@ async function processArticle(file: string) {
 
           if (!node.url.includes("swizec.com/wp-content")) {
             nodes.push(node)
-            shouldWriteFile = true
           }
         }
       })
@@ -62,25 +62,37 @@ async function processArticle(file: string) {
       await Promise.all(
         nodes.map(async (node) => {
           await fsExtra.ensureDir(imgDir)
-          await fixImageNodeToLocalFile(node, imgDir)
+          const nodeChanged = await fixImageNodeToLocalFile(node, imgDir)
+
+          if (nodeChanged) {
+            shouldWriteFile = true
+          }
         })
       )
     })
     .process(mdxFile)
 
-  let content = markdown?.toString()
-
-  content = content
-    .replace(/(?<=https?:\/\/.*)\\_(?=.*\n)/g, "_")
-    .replace(/^\<(http.*)\>$/gm, "$1")
-  content = await prettier.format(content, { parser: "mdx" })
-
   if (shouldWriteFile) {
+    let content = markdown?.toString()
+    content = await prettier.format(content, { parser: "mdx" })
+
     await vfile.write({
       path: file,
       content,
     })
   }
+
+  //   content = content
+  //     .replace(/(?<=https?:\/\/.*)\\_(?=.*\n)/g, "_")
+  //     .replace(/^\<(http.*)\>$/gm, "$1")
+  //   content = await prettier.format(content, { parser: "mdx" })
+
+  //   if (shouldWriteFile) {
+  //     await vfile.write({
+  //       path: file,
+  //       content,
+  //     })
+  //   }
 }
 
 // glob(articlesPath + "/*/*.mdx", {}, async (err, files) => {
@@ -224,10 +236,13 @@ async function processArticle(file: string) {
 //       }
 //     })
 //   )
-//   console.log("Done.")
+
 // })
 
-async function fixImageNodeToLocalFile(node: ImageNode, imgDir: string) {
+async function fixImageNodeToLocalFile(
+  node: ImageNode,
+  imgDir: string
+): Promise<boolean> {
   let title = node.title || node.alt || node.url.slice(node.url.length - 10)
   title += Math.random().toString(20).substr(2, 6)
 
@@ -239,20 +254,22 @@ async function fixImageNodeToLocalFile(node: ImageNode, imgDir: string) {
 
   try {
     const fileInfo = await downloadImage(node.url, destFileWithoutExtension)
-    node.url = `./img/${slugTitle}.${fileInfo.extension}`
 
-    console.log(
-      `Image ${slugTitle}.${fileInfo.extension} downloaded in ${imgDir}`
-    )
+    node.url = `./img/${slugTitle}.${fileInfo.extension}`
+    return true
   } catch (err: unknown) {
-    console.log(
-      `${chalk.red("Error downloading image")} in ${imgDir} from ${node.url}: `,
-      err
+    console.error(
+      `Error downloading image from ${node.url}:`,
+      (err as Error).message
     )
   }
+
+  return false
 }
 
 async function downloadImage(url: string, filePath: string) {
+  console.info(`Downloading ${url} to ${filePath}`)
+
   const response = await fetch(url)
 
   if (!response.ok) {
@@ -272,9 +289,10 @@ async function downloadImage(url: string, filePath: string) {
     size: Number(response.headers.get("content-length")),
   }
 
-  const stream = fsExtra.createWriteStream(`${filePath}.${ext}`)
-
-  await streamPipeline(response.body, stream)
+  await streamPipeline(
+    response.body,
+    fsExtra.createWriteStream(`${filePath}.${ext}`)
+  )
 
   return fileInfo
 }
