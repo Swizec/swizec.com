@@ -12,15 +12,21 @@ import slugify from "slugify"
 import { remark } from "remark"
 import remarkMdx from "remark-mdx"
 import remarkFrontmatter from "remark-frontmatter"
+import remarkParseFrontmatter from "remark-parse-frontmatter"
 import prettier from "prettier"
 import { write } from "bun"
+import * as datefns from "date-fns"
 
 const streamPipeline = util.promisify(stream.pipeline)
 const articlesPath = path.join(__dirname, "../src/pages/blog")
 const ACCEPTED_FILES = ["jpg", "jpeg", "png", "gif", "svg"]
 
 glob(path.join(articlesPath, "/*/*.mdx"), {}, async (err, files) => {
-  await Promise.allSettled(files.map((file) => processArticle(file)))
+  const newishFiles = await asyncFilter<string>(files, (file, index, files) =>
+    isRecentFile(file)
+  )
+
+  await Promise.allSettled(newishFiles.map((file) => processArticle(file)))
 
   console.log("Done.")
 })
@@ -32,12 +38,38 @@ interface ImageNode extends Node {
   alt: string
 }
 
-async function processArticle(file: string) {
-  //   console.info(`Processing ${file}`)
+// Borrowed from https://advancedweb.hu/how-to-use-async-functions-with-array-filter-in-javascript/
+async function asyncFilter<T>(
+  arr: T[],
+  predicate: (value: T, index: number, array: T[]) => Promise<boolean>
+): Promise<T[]> {
+  const results = await Promise.all(arr.map(predicate))
 
+  return arr.filter((_v, index) => results[index])
+}
+
+/**
+ * We give up trying to fix files older than 2 years
+ *
+ * @param file path to file
+ */
+async function isRecentFile(file: string) {
+  const markdown = await remark()
+    .use(remarkFrontmatter)
+    .use(remarkParseFrontmatter)
+    .process(await vfile.read(file))
+
+  const frontmatter = markdown.data.frontmatter as { published: string }
+
+  return (
+    frontmatter.published >
+    datefns.format(datefns.subYears(new Date(), 2), "yyyy-MM-dd")
+  )
+}
+
+async function processArticle(file: string) {
   const imgDir = path.join(path.dirname(file), "img")
 
-  const mdxFile = await vfile.read(file)
   let shouldWriteFile = false
 
   const markdown = await remark()
@@ -59,7 +91,7 @@ async function processArticle(file: string) {
         }
       })
 
-      await Promise.all(
+      await Promise.allSettled(
         nodes.map(async (node) => {
           await fsExtra.ensureDir(imgDir)
           const nodeChanged = await fixImageNodeToLocalFile(node, imgDir)
@@ -70,7 +102,7 @@ async function processArticle(file: string) {
         })
       )
     })
-    .process(mdxFile)
+    .process(await vfile.read(file))
 
   if (shouldWriteFile) {
     let content = markdown?.toString()

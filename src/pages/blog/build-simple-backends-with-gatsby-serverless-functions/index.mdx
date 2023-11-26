@@ -1,11 +1,6 @@
 ---
-title: "Build simple backends with Gatsby Serverless Functions" 
-description: "Until recently adding a little backend to your Gatsby site meant 2 options:
-
-1. Climbing the AWS learning curve
-2. Rewrite with NextJS
-
-Now there's an /api directory 😱" 
+title: "Build simple backends with Gatsby Serverless Functions"
+description: "Until recently adding a little backend to your Gatsby site meant 2 options:\n1. Climbing the AWS learning curve\n2. Rewrite with NextJS\nNow there's an /api directory 😱"
 published: 2021-08-24
 content_upgrade: ServerlessHandbook
 categories: "Serverless, Podcasts, Gatsby"
@@ -22,8 +17,8 @@ With version 3.7 Gatsby gained the `/api` directory. Pop a JavaScript or TypeScr
 ```javascript
 // src/api/hello.js
 module.exports = function handler(req, res) {
-  return res.status(200).json({ hello: req.query.name });
-};
+  return res.status(200).json({ hello: req.query.name })
+}
 ```
 
 You can call that as an API request from your site. Great for 3rd party integrations with secret tokens, user reactions, authentication, and anything else you can't do in the browser.
