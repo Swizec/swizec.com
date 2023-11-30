@@ -22,7 +22,12 @@ exports.createPages = async ({ graphql, actions }) => {
     statusCode: 200,
   })
   actions.createRedirect({
-    fromPath: "/stats/api/event",
+    fromPath: "/stats/js/script.js/",
+    toPath: "https://plausible.io/js/plausible.js",
+    statusCode: 200,
+  })
+  actions.createRedirect({
+    fromPath: "/stats/api/event/",
     toPath: "https://plausible.io/api/event",
     statusCode: 200,
   })
@@ -62,6 +67,10 @@ async function createArticleRedirects({ graphql, actions }) {
       to = to.replace(/\/index$/, "")
     }
 
+    if (!from.endsWith("/")) {
+      from += "/"
+    }
+
     if (!to.endsWith("/")) {
       to += "/"
     }
@@ -85,7 +94,11 @@ async function createRedirectsFromConfigFile({ actions }) {
   for (const line of redirects.split("\n")) {
     if (line.trim().length > 0) {
       // found a redirect
-      const [fromPath, toPath] = line.trim().split(/\s+/)
+      let [fromPath, toPath] = line.trim().split(/\s+/)
+      if (!fromPath.endsWith("/")) {
+        fromPath += "/"
+      }
+
       console.log(`Creating redirect from ${fromPath} to ${toPath}`)
       actions.createRedirect({
         fromPath,
