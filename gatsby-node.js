@@ -59,8 +59,10 @@ async function createArticleRedirects({ graphql, actions }) {
   // For all posts with redirect_from frontmatter,
   // extract all values and push to redirects array
   allPosts.forEach((post) => {
-    const from = post.frontmatter.redirect_from
+    let from = post.frontmatter.redirect_from
     let to = post.fields.slug
+
+    console.log({ from, to })
 
     if (to.endsWith("/index")) {
       console.warn(`Bad redirect for ${to}`)
