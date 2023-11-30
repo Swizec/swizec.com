@@ -59,7 +59,7 @@ async function createArticleRedirects({ graphql, actions }) {
   // For all posts with redirect_from frontmatter,
   // extract all values and push to redirects array
   allPosts.forEach((post) => {
-    let from = post.frontmatter.redirect_from
+    let from = post.frontmatter.redirect_from[0]
     let to = post.fields.slug
 
     console.log({ from, to })
