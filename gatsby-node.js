@@ -80,7 +80,7 @@ async function createArticleRedirects({ graphql, actions }) {
         fromPath: from,
         toPath: to,
         isPermanent: true,
-        redirectInBrowser: true,
+        // redirectInBrowser: true,
       })
     })
   })
@@ -103,7 +103,7 @@ async function createRedirectsFromConfigFile({ actions }) {
       actions.createRedirect({
         fromPath,
         toPath,
-        redirectInBrowser: true,
+        // redirectInBrowser: true,
       })
     }
   }
