@@ -40,8 +40,8 @@ module.exports = {
   },
   flags: {},
   plugins: [
-    "@swizec/gatsby-theme-course-platform",
     "@vercel/gatsby-plugin-vercel-builder",
+    "@swizec/gatsby-theme-course-platform",
     {
       resolve: "gatsby-plugin-typography",
       options: {
