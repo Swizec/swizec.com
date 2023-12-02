@@ -39,7 +39,6 @@ module.exports = {
     siteUrl: "https://swizec.com",
   },
   flags: {},
-  trailingSlash: "always",
   plugins: [
     "@swizec/gatsby-theme-course-platform",
     "@vercel/gatsby-plugin-vercel-builder",
