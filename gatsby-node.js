@@ -6,11 +6,6 @@ const sharp = require("sharp")
 sharp.cache(false)
 sharp.simd(false)
 
-exports.onPreBootstrap = ({ actions }) => {
-  // read _redirects
-  // call createRedirect for each
-}
-
 exports.createPages = async ({ graphql, actions }) => {
   await createArticleRedirects({ graphql, actions })
   await createRedirectsFromConfigFile({ actions })
