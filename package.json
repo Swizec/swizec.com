@@ -39,10 +39,6 @@
         "typography-plugin-code": "^0.16.20",
         "typography-theme-irving": "^0.16.19"
     },
-    "resolutions": {
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0"
-    },
     "devDependencies": {
         "chalk": "^4.1.1",
         "child_process": "^1.0.2",
