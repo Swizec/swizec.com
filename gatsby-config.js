@@ -41,7 +41,7 @@ module.exports = {
   flags: {},
   plugins: [
     "@vercel/gatsby-plugin-vercel-builder",
-    // "@swizec/gatsby-theme-course-platform",
+    "@swizec/gatsby-theme-course-platform",
     // {
     //   resolve: "gatsby-plugin-typography",
     //   options: {
