@@ -41,42 +41,42 @@ module.exports = {
   flags: {},
   plugins: [
     "@vercel/gatsby-plugin-vercel-builder",
-    "@swizec/gatsby-theme-course-platform",
-    {
-      resolve: "gatsby-plugin-typography",
-      options: {
-        pathToConfigModule: "src/typography.js",
-        omitGoogleFont: true,
-      },
-    },
-    {
-      resolve: "gatsby-typeform-source",
-      options: {
-        token: process.env.TYPEFORM_TOKEN,
-        formId: "jLgVKKLf",
-      },
-    },
-    {
-      resolve: "gatsby-plugin-manifest",
-      options: {
-        name: "swizec.com",
-        short_name: "swizec.com",
-        description:
-          "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
-        start_url: "/",
-        background_color: "#fff",
-        theme_color: "#FF002B",
-        display: "standalone",
-        icon: "./static/favicon.png",
-      },
-    },
-    {
-      resolve: "@swizec/gatsby-plugin-plausible",
-      options: {
-        domain: process.env.PLAUSIBLE_DOMAIN,
-        customDomain: process.env.PLAUSIBLE_DOMAIN,
-      },
-    },
+    // "@swizec/gatsby-theme-course-platform",
+    // {
+    //   resolve: "gatsby-plugin-typography",
+    //   options: {
+    //     pathToConfigModule: "src/typography.js",
+    //     omitGoogleFont: true,
+    //   },
+    // },
+    // {
+    //   resolve: "gatsby-typeform-source",
+    //   options: {
+    //     token: process.env.TYPEFORM_TOKEN,
+    //     formId: "jLgVKKLf",
+    //   },
+    // },
+    // {
+    //   resolve: "gatsby-plugin-manifest",
+    //   options: {
+    //     name: "swizec.com",
+    //     short_name: "swizec.com",
+    //     description:
+    //       "Swizec turns coders into high value JavaScript experts with books, articles, talks, and workshops",
+    //     start_url: "/",
+    //     background_color: "#fff",
+    //     theme_color: "#FF002B",
+    //     display: "standalone",
+    //     icon: "./static/favicon.png",
+    //   },
+    // },
+    // {
+    //   resolve: "@swizec/gatsby-plugin-plausible",
+    //   options: {
+    //     domain: process.env.PLAUSIBLE_DOMAIN,
+    //     customDomain: process.env.PLAUSIBLE_DOMAIN,
+    //   },
+    // },
     {
       resolve: "gatsby-plugin-feed",
       options: {
