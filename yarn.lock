@@ -3151,7 +3151,7 @@
   resolved "https://registry.yarnpkg.com/@vercel/build-utils/-/build-utils-7.2.5.tgz#e51fb92ac8bd07e584cb590288aa54fd71a20ad4"
   integrity sha512-rlXL7Kjwfl8c8CQ9fYpP/+AunFZbaXXf89OT+7G8E/CGRM+hAYrGF+N3Kz1X8TfwfNlSCqPs7VQriOKKajUS0g==
 
-"@vercel/gatsby-plugin-vercel-builder@^2.0.9":
+"@vercel/gatsby-plugin-vercel-builder@^2.0.11":
   version "2.0.11"
   resolved "https://registry.yarnpkg.com/@vercel/gatsby-plugin-vercel-builder/-/gatsby-plugin-vercel-builder-2.0.11.tgz#65254f25b6c6cc26fc44947b9988203d291ef532"
   integrity sha512-2G83Rj1gxL6X1/Cc0di+10xQ/ZYaaI1Mhi7kC8rUVApWY4cNJfFPsogB+DQ/fC6m+YAh3qajcbF6pnmVZk5K3Q==
