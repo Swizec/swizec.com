@@ -70,13 +70,13 @@ module.exports = {
     //     icon: "./static/favicon.png",
     //   },
     // },
-    // {
-    //   resolve: "@swizec/gatsby-plugin-plausible",
-    //   options: {
-    //     domain: process.env.PLAUSIBLE_DOMAIN,
-    //     customDomain: process.env.PLAUSIBLE_DOMAIN,
-    //   },
-    // },
+    {
+      resolve: "@swizec/gatsby-plugin-plausible",
+      //   options: {
+      //     domain: process.env.PLAUSIBLE_DOMAIN,
+      //     customDomain: process.env.PLAUSIBLE_DOMAIN,
+      //   },
+    },
     {
       resolve: "gatsby-plugin-feed",
       options: {
