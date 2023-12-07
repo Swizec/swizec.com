@@ -72,10 +72,10 @@ module.exports = {
     // },
     {
       resolve: "@swizec/gatsby-plugin-plausible",
-      //   options: {
-      //     domain: process.env.PLAUSIBLE_DOMAIN,
-      //     customDomain: process.env.PLAUSIBLE_DOMAIN,
-      //   },
+      options: {
+        domain: process.env.PLAUSIBLE_DOMAIN,
+        // customDomain: process.env.PLAUSIBLE_DOMAIN,
+      },
     },
     {
       resolve: "gatsby-plugin-feed",
