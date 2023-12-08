@@ -1,0 +1,82 @@
+---
+title: "Keeping a high engineering culture, tips from the field"
+description: "I asked engineers how they keep a high quality culture. These are the takeaways"
+published: 2023-12-08
+content_upgrade: SeniorMindset
+categories: "Leadership, Mindset, Software Engineering"
+hero: ./img/screenshot-1702054576848.png
+---
+
+You are what you do. Culture beats everything.
+
+There's an old saying in startup circles:
+
+> First-time founders focus on product. Second-time founders focus on distribution. Experienced founders focus on culture.
+
+That's because _culture_ builds products, guides engineering quality, and determines long-term outcomes. A skilled group of motivated folk can keep any pile of crap going for 18 months. It takes culture to survive long-term.
+
+After dealing with yet another "make sure function was called" test in our codebase I asked my manager in exasperation: _How do you keep a high quality engineering culture?_
+
+His answer: It's a lot of gardening and thankless work. You nudge in the right directions, lead by example, and hope for the best. If you do it right, nobody will know it was you.
+
+He's right. But that sounds exhausting 🤨 So I asked you, the readers, for what you've seen work and not work in the past. 15 readers shared their thoughts. Twitter also had lots of ideas. Below are high level themes that emerged.
+
+https://twitter.com/Swizec/status/1731820383022841951
+
+## What is high quality engineering?
+
+A common theme was people saying that first you need to define what high quality engineering means to you. Do you care about shipping fast? Or is it stability?
+
+This depends on what you're building. Software for a billion dollar rocket needs to meet a different quality bar than your experimental feature that 10 people will see.
+
+In high school we had a guest lecture from a person working on airbag software (I went to a CS-focused high school). That environment bans `console.log` because a forgotten log could mess up the microsecond timing precision required during a crash. 😬
+
+For us SaaS/web folk, scale drives quality requirements. A one-in-a-million bug hits different with 10 daily active users than it does when [Shopify ran 19,000,000 SQL queries per second](https://twitter.com/ShopifyEng/status/1729500627347157493) during Black Friday.
+
+And remember: if your billion dollar rocket is meant to explode after 10 minutes, [don't worry about memory leaks](https://devblogs.microsoft.com/oldnewthing/20180228-00/?p=98125).
+
+## Leadership and incentives
+
+The next common theme was that culture flows from leadership. This is true!
+
+Leaders get what they incentivize. This can be subtle. Saying "I like that" to some suggestions and staying quiet for others is enough. People are quick to pick up on social cues.
+
+Do this right and the culture becomes self reinforcing. You get what you incentivize when you're not even in the room. This is both intuitively true and [supported by experiments showing cultural acquisition of behavior in monkeys](https://erikbuys.files.wordpress.com/2012/04/cultural-acquisition-of-a-specific-learned-response-among-rhesus-monkeys-gordon-r-stephenson.pdf). This is likely the underlying research for that "group of monkeys in a room with bananas up a ladder and a water hose" story you may have seen floating around the internet.
+
+Leadership, incentives, and the culture they create always win in the end. You can't fight your environment forever.
+
+https://youtu.be/nJ_htuCMCqM?si=0sU_oER2kCcteOWn
+
+## Hire good and step back
+
+The final big theme was to focus on hiring. Hire people who give a shit _and let them work_.
+
+Don't shoot down ideas. Don't bog people down with needless meetings. Don't hit them over the head with a 1000 page rulebook. Don't nitpick and bullshit. Let people contribute early in the design process. Actually listen to those contributions.
+
+Good engineers _want_ to do good work. Those who don't have had it beaten out of them. Avoid the beatings and you'll be fine.
+
+## Tactical suggestions
+
+Here's what people have seen work in the past. My favorite kind of advice – battle tested. Many of these match my experience, others I'll have to try.
+
+0. **Code review** when used as a gut check and learning opportunity
+1. **Linters and formatters** to enforce _rules that everyone agreed on_. Cuts down on nitpicking and useless debates.
+2. **Approve with feedback**. Gives engineers the _choice_ whether they want to implement what you suggest.
+3. **Internal talks** create an opportunity for people to learn from each other. You have to actively encourage low-fi easy-going talks or people get spooked and overthink this. Finding folks who want to share is usually the hard part.
+4. **Time to hang and shoot the shit** builds camaraderie and team cohesion. Many engineers think this is bullshit and a waste of time but lots of research shows it matters.
+5. **Pull request templates** nudge everyone to double-check their code's ready. Similar to how [checklists save lives](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2647491/)
+6. **Put code quality on the product roadmap**. My favorite PM says things like _"Okay this experiment worked, I'm adding a ticket to our next sprint to clean up the feature flag"_ 😍
+7. **[Let Juniors Speak First](https://swizec.com/blog/let-juniors-speak-first/)** builds a culture of sharing ideas
+8. **Apprenticeship**. Pair newbies with experienced pros (that match your desired culture) and watch them learn by osmosis.
+9. **Blameless post-mortems**. There's a whole TV series about how a culture of blame leads to big problems. It's called [Chernobyl](<https://en.wikipedia.org/wiki/Chernobyl_(miniseries)>).
+
+I'll leave you with this great summary:
+
+https://twitter.com/mustafa01ali/status/1731825884879810665
+
+Or as a coworker once said: _"You know Swiz, culture is just what we all do. It's not something external for others to fix."_
+
+Cheers,<br />
+~Swizec
+
+PS: doing this topic right could be a whole book 😅
