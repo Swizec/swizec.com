@@ -8,7 +8,7 @@ categories: "backbone, es6, Front End, Technical"
 hero: ../../../defaultHero.jpg
 ---
 
-https://twitter.com/dan_abramov/status/770684302568849408
+{/* https://twitter.com/dan_abramov/status/770684302568849408 */}
 
 Ah yes, Dan Abramov. How right he is! Building maintainable apps for the browser has never been easier or more fun. Life is great.
 
@@ -49,19 +49,19 @@ var Counter = Backbone.View.extend({
   },
 
   initialize: function () {
-    this.model.set({ count: 0 });
+    this.model.set({ count: 0 })
 
-    this.listenTo(this.model, "change", this.render);
+    this.listenTo(this.model, "change", this.render)
   },
 
   render: function () {
-    this.$el.html(this.template(this.model.attributes));
+    this.$el.html(this.template(this.model.attributes))
   },
 
   buttonClick: function () {
-    this.model.set({ count: this.model.get("count") + 1 });
+    this.model.set({ count: this.model.get("count") + 1 })
   },
-});
+})
 ```
 
 Cool, huh? Don’t worry if you don’t know what any of that means; you’re just not the target audience for this article. :)
@@ -75,23 +75,23 @@ That same View would look like this in ES6:
 ```javascript
 class Counter extends Backbone.View {
   constructor() {
-    super();
+    super()
 
-    this.model = new Backbone.Model({ count: 0 });
-    this.tagName = "div";
-    this.template = ({ count }) => `${count} <button>++</button>`;
+    this.model = new Backbone.Model({ count: 0 })
+    this.tagName = "div"
+    this.template = ({ count }) => `${count} <button>++</button>`
     this.events = {
       "click button": "buttonClick",
-    };
-    this.listenTo(this.model, "change", this.render);
+    }
+    this.listenTo(this.model, "change", this.render)
   }
 
   render() {
-    this.$el.html(this.template(this.model.attributes));
+    this.$el.html(this.template(this.model.attributes))
   }
 
   buttonClick() {
-    this.model.set({ count: this.model.get("count") + 1 });
+    this.model.set({ count: this.model.get("count") + 1 })
   }
 }
 ```
