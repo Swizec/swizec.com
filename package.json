@@ -17,7 +17,7 @@
         "@mdx-js/react": "^2.3.0",
         "@swizec/gatsby-theme-course-platform": "4.0.0-96",
         "@typeform/api-client": "^1.7.0",
-        "@vercel/gatsby-plugin-vercel-builder": "^2.0.9",
+        "@vercel/gatsby-plugin-vercel-builder": "^2.0.14",
         "gatsby": "^5.12.8",
         "gatsby-plugin-feed": "^5.12.2",
         "gatsby-plugin-image": "^3.12.2",
