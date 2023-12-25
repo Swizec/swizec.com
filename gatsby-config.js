@@ -40,6 +40,7 @@ module.exports = {
   },
   flags: {},
   plugins: [
+    "gatsby-plugin-sharp",
     "@vercel/gatsby-plugin-vercel-builder",
     "@swizec/gatsby-theme-course-platform",
     {
