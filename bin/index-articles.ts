@@ -36,6 +36,7 @@ async function indexArticle(path: string) {
 
   const file = Bun.file(path)
   const { data: frontmatter, content } = matter(await file.text())
+  const url = path.split("/src/")[1].replace("index.mdx", "")
 
   try {
     const res = await openai.embeddings.create({
@@ -44,7 +45,7 @@ async function indexArticle(path: string) {
     })
 
     const embedding = res.data[0].embedding
-    console.log(embedding)
+    console.log(url)
   } catch (e) {
     console.error(e)
   }
