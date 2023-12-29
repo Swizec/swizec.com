@@ -13,7 +13,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 //     published_date DATE,
 //     embedding VECTOR(1536)
 // )`
-await sql`TRUNCATE TABLE article_embeddings`
+// await sql`TRUNCATE TABLE article_embeddings`
 
 function findIndexMDXFiles(dir: string, fileList: string[] = []): string[] {
   const files = fs.readdirSync(dir)
@@ -32,17 +32,35 @@ function findIndexMDXFiles(dir: string, fileList: string[] = []): string[] {
   return fileList
 }
 
-async function indexArticle(path: string) {
+async function getLastIndexedDate() {
+  const { rows } =
+    await sql`select published_date from article_embeddings order by published_date desc limit 1`
+
+  return new Date(rows[0].published_date)
+}
+
+/**
+ * Compute and store article embedding,
+ * if newer than lastIndexed and not yet indexed
+ *
+ * @param path path to article
+ * @param lastIndexed date of latest indexed article
+ */
+async function indexArticle(path: string, lastIndexed: Date) {
   console.log(`Processing ${path}`)
 
   const file = Bun.file(path)
   const { data: frontmatter, content } = matter(await file.text())
   const url = "/" + path.split("/pages/")[1].replace("index.mdx", "")
 
-  const rows =
+  if (new Date(frontmatter.published) < lastIndexed) {
+    return
+  }
+
+  const { rowCount } =
     await sql`SELECT url FROM article_embeddings WHERE url=${url} LIMIT 1`
 
-  if (rows.rowCount > 0) {
+  if (rowCount > 0) {
     return
   }
 
@@ -66,6 +84,8 @@ async function indexArticle(path: string) {
 
 const articles = findIndexMDXFiles(`${import.meta.dir}/../src/pages/blog`)
 
+const lastIndexed = await getLastIndexedDate()
+
 for (const article of articles) {
-  await indexArticle(article)
+  await indexArticle(article, lastIndexed)
 }
