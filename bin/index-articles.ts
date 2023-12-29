@@ -13,6 +13,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 //     published_date DATE,
 //     embedding VECTOR(1536)
 // )`
+await sql`TRUNCATE TABLE article_embeddings`
 
 function findIndexMDXFiles(dir: string, fileList: string[] = []): string[] {
   const files = fs.readdirSync(dir)
@@ -36,7 +37,14 @@ async function indexArticle(path: string) {
 
   const file = Bun.file(path)
   const { data: frontmatter, content } = matter(await file.text())
-  const url = path.split("/src/")[1].replace("index.mdx", "")
+  const url = "/" + path.split("/pages/")[1].replace("index.mdx", "")
+
+  const rows =
+    await sql`SELECT url FROM article_embeddings WHERE url=${url} LIMIT 1`
+
+  if (rows.rowCount > 0) {
+    return
+  }
 
   try {
     const res = await openai.embeddings.create({
@@ -45,7 +53,12 @@ async function indexArticle(path: string) {
     })
 
     const embedding = res.data[0].embedding
-    console.log(url)
+    await sql`INSERT INTO article_embeddings VALUES (
+            ${url}, 
+            ${frontmatter.title}, 
+            ${frontmatter.published}, 
+            ${JSON.stringify(embedding)}
+        )`
   } catch (e) {
     console.error(e)
   }
