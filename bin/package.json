@@ -16,7 +16,7 @@
     "fs-extra": "^11.1.1",
     "gray-matter": "^4.0.3",
     "mime-types": "^2.1.35",
-    "openai": "^4.14.1",
+    "openai": "^4.24.1",
     "prettier": "^3.1.0",
     "remark": "^15.0.1",
     "remark-frontmatter": "^5.0.0",

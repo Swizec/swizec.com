@@ -2,6 +2,9 @@ import { sql } from "@vercel/postgres"
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
+import OpenAI from "openai"
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 
 // await sql`CREATE EXTENSION vector;`
 // await sql`CREATE TABLE IF NOT EXISTS article_embeddings (
@@ -34,8 +37,17 @@ async function indexArticle(path: string) {
   const file = Bun.file(path)
   const { data: frontmatter, content } = matter(await file.text())
 
-  console.log(frontmatter)
-  console.log(content)
+  try {
+    const res = await openai.embeddings.create({
+      input: content,
+      model: "text-embedding-ada-002",
+    })
+
+    const embedding = res.data[0].embedding
+    console.log(embedding)
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 const articles = findIndexMDXFiles(`${import.meta.dir}/../src/pages/blog`)
