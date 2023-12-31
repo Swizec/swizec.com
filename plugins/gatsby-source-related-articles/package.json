@@ -1,0 +1,14 @@
+{
+  "name": "gatsby-source-related-articles",
+  "version": "1.0.0",
+  "description": "Hooks into a pgvector DB to fetch related articles",
+  "main": "index.js",
+  "author": "Swizec Teller",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/postgres": "^0.5.1"
+  },
+  "peerDependencies": {
+    "gatsby": "^5.0.0"
+  }
+}
