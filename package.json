@@ -19,6 +19,7 @@
         "@swizec/gatsby-theme-course-platform": "4.1.1",
         "@typeform/api-client": "^1.7.0",
         "@vercel/gatsby-plugin-vercel-builder": "^2.0.14",
+        "@vercel/postgres": "^0.5.1",
         "gatsby": "^5.12.8",
         "gatsby-plugin-feed": "^5.12.2",
         "gatsby-plugin-image": "^3.12.2",
