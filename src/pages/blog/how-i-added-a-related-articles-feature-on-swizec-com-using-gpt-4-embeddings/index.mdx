@@ -22,8 +22,6 @@ Yep the articles talks about career stuff and where the money comes from. Vibe c
 2. Continually index your content
 3. Fetch and render related articles
 
-_PS: you can [read and share this online](https://swizec.com/blog/how-i-added-a-related-articles-feature-on-swizec-com-using-gpt-4-embeddings/)_
-
 ## Database that supports vector similarity search
 
 You can think of related articles in two ways: A recommendation system, or a semantic search. [Semantic search](https://swizec.com/blog/build-semantic-search-in-an-afternoon-yep/) is easy to build these days so that's what I did.
@@ -66,38 +64,38 @@ The script iterates over all articles on my blog, checks if they're new, and ask
 
 ```typescript
 async function indexArticle(path: string, lastIndexed: Date) {
-  console.log(`Processing ${path}`);
+  console.log(`Processing ${path}`)
 
-  const file = Bun.file(path);
-  const { data: frontmatter, content } = matter(await file.text());
-  const url = "/" + path.split("/pages/")[1].replace("index.mdx", "");
+  const file = Bun.file(path)
+  const { data: frontmatter, content } = matter(await file.text())
+  const url = "/" + path.split("/pages/")[1].replace("index.mdx", "")
 
   if (new Date(frontmatter.published) < lastIndexed) {
-    return;
+    return
   }
 
   const { rowCount } =
-    await sql`SELECT url FROM article_embeddings WHERE url=${url} LIMIT 1`;
+    await sql`SELECT url FROM article_embeddings WHERE url=${url} LIMIT 1`
 
   if (rowCount > 0) {
-    return;
+    return
   }
 
   try {
     const res = await openai.embeddings.create({
       input: content,
       model: "text-embedding-ada-002",
-    });
+    })
 
-    const embedding = res.data[0].embedding;
+    const embedding = res.data[0].embedding
     await sql`INSERT INTO article_embeddings VALUES (
             ${url}, 
             ${frontmatter.title}, 
             ${frontmatter.published}, 
             ${JSON.stringify(embedding)}
-        )`;
+        )`
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
 }
 ```
@@ -153,20 +151,20 @@ We can use Gatsby's internal build cache instead. I got the idea from a comment 
 
 ```javascript
 export const onCreatePage = async ({ page, cache, actions }) => {
-  const url = page.path;
-  const relatedArticles = await cache.get(`relatedArticles-${url}`);
+  const url = page.path
+  const relatedArticles = await cache.get(`relatedArticles-${url}`)
 
   if (relatedArticles) {
-    actions.deletePage(page);
+    actions.deletePage(page)
     actions.createPage({
       ...page,
       context: {
         ...page.context,
         relatedArticles,
       },
-    });
+    })
   }
-};
+}
 ```
 
 ### The rendering
@@ -180,7 +178,7 @@ Once you have the data where you need it, rendering is easy. The page footer get
       articles={props.pageContext.relatedArticles}
       title={props.pageContext.frontmatter.title}
     />
-  ) : null;
+  ) : null
 }
 ```
 
