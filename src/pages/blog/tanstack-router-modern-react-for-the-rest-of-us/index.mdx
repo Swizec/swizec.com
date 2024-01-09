@@ -6,7 +6,7 @@ categories: "React, Suspense, Frontend, TanStack"
 hero: ./img/screenshot-1701534305359.png
 ---
 
-_This article originally appeared on 2023-12-02 talking about a beta version of TanStack Router. It has been updated to reflect v1.1.12 as of 2024-01-09. You can [see the diff here]()_
+_This article originally appeared on 2023-12-02 talking about a beta version of TanStack Router. It has been updated to reflect v1.1.12 as of 2024-01-09. You can [see the diff here](https://github.com/Swizec/swizec.com/commit/220ba793ee79c1cc68f9f8bc80b2a60d3f9a7347)_
 
 A few years ago [Tanner](https://twitter.com/tannerlinsley) created React Query with a simple pitch: GraphQL for the rest of us. All the affordances of Apollo GraphQL on top of your goode olde REST API. Everybody loved it. Now I think he's done it again with his TanStack Router.
 
@@ -48,7 +48,7 @@ export const Route = new FileRoute("/hello/reader").createRoute({
   loader: async () => fetchSomeData,
   pendingComponent: LoadingState,
   errorComponent: ErrorMessage,
-});
+})
 ```
 
 This assumes you're using [file-based routing](https://tanstack.com/router/v1/docs/examples/react/quickstart-file-based) via the [router-cli utility](https://tanstack.com/router/v1/docs/api/router-cli). I've found that every React project eventually adapts a file structure similar to its URL structure. Might as well make it official.
@@ -79,12 +79,12 @@ const RootComponent = () => {
       </Sidebar>
       <Footer />
     </Container>
-  );
-};
+  )
+}
 
 export const Route = rootRoute({
   component: RootComponent,
-});
+})
 ```
 
 The root component renders your app skeleton. `<Outlet />` is the part your subroutes control.
