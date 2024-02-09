@@ -1,0 +1,198 @@
+---
+title: "Can I get your opinion"
+description: "Books start with a detailed outline that's easy to change. That's when they're easy to change and where you can help."
+published: 2024-02-09
+categories: "Scaling Fast Book"
+hero: ./img/screenshot-1707492304807.png
+---
+
+All great things start with a malleable prototype. Software has the minimum product/feature, Pixar movies have the storyboard, and books have the detailed outline. That's where you come in :)
+
+A detailed outline is meant to be flexible.
+
+You put thoughts on paper to see how they feel. Are they coming in the right order? Does this thought belong in this section or that other section over there? Does any of this even make sense. Do you have a point you're making?
+
+No word-smithing. Zero polish. Making your thoughts real helps you iterate. Like [kicking a can](https://swizec.com/blog/writing-software-is-like-kicking-a-can/). Changes at this stage should be cheap and effortless.
+
+Once you can't think of new changes to make, you have to ask potential readers if the outline resonates. That's you.
+
+Please read this and tell me what you think. Absolutely anything you say is valid. Don't hold back.
+
+If it resonates, tell me what stands out. If it sucks, tell me where. If it feels wrong, I'd love to know. If it goes against your worldview, please say more.
+
+## Scaling Fast: An Engineer's Guide to the Hockeystick, a rough outline
+
+- Scaling the business
+  - Business needs to grow, that fuels all else
+    - growing pie
+    - avoid zero sum games
+    - feeling directionless
+  - Can’t sell ice cream on the beach in winter
+  - Only two ways to grow
+    - Sell more things to same people
+    - Find more people
+  - Important numbers to know
+    - Cac
+    - Ltv or arpu
+    - Growth
+    - Churn
+- Scaling the team
+  - A team will beat any soloist
+    - people miss core lesson from Mythical Man-Month
+    - a group of soloists is not a team
+    - team is the smallest unit of software delivery
+      - a soloist can code, a team can engineer
+      - teams unlock vacations
+      - teams get you off on-call
+      - teams create space for you to think
+  - Delegate decisions, not just tasks
+    - let go of your legos
+    - code yourself out of a job
+    - don’t be a bottleneck
+      - you think you’re important, but you’re slowing things down
+    - person closest to the problem knows best
+    - share goals broadly and let people execute
+  - small a agile
+    - Getting things done over process
+    - If it helps you ship, it’s good, if not, stop
+    - Team defines what works for them
+    - Make small improvements regularly
+  - work in progress kills your progress
+    - maintain momentum
+    - theory of constraints
+    - reduce context switching
+    - many small tasks are better than a few big tasks
+    - keep going
+  - approve with comment
+    - ship first, fix later
+    - turn feedback into followup tasks
+    - avoid blocking
+    - use linters to scale review
+    - long-lived PRs are a smell
+  - juniors speak first
+    - avoid knowledge silos
+    - everyone has input
+    - decider decides
+    - let juniors own things
+    - juniors best to clarify assumptions
+  - swarm when work starts
+    - discuss architecture early
+    - get everyone’s input on design
+    - big discussion in PR is too late
+    - everyone pulls in same direction
+    - sync first then async
+    - reduces bottlenecks
+  - vertical teams
+    - teams own their destiny
+    - aligned with business goals
+    - co-own OKRs with product
+    - engineers are stakeholders
+    - empowered to ship independently
+    - hyrum’s law
+  - get us over the water, not build us a bridge
+    - partner with product
+    - engineers input, product decides
+    - collaborate early
+  - fix roadmap to solve engineering issues
+    - ultimate vision too big a story
+    - deliver value early
+    - make steps estimatable
+    - INVEST
+  - feature flags to ship safely
+    - FF ships first
+    - now you can keep shipping
+    - phased rollout
+    - get user feedback early
+    - measure everything
+    - at scale there are no cutovers
+- Scaling the tech
+  - it’s okay to just do the work
+    - don’t overthink the work, just get it done
+      - small N is quicker by hand
+      - rare changes can be hardcoded
+      - is there even a standard process?
+    - first do it manually
+    - then document
+    - then automate
+  - let it break
+    - scale breaks things in weird ways
+    - the system will tell you where it hurts
+    - take care of the obvious basics
+  - let small fires burn
+    - you can’t fix everything
+    - fix the important things
+    - if nobody’s complaining, it’s not a bug
+    - if you can’t measure its impact, does it matter
+  - you do have time to build it twice
+    - everything worth doing is worth doing poorly
+    - growth means more resources later
+    - you don’t yet know what you need
+    - BUFD doesn’t work in a vacuum
+      - even BUFD needs to iterate
+      - planning is doing
+      - iterate when cost of change is low
+  - 5% better is better than 0% better
+    - small improvements done regularly work best
+    - everyone empowered to do small fix
+    - big efforts need lots of sponsorship
+    - ready, fire, aim
+  - make mistakes easy to fix
+    - you can’t avoid mistakes
+    - faster to ship means faster to fix
+    - hide behind feature flags
+    - small changes are easy to validate
+    - get feedback early
+  - software only moves forward
+    - data lives forever
+    - there are no cut-overs
+      - at scale intermediary states are always
+      - make this a core part of your strategy
+    - different versions have to work in parallel
+    - build just what you’re about to need
+  - focus on architectural complexity
+    - hyrum’s law
+    - reduce interdependencies
+    - have one source of truth
+      - repeat the logic
+      - don’t repeat the data
+    - keep code colocated
+    - build more libraries
+      - avoid leaking feature-specific code into utils
+      - ship independently
+      - don’t force everyone to upgrade
+    - use dependency graphs
+      - identify natural modules
+      - find hidden utils
+    - independent pieces are easier to move
+    - independent pieces are easier to change
+    - you can’t fix the wrong abstraction
+      - but you _can_ adapt it to new situations
+      - don’t build abstractions before you need them
+  - solve the problem, not a different more difficult problem
+    - avoid solving abstract problems
+    - do not generalize until a pattern develops
+      - think gardening instead of planning
+      - curate what people do already
+      - make your patterns feel natural
+    - if people don’t use your abstraction, it’s wrong
+    - SOC beats DRY
+      - do repeat code, do not repeat concepts
+      - separation of concerns matters more
+      - incorrect DRY leads to tangled codebases
+      - incorrect SOC is easy to fix
+    - write code you’ll be smart enough to fix
+  - not all tests are useful
+    - types cover basic trouble
+    - mocks make tests brittle
+    - avoid tests for testing’s sake
+    - tests make code harder to change
+    - focus on the critical details
+    - observe production
+  - at scale flaky tests happen to real users every day
+    - observability beats testing
+    - only production is like production
+    - 1 in N bugs depend a lot on N
+
+Thanks. Enjoy your weekend.
+
+~Swizec
