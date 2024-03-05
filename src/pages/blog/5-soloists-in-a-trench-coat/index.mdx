@@ -1,0 +1,79 @@
+---
+title: "5 soloists in a trench coat"
+description: "Ever felt like your software team is just soloists in a trench coat? You may be right!"
+published: 2024-03-05
+content_upgrade: SeniorMindset
+categories: "Mindset, Teamwork, Teams"
+hero: ./img/screenshot-1709650335771.png
+---
+
+Many teams start as a group of individuals.
+
+You have Joe working on the client, Jane doing backend, and Alice who does both but much prefers her time on the client. She thinks backend is just a bunch of JSON bureaucracy, Jane resents this opinion, and Joe can't understand why the backend needs to be anything more than an API call straight to the database.
+
+They work together on the same product.
+
+Jane loves to jump on every backend story, Joe beams with pride when there's client work to do, and Alice tries to help them both. She rarely gets to own stories because Jane or Joe always need help with something. Joe gets stuck when an API needs to be adjusted, Jane doesn't know how best to add a button that triggers her backend code. Those little things are Alice's job.
+
+## Standup is hard
+
+Every morning they have standup. They've heard that's how big companies do engineering so that's what they're doing.
+
+Standup sucks.
+
+Joe doesn't understand Jane's updates about queues and strange data problems. Who cares about any of that? Data is in the database when you need it. How hard can it be to write a SQL query? He uses this time to catch up on group texts.
+
+Jane thinks Joe's updates are trivial and silly. Who cares about the color of a button? You set that once and it's solved forever, obviously. She likes to use standup to read social media.
+
+Alice finds standup incredibly useful because she needs to know when Jane or Joe might need her help. But she keeps getting lost in their detailed descriptions of how the work happened. Who cares how you got here? Tell us where you are.
+
+They're off camera a lot so you can't see the eyerolls.
+
+## Code review is tough
+
+The team practices code review. Every change needs 2 approvals before it can be merged into the main branch and pushed to production.
+
+This is supposed to help with knowledge sharing, catch obvious mistakes, and keep the code decently uniform in style.
+
+But getting any pull request merged is like pulling teeth. Review cycles are long and you have to practically beg others to please find time to look at your code.
+
+When Joe makes a pull request, he sends off a message and buckles up for the pain. In about an hour, Jane will come in with a bunch of questions about what the code is doing. She doesn't understand client work, but she's great at spotting syntax tricks that make his JavaScript better. And she asks good questions that help Joe realize when he missed an edge case.
+
+He fixes Jane's comments. It takes him all afternoon. Then he takes a deep breath and goes home. Tomorrow morning Alice will review his code over coffee and drop the big bombs. She always reviews code first thing in the morning.
+
+It takes Alice a few hours to review Joe's code.
+
+She carefully re-reads the story he's working on to make sure she understands the goal. Downloads his code to test locally and re-familiarizes herself with this part of the codebase. It's been a few weeks since she worked in these files.
+
+_"It's not great"_, she thinks.
+
+Alice doesn't like Joe's approach to splitting components. She leaves a comment saying they're not reusable or self-contained enough. She also thinks his URL structure is bad and is going to cause problems. Plus he could've better organized his files. The structure doesn't make sense to her. Not to even mention the error handling and how he leaked null handling logic deep into his component tree. Again.
+
+Joe's heart sinks. It's going to take all day to rewrite half his code. The feature was due yesterday. But Alice smashed the _"Request Changes"_ button and now he can't merge until she approves.
+
+3 days later, after more rounds of reviews, Joe's code makes it to the staging environment. The product owner immediately finds a bug. 🫠
+
+## What's wrong here
+
+You may have worked on a team like this. I have.
+
+Working alone or with this kind of non-team was all I knew for the first decade and a half of my career. The experience was so bad it almost turned me off working on large projects forever.
+
+At one startup we even had an intern one summer who concluded their internship and said _"You know, I don't think software engineering is for me"_. That crushed me. They were so excited at the start!
+
+The problem is that Jane, Joe, and Alice are a team, but they're not working together. Every project turns into separate work streams, roughly organized by skill, with people working alone in a corner until their brilliant solution is ready for the world to see.
+
+But when the code's finished is too late for deep feedback. Any pushback breeds resentment. What do you mean you don't like my beautiful baby!?
+
+### Everything’s a chore
+
+And everyone resents having to give that feedback because it feels like a chore. You have to context switch away from the work you actually care about (_your_ work), rejig your brain to what the other person was doing, think deeply, review the code, barely understand what's going on, leave comments, then reorient back to your own work. This takes a lot of effort.
+
+When I mentored a young engineer in an environment like that, it felt like working on 2 projects at all times. I had to keep context on everything I'm doing _and_ everything my mentee was doing or I wouldn't be able to help. Even then every question had to start with a 10 minute backstory to make sure we both understand the challenge.
+
+That was exhausting and slow. No wonder people hate it.
+
+If you’ve ever worked on a “team” like that, hit reply.‌ I’d love to hear about your experience.
+
+Cheers,<br/>
+~Swizec
