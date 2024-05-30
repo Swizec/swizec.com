@@ -60,23 +60,23 @@ function useBirths(day: Date) {
       const response = await fetch(
         `https://en.wikipedia.org/api/rest_v1/feed/onthisday/births/${
           day.getMonth() + 1
-        }/${day.getDate()}`,
-      );
+        }/${day.getDate()}`
+      )
 
       if (!response.ok) {
-        throw new Error("Error fetching births");
+        throw new Error("Error fetching births")
       }
 
       const { births } = (await response.json()) as {
-        births: BirthEntry[];
-      };
-      births.sort((a, b) => b.year - a.year);
+        births: BirthEntry[]
+      }
+      births.sort((a, b) => b.year - a.year)
 
-      return births;
+      return births
     },
-  });
+  })
 
-  return query.data;
+  return query.data
 }
 ```
 
@@ -128,3 +128,5 @@ No more god components that do everything! No more god hooks that try to coordin
 Keep your happy path, loading state, and errors separate. Think about one at a time ✌️
 
 \~Swizec
+
+Followup answer to Wtf why does this work? 👉 [Why useSuspenseQuery works?](https://swizec.com/blog/why-use-suspense-query-works/)
