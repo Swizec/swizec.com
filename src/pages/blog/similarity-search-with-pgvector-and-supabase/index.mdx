@@ -2,7 +2,7 @@
 title: "Similarity search with pgvector and Supabase"
 description: "Explore the power of pgvector and Supabase for efficient similarity search in this comprehensive guide. Keep vector data next to your business data for efficient queries and less overhead."
 published: 2023-09-04
-categories: "Artificial Intelligence, LLM, Supabase, pgvector"
+categories: "Artificial Intelligence, LLM, Supabase, pgvector, AI Engineer"
 hero: ./img/screenshot-1693883418235.png
 ---
 
@@ -83,16 +83,16 @@ We'll need embedding vectors for each attendee to run similarity queries. Workin
 The code first connects to the DB and inits an OpenAI client.
 
 ```javascript
-const { Client } = require("pg");
-const OpenAI = require("openai");
+const { Client } = require("pg")
+const OpenAI = require("openai")
 
 const db = new Client({
   connectionString: process.env.SUPABASE_URL,
-});
+})
 
-const openai = new OpenAI(process.env.OPENAI_API_KEY);
+const openai = new OpenAI(process.env.OPENAI_API_KEY)
 
-await db.connect();
+await db.connect()
 ```
 
 Then it reads a list of users and their answers from the DB:
@@ -100,7 +100,7 @@ Then it reads a list of users and their answers from the DB:
 ```javascript
 const res = await db.query(
   `SELECT * FROM "UserProfile" JOIN "SurveyAnswer" ON "UserProfile".id = "SurveyAnswer"."userProfileId"`
-);
+)
 ```
 
 The result is an array of rows, one per survey answer. Each user answers multiple questions so we'll process them multiple times. It's fine :)
@@ -116,25 +116,25 @@ for (const row of res.rows) {
   const answers = res.rows
     .filter((r) => r.userProfileId === row.userProfileId)
     .map((r) => `${r.question}: ${r.answer}`)
-    .join(" ");
+    .join(" ")
 
-  console.log(`Processing ${row.userProfileId}...`);
+  console.log(`Processing ${row.userProfileId}...`)
 
   const embeddingRes = await openai.embeddings.create({
     model: "text-embedding-ada-002",
     input: answers,
-  });
+  })
 
-  const embedding = embeddingRes.data[0].embedding;
+  const embedding = embeddingRes.data[0].embedding
 
   const upsertQuery = `
   INSERT INTO "UserEmbedding" ("userProfileId", embedding)
   VALUES ($1, $2) 
   ON CONFLICT ("userProfileId")
     DO UPDATE SET embedding = EXCLUDED.embedding
-`;
+`
 
-  await db.query(upsertQuery, [row.userProfileId, JSON.stringify(embedding)]);
+  await db.query(upsertQuery, [row.userProfileId, JSON.stringify(embedding)])
 }
 ```
 
@@ -153,7 +153,7 @@ ChatGPT came up with this function to find the 5 most similar attendees to a giv
 ```javascript
 const findSimilarUsers = async (userProfileId) => {
   try {
-    await client.connect();
+    await client.connect()
 
     // Find the top 5 nearest neighbors based on embeddings
     const nearestQuery = `
@@ -162,10 +162,10 @@ const findSimilarUsers = async (userProfileId) => {
       ORDER BY embedding <-> (
         SELECT embedding FROM "UserEmbedding" WHERE "userProfileId" = $1
       ) LIMIT 5;
-    `;
+    `
 
-    const res = await client.query(nearestQuery, [userProfileId]);
-    const similarUsers = res.rows;
+    const res = await client.query(nearestQuery, [userProfileId])
+    const similarUsers = res.rows
 
     for (const user of similarUsers) {
       const infoQuery = `
@@ -173,22 +173,22 @@ const findSimilarUsers = async (userProfileId) => {
         FROM "UserProfile"
         INNER JOIN "SurveyAnswer" ON "UserProfile".id = "SurveyAnswer"."userProfileId"
         WHERE "UserProfile".id = $1;
-      `;
+      `
 
-      const userInfo = await client.query(infoQuery, [user.userProfileId]);
-      console.log(`First Name: ${userInfo.rows[0].firstName}`);
-      console.log("Survey Answers:");
+      const userInfo = await client.query(infoQuery, [user.userProfileId])
+      console.log(`First Name: ${userInfo.rows[0].firstName}`)
+      console.log("Survey Answers:")
       userInfo.rows.forEach((row) => {
-        console.log(`  ${row.question}: ${row.answer}`);
-      });
-      console.log("--------------------------------------------------");
+        console.log(`  ${row.question}: ${row.answer}`)
+      })
+      console.log("--------------------------------------------------")
     }
   } catch (err) {
-    console.error("Error:", err);
+    console.error("Error:", err)
   } finally {
-    await client.end();
+    await client.end()
   }
-};
+}
 ```
 
 First query holds the pgvector magic. That `<->` operator means [euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance) between vectors. You can use `<#>` for negative inner product and `<=>` for [cosine distance](https://en.wikipedia.org/wiki/Cosine_similarity).
