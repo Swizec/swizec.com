@@ -1,0 +1,117 @@
+---
+title: "Let small fires burn"
+description: "You can't fix everything. Focus on the next big thing and let the small fires burn."
+published: 2024-08-21
+categories: "Scaling Fast Book, Mindset, Software Engineering, Management"
+hero: ./img/screenshot-1724251341040.png
+---
+
+_Something_ is always on fire when you're growing. You can't fix everything.
+
+Time, budget, and physics constraints _cause_ engineering. Constraints help you know the difference between a nice-to-have and a need-to-have. You can let the nice-to-haves burn while you focus on the need-to-haves.
+
+Reid Hoffman, founder of linkedin, has a great line in a [Masters of Scale podcast](https://mastersofscale.com/selina-tobaccowala-let-fires-burn/) – _"You gotta let fires burn. If you try to catch every fire, you'll miss the biggest opportunities"_.
+
+And in my experience, he's right.
+
+## Avoid the little bugs
+
+It's easy for an engineering team to get sucked into fixing lots of little bugs because it's easy, rewarding, and your users notice. _Especially_ when you have internal users reaching out on Slack with _"Hey this gives me an error and then I have to hold it awkwardly to get around the issue"_. They looove it when you message back 2 hours later with _"Thanks! Fixed. Can you try again?"_.
+
+We once shipped a new faxing feature that worked great with our test cohort. Then we opened the flood gates just as our PM went on vacation.
+
+We spent the next week fixing edge cases our users found and reported in our internal chat. They loved it. Wow so fast!
+
+When the PM came back she looked at us, centered herself with a long exhale, and said _"Guys. That's great you made our users happy but what about the big feature you were working on that has a huge deadline and will make a super annoying workflow way easier for these same users?"_
+
+Oops ...
+
+## Prioritize for impact
+
+Not all bugs and issues matter. The average codebase contains [10 to 20 defects per 1000 lines of code](https://amartester.blogspot.com/2007/04/bugs-per-lines-of-code.html) regardless of language. 3, if you use cleanroom development practices from NASA, which you're not using because ain't nobody got time for that.
+
+So at any time you can expect around 690 bugs lurking in the two core React apps (~69,000 lines of code) we had at Tia. That's not counting bugs in the megabytes of dependencies our code relies on or the huge server-side codebases (~10mio lines) the apps talk to.
+
+But that's okay. Many of those bugs are never encountered, don't cause a big problem, or are impossible to reach for business reasons outside the code.
+
+The faxing bugs we spent a week fixing didn't even reach the level of "small fire". They were annoying and forced users into awkward workarounds, yes, but they didn't _block_ anyone from getting their work done.
+
+Meanwhile the feature we weren't building meant users couldn't even attempt an entire workflow. Buggy or not, you can't use what's not there. To make matters worse: the feature was part of a major company initiative with a strict, albeit comfortable, external deadline.
+
+## Triage
+
+When you're resource constrained, your biggest danger is opportunity cost. Are you working on the highest impact thing you could be doing right now?
+
+You can't do everything – there isn't time – but you _can_ try to always work on the next highest priority item. This is true on the individual level, the team level, and all the way up the whole company.
+
+How do you, as a team, know what's the next biggest fire? You have to stack rank.
+
+In his last book, [Noise: A flaw in human judgement](https://www.goodreads.com/book/show/55339408-noise), Daniel Kahneman, Nobel prize winner and grandfather of behavioral economics, writes that humans are bad at judging the absolute value of things. We can't estimate tasks, can't assess what's important, and we're poor predictors of impact.
+
+Kahneman argues that you can't look at a problem in isolation and reliably say _"Yep that's a 5 on the fire scale"_. But you're really good at taking two problems and saying _"Yep that one's worse than the other one"_.
+
+You can take this insight and use it to create an ordered list of priorities. Go pair-wise through your fires, swap to put the bigger fire on top, and after n^2 iterations you'll have a stack ranked list of fires from biggest to smallest. Yay bubble sort.
+
+## Focus
+
+Once you know the next big thing: Work on that and try to avoid everything else until you're done. _Then_ move on to the next big thing.
+
+Always try to have _one_ highest priority item in progress. [Work in progress kills your progress](https://swizec.com/blog/workinprogress-kills-your-progress/).
+
+This sounds obvious when you say it, but is hard to do in practice. Small fires sneak up on you when you least expect it.
+
+They're that quick refactor while you're looking at a crap file anyway, the quick reorg of your file structure when making a new module, building a quick caching system where it feels like things might get slow in the future, or getting sucked into fixing a convoluted hard-to-reproduce bug that impacts a tiny fraction of your users.
+
+It's okay to drop bugs as "not worth the effort" after you've invested a bunch of time. Better that than wasting even more time.
+
+Yes, you'll need to fix everything eventually. If it's still there by the time you're sipping margaritas on the beach with nothing better to do.
+
+Right now you gotta solve today's fire. You're not here to clean up code, discover the best file structure, or fix every small bug you encounter. You're here to fix the biggest baddest thing that's causing the worst trouble. Put your blinders on and fix _that_.
+
+As they say in Moneyball: [_Do you get on base?_](https://swizec.com/blog/better-engineer-or-more-effective-engineer/). Clean up and refactoring and finding the best way to express your thoughts can come later. In a separate PR is best.
+
+## The Algorithm
+
+Kent Beck, creator of extreme programming, [put it best](https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast#) when he said:
+
+> 1. Make it Work
+> 2. Make it Right
+> 3. Make it Fast
+>    ~ Kent Beck
+
+No sense polishing a turd that doesn't even work yet. It's going to change too much by the time it works and then all your polishing effort will be for naught.
+
+And I encourage you to be super strict about what it means to "work": Your code's not working until users use and like it. No sense writing the perfect code for a feature you'll throw away next month because users didn't like it :)
+
+You can always create followup tasks for any bugs, cleanup, refactoring, and improvement work you find. Keeping track of deferred tasks beats getting distracted from today's goal.
+
+## Measure your impact
+
+Your best tool in stack-ranking fires is to measure their impact with hard data. This is where observability shines.
+
+When our platform team built a ranked list of our slowest API endpoints, it immediately became obvious what's strangling our system: Fetching appointments on every request. [Fixing that one bug reduced CPU load on our database by 60%](https://swizec.com/blog/90p-of-performance-is-data-access-patterns/). Huge.
+
+Meanwhile our foray into faxing bugs was, while rewarding for everyone involved, much less impactful. A handful of users were a little less annoyed with their tools. We later learned they had found a workaround before they even told us about the issue. That's why it was tricky to reproduce 😂
+
+How you measure impact depends on the fire. A few questions I've found useful:
+
+- Does it cost money?
+- How much?
+- Does it _break_ a workflow?
+- For how many users?
+- Does it resolve on its own?
+- How fast?
+- How often does the bug happen?
+- Are we breaking SLAs?
+- How badly?
+- Are users complaining?
+- How long has the fire existed without anyone noticing?
+
+That last one is key. Many fires feel huge just because this is the first time you're looking. That doesn't mean you have to drop everything and go firefighting.
+
+If nobody noticed there's a bug, is it really a bug? For some users, it [could be a feature](https://xkcd.com/1172/) and you'll break their workflow when you fix the issue.
+
+Cheers,<br/>
+~Swizec
+
+[sparkjoy|let-small-fires-burn]
