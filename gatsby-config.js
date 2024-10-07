@@ -124,8 +124,10 @@ module.exports = {
 
                 return Object.assign({}, node.frontmatter, {
                   date: node.frontmatter.published,
+                  pubDate: node.frontmatter.published,
                   url: url.href,
                   guid: url.href,
+                  custom_elements: [{ "content:encoded": node.html }],
                 })
               })
             },
