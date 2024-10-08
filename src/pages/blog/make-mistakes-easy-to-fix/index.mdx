@@ -1,0 +1,69 @@
+---
+title: "Make mistakes easy to fix"
+description: "You can't prevent bugs. You'll burn out. Instead focus on making them quick to fix."
+published: 2024-10-08
+categories: "Software Engineering, Scaling Fast Book, Mindset, Teamwork"
+hero: ./img/screenshot-1728400777262.png
+---
+
+You can't prevent bugs. You'll burn out. Instead, you can focus on making them quick to fix.
+
+## Catch and fix bugs quickly
+
+At work we had a particularly startup moment one day when we shipped a small update, patted ourselves on the back, and immediately got slammed by a flood of messages. People can't do the most important critical work in the company everything is broken fire fire fire!!!
+
+It was a [deep and narrow crevasse](https://swizec.com/blog/a-mental-framework-that-helps-you-code-faster/).
+
+![Deep and narrow crevasse](https://i.imgur.com/MDiysUF.png)
+
+We had changed the color of some buttons and took the opportunity to delete an unused piece of code mapping data states to colors. Buttons looked great so we shipped.
+
+And that broke a key page in an important technician workflow during peak use. Page wouldn't even load. The code we deleted was reused on this unrelated page to avoid duplication and in our testing we didn't think to check.
+
+A classic case of [superficial similarity leading to incorrect DRY (do not repeat yourself)](https://swizec.com/blog/dry-vs-soc-a-difficult-choice/) mixed with a dash of [Hyrum's Law](https://www.hyrumslaw.com) – anything that can be a dependency, will be.
+
+We didn't think to rollback the deploy, but we had a fix out in 10 minutes. Crisis averted.
+
+### Habits that help you fix fast
+
+A few habits helped us respond so quickly. The big one was that our change was small and that made it easy to know what broke. Small search space.
+
+- **we found out fast** because users had a direct line to engineering and could tell us something's wrong
+- **engineers were available** because we shipped during regular work hours
+- **the change was small** because we ship at least daily instead of letting work in progress pile up
+- **the fix was small** because the change was small
+- **observability showed us what to fix**; we had logging in place that showed live errors from production with stack traces _and_ those logs were indexed and easy to search
+- **deploys are quick** because they're automated and engineers just have to ~~press a button~~ run a script
+- **deploys are safe** because they're deterministic, regularly exercised, and there's almost no manual steps to remember
+- **our code is always deployable** because we avoid merging in-progress work to main, if it's merged, it's ready to go
+
+All this means we can go from **code to shipped with little overhead**. Automated testing runs on every pull request, a peer can review the code while testing runs, and you can get your change to prod a few minutes later.
+
+There's no long discussion or committee or some burned out dude who needs to approve every little thing. We trust you to do your best and make sure the code works. And if it doesn't, we know you'll fix it.
+
+https://x.com/Swizec/status/1843370591535149507
+
+### Shift even more left
+
+Even better than quick fixes in production is catching bugs before they ship. The sooner you find mistakes, the easier they are to fix. This is a core lesson Titus Winters writes about in [Software Engineering at Google](https://swizec.com/blog/what-i-learned-from-software-engineering-at-google/).
+
+The type of bug where a function goes missing and breaks far-off code is preventable without killing your velocity. With better tooling and a few engineering habits.
+
+**Static types** and **linters** would've caught the bug in the engineers' text editor. Delete the function and squiggly lines appear wherever it is used. Can't even run the code.
+
+**Commit checks** work great when you can't see the squiggly lines because they appear in a different file. Try to commit the code, run type validation, get an error.
+
+Both of those are hard to do in python, which we use. Python is a super dynamic language with few static guarantees. You have to run the code to know exactly what it does.
+
+**Lower architectural complexity** would've helped us side-step the whole issue. When you closely collocate code that works together and maintain clean APIs with the rest of your system, mistakes like this become less likely. You're never changing unrelated code by accident.
+
+**Better test coverage** of critical user flows would've helped. Just a few broad tests would've told us something's broken before we even merge the pull request. Ideally tests catch unintended changes in your logic, but they'll do as a cumbersome type checker in a pinch.
+
+**Automated alerting** on critical user flows could've told us when the code broke before our users even realized. We've since set this up and nothing brings me better joy than reaching out to users with a _"Hey we saw this error. What happened?"_
+
+Engineers should proactively hunt for production issues before they turn into fires. This builds trust and keeps your systems running smoothly so there's less confusion when a fire does occur.
+
+All this maps to [**DORA metrics**](https://cloud.google.com/blog/products/devops-sre/using-the-four-keys-to-measure-your-devops-performance): Deploy frequency, lead time for changes, failure rate, time to fix.
+
+Cheers,<br/>
+~Swizec
