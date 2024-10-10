@@ -123,8 +123,8 @@ module.exports = {
                 url.pathname = node.fields.slug + "/"
 
                 return Object.assign({}, node.frontmatter, {
-                  date: node.frontmatter.published,
-                  pubDate: node.frontmatter.published,
+                  // somewhere these get converted to epoch timestamps
+                  date: new Date(Number(node.frontmatter.published)),
                   url: url.href,
                   guid: url.href,
                   custom_elements: [{ "content:encoded": node.html }],
