@@ -10,6 +10,8 @@ At scale there are no rollbacks and no cut-overs. Your software only moves forwa
 
 aside: This email is adapted from a book chapter I spent the last 3 weeks writing. It's a complex idea that took 10 years to grok. I tried squeezing it into a digestible length. Would love to hear your thoughts.
 
+![Servers with live traffic during an update](https://i.imgur.com/RmkciXk.png)
+
 ## Data lives forever
 
 Data is the biggest reason software only moves forward.
@@ -102,7 +104,7 @@ Even without end-user clients, a few minutes to propagate updates is typical.
 
 You'll deploy to 1 server, make sure it's good, reroute traffic, move on to the next server, until eventually the latest code runs everywhere (this is usually automated). While updates are happening, you have a few servers running old code and a few running new code – all accepting live traffic distributed at random.
 
-![Servers with live traffic during an update](../../images/manuscript-2/blue-green-deploys.png)
+![Servers with live traffic during an update](https://i.imgur.com/RmkciXk.png)
 
 These are known as [blue/green deploys](https://martinfowler.com/bliki/BlueGreenDeployment.html), a standard approach in managing distributed systems. Besides ensuring your code at least runs and passes checks before routing traffic, they also ensure there's no downtime.
 
