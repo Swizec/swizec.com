@@ -1,0 +1,122 @@
+---
+title: "Big Ball of Mud – the world's most popular software architecture"
+description: "Forget Gang of Four, here are the 7 architectural patterns real programmers use:"
+categories: "Architectural Complexity, Scaling Fast Book, Software Engineering"
+published: 2024-11-06
+hero: ./img/screenshot-1730910224257.png
+---
+
+Forget Gang of Four, here are the 7 architectural patterns real programmers use:
+
+1. Big Ball of Mud
+2. Throwaway Code
+3. Piecemeal Growth
+4. Keep It Working
+5. Shearing Layers
+6. Sweeping It Under The Rug
+7. Reconstruction
+
+So says perhaps the best software engineering paper ever written – [Big Ball of Mud by Foote and Yoder](http://laputan.org/mud/mud.html). I agree and have seen, written, maintained, or created all of them.
+
+If you deal with production software written in the real world, this is the paper for you. Every paragraph had me violently nodding along. And it's an easy approachable read. Here it is [with my scribbles and annotations](https://swizec.com/pdfs/mud.pdf), if that helps.
+
+## Key insight
+
+The key insight is that _none of this is bad_. It may even be desirable!
+
+https://twitter.com/Swizec/status/1853457959625613358
+
+In the beginning of a project, architecture slows you down. You're figuring out the domain, grasping to learn the right abstractions and figure out how things fit together. If you add strict architecture too early, you'll make the wrong abstractions and they'll slow you down. Forever.
+
+[You can't fix the wrong abstraction](https://swizec.com/blog/you-can-t-fix-the-wrong-abstraction/). You have to sit back and let abstractions develop naturally, [like a path in the woods](https://swizec.com/blog/architecture-is-like-a-path-in-the-woods/). It's okay to get mud on your shoes. That's how new things get built!
+
+Architectural insight is not the product of master plans, but hard won experience. It's how we distill experience into wisdom and disseminate it. Pre-designed top-down architecture never works – **working software first, good architecture second**.
+
+https://twitter.com/Swizec/status/1772312082295189859
+
+## The 7 real world patterns
+
+Foote and Yoder describe 7 architectural patterns as they exist in the real world. None of these are beautiful or elegant, _but they work_. That's why we keep using them.
+
+You may have used many of these patterns without knowing they have a name. That's a big part of their beauty – you don't need to be a genius to invent or understand their approach. These are patterns for working people getting shit done.
+
+### Big Ball of Mud
+
+**Big Ball of Mud** is the pattern all software trends toward. Entropy wins and all your code depends on all your other code. There is little to no structure and anything you change could break something unexpected.
+
+Coding turns into trench warfare and every task takes forever. Changes become scary and your software ossifies. You are wading through muck to get anything done.
+
+Detangling this mess is hard but doable. It will take time and effort. If you don't make this investment, eventually you will drown and the business will fail. But if you invest too much too early, the business will also fail.
+
+### Throwaway Code
+
+**Throwaway Code** is code you wrote that one time to quickly solve a problem. It doesn't have good structure or much in the way of engineering, but it gets the job done.
+
+It gets the job done so well that 3 years later it's still sitting there doing its job. Except now your throwaway code is part of the load bearing structure of your system.
+
+![Adapted from XKCD](https://i.imgur.com/uwYSAqU.jpeg)
+
+The throwaway code keeps getting updates and fixes, but it never quite hurts enough to throw away and write properly.
+
+### Piecemeal Growth
+
+**Piecemeal growth** is a _good_ pattern when done right.
+
+You can't hide in a cave for 3 months, anticipate every eventuality, design the perfect system, and give birth to perfection all at once. You can _try_ but it's going to lead to a lot of wasted effort and software that doesn't do what users need.
+
+Instead the authors suggest iteration cycles, frequent feedback from your users, and adding functionality piece by piece. I think they were trying to say "agile", but the word didn't exist yet. This paper is from June 1999, agile manifesto is February 2001.
+
+These piecemeal additions can lead to a big ball of mud. You lose sight of the architectural vision when you work on the little details.
+
+You need to regularly zoom out and look at your route. [Like kicking a can](https://swizec.com/blog/writing-software-is-like-kicking-a-can/).
+
+![Swizec showing how software is like kick-the-can at React Summit](https://i.imgur.com/DGlmEQc.jpeg)
+
+### Keep It Working
+
+**Keep it working** is the idea that no matter what, your software's first job is always to stay working. When deadlines get tight or requirements change quickly, architecture always takes a back seat.
+
+When you're pulling your hair out at 4:55pm (or during an outage at 2am) you'll throw your hands in the air, make that ugly cross-cutting import, and flick your thumb at architecture. The code must work and you've got places to be!
+
+That import then becomes throwaway code. You'll come back and fix it eventually won't you.
+
+### Shearing Layers
+
+‌**‌Shearing layers** develop between different balls of mud. You have one piece of the system that works and wants to talk to another piece that also works.
+
+But their interfaces don't match.
+
+Since they're both balls of mud, you don't want to change the interface. Who knows what's going to break!?
+
+So you build a translation layer between them. This lets both pieces move independently while staying in touch and working together. Like a shear layer between tectonic plates. Or that thin layer of lube (not wd-40) on a door hinge.
+
+### Sweeping It Under The Rug
+
+**‌Sweeping it under the rug** is what you do when there's an ugly piece of code that works and resists change.
+
+Time and again experience [and studies](https://swizec.com/blog/why-taming-architectural-complexity-is-paramount/) have shown that your gnarliest code is least likely to change. Nobody wants to touch that.
+
+So you build a nice API on top of the ugly code, hide that thing behind a veneer of respectability, and build isolate the mess under a rug somewhere. Or in a black box.
+
+You know it works, stop touching it, and isolate the rest of your code from that mess spreading like a virus. This is a good thing! The whole point of abstractions is to hide the mess.
+
+Sometimes the mess is because that's the best you can do. Other times it's because the problem it solves is hard and inherently complex. Both are good reasons to add a nice API :)
+
+### Reconstruction
+
+When all else fails **reconstruction** lets you throw the ugly code away and start from scratch. You lose the code and keep the lessons and experience. Your next system will be better.
+
+Done right this is a normal part of the process. Especially as your company grows and requirements change a lot.
+
+First you sweep it under the rug, add shearing layers, and make stable interfaces, then you can start rewriting those boxes.
+
+https://twitter.com/Swizec/status/1852003367511527842
+
+## Can you avoid a ball of mud?
+
+The best way to avoid a big ball of mud is to build _small_ balls of mud. Focus on the interfaces, use contract driven development, and don't worry too much about the mess inside each box.
+
+It's fine. Get your shoes dirty. Ship that thing
+
+Cheers,<br/>
+~Swizec
