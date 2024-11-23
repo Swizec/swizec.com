@@ -8,7 +8,7 @@ hero: ./img/screenshot-1732211468936.png
 
 Pulling modules out of a big ball of mud is like grabbing a slice of cheesy pizza. It's kinda separate but also not really.
 
-![](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3dieTdmbGRnaXdsanlpM2Y4dmgyZXB3aDQ0NjJ6cXkwdGJ2czFoYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xAooWJHpBrHrqQYjfE/giphy.gif)
+![](./img/giphygif-0c8aad.gif)
 
 The trick is to realize this is normal. If you're here, it means the software is working! Fixing this stuff is the job.
 
@@ -28,7 +28,7 @@ We've talked about how [architecture is like a path in the woods](https://swizec
 
 You look at your code as a dependency graph or matrix.
 
-![Code as dependency graph](https://i.imgur.com/MrzXNf6.png)
+![Code as dependency graph](./img/Code-as-dependency-graph-d97j3b.png)
 
 Each box in the graph is code that does something. Each line is a connection between that code and other code.
 
@@ -50,7 +50,7 @@ Similar to a dependency graph is a dependency matrix.
 
 Your boxes become rows and columns and your lines turn into dots at their intersections. This lets you see the structure of your code and see how messy it feels. The more uniformly distributed your dots, the bigger the quagmire.
 
-![Dependency matrix of Mozilla before and after a refactor](https://i.imgur.com/rccu2P0.jpeg)
+![Dependency matrix of Mozilla before and after a refactor](./img/Dependency-matrix-of-Mozilla-before-and-after-a-refactor-e760e8.jpeg)
 
 It's like seeing the entropy of your code structure. The more uniform the dots, the less information you gain from the organization of your code. This makes it harder to navigate, understand, and update.
 
@@ -66,7 +66,7 @@ The goal of visualizing dependencies is to find neighborhoods. Areas of the visu
 
 Those are your natural modules.
 
-![Identifying a module in a dependency graph](https://i.imgur.com/8NOBJcK.png)
+![Identifying a module in a dependency graph](./img/Identifying-a-module-in-a-dependency-graph-g9f7c0.png)
 
 You may not know the name of your module yet, but every tightly connected neighborhood is a module waiting to be found. I like to give them names that match the domain.
 
@@ -106,5 +106,5 @@ With all that laid out, it becomes pretty obvious where to draw your module boxe
 
 If you get this right, nobody will ever notice. The code is going to feel obvious and simple and users' evolving needs will be easy to adopt :)
 
-Cheers,<br/>
-~Swizec
+Cheers,<br />
+\~Swizec
