@@ -1,0 +1,34 @@
+---
+title: "Atoms, molecules, organisms"
+description: "Here it is: 20+ years of programming distilled into 378 words. From the book I'm writing."
+published: 2024-12-13
+categories: "Software Engineering, Architecture, Scaling Fast Book"
+hero: ./img/screenshot-1734104881484.png
+---
+
+Here it is: 20+ years of programming distilled into 378 words. From the book I'm writing.
+
+How do you decide what goes in a library and what goes in a vertical module?
+
+_PS: you can [read and share this online](https://swizec.com/blog/atoms-molecules-organisms/)_
+
+Few hard rules exist, but there are guidelines. In [Laws of Software Evolution](https://swizec.com/blog/the-laws-of-software-evolution/), Lehman classified programs into 3 categories – S-programs, P-programs, and E-programs. The naming didn't survive, but the idea did:
+
+Software is built on components that are context-independent and those that evolve together with the business domain. These days we call them **atoms**, **molecules**, and **organisms**. Brad Frost popularized this naming as [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) in the UI world, but the concept has helped me at every level of a software product.
+
+1. An **atom** is a component that works the same in any context. Its behavior is fully captured by a spec and can be exhaustively verified. It maps inputs to outputs and doesn't much care what they mean conceptually. Like a button or date library.
+2. A **molecule** is a self-contained piece of code that encapsulates a behavior with some business rules. It aims to achieve a goal and may be wrong despite having zero bugs. These are your higher level abstractions like a user profile component or a payments module. Reusable, but bring a lot of their own context.
+3. An **organism** combines molecules and atoms into a cohesive whole that encapsulates a business process. These are larger systems that own a business domain start to finish. Like a checkout component or shipping module.
+
+These groupings don't have strict boundaries and they're somewhat fractal in nature. What counts as an atom or a molecule depends on the level of abstraction you're talking about. When building a webapp, the button is an atom, but to your CEO, the whole webapp might be an atom in a broader strategy.
+
+For engineering, I think of atoms as reusable building blocks, molecules as self-contained reusable components, and organisms as modules or services that own a domain. The main distinction is how they accept arguments:
+
+- **atoms** take base types with little semantic information
+- **molecules** take domain objects and understand the context
+- **organisms** take user actions and figure out the rest
+
+This informs how you test things – unit tests for atoms, integration tests for molecules, observability and metrics for organisms. It also informs where data comes from – atoms don't care, molecules get rich objects, organisms fetch their own.
+
+Cheers,<br/>
+~Swizec
