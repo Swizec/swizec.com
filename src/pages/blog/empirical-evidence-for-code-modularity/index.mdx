@@ -18,7 +18,7 @@ _PS: you can [read and share this online](https://swizec.com/blog/empirical-evid
 
 The authors use a [Design Structure Matrix](https://en.wikipedia.org/wiki/Design_structure_matrix) to measure modularity. Files in rows and columns, put a `1` where they depend on each other.
 
-![Dependency matrix](https://i.imgur.com/3oKyQJP.jpeg)
+![Dependency matrix](./img/Dependency-matrix-ca6eif.jpeg)
 
 You can multiply this matrix with itself to find which files depend on each other after multiple steps. Lets you find those A->B->C->D dependencies and realize that A depends on D.
 
@@ -28,7 +28,7 @@ They call this "visibility". Because a file can "see" changes in other files. Yo
 
 The authors use version control to go through 15 years of a software's history and look at how components evolve. They looked at major versions only and ignored intermediate releases.
 
-![Measuring evolution](https://i.imgur.com/PEC2A1P.jpeg)
+![Measuring evolution](./img/Measuring-evolution-a8dd25.jpeg)
 
 Every new version builds on the previous state and adds new code. This code can be clean new or integrate with previous code in two ways.
 
@@ -54,10 +54,10 @@ That means the core of your system is defined early in its life when [there's no
 
 You can beautifully see this evolution from a ball of mud to a modular system with an untouchable core when you put DSMs of each version side by side.
 
-![Evolution of a software](https://i.imgur.com/iHjPEzX.jpeg)
+![Evolution of a software](./img/Evolution-of-a-software-46cf62.jpeg)
 
 But that's a "future me" problem so managers systematically under-invest in modularity and want everything now now now ✌️
 
-~Swizec
+\~Swizec
 
 PS: MacCormack did a followup study 6 years later that looks into how organization design impacts code structure (conway's law). Looks promising

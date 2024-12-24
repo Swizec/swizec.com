@@ -16,7 +16,7 @@ But how do you structure those?
 
 The approach I've seen work time and again and that keeps coming up across literature, is to build core business logic modules surrounded by interfaces for different actors. Based on the [actor-command-event](https://swizec.com/blog/finding-modules-in-a-big-ball-of-mud/#how-to-detangle-the-domain) approach to domain modeling.
 
-![Smart core, thin interfaces](https://i.imgur.com/OMugOJB.png)
+![Smart core, thin interfaces](./img/Smart-core-thin-interfaces-90di76.png)
 
 Empirically we know that [modularization leads to maintainable adaptable software](https://swizec.com/blog/empirical-evidence-for-code-modularity/). Tightly coupled components are hard to kill and experience constant churn. Loosely coupled components tend to stabilize and are easy to replace when you need to.
 
@@ -48,9 +48,9 @@ Like this:
 ```javascript
 function prettyInterface(input = null) {
   if (input) {
-    doTheThingWithInput(input)
+    doTheThingWithInput(input);
   } else {
-    doTheThingWithoutInput()
+    doTheThingWithoutInput();
   }
 }
 ```
@@ -85,5 +85,5 @@ For an API it might be a short controller function that takes an API request, cl
 
 For a consumer UI, it can be a whole backend-for-frontend with server-side rendering and oodles of client code creating the app experience.
 
-Cheers,<br/>
-~Swizec
+Cheers,<br />
+\~Swizec
