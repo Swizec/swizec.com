@@ -1,0 +1,91 @@
+---
+title: "Coaching AI to write your code"
+description: "Working with AI is here and it's skill. Just like google-fu became important in the mid 2000's. A few things I've learned."
+published: 2025-01-07
+content_upgrade: SeniorMindset
+categories: "AI, Coding, Teamwork"
+hero: ./img/screenshot-1736265623686.png
+---
+
+Working with AI is here and it's skill. Just like google-fu became important in the mid 2000's. A few things I've learned.
+
+[![](https://i.imgur.com/SsQFkv5.jpeg)](https://bsky.app/profile/swizec.com/post/3lefgfbzxbs2x)
+
+I started properly integrating AI into my coding workflow a few weeks ago after I got in trouble for _"wasting thousands of dollars of company time"_ by manually doing things computers can do. 😅
+
+It's not perfect yet but it's pretty good! On net I think it saves time, or at least effort. But yesterday I spent an hour debugging when my editor hallucinated the wrong URL for a config. `¯\_(ツ)_/¯`
+
+## What AI is good for
+
+Like [I've said before](https://swizec.com/blog/yes-ai-will-take-your-job-no-you-wont-mind/) AI won't take your job, it's going to _make your job easier_. You can move up the value chain while computers do more of the grunt work.
+
+Current AI is pretty good at writing [atoms](https://swizec.com/blog/atoms-molecules-organisms/) or [S-programs](https://swizec.com/blog/the-laws-of-software-evolution/) – code with a tightly scoped spec where you can quickly validate the solution. It cannot _engineer_ a solution to a business problem.
+
+LLMs are fantastic at _"I have inputs A, B, C and need them translated to outputs 1, 2, 3"_ problems however. This is awesome!
+
+Based on what I've seen, I doubt large language models will ever get to a place where they can sit down with a stakeholder, figure out what they need, and engineer solutions to business problems. And that's fine.
+
+Defining the inputs, outputs, and constraints – [contracts](https://swizec.com/blog/forget-complicated-code-focus-on-the-system/) – of your system is the fun part. If AI can write the code, sweet.
+
+## Two ways I use AI
+
+These days I use AI in two primary ways depending on context:
+
+1. [**Cursor**](https://www.cursor.com) is my editor at work. It's a fork of VSCode with AI (Claude I think) integrated into the editor. It kinda understands the whole project and can pull relevant files into context
+2. **ChatGPT Canvas** when I need to develop one-off scripts that solve a problem and I don't care to know how
+
+### Coaching ChatGPT
+
+Using ChatGPT feels like coaching a less experienced developer. It won't read your mind or magically write good code the first time.
+
+But if you take the code, run your validation, and iterate with feedback, you'll get a solution to your problem. The code will be strictly okay. It won't blow you away with elegance but it works.
+
+And that's all you need when you are, for example, writing [a script to count words in your book](https://github.com/Swizec/refactoring-book/blob/main/wordcount.py), or [a script to collect wordcount stats from git history](https://github.com/Swizec/refactoring-book/blob/main/wordstats.py), or even [a script to package your book for feedback](https://github.com/Swizec/refactoring-book/blob/main/package-for-helpthisbook.py).
+
+That last one was fun because ChatGPT made a dumb choice – parsing markdown with regex – and I asked it to use a library. Then we couldn't get that to work and eventually we reverted back to regex. You can [see the full chat here](https://chatgpt.com/share/677d4906-463c-8003-9a6f-a88d0229c113).
+
+The whole thing felt like a collaborative pair programming session. I could keep high level context, steer direction, and validate the code, while AI fiddled with the details.
+
+Mentally this felt easier than jumping up and down levels of abstraction. Not sure it saved time.
+
+### Advanced auto-complete with Cursor
+
+No screenshots because they're full of work code. Sorry.
+
+Cursor has saved me time with boilerplate code. It's really good at figuring out _"Oh you're spelunking this variable through 5 layers of indirection, lemme help"_ or _"You recently looked at code about Foodazzlers, are you trying to add a GenerateTheFoodazler function here?"_.
+
+This has been fantastic. It's super nice when you establish clear patterns in your project and your editor can follow them for you.
+
+1. Add new prop
+2. Yes thank you editor, add this same thing in 5 other places
+
+👌 chef's kiss
+
+Why do I have so much boilerplate? We're working on it okay [name|].
+
+Another nice thing I've tried with cursor is to highlight a method, open the chat, and say _"Hey add so and so to this function"_. And it does.
+
+Again this works great when the problem is tightly scoped and easy for you to verify. It won't work if you don't know what you're doing or can't quickly validate the result.
+
+### Generating tests
+
+It can even generate tests!
+
+Yes I've said in the past that [you shouldn't use AI to generate you tests](https://swizec.com/blog/why-you-shouldnt-use-ai-to-write-your-tests/) because tests should _describe_ your code, not _derive from_ your code. This is an important distinction.
+
+Here's where I think it's okay: You have a basic function and need [Beyonce Rule](https://swizec.com/blog/what-i-learned-from-software-engineering-at-google/) testing. You know the code works because you've manually tested it, but you need to put a ring on it and make sure it keeps working in different situations.
+
+Cursor is great at taking a function and saying _"Ah looks like you need these 4 different cases and to return blah"_. Then it generates an integration test and you can run to make sure it works. Great.
+
+Again because you're using it on a tightly scoped function with clear inputs and outputs :)
+
+## tl;dr
+
+AI can help you write the code you used to copypaste from StackOverlow. Tightly scoped with a clear input/output.
+
+You have to do the engineering part.
+
+Think iterative collaboration, not one-shot do my work requests.
+
+Cheers,<br/>
+~Swizec
