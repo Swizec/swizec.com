@@ -1,0 +1,115 @@
+---
+title: "Why you need a task queue"
+description: "Task queues have been on my mind lately so here's a little primer on what they are, how they work, and why you need them when your project starts to grow."
+published: 2025-01-11
+categories: "Fullstack, Software Engineering, Backend, Distributed Systems"
+hero: ./img/screenshot-1736614386354.png
+---
+
+Task queues have been on my mind lately so here's a little primer on what they are, how they work, and why you need them when your project starts to grow.
+
+A task queue lets your code defer work. How much this matters depends on what you're doing.
+
+We had an its-not-an-outage-its-just-slow event this week when one of our vendors went down. User requests would come in, get stuck waiting for the vendor, slow down all our web servers, and we did not have a good time.
+
+If that vendor work happened on a task queue – not a problem. The queue could get to it when the vendor came back. You don't even lose any data 🤘
+
+## How servers work
+
+All server environments I've worked with follow a similar execution pattern.
+
+![Request, code, response](https://i.imgur.com/ZD2EXPO.png)
+
+1. Request comes in, is held in memory
+2. Server spawns a worker
+3. Worker executes your code, request is the input
+4. When worker returns, server responds to request
+
+Step 2 is where nuances between stacks matter.
+
+### One process per request
+
+![One process per request](https://i.imgur.com/8Cqn93q.png)
+
+In ye olde LAMP (Linux, Apache, Mysql, PHP) model, Apache would start a whole new process to run your PHP code. A more modern environment (like gunicorn for Python or Ruby) might keep a running pool of workers and send requests to whomever is available. A serverless set up would spin up a whole new machine for each request.
+
+Using pre-alive workers helps with cold starts and makes your system feel faster. But you can run out of available workers and then everything slows down. And you're vulnerable to memory leaks.
+
+Your code handles 1 request at a time. Easy to think about.
+
+### One process many requests
+
+![One process many requests](https://i.imgur.com/q32fdqr.png)
+
+An alternative to the worker model is application code that handles this internally.
+
+JavaScript, for example, uses an event loop so it can handle multiple requests in parallel. Every time you use async/await, a callback, or a promise, JavaScript can put your code on hold and go deal with other requests.
+
+This is fantastic for input/output bound computation like web servers. While your code waits for 3rd party APIs or file reads, it can start handling other requests.
+
+But any time you lock up the CPU with lots of compute, your whole server has to wait. And if you build up too many deferred promises, the server will run out of time to handle new requests.
+
+Everything gets slow again. Requests wait in memory until there's space on the event loop.
+
+You're also vulnerable to memory leaks. One long running process :)
+
+## _The_ result from queuing theory
+
+What I'm getting at here is queueing theory. You need slack in the system to handle new requests.
+
+[Queuing theory](https://en.wikipedia.org/wiki/Queueing_theory) is a whole science and the college class on this broke my brain. In practice, there are 3 results you need to know:
+
+1. As utilization approaches 100%, wait times reach infinity.
+2. If tasks come faster than you process, your queue will grow.
+3. If the queue is full, you start dropping requests.
+
+And that's basically what happened to us.
+
+Vendor goes down, server workers become busy, requests keep coming, whole system blows up. Every server "holds requests in memory" until your code can process them. That's a queue! It can get full. Or slow if your workers are busy.
+
+## Task queues to the rescue
+
+Your user-facing code needs to be fast. The faster it can be, the more requests you can handle.
+
+For a typical webapp under load, the majority of time is spent waiting on other requests to finish so yours can get its turn. As the number of requests grows, the wait times increase.
+
+And if some requests become super slow because of a vendor issue, bad database query, or just doing lots of work, your entire system becomes slow. Not just that request. 🙃
+
+A task queue lets you defer work for later so your code can quickly respond to user-facing requests.
+
+![Code puts tasks on a queue](https://i.imgur.com/ouFN5lV.png)
+
+1. Request comes in, is held in memory
+2. Server spawns your code
+3. Your code puts slow parts of the work on a task queue
+4. Code returns, server responds
+5. Task workers pick up work from the queue and write results to a database, a 3rd party API, or wherever you need
+
+### How task queues create robustness
+
+The main benefit is that you can respond to user requests quickly and do the slow work later. You can handle more load with the same resources.
+
+Another huge benefit is that modern task queues create a robust system that can withstand and recover from partial failures almost out of the box.
+
+Task queues use **durable storage for pending tasks**. You can restart the machine without losing unfinished work. You can inspect pending tasks to see what your system is doing. You can even let tasks accumulate while you spin up additional resources.
+
+Task queues make **great buffers**. Got spiky demand but limited resources? Let the queue build up during a spike, then process at a steady pace. This works iff you know the demand will subside, otherwise Rule 2 will get ya.
+
+This approach can help you **deal with API rate limits**. Throw work on the queue and set a config so it never runs more than 50 tasks per minute. Then you can spike away and never worry about billing.
+
+And because tasks are durable and execute independently, you can **handle partial and intermittent failures**. When a task fails, throw it back on the queue and try again later. This comes built-in with any modern task queue system.
+
+You can configure a partial backoff policy, limit number of retries, or even send bad tasks to a special naughty list for engineers to debug.
+
+### How this looks in practice
+
+Luckily the vendor that hiccuped wasn't critical for us and we could turn off the integration. Data was lost, but users were happy.
+
+Had we used a task queue, we could let tasks pile up on the queue then replay them all when the vendor came back. Users wouldn't notice a slowdown and we wouldn't lose data, it would just be delayed.
+
+Big fan.
+
+Cheers,<br/>
+~Swizec
+
+PS: if you look closely it's queues all the way down. Everything we do in software is a queue of some sort.
