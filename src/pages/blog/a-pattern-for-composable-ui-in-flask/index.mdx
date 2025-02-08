@@ -61,7 +61,7 @@ def cool_feature():
 And then you have a template that renders this:
 
 ```jinja2
-<!-- html stuff -->
+// cool_feature.html
 
 {% if user %}
 	<p>{{ hello_string }}, {{ user.name }}!!!</p>
@@ -77,7 +77,7 @@ And then you have a template that renders this:
 </form>
 {% endif %}
 
-<!-- ... -->
+// ..
 ```
 
 And so on like this. You end up with huge views and massive templates full of intertwined logic. Everything declared and loaded up-front.
@@ -129,14 +129,14 @@ def cool_feature():
 With small templates:
 
 ```jinja2
-<!-- user/templates/hello.html -->
+// user/templates/hello.html
 
 <p>{{ hello_string }}, {{ user.name }}!!!</p>
 <p>So cool to see you! Look we say hello in different languages so you know we're quirky and fun</p>
 ```
 
 ```jinja2
-<!-- user/templates/name_form.html -->
+// user/templates/name_form.html
 
 <h3>Please give us your name</h3>
 <form action={{ url_for('views.update_name') }}>
@@ -147,7 +147,7 @@ With small templates:
 ```
 
 ```jinja2
-<!-- cool_feature.html -->
+// cool_feature.html
 
 {% if user %}
 	{{ user_views.hello() | safe }}
@@ -157,7 +157,7 @@ With small templates:
 	{{ user_views.name_form() | safe}}
 {% endif %}
 
-<!-- ... -->
+// ...
 ```
 
 ### What just happened
