@@ -1,0 +1,184 @@
+---
+title: "A pattern for composable UI in Flask"
+description: "Turn your unwieldy Flask codebase into manageable, composable fragments with this UI pattern. Very close to HTMX."
+published: 2025-02-08
+categories: "Backend, React, Flask, Architectural Complexity"
+hero: ./img/screenshot-1739032377546.png
+---
+
+The component model of web development has won. But how do you bring that innovation back to traditional frameworks? I've been trying to figure that out.
+
+https://twitter.com/Swizec/status/1887249216743088518
+
+## Flask?
+
+[Flask](https://flask.palletsprojects.com/en/stable/) is a typical 2010's web framework like Rails, Django, Express and others. You have views, models, templates, controllers and all the rest.
+
+Requests come in, get routed to a view, HTML "renders" on the server, flies back as a string. Sprinkle JavaScript to make smol things interactive.
+
+This works great until your team starts to grow. It encourages blobby monolithic architectures with unclear separation of concerns. [Big ball of mud](https://swizec.com/blog/big-ball-of-mud-the-worlds-most-popular-software-architecture/) style.
+
+## Why make things composable
+
+Balls of mud are great for small applications. Every engineer knows how everything works, has the codebase memorized, and can move fast.
+
+Then you add engineers and features. Code begins to break every time you sneeze.
+
+The feature you built 3 months ago has changed 30 times since you looked. Others did that. You don't even know how it works anymore.
+
+When I first encountered this a few years ago, it felt like gerbils running around my brain moving things around. Little gremlins messing up my beautiful mental model of the code.
+
+https://twitter.com/Swizec/status/1648675877260017667
+
+The solution is to _compose your code_ from **small balls of mud**. Keep features self-contained and independent so they're easy to move around.
+
+## Composable Flask (and others?)
+
+I'm not inventing anything new here. Just a different way to hold existing tools. A different way to think about it.
+
+### How these apps tend to look
+
+A typical Flask view looks something like this:
+
+```python
+# views.py
+
+@views.route("/cool_feature")
+def cool_feature():
+	# bunch of data fetching
+	# bunch of logic
+	# instantiating forms
+
+	return render_template("cool_feature.html",
+			user=user,
+			user_form=user_form,
+			address_form=address_form,
+			hello_string=hello_string,
+			# ...
+	)
+```
+
+And then you have a template that renders this:
+
+```jinja2
+<!-- html stuff -->
+
+{% if user %}
+	<p>{{ hello_string }}, {{ user.name }}!!!</p>
+	<p>So cool to see you! Look we say hello in different languages so you know we're quirky and fun</p>
+{% endif %}
+
+{% if not user.name %}
+<h3>Please give us your name</h3>
+<form action={{ url_for('views.update_name') }}>
+	{{ form.hidden_tag() }}
+	<input name="name" type="text" />
+	<button type="submit">Save name</button>
+</form>
+{% endif %}
+
+<!-- ... -->
+```
+
+And so on like this. You end up with huge views and massive templates full of intertwined logic. Everything declared and loaded up-front.
+
+Want to move your form somewhere else? Tough! You gotta move allll the stuff it comes with. Hope you didn't miss any.
+
+Plus if any of those sub features on the page break, the whole page breaks. You get an error like `Oh no! Line 1723 of blah.py` and groan. Hate those 🙃
+
+### Make it composable
+
+You can rewrite that same thing as composable views. Even better if you organize them into blueprints or folders by business domain.
+
+Small views:
+
+```python
+# user/views.py
+
+@user.route("/user/hello")
+def hello():
+	# get user
+	return render_template("user/hello.html",
+		user=user,
+		hello_string=hello_string
+	)
+
+@user.route("/user/name_form")
+def name_form():
+	# init forms
+	return render_template("user/name_forms.html,
+		user_form=user_form
+  )
+```
+
+```python
+# views.py
+import views from .user as user_views
+
+@views.route("/cool_feature")
+def cool_feature():
+	# almost nothing
+
+	return render_template("cool_feature.html",
+		user=user
+		user_views=user_views,
+		# ...
+	)
+```
+
+With small templates:
+
+```jinja2
+<!-- user/templates/hello.html -->
+
+<p>{{ hello_string }}, {{ user.name }}!!!</p>
+<p>So cool to see you! Look we say hello in different languages so you know we're quirky and fun</p>
+```
+
+```jinja2
+<!-- user/templates/name_form.html -->
+
+<h3>Please give us your name</h3>
+<form action={{ url_for('views.update_name') }}>
+	{{ form.hidden_tag() }}
+	<input name="name" type="text" />
+	<button type="submit">Save name</button>
+</form>
+```
+
+```jinja2
+<!-- cool_feature.html -->
+
+{% if user %}
+	{{ user_views.hello() | safe }}
+{% endif %}
+
+{% if not user.name %}
+	{{ user_views.name_form() | safe}}
+{% endif %}
+
+<!-- ... -->
+```
+
+### What just happened
+
+Those function calls are almost like React components. Function calls that return markup.
+
+Each handles its own data access, styling, javascript, and all the rest. The view manages data, template manages the rest. You can use `{% block %}` instructions to bring your own styling or javascript and let Flask put it all together in the base template.
+
+That means you can move your code around without worrying about breaking anything or missing a dependency.
+
+**Now here's the best part:** Every composable fragment of your UI comes with a URL. That means with a bit of JavaScript, you can update portions of your page _without a page reload_.
+
+Submit the form, re-render just the form. And that pretty much gives you HTMX. Or any of the newfangled React meta frameworks.
+
+## But why?
+
+I realized going [full React Islands](https://swizec.com/blog/the-anatomy-of-a-react-island/) will be a jump too far. Too much rewrite.
+
+We can use islands for new features and big bets. But we also need to keep working on our existing 65,000 lines of python and 46,000 lines of HTML. Many of those will never get the React treatment – not worth it.
+
+Pretty happy with this composable UI pattern. ✌️
+
+Cheers,</br>
+~Swizec
