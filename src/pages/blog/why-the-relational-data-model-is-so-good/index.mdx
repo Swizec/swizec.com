@@ -1,0 +1,75 @@
+---
+title: "*Why* the relational data model is so good"
+description: "You've heard that array or list columns in a database are bad. But why? Yesterday it clicked for me"
+published: 2025-02-11
+categories: "Databases, Backend, Software Engineering, Architecture"
+hero: ./img/screenshot-1739290296778.png
+---
+
+You've heard that array or list columns in a database are bad. But why? Yesterday it clicked for me 👇
+
+## 2 ways to model a relationship
+
+Let's say you have two concepts to model in a database:
+
+1. Posts
+2. Reactions
+
+**Posts** can be anything. Blogs, tweets, newsletters, doesn't matter. There's text and metadata. Posts are written once and rarely if ever change. They get read a lot.
+
+**Reactions** are comments, likes, beard strokes, whatever you like. You need to know the count, but also keep them unique. Reactions are written once and never change. But they can happen on very old posts.
+
+How would you model this?
+
+### The array or list approach
+
+One way is to smoosh this together in a table/object NoSQL style. Every modern database will let you do this and it's going to work.
+
+![Posts with an array of reactions](https://i.imgur.com/H7jMAwg.png)
+
+You can use an `array()` column like was popular in the 2000's or a `jsonb` column with a list. That's more popular today.
+
+The benefit is that this is obvious and easy to think about: Posts have an array of reactions. You can add logic in your application code to keep them unique and you're on the hook for maintaining shape-consistency between elements.
+
+### The relational approach
+
+Another standard approach is to model this as a relationship between two tables in the database.
+
+![Posts with related Reactions](https://i.imgur.com/pGyrqqc.png)
+
+Reactions have a `post_ID` column that points to the post they belong to. You have to use a join to read these tables together.
+
+This approach is more cumbersome to use, but you can let the database enforce uniqueness and ensure all reactions have a consistent shape. You have less work to do in application code.
+
+## Writes are where the magic happens
+
+Already the relational model is looking good. Let the database do more work while you focus on the good stuff. But writes are where the relational model truly shines.
+
+Think about how this data is laid out in storage.
+
+![Relational and array-based data on disk](https://i.imgur.com/8tVoHTs.png)
+
+Storage is linear. All your data has to fit one after another.
+
+On the left you have the array approach. Every post contains its data and reactions. When one post is over, the next one begins.
+
+On the right you have the relational approach. Posts are small with just their data. Reactions are small too. Each table occupies a distinct area in storage.
+
+## What happens when you add a reaction?
+
+Now what happens when you add a reaction. On a very old post?
+
+![Adding a new reaction to an old post](https://i.imgur.com/GTQkTBM.png)
+
+**With the arrays approach**, your database has to make room for the new reaction. Every post in the entire table has to move out of the way, then it can add a new reaction. The more data you add, the more everything has to move.
+
+This makes writes slow. You're adding 2 integers, but moving and rewriting gigabytes of data. Plus updating any indexes.
+
+**With the relational approach**, your database appends a reaction at the end of the reactions table. Nothing else needs to move.
+
+This makes writes fast. You're adding 2 integers, and writing only those two integers and making a quick update to indexes.
+
+Details like this make the difference between an app that scales and an app that hits a wall.
+
+Cheers,<br/>
+~Swizec
