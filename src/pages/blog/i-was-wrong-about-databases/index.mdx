@@ -1,0 +1,40 @@
+---
+title: "I was wrong about databases"
+description: "The best part about writing is that you get to learn new and exciting ways you were wrong. Databases are smarter than I thought!"
+published: 2025-02-13
+categories: "Databases, Backend, Software Engineering, Architecture"
+hero: ./img/screenshot-1739462161873.png
+---
+
+[name|Friend], a few folks wrote in to say I was wrong about databases [on Tuesday](https://swizec.com/blog/why-the-relational-data-model-is-so-good/) – they're smarter than I thought.
+
+This is the part I got wrong:
+
+> **With the arrays approach**, your database has to make room for the new reaction. Every post in the entire table has to move out of the way, then it can add a new reaction. The more data you add, the more everything has to move.
+>
+> This makes writes slow. You're adding 2 integers, but moving and rewriting gigabytes of data. Plus updating any indexes.
+
+As one commenter pointed out: _"no sane RDBMS would move gigabytes on insert"_
+
+What do they do instead? [TOAST records](https://wiki.postgresql.org/wiki/TOAST) and tombstones. Although I can't tell from documentation if tombstones are something you implement by hand or the database does for you. For Postgres at least.
+
+**TOAST** lets you split a wide table row into chunks.
+
+> When a row that is to be stored is "too wide" (the threshold for that is 2KB by default), the TOAST mechanism first attempts to compress any wide field values. If that isn't enough to get the row under 2KB, it breaks up the wide field values into chunks that get stored in the associated TOAST table. Each original field value is replaced by a small pointer that shows where to find this "out of line" data in the TOAST table. TOAST will attempt to squeeze the user-table row down to 2KB in this way, but as long as it can get below 8KB, that's good enough and the row can be stored successfully.
+
+The limit is 4 billion chunks per row – 32bit pointers. Reading and writing these rows sounds to me like it would be slower than effectively using relational data modeling.
+
+**Tombstones** let you mark a row as dead so it can be rewritten in a more convenient place (at the end of the table). Moving a whole row to add new data still feels slower than effectively using relational data modeling. Way faster than moving the whole table of course.
+
+And as one commenter mentioned: Data packing matters less now that we have SSDs with random access. Sequential reads used to be hugely faster than random reads. Now they're only a little faster :)
+
+**You should measure** what works better for your production use-case. Performance depends on _your_ data access patterns.
+
+Here are more benefits of relational data I didn't mention.
+
+[![](https://i.imgur.com/HqOfzcM.jpeg)](https://bsky.app/profile/xaroth.bsky.social/post/3lhwrnzrqns2x)
+
+The best part about writing is that you get to learn new and exciting ways you were wrong.
+
+Cheers,<br/>
+~Swizec

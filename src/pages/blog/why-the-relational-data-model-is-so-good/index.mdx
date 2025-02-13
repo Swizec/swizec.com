@@ -65,6 +65,8 @@ Now what happens when you add a reaction. On a very old post?
 
 This makes writes slow. You're adding 2 integers, but moving and rewriting gigabytes of data. Plus updating any indexes.
 
+_Edit: this is wrong. Explanation here 👉 [I was wrong about databases](https://swizec.com/blog/i-was-wrong-about-databases/)_
+
 **With the relational approach**, your database appends a reaction at the end of the reactions table. Nothing else needs to move.
 
 This makes writes fast. You're adding 2 integers, and writing only those two integers and making a quick update to indexes.
