@@ -25,7 +25,7 @@ How would you model this?
 
 One way is to smoosh this together in a table/object NoSQL style. Every modern database will let you do this and it's going to work.
 
-![Posts with an array of reactions](https://i.imgur.com/H7jMAwg.png)
+![Posts with an array of reactions](./img/Posts-with-an-array-of-reactions-42hfdj.png)
 
 You can use an `array()` column like was popular in the 2000's or a `jsonb` column with a list. That's more popular today.
 
@@ -35,7 +35,7 @@ The benefit is that this is obvious and easy to think about: Posts have an array
 
 Another standard approach is to model this as a relationship between two tables in the database.
 
-![Posts with related Reactions](https://i.imgur.com/pGyrqqc.png)
+![Posts with related Reactions](./img/Posts-with-related-Reactions-hgabh1.png)
 
 Reactions have a `post_ID` column that points to the post they belong to. You have to use a join to read these tables together.
 
@@ -47,7 +47,7 @@ Already the relational model is looking good. Let the database do more work whil
 
 Think about how this data is laid out in storage.
 
-![Relational and array-based data on disk](https://i.imgur.com/8tVoHTs.png)
+![Relational and array-based data on disk](./img/Relational-and-array-based-data-on-disk-e7j8a1.png)
 
 Storage is linear. All your data has to fit one after another.
 
@@ -59,7 +59,7 @@ On the right you have the relational approach. Posts are small with just their d
 
 Now what happens when you add a reaction. On a very old post?
 
-![Adding a new reaction to an old post](https://i.imgur.com/GTQkTBM.png)
+![Adding a new reaction to an old post](./img/Adding-a-new-reaction-to-an-old-post-85g311.png)
 
 **With the arrays approach**, your database has to make room for the new reaction. Every post in the entire table has to move out of the way, then it can add a new reaction. The more data you add, the more everything has to move.
 
@@ -73,5 +73,5 @@ This makes writes fast. You're adding 2 integers, and writing only those two int
 
 Details like this make the difference between an app that scales and an app that hits a wall.
 
-Cheers,<br/>
-~Swizec
+Cheers,<br />
+\~Swizec

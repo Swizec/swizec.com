@@ -18,7 +18,7 @@ If that vendor work happened on a task queue – not a problem. The queue could
 
 All server environments I've worked with follow a similar execution pattern.
 
-![Request, code, response](https://i.imgur.com/ZD2EXPO.png)
+![Request, code, response](./img/Request-code-response-i5f950.png)
 
 1. Request comes in, is held in memory
 2. Server spawns a worker
@@ -29,7 +29,7 @@ Step 2 is where nuances between stacks matter.
 
 ### One process per request
 
-![One process per request](https://i.imgur.com/8Cqn93q.png)
+![One process per request](./img/One-process-per-request-2fb2i9.png)
 
 In ye olde LAMP (Linux, Apache, Mysql, PHP) model, Apache would start a whole new process to run your PHP code. A more modern environment (like gunicorn for Python or Ruby) might keep a running pool of workers and send requests to whomever is available. A serverless set up would spin up a whole new machine for each request.
 
@@ -39,7 +39,7 @@ Your code handles 1 request at a time. Easy to think about.
 
 ### One process many requests
 
-![One process many requests](https://i.imgur.com/q32fdqr.png)
+![One process many requests](./img/One-process-many-requests-0ai7d7.png)
 
 An alternative to the worker model is application code that handles this internally.
 
@@ -77,7 +77,7 @@ And if some requests become super slow because of a vendor issue, bad database q
 
 A task queue lets you defer work for later so your code can quickly respond to user-facing requests.
 
-![Code puts tasks on a queue](https://i.imgur.com/ouFN5lV.png)
+![Code puts tasks on a queue](./img/Code-puts-tasks-on-a-queue-a5d8cf.png)
 
 1. Request comes in, is held in memory
 2. Server spawns your code
@@ -109,7 +109,7 @@ Had we used a task queue, we could let tasks pile up on the queue then replay th
 
 Big fan.
 
-Cheers,<br/>
-~Swizec
+Cheers,<br />
+\~Swizec
 
 PS: if you look closely it's queues all the way down. Everything we do in software is a queue of some sort.

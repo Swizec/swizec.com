@@ -5,6 +5,7 @@ published: 2025-01-23
 categories: "React, TanStack Start, TanStack Router"
 hero: ./img/IMG_2551.png
 ---
+
 What if your React code could render as a PNG, PDF, static HTML, or fully interactive webapp just by changing the URL? I got a working demo! 😁
 
 https://twitter.com/Swizec/status/1882010781870617067
@@ -21,19 +22,19 @@ The components need to support css-in-js ([JoyUI](https://mui.com/joy-ui/getting
 
 When loaded in the browser, you get a fully interactive webapp. Buttons are clickable, React Query keeps data fresh, you can change state, everything works.
 
-![Works as interactive webapp](https://i.imgur.com/n1l06UH.gif)
+![Works as interactive webapp](./img/Works-as-interactive-webapp-8h06de.gif)
 
 ### Static HTML
 
 If you right click + view source, you can see the app starts as static HTML with initial data already present.
 
-![Initially static HTML](https://i.imgur.com/sglHLFA.png)
+![Initially static HTML](./img/Initially-static-HTML-0ji9jh.png)
 
 ### PNG
 
 Add `?=png` to the URL and you get a PNG render of the initial app state. All in one request rendered on the server. Your browser gets the image and nothing else.
 
-![Renders as PNG](https://i.imgur.com/0aW37jI.png)
+![Renders as PNG](./img/Renders-as-PNG-64igc7.png)
 
 Components have all dynamic data present, but there's a bug with font color. I must've missed a detail with setting up JoyUI styling for SSR.
 
@@ -41,7 +42,7 @@ Components have all dynamic data present, but there's a bug with font color. I m
 
 Add `?=pdf` and you get a PDF. Same deal as before: The browser gets just the PDF all in 1 request. Data is there.
 
-![Renders as PDF](https://i.imgur.com/wQXtz2Y.png)
+![Renders as PDF](./img/Renders-as-PDF-a40a4i.png)
 
 Here the styling loses backgrounds, but I think that's on purpose. JoyUI adapting to print styles because PDFs are for printing.
 
@@ -133,7 +134,7 @@ function Home() {
 }
 ```
 
-The route renders a `Home` component and uses `ensureQueryData` to pre-load data from an API before rendering. This ensures that our initial UI happens without loading spinners. 
+The route renders a `Home` component and uses `ensureQueryData` to pre-load data from an API before rendering. This ensures that our initial UI happens without loading spinners.
 
 Preloading is crucial for nice PNGs and PDFs. Makes the UX nicer for users too.
 
@@ -143,25 +144,25 @@ Last step is a switching SSR handler that chooses behavior based on the `?f` que
 
 ```typescript
 const switchingHandler: typeof defaultRenderHandler = async ({
-    request,
-    router,
-    responseHeaders,
+  request,
+  router,
+  responseHeaders,
 }) => {
-    const url = new URL(request.url);
-    const format = url.searchParams.get("f");
+  const url = new URL(request.url);
+  const format = url.searchParams.get("f");
 
-    if (format === "png") {
-        return pngRenderHandler({ request, router, responseHeaders });
-    } else if (format === "pdf") {
-        return pdfRenderHandler({ request, router, responseHeaders });
-    } else {
-        return defaultRenderHandler({ request, router, responseHeaders });
-    }
+  if (format === "png") {
+    return pngRenderHandler({ request, router, responseHeaders });
+  } else if (format === "pdf") {
+    return pdfRenderHandler({ request, router, responseHeaders });
+  } else {
+    return defaultRenderHandler({ request, router, responseHeaders });
+  }
 };
 
 export default createStartHandler({
-    createRouter,
-    getRouterManifest,
+  createRouter,
+  getRouterManifest,
 })(switchingHandler);
 ```
 
@@ -203,5 +204,5 @@ I don't know yet how this works in production. Running Puppeteer can get pretty 
 
 But I'm excited how well this worked! Nefarious plans afoot 😈
 
-Cheers,<br/>
-~Swizec
+Cheers,<br />
+\~Swizec
