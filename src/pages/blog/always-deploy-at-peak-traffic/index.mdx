@@ -1,0 +1,30 @@
+---
+title: "Always deploy at peak traffic"
+description: "A hard-won lesson for ya: Always deploy when you've got lots of traffic."
+published: 2025-04-11
+categories: "Scaling Fast Book, Software Engineering, Teamwork"
+hero: ./img/screenshot-1744382809793.png
+---
+
+A hard-won lesson for ya: Always deploy when you've got lots of traffic.
+
+At work I championed at-least-daily production deploys around 2 or 3pm. That's when the afternoon rush starts to ramp up as users race to get their orders in before end of day.
+
+People thought I was crazy. WHAT IF ANYTHING GOES WRONG!?
+
+Exactly. What if it does? How quick do you wanna find out? 😉
+
+2pm is great. Lots of users stress testing your app, plenty of support folk to quickly tell you something's wrong, and everyone who understands the code is right there ready to go _"Oh I know what happened!"_
+
+This week I got impatient and broke my own rule – deployed something at 9pm. It wasn't great.
+
+First it took me 10+ minutes of waiting to see a new order come in and go _"Okay I didn't break anything important"_. Then the next morning ... yep I did break a thing. When users placed an order, data saved wrong. A silly UI bug that took 2min to fix.
+
+Except now we had hours worth of data to fix. All because nobody was around to notice the bug sooner.
+
+Deploy when you have lots of traffic.
+
+Cheers,<br/>
+~Swizec
+
+PS: it's best when every engineer deploys their thing as soon as it's ready, but we're not there yet
