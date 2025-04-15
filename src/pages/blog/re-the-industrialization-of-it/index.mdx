@@ -1,0 +1,69 @@
+---
+title: "re: The Industrialization of IT"
+description: "I guess if AI is what it takes to finally get people to care about architecture and team structure then mission accomplished?"
+published: 2025-04-15
+categories: "Software Engineering, Scaling Fast Book, Teamwork, Software Architecture, AI"
+hero: ./img/screenshot-1744729517142.png
+---
+
+The whole _"You don't need coders when you've got AI"_ thing is showing just how piss-poor people's opinions are of what software engineers do. 😠
+
+In particular this essay from Benn: [The Industrialization of IT](https://benn.substack.com/p/the-industrialization-of-it). It's a great essay raising valid points.
+
+The part that pisses me off is:
+
+1. It showcases just how poorly people think of the software engineering profession. Even software engineers themselves.
+2. The essay describes an AI near future _that's been the standard for years_
+
+2 is almost more annoying than 1.
+
+## The code is not the goal
+
+Look AI can wrote code. It's not great code, but it works. It's getting better. [I use AI to write code all the time](https://swizec.com/blog/coaching-ai-to-write-your-code/).
+
+But you can't use AI to _engineer software_. We are hilariously far from that.
+
+It's like the compiler revolution in the 60's or 70's.
+
+Programmers (now called software engineers) used to write code and send it to a room full of people to input into a computer (code inputters), then tell the programmer if the code worked. You'll notice we don't have code inputters anymore. We write code directly into a computer and hit `Run`.
+
+That `Run` button was the "omg AI is taking our jobs" of the 1960's. It took code inputters' jobs.
+
+But the code is not the goal. Working software running in production is the goal. And that shit is hard. **Writing code is like 20% or 30% of your value as a software engineer**.
+
+You _want_ that to be easier. It's a bottleneck on how fast you can iterate.
+
+## The future of software design has been standard for decades
+
+Benn then goes on to imagine a future world where software design is optimized for AI agents doing the work.
+
+> Codebases get rearchitected. Rather than being optimized for human understanding, they’re written for machine parallelization. Make them huge and compartmentalized, so that hundreds or thousands of agents can touch them at once. Make them so that changes can happen as independently as possible, where each update has as minimal of a blast radius as possible.9
+
+Yes this is called “domain oriented design” and it’s been the industry standard for almost 20 years. [Big ball of mud -> small balls of mud](https://swizec.com/blog/big-ball-of-mud-the-worlds-most-popular-software-architecture/). Every serious software is designed this way. This is the whole motivation behind microservices, service oriented design, hexagonal architectures, and all that stuff [I've been talking about](https://swizec.com/blog/forget-bad-code-focus-on-the-system-react-summit-talk/).
+
+[![Forget Bad Code, Focus on the System](https://i.imgur.com/psT30jo.jpeg)](https://gitnation.com/contents/forget-bad-code-focus-on-the-system)
+
+> Coding agents work in parallel.10 In a rough sense, the pace with which people can build software is capped for the same reason that that infamous NCIS scene is dumb—because two people can’t type on the same keyboard at the same time. There’s too much logical overlap for too many minds to work on the same thing at once, and adding people to a project actually slows it down. But if codebases were designed for thousands of mechanical workers rather than one smart one, we can blow the governor off. To go faster, just add more machines.
+
+Yes this is called "stream aligned teams" or whatever your favorite jargon. [Team Topologies stuff](https://swizec.com/blog/what-i-learned-from-team-topologies/).
+
+You want teams that can work independently, align with business structure, and [own the outcome not the work](https://swizec.com/blog/get-us-over-the-water-not-build-us-a-bridge/). Fine, use agents if that helps.
+
+I talked about this in [Scaling Fast, lessons from tech startups](https://swizec.com/blog/scaling-fast-my-talk-on-lessons-from-tech-startups/) at C3 Fest last year.
+
+> Development tools reorient around helping people manage machines rather than other people. A person writes a ticket, and ten proposals get created automatically. They mix and match the ideas they like; ten possible versions get made' for their review. Approve; reject; splice ideas together. Instead of being tools for collaboration, code review systems get rebuilt to monitor a steady stream of updates.11 Instead of analyzing their team’s progress, engineering leaders become foremen,12 staring at dashboards that make sure the conveyor belt is still on. Task management tools get replaced by statistical process control.
+
+This is how it works at the team lead level and above. You focus on building systems and processes that create the software.
+
+Make life easy for the team, optimize for flow and delivery. Basics that the devops folk have been drumming about since at least 2010 and the lean manufacturing folk have been discussing since the 70's.
+
+https://twitter.com/Swizec/status/1648675877260017667
+
+## Are we winning??
+
+I guess if AI is what it takes to finally get people to care about architecture and team structure then mission accomplished?
+
+![](https://i.imgur.com/bwwIr3G.png)
+
+Cheers,<br/>
+~Swizec
