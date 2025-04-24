@@ -1,0 +1,53 @@
+---
+title: "Say no to abstract code"
+description: "The trick, then, is to keep related code close together to reduce context boundaries and to limit the amount of relevant detail so it fits in your working memory."
+published: 2025-04-24
+categories: "Software Engineering, ASoftware Architecture, Complexity, Scaling Fast Book"
+hero: ./img/screenshot-1745506530558.png
+---
+
+Writing code that solves a whole class of problems is hard and that's what makes it fun. You get to flex your best engineering muscles, build a towering cathedral of abstraction, and feel rewarded when it all clicks into place and begins to work. ❤️
+
+Yes the work took longer but think of all the time you'll save later!
+
+- No more repetitive copypasta,
+- fewer debates about the right way to do something (as long as everyone likes yours),
+- no more explaining how things work (you wrote great documentation right?),
+- and if something breaks there's 1 place to fix (ignoring the one-off exceptions you'll build over time)!
+
+You explain to the waiting stakeholders that this was pre-work. An investment. It's going to pay back.
+
+## Except here's the thing:
+
+Your abstraction is wrong, people don't understand how it works, and you'll soon find a bunch of exceptions that are near impossible to fit into your generalized approach. Yes we want this component to have the same behavior everywhere ... except on pages A and B where it needs a subtle change. Oh and C where everything is the same except in reverse. And we're not yet sure about D.
+
+A few months pass and the next engineer says _"This code looks messy ... lots of exceptions. Let me build a wrapper to make it easier"_.
+
+Your codebase grows into a rickety pile of abstractions that nobody understands or dares to touch. Who knows what might break when every engineer for the past 5 years tried to build **The One True Unifying Way Of Our System** and never had the time to finish their grand vision.
+
+## Abstract code is hard to understand
+
+Abstractions are fine. Encouraged even. You cannot write custom one-off code for everything. But there is a cost.
+
+The big danger with abstract code is that you have to wade through layers of lettuce before you find code that _does_ something. Keeping track as you bounce between files and functions is [limited by your working memory](https://arxiv.org/abs/2101.06305) and familiarity with the codebase.
+
+https://twitter.com/Swizec/status/1684219843707371522
+
+As you build experience you can skim the code and look for common patterns instead of reading every line carefully. Similar to how [chess experts think in higher level shapes instead of individual pieces](https://iiif.library.cmu.edu/file/Simon_box00021_fld01467_bdl0001_doc0001/Simon_box00021_fld01467_bdl0001_doc0001.pdf), which gives them an almost magical ability to memorize complex plays. The more experienced you are as an engineer, the quicker you learn these patterns for a new codebase.
+
+But unlike a chess board, you can't look at the entirety of your codebase. It's split among many contexts – files and folders. Every time you jump between files feels like walking into the kitchen and going _"Why did I come here?"_. That's the [doorway effect](https://journals.sagepub.com/doi/abs/10.1080/17470218.2011.571267) – you really do forget some of what you were doing when crossing a context boundary.
+
+And because others work on the same code, you never know when something's gonna change. Your memory of how it works could be wrong!
+
+The trick, then, is to keep related code close together to reduce context boundaries and to limit the amount of relevant detail so it fits in your working memory.
+
+## Avoid the hammer factory factory
+
+Overly abstracted code goes by many names. None of them meant as a compliment.
+
+My favorite shorthand is the [hammer factory factory](https://gwern.net/doc/cs/2005-09-30-smith-whyihateframeworks.html). An apocryphal developer wanted a hammer to hang up a picture, but nobody uses hammers anymore. What you want is a hammer factory so you can build any hammer you want. But that's lame too. Nowadays you want a hammer factory factory so you can build any factory that creates whatever tool you need.
+
+Yes you have 1 picture and 1 nail and a 2 minute task. But think of the next time!
+
+Cheers,<br/>
+~Swizec
