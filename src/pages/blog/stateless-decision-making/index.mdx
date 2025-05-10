@@ -1,0 +1,72 @@
+---
+title: "Stateless decision making"
+description: "Do you ever feel like your brain is full and there's so much going on you can barely keep up? Me too."
+published: 2025-05-10
+categories: "Mindset, Teamwork, Habits"
+hero: ./img/screenshot-1746891485886.png
+---
+
+Do you ever feel like your brain is full and there's so much going on you can barely keep up? Me too.
+
+The last few months have been wild.
+
+In August I [took the job that scared me a little](https://swizec.com/blog/some-personal-news/). Since then we've grown from ~6 engineers to ~14, more than doubled our revenue, and the whole company went from ~30 to ~90 employees. It's honestly insane [name|].
+
+The flood of new information is constant. One minute you're deep in the logs debugging some edge case from ancient data modeling sins you didn't even know about, the next you're talking to the VP of finance about a new initiative, then jumping into ...
+
+## Don't hold state manually
+
+Your brain is full because it's holding too much.
+
+Use technology! It's called a document. Instead of having a conversation, keeping all that info in your brain, then relaying it to others like telephone, try writing it down.
+
+Before talking to stakeholders, **make a document**. Call it a PRD – product requirements document. Write bullet points.
+
+Forget the prose. Prose sucks. **Write bullet points**. The more bare bones the merrier. Write the questions, note the answers, invite others to edit with you. This document is a tool, not a work of art.
+
+Put **more info in your tasks** or stories (jira, asana, etc). Write your bullet points there. Screenshots are love.
+
+When creating pull requests, **write self-contained descriptions**. Don't assume others know what you're thinking. Don't assume _you_ know what you're thinking. Add videos.
+
+## Let others hold state
+
+Ask lots of questions.
+
+You enter a room, a meeting, or a situation. Everything's on fire, people are stressed, and it's your job to help them fix the thing. What do you do?
+
+The OODA loop – observe, orient, decide, act.
+
+Even if the situation's not critical and you're just helping a fellow engineer debug an issue or offering a rubber duck session. Same thing.
+
+They've spent time thinking about this. You haven't. _ASK_.
+
+Then make your decision/recommendation and move on. They'll come back with new info, if it didn't work.
+
+Write a document if the same things keep coming up. Improve the system.
+
+## Aggressively move things to done
+
+Your brain is full because you have too many things in progress. [WorkInProgress kills your progress](https://swizec.com/blog/workinprogress-kills-your-progress/).
+
+The only solution I know is to aggressively single task and get things finished. Avoid getting a project half-way to the finish line then switching to another shinier project. That's how cruft accumulates.
+
+Get it done. Do the finalization work. Then stop thinking about it. If new things happen, you can [prioritize those separately](https://swizec.com/blog/what-to-work-on-next/).
+
+## Stateless decision making
+
+Write things down, lean on others, get to done.
+
+Then stop assuming you can remember anything, or that it hasn't changed from what you remember. There are dozens of other gremlins running around your codebase, your documents, your processes, and your business all moving things around.
+
+When it's time for a decision:
+
+1. look at your inputs (docs, code, tasks, questions)
+2. decide
+3. move on
+
+Like an idempotent function that relies only on its inputs.
+
+Cheers,<br/>
+~Swizec
+
+PS: your brain will continue to feel full but this helps and it's a good habit to build
