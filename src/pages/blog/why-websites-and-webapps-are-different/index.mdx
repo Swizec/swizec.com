@@ -1,0 +1,88 @@
+---
+title: "Why websites and webapps are different"
+description: 'The website vs webapp debate is at least as old as my career. And it keeps coming up. One camp says "React is too complex you don''t need any of that", the other camp goes "I don''t understand how you live like this". Both are right.'
+published: 2025-05-13
+categories: "Software Engineering, Software Architecture, Fullstack"
+hero: ./img/screenshot-1747146247205.png
+---
+
+The website vs webapp debate is at least as old as my career. And it keeps coming up. One camp says _"React is too complex you don't need any of that"_, the other camp goes _"I don't understand how you live like this"_. Both are right.
+
+App and site are different worlds with different needs. I accidentally wrote a blog length comment about this [in a thread on HackerNews](https://news.ycombinator.com/item?id=43956984). People liked it.
+
+## Your needs start simple, then they grow
+
+I work on a site that was built without frameworks with just a sprinkle of jQuery on top of a traditional MVC framework.
+
+It worked great but then the business grew and the software became bigger than what fits in 1 engineer’s head. We now have lots of issues that need fixing.
+
+### Your UX begins to tumble
+
+A good example are pages that take 5 seconds to load because they have to do so much, then you submit a form, and the page reload takes 5 seconds to go through but there is no UI feedback so you press the button a few more times because maybe it didn’t work?
+
+Then you get an error because the first action worked but the subsequent actions failed due to uniqueness constraints. Now as a user you’re confused: did you place the order or not? You got an error but the order also showed up in your history. Hmmm
+
+### Your domain modeling lacks boundaries
+
+As engineers we have issues understanding what is and isn’t in scope. Will this javascript file you touched affect only the feature you wanted, or another 50 pages you didn’t even know about?
+
+When you add a new thing in a template, how many N+1 issues across how many pages did you just cause? Where does the data even get loaded?? The query lives so far away from where you use the info that it’s really hard to track down. Etc
+
+### Fixing this is work
+
+We started putting new things in React, especially the more interactive areas of the site. It’s pretty nice in comparison. Not perfect, but the framework pushing you to think in components helps a lot.
+
+I’m slowly introducing this mentality to other parts but the framework really wants to fight you on that so it’s gonna take a while.
+
+## Doesn't this just change into same issues, new framework?
+
+Yes and no!
+
+**TypeScript helps a lot** – you get quick traceability of where things are used and squiggly lines, if you break a contract. Yes a statically typed MVC framework would get you this, but in my experience the apps that get into this mess also don't use types "because types add too much complexity" (likely true for that company stage).
+
+**Componentization** brings the other piece – self-contained components that
+
+- declare their own data dependencies (load their own data),
+- bring their own isolated styling,
+- and generally handle all their internal behavior.
+
+### Getting it right is not free
+
+This takes some skill/experience to get right and yes you can totally pull it off with every toolstack if you're good enough. The benefit is having a stack that encourages you to **think about interfaces and contracts between components** and hiding the messy internals from the outside world.
+
+So for example in Flask I'm encouraging this pattern of tiny composable views: [A pattern for composable UI in Flask](https://swizec.com/blog/a-pattern-for-composable-ui-in-flask/)
+
+Once you have these, you can then move them in and out of the page with some JavaScript and an Ajax call. HTMX does this afaik and it's also how we used to build PHP+Ajax apps for a brief moment 20 years ago before client-side rendering took over for various reasons (smaller payloads mattered back then as did sharing an API between web and mobile)
+
+### Guarantees help
+
+Point is that an approach based on composability _guarantees_ that
+
+- components won't break each other,
+- can be moved around,
+- and can live side-by-side without worry.
+
+The more your stack can guarantee this (as opposed to manual vigilance) the better. A traditional MVC framework is based on separation-by-technology / horizontal slices, _not_ separation by domain / vertical slices.
+
+## This just smells like you're bad at code
+
+> To me that reeks of badly structured code, with bad abstraction layers, perhaps stuffing too much stuff into a single module or, if the language is still backward and doesn't have modules, a file
+
+Yes and that’s normal. [Big ball of mud is the world's most popular software architecture](https://swizec.com/blog/big-ball-of-mud-the-worlds-most-popular-software-architecture/).
+
+> Well ... put it in "menu.js". Will it affect 50 other pages? No, it will affect the menu
+
+MVC frameworks, used traditionally, don’t support this super well.
+
+If you want some dynamic value in the menu supplied by the server, every view has to make sure it passes that value into the template layer. Change the menu, gotta go around changing every view to supply that new value.
+
+## Conclusion
+
+It's about [architectural complexity](https://swizec.com/blog/why-taming-architectural-complexity-is-paramount/) [name|]. And no matter what, [domain modeling is hard](https://swizec.com/blog/better-tooling-wont-fix-your-api/).
+
+And I think many if not most engineers have never worked on a complex app. Partially because the folks above them did a great job [splitting code into small balls of mud](https://swizec.com/blog/finding-modules-in-a-big-ball-of-mud/)
+
+https://twitter.com/Swizec/status/1916894051745554480
+
+Cheers,<br/>
+~Swizec
