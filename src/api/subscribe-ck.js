@@ -1,4 +1,4 @@
-async function createSubscriber({ email, name, source }) {
+async function createSubscriber({ email, first_name, source }) {
   const url = `https://api.kit.com/v4/subscribers`
   const headers = {
     "Content-Type": 'application/json; charset="utf-8"',
@@ -6,7 +6,7 @@ async function createSubscriber({ email, name, source }) {
   }
   const bodyData = {
     email_address: email,
-    first_name: name,
+    first_name,
     state: "inactive",
     fields: {
       "Last name": "",
@@ -46,7 +46,7 @@ export default async (request, response) => {
   //   const url = URL.parse(request.url, true)
   const data = JSON.parse(request.body)
 
-  if (!data.email || !data.name || !data.formId) {
+  if (!data.email || !data.first_name || !data.formId) {
     response.status(400)
     response.json({ error: "Missing fields" })
     return
