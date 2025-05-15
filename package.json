@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@mdx-js/react": "^2.3.0",
-        "@swizec/gatsby-theme-course-platform": "4.2.0-1",
+        "@swizec/gatsby-theme-course-platform": "4.2.0",
         "@typeform/api-client": "^1.7.0",
         "@vercel/gatsby-plugin-vercel-builder": "^2.0.14",
         "@vercel/postgres": "^0.5.1",
