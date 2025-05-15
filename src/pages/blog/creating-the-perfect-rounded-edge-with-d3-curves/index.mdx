@@ -1,0 +1,107 @@
+---
+title: "Creating the perfect rounded edge with D3 curves"
+description: ""
+published: 2018-07-31
+redirect_from:
+  - /blog/creating-perfect-rounded-edge-d3-curves/swizec/8543
+categories: "Front End, Technical"
+hero: ./img/d3-d3-shape-master-img-cardinal.png
+---
+
+A coaching client showed me this design and asked: _Ok, how do I build this?_
+
+![Tree structure with rounded edges](https://swizec.com/wp-content/uploads/2018/07/tree-with-rounded-edges.jpg)
+
+Well hmm… it's a tree of some sort. Each icon is a node, and each line is an edge. Nodes can have multiple children. I think 🤔
+
+You can build this with D3. Calculate each node's position, then iterate and render. An image imported as an SVG component will do. Webpack can handle that for you.
+
+So you have node positions and you know which nodes are connected. Now what?
+
+You can turn that into pairs of coordinates. Point A to point B. A line between them.
+
+D3 is perfect for that! Drawing lines from A to B is super easy 👇
+
+```javascript
+// create a line path generator
+const line = d3.line();
+// pair of coordinates
+const data = [
+  [0, 0],
+  [100, 100],
+];
+
+// draw, using JSX notation
+<svg>
+  <path d={line(data)} style={lineStyle}></path>
+</svg>;
+```
+
+That draws a line from point `(0, 0)` to point `(100, 100)`.
+
+https://codesandbox.io/s/0yv3v8lljv?autoresize=1
+
+But we don't want straight lines. Straight lines don't look good.
+
+Lucky for us, D3 has ample support for curves. Many different curve formulas to choose from.
+
+We can add some curve to our line with the `.curve` method.
+
+```javascript
+// create a line path generator
+const line2 = d3.line().curve(d3.curveCardinal);
+```
+
+If you try that, you'll see that nothing happens. Curves need multiple points in your line data to work well.
+
+Like this 👇
+
+https://codesandbox.io/s/7zwm0zm8l6?autoresize=1
+
+That's a nice curve and all, but not quite what we're looking for. And if you look at the [curve examples in D3 docs](https://github.com/d3/d3-shape/blob/master/README.md#curves), you'll see that nothing quite fits.
+
+![](./img/d3-d3-shape-master-img-cardinal.png)
+
+![](./img/d3-d3-shape-master-img-catmullRom.png)
+
+After some experimentation, I found a solution.
+
+https://www.youtube.com/watch?v=VyCP-3gL72k
+
+👉 a React component that takes 2 points, injects 2 juuuust perfectly spaced points, and draws a D3 curve between them.
+
+https://codesandbox.io/s/4zvl8njr0x?autoresize=1
+
+The poorly named `<RoundedCorner>` component is just 15 lines of Prettier'd code. All values discovered experimentally.
+
+```javascript
+const RoundedCorner = ({ start, end, radius = 5 }) => {
+  const line = d3
+    .line()
+    .x(d => d[0])
+    .y(d => d[1])
+    .curve(d3.curveBundle.beta(1));
+
+  const points = [
+    start,
+    [start[0], end[1] - radius],
+    [start[0] + radius, end[1]],
+    end
+  ];
+
+  return <path d={line(points)} style={lineStyle}>;
+};
+</path>
+```
+
+We take `start` and `end` coordinates, and the desired `radius`. Similar to CSS rounded borders.
+
+Experimentally, I discovered that for best results, you have to place 2 points between the two endpoints. One on each side of the rounded corner you want.
+
+![](https://swizec.com/wp-content/uploads/2018/07/sketch.jpg)
+
+Then you have to use the `curveBundle` generator with the `beta` factor set to `1`. I honestly don't know what that means but it works.
+
+You can see I tried a few different configurations in the example CodeSandbox. That's because some curves produced weird edges when turned around like that.
+
+But not good ol' curveBundle.

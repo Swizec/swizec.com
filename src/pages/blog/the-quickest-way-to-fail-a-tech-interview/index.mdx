@@ -1,0 +1,77 @@
+---
+title: "The quickest way to fail a tech interview"
+description: "No it's not a wrong answer or floundering with algorithms. Not even being nervous or shy or having a language barrier. Culture fit is the least of your worries if you make this mistake."
+published: 2022-01-11
+categories: "Mindset, Lesson, Interviewing"
+content_upgrade: SeniorMindset
+hero: ./img/screenshot-1641917683132.png
+---
+
+What's the quickest way to fail a tech interview?
+
+No it's not a wrong answer or floundering with algorithms. Not even being nervous or shy or having a language barrier. Culture fit is the least of your worries if you make this mistake.
+
+The fastest red flag I've seen is when you're **confidently wrong**.
+
+We had a candidate recently. Great guy, oodles of talent, [gritty as heck](https://swizec.com/blog/how-grit-superchargers-your-career/). Had a couple of fantastic interviews, even [taught me about datalist](https://swizec.com/blog/datalist-the-pure-html-typeahed-you-didnt-know-about/). Clearly self-taught and not ready to be senior, but [so much potential](https://scrimba.com/podcast/junior-developer-advice-from-a-senior-silicon-valley-engineer/). My favorite trait in a not-yet-senior. I'd give him a chance any day.
+
+But his system design 😬
+
+Swiz: _"Hello again"_, I interviewed him twice, _"today we're going to design a system. You'll build a schema, write a few SQL queries, and sketch out a system architecture. Here are the requirements"_
+
+Our prompt includes user numbers, traffic patterns, and a problem where everything connects. This is important.
+
+Him: _"Okay first I would shard the database"_
+
+![](giphy:oof)
+
+Swiz: _"Ok ok let's back up. Why don't we start with the schema, look at the traffic numbers again, and talk about scale when everything's in place"_
+
+That helped. He designed the system, wrote the queries, and struggled with the scale question. Which is fine, not everyone is an expert in scaling databases.
+
+I thought he'd make a fine addition to the team. The hiring manager felt strongly about the **confidently wrong** red flag and we passed. 💩
+
+## Why sharding was the wrong answer
+
+[Sharding](<https://en.wikipedia.org/wiki/Shard_(database_architecture)>) is a last resort scaling strategy for relational databases. You reach for sharding when you have _a lot_ of writes and don't care about relations across shards.
+
+Gaming worlds are shards, for example.
+
+Diablo has separate servers (and databases) in Europe and in North America. You can't use the same character on both. Your friends don't translate. Even your username doesn't. When I play these days, I have to use the European servers even though I'm in San Francisco. I don't exist on the North America shard. 💩
+
+There's many scaling strategies like [indexes](https://en.wikipedia.org/wiki/Database_index), better queries, [partitioning](<https://en.wikipedia.org/wiki/Partition_(database)>), [vertical scaling](https://en.wikipedia.org/wiki/Database_scalability#Vertical), and [read/write replicas](https://en.wikipedia.org/wiki/Eventual_consistency) you should try first. Sharding comes with lots of drawbacks.
+
+Yes social networks like Twitter have solved this problem. But they have tens of thousands of writes per second. And it took _years_ of engineering effort to fix. I think several academic papers came out of the effort.
+
+You don't need sharding. I once had to [push Postgres and Rails pretty far](https://swizec.com/blog/logging-1721410-events-per-day-with-postgres-rails-heroku-and-a-bit-of-javascript/) and it worked fine.
+
+https://twitter.com/Swizec/status/1049786180483477504
+
+## Why "confidently wrong" is a red flag
+
+Being wrong is fine. Being _confidently_ wrong is not.
+
+To paraphrase the hiring manager:
+
+> We need to trust our engineers to ask questions when they're out of their depth. We don't want to babysit.
+
+## How to avoid being confidently wrong
+
+It's hard. I struggle with this a lot.
+
+Like when I failed my [Google on-site interviews](https://swizec.com/blog/inside-a-google-onsite-interview/) because I read about [tries](https://en.wikipedia.org/wiki/Trie) the week before, got excited, and told every interviewer that accessing a hash map is `O(key length)` because you'd implement it with a trie. Every person gave me a chance to catch my mistake. I confidently did not.
+
+The best solution I've found is to do your research and ask _why_.
+
+_"Here is my answer and this is why"_ 🤔
+
+_"Wait a minute, that makes no sense, that's a terrible why. Let's try this other answer ..."_
+
+Iterate until your reasoning makes sense. Because X said so in a blog or book is never the right why.
+
+And yes going through that chain of logic will impress an interviewer. And your peers.
+
+Cheers,<br/>
+~Swizec
+
+PS: missing the why behind their answer is the quickest way to spot someone how [has book knowledge but doesn't understand](https://swizec.com/blog/why-understanding-beats-knowledge/). Or as Feynman liked to say _"Knowing the name of a thing is not the same as knowing the thing"_

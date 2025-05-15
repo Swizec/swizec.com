@@ -1,0 +1,243 @@
+---
+title: "The Big Mac index and Jest fetch testing"
+description: "The Big Mac index is a purchasing power parity index published by The Economist. Jest fetch testing is a tech task so frustrating that it almost made me quit the industry. I'm writing this so you don't have to read 8234721 different blog posts, stack overflow answers, and GitHub threads with conflicting info on how to get Jest and fetch to play together."
+published: 2019-08-22
+content_upgrade: FullstackWeb
+redirect_from:
+  - /blog/the-big-mac-index-and-jest-fetch-testing/swizec/9187
+categories: "Frontend Web, JavaScript, Technical"
+hero: ./img/techletter.app-screenshot-1566489636202.png
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+
+The Big Mac index is a purchasing power parity index published by The Economist. Jest fetch testing is a tech task so frustrating that it almost made me quit the industry.
+
+https://twitter.com/Swizec/status/1164413095319494656
+
+Screenshots don't have gifs, here:
+
+![](./img/media-EtB1yylKGGAUg-giphy.gif)
+
+I'm writing this so you don't have to read 8234721 different blog posts, stack overflow answers, and GitHub threads with conflicting info on how to get Jest and fetch to play together.
+
+Library where I got it working 👉 [bigmac-index-price-calculator](https://github.com/Swizec/bigmac-index-price-calculator).
+
+Context is a project built from scratch without a CLI generator. Maybe that was part of my pain.
+
+## How to test fetch requests with Jest
+
+A couple of ground rules:
+
+1.  **Our test suite must work offline.** You shouldn't be blocked from coding just because you're on an airplane even if coding on an airplane is a terrible idea and you should really get some sleep instead.
+2.  **Our test suite must be reliable.** You don't want to get different results running at different times. No expiring API keys, no changing responses, no network failures.
+
+We're using Jest because it's winning the JavaScript and TypeScript testing market. fetch() because it's the standard way to make API requests.
+
+Our ground rules mean we have to mock requests – make them return a static object that we set up. Recording and replaying requests would be cool, but as far as I can tell [Ruby VCR](https://github.com/vcr/vcr) hasn't made it to the JavaScript world yet.
+
+There's at least 2 fetch mocking libraries I could find: [fetch-mock](https://github.com/wheresrhys/fetch-mock) and [jest-fetch-mock](https://github.com/jefflau/jest-fetch-mock). Both annoying as shit to set up. `fetch-mock` was the one I got working in the end.
+
+Jest tests run in node. Node doesn't have fetch. You have to use a library for that too. There's a fetch polyfills and ponyfills and Idontknowwhatelsefills out there. I found at least 3.
+
+[isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) is the library I got working in the end.
+
+Let us begin.
+
+<ContentUpgrades.FullstackWeb />
+
+### Install dependencies
+
+Assuming you've got an empty project initialized with `npm init` or `yarn init`, you start by installing everything you'll need
+
+```bash
+yarn add --dev jest @types/jest ts-jest fetch-mock
+```
+
+Dev dependencies are those only used in development. We need Jest itself, its type definitions, its TypeScript sister, and fetch-mock.
+
+Using `ts-jest` gives you TypeScript testing superpowers so you don't have to compile your code first and test second. Test your TypeScript directly. It's nice.
+
+```bash
+yarn add isomorphic-fetch
+```
+
+We need `isomorphic-fetch` both in development and when running live. That way your library doesn't break if used server-side in Gatsby or something.
+
+### Configure Jest
+
+Configure Jest in a `jest.config.js` file. There's a bunch of info out there on where exactly this configuration should live. This is the one that finally worked for me.
+
+```javascript
+// jest.config.js
+
+module.exports = {
+  roots: ["./src"],
+  transform: {
+    "^.+\\.tsx?$": "ts-jest",
+  },
+}
+```
+
+We're saying code lives in a `/src` directory and that typescript files should run with `ts-jest`.
+
+### Mock fetch requests
+
+Jest has built-in support for mocking entire libraries. That was a nice discovery after trying many approaches from many articles and tutorials.
+
+You put files in a `__mocks__` directory and they overwrite the library you're calling.
+
+![magic giphy](./img/media-12NUbkX6p4xOO4-giphy.gif)
+
+To use `fetch-mock` instead of `isomorphic-fetch` in your tests, create a file like this:
+
+```javascript
+// src/__mocks__/isomorphic-fetch
+
+const fetchMock = require("fetch-mock")
+
+const fetch = fetchMock.sandbox()
+module.exports = fetch
+```
+
+This means that every time you import `isomorphic-fetch` in a test file, it will instead import a sandboxed `fetch-mock` instance. You can add any other setup you want here. Anything you need for your mocks to work correctly.
+
+**BIG WARNING** 👉 you have to use the `require()` syntax. No ES6 imports because this is Node not JavaScript. That tripped me up for hours and rumors say you _can_ get `import from` to work, but I eventually gave up.
+
+### Write a Jest fetch test
+
+We're ready to write a test. Everything _should_ work.
+
+The file I'm testing is called `index.ts` so my test file is called `index.test.ts`. Here's an example:
+
+```typescript
+// src/index.test.ts
+
+import { ParityPrice } from "./index";
+import * as fetchMock from "isomorphic-fetch";
+
+const URL =
+    "http://api.ipstack.com/check?access_key=<api key>";
+
+describe("ParityPrice", () => {
+    beforeEach(() => {
+        fetchMock.reset();
+    });
+
+    test("returns Japan price for Japan", async () => {
+        fetchMock.mock(URL, {
+            status: 200,
+            body: {
+                ip: "1.33.213.230",
+                type: "ipv4",
+                continent_code: "AS",
+                continent_name: "Asia",
+                country_code: "JP",
+                country_name: "Japan",
+                region_code: "13",
+                region_name: "Tokyo",
+                city: "Tokyo",
+                zip: "100-6801",
+                latitude: 35.688838958740234,
+                longitude: 139.7628631591797,
+                location: {
+                    geoname_id: 1850147,
+                    capital: "Tokyo",
+                    languages: [
+                        {
+                            code: "ja",
+                            name: "Japanese",
+                            native: "\u65e5\u672c\u8a9e"
+                        }
+                    ],
+                    country_flag: "http://assets.ipstack.com/flags/jp.svg",
+                    country_flag_emoji: "\ud83c\uddef\ud83c\uddf5",
+                    country_flag_emoji_unicode: "U+1F1EF U+1F1F5",
+                    calling_code: "81",
+                    is_eu: false
+                }
+            }
+        });
+
+        const parity = new ParityPrice(<api key>);
+        await expect(parity.price(149)).resolves.toBe(96);
+    });
+});
+```
+
+We're in Jest now so we can use modern imports.
+
+Rest mocks before each test so there's no overlap, then mock an API request with a matcher and the response we want. The matcher in my case is a URL string, the exact URL my code is going to call, and the response is a JSON object.
+
+Response code `200` for success and body for the data.
+
+Now when you call `fetch(URL)` in the code, it won't make an API call, it's just gonna get this response object.
+
+Makes your tests fast, offline, and reliable. ✌️
+
+## The Big Mac purchasing parity code we're testing
+
+TDD says to write your test first and your code second, but I actually wrote the code first. Here's the part we're testing above :)
+
+```typescript
+// src/index.ts
+
+const fetch = require("isomorphic-fetch")
+
+export class ParityPrice {
+  ipstack_key: string
+
+  constructor(ipstack_key: string, enable_ssl: boolean = false) {
+    this.ipstack_key = ipstack_key
+  }
+
+  private async ipstack(IP?: string) {
+    const param = IP ? IP : "check"
+
+    const res = await fetch(
+      `http://api.ipstack.com/check?access_key=${this.ipstack_key}`
+    )
+    return res.json()
+  }
+
+  private _price(USAprice: number, location: any): number {
+    const pricePerBurger = USAprice / BigMacIndex["United States"]
+
+    let fairPrice = USAprice
+
+    if (location.country_name in BigMacIndex) {
+      fairPrice = Math.round(
+        pricePerBurger * BigMacIndex[location.country_name]
+      )
+    } // ... a few other hacks
+
+    return fairPrice
+  }
+
+  async price(USAprice: number, IP?: string): Promise<number> {
+    const location = await this.ipstack(IP)
+    const fairPrice = this._price(USAprice, location)
+
+    return fairPrice
+  }
+}
+```
+
+You instantiate `ParityPrice` with your [Ipstack](https://ipstack.com/) API key (you can get one for free) and call `.price()` with the price you're trying to parity match.
+
+[bigmac-index-price-calculator](https://github.com/Swizec/bigmac-index-price-calculator) then calls Ipstack to geolocate your visitor based on IP, looks up their country in the BigMacIndex and returns the adjusted price.
+
+The full version has some continent-based conversions when a country isn't found and a bit of caching so you can call multiple times without making too many requests. It works pretty well.
+
+**RIDICULOUS WARNING** 👉 notice the `const fetch = require()` part up top? That's because while modern imports work for Jest files and they definitely work when packaging your library, _I couldn't get them to work when testing your library_. I tried everything. Nothing worked.
+
+## Purchasing power parity on reactfordataviz.com
+
+You can see [Big Mac Index](https://en.wikipedia.org/wiki/Big_Mac_Index) purchasing power parity in action on https://reactfordataviz-staging.swizec.now.sh/. Scroll down and you'll see a custom price for your location.
+
+Don't click the button yet though. I haven't wired up the adjusted prices with Gumroad yet.
+
+A lot of people have been asking for this and I think it's a great idea. Value based pricing all the way. If learning React Dataviz gets you a $150,000/year job in USA that's very different value than a $50,000/year job somewhere else.
+
+Cheers,<br/>
+~Swizec

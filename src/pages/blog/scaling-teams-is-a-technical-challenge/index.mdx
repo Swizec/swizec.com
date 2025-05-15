@@ -1,0 +1,109 @@
+---
+title: "Scaling teams is a technical challenge"
+description: "A founder friend asked me about growing pains on his team. How do you avoid stepping on each other's toes? "
+published: 2022-11-29
+categories: "Leadership, Teams, Productivity, Velocity"
+hero: ./img/screenshot-1669739612578.png
+---
+
+The other day a founder friend asked me about growing pains on his team. How do you avoid stepping on each other's toes?
+
+> how do you all keep from having long-lived feature branches and painful merge/rebase conflicts when multiple people are working on the same feature?
+
+As someone who's seen engineering teams grow from 1 to 5 and engineering orgs go from 8 to ~35, boy do I have opinions to share. The next breaking point is at 100 or so. I haven't experienced that one yet.
+
+My key insight is this: Scaling an engineering team is a _technical_ problem. Your pains reflect your architecture.
+
+## Why you're stepping on toes
+
+An interesting insight from [The Founder](https://en.wikipedia.org/wiki/The_Founder), a movie about McDonald's, is that they improved kitchen throughput not by making kitchens bigger or by hiring more staff, but by looking at the cooking process like a dance choreography. Give everyone a place to stand, an area to move, coordinate their timing, and people stop bumping into each other.
+
+You're stepping on each other's toes and experiencing merge conflicts **because your code is intertwined**.
+
+If 2 people need the stove, one for frying a burger, another for making a pancake, they'll be in each other's way. You need a stove for burgers and another for pancakes.
+
+## Vertical teams
+
+Lean into Conway's law:
+
+> Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the organization's communication structure.
+
+Your goal is to have teams (or people) who can build and deploy a whole feature. From start to finish. Get a working piece of functionality to the end user and deliver value.
+
+Aggressively reduce dependencies between teams and between people working on project subtasks inside a team. That reduces waiting and lets you move faster.
+
+A lesson straight from [theory of constraints](https://swizec.com/blog/build-better-software-with-the-theory-of-constraints/).
+
+In the kitchen analogy this is like having a burger person, a fries person, a milk shake person, ...
+
+## Vertical features
+
+Once you have empowered vertical teams, as close as possible to [Cagan's Empowered Teams model](https://www.svpg.com/books/empowered-ordinary-people-extraordinary-products/), how you slice features becomes the next obstacle.
+
+Or maybe it's vertical features first and teams second 🤔 chicken meet egg
+
+A vertical feature is one that builds on existing work, delivers value to the user, defines everything it needs, and avoids thinking far ahead. Like a burger that brings carbs, protein, and a modicum of greens.
+
+My manager likes the INVEST acronym as shorthand:
+
+- Independent
+- Negotiable
+- Valuable
+- Estimatable
+- Small
+- Testable
+
+The key is that each feature/story can be merged and deployed when it's done. No waiting for 5 other things to be ready.
+
+## Service-oriented architecture
+
+What enables all this verticality is a good codebase. You can't work independently, if every change touches half your files 😉
+
+On the server that means services. Micro or otherwise. Cleanly separated modules at least.
+
+On the client it means components. React or otherwise.
+
+Every module, component, or service talks to others through a clearly defined API. Whether that's props, function calls, or HTTP doesn't matter as long as everyone can tell the difference between an internal concern and an external communique.
+
+Slicing these based on [domain](https://en.wikipedia.org/wiki/Domain-driven_design) is best. Defining your teams based on those same domains is dreamy. Each team can own multiple domains.
+
+Back to the kitchen analogy: Burger station, fries station, milk shake station. Even if the same person runs multiple stations, they know each station will have all they need to complete a task.
+
+## Trunk-based development
+
+All this combined enables trunk-based development.
+
+Your tray is the main branch. When burger is done, it goes on the tray. When fries are ready, on the tray. When milk shake is poured, tray. Once the tray is full, someone calls your number.
+
+That's how trunk-based development works. Every feature goes straight to main when it's ready. Subtask or big story doesn't matter because they're all fully working, independent, and deployable.
+
+Avoid broken code. Every commit should at least run. Every task should at least pass tests.
+
+Make pull request, get it reviewed, merge.
+
+## How do you not have people blocked waiting on code review?
+
+Make smaller changes.
+
+I've talked about this in [What collaborative teams look like](https://swizec.com/blog/reader-question-what-do-collaborative-teams-look-like/). Everyone designs a feature together, slices into (vertical) subtasks, and gets to work. Together.
+
+Because you're working together and helped with design, you all have context on what every PR is doing. Because subtasks are vertical every PR can be merged and deployed. Because subtasks are small, there's little code to review.
+
+On my team reviews take 5 to 10 minutes. The long discussions happened before we started coding.
+
+Independent subtasks with clearly defined contracts mean you can work on several in parallel without merging. If something does depend on a previous subtask, stacked diffs/PRs are your friend – branch off the subtask that you need and keep going.
+
+## Separate deployment and delivery
+
+Product owners can't keep up with our rate of development. Marketing can't either. Training internal users is ... a lot 😅
+
+This is a pain point we started running into at ~20 engineers across 3 teams. Now at 35+ across 5 teams it's all starting to break.
+
+Stake holders need features to wait, engineers need them deployed. Keeping dead but finished code around causes problems and leads to big risky deploys.
+
+The solution is to divorce deployment and delivery. Deploy your code when it's ready, then enable the feature flag for all users when stake holders are ready.
+
+We're still figuring this one out process-wise. Takes a lot of trust from product.
+
+Cheers,<br/>
+~Swizec

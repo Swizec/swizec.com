@@ -1,0 +1,124 @@
+---
+title: "The Magic Function principle"
+description: "Write functions, mostly magic."
+published: 2021-02-05
+categories: "Technical, Architecture, Mindset"
+content_upgrade: SeniorMindset
+hero: ./img/screenshot-1612545897378.png
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+
+_"Hey how does the foobulizer work again?"_
+
+Ugh not this again. You've been answering this same damn question for months. How are they still not getting it?? 🙄
+
+It's simple!
+
+You take the gnasher, connect it to the third function call from the left on a full moon, or the fourth one from top, if it's Sunday, then you plug into the fantalizer, add 3 lines of code using the in-house configuration language built from JSON, stand on your right leg, hold the left nostril, and voila: the foobulizer.
+
+I mean seriously, are they all stupid?
+
+## Write the docs
+
+Your team is smart.
+
+When you get (or ask) the same question over and over, that's a symptom. The problem is the codebase. Or the architecture. Or the data model. Or the docs.
+
+Your team can't help itself. They need you.
+
+Fantastic job security aaaaand that's [why senior engineers get nothing done](https://swizec.com/blog/why-senior-engineers-get-nothing-done). There's no time. 💩
+
+When you answer the same question 3 times, write it down. Share the link.
+
+When they ask again, edit and share the link.
+
+Your doc won't always answer all the nuance of a question but it helps. Gets you on common ground, makes the chat more productive.
+
+https://twitter.com/Swizec/status/1357443311758286848
+
+And the more you write, the less you have to keep in your head. Mine has the memory of a goldfish 😇
+
+<ContentUpgrades.SeniorMindset />
+
+## The Magic Function
+
+You know what's even better than up-to-date docs? Not needing docs.
+
+Imagine if instead of a complex 6 step process you could start the foobulizer with `startFoobulizer()`.
+
+![](giphy:looney_tunes_heaven)
+
+We used to have this problem at work. We still do but not with that part 😛
+
+### The Magic Function saved my butt
+
+Verifying insurance was my first introduction to _"Holy shit health tech is something else"_.
+
+The process goes like this: Get your info, maybe use what exists, talk to an API, see if it's valid, check a sea of inscrutable codes, decide if your insurance supports _this_ appointment at _this_ time (yes it changes), and a bunch other details.
+
+You don't want to deal with this as a user.
+
+Heck, I didn't wanna deal with it as a programmer! Confusing, terrible, makes-no-sense.
+
+We had an `Insurance` module, but it was hard to hold. You had to call the right functions in the right sequence at the right time.
+
+Get it wrong and the company doesn't get paid.
+
+I got it wrong. Five times 😅
+
+Edge case after edge case, bug after bug, meeting after meeting. 3 of us working on this stupid thing.
+
+We had docs, we had code, yet we couldn't make it work.
+
+Until one day the dude who grokked the business logic said _"Screw this, this is bullshit."_
+
+He built a new function: `Insurance.verify(user, appointment)`.
+
+And oh my god it was beautiful. Cut through all the crap. You call this method, give it a user and an appointment, _and it does it all for you_. Standing on the right leg holding its left nostril and all! 😍
+
+Nobody has asked an insurance question since.
+
+### Why The Magic Function works
+
+The Magic Function is a high level method that _does the thing the whole thing and nothing but the thing_.
+
+Forget reading and understanding docs. Forget writing and updating docs. Just make it work.
+
+https://twitter.com/Swizec/status/1357454099889881089
+
+_You_ do the work so your team doesn't have to. Like Penn & Teller say:
+
+> Sometimes magic is just someone spending more time on something than anyone else might reasonably expect.
+> ~ Teller of Penn&Teller fame
+
+You write The Magic Function when you see that code _always_ goes together. You _always_ make this DB update after that API call. You _always_ call these 3 functions together. You _always_ ...
+
+The Magic Function frees your team from that complexity. Instead of worrying about the details, they focus on _their_ problem. 🧙
+
+Best part: **they'll find your function on their own.** No questions, no confusion.
+
+Engineers always find a way. Help them find _the_ way.
+
+## Ye olde unix philosophy??
+
+The opposite of The Magic Function is the [unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) – lots of small composable utilities.
+
+> Make each program do one thing well. To do a new job, build afresh rather than complicate old programs by adding new "features". Expect the output of every program to become the input to another, as yet unknown, program
+
+How you read this depends on your idea of "one thing".
+
+Is one thing to verify insurance, or to call an API for 1 out of 50 different ways it needs to be called depending on circumstance? 🤔
+
+It's fractal. Single responsibility all the way down. A magic function calls other magic functions.
+
+You wouldn't wanna think about optimizing DOM updates to draw a button, just like your HTML rendering shouldn't think about where the HTML is from.
+
+Write functions, mostly magic. Think fractals.
+
+✌️
+
+Cheers,<br/>
+~Swizec
+
+PS: [how to start a 1928 Ford](https://youtu.be/kr53h0hv8hI) is a 20min video. These days you press a button and go. When's the last time you read the instruction manual for a car?

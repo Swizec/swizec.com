@@ -1,0 +1,125 @@
+---
+title: "How to own projects like a senior engineer"
+description: "The best skill you can learn is ownership. The second best is to let go."
+published: 2021-07-02
+categories: "Opinions, Leadership, Mindset, SeniorMindset"
+content_upgrade: SeniorMindset
+hero: ./img/screenshot-1625243665624.png
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+
+The best skill you can learn is ownership.
+
+https://twitter.com/Swizec/status/1410303621535715330
+
+Ownership means that when YOU grab the project, it _will_ get done. No matter what.
+
+Unless it's no longer a priority. Then you drop it like it's hot. This is harder than it looks.
+
+## Overcoming obstacles
+
+At its core, ownership is about overcoming obstacles.
+
+[How good are you on your worst day](https://swizec.com/blog/flow-good-for-programming-not-engineering/)? When the code hates you, production is on fire, user story makes no sense, and [half your day is spent helping others](https://swizec.com/blog/why-senior-engineers-get-nothing-done/)?
+
+That's when ownership shines.
+
+You find time with your Product Manager – PM – to clarify the story, you work around the bad code, make time to fix it, and [add "fixme" stories to the backlog](https://swizec.com/blog/reader-question:-when-do-you-fix-tech-debt/). When that fails, you find people with more context and ask questions.
+
+You can google for library questions. You have to [ask for codebase questions](https://swizec.com/blog/how-to-ask-for-help/).
+
+https://twitter.com/Swizec/status/1431308276902334464
+
+<ContentUpgrades.SeniorMindset />
+
+## Excuses and reasons
+
+Steve Jobs liked to share [a great story about ownership](https://www.inc.com/jeff-haden/steve-jobs-said-1-thing-separates-great-leaders-from-all-rest-and-makes-all-difference-for-success.html):
+
+When your office isn't cleaned, you ask the janitor why.
+
+_"Office was locked and there's no key"_
+
+And that's fine. That's a good excuse. You can't clean an office without the keys.
+
+But when you're a certain level, that's no longer fine. Why didn't you go find the key? Why isn't there a backup? If all else fails, why didn't you pick the lock?
+
+An excuse is when you say _"I couldn't do it because of X"_. A reason is when you say _"It was delayed because X. When I tried Y and Z that didn't work, I'm trying W next unless you have a better idea"_
+
+Your job is to ensure that office is cleaned. Figure it out.
+
+## "it wasn't in the story"
+
+As an engineer, [your job is to solve problems](https://swizec.com/blog/what-makes-you-a-senior-software-engineer-anyway/), _not_ to mindlessly fulfill requirements like a drone.
+
+> Own the process. The whole process. Be the project manager you want to see in the world.
+>
+> You get the project. You read the spec. You ask questions.
+>
+> Many questions. Until _you_ are sure you understand both the spec **and the spirit of the spec**.
+
+When your PM says _"Send user a message at 9am"_, she doesn't know to also ask:
+
+- What happens in different timezones?
+- What if our server is down at 9am?
+- What if the messaging service is down?
+- What if the database was corrupted?
+- What if the cronjob runs at 9:01am?
+- What if it runs at 8:54am?
+- What if we have to send 1000 messages and that blows through our rate limit?
+- What if sending 1 message out of 100 fails?
+- What if we want to analyze sends later?
+
+Finding those hidden requirements is your job my friend. You're the expert and [distributed systems are inherently flaky](https://serverlesshandbook.dev/robust-backend-design) 😉
+
+When you ask, the PM might say _"Not a business priority right now, thanks for asking"_.
+
+Which is a lot better than getting a text on your Bahamas vacation at 10am saying _"Hey our business is down because we tried to send 10,000 messages in 1 second and it locked the database, what the fuck?"_
+
+And she's not gonna ask that your React component follows basic accessibility guidelines either. That's on you.
+
+## Own the outcome, not the work
+
+The second best skill you can learn is to let go.
+
+https://twitter.com/Swizec/status/1410336430316916736
+
+Just because you own the project, doesn't mean you have to do it alone. Get help!
+
+Notice what I said earlier:
+
+> Your job is to **ensure** that office is cleaned.
+
+Ensure, not clean.
+
+You take the responsibility. You don't have to take the work. Doing the work might even be a bad use of your time!
+
+Do _you_ have to build that component you've built a thousand times or can someone else do it with your guidance while you focus on bigger things?
+
+When shit hits the fan, opt for speed. When there's time, train others.
+
+## Surgical teams
+
+I like the surgical team analogy.
+
+You're the [lead engineer for this project](https://swizec.com/blog/how-to-succeed-as-a-lead-engineer-tactics-and-mindsets-from-practice/) and the rest of your team is there to help.
+
+_You_ own the outcome.
+
+If the patient dies, your fault. If the patient lives, your fault. If there's complications, your fault. If you publish a report, your name first.
+
+But it's a team effort.
+
+Nurses prep the patient, an anesthesiologist administers drugs, a team preps the tools, an assistant hands you the right thing at the right time, a trainee opens the patient up and closes them back, ...
+
+You planned it all. From start to finish.
+
+Described the tools you'll need, the team, the procedure, talked with the patient, managed risk, delegated tasks, helped when there's questions.
+
+And then _you_ do the hard part. The critical part. The part that needs an expert. The bit only you can do.
+
+Be the expert my friend. Own the outcome.
+
+Cheers,<br/>
+~Swizec

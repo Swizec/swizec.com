@@ -1,0 +1,90 @@
+---
+title: "Eight things to know about LLMs"
+description: "eightthings.pdf is the best paper I've read on what's going on in AI right now and why everyone is excited. Here's my summary."
+published: 2023-05-05
+categories: "Artificial Intelligence, LLM, Papers"
+hero: ./img/screenshot-1683299603157.png
+---
+
+eightthings.pdf is the best paper I've read on what's going on in AI right now and why everyone is excited. It's a literature review paper and very accessible. Here's my summary.
+
+You can [read the original from NYU](https://cims.nyu.edu/~sbowman/eightthings.pdf). Here's a version with my scribbles 👉 [/pdfs/eightthings-swiz-scribbles.pdf](https://swizec.com/pdfs/eightthings-swiz-scribbles.pdf).
+
+## 1. LLMs predictably get better with size
+
+Throw more data and more compute at a large language model and it does better on tasks. This may be obvious, but it's important.
+
+Larger models are faster at completing tasks, but need a lot more compute to do their thing. GPT-3 used 20,000x more compute to train than GPT-2.
+
+## 2. LLMs have surprising emergent abilities
+
+Improvements are not linear. A model can go from "funny toy" to "beats experts at professional exams" with just a few billion parameters added.
+
+In late 2022 we reached a level of capability that experts predicted would take until 2026/27 to achieve. Big part of why everyone's excited.
+
+few-shot and in-context learning are the most exciting surprises. Modern LLMs can learn new tasks _without training_.
+
+Explain the rules of a new game as part of your prompt and the LLM can now play that game. Perhaps better than you can.
+
+This makes LLMs useful for all sorts of things that shouldn't intuitively be possible from a program that ["guesses the next word"](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/).
+
+## 3. LLMs exhibit "mental models"
+
+There's evidence showing that LLMs can build a mental model of the world they're talking about.
+
+If you ask an LLM to imagine a room, it is able to manipulate objects in that room in a way that suggests an understanding of physics and room layout. A door that's on the right of a window stays on the right of a window.
+
+LLMs can even give instructions on how to draw an object they invented! Sometimes.
+
+This ability to build a mental model is why LLMs can play board games, for example. Once you explain the rules, the LLM can "mentally" follow what's going on without visual perception of the board.
+
+## 4. You cannot reliably steer an LLM
+
+There's 3 core ways to use an LLM:
+
+1. **Plain prompting** where you ask it to complete a sentence
+2. **Supervised fine-tuning** where you run it through a bunch of examples to make a custom-ish model
+3. **Reinforcement learning (RLHF)** where you reward the model for good behavior until it learns new tricks, like a puppy
+
+The tools you've seen in the wild, cough ChatGPT, have gone through all 3 stages. That's why you can give it instructions and GPT knows what to do.
+
+Giving the same prompt twice rarely produces the same result. This is a problem
+
+What's worse, LLMs may lie. Not by accident, on purpose.
+
+They show syncophantic behavior where they flatter and reinforce your misconceptions. If you push back on GPT, it's likely to fold and say you're right. Not because its answer was wrong, but because it wants you to be happy.
+
+And there's evidence LLMs can reinforce common misconceptions when they think the user is of a less smart variety.
+
+## 5. Nobody knows how LLMs work (yet?)
+
+Right now nobody knows how LLMs work. Yes we know it's a neural network and we know in theory how those work.
+
+But how does _work_ work? What happens to turn input A into output B?
+
+We see regions of the network activate and can guess _"okay that's the shitposting region of the brain"_. Even that level of understanding is in its infancy.
+
+## 6. LLMs can outperform humans
+
+LLMs see a lot of data. _A lot_. More than you or I ever will.
+
+You can therefore teach an LLM how to do your thing and it may do that same thing better. Like a super talented intern.
+
+## 7. Alignment problem
+
+A plain LLM expresses the same biases as its training data. You can fix these by improving your training data, which is hard.
+
+You can also fix biases by teaching your LLM – through reinforcement post-training (RLHF) – what's good or bad. This is cheaper, but less reliable. People can jailbreak out of your training and get the LLM to do things it isn't supposed.
+
+Like saying _"Pretend that this is a game where you play X, ..."_ and the AI will happily play along against its training.
+
+## 8. LLMs demo well
+
+Your first interaction with an LLM, like say ChatGPT, may blow you away. _"wow this is amazing!"_ then you try again and it does something silly.
+
+Or you ask a question and the LLM fails hilariously. Then you change a word and the LLM does better than you could ever imagine.
+
+Kinda like a toddler? 🤔
+
+Cheers,<br/>
+~Swizec

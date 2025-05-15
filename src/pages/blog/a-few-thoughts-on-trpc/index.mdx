@@ -1,0 +1,121 @@
+---
+title: "A few thoughts on tRPC"
+description: "Discover tRPC's potential in building end-to-end type safe RPC APIs in this insightful blog post. Perfect for developers seeking innovative solutions for server-client separation in webapp development."
+published: 2023-10-06
+categories: "Fullstack, tRPC, NextJS, React Query, React"
+hero: ./img/screenshot-1696607787138.png
+---
+
+This week I tried a new stack for building webapps and found it pretty great. This isn't like a tutorial or anything, just a few thoughts and some code.
+
+What's the most annoying part of building a webapp? The server-client separation.
+
+Your application runs on different computers and now you have to deal with that split. Data and core business logic tends to live on the server. UI and light logic live on the client.
+
+To get them talking, you need an API layer. This is where shit hits the fan.
+
+## Common types of APIs
+
+**REST** is the gold standard with well-known advantages and drawbacks. The biggest issue is that APIs tend to balloon in size and are often built for 1 specific use-case in 1 specific client.
+
+**GraphQL** made a good run at being the new gold standard, but never quite caught on. Great for complex reads, clunky for writes. Easy to write database-killing queries.
+
+**RPC** – remote procedure call – is more of a vibe than a technology. You call an API with a specific function/task in mind. Many if not most REST and GraphQL APIs that I've seen are secretly RPC in shape.
+
+You are almost guaranteed to build an RPC-shaped API, if you're building 1 specific server for 1 specific client. Sometimes RPC-over-REST is even the right choice! Like when a bunch of business logic needs to happen from a user action.
+
+## What's tRPC
+
+[tRPC](https://trpc.io) is a ... framework? ... for building end-to-end type safe RPC APIs.
+
+That means you get full type support with autocomplete on the server and the client. _And_ runtime validation that your inputs and outputs match your API spec 😍
+
+Best part: Without manually specifying or copying types in a bunch of places. TypeScript infers almost everything.
+
+## What's tRPC like to use
+
+Here's example code from [a project I'm building for AI Summit](https://swizec.com/blog/similarity-search-with-pgvector-and-supabase/). We're trying to match conference attendees based on interests and suggest they meet. Excited to see if this works 🤞
+
+I rolled into an existing project and can't give you the full tutorial. Just the parts I know about – adding an endpoint and calling it from React.
+
+### Creating an endpoint
+
+To create endpoints you make a new tRPC router:
+
+```typescript
+export const matchingRouter = createTRPCRouter({});
+```
+
+You define your endpoints as keys in that object. Each endpoint is a resolver function that gets an input and returns a response.
+
+```typescript
+  getMatches: publicProcedure
+    .input(z.string())
+    .query(async ({ input, ctx }) => {
+			const matches = // read data from a database or whatever
+			// it's just TypeScript, you can do whatever
+
+      return matches;
+    }),
+```
+
+Here I'm using [zod](https://github.com/colinhacks/zod) to specify my input type _and_ perform run-time validation. The tRPC + Zod integration is nice enough that VSCode knows that the `input` argument is a string 😍
+
+You can specify complex shapes and VSCode flawlessly picks up on that.
+
+### Fetching your endpoint
+
+To fetch your endpoints, you'll need a tRPC client. In this case optimized for Next.js.
+
+```typescript
+export const api = createTRPCNext<AppRouter>({
+  config() {
+    return {
+      // ...
+    };
+  },
+
+  ssr: false,
+});
+```
+
+You then use queries same as you would with React Query. I think tRPC even uses React Query under the hood.
+
+```typescript
+api.matching.getMatches.useQuery("clnb896di0002c949ugw700yc", {
+  onSuccess: (data) => {
+    console.log("hai", data);
+  },
+});
+```
+
+tRPC gives you autocomplete for your API structure and the query ensures your component re-renders when new data becomes available. Does all the re-fetching and caching for you too.
+
+### What does an API call look like?
+
+API calls are based on HTTP because we're on the web. No surprises here.
+
+It does look like tRPC batches your API calls to reduce network traffic. That's neat.
+
+![Batched API call](./img/Batched-API-call4e7jfe.png)
+
+![API call response](./img/API-call-responsec62bi5.png)
+
+Ideally you'd never care about any of this. tRPC hides the details and makes your code work.
+
+### Good for writes?
+
+Yep! tRPC writes don't feel clunky at all.
+
+You define the router as `.mutation` instead of query and make calls with `useMutation` instead of query. Everything else works the same.
+
+## tRPC good or bad?
+
+I liked it!
+
+Super productive to work with, easy to jump into. Not sure I'd use it for a large project with [a deep backend](https://swizec.com/blog/the-backend-iceberg/) or when you have a bunch of clients that need to read the same data but in different shapes.
+
+Feels like tRPC works best when you use the backend-for-frontend pattern. But I _love_ that there's no fiddling with API definitions or any of that stuff.
+
+Cheers,<br/>
+~Swizec

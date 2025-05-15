@@ -1,0 +1,113 @@
+---
+title: "How JAMStack helps you ship"
+description: "Common problem in engineering teams: Stepping on each other's toes. JAMStack can help."
+published: 2020-10-27
+categories: "Fullstack Web"
+content_upgrade: fullstackWeb
+hero: ./img/screenshot-1603812044466.png
+---
+
+We talked about a common problem in engineering teams: Stepping on each other's toes.
+
+You want to ship a feature but Alice's bugfix isn't ready and your code is mixed. Now you're waiting ...
+
+One solution is trunk-based development with feature flags. Everyone works off master and hides their code behind a gazillion if statements.
+
+You'll need a strict unit and integration testing discipline, a system for feature flags, engineers who never break things, strong typing, good documentation, and the Beyonce rule: _If you liked it you shoulda put a test on it._
+
+Anyone might change anything at any time.
+
+![](giphy:no)
+
+Trunk-based development works for Google, Facebook, Apple, and other giant enterprises.
+
+You and me ... eh I dunno. I've seen mixed results and crying users.
+
+## JAMStack is like frontend microservices
+
+Another solution are microservices.
+
+You split your app into areas of interest, known as concerns. Each becomes its own independent piece of code. Ship when it needs to, run its own environment, have its own versions, use its own libraries.
+
+This worked for Amazon. It's why AWS has so many products. Others followed suit.
+
+With this approach teams can iterate independently. Shared code goes into versioned libraries, specific code goes into versioned services.
+
+Alice never has to wait for you and you never wait for her.
+
+![](giphy:nice!)
+
+JAMStack brings this to the frontend and it's amazing my friend.
+
+It stands for Javascript-Apis-and-Markdown.
+
+You build the frontend in Javascript, connect to APIs, and use Markdown for content-heavy portions. Easier to write that way trust me :)
+
+## Shift your mindset to the JAM
+
+Your first separation of concerns comes from splitting the frontend and backend. You've seen this with SinglePageApps.
+
+React, Vue, Angular, etc. apps are built this way. Render your UI in the browser, call the server through an API.
+
+Backend and frontend can iterate independently. Great.
+
+You run into issues as your frontend grows.
+
+Should engineers build the marketing page? Landing pages for specific ad campaigns? Should they help with every tiny tweak and marketing A/B experiment? Even when there's 50 per week?
+
+Don't have enough work building the product? 😉
+
+There's your first split: Product vs. marketing parts of the frontend.
+
+Yep, they want to look the same and share styling. Yes marketing wants a lot of the same API data as the product. Oh yes, the signup widget needs to create users and there's a Login button.
+
+But marketing and product fundamentally evolve at a different pace.
+
+Another fun one are admin interfaces and internal tools. Needs all the same data, moves much slower. Ain't nobody got time to polish those.
+
+![](giphy:aint_got_time)
+
+## How the JAMStack helps
+
+Here's what you do to solve those problems: Split your app.
+
+You build a core library for shared features. Start with the design system. You'll need that everywhere and it's easy to split off. A library that gives you perfect-looking UI off a napkin sketch.
+
+😍
+
+Then you create separate JAMStack apps per area. One for marketing, one for admin, one for each internal tool, one or two for the core product ... it depends!
+
+Every app uses the same core stack:
+
+- your design system
+
+- your shared libraries
+- your APIs
+
+When admin creates a user it calls the same API as the SignUp button on the marketing homepage.
+
+![](giphy:hell_yeah)
+
+And despite that, every app is independent:
+
+- its own deploy frequency
+- its own versions
+- its own deploy environment
+- its own staging and preview
+
+Wait what?
+
+Yep. They're independent apps. You can work on each area of your overall product separately. Alice doesn't care what Bob is changing. Neither worries about _your_ changes.
+
+It's great.
+
+Plus modern tooling gives you a fantastic preview and deploy experience. Every pull request becomes its own live URL. Share it with designers and PMs and they see where you're at.
+
+Feedback early and often. Don't even have to wait for someone to approve your pull request. Show it off before merge 😍
+
+When's a better time to hear _"That button doesn't work, make it blue and change the text"_: 2 weeks after pull request got merged, or 5 minutes after you typed the code?
+
+I know my answer.
+
+Cheers,<br/>
+~Swizec

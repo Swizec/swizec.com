@@ -1,0 +1,61 @@
+---
+title: "Why system design is my favorite interview"
+description: "Without reading their resume, you'll see if a candidate is fresh or has been doing this a while. And you'll know their blind spots and their strengths"
+published: 2024-12-18
+categories: "Career, Mindset, Interviewing"
+hero: ./img/screenshot-1734538059670.png
+---
+
+System design is in my opinion the highest signal hour you can spend with a candidate. If you had to do just one interview to evaluate engineers, this would be it.
+
+If you think interviews are pointless, go here 👉 [Insights from interviews from Kahneman's Noise](https://swizec.com/blog/insights-for-interviews-from-kahneman-s-noise/). Good interview design gives you about 75% correlation with on-the-job performance. This matches my experience.
+
+## What a system design interview looks like
+
+A system design interview is roughly the opposite of a leetcode interview. This is the one where you get to say _"It depends"_, ask lots of questions, express strong opinions, and there is purposefully no specific right answer.
+
+I like to keep introductions short (3min) so the candidate has more time to shine. I explicitly say this. At the end there's time for questions and I'm always happy to stay over.
+
+The typical system design question will start with a problem statement, a thing for you to design, and scale numbers to guide your design. I've seen interviewers skip this last part but it's crucial – designing a system for 100 users is different than 1 billion.
+
+I like to guide candidates into a 4 stage approach:
+
+1. Design the data schema
+2. Design the API
+3. Design the data querying
+4. Design the hosted architecture
+
+Candidates can go in any order, but in over 100 of these interviews, I have never seen it go well in a different order. You do need to know the shape of your data before you can query.
+
+To help candidates focus on the part they're solving, you have to hand-wave away large parts of the system. _"Let's assume that part is implemented"_ is an important phrase to use.
+
+## Why this is a great interview
+
+Unlike leetcode, people get _better_ with experience. The interview is designed to highlight what you've done, not what you've read about.
+
+### Can they make it work
+
+At a base level, you see _"Can candidate design a working system"_. This is the hard skills part of the question and one that folks can study for. But that's not the fun part.
+
+The fun part is seeing how they approach the problem. Does the candidate look at your scale numbers and design an _appropriate_ system? Or do they rush to building the biggest baddest system they've read about online?
+
+If they do over-design a thing, can they explain how they would deal with all the pitfalls? If they shard the database, do they truly grasp how bad of a last-resort idea that is in a world where AWS offers machines with 32TB of RAM? If they add a bunch of caching, do they have a good plan for managing invalidation?
+
+### Do they ask or assume
+
+As the interviewer I play product owner / co-engineer.
+
+Does the candidate ask business questions or assume details to make their life easier? When I offer engineering suggestions, can they incorporate those into their design? Do they recognize when they're out-of-depth and say _"I don't know"_, or do they press on being confidently wrong?
+
+If a candidate never says "I don't know" in a system design interview that's a yellow flag. Altho I did once interview a candidate so amazing that they got me to say I don't know and then taught me a thing. That was awesome.
+
+### Engineering over time
+
+The best candidates say a lot of _"Well, you could do A, B, or C"_, explain the pros/cons of different options, ask a question or two about the broader system, then pick an appropriate option. They then explain how this decision changes as the system evolves and build a design that preserves optionality/flexibility for later.
+
+That takes experience. You can't study for that.
+
+This makes system design a great leveling interview. Without reading their resume, you'll see if a candidate is fresh or has been doing this a while. And you'll know their blind spots and their strengths – important for building a team.
+
+Cheers,<br/>
+~Swizec

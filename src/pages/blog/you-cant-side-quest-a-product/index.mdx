@@ -1,0 +1,77 @@
+---
+title: "You can't side-quest a product"
+description: 'Here''s a trap that talented engineers fall into all the time. It creates frustration, burnout, and the genre of tweets that read like "Why don''t people care about the amazing work I''m doing".'
+published: 2024-07-03
+categories: "Engineering, Software Architecture, Complexity, Scaling Fast Book"
+hero: ./img/screenshot-1720021402454.png
+---
+
+Here's a trap that talented engineers fall into all the time. It creates frustration, burnout, and the genre of tweets that read like _"Why don't people care about the amazing work I'm doing"_.
+
+## Solve the problem, not a different more difficult problem
+
+Jane, Joe, and Alice are faced with a challenge: They're building a project that looks like it might involve a series of web forms. The first one is simple, but then there's the next form and the next and the next one after that.
+
+They look at each other in the swarm meeting and sigh. This looks tedious.
+
+Joe speaks first: _"Great, web forms. A bunch of them. It's been so long since we did anything interesting."_
+
+_"We **could** make it easier. Build a tool that spits these out ... 🤔"_ adds Alice.
+
+Jane gets a twinkle in her eye. _"YES! And then we can make a basic JSON config for the forms that our stakeholders could use. They could even ask ChatGPT to write the config for them"_
+
+Joe gets excited. _"We'd never have to build a web form again! The stakeholders would be fully empowered to move on their own 🤩"_
+
+They come back to Bob, the PM, with a revised estimate. He clears his throat and says _"Did you say 2 weeks for a form?"_
+
+_"I know it's a lot Bob but think about how much time this will save down the line. This is gonna be epic"_, Alice says.
+
+Unconvinced, Bob lets the team experiment. He believes engineers should [get us across the water, not just build a bridge](https://swizec.com/blog/get-us-over-the-water-not-build-us-a-bridge/).
+
+3 weeks later he gets a form, it mostly works. But priorities have shifted and the team is off to working on the marketing site. The pile of forms will have to wait.
+
+## You can't side-quest a product
+
+I was once Jane, Joe, and Alice building a form generator framework. We had a new company direction that looked like lots of forms and a small dysfunctional team. The perfect breeding ground for solo technical initiatives that solve the wrong problem.
+
+Make APIs, not friends was our motto.
+
+The ask was to build the first form to start testing the new initiative. But I thought my approach to solve all forms forever was brilliant and forged ahead.
+
+After 2 weeks of excitement, I delivered the first one-page form. Nobody was impressed. Why did it take so long? Aren't you a senior engineer? 2 weeks for a basic form? It doesn't even look that good. The validations are wrong. Can we move these fields around?
+
+Making changes to our forms was unpredictable. One ask was effortless and easy, another similar ask meant hours of work to add new features to the framework. Other basic asks exposed interesting new bugs. This was frustrating to our PM because each new estimate felt like a surprise. _"Are the engineers fucking with me? How do you plan a roadmap in this environment??"_
+
+The worst part was that my framework made our forms tightly coupled. Because every form used the same core, you had to
+constantly test and re-test everything when making changes.
+
+### There's more to product than code
+
+We didn't have automated testing of course. Or a proper development process for the framework itself. It was purely one engineer's (me) windmill tipping effort to solve forms in a systematic way.
+
+In a better-staffed company you'd solve this with a platform team of some sort. Or reserve a staff engineer's time to work on the framework. Leadership buy-in is key. They have to believe your thing brings value to the company and invest in your success.
+
+_The framework_ needs to be somebody's product and get the full attention it deserves. You need:
+
+- a proper discovery process,
+- managing stakeholders (other engineers),
+- OKRs tied to the success of the framework,
+- proper testing and observability,
+- documentation,
+- release management,
+- time to offer help and support
+
+A framework or library is a product. It needs close to the same love and attention your main products get. The bigger the company, the more of this meta-love it's going to need. You cannot do this as an unsanctioned begrudgingly tolerated side quest.
+
+### Without love, your framework will die
+
+Friends tell me that after I left the company, working with my frame builder was "super annoying". The abstraction was nice when it worked and basic forms were quick to build, but almost none of the forms they needed were basic. Every form had some exception they had to bang into place.
+
+The forms never changed frequently enough to warrant the "Just write this simple config, anyone can do it" approach I created. Business stakeholders never wanted to build and configure their own form, obviously. That's what the engineers are for.
+
+Soon the builder was scrapped and the team went back to building forms out of basic elements by hand. It was more work per form but quicker to build, easier to understand, simpler to ship, better for all the special cases, easier to estimate, and with fewer unexpected bugs across forms.
+
+[You can't fix the wrong abstraction](https://swizec.com/blog/you-can-t-fix-the-wrong-abstraction/). You have to throw it out and start again. Like [kicking a can](https://swizec.com/blog/writing-software-is-like-kicking-a-can/).
+
+Cheers,<br/>
+~Swizec

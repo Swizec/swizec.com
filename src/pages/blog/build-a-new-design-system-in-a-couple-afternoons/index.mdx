@@ -1,0 +1,193 @@
+---
+title: "Build a new design system in a couple afternoons"
+description: ""
+published: 2020-07-03
+redirect_from:
+  - /blog/build-a-new-design-system-in-a-couple-afternoons/swizec/9444
+categories: "Front End, Technical"
+hero: ./img/EL0L4QN.png
+---
+
+Friend, my first design system took 3 years to build. My last just 3 days. Here's what I learned.
+
+![](./img/qvxpdEY.gif)
+
+First, what is a design system anyway?
+
+A design system is the ideal workflow for UI. A set of core reusable elements and rules that spit out good-looking interfaces without design skill on your part.
+
+You and your designer set the tone once, create the elements, some basic rules, then you work from mockups. Everything you build looks perfect and your designer spends time on UX not fiddly details.
+
+You the engineer can build perfect UI from a napkin sketch.
+
+😍
+
+That's the theory.
+
+Life is messy so a good design system must also be flexible. Local over-rides for one-offs.
+
+## Prereqs
+
+You'll need a couple prereqs before you get started:
+
+1.  **A designer that agrees systems are good**. Some designers see their work as art. Every element is custom, every button a little different, every screen a new masterpiece. You can't systemize this. You will suffer. Sorry.
+2.  **A componentized approach to UI**. Use a component-based framework like React, Vue, or Angular. You _can_ do it with CSS classes but this is easier. Trust me.
+
+The main benefit of components is that you can encapsulate both UI _and_ UX. Not just looks but also behavior.
+
+PS: I got lucky and get to do this from scratch. You can introduce a design system gradually but it's a little trickier.
+
+[![](./img/EL0L4QN.png)](https://twitter.com/Swizec/status/1276624374003404800)
+
+## Goal
+
+Every select field, say, should look _and_ feel the same. Across your entire app. So why build it from scratch every time?
+
+You want something like this:
+
+[![Click through for source](./img/techletter.app-screenshot-1593798386272.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20%7B%20Select%20%7D%20from%20%22my-design-system%22%0A%0Aconst%20Form%20%3D%20()%20%3D%3E%20%7B%0A%09return%20(%0A%09%09%3Cform%3E%0A%09%09%09%3CSelect%20options%3D%7B...%7D%20%2F%3E%0A%09%09%3C%2Fform%3E%0A%09)%0A%7D>)
+
+And that's your standard beautiful magnificent and all round marvelous select field.
+
+Build it once use it everywhere. ✌️
+
+Test it once, approve it once, back-and-forth with designer once, back-and-forth with QA once, back-and-forth with PM once ... and then it works forever. You're good until the next redesign.
+
+And with a little luck any future redesign will touch just your design system. You might not even have to touch any application code.
+
+![the_dream giphy](./img/media-J8Iqja8CXfMw8-giphy.gif)
+
+Where classes – utility classes especially – fall down is this reusability. Do I have to add `bg-gray flex1 color-blue p3` or was it `bg-gray flex2 color-white p4` 🤔
+
+Stop. You've already lost.
+
+Every QA cycle, every PM test, every new feature you will have to carefully vet every little detail. Because they're always done from scratch.
+
+A design system saves you that effort.
+
+## How you create a design system in 2020
+
+[![](./img/fEe1Ucy.png)](https://twitter.com/Swizec/status/1277776081559289856)
+
+3 years ago when I started building my first, the ecosystem wasn't quite "there" yet.
+
+CSS-in-JS or CSS modules? Big fat CSS classes or utilities? React, Vue, or nothing? How to scales? How to colors? Weird names or long names? Build a catalogue or not? How do you docs? Do you even need docs?
+
+Crap, what about responsiveness? Do you grid or flex? `float: left`?? 🤨
+
+I've tried it all.
+
+This is what I've landed on as the ultimate solution:
+
+1.  **Use [Storybook](https://github.com/storybookjs/storybook)** – spits out a catalogue and docs too. Live preview of your components, human readable descriptions with docs, you can even just write documentation in MDX and storybook handles the rest. Hell it even spits out API Docs based on TypeScript types. 🤘
+2.  **Add [Chromatic](https://www.chromatic.com/)** – a SaaS from the creators of Storybook. Gives you a hosted versioned Storybook. Added bonus: snapshot testing of all your components. Screams at you when there's a visual regression 😍
+3.  **Use TypeScript** – the VS Code experience with TS is just wonderful. Hints and docs as you mouse-over a component are fantastic. Very helpful when you work on a team.
+4.  **Start with [theme-ui](https://github.com/system-ui/theme-ui)** – this part is React only. `theme-ui` is the best balance between developer experience/ergonomics and solid design system. Does most of the work for you.
+
+I started from scratch with `npm install @storybook/react --save-dev` and 3 days later had a full custom design system ✌️
+
+[![](./img/I5390QO.png)](https://twitter.com/Swizec/status/1278500671587663872)
+
+The trick is to lean hard into the ecosystem and let others do your work.
+
+### Here's how
+
+1.  **Install all the dependencies**
+
+[![Click through for source](./img/techletter.app-screenshot-1593798386174.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=null&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20devDependencies%0A%22%40babel%2Fcore%22%3A%20%22%5E7.10.3%22%2C%0A%22%40storybook%2Faddon-info%22%3A%20%22%5E5.3.19%22%2C%0A%22%40storybook%2Fpreset-typescript%22%3A%20%22%5E3.0.0%22%2C%0A%22%40storybook%2Freact%22%3A%20%22%5E5.3.19%22%2C%0A%22%40theme-ui%2Fpresets%22%3A%20%22%5E0.3.0%22%2C%0A%22%40types%2Fjest%22%3A%20%22%5E26.0.3%22%2C%0A%22%40types%2Fnode%22%3A%20%22%5E14.0.14%22%2C%0A%22%40types%2Freact%22%3A%20%22%5E16.9.41%22%2C%0A%22%40types%2Freact-dom%22%3A%20%22%5E16.9.8%22%2C%0A%22%40types%2Fstorybook__addon-info%22%3A%20%22%5E5.2.1%22%2C%0A%22%40types%2Ftheme-ui%22%3A%20%22%5E0.3.4%22%2C%0A%22babel-loader%22%3A%20%22%5E8.1.0%22%2C%0A%22chromatic%22%3A%20%22%5E5.0.0%22%2C%0A%22jest%22%3A%20%22%5E26.1.0%22%2C%0A%22react-docgen-typescript-loader%22%3A%20%22%5E3.7.2%22%2C%0A%22ts-jest%22%3A%20%22%5E26.1.1%22%2C%0A%22ts-loader%22%3A%20%22%5E7.0.5%22%2C%0A%22typescript%22%3A%20%22%5E3.9.5%22%0A%22storybook-addon-theme-ui%22%3A%20%22%5E0.1.5%22%2C%0A%0A%2F%2F%20peer%20dependencies%0A%22react-dom%22%3A%20%22%5E16.13.1%22%2C%0A%22react%22%3A%20%22%5E16.13.1%22%0A%0A%2F%2F%20dependencies%0A%22theme-ui%22%3A%20%22%5E0.3.1%22>)
+
+`theme-ui` is your only real dependency. The rest are used in development.
+
+Don't worry about the low version number on `theme-ui`. It builds on lessons learned from several earlier attempts.
+
+[@jxnblk](https://twitter.com/jxnblk) did a great job
+
+2.  **Configure storybook to be fab**
+
+Storybook by default is great. Storybook with some addons is fantastic.
+
+The most important parts for me are:
+
+- easy/automatic documentation
+- accessibility checks
+- knobs to visually test components
+- typescript support
+
+Configuring all this happens in the `.storybook` directory.
+
+[![Click through for source](./img/techletter.app-screenshot-1593798387781.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20.storybook%2Faddons.js%0A%0A%2F%2F%20register%20some%20of%20the%20addons%0Aimport%20%22%40storybook%2Faddon-actions%2Fregister%22%3B%0Aimport%20%22%40storybook%2Faddon-viewport%2Fregister%22%3B%0Aimport%20%22%40storybook%2Faddon-a11y%2Fregister%22%3B>)
+
+Some addons like to be included via the `addons.js` file. Others go in `main.js`. I still don't understand why.
+
+[![Click through for source](./img/techletter.app-screenshot-1593798388118.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20.storybook%2Fconfig.js%0A%0A%2F%2F%20configure%20defaults%20for%20all%20your%20stories%0A%0Aimport%20%7B%20addParameters%2C%20addDecorator%20%7D%20from%20%22%40storybook%2Freact%22%3B%0Aimport%20%22%40storybook%2Faddon-console%22%3B%0Aimport%20%7B%20withThemeProvider%20%7D%20from%20%22storybook-addon-theme-ui%22%3B%0Aimport%20%7B%20withConsole%20%7D%20from%20%22%40storybook%2Faddon-console%22%3B%0Aimport%20%7B%20withA11y%20%7D%20from%20%22%40storybook%2Faddon-a11y%22%3B%0Aimport%20%7B%20withKnobs%20%7D%20from%20%22%40storybook%2Faddon-knobs%22%3B%0Aimport%20*%20as%20presets%20from%20%22%40theme-ui%2Fpresets%22%3B%0A%0Aimport%20*%20as%20themes%20from%20%22..%2Fsrc%2Fthemes%22%3B%0A%0AaddParameters(%7B%0A%20%20%20%20themeUi%3A%20%7B%0A%20%20%20%20%20%20%20%20themes%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7B%20theme%3A%20themes.askTia%2C%20name%3A%20%22Ask%20Tia%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7B%20theme%3A%20presets.base%2C%20name%3A%20%22Base%20Preset%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7B%20theme%3A%20presets.deep%2C%20name%3A%20%22Deep%20Preset%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%5D%2C%0A%20%20%20%20%7D%2C%0A%20%20%20%20actions%3A%20%7B%20argTypesRegex%3A%20%22%5Eon.*%22%20%7D%2C%0A%7D)%3B%0A%0AaddDecorator((storyFn%2C%20context)%20%3D%3E%20withConsole()(storyFn)(context))%3B%0AaddDecorator(withThemeProvider)%3B%0AaddDecorator(withA11y)%3B%0AaddDecorator(withKnobs)%3B>)
+
+This configures defaults for every story in your storybook. That is every example you want to put up. Things like adding the theme provider, enabling knobs and accessibility checks, etc.
+
+[![Click through for source](./img/techletter.app-screenshot-1593798386297.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20.storybook%2Fmain.js%0A%0A%2F%2F%20configure%20webpack%2C%20more%20addons%2C%20and%20typescript%0Aconst%20path%20%3D%20require(%22path%22)%3B%0A%0Amodule.exports%20%3D%20%7B%0A%20%20%20%20stories%3A%20%5B%22..%2Fsrc%2F**%2F*.stories.%40(tsx%7Cjs%7Cmdx)%22%5D%2C%0A%20%20%20%20addons%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20name%3A%20%22%40storybook%2Faddon-docs%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20options%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20configureJSX%3A%20true%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20babelOptions%3A%20%7B%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20sourceLoaderOptions%3A%20null%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%22%40storybook%2Faddon-knobs%2Fregister%22%2C%0A%20%20%20%20%5D%2C%0A%20%20%20%20webpackFinal%3A%20async%20(config)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20config.module.rules.push(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20test%3A%20%2F%5C.(ts%7Ctsx)%24%2F%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20use%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20loader%3A%20require.resolve(%22ts-loader%22)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%20Optional%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20loader%3A%20require.resolve(%22react-docgen-typescript-loader%22)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%2C%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%0A%20%20%20%20%20%20%20%20config.resolve.extensions.push(%22.ts%22%2C%20%22.tsx%22)%3B%0A%20%20%20%20%20%20%20%20return%20config%3B%0A%20%20%20%20%7D%2C%0A%7D%3B>)
+
+This part adds the documentation addon, support for typescript, and MDX.
+
+MDX is important because it means you write your design system descriptions _once_ and they double as both testing and documentation. It's great.
+
+3.  **Customize theme-ui for your design**
+
+This is the fun part.
+
+`theme-ui` actually does all the work for you. As long as you don't need custom behavior.
+
+It comes with more pre-built components than you can shake a stick at. All the components you'll need, really.
+
+And it supports themes for custom coloring, spacing, etc. All _you_ gotta do is configure a custom theme for your organization.
+
+Something like this:
+
+[![Click through for source](./img/techletter.app-screenshot-1593798386275.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2Fthemes.ts%0A%0Aexport%20const%20askTia%20%3D%20%7B%0A%20%20%20%20space%3A%20%5B0%2C%204%2C%208%2C%2016%2C%2032%2C%2048%2C%2064%2C%20128%2C%20256%2C%20512%5D%2C%0A%20%20%20%20sizes%3A%20%5B0%2C%204%2C%208%2C%2016%2C%2032%2C%2048%2C%2064%2C%20128%2C%20256%2C%20512%5D%2C%0A%20%20%20%20radiuses%3A%20%5B0%2C%205%2C%2010%5D%2C%0A%20%20%20%20fonts%3A%20%7B%0A%20%20%20%20%20%20%20%20body%3A%20%22GT_WalsheimRegular%2C%20Helvetica%2C%20sans-serif%22%2C%0A%20%20%20%20%20%20%20%20heading%3A%20%22inherit%22%2C%0A%20%20%20%20%20%20%20%20monospace%3A%20%22Menlo%2C%20monospace%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20fontSizes%3A%20%5B14%2C%2016%2C%2018%2C%2022%5D%2C%0A%20%20%20%20%2F%2F%20...%0A%20%20%20%20colors%3A%20%7B%0A%20%20%20%20%20%20%20%20...tiaColors%2C%0A%0A%20%20%20%20%20%20%20%20%2F%2F%20colors%20required%20by%20theme-spec%0A%20%20%20%20%20%20%20%20%2F%2F%20https%3A%2F%2Ftheme-ui.com%2Ftheme-spec%0A%20%20%20%20%20%20%20%20text%3A%20tiaColors.black%2C%0A%20%20%20%20%20%20%20%20background%3A%20tiaColors.white%2C%0A%20%20%20%20%20%20%20%20primary%3A%20tiaColors.pink%2C%0A%20%20%20%20%20%20%20%20secondary%3A%20tiaColors.blue%2C%0A%20%20%20%20%20%20%20%20accent%3A%20tiaColors.teal%2C%0A%20%20%20%20%20%20%20%20highlight%3A%20tiaColors.pink%2C%0A%20%20%20%20%20%20%20%20muted%3A%20tiaColors.whisper%0A%20%20%20%20%7D%2C>)
+
+Custom colors are the quickest way to achieve a great custom look.
+
+I recommend giving them color names. Primary/secondary/accent gets confusing fast. Especially when variants are in play.
+
+You should map primary to color so `theme-ui` default components pick up on your colors. This saves you time.
+
+4.  **Customize theme-ui elements**
+
+Once the basic scales are in place, you gotta apply them to different elements. Rather than creating your own from scratch, tell `theme-ui` what to do.
+
+A custom input, for example.
+
+[![Click through for source](./img/techletter.app-screenshot-1593798385578.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2Fthemes.ts%0A%0Aconst%20tiaInput%20%3D%20%7B%0A%20%20%20%20borderColor%3A%20%22greyVeryLight%22%2C%0A%20%20%20%20pt%3A%200%2C%0A%20%20%20%20pr%3A%203%2C%0A%20%20%20%20pb%3A%200%2C%0A%20%20%20%20pl%3A%203%2C%0A%20%20%20%20height%3A%205%2C%0A%20%20%20%20color%3A%20%22text%22%2C%0A%20%20%20%20fontSize%3A%201%2C%0A%20%20%20%20fontFamily%3A%20%22body%22%2C%0A%20%20%20%20mb%3A%202%2C%0A%20%20%20%20borderRadius%3A%20(t%3A%20any)%20%3D%3E%20t.radiuses%5B2%5D%2C%0A%20%20%20%20%22%26%3Afocus%22%3A%20%7B%0A%20%20%20%20%20%20%20%20borderColor%3A%20%22pink%22%2C%0A%20%20%20%20%20%20%20%20outline%3A%20%22none%22%0A%20%20%20%20%7D%0A%7D%3B%0A%0A%2F%2F%20...%0A%0Aexport%20const%20askTia%20%3D%20%7B%0A%09%2F%2F%20...%0A%09forms%3A%20%7B%0A%20%20%20%20input%3A%20%7B%0A%20%20%20%20%20%20%20%20...tiaInput%0A%20%20%20%20%7D%2C%0A%20%20%20%20select%3A%20%7B%0A%20%20%20%20%20%20%20%20...tiaInput%2C%0A%20%20%20%20%20%20%20%20%2F%2F%20this%20is%20to%20fix%20caret%20centering%0A%20%20%20%20%20%20%20%20%22%26%20%2B%20svg%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22margin-top%22%3A%20%22-10px%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%2C%0A%20%20%20%20%2F%2F%20...%0A%7D>)
+
+And a custom form falls out ❤️
+
+![](./img/KySCLMN.png)
+
+5.  **Use your design system**
+
+The best part is that you get to use scales. Scales that you defined in your custom theme.
+
+Look at this input definition, for example:
+
+[![Click through for source](./img/techletter.app-screenshot-1593798385841.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=borderColor%3A%20%22greyVeryLight%22%2C%0Apt%3A%200%2C%0Apr%3A%203%2C%0Apb%3A%200%2C%0Apl%3A%203%2C%0Aheight%3A%205%2C%0Acolor%3A%20%22text%22%2C%0AfontSize%3A%201%2C%0AfontFamily%3A%20%22body%22%2C%0Amb%3A%202%2C>)
+
+Lots of magic numbers right? They map to the size and space scales.
+
+[![Click through for source](./img/techletter.app-screenshot-1593798387860.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=export%20const%20askTia%20%3D%20%7B%0A%20%20%20%20space%3A%20%5B0%2C%204%2C%208%2C%2016%2C%2032%2C%2048%2C%2064%2C%20128%2C%20256%2C%20512%5D%2C%0A%20%20%20%20sizes%3A%20%5B0%2C%204%2C%208%2C%2016%2C%2032%2C%2048%2C%2064%2C%20128%2C%20256%2C%20512%5D%2C>)
+
+`pr: 3` means `padding-right: askTia.space[3]` 👉 16px
+
+Same for color scales. You say `greyVeryLight` and theme-ui checks the color map to get the digits.
+
+And if you need to do something custom, there's the `sx` prop.
+
+[![Click through for source](./img/techletter.app-screenshot-1593798385719.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20div%0A%2F%2F%20padding%2016px%0A%2F%2F%20margin%2032px%0A%2F%2F%20width%20256px%0A%2F%2F%20height%20128px%0A%2F%2F%20background%20%23EF308D%0A%3CBox%20sx%3D%7B%20p%3A%203%2C%20m%3A%204%2C%20width%3A%208%2C%20height%3A%207%20%7D%20bg%3D%22pink%22%20%2F%3E>)
+
+Some elements come with helper props. `bg` is very common, `variant` is another.
+
+Beyond that, the `sx` prop lets you define everything you'd otherwise use the `style` prop for. Except it goes through your theme config.
+
+Also great for adding dark mode. Change theme. 🤘
+
+Happy Friday
+
+Cheers,  
+~Swizec

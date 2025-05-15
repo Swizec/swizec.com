@@ -1,0 +1,117 @@
+---
+title: 'Reader question: "When do you fix tech debt?"'
+description: 'Long time reader Phil asks when do you fix the tech debt you used to ship faster. Heroic efforts don''t work. The real answer is "always" – a mindset of gardening.'
+published: 2021-08-17
+categories: "SeniorMindset, Mindset, Opinions, Reader question"
+content_upgrade: SeniorMindset
+hero: ./img/screenshot-1629212909640.png
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+
+Long time reader Phil asks when do you fix the [tech debt you used to ship faster](https://swizec.com/blog/tech-debt-is-a-tool/)
+
+> How do you get business buy in for spending some time on the tech debt and the improvements that are hard to prioritise against the main objectives for the quarter that are linked to the overall business objective
+
+You can hope for a miracle. One day you'll win the lottery and that magic Tomorrow when you have time to do all the things will come.
+
+But you won't. The odds are never in your favor.
+
+## Heroic efforts don't work
+
+You'll never have a feature freeze. Not even for a sprint. A good business never runs out of ideas.
+
+If you _do_ have time to sit and fiddle with tech improvements for days and weeks, run away. You deserve to work for better business and product people than that.
+
+<ContentUpgrades.SeniorMindset />
+
+Unless you're a small team focused on the tech inside a larger organisation. That's different. Lucky you!
+
+What you _may_ get, once in a while, is a sprint that goes miraculously. The stars align and you find yourself with an extra day at the end 😍
+
+https://twitter.com/Swizec/status/1427396699106906127
+
+POUNCE my friend!
+
+Fix your favorite pet peeve. Improve your annoyingest repetitive process. _Something_. This is a rare opportunity and I hope you're ready with plenty of ideas and little annoyances.
+
+## You pay off tech debt little by little
+
+Tech debt is a lot like real debt. You pay it off little by little over time.
+
+A constant mindset of gardening and tweaking. No heroic efforts.
+
+The approach that has worked best for me across different companies is to roll this gardening into your main work. Got a feature? See if there's a related story on the engineering backlog.
+
+Can you pay off tech debt without endangering the main story? Go for it!
+
+Can you fix a method or component while adding a feature? Do it!
+
+Can you rewrite a weird loop that makes no sense while trying to understand the code? Fix it!
+
+Can you leave that file a little better than you found it? Take out that trash!
+
+![](./img/giphygifidi8ai.gif)
+
+Little tweaks here and there. Fix a hairy condition chain, tie a branch to the tree, pull a bad leaf, pluck a weed, lovingly tend to your codebase like it's the best flower garden in the world.
+
+## Not all debt is created equal
+
+Tech debt will overrun your garden, if you keep adding more faster than you can pluck the weeds.
+
+That's a recipe for disaster ... later.
+
+You have to be careful about _which_ debt is worth taking on. In my [Tech Debt is a Tool](https://swizec.com/blog/tech-debt-is-a-tool/) email I wrote about how we _avoided writing code_ to ship a feature to fulfill a new legal requirement quickly.
+
+**Code you don't write is good debt.**
+
+When it's for a good reason, even better. You can always add a feature later when you understand the requirements better. Or there's a clear business need for that feature. Or there's more engineers available to work on it.
+
+**All code is tech debt.**
+
+Yes every line of code is a liability. Even the beautifulest perfectest code you can think of – it's already tech debt. You have to maintain that shit.
+
+https://twitter.com/Swizec/status/1050860886754091008
+
+Requirements _will_ change and your beautiful perfectly designed wonderful code – it's trash. No longer fit for purpose, full of outdated idioms, hard to understand for people who don't think like you.
+
+That includes the You 3 months from now. Future You is a different person.
+
+### An example of bad tech debt
+
+Examples of bad tech debt abound. Think of any code you've had to fix that was written by somebody else.
+
+Looked pretty bad huh?
+
+Dissing other's code is weaksauce. Here's when I personally fucked up on a former project:
+
+There was a UI I had to build that iterated over a list of questions and rendered them. Certain questions had sub-questions.
+
+I squinted and thought _"This is a recursive problem but bet you can I do it linearly with a .map"_
+
+And I did. Ho boy did I write the cleverest code in my life. I was so smart that the heavens opened and peppered my project full of bugs. The more bugs I fixed, the more it looked like I was reinventing recursion from scratch.
+
+With every bug my "keep track of things" data structure looked more like a stack. With every fix my gaggle of variables looked more like all the things compilers keep track of to make recursion work.
+
+All because I wanted to be clever. 💩
+
+### An example of good tech debt
+
+How careful should you be of memory leaks on a missile?
+
+https://twitter.com/pomeranian99/status/858856994438094848
+
+> I was once working with a customer producing on-board software for missiles. I pointed out that they had a number of memory leaks.
+>
+> "Of course it leaks" the CTO said
+>
+> He pointed out that they calculated how much memory would leak in the total possible flight time of the missile and doubled that number. They added this much additional hardware to "support" the leaks.
+>
+> Since the missile will explode when it hits its target, the ultimate garbage collection is performed without programmer intervention.
+
+Take on good debt and go gardening 🌷
+
+Cheers,<br/>
+~Swizec
+
+PS: the afternoon after that big chunk of sprint ending/starting rituals is my favorite time to go gardening. Dazed from a day of meetings, no stories officially started. 👌

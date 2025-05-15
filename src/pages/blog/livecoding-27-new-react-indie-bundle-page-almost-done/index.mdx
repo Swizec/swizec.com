@@ -1,0 +1,90 @@
+---
+title: "Livecoding #27: New React Indie Bundle page almost done"
+description: ""
+published: 2016-11-21
+redirect_from:
+  - /blog/livecoding-27-new-react-indie-bundle-page-almost-done/swizec/7237
+categories: "Front End, Livecoding, react, Technical"
+hero: ../../../defaultHero.jpg
+---
+
+_This is a Livecoding Recap – an almost-weekly post about interesting things discovered while livecoding ?. Always under 500 words and with pictures. You can follow my channel [here](https://livecoding.tv/swizec). New streams almost **every Sunday at 2pm PDT**. There’s live chat, come say hai ?_
+
+Continuing from [last week](https://swizec.com/blog/livecoding-26-a-new-page-for-a-new-react-indie-bundle/), we kept putting together the new page for the React Indie Bundle. I wanted to get it done this weekend, but then I didn't.
+
+Launching the first version tomorrow is getting tight ?
+
+To be honest, nothing crazy technical happened in this livecoding session. Slapping together content in React components followed by more slapping together of content.
+
+![](https://swizec.com/wp-content/uploads/2016/11/Screen-Shot-2016-11-21-at-13.40.35-1024x539.png)
+
+It's really a somewhat repetitive process. Maybe there's a market for building React-ready templates? Just like most templates you buy now are built with Bootstrap so they're easy to customize, it would be cool if in the future we could get some that are built with React.
+
+Then instead of getting a bunch of HTML like this:
+
+```HTML4strict
+<div class="box-hex flat-shadow box-huge">
+    <div class="box-dummy"></div>
+        <figure class="box-inner">
+            <img class="svg-inject" src="image_src" alt="alt_text">
+        </figure>
+        <figcaption class="box-caption">
+            <h4>Says</h4>
+            I like ancient stuff
+        </figcaption>
+<div class="hex-right"></div><div class="hex-left"></div></div>
+<h3 class="text-center">
+  <a href="some">
+    John Langan
+  </a>
+  <small class="block">Art Director</small>
+</h3>
+<p class="text-center">some text</p>
+<ul class="list-inline text-center social-icons social-simple">
+  <li>
+      <a href="some" target="_self">
+          <i class="fa fa-facebook"></i>
+      </a>
+  </li>
+  <li>
+      <a href="some" target="_self">
+          <i class="fa fa-twitter"></i>
+      </a>
+  </li>
+</ul>
+```
+
+Which you have to manually retype, or copypasta, into an `Author` component like this:
+
+```HTML4strict
+export const Author = ({ src, name, title, description, links }) => (
+    <div>
+        <div class="box-hex flat-shadow box-huge">
+            <div class="box-dummy">
+            <figure class="box-inner">
+                <img class="svg-inject" src={src} alt={name} style="{{height:" "217px"}}="">
+            </figure>
+        </div>
+        <h3 class="text-center">
+            {name}
+            <small class="block">{title}</small>
+        </h3>
+        <p class="text-center">{description}</p>
+        <ul class="list-inline text-center social-icons social-simple">
+            {Object.keys(links).map((type, i) => (
+                <li key={i}>
+                    <a href={links[type]} target="_self">
+                        <i class="{`fa" fa-${type}`}="">
+                    </i></a><i class="{`fa" fa-${type}`}="">
+                </i></li><i class="{`fa" fa-${type}`}="">
+             ))}
+        </i></ul><i class="{`fa" fa-${type}`}="">
+    </i></div><i class="{`fa" fa-${type}`}="">
+);
+</i></div>
+```
+
+\_The template would give you `<Person />` by default. Is React still too hard for designers to grok? I know many of them understand HTML ?Then again, if you look at that, you'll see that the conversion looks a bit like this:- `class` becomes `className`
+
+- content becomes `{something}`
+- repetitive content becomes `thing.map(<loop stuff>)`Almost sounds like you could automate that. Or is it juuuuuust tricky enough that you need a junior developer of some sort?Definitely a junior developer job, if you have access to one of those. Otherwise ,you gotta schlep through it yourself.But as my CTO would say, if a landing page can mean the difference between $0 and $60,000 in revenue, why _wouldn't_ you build it yourself?\_

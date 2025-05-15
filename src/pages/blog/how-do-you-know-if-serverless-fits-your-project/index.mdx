@@ -1,0 +1,201 @@
+---
+title: "How do you know if serverless fits your project?"
+description: "The hallmark of a true expert is understanding about the pros and cons of your technical decisions."
+published: 2021-03-25
+categories: "Mindset, Serverless"
+content_upgrade: ServerlessHandbook
+hero: ./img/screenshot-1616681329753.png
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform";
+
+The hallmark of a true expert is understanding about the pros and cons of your technical decisions.
+
+You get an ambiguous problem. How do you solve it?
+
+https://twitter.com/Swizec/status/1374847492320288780
+
+System design is the interview question that "senior" engineers struggle with the most. There's no right answer and they fall apart.
+
+It's kinda fun to watch 😈
+
+The trick to owning a decision is to understand:
+
+1.  Many approaches solve the problem
+2.  There are tradeoffs
+3.  Best choice depends on context
+
+That's why my new book, [Serverless Handbook](https://serverlesshandbook.dev/), focuses on giving you the tools to make your own decisions.
+
+<ContentUpgrades.ServerlessHandbook />
+
+Like Chapter 2 on the pros & cons of serverless that concludes with a heuristic I like to use 👇
+
+# Serverless Pros & Cons – when should you go serverless?
+
+[![](./img/tDNBrFpng6ghei7.png)](https://serverlesshandbook.dev/serverless-pros-cons/)
+
+Okay you've heard of serverless, tried it out, and you think it's neat. But should you _really_ go serverless for your next project?
+
+Yes!
+
+Most of the time ...
+
+![](giphy:weighing-options)
+
+Serverless is a great option for most projects most of the time. You save configuration and maintenance time, gain flexibility, and in extreme cases spend more $$ per request than building your own servers.
+
+Large apps can reach the cost curve limits of serverless. Bank of America, for example, [announced \\$2B in savings](https://www.businessinsider.com/bank-of-americas-350-million-internal-cloud-bet-striking-payoff-2019-10) from building their own data centers.
+
+You won't hit those issues. And if you do, I hope there's a business model to back it up and you can afford DevOps professionals. 😛
+
+Large orgs tend to provide a cloud or serverless-like environment internally. If you have access to that, use it.
+
+## Serverless is an ecosystem
+
+When I say serverless, I don't mean just throwing up code on a [function-as-a-service](https://en.wikipedia.org/wiki/Function_as_a_service) platform like AWS Lambda. I'm talking about the whole ecosystem.
+
+The core idea is this:
+
+1.  Backend does as little as possible
+2.  Clients tie everything together
+3.  Static files come from fast [content delivery networks](https://en.wikipedia.org/wiki/Content_delivery_network)
+4.  Database handles data consistency
+5.  As much work as possible happens at compile and deploy time
+
+Users' and developers' machines do the hard work.
+
+Is part of your app the same for every user? Package it up at deploy time. No need to bother the server _or_ the client with that work.
+
+Is part of your app specific to individual users? Let the client handle it. Every phone is a powerful computer these days.
+
+Got dynamic data that needs to synchronize across multiple sessions or users? Background processes that aren't tied to a specific session? Perfect fit for your server and database.
+
+We go in depth about this architecture in the chapter on [Serverless Architecture Principles](https://serverlesshandbook.dev/serverless-architecture-principles).
+
+## Serverless pros
+
+The main benefit of serverless is that you don't deal with servers. They're somebody else's problem.
+
+### You save time
+
+You focus on _application_ code. No more tedious maintenance tasks that aren't specific to your problem.
+
+Bye bye yak shaving. 👋
+
+![](giphy:shave_yak)
+
+_"I need an API. That means I have to run a server. Which means I need Apache or Nginx to map HTTP requests to my app server. I need a computer to run all that. Which means I have to set up a whole operating system. Then I have to make sure everything runs at boot. And if a process goes down, it needs to restart. And ..."_
+
+After all that work you get to build your application.
+
+With serverless **you save time otherwise spent managing servers.** Whether that's you personally or a DevOps team in your organization.
+
+### Programming productivity
+
+You write backend code more productively.
+
+Smaller, more self-contained code, ideally a single function, brings clarity and focus. [Do one thing and do it well](https://en.wikipedia.org/wiki/Unix_philosophy#Do_One_Thing_and_Do_It_Well)
+
+With increased focus, you get:
+
+- easier testing
+- quicker understanding
+- shorter development cycles
+
+### Often cheaper
+
+Serverless can be cheaper to run.
+
+You save opportunity and employee cost _and_ you're not paying for servers you aren't using.
+
+As mentioned in the [Getting Started](https://serverlesshandbook.dev/getting-started) chapter: before serverless, you'd have to (over)provision a bunch of machines in case there's a traffic spike. That means you're paying for servers you aren't using.
+
+With serverless, you pay per execution and run time. Like pay-as-you-go pricing: Run code, pay for that run.
+
+**When there's no traffic, there's no cost. 👌**
+
+### Scalability
+
+Google likes to call serverless architectures _‌from prototype to production to planet-scale_. You don't want to use serverless at planet scale though.
+
+But Google is right: Serverless scales. A lot.
+
+The details on _why_ serverless is scalable are tricky to get into. It has to do with how much work you can pack into a single physical machine ... but there _is_ a machine somewhere and you might run out of those with truly planet-scale work 🤔
+
+It comes down to this: You're running a [hyper-elastic server](<https://en.wikipedia.org/wiki/Elasticity_(cloud_computing)>) that adapts to changes in workload at millisecond precision. In theory this gives you perfect utilization.
+
+## Serverless cons
+
+As much as I think serverless is the next big thing in web development, it's not all fun and games out there. There _are_ disadvantages to using serverless.
+
+### Higher latency for low workloads
+
+Performance comes in two flavors:
+
+1.  Latency
+2.  Speed or bandwidth
+
+Latency talks about how long it takes from making a request to getting a response. Speed talks about how long it takes to do work.
+
+Each _execution_ is fast because the code is small and servers are fast. A few milliseconds and you're done.
+
+But _latency_ can be high. You're hitting the server cold every time. That means each request waits for the computer to wake up.
+
+That's why providers keep servers live between requests. But only if requests come often enough.
+
+**For low traffic applications with low latency demands, you might need a constantly provisioned server.**
+
+### Sometimes costly
+
+As [Bank of America found out](https://www.businessinsider.com/bank-of-americas-350-million-internal-cloud-bet-striking-payoff-2019-10) pay-as-you-go pricing gets expensive when used a lot.
+
+Serverless providers charge based on number of requests and resources used. You pay for every request and every millisecond of computation. Known as "compute".
+
+If you have a lot of requests or long runtimes, you can rack up the costs beyond what you'd pay with your own servers.
+
+For example: You wouldn't want to train a machine learning model on a serverless architecture. Learned that painful lesson with my first startup in 2010 and GoogleAppEngine. Flicked the On switch and the credit card melted 🔥
+
+Another bad case for serverless are high traffic applications. At millions of requests per second, you're better off on your own.
+
+**Serverless becomes expensive at high loads**. Where the balance tips depends on what you're doing, how much time you're saving, and how much it costs to do yourself.
+
+### Vendor lock-in
+
+This one's simple: You're building on somebody else's infrastructure.
+
+If that infrastructure changes, you're screwed. If they crank up the price, you're screwed. If you want to move, you're screwed. If you want to deploy your own, you're screwed.
+
+You _can_ do all those things, but it's a tedious and difficult task that might break your app. You're not building features or working on your business while you migrate.
+
+Startups rarely live long enough to have this problem. Enterprises take defensive measures like multi-year contracts with strict service level agreements.
+
+**Avoid building architecture agnostic code.** It's hard and you're not likely to need it.
+
+### Systems complexity
+
+You're paying for the simplicity of your application code with system complexity. Individual functions are simpler and easier to test. Complexity comes from how they interact.
+
+We'll talk more about that in the [Robust Backend Design](https://serverlesshandbook.dev/robust-backend-design) chapter.
+
+## The verdict?
+
+![](giphy:the_verdict)
+
+It depends. You will have to think about this yourself :)
+
+[Ping me on twitter](https://twitter.com/swizec), if you'd like some help.
+
+I like to use a series of questions:
+
+- _"Will this require a lot of computation?_ if the answer is yes, I consider building my own servers.
+- _"Will this have ridiculously high traffic?_ if the answer is yes, I'd choose serverless because I hate doing DevOps. High traffic hopefully means I can afford a professional :)
+- _"Is this a small side project idea?"_ serverless all the way
+- _"Does every request need to be served under 10ms?"_ you're gonna have to roll your own
+
+What do you think, is serverless right for you?
+
+Cheers,<br/>
+~Swizec
+
+PS: I'll be raffling 5 signed copies when Serverless Handbook publishes on Mar 31st

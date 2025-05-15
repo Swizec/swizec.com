@@ -1,0 +1,258 @@
+---
+title: "How React Query gives you almost everything you thought you needed GraphQL for"
+description: "GraphQL solves every problem you've ever had talking to APIs on the frontend. Mention a switch to GraphQL to your team and they think it's a joke. Rewrite our entire app? oh you jokester. React Query is the perfect middle ground ❤️"
+content_upgrade: ReactCU
+categories: "React, Frontend, React Query"
+published: 2020-09-07
+hero: ./img/screenshot-1599495519940.png
+---
+
+Friend, how often do you write a piece of logic like this?
+
+```javascript
+function Component() {
+  const [data, setData] = useState(null)
+
+  async function fetchData() {
+    const res = await fetch("https://example.com/api")
+    const json = await res.json()
+    setData(json)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  if (!data) {
+    return <p>Loading ...</p>
+  } else {
+    return <DoStuffWithData data={data} />
+  }
+}
+```
+
+You've got state for your API result, an async fetching function, an effect that runs on component mount and calls `fetchData`. Rendering shows either a loading state or your API result.
+
+Works great, solves the problem, done.
+
+## Fiddly and wasteful
+
+You can write this in your sleep after 3 months on the job. Super common piece of boilerplate.
+
+And it's easy to make it smart! You can re-fetch data when a prop changes.
+
+```javascript
+function Component({ itemId }) {
+  const [data, setData] = useState(null)
+
+  async function fetchData(itemId) {
+    const res = await fetch(`https://example.com/api/${itemId}`)
+    const json = await res.json()
+    setData(json)
+  }
+
+  useEffect(() => {
+    setData(null)
+    fetchData(itemId)
+  }, [itemId])
+
+  if (!data) {
+    return <p>Loading ...</p>
+  } else {
+    return <DoStuffWithData data={data} />
+  }
+}
+```
+
+Your effect re-runs when `itemId` changes. Data re-fetches, component re-renders, UI looks fresh. 🧙‍♂️
+
+Pretty neat huh?
+
+Except boilerplate sucks my friend. Nobody likes writing boilerplate.
+
+And this stupid thing is always juuuuust custom enough that you can't extract into a custom hook. Every component and every API request are different. Not a lot. Just enough.
+
+![](giphy:ugh)
+
+Oh and what happens when you render this component twice?
+
+```javascript
+<Component />
+<Component />
+```
+
+You spam users and servers with API request. Fetching the same data twice. Wasteful.
+
+Looks contrived in this example, happens a lot in big projects. A component that fetches its own data, [like it should](https://swizec.com/blog/wormhole-state-management/), sneaks into 3 different parts of your UI.
+
+Boom – 3 parallel requests for the same result. 🤦‍♀️
+
+### Time for global state?
+
+The common reaction at this point is to add global state management.
+
+Add a library like Redux or MobX, maybe XState, hoist data fetching into a new layer of your app, build machinery to manage state in a central place and ...
+
+It's a lot of work. And a mistake.
+
+Codebase gets 3 orders of magnitude more complicated. Anything you do from now on has to happen in 3 places, touch a bunch of code, and everything depends on everything else. Your system needs constant tuning. Nothing is isolated.
+
+Bleh.
+
+## You can try GraphQL
+
+As I've mentioned before, [GraphQL blows REST out of the water](https://swizec.com/blog/how-graphql-blows-rest-out-of-the-water/). Solves every problem I've ever had.
+
+Large unspecific payloads? Solved.
+
+Merging many requests into 1? Solved.
+
+Deduping API requests? Solved.
+
+Reusing API requests across components? Solved.
+
+Caching results and re-fetching when stale? Solved.
+
+You need [Apollo Client](https://github.com/apollographql/apollo-client) for the last 3 benefits and hey that's what almost everyone uses. 🤘
+
+Our example looks like this with GraphQL:
+
+```javascript
+const QUERY = gql`
+	query GetData($itemId: String!) {
+		data(itemId: $itemId) {
+			...
+		}
+	}
+`
+
+function Component({ itemId }) {
+  const { loading, data } = useQuery(QUERY, {
+    variables: { itemId },
+  })
+
+  if (loading) {
+    return <p>Loading ...</p>
+  } else {
+    return <DoStuffWithData data={data} />
+  }
+}
+```
+
+You write a query for your data, pass it into the `useQuery` hook, and Apollo handles the rest. Data is cached, re-fetched when needed, requests are deduped, and your component is simpler.
+
+Rendering twice
+
+```javascript
+<Component />
+<Component />
+```
+
+makes a single API request.
+
+You can even make a custom hook and reuse in many places.
+
+```javascript
+function graphqlMyData(itemId) {
+  return useQuery(QUERY, {
+    variables: { itemId },
+  })
+}
+```
+
+Use that anywhere in your code and if you use the same `itemId`, your requests are deduped. Use different ids and _I think_ Apollo is smart enough to merge your requests.
+
+![](giphy:mind_blown)
+
+## Good luck using GraphQL with an existing backend
+
+Your existing backend uses REST doesn't it my friend?
+
+Yeah, me too. Suggest we could solve `CurrentProblem` with GraphQL and people brush me off as a joke.
+
+Oh Swiz you so funny, of course we can't rewrite our entire ecosystem to use GraphQL. Cute, keep joking you jokester 😂
+
+You've got a system that works. A system that's more than just an API reading the database and spitting out JSON.
+
+Bet you there's heaps of business logic in there. Data validation, wrangling, reshaping, confirming everything works, keeping different systems talking to each other, and ensuring _you_ have less work to do on the frontend.
+
+That's why systems like Hasura are a bad idea if you ask me. _You don't want to expose your entire database model to the frontend raw._ Ever.
+
+**You need a well-designed API that hides underlying complexity.**
+
+That makes GraphQL fantastic for new projects and terrible for existing systems. It's too much work to switch.
+
+## React Query to the rescue
+
+[React Query](https://react-query.tanstack.com/) solves almost all those problems _without rewriting your backend._
+
+Keep using REST, get almost all the benefits of GraphQL.
+
+![](giphy:excited)
+
+Here's how it works:
+
+1. Write your data fetching functions
+2. Wrap them in a named query
+3. React Query handles caching, deduping, re-fetching, and loading states
+
+```javascript
+async function fetchData(itemId) {
+  const res = await fetch(`https://example.com/api/${itemId}`)
+  const json = await res.json()
+  return json
+}
+
+function Component({ itemId }) {
+  const { isLoading, data } = useQuery(["fetchData", itemId], fetchData)
+
+  if (isLoading) {
+    return <p>Loading ...</p>
+  } else {
+    return <DoStuffWithData data={data} />
+  }
+}
+```
+
+Back to the example we had before.
+
+`fetchData` is a data fetching function, gets `itemId` as an argument, and _returns_ JSON. This is important: React Query expects async functions that return JSON.
+
+You could use anything to generate that JSON. REST, GraphQL, Websocket, complicated javascript computation. Anything. React Query doesn't care ✌️
+
+Pass that into `useQuery` with a key. You can use string keys, but I like the array version by default.
+
+An array key works like the dependency array of `useEffect`. First argument is always a string, this names your query, the rest are dynamic props.
+
+React Query passes those props into your fetcher function as arguments and ensures your query re-runs when they change.
+
+I like to go even further and wrap queries into custom hooks:
+
+```javascript
+async function fetchData(itemId) {
+  const res = await fetch(`https://example.com/api/${itemId}`)
+  const json = await res.json()
+  return json
+}
+
+function useItemData(itemId) {
+  return useQuery(["fetchData", itemId], fetchData)
+}
+```
+
+Now you can put `useItemData(itemId)` _anywhere_ in your codebase and React Query handles the rest.
+
+No worrying about global state, no dealing with caching, no fuss around loading states, no thinking about re-fetching, no worries around stale data, _no rewriting your backend_.
+
+![](giphy:heck_yeah)
+
+### What React Query can't do
+
+React Query doesn't understand your queries like GraphQL libraries do. Means it can't merge multiple requests into 1 for you, can't reduce the size of your payloads, and can't help you validate the server returned what you were expecting.
+
+And for most usecases that's perfectly fine.
+
+Cheers,<br/>
+~Swizec
+
+PS: you can start using React Query alongside your existing code ✌️

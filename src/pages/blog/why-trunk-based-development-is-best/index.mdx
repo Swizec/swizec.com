@@ -1,0 +1,61 @@
+---
+title: "Why trunk-based development is best"
+description: "Merging finished work straight to main and deploying to production right away, scales to teams of thousands. This approach is counterintuitive to many engineers who may be used to working on their own"
+published: 2023-01-24
+content_upgrade: SeniorMindset
+categories: "Teams, Productivity, Mindset, Velocity"
+hero: ./img/screenshot-1674575461195.png
+---
+
+How do you avoid having too many cooks in the kitchen when a bunch of developers try to work together?
+
+Easy! Don't work together.
+
+That's what companies try first. You get a bunch of soloists who think they're a team. But they're not and [work in progress kills their progress](https://swizec.com/blog/workinprogress-kills-your-progress/).
+
+Most companies work this way. It sucks.
+
+Almost every engineer that joins our team says [our way of working together](https://swizec.com/blog/reader-question-what-do-collaborative-teams-look-like/) feels deeply unnatural. 2 months later, they love it.
+
+## What _is_ trunk-based development
+
+Trunk-based development is a philosophy of merging finished work straight to `main`. A CI pipeline picks it up and deploys to production. Right away. Every time.
+
+That may be shocking to you but it works. More, it's the only approach that has successfully scaled to teams of thousands as Winters et al. describe in [Software Engineering at Google](https://swizec.com/blog/what-i-learned-from-software-engineering-at-google/).
+
+## Trunk-based development in practice
+
+You don't have to go hardcore and push every commit to `main`.
+
+You have to decide, as a team, what a unit of work looks like for you. The definition that survived on my team is ... something I can't put into words 😆 More of a fine-tuned sense of "yeah that looks about right".
+
+Small features (1pt) are a unit of work. Engineers grab those and get them done.
+
+Bigger features, we break down into subtasks as part of our [swarm meeting](https://swizec.com/blog/reader-question-what-do-collaborative-teams-look-like/). That's the up-front discussion that reduces later disagreements and helps us avoid re-work.
+
+Each of those subtasks becomes a unit of work. It gets a pull request, a code review, and delivers a tiny little bit of value.
+
+When the code is in a working state, passes tests, and gets approvals ✅, we squash merge to `main` and let it deploy. Yes, in an overall unfinished state.
+
+## The key that makes it all work
+
+Feature flags. You have to separate deployment from delivery.
+
+The bar for production should be _"doesn't break the system"_ instead of _"works perfectly"_. This takes the pressure off, de-risks deployments, and enables testing in production.
+
+Because [only production is like production](https://www.serverlesschats.com/135/) with all the right data and systems in place to know your code _works_ works.
+
+Feature flags come in different flavors:
+
+- proper feature flags, configurable on-demand through a dashboard
+- a new URL that users won't find
+- a "quirk" of configuration, like when admins haven't enabled your thing for anyone yet
+
+When you're happy, you flip the switch and deliver your feature. But not before.
+
+The goal is to keep `main` always deployable. That way nobody has to wait.
+
+Cheers,<br/>
+~Swizec
+
+Followup article: [Squash merge? Really!?](/blog/squash-merge-really/)

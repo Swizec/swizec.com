@@ -1,0 +1,263 @@
+---
+title: "Just for fun 👉 React vs. jQuery vs. Svelte, same 🐱 app"
+description: "I was bored Monday night and decided to see if I still know how to build with jQuery. Nothing better to do, no pressing ideas, a bit of fun. Also a favor for a friend who's preparing to talk about React to a bunch of people who've never seen it before 😛"
+published: 2019-05-24
+redirect_from:
+  - /blog/just-for-fun-%f0%9f%91%89-react-vs-jquery-vs-svelte-same-%f0%9f%90%b1-app/swizec/9093
+categories: "Frontend Web, Livecoding, Technical, JavaScript"
+hero: ./img/techletter.app-screenshot-1558716298013.png
+---
+
+You know that feeling when you meet an old friend you haven't seen in years? You used to be so close but ...
+
+_"Long time huh ..."_
+
+_"Yeah time flies ... how's the wife?"_
+
+_"Girlfriend. She's good, just started a new job ..."_
+
+_"Nice nice ... you still at that startup?"_
+
+_"Yeah ... it's okay ... you?"_
+
+_"Nah, new gig last year. Think I told you, dunno"_
+
+_"Maybe you did, hard to keep track ... liking it?"_
+
+A beer or two later and you're back to being best buds. Suddenly it's 1am and a long yawn reminds you that you're not quite so young anymore.
+
+https://twitter.com/Swizec/status/1131635031573639169
+
+That's what messing around with jQuery felt like after all these years.
+
+I was bored Monday night and decided to see if I still know how to build with jQuery. Nothing better to do, no pressing ideas, a bit of fun.
+
+Also a favor for a friend who's preparing to talk about React to a bunch of people who've never seen it before 😛
+
+https://www.youtube.com/watch?v=BP1I28jWuOY
+
+It's funny, jQuery is so old now (2 years since new versions stopped coming) I feel like I almost have to introduce the darn thing. Used to be the backbone of the web, now it's in the dustbin of history.
+
+Pushed web development forward for its entire 10 year run. Oh the memories ...
+
+![memory_lane giphy](./img/media-kcSG1rpAKxpao-giphy.gif)
+
+So, how does jQuery stack up to React and how does React stack up to Svelte? Let's see 👇
+
+## React app
+
+https://codesandbox.io/s/optimistic-sanderson-or99s
+
+Started with a React app. It's what I'm most familiar with right now.
+
+We built a cat app. Fetches 5 cats from [thecatapi](https://thecatapi.com/), shows first cat. Click a button, get more cats.
+
+When app runs out of cats, it fetches more.
+
+```javascript
+function fetchCats(currentCount) {
+  const page = Math.ceil(currentCount / 5);
+  return fetch(
+    `https://api.thecatapi.com/v1/images/search?limit=5&page=${page}&order=Desc`
+  ).then(response => response.json());
+}
+```
+
+`fetchCats` returns a promise with a bunch of cats. Pagination works based on current count of cats we've got.
+
+Rendering a list of cats happens in a `<Kitties />` component. 'tis but a loop
+
+```javascript
+function Kitties({ cats, count }) {
+  return (
+    <>
+      {cats.slice(0, count).map(cat => (
+        <div key={cat.id}>
+          <img src={cat.url} alt="Cat image" />
+        </div>
+      ))}
+    </>
+  );
+}
+```
+
+Take list of `cats`, `count` how many the user wants to see, `slice` the array, render each cat as an image. 👌
+
+Driving this logic with React Hooks isn't bad. React's ergonomics are getting real good.
+
+```javascript
+function App() {
+  const [showCount, setShowCount] = useState(1);
+  const [cats, setCats] = useState([]);
+
+  useEffect(() => {
+    if (cats.length < showCount) {
+      fetchCats(showCount).then(newCats => setCats([...cats, ...newCats]));
+    }
+  }, [cats, showCount]);
+
+  const moreCats = () = > {
+    setShowCount(showCount + 1);
+  };
+
+  return (
+    <div className="App">
+      <h1 >These are cats.</h1 >
+      <h2 >Cats are cool </h2>
+      <Kitties cats={cats} count={showCount} />
+      <button onClick={moreCats} >More cats! </button >
+    </div >
+  );
+}
+```
+
+We got `useState` for the count of cats, and a `useEffect` to deal with fetching. Fetches on first load and makes sure to fetch more when `showCount` is bigger than the current amount of cats.
+
+React handles the rest.
+
+![magic giphy](./img/media-12NUbkX6p4xOO4-giphy.gif)
+
+## jQuery app
+
+https://codesandbox.io/s/priceless-surf-d5mhb
+
+The hardest part of building the jQuery version was figuring out how to import jQuery in a modern compiled-JavaScript app. 😂
+
+No seriously, I struggled, tried a bunch of things, and ended up with a good old script tag and a public CDN.
+
+```html
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+	 crossorigin="anonymous"></script>
+```
+
+People don't do that in real life anymore. It's all import this import that.
+
+For the app itself we used a naive unoptimized approach much like many jQuery apps of old 👉 find div, empty div, render everything from scratch every time.
+
+```javascript
+function renderCats(cats, count) {
+  $("#kitties").html("");
+
+  cats.slice(0, count).forEach(cat => {
+    $("#kitties").append($("<div >").append($("<img>").attr("src", cat.url)));
+  });
+}
+```
+
+Notice the mess with creating a small component tree of `<div><img></div>`? Painful. JSX improved this a lot. Almost can't believe we used to build complex apps like this.
+
+You can see it's slow too.
+
+Open [the CodeSandbox](https://codesandbox.io/s/priceless-surf-d5mhb), add a couple cats. You'll see the more cats there are the slower the app gets.
+
+Not so with React because React avoids re-rendering components that don't change.
+
+PS: check out this mess of attaching a button click handler and driving the cat fetching logic.
+
+```javascript
+$("button").on("click", () => {
+  CatCount += 1;
+  
+  if (CatCount > Cats.length) {
+    // Fetch more cats when we run out
+    fetchCats(CatCount).then(newCats => {
+      Cats = [...Cats, ...newCats];
+      renderCats(Cats, CatCount);
+    });
+  } else {
+    renderCats(Cats, CatCount);
+  }
+});
+```
+
+🤮
+
+I like hooks.
+
+## Svelte app
+
+https://codesandbox.io/s/infallible-monad-wq5j9
+
+The Svelte version wins in the immense straightforward simplicity of it all. I'm pretty blown away.
+
+Check out the `<Kitty />` component
+
+```javascript
+<script>
+    export let id;
+    export let url;
+</script>
+
+<style >
+    img {
+      width: 300px;
+    }
+</style>
+
+<div>
+    <img src={url} alt="Kitty pic" />
+</div>
+```
+
+Gets an `id` and a `url`, has some `style`, and renders a div with an image. Pretty slick, looks almost like pure HTML.
+
+Then you got the component that drives state and renders a bunch of kitties with a button.
+
+```javascript
+<script>
+  import Kitty from "./Kitty.svelte";
+  let showCount = 1;
+  let cats = [];
+
+  function fetchCats(currentCount) {
+    const page = Math.ceil(currentCount / 5);
+    return fetch(
+      `https://api.thecatapi.com/v1/images/search?limit=5&page=${page}&order=Desc`
+    ).then(response => response.json());
+  }
+
+  fetchCats(showCount).then(newCats => {
+    cats = [...cats, ...newCats];
+  });
+
+  function moreCats() {
+    showCount += 1;
+
+    if (showCount>  cats.length) {
+      fetchCats(showCount).then(newCats => {
+        cats = [...cats, ...newCats];
+      });
+    }
+  }
+</script>
+```
+
+The script looks similar to React Hooks. You got some variables with state and you got a `moreCats` method that drives it.
+
+Repeating that array merging logic twice is a little less elegant than the `useEffect` hook, but probably easier to understand how it works 🤔
+
+Rendering is neat too
+
+```javascript
+<main>
+	<h1 >These are cats.</h1 >
+  <h2>Cats are cool 😸</h2>
+	{#each cats.slice(0, showCount) as {id, url}}
+    <Kitty id={id} url={url} />
+  {/each}
+  <button on:click={moreCats}>More cats! </button >
+</main>
+```
+
+Similar to React, but we used `{#each}` instead of JavaScript's `.map`. Still not sure how I feel about that but it's pretty readable you gotta admit.
+
+## 🤔
+
+Between you and me I think React wins this one. Maybe it's because I'm used to it.
+
+But Svelte does look like it might be quicker to grasp for someone who's new to modern JavaScript.
+
+What do you think?
+
+Happy Friday,  
+~Swizec

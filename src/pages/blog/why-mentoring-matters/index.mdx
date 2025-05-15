@@ -1,0 +1,81 @@
+---
+title: "Why mentoring matters"
+description: "Here's a funny video about Ivane, a construction worker with amazing productivity and work ethic. Imagine what Ivane could do if someone showed him how to use his tools 😱"
+published: 2022-02-03
+category: "Mentoring, Mindset, Lessons"
+content_upgrade: SeniorMindset
+hero: ./img/screenshot-1643905980470.png
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+
+Here's a funny video about Ivane, a construction worker with amazing productivity and work ethic.
+
+https://www.youtube.com/watch?v=zCrn-VJmpgE
+
+Imagine what Ivane could do if someone showed him how to use his tools 😱
+
+But we are all Ivane. Always. We do things the best way we know how, then look back years later and think _"Wow if only I knew then what I know now! 🤦"_
+
+I could share stories for days. Lots of my learning came by trial and error and pain.
+
+## Dumb things I did without mentors
+
+I had to build a relational database at work and I didn't know about many-to-many tables or how relational databases work. Think I was in high school back then.
+
+Obviously, the way you connect a user to posts is to create a `posts` table that has an ID column. And then you create a string column in your `users` table that has a JSON array of IDs for every post.
+
+Yep, shipped to production 😅
+
+The correct solution is to use a foreign key and a one to many connection.
+
+Another good one from that era was I wrote a lot of complicated codes to make table joins in PHP because I read an article on the internet that said: _joins are slow and you should avoid them_.
+
+I now know that databases are waaaaay faster at doing joins than when you do it by hand. In PHP. 💩
+
+<ContentUpgrades.SeniorMindset />
+
+The weird part is that everything worked.
+
+But we were always wondering why is it that any time we fix a bug, five other things break? When we sneeze, or change the design, everything is a 3 week project ... wonder what it could be 🤔
+
+## An impressive dumb thing
+
+Here's my proudest dumb moment – in high school I wrote a compiler.
+
+I designed a template language for PHP. PHP is, by itself, a templating language. My language was slow because it used [an interpreter](<https://en.wikipedia.org/wiki/Interpreter_(computing)>) that went line by line and ran template code as PHP to build the HTML output.
+
+So over Christmas break, I turned that into [a compiler that would transpile](https://en.wikipedia.org/wiki/Source-to-source_compiler) my template language into PHP.
+
+The PHP would then output those HTML files. Even when my cache didn't work (story for another day) and the compiler ran on every request, it was faster than the interpreter 🚀
+
+The language/compiler even supported functions, loops, conditionals, everything. And it was all written as a 1600 lines switch statement in a single function. I had so many variables in scope that I couldn't figure out a different way of making it work.
+
+My code [survives on SourceForge](https://sourceforge.net/projects/chlorineboards/), here's a [Gist of the templating engine](https://gist.github.com/Swizec/90ab6872f60cdceb252c1c90fb53838d) – the compiler.
+
+https://twitter.com/Swizec/status/1489269486469332994
+
+The most impressive part was that I made functions work with their own scoping without using recursion. Because I didn't know about that.
+
+Later in college, I learned that you can [translate between tail recursion and loops](https://en.wikipedia.org/wiki/Tail_call) by using about 8 variables. Back then, I figured it out by hammering at bugs and edge cases until it worked.
+
+A lot like Ivane 😅
+
+I'm still impressed I pulled that off. Later when [I took a compilers course in college](https://swizec.com/blog/why-people-making-compilers-are-superheroes/), I was like, _"Oh my god!"_. If only I knew about all these tools that exist 🤯
+
+Or used an off-the-shelf PHP template engine of which many exist. They're battle tested and everyone knows how to use them.
+
+## How mentoring helps
+
+Known unknowns are easy. You don't know about something so you look it up. Google, books, people who may know.
+
+Unknown unknowns are where mentoring shines. Getting feedback from an experienced peer who can say _"Yo, there's a better way. Lemme show you"_
+
+That's the highest impact activity of any senior. The single best use of your time.
+
+We talked about how and why at our last [Senior Mindset Mastermind call](https://swizec.gumroad.com/l/RnuqQ). We meet again next week, if you're interested.
+
+Cheers,<br/>
+~Swizec
+
+PS: back in 2012 I published [A history of my worst technical achievements](https://swizec.com/blog/a-history-of-my-worst-technical-achievements/), it shares even more fun projects

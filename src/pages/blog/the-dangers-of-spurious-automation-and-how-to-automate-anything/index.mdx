@@ -1,0 +1,92 @@
+---
+title: "The dangers of spurious automation and how to automate anything"
+description: "Discover the potential pitfalls of spurious automation and learn a foolproof three-step process to automate any task effectively. Don't miss out on understanding when automation is truly beneficial and when it can become a hindrance."
+published: 2024-06-25
+categories: "Scaling Fast Book, Automation, Productivity"
+hero: ./img/screenshot-1719321503636.png
+---
+
+Software engineering isn't all about building products. Often it's about automating business processes. Even your own! But there's a trap you can fall into.
+
+## How automation goes wrong
+
+One of my favorite XKCDs [talks about opportunity cost](https://xkcd.com/1205/): how much time can you invest before building the automation takes more time than it saves? Infrequent small tasks are almost never worth it unless you can make them go away completely.
+
+![Is it worth the time?](./img/Is-it-worth-the-time-affc0f.png)
+
+Another favorite talks about [the maintenance cost of automation](https://xkcd.com/1319/). First you stop doing the original task while you build the automation and then ... you spend all eternity fiddling with and improving your work because it can always be _even better_. Now you don't have time for the original task at all.
+
+![Automation](./img/Automation-521e7i.png)
+
+Feynman, a famous physicist, called this [the trouble with computers](https://www.goodreads.com/quotes/325051-well-mr-frankel-who-started-this-program-began-to-suffer) – _‌The trouble with computers is you **play** with them._ You get so sucked into making the computer do the work that you forget there was a bigger goal to reach.
+
+[It's okay to just do the work](https://swizec.com/blog/its-okay-to-just-do-the-work/). What's the easiest way to cancel a user account? Click the button you already have!
+
+Once you've built a bulk account cancellation feature, you'll have to keep it working. Any future story in this part of your codebase will have to take the bulk cancellation workflow into account. _Especially_ if bulk cancellation catches on and people start using the feature in a regular workflow as part of a standard operating procedure.
+
+## The big danger
+
+Be aware of opportunity cost but don't sweat. When it's big enough to care it will be obvious.
+
+The bigger danger of spurious automation is automating a task you don't yet understand. This goes double when building a mini framework for "a common code pattern". When you automate a process, it ossifies and becomes hard to change.
+
+This is fantastic when you need to scale.
+
+A standard process with strictly defined steps ensures that every burger at a fast food chain tastes the same. Regardless of who's cooking that day. Plus it's faster to make because your chef is not reinventing steps for every order.
+
+That same efficiency gets in the way when you're not sure if your customers want burgers, pasta, or pizza. You'll need a chef that can think on their feet and respond to feedback.
+
+The less structure and automation you have while figuring things out, the faster you'll move and the easier it will be to respond to feedback.
+
+That's why so many of your company's business processes run on random spreadsheets, half forgotten documents, and chat threads. Spreadsheets are easy to change and optimize for every unique situation. Once engineering gets involved, the process solidifies and there's no more give. Operators can't use their judgment to make a tweak.
+
+Like that time a machine rejected my suitcase at the airport for being too heavy. Lady at the counter saw the 600 gram delta and scanned me through without mentioning the weight.
+
+## How to automate anything
+
+When automating business processes (as opposed to building product), here's an algorithm you can use. I've found this to be effective in anything from building internal tools to libraries and frameworks for engineering teams to use.
+
+It's a 3 step process and you're encouraged to give up at any stage and say "good enough". Only keep going if the challenge persists and you're getting annoyed. Annoyance is a good signal that it's worth the effort.
+
+1. Do the work
+2. Note your steps
+3. Write the code
+
+### 1. Do the work
+
+Try to do the work manually at first. This forces you to figure out every step in detail and make sure you know what's involved.
+
+If the same problem never occurs again, you've saved yourself and the team all the overhead of productization and maintenance. Congratz!
+
+If you know right away that N is too large to do by hand, try to do 1 or 2 cases. The clarity you get from doing the work is well worth the effort.
+
+### 2. Note your steps
+
+While you're doing the work, it's a good idea to write down the steps you're taking.
+
+For tasks that happen infrequently, this helps you remember what to do in 6 months. Notes make the work go faster and feel less distracting.
+
+Write the steps as a checklist and try to follow the list every time. Checklists have been shown to [reduce surgical process mistakes](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3963558/) by up to 40 percentage points.
+
+The document this creates is called an SOP – standard operating procedure – or runbook. Once the steps are written down, anyone can run the process because the know-how is not stuck in your head. This frees you up for more interesting work.
+
+With a good SOP even surprisingly frequent manual tasks can be no big deal. You do the steps almost mindlessly when you need a break from hard thinking work.
+
+PS: always attach an SOP to every production alert or warning. We'll talk more about telemetry and monitoring later.
+
+### 3. Write the code
+
+Update your SOP every time you go through. Encourage others to contribute. If any step changes or lacks detail, add.
+
+When the SOP stops changing and starts to feel annoying because you're doing it so much, turn the document into code. You now know exactly what needs to happen and when. You've also documented or dealt with every exception that comes up.
+
+Feeling annoyed that you have to do something so often is a good indicator both that it's worth automating and that it has become rote enough to be easy to automate.
+
+At Tia, for example, we went _years_ with engineers "manually" (via migrations) managing bookable appointment types in the database. One day I'd had enough and added a new form to our admin tool that let anyone add a new appointment type.
+
+This saved engineering an estimated month worth of work every year and empowered the business operations team to iterate on their own without waiting for engineers. They loved it.
+
+Over time that page evolved into a full CMS and became part of our business processes. Now it gets occasional tweaks and updates as new needs arise. That's the ongoing maintenance/improvement part of the cycle. ✌️
+
+Cheers,<br />
+\~Swizec

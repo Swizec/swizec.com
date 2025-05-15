@@ -1,0 +1,68 @@
+---
+title: "AI writes good tests, actually"
+description: "I've been using AI to write tests and it works surprisingly well! Here's how."
+published: 2025-03-18
+categories: "AI, Coding, Programming, Testing"
+hero: ./img/screenshot-1742310398617.png
+---
+
+You may be way ahead of me – AI writes good tests actually. It's super handy for this use-case.
+
+A while back I wrote that [using AI to derive tests from code is bad](https://swizec.com/blog/why-you-shouldnt-use-ai-to-write-your-tests/) because it ruins what tests are for: Validation.
+
+You need two sources of truth to line up. If they don't, something's wrong. If you write code first, then make your tests match – there's no validation.
+
+But I've been doing it more (using Cursor) and it works surprisingly well. Here's how.
+
+## Code first, tests AI
+
+A while back I had to fix a function that deals with datetime math. Datetime math breaks my brain. This code broke my brain even worse because it dealt with packages across timezones.
+
+Super leetcodey problem – get a list of packages that should have arrived but haven't. Courier can pick up the package on any day of their pickup schedule even if they missed the first opportunity. What packages are we expecting today?
+
+We knew the code was broken, but not how and we couldn't reproduce.
+
+After [playing whack-a-mole](https://swizec.com/blog/what-to-do-when-bugs-are-whack-a-mole/) for a while I thought _"This is dumb, I need tests"_.
+
+### Ask AI to write tests for the function
+
+Highlighted the function and told Cursor _"Write tests for this"_. Hoping to get some boilerplate I can work with.
+
+Cursor wrote fantastic tests! 😳
+
+It was able to _read the comments_ and write tests based on intent, not implementation. They immediately highlighted 2 bugs.
+
+But I didn't believe the AI so I spent the next few hours debugging those tests thinking _"How the hell is this failing, the test makes complete sense, I've been through every line a dozen times and even wrote this all out on paper"_.
+
+The code was wrong, not the tests. 🤦‍♂️
+
+### Ask AI to fix its tests
+
+There were a couple instances where the tests were wrong. Small details in how mocks were used or when the AI wrote extra code instead of reusing a function it didn't know about.
+
+You can ask AI to iterate on those things. _"Hey you got this wrong because blah blah"_. A lot like working with a junior.
+
+## Use AI for input combination salad
+
+Varied inputs are hard to validate. Iterating through a representative sample of valid inputs is the hardest problem in testing.
+
+Add state and you're doomed. Sure, your code works with a blank database, what about with 3 years of user history? What if there's a full moon and you just farted?
+
+These rare cases become super common as your app grows. 1 in a million becomes every day.
+
+### If you're gonna test, _test_
+
+In theory _there are no guarantees_ that your code works on all valid inputs! You say every number is okay, but have you tried? Strings are fine, but have you verified? Users are okay, but have you tried _every_ user? Even that dude who signed up 5 years ago, never used the app, forgot their account existed, and came back yesterday?
+
+The combinatorial explosion is too great. You'll never test everything. That's why [you need observability more than tests](https://swizec.com/blog/why-you-need-observability-more-than-tests/).
+
+BUT! AI can help you test more. It's great at turning sentences like _"Write a test for when ..."_ into tests. Now your job is to come up with input combinations that might break the code, not the schlep of writing those tests.
+
+That's much more fun! And rewarding. And it's fine if the tests are slop. Nobody reads those.
+
+Cheers,<br/>
+~Swizec
+
+PS: AI shines at tasks where answers are annoying to generate but quick to validate. Like writing database migrations.
+
+PPS: the function that inspired this works like a charm now. Having unit tests was invaluable for self-contained algorithmic coding like that. The function is [a typical S-program](https://swizec.com/blog/the-laws-of-software-evolution/) – purely mapping inputs to outputs

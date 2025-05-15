@@ -1,0 +1,407 @@
+---
+title: "How GraphQL blows REST out of the water"
+description: "Let's have a look at hyow GraphQL makes queries so much easier and more pleasant than REST"
+published: 2020-01-23
+redirect_from:
+  - /blog/how-graphql-blows-rest-out-of-the-water/swizec/9300
+categories: "Front End, Technical, Fullstack Web"
+content_upgrade: fullstackWeb
+hero: ./img/techletter.app-screenshot-1579794681281.png
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform";
+
+You're building an app. It needs data from a server. What do you do?
+
+Oh, you make a `fetch()` request. Easy.
+
+```javascript
+fetch("https://swapi.co/api/people/1/")
+  .then((res) => res.json())
+  .then(console.log);
+```
+
+And you get eeeevery piece of info about Luke Skywalker.
+
+```json
+{
+  "name": "Luke Skywalker",
+  "height": "172",
+  "mass": "77",
+  "hair_color": "blond",
+  "skin_color": "fair",
+  "eye_color": "blue",
+  "birth_year": "19BBY",
+  "gender": "male",
+  "homeworld": "https://swapi.co/api/planets/1/",
+  "films": [
+    "https://swapi.co/api/films/2/",
+    "https://swapi.co/api/films/6/",
+    "https://swapi.co/api/films/3/",
+    "https://swapi.co/api/films/1/",
+    "https://swapi.co/api/films/7/"
+  ],
+  "species": ["https://swapi.co/api/species/1/"],
+  "vehicles": [
+    "https://swapi.co/api/vehicles/14/",
+    "https://swapi.co/api/vehicles/30/"
+  ],
+  "starships": [
+    "https://swapi.co/api/starships/12/",
+    "https://swapi.co/api/starships/22/"
+  ],
+  "created": "2014-12-09T13:50:51.644000Z",
+  "edited": "2014-12-20T21:17:56.891000Z",
+  "url": "https://swapi.co/api/people/1/"
+}
+```
+
+Well that's annoying ... all you wanted was his name and hair color. Why's the API sending you all this crap? 🤦‍♂️
+
+And what's this about Luke's species being `1`? What the heck is `1`?
+
+Okay, another fetch request.
+
+```javascript
+fetch("https://swapi.co/api/species/1/")
+  .then((res) => res.json())
+  .then(console.log);
+```
+
+You get a bunch of data about humans. Great.
+
+```json
+{
+  "name": "Human",
+  "classification": "mammal",
+  "designation": "sentient",
+  "average_height": "180",
+  "skin_colors": "caucasian, black, asian, hispanic",
+  "hair_colors": "blonde, brown, black, red",
+  "eye_colors": "brown, blue, green, hazel, grey, amber",
+  "average_lifespan": "120",
+  "homeworld": "https://swapi.co/api/planets/9/",
+  "language": "Galactic Basic",
+  "people": [
+    "https://swapi.co/api/people/1/",
+    "https://swapi.co/api/people/4/",
+    "https://swapi.co/api/people/5/",
+    "https://swapi.co/api/people/6/",
+    "https://swapi.co/api/people/7/",
+    "https://swapi.co/api/people/9/",
+    "https://swapi.co/api/people/10/",
+    "https://swapi.co/api/people/11/",
+    "https://swapi.co/api/people/12/",
+    "https://swapi.co/api/people/14/",
+    "https://swapi.co/api/people/18/",
+    "https://swapi.co/api/people/19/",
+    "https://swapi.co/api/people/21/",
+    "https://swapi.co/api/people/22/",
+    "https://swapi.co/api/people/25/",
+    "https://swapi.co/api/people/26/",
+    "https://swapi.co/api/people/28/",
+    "https://swapi.co/api/people/29/",
+    "https://swapi.co/api/people/32/",
+    "https://swapi.co/api/people/34/",
+    "https://swapi.co/api/people/43/",
+    "https://swapi.co/api/people/51/",
+    "https://swapi.co/api/people/60/",
+    "https://swapi.co/api/people/61/",
+    "https://swapi.co/api/people/62/",
+    "https://swapi.co/api/people/66/",
+    "https://swapi.co/api/people/67/",
+    "https://swapi.co/api/people/68/",
+    "https://swapi.co/api/people/69/",
+    "https://swapi.co/api/people/74/",
+    "https://swapi.co/api/people/81/",
+    "https://swapi.co/api/people/84/",
+    "https://swapi.co/api/people/85/",
+    "https://swapi.co/api/people/86/",
+    "https://swapi.co/api/people/35/"
+  ],
+  "films": [
+    "https://swapi.co/api/films/2/",
+    "https://swapi.co/api/films/7/",
+    "https://swapi.co/api/films/5/",
+    "https://swapi.co/api/films/4/",
+    "https://swapi.co/api/films/6/",
+    "https://swapi.co/api/films/3/",
+    "https://swapi.co/api/films/1/"
+  ],
+  "created": "2014-12-10T13:52:11.567000Z",
+  "edited": "2015-04-17T06:59:55.850671Z",
+  "url": "https://swapi.co/api/species/1/"
+}
+```
+
+That's a lot of data just to get the word `"Human"` out of the [Star Wars API](https://swapi.co/), my friend.
+
+![](./img/zsicxpgif5he48i.gif)
+
+What about all of Luke's starships? There's just 2 and yet that's 2 more API requests ...
+
+```javascript
+fetch("https://swapi.co/api/starships/12/")
+  .then((res) => res.json())
+  .then(console.log);
+
+fetch("https://swapi.co/api/starships/22/")
+  .then((res) => res.json())
+  .then(console.log);
+```
+
+I don't even wanna know how much data those dump out ...
+
+You've just made _**4** API requests and transferred a shitload of data_ to find out that Luke Skywalker is human, has blond hair, and flies an X-Wing and an Imperial Shuttle.
+
+And guess what, you didn't cache anything. How often do you think this data changes? Once a year? Twice?
+
+🤦‍♂️
+
+## GraphQL to the rescue
+
+Here's what that same process looks like with GraphQL.
+
+```graphql
+query luke {
+  Person(name: "Luke Skywalker") {
+    name
+    hairColor
+    species {
+      name
+    }
+    starships {
+      name
+    }
+  }
+}
+```
+
+And the API returns exactly what you wanted with a single request.
+
+```json
+{
+  "data": {
+    "Person": {
+      "name": "Luke Skywalker",
+      "hairColor": ["BLONDE"],
+      "species": [
+        {
+          "name": "Human"
+        }
+      ],
+      "starships": [
+        {
+          "name": "X-wing"
+        },
+        {
+          "name": "Imperial shuttle"
+        }
+      ]
+    }
+  }
+}
+```
+
+Wait what 😲
+
+An API mechanism that gives you total flexibility on the frontend, slashes API requests to almost nothing, _and doesn't transfer a bunch of data you don't need?_
+
+That's amazing!
+
+You write a query, specify what you want, send to an endpoint, and GraphQL figures out the rest. Want different params? Just say so. Want multiple models? Got it. Wanna go deep? You can.
+
+All without making any changes on the server. Within reason.
+
+Many GraphQL libraries also add caching so you don't make the same calls too often. Some even consolidate queries so making 10 requests real fast gets wrapped into a single API call. 😲
+
+I fell in love the moment it clicked.
+
+![](./img/KQSxzagifg40a2e.gif)
+
+You can [try it out on graph.cool's public playground](https://swapi.graph.cool/)
+
+## GraphQL even better with hooks
+
+You don't need much to make a basic GraphQL client. Something like this:
+
+```javascript
+fetch("https://swapi.graph.cool/", {
+  method: "POST",
+  body: {
+    operationName: "luke",
+    variables: {},
+    query: `
+			query luke {
+			  Person(name: "Luke Skywalker") {
+			    name
+			    hairColor
+			    species {
+			      name
+			    }
+			    starships {
+			      name
+			    }
+			  }
+			}
+		`,
+  },
+});
+```
+
+Better than before but eh ...
+
+Where GraphQL really shines, my friend, is with React hooks. I like to use `@apollo/react-hooks`.
+
+You get a pattern like this:
+
+```javascript
+import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+
+// define the graphql query
+const LUKE_QUERY = gql`
+  query luke {
+    Person(name: "Luke Skywalker") {
+      name
+      hairColor
+      species {
+        name
+      }
+      starships {
+        name
+      }
+    }
+  }
+`;
+
+// a component that fetches data and displays it
+const Luke = () => {
+  const { loading, data } = useQuery(LUKE_QUERY);
+
+  return loading ? (
+    <p>Fetching ...</p>
+  ) : (
+    <p>
+      {data.Person.name} is a {data.Person.hairColor[0]}{" "}
+      {data.Person.species[0].name} and flies around in{" "}
+      {data.Person.starships.map((ship) => ship.name).join(", ")}
+    </p>
+  );
+};
+```
+
+Render `<Luke />` and it first says `Fetching ...` then changes into `Luke Skywalker is a BLONDE Human and flies around in X-wing, Imperial shuttle`.
+
+Not the perfectest English but that's way better than cobbling together 4 API requests, my friend.
+
+You could even make your component accept a search parameter.
+
+```javascript
+import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+
+// define the graphql query
+const PERSON_QUERY = gql`
+  query person($name: String!) {
+    Person(name: $name) {
+      name
+      hairColor
+      species {
+        name
+      }
+      starships {
+        name
+      }
+    }
+  }
+`;
+
+// a component that fetches data and displays it
+const Person = ({ name }) => {
+  const { loading, data } = useQuery(PERSON_QUERY, {
+    variables: {
+      name,
+    },
+  });
+
+  return loading ? (
+    <p>Fetching ...</p>
+  ) : (
+    <p>
+      {data.Person.name} is a {data.Person.hairColor[0]}{" "}
+      {data.Person.species[0].name} and flies around in{" "}
+      {data.Person.starships.map((ship) => ship.name).join(", ")}
+    </p>
+  );
+};
+```
+
+Now you can use `<Person name="luke skywalker" />` to show data about Luke, and `<Person name="chewbacca" />` to learn about Chewie.
+
+All without changing a bunch of Redux state, coordinating a bazillion API requests, dealing with smart components, dumb components, presentational components, data stores, caching, configuration, permissions, anything. It just works.
+
+🤯
+
+## The edge first architecture
+
+What GraphQL enables and hooks facilitate is the Edge First Architecture on the frontend. You can think of it sort of as [edge computing](https://en.wikipedia.org/wiki/Edge_computing) applied to your components.
+
+The past few years of React common sense taught us to put everything in a global store. Almost everything. Anything that multiple components might need.
+
+You get a unidirectional data flow, easy to understand state transitions, and a total mess of an impenetrable state tree as your app grows. Things slow down, debugging gets hard, and help you god if you can't keep the entire app in your head. I'm looking at you sagas 😒
+
+![](./img/mYrpwQgifi33g0f.gif)
+
+With edge first, we turn that upside-down. _The edge does the work_
+
+Look at the `<Person />` component.
+
+```javascript
+// a component that fetches data and displays it
+const Person = ({ name }) => {
+  const { loading, data } = useQuery(PERSON_QUERY, {
+    variables: {
+      name,
+    },
+  });
+
+  return loading ? (
+    <p>Fetching ...</p>
+  ) : (
+    <p>
+      {data.Person.name} is a {data.Person.hairColor[0]}{" "}
+      {data.Person.species[0].name} and flies around in{" "}
+      {data.Person.starships.map((ship) => ship.name).join(", ")}
+    </p>
+  );
+};
+```
+
+It's doing all the work. Fetches its own data, deals with loading states, maybe errors, displays the result when ready.
+
+You can put this _anywhere_ in your app and it Just Works™. No props to pass in, no hooking into global state, no coordination.
+
+Self-contained. Beautiful.
+
+### But what about performance, Swizec?
+
+You're getting all the benefits you used to. They're just hidden deep inside the hooks machinery of your GraphQL library.
+
+That `useQuery` hook looks like it just runs a fetch request, sure. And it does.
+
+But `useQuery` also talks to a global context, coordinates similar API requests, adds a caching layer, and ensures that even if you render `<Person name="luke skywalker" />` twice in a row, performance doesn't suffer.
+
+Which is more than you've ever ensured with a global store and a lot of hard work isn't it, my friend? Sure is more than I have 😇
+
+---
+
+Honestly GraphQL revolutionized how I think about the frontend and the Edge First Architecture is the free-est I've ever felt building great webapps fast.
+
+What do you think? hit reply
+
+Cheers, ~Swizec
+
+PS: GraphQL supports _writing_ as well, using a `mutation`. You can even subscribe to changes live.
+
+PPS: GraphQL makes backends easier too. Rather than implementing a billion endpoints, you create 1 endpoint and write small resolver functions for individual queries.

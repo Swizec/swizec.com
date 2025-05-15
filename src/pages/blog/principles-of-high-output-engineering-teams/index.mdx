@@ -1,0 +1,29 @@
+---
+title: "Principles of high output engineering teams"
+description: "A few engineering principles I aim to instill in every team I join. Lead or not."
+published: 2025-03-11
+categories: "Software Engineering, Scaling Fast Book, Teamwork"
+hero: ./img/screenshot-1741704324255.png
+---
+
+Here are a few engineering principles I aim to instill in every team I join. Lead or not.
+
+1. **PRs are work**, not a favor. The velocity of your code review is a leading indicator of software delivery.
+2. [Get us over the water, not build us a bridge](https://swizec.com/blog/get-us-over-the-water-not-build-us-a-bridge/). Focus on solving user needs, not on building features. Involve engineers early.
+3. You're done when your code's in production.
+4. The team is done when user needs are met.
+5. Deploy _at least_ every day.
+6. [INVEST](https://swizec.com/blog/how-do-you-break-down-a-large-project/) – independent, negotiable, verifiable, estimable, testable. That's a good story.
+7. [Kick the can](https://swizec.com/blog/writing-software-is-like-kicking-a-can/). Make it exist first, then make it good.
+8. [Discuss architecture _before_ you start coding](https://swizec.com/blog/coordinating-at-the-end-is-too-late/). Code review is for the small things.
+9. Never ask for 2 big changes in the same PR. [Better is good](https://swizec.com/blog/better-is-good/).
+10. [Approve with comment](https://swizec.com/blog/approve-with-comment/) – don't block progress for anything less than production blowing up.
+11. Everyone owns their system. No throwing code over to QA, fix your own bugs. If you say it's good and it breaks at 3am, we know your phone number.
+12. [You need observability more than tests](https://swizec.com/blog/why-you-need-observability-more-than-tests/). Save automated testing for core business logic and gnarly edge cases.
+13. [Focus on architectural complexity](https://swizec.com/blog/why-taming-architectural-complexity-is-paramount/). Organize your code into modules by business domain, put effort into interfaces, don't worry about implementation details.
+14. [Smart core, thin interfaces](https://swizec.com/blog/smart-core-thin-interfaces/) – share your business logic, repeat your interface. An API should hit the same code as a React server action, a NextJS/Rails/Flask view, React Server Component, or internal function call.
+
+And a bonus principle: If you're building a reusable generic thing and don't have at least 2 distinct use-cases _right now_, you're not building a reusable generic thing. Make it great for the current use-case first.
+
+Cheers,<br/>
+~Swizec

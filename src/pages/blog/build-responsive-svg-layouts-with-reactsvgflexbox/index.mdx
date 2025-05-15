@@ -1,0 +1,211 @@
+---
+title: "Build responsive SVG layouts with react-svg-flexbox"
+description: ""
+published: 2018-08-17
+redirect_from:
+  - /blog/build-easier-responsive-svg-layout-react-svg-flexbox/swizec/8577
+categories: "Front End, react, svg, Technical"
+hero: ../../../defaultHero.jpg
+---
+
+SVG is great. Best way to build scalable graphics on the web. SVG can do everything from simple logos to data visualization and even animation.
+
+The best part is, you can manipulate SVG with both CSS _and_ JavaScript. It's an image that's part of your DOM. 🤯
+
+Look at this animated fire example. Isn't it neat? No animated image required, just some SVG elements and a bit of JavaScript.
+
+[SVG Fire 🔥](//codepen.io/ste-vg/embed/oZXmdL/?height=265&theme-id=0&default-tab=html,result&embed-version=2)
+
+No wonder then that SVG is the norm when it comes to data visualization and other programmable graphics.
+
+Just one problem: **SVG sucks at layout**
+
+Absolutely terrible. There's no layout support at all. You get absolute positioning and that's it. Sure, you can position absolutely within absolutely positioned elements, which is sort of relative positioning, but ugh ...
+
+## Absolute positioning hell
+
+![A React + D3 dashboard of scatterplots](https://swizec.com/wp-content/uploads/2018/08/react-d3-scatterplot-dashboard.png)
+
+Say you're building a small dashboard. Like of different scatterplots looking at a dataset about dog breeds.
+
+Because the data is there, and you can, of course.
+
+You create a scatterplot component. It takes an `x` and a `y` position and sizing info. Inside, it places two axes, a caption, and the datapoints.
+
+The `<Scatterplot>` is absolutely positioned via a `translate` transformation. That moves an SVG element by a vector from `(0, 0)`, thus rendering at the `(x, y)` coordinate.
+
+You render each scatterplot like this:
+
+```javascript
+<scatterplot data={data} x={100} y={100} width={350} height={350} filter="{d" =="">
+            d.weight &&
+            d.height &&
+            d.weight[0] &&
+            d.height[0]
+        }
+        xData={d => d.weight[0]}
+        yData={d => d.height[0]}
+        xLabel="Weight (lbs)"
+        yLabel="Height (in)"
+        title="Dog Breed Height & Weight"
+        entry={props => (
+            <datapoint breed={props.d.breed} {...props}="">
+        )}
+    />
+</datapoint></scatterplot>
+```
+
+A lot of arguments, I know. Data, positioning, sizing, functions for interpreting data, a few labels, and a render prop for each datapoint.
+
+Once positioned with a grouping element `<g>`, the scatterplot can use quasi-relative positioning for its elements.
+
+```javascript
+render() {
+    return (
+        <g transform="{`translate(${x}," ${y})`}="">
+            <heading y={-25}>{title}</heading>
+            {data.map(d =>
+                entry({
+                    x: xScale(xData(d)),
+                    y: yScale(yData(d)),
+                    d: d
+                })
+            )}
+            <axis scale={xScale} x={0} y={height} type="Bottom" label={xLabel}>
+            <axis scale={yScale} x={0} y={0} type="Left" label={yLabel}>
+        </axis></axis></g>
+    );
+}
+```
+
+Position the main container at `x` and `y`. Place `Heading` at `(0, -25)`, datapoints at wherever they go, one axis at `(0, 0)`, and another at left bottom. All relative to the parent container.
+
+The parent container is technically relative to the whole SVG container ... 🤔
+
+Absolute or relative, doesn't matter. You're gonna have one hell of a fun time calculating the position of each individual element by hand. D3 scales help, but you still have to think about it.
+
+SVG itself offers zero help.
+
+Want to resize your scatterplots? Here's what happens 👇
+
+![Smaller scatterplots, gotta update positions](https://swizec.com/wp-content/uploads/2018/08/scatterplots-spaced-out.png)
+
+Want to resize your browser? Here's what happens 👇
+
+![Resized browser cuts off visualization](https://swizec.com/wp-content/uploads/2018/08/not-responsive-at-all.png)
+
+Ugh.
+
+## react-svg-flexbox to the rescue
+
+You can fix the layouting problem with [`react-svg-flexbox`](https://github.com/zoopoetics/react-svg-flexbox). It's a small library, not a lot of stars, but omg so perfect.
+
+Built on top of Facebook's [css-layout](https://www.npmjs.com/package/css-layout), which has recently become a part of [yoga](https://github.com/facebook/yoga), it lets you use CSS flexbox to position SVG elements.
+
+Flexbox might be confusing to grok – I look at tutorials any time I use it for anything – but it's way better than doing it yourself. How many engineers worked on browser layout engines over the past two decades?
+
+Wouldn't wanna retrace all those steps yourself 😅
+
+Wrap our dashboard in a `<Flexbox>` element and…
+
+```javascript
+import Flexbox from "react-svg-flexbox";
+
+// ...
+
+// render() etc.
+<svg>
+    <flexbox style={{ flexdirection: "row", justifycontent: "flex-start" }}>
+        <scatterplot data={data} width={200} height={200} filter="{d" =="">
+                d.weight &&
+                d.height &&
+                d.weight[0] &&
+                d.height[0]
+            }
+            xData={d => d.weight[0]}
+            yData={d => d.height[0]}
+            xLabel="Weight (lbs)"
+            yLabel="Height (in)"
+            title="Dog Breed Height & Weight"
+            entry={props => (
+                <datapoint breed={props.d.breed} {...props}=""></datapoint>
+            )}
+        />
+</scatterplot></flexbox></svg>
+```
+
+We take `<Flexbox>` out of `react-svg-flexbox`, use flexbox styles to say we want to render in a row that starts at the beginning, and the rest happens on its own.
+
+Note that react-svg-flexbox passes `x` and `y` props into our components, so we had to take out manual positioning. Our dashboard now uses up all the space it can 👇
+
+![Scatterplots rendered in a flexbox row](https://swizec.com/wp-content/uploads/2018/08/scatterplots-in-a-row.png)
+
+Something's funky with our vertical positioning, but it's an easy fix. Offset `y` coordinates by a few pixels. ¯\_(ツ)\_/¯ it's not happening in the official examples, so it must be something we're doing inside those scatterplots.
+
+The axes are still poking outside our `width` bounds, but this looks better already.
+
+![Scatterplots with a vertical offset](https://swizec.com/wp-content/uploads/2018/08/scatterplots-vertical-offset.png)
+
+Even if we make one of them bigger, everything still works. No changes to positioning required! o/
+
+![One big scatterplot](https://swizec.com/wp-content/uploads/2018/08/one-big-scatterplot.png)
+
+## Responsive layout with react-svg-flexbox
+
+For the biggest win, we add `flexWrap: wrap` to our `<Flexbox>` component. Like this 👇
+
+```javascript
+ <flexbox 1024="" style={{ flexdirection: "row", justifycontent: "flex-start", flexwrap: "wrap", width: 1024, height: }}>
+</flexbox>
+```
+
+You have to specify available width in your styles, otherwise, it doesn't work. That means you should listen to `window.onresize` and update width accordingly.
+
+Easiest to attach an event listener in `componentDidMount`. Like this:
+
+```javascript
+class App extends Component {
+    state = {
+        width: 1024
+    };
+
+    svgRef = React.createRef();
+
+    componentDidMount() {
+        window.addEventListener("resize", this.updateSize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateSize);
+    }
+
+    updateSize = () => {
+        this.setState({ width: this.svgRef.current.clientWidth });
+    };
+
+    render() {
+        // ...
+
+        <svg 1024="" style={{ width: "100%", height: }} ref={this.svgRef}>
+            <flexbox 1024="" style={{ flexdirection: "row", justifycontent: "flex-start", flexwrap: "wrap", width: this.state.width, height: }}>
+    }
+</flexbox></svg>
+```
+
+And your dashboard becomes responsive! Yay
+
+https://twitter.com/Swizec/status/1030372365006327808
+
+## See the code, play with examples
+
+You can see a full set of [react-svg-flexbox examples on their Storybook](https://zoopoetics.github.io/react-svg-flexbox/).
+
+Code for my dog breed dashboard example is on GitHub [here](https://github.com/Swizec/dog-size-intelligence-popularity).
+
+You can [try it live here](https://build-qoyobtahea.now.sh).
+
+## Fin
+
+Use react-svg-flexbox. Your life will improve. The best thing that's ever happened to me for SVG coding.
+
+Thanks [Cody Averett](https://twitter.com/code_e_averett) for finding this gem 💎

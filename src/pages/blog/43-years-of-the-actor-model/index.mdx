@@ -1,0 +1,76 @@
+---
+title: "43 years of the actor model"
+description: "The actor model is now part of everyday tooling and ensures concurrency safety. Understanding the principles behind it helps you write less buggy code."
+published: 2024-04-19
+categories: "Software Engineering, Papers"
+hero: ./img/screenshot-1713540570507.png
+---
+
+The actor model of computation was first proposed in the 70's as a nicer way to deal with concurrency. Nowadays it's built into our everyday tools and we don't think about it as much. Understanding how it works helps you write less bugs.
+
+[43 years of actors: A taxonomy of actor models and their key properties](https://dl.acm.org/doi/10.1145/3001886.3001890) is a 2016 paper by Koster et al that provides a readable overview of the actor model and why it's good. You can [read the paper with my annotations, here](https://swizec.com/pdfs/43-years-of-actors.pdf).
+
+The paper identifies common concepts, classifies implementations into 4 types, and defines the Isolated Turn Principle as a key component. The authors stress that _specifics are implementation dependent_.
+
+Meaning that the actor model of computation is more what you'd call guidelines than actual rules.
+
+## The basic idea
+
+The basic idea of an actor model is that you have actors doing work based on a combination of internal state and commands/messages/events from outside. The actors do not directly share state. This makes them concurrency safe.
+
+## Common concepts
+
+Your tools will have different names for these concepts, but they all use the same conceptual building blocks.
+
+- **message** or **event** is a unit of communication between actors. Each contains a name and a payload.
+- **inbox** or **message queue** is an ordered set of messages that the actor will process. The queue is in order but the processing need not be.
+- **turn** or **step** is the processing of 1 message from start to finish.
+- **interface** defines the list of messages an actor understands
+- **state** is the actor's internal state. Anything it can access without concurrency counts.
+- **behavior** is the combination of an actor's state and interface
+- **actor** is the combination of execution context, inbox, interface, and state
+- **actor system** is a language or library that implements the actor model
+
+Your React components are actors that communicate by passing events through a shared event mechanism. In a distributed backend system this maps nicely to message queues and lambda functions or servers that process events.
+
+## 4 types of implementations
+
+The paper classifies implementations into 4 types and finds no difference in the power of these different implementations as long as the Isolated Turn Principle is observed. Use whatever works for you.
+
+1. The **classic actor model** uses `create`, `send`, and `become` primitives to implement the model in a functional paradigm. To change state, actors `become` a new actor with different behavior.
+2. The **active objects** approach uses objects that hold internal state and use a single entry point to process events
+3. The **processes** approach leverages processes to process an event from start to finish based on a single entry point. The process is killed when its turn finishes.
+4. The **communicating event-loops** approach uses promises to wait for processing to be ready. It's the only paradigm that supports multiple entry/exit points for an actor.
+
+You see active objects a lot in object oriented languages, I don't have much direct experience.
+
+Processes are common in distributed backend systems where a new Lambda boots up to process each event on a queue. Apache of ye olde LAMP stack uses this approach to start a new PHP process for every HTTP request.
+
+### A note on why event-loops are good
+
+https://twitter.com/Swizec/status/1781108818279379176
+
+Event-loops are the core primitive in JavaScript. Every `async` function is an actor. This makes JavaScript uniquely well-suited for IO-bound code because the single-threaded promise-based approach makes it easy to coordinate lots of waiting around for input/output.
+
+But event-loops are bad for compute-bound code because of their single-threaded nature. If you lock up the CPU with your actor (function), it blocks all other in-progress actors from proceeding.
+
+The paper does not talk about this and doesn't mention JavaScript. I assume for two reasons:
+
+- the paper is from 2016 and JS was not yet so popular for server-side code
+- JS fails the isolated turn principle criterria, you have to enforce it manually
+
+## The Isolated Turn Principle
+
+The isolated turn principle is key to making the actor model useful. Best when your language can guarantee this, but you can use it as a set of principles for your own code. Follow these rules and you'll rarely have bugs due to concurrency.
+
+> A single turn must be processed as 1 isolated step
+
+To satisfy this rule you need:
+
+1. **Safety** meaning that an actor's state is fully isolated and cannot be modified by another actor or another instance of the same actor during processing
+2. **Liveness** meaning that an actor must process a message start to finish without blocking operations
+
+In JavaScript terms this translates to keeping your functions idempotent and avoiding unmanaged mutable state.
+
+Cheers,<br/>
+~Swizec

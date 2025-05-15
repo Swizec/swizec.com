@@ -1,0 +1,94 @@
+---
+title: "The art of the cowboy merge 🤠"
+description: "how do you catch a critical deadline that cannot be missed? We're talking external stakeholders, millions on the line, and it all hinges on *your* team getting it done on time. No overtime"
+published: 2022-09-08
+content_upgrade: SeniorMindset
+categories: "Productivity, Velocity, Mindset, Management, Teams"
+hero: ./img/screenshot-1662671503214.png
+---
+
+How do you catch a critical deadline that cannot be missed? We're talking external stakeholders, millions on the line, and it all hinges on _your_ team getting it done on time.
+
+Easy. You institute a death march, work 60 hour weeks, add a few all nighters, and everyone quits before it's over. Plus your codebase is full of bugs. Fantastic.
+
+I have a better idea.
+
+## First, negotiate scope
+
+If the date can't move, the scope has to.
+
+Sit down with the product owner and go over the roadmap. _Anything_ that can be deferred gets deferred.
+
+Those sparkly moments of joy designers love to add? Not as important as getting the user's job done. The perfect styling of a settings screen users see once a month? Focus on the screen they see on every time.
+
+Don't be afraid to cut _"Oh that's simple, I can do that in 20 minutes"_ features. Those are the easiest to defer. They add up fast, steal your focus, and the risk of doing it later is low.
+
+PS: You can't solve scope by adding people. The right time to grow the team was 6 months ago.
+
+## Then, look for blockers
+
+Spoiler alert: It's your code review process.
+
+https://twitter.com/Swizec/status/1400823034810822668
+
+A while back I saw a sad story on [r/ExperiencedDevs](https://reddit.com/r/experienceddevs). [^1]
+
+This person was at wit's end asking the internet for advice. Facing a critical deadline _tomorrow_, their code sat there waiting for a senior engineer to take a look.
+
+It's been waiting for over a week with no word from the senior. Not a comment, not a "sorry I'm busy", just sitting in the queue rotting away.
+
+_"Do I risk merging? Do I beg and plead with the senior? We can't miss this deadline. I'm afraid we'll look bad and it's all gonna fall on me. What if I get fired?"_
+
+Remove those obstacles! [Work in progress kills your progress](https://swizec.com/blog/workinprogress-kills-your-progress/).
+
+## Speeding up your code review
+
+In my team we started with a rule: Every pull request gets 2 approvals before merging. This helps with knowledge transfer, catches small bugs, and ensures everyone feels comfortable with the codebase.
+
+Feedback, unless critical (like a security concern), is up to the pull request owner to accept. We aren't Guarding The Codebase – we trust you know best and offer our input.
+
+This makes the process faster.
+
+You can turn feedback into followup tasks to do later. Deploy to a staging environment now, polish later. Plenty of time while the product owner verifies functionality.
+
+Another hack was to build a culture of PRs Come First. Code review is not that annoying burden you do for others, it's your top priority. Clear the queue, then get to work.
+
+https://twitter.com/Swizec/status/1422269335226109965
+
+Besides, code reviews are quick because [the whole team works together](https://swizec.com/blog/reader-question-what-do-collaborative-teams-look-like/). You know the context and the goal.
+
+We added a rule that the 2nd approval with no comments should be a merge. Why wait for the owner to see your ✅? You know it's good, merge away.
+
+That wasn't fast enough.
+
+## The cowboy merge 🤠
+
+The cowboy merge is the art of skipping all that.
+
+Do you _really_ need two people to say you can fix a typo?
+
+You can merge the PR yourself. It's okay. You got dis!
+
+If a typo is fine, how big does a change have to be before it really absolutely needs a proper review?
+
+That depends on how risky it is. What you're changing, how much it's changing, what are the consequences if it goes wrong.
+
+Be very careful when running a script that updates production data for thousands of users. Even more careful when it charges money. A lot less careful when you're changing a font size in the footer, deploying to a staging environment, and it's all behind a feature flag in production.
+
+Plus, how likely is it that another pair of eyes will uncover something new? Sometimes the perfect balance is to merge after 1 review. Other times best wait for 5.
+
+Your cowboy merge says:
+
+- the code is fine
+- the change is low risk
+- reviewers are unlikely to comment
+- I did the work to de-risk
+- I own the 💩 if this goes wrong
+- I'll fix if anyone complains
+
+Focus on making mistakes easy to fix, not impossible. But that's another post :)
+
+Cheers,<br/>
+~Swizec
+
+[^1] sorry Reddit search is terrible and I cant' find the original post anymore. The quote is my summary

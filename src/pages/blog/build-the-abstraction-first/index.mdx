@@ -1,0 +1,50 @@
+---
+title: "Build the abstraction first"
+description: "Hardcoding logic when you're tight on time doesn't need to make a mess. You can build the abstraction first!"
+published: 2025-01-18
+categories: "Software Architecture, Complexity, Software Engineering"
+hero: ./img/screenshot-1737215256857.png
+---
+
+Hardcoding logic when you're tight on time doesn't need to make a mess. You can build the abstraction first!
+
+This is opposite of my usual advice: Sit back and [wait for desire paths to form in your code](https://swizec.com/blog/architecture-is-like-a-path-in-the-woods/). Because in engineering it always depends.
+
+## Use experience across projects
+
+Lots of day-to-day engineering problems have known standard solutions. Or you've seen the same thing in other projects and solved it a million times in your career.
+
+You know the desire path! You've seen it.
+
+For example, I recently had to disable a feature for some users. The ask sounded a lot like an enterprise-level permissions system. But we had to get it done "by today".
+
+How do you build a whole permission system in a few hours? You don't.
+
+But you _can_ hardcode a quick `if user.email.endsWith('blah')`.
+
+And now you've made a mess.
+
+## Minimize code that needs to know the details
+
+Quickly hardcoding that condition works. It's fine.
+
+But you know the desire path for user permissions. You've seen it across dozens of projects. What you _really_ want is a function like `if user.canDoTheThing()`.
+
+With 5 seconds more effort, you can **build the abstraction first** and save yourself lots of hassle later on.
+
+```javascript
+class User {
+	function canDoTheThing() {
+		return this.email.endsWith('blah')
+	}
+}
+```
+
+Now you've got the beginnings of a permissions system. You can use this function anywhere in the code without knowing the details. Semantically this is what your code cares about: Can user do the thing?
+
+Today it's hardcoded. Tomorrow the logic may become more complex. In 3 months it reads the database for details. In 6 months you build a whole UI to manage those details.
+
+And all along this evolution, the code outside your function only knows `user.canDoTheThing()`.
+
+Cheers,<br/>
+~Swizec

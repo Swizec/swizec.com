@@ -1,0 +1,37 @@
+---
+title: "What helps you ship confidently?"
+description: "Been thinking about what needs to be in place for engineers to ship with confidence"
+published: 2024-08-31
+categories: "Engineering, Architecture, Teamwork"
+hero: ./img/screenshot-1725115924392.png
+---
+
+What helps you ship confidently?
+
+I've been thinking about this as I take lead on a project that needs help. What are the prerequisites we have to ensure 🤔
+
+Right now we have Code That Works. We know it works because the business keeps running. But it's brittle and hard to work with. Sneeze wrong and you might break everything. I've gotten close.
+
+One time all my code stopped working from one change to the next. Like broken no response stopped working. Then next morning the same code was fine. I never quite figured out what was wrong. Must've been the gremlins ...
+
+![](giphy:gremlins)
+
+Here's what I've come up with so far:
+
+- **observability** so we can investigate and debug production issues
+- **alerting** so we know quickly when a major fire breaks out in production
+- **good DORA metrics** so inevitable failures are quick to recover from
+- **type safety** so we can move code around and refactor things
+- **modularization** so we can [reduce architectural complexity](https://swizec.com/blog/why-taming-architectural-complexity-is-paramount/), increase ownership, and isolate failures
+- **canary deploys** so we can ship new features to a subset of users first
+
+You'll notice I didn't say tests.
+
+That's because in 15 years of writing production code I've never seen a test catch a bug that engineers didn't expect to happen. But observability and canary deploys have saved my ass on countless occasions.
+
+Not sure though if DORA metrics (deploy frequency, lead time to changes, change failure rate, time to fix) are leading or trailing indicators. 🤔
+
+What have you found helps you ship with confidence [name|]? Hit reply
+
+Cheers,<br/>
+~Swizec

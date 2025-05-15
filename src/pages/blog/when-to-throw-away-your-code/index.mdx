@@ -1,0 +1,47 @@
+---
+title: "When to throw away your code"
+description: "Delete code when it stops providing value 💡 All code is a liability; context matters. Keep what solves problems, toss the rest."
+published: 2023-06-19
+content_upgrade: SeniorMindset
+categories: "Reader question, Software Engineering, Lessons"
+hero: ./img/screenshot-1687190508202.png
+---
+
+Last week I mentioned that "code is expensive" and a reader – Dakshin – wrote back saying _"Wait, if code is expensive, why are you throwing it away??"_
+
+Their question was about the second example in [What does "solve problems" even mean](https://swizec.com/blog/what-does-solve-problems-even-mean/), throwing away a wrapper library and using the vendor SDK as a way to unblock 5 teams. My thesis is that without this library, teams will be able to move independently and control their destiny.
+
+And Dakshin is right! We have this working code that solves problems and people have put good effort into building. So why do I wanna throw it away?
+
+I _love_ deleting code. Nothing brings more joy than grabbing a bunch of code you don't need anymore and throwing it away.
+
+Like when you spend 3 hours working on a tough problem, write a bunch of code to figure it out, then realize you can do it all in 2 lines of code with a different approach. Cmd+A, delete.
+
+{/* ![](giphy:mr_clean_cleaning) */}
+
+## Context matters
+
+But in this case it's even simpler – the library has outlived its purpose. Now it creates more problems than it solves.
+
+Its main value-add was cleaning personal information from feature flag requests. We don't need that anymore thanks to signing the right pieces of paper with the new vendor.
+
+My team owns 43% of all feature flags and we never adopted the library. Before the library, we used to call the backend. Then the backend updated to use this library ... and we kept our old approach because it worked.
+
+That means half the library's code was never exercised. Who knows if it even works 🤷‍♂️
+
+And the iOS team was always on their own. You wouldn't want a shared library between TypeScript and iOS anyway.
+
+A third of our ecosystem uses this library. Suddenly feels like a much easier decision doesn't it?
+
+And consider this: What happens when the library everyone's using upgrades to the new vendor, but the individual teams aren't ready to migrate their feature flags? Mayhem.
+
+Instead of mayhem, we can let old flags keep using the old library and vendor while new flags gradually start using the new vendor directly. Separate dependencies ✌️
+
+## So, when do you delete code?
+
+All code is a liability. Cheap to produce, expensive to maintain. It's not a work of art, it's a tool to achieve a goal.
+
+Delete when it stops providing value. It's just code, you'll write more tomorrow.
+
+Cheers,<br/>
+~Swizec

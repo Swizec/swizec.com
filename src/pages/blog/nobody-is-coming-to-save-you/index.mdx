@@ -1,0 +1,118 @@
+---
+title: "Nobody is coming to save you"
+description: "How do you react when you don't like The Process at work? Most programmers complain on social media, make a wry joke, and ... suffer. Not great"
+published: 2022-07-29
+categories: "Mindset, Leadership"
+content_upgrade: SeniorMindset
+hero: ./img/screenshot-1659109643992.png
+---
+
+How do you react when you don't like The Process at work?
+
+Could be anything. How you do deploys, standup, sprints, how stories are defined, how pull requests work, ... anything that has a typical _"This is how we do it here"_.
+
+Most programmers complain on social media, make a wry joke, and ... suffer. Standups amirite?? 🙄 &lt;the crowd goes wild&gt;
+
+But here's the thing my friend: nobody is coming to save you. _You_ have to fix the process. Mold it to your liking.
+
+https://twitter.com/Swizec/status/1550601036091379712
+
+I've written about this before in [Why great engineers hack the process](https://swizec.com/blog/why-great-engineers-hack-the-process/) and [HOW great engineers hack the process](https://swizec.com/blog/how-great-engineers-hack-the-process/). Some readers thought that was a bit aggressive.
+
+_"Yes Swizec, everyone thinks they're the ones who don't need the process. If you think you don't need it, you need it the most!"_
+
+Fair. The Process is for everyone. Even you.
+
+Except when you cowboy merge a pull request because it's a small copy change, you need to move fast, and there's little value in bothering others for a rubber stamp. 😝
+
+## How you fix the process
+
+There's two ways to fix the process:
+
+1. **Suggest an experiment.** Let's do this for a week or sprint, see how we like it. Low commitment, easy to do, hard to say no. Great when you need others to play along. Sometimes known as a [kaizen](https://en.wikipedia.org/wiki/Kaizen)
+2. **Lead by example.** Start doing it your way. Show others. If it works and people like it, they'll start doing it your way.
+
+Here's a few ideas you can try:
+
+## Standups
+
+https://twitter.com/SeniorMindset/status/1552709941739134977
+
+Standups are a daily sync with your team.
+
+Back in the 90's my mom explained it as _"Every morning we have coffee together"_. American commutes make that uncommon on this side of the pond, I think.
+
+Tech industry has perverted standup into a ritualized meeting that engineers the world over love to complain about as the biggest annoyingest waste of their time.
+
+It doesn't have to be that way!
+
+Your manager can read the task manager. They don't need a status report. This is _your_ meeting.
+
+Hide the Done column and focus on the day ahead.
+
+## Environment vars
+
+Once upon a time my coworker got fed up with our secrets management. Every day he would come into work and his environment blew up.
+
+Someone renamed an environment variable. Again. Or added a new one. Ugh.
+
+Now nothing works, he's blocked from coding, and hunting through `.env.sample` files to find what changed.
+
+He wrote a script. It goes through our repos, looks at `.env.sample` files, copies new variables into `.env.local`, and talks to AWS Secrets Manager to set the value.
+
+🤩
+
+We rely on it daily. Even after he left. Killed half our onboarding docs!
+
+## Deploys
+
+Similarly I once got tired of the git command dance to deploy all our code across repositories.
+
+GitOps is fantastic! Checkout staging, merge, check out master, merge, push, integration pipeline handles the deploy itself. Sets up cloud services, builds your code, makes it run.
+
+A fun and exciting command line dance until you do it multiple times per week across many repositories.
+
+So I wrote a script: goes through repositories, asks _"Wanna deploy this one?"_, and does the git dance.
+
+Everyone thought it was silly at first, now they're all using it. I know because they keep adding improvements 😛
+
+## Write an SOP
+
+Doing something regularly? Same-ish steps every time?
+
+Write a Standard Operating Procedure! Step by step instructions on how to do a thing.
+
+Congratz! Now others can do it. You can take a vacation 🥳
+
+Perhaps one day it becomes a script. Or automated.
+
+## Design and product validations
+
+Tired of waiting for product or design to validate your changes? They're the biggest bottleneck after pull requests in my experience.
+
+Send them a screenshot! Or a video! Even if it's not part of your anointed process.
+
+Heck, get their feedback before you even open a PR. As early as possible. That way once it's merged and deployed to a staging environment you can be pretty sure they'll be happy.
+
+Good excuse to do your own manual testing and find any bugs 😉
+
+Plus UI pull requests are way easier to review when there's screenshots. I promise nobody will mind if you take a few minutes to do this.
+
+## Fix others' code
+
+See a smöl problem in someone's pull request that will take you 5 minutes to fix, but 2 hours for the other person to see your comment ask a followup question that you'll respond to an hour later then they'll make the change and the next day you'll hit that approve button?
+
+Fix the damn thing. They won't mind!
+
+And if they do mind never do it again. People can be touchy about their code 🤷‍♀️
+
+## Better is good
+
+My favorite Obama quote: _"Better is good."_
+
+You don't need to fix The Process all at once. It doesn't have to be perfect.
+
+Just make it a little better.
+
+Cheers,<br/>
+~Swizec

@@ -1,0 +1,55 @@
+---
+title: "Squash merge? Really!?"
+description: "Learn why squash merging is your friend - from hating it to loving it! Squash merging helps you keep moving and focus on the work instead of recording the work."
+published: 2023-01-27
+content_upgrade: SeniorMindset
+categories: "Teams, Productivity, Mindset, Velocity, Reader Question"
+hero: ./img/screenshot-1674834793966.png
+---
+
+Yes, squash merge. I hated it, now I love it. Squash merge is your friend.
+
+Fellow reader Alex wrote in after the [Why trunk-based development is best](https://swizec.com/blog/why-trunk-based-development-is-best/) email – He noticed that we squash merge our code and was ... disgusted? Surprised? Worried for our sanity?
+
+> But squash merging? I know this isn’t the subject of the email, but what about losing all of that granular git history?
+>
+> Where I work right now we put a lot of value on git hygiene and git history. We try to have clean, well organised commits and don’t squash merge. We favour re-writing commits in a PR vs adding a “fixed what I broke in last commit” commit.
+
+Alex is right. A clean git history matters. But let me ask you this, how many of the hundreds of pictures you take on vacation do you ever look at again?
+
+## Why git history matters
+
+Git history is a record of how your software came to be. A way to look at code and ask _"But why?"_.
+
+That's if the description is good. At the very least you can find out who made a change and ask what they were thinking.
+
+At my company we try to link every pull request to a JIRA story. That way we can answer questions without having to remember. Even after people leave.
+
+You can also use git history as a set of checkpoints. A way to deploy or run the code at a point in history.
+
+In reality software and ecosystems move ever forward and running old code almost never works. But you can revert a deploy or two and go back a few days before you broke prod. 🤞
+
+## Keep the important history, drop the rest
+
+An abundance of data is not the same as _information_. How detailed of a history do you need? Do you wanna know when I farted, banged my head against the keyboard, or just when the feature finally worked?
+
+I've been reading a book on medical health records and one of the bigger problems is that doctors record too much data. They can't know what's gonna be useful tomorrow so they _write down everything_. Later, nobody reads that shit.
+
+That's why your doctor asks stupid questions instead of reading the chart. There's too much! They can't find the important bits.
+
+### Same is true for your git history.
+
+Do you want everything or just the meaningful _changes_? Are _you_ gonna read a sea of commits?
+
+Wouldn't it be nice, if every commit on `main` was ready to go? Compiling, running, passing tests, deployable to prod. Every commit works, achieves a unit of functionality, and describes its purpose. No surprises.
+
+That's what squash merge achieves. Throw away the in-progress work and merge when it's all ready. You won't miss the detailed history, I promise.
+
+It's liberating! Lets you focus on the work instead of recording the work. Enjoy the squalor, keep moving, then clean up with the press of a button 😌
+
+Plus if you're not rewriting commits, _two_ people can work on the same branch.
+
+Cheers,<br/>
+~Swizec
+
+PS: GitHub (and others?) preserve old pull requests. You can look up the details behind each squash, if you need them.

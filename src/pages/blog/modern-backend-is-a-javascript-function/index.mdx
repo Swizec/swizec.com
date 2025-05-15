@@ -1,0 +1,136 @@
+---
+title: "Modern backend is a JavaScript function"
+description: "Many engineers think server-side code is the scary domain of True Engineers. Something newbies, juniors, and frontend engineers shouldn't touch. They're wrong. Modern backend is a joy. ❤️"
+categories: "Serverless, JavaScript, Technical"
+content_upgrade: ServerlessHandbook
+published: 2020-09-22
+hero: ./img/screenshot-1600788569261.png
+---
+
+import { ContentUpgrades } from "@swizec/gatsby-theme-course-platform"
+
+Many engineers think server-side code is the scary domain of True Engineers. Something newbies, juniors, and frontend engineers shouldn't touch.
+
+They're wrong. Modern backend is a joy. ❤️
+
+## Why engineers are afraid of backend
+
+Backend code scares people because it sounds complex. And serious, and critical, and a bit boring.
+
+[https://twitter.com/Swizec/status/1188983047128903680](https://twitter.com/Swizec/status/1188983047128903680)
+
+Sometimes you fall into the [Deep Backend](https://swizec.com/blog/in-2020-what-is-frontend/#backend-of-the-frontend-vs-deep-backend) and that's a dark place. You get your telemetry, a stream of data, a large database, and your job is to make sure they match at 99.999% consistency without dataloss.
+
+You're fighting against [unsolvable paradoxes](https://serverlesshandbook.dev/robust-backend-design), flakey servers, and the boredom of watching graphs wiggle around with no other feedback.
+
+🤮
+
+### You \*can\* do backend logic
+
+Most server-side code is not like that. It's JSON bureaucracy.
+
+You get data from the client, change a few values, run a couple functions, and save it to the database. Trigger a background process or two to poke 3rd party APIs.
+
+Easy peasy my friend. You do this on the frontend every day.
+
+Doing it on the backend can be scary.
+
+You have to set up a server, make sure it stays up, set up Nginx or Apache reverse proxies, configure a database, make sure _that_ stays running, configure permissions, muck around with Docker, drop into Unix commands, set up monitoring, configure domains, set up a CDN for static files, deal with provisioning, configure backup servers, dynamic failover, horizontal scaling, vertical scaling, ....
+
+Then you're ready to write your code.
+
+Publish to reddit and your server dies under load 🤦‍♂️
+
+![](giphy:screw_that)
+
+<ContentUpgrades.ServerlessHandbook />
+
+## Times have changed my friend
+
+> The future is already here, it's just not evenly distributed
+>
+> ~ William Gibson
+
+You're standing one foot in the future, one foot in the past. We all are. How we build webapps is changing.
+
+Serverless computing splashed on the scene with one promise: What if you _didn't_ have to do all of the above? What if you could write _your_ code and nothing else?
+
+AWS Lambda launched in November 2014. Netlify in April 2015, Zeit/Vercel in December 2015.
+
+All running towards the same goal: _You write **your** code, we make it run_.
+
+No more funky configuration, no more servers, no more worrying about scale, no more setting up CDNs and deploy pipelines and parallel deploys and pull request previews and ... you write your code, the platform handles the rest.
+
+![](giphy:im_in_love)
+
+## What modern server-side code looks like
+
+Here's what modern backend code looks like at its simplest:
+
+```javascript
+// /api/helloWorld.js
+
+module.exports = (req, res) => {
+  return res.status(200).send("Hello world")
+}
+```
+
+`module.exports` defines exports in Node, `req` is the request object, `res` the response. Send back a success status of 200 and a `"Hello world"` text.
+
+![Vercel cloud function demo](./img/Vercel-cloud-function-demo2e08a7.gif)
+
+Deploy to Vercel with `vercel` and you have a hello world function that runs on the server, has its own URL, and scales great. Try mine: [https://hello-world-chi.vercel.app/api/helloWorld](https://hello-world-chi.vercel.app/api/helloWorld)
+
+### With Netlify
+
+You can use the same approach with Netlify. Their cloud functions look like this:
+
+```javascript
+// /functions/helloWorld.js
+
+exports.handler = async (event, context) => {
+  return {
+    statusCode: 200,
+    body: "Hello world",
+  }
+}
+```
+
+Export a `handler` method, get a trigger `event` instead of the `req` object. Return your response instead of manipulating the `res` object.
+
+Both Vercel and Netlify run cloud functions on AWS Lambda. Vercel uses patterns from the popular [ExpressJS](https://expressjs.com) framework for its abstraction, Netlify is like using AWS Lambda directly.
+
+### With AWS Lambda
+
+To use AWS Lambda, you'd write the same JavaScript code and add a configuration file using [Serverless Framework](https://expressjs.com) or [CloudFormation](https://aws.amazon.com/cloudformation/)
+
+```yaml
+# serverless.yml
+
+service: hello-world
+provider:
+	name: aws
+
+functions:
+	helloWorld:
+		handler: ./functions/helloWorld
+		events:
+			- http:
+					path: hello
+					method: GET
+```
+
+Both use YAML for configuration. I prefer Serverless Framework because it makes common operations easy and lets you drop into full CloudFormation when you want.
+
+This file says we're using `aws` and creating a `hello` function. Triggered by a GET request, handled by the `/functions/helloWorld` file.
+
+Hit AWS and you get infinite-ish scaling, an API Gateway as a reverse proxy, monitoring, distributed logging, and everything else you need. And the full config is part of your code. 😍
+
+More work, more control, but not too much work 🤘
+
+What do you think, sound cool? hit reply
+
+Cheers,<br/>
+~Swizec
+
+PS: your code gets automatic SSL config in all 3 examples

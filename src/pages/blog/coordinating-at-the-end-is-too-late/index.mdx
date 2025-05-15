@@ -1,0 +1,112 @@
+---
+title: "Coordinating at the end is too late"
+description: "When working: sync first *then* async"
+published: 2024-04-22
+content_upgrade: SeniorMindset
+categories: "Teams, Teamwork, Scaling Fast Book"
+hero: ./img/screenshot-1713801308837.png
+---
+
+There's nothing worse than using your deeply focused super productive time to run in the wrong direction.
+
+After you're all done and happy with your output, someone shows up and says _"All your problems started with this little mistake in the beginning"_ or they say _"Oh I made this big change in my PR and now your code doesn't fit"_. Then you have to re-do half your work.
+
+As [the old saying](https://www.reddit.com/r/PHP/comments/12o9dz/weeks_of_coding_can_save_you_hours_of_planning/) goes:
+
+> Weeks of programming can save you hours of planning.
+
+_PS: you can [read and share this online](https://swizec.com/blog/coordinating-at-the-end-is-too-late/)_
+
+I was on vacation once with a friend whose team was a perfect example of this dynamic. On our way to the airport, my friend was pushing code to production from the backseat of the car. Sure he got all his code working a few days before, but then a last minute change to configuration style blew it all up. Of course that didn't move the deadline and my friend was left with a broken pull request full of "fix this" comments.
+
+It's pretty common for this to happen in early stage startups. You're moving fast, breaking things, and often lack the technical leadership to stop you from making unforced errors.
+
+Coordinating your work _always_ leads to unexpected issues. You can either have those conversations at the last minute with your hair on fire in the backseat of a car, or before you write the first line of code.
+
+It's a lot less stressful to do this ahead of time.
+
+Get together with your team for a quick meeting, discuss the solution, catch unknown edge cases, design the architecture, make a plan of attack, and define interfaces between modules.
+
+_Then_ split up and do asynchronous work in deep focus mode. You'll write code faster this way and you're less likely to end up with a bunch of pieces that don't fit together.
+
+We call that short meeting The Swarm.
+
+## Swarm meetings
+
+Swarm meetings are part of doing the work. Everyone is expected to participate and engage in the discussion. Letting juniors speak first helps everyone stay engaged.
+
+The goal of a swarm meeting is to:
+
+- agree on the problem you're solving
+- define what you're _not_ solving
+- design a solution
+- define how you'll know that it worked
+- agree on all the moving pieces involved
+- agree how those pieces will fit together
+- create a work plan
+- surface any unknown unknowns
+- resolve known unknowns
+- verify your time/complexity estimate
+- identify any re-negotiation to do with your product owner
+- discuss your release strategy
+
+This takes about 30 minutes.
+
+If it takes more than an hour, your story is too big and needs to be broken down. The meeting can be as short as 15 minutes for stories that turn out to be easier than expected.
+
+The story owner leads this meeting and acts as the face of the team when re-negotiating with the product owner or asking followup questions. They need not be the team's expert in this product area. It can be better if they're not! They ask better questions that way.
+
+We like to rotate this story owner role for each story so that nobody gets tired of wearing the project manager hat. In larger teams there can be enough ongoing coordination that the story owner doesn't even get to write code.
+
+### Define what you're not building
+
+Swarms start by reviewing the acceptance criteria, designs for UI stories, and any other documentation you have available. By now you'll have a rough idea of what to expect from sprint planning meetings, but I find it helps to re-anchor on _this_ specific story.
+
+The most important outcome is to clarify what is and isn't part of the story. It's common for engineers to get ambitious and want to build extra functionality from the overall epic this story belongs to. Because it's there, feels obvious, and eh you're already here so you might as well add a bunch of unnecessary stuff.
+
+This blows up your estimates.
+
+Focus on building _this_ story and nothing else. The obvious functionality you want to add may be part of a story later in this sprint. Or it could be deferred because other more critical features come first or the product owner needs a small demo to verify you're even going in the right direction.
+
+Ship regularly and [keep kicking the can](https://swizec.com/blog/writing-software-is-like-kicking-a-can/). Small well-defined stories that ship to prod are better than getting stuck on a sprawling mess that's hard to verify.
+
+### Design the solution
+
+Once everyone agrees what you're building, it's time to discuss how. This is the right place to discuss any existing code that could help, identify components you'll have to integrate with, and talk about API design.
+
+I'm using "API design" broadly here. This can mean component interfaces for your UI, definitions for database tables, or a full API spec for your server.
+
+Often it's a mix of everything.
+
+Your goal is to uncover any unknown unknowns and share knowledge inside the team. The team's expert in this part of the system is likely to shine. They'll have a good mental map of the system and can act as a guide for everyone else.
+
+Designing a solution almost always surfaces followup questions for the product owner. The story felt like it made sense during sprint planning and now looks full of holes when you sit down to build.
+
+This is normal. Finding those holes early is crucial. It's the [illusion of explanatory depth](https://swizec.com/blog/coding-forces-you-to-understand-the-problem/) coming to haunt you.
+
+Once everyone understands what you're building and how it integrates with the existing system, you can discuss the different components you'll add and the interfaces between them. Like a lightweight version of type-driven or contract-driven development. Get as detailed as you'd like.
+
+It's okay to iterate on these designs during implementation. If you never need to iterate, you're spending too much time planning.
+
+### Create a work plan
+
+Once you know the components and the interfaces between them, you can create a work plan. We like to use story subtasks for this.
+
+The work plan acts as a TODO list that lets us know how the story is going. Each task is meant to be independent, verifiable, and safely shippable.
+
+We can then work on these tasks in parallel. The pull requests are small and well-defined. They're quick to verify and easy to merge.
+
+You're encouraged to add more subtasks as things come up during implementation. It's common to add subtasks for bugs, feedback from validation, or non-blocking pull request comments.
+
+## The outcome
+
+With this approach you uncover surprises early, avoid scope creep, and make parallel work easy to integrate.
+
+The end result is that your code review stops being long and arduous. You're discussing things ahead of time and pull requests turn into a gut check. Quick and easy.
+
+Cheers,<br/>
+~Swizec
+
+PS: this is from [a book I'm writing](https://swizec.com/blog/can-i-get-your-opinion/)
+
+PPS: here's _how_ I like to do this 👉 [The swarm doc](https://swizec.com/blog/the-swarm-doc/)

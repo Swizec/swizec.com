@@ -1,0 +1,62 @@
+---
+title: "Small change in big scary codebase?"
+description: "Making small changes in large unfamiliar codebases is the job. That's what engineers do all day."
+published: 2024-08-07
+categories: "Mindset, Software Engineering, Reader Questions"
+hero: ./img/screenshot-1723044586601.png
+---
+
+Fellow reader B writes in with a great question: How do you make a small change in a large unfamiliar codebase?
+
+> what would you do when ur manager ask you to do a "small change" ticket for an existing project that you are new to, and the project is filled with complicated code that is "now bad" due to environment change
+> \~B
+
+That's the job! That's what most of us do all day – adding incremental changes to large codebases full of murky swamps and half-forgotten dragons.
+
+Building a new thing from scratch is pretty rare. Being there for the whole lifetime of a product is even more rare. Actually remembering all of it ... impossible.
+
+Just yesterday I sent this meme to my partner joking that I'm both people on the right 😂
+
+![You do all the work and forget everything](./img/You-do-all-the-work-and-forget-everything-29hhhb.jpeg)
+
+## Trust the code
+
+You can't remember everything. There's too much. And with other people working on the codebase, it keeps changing anyhow. By the time you're back, it's going to be different than you left it. No point trying to remember.
+
+The code is the source of truth.
+
+What the code says _right now_ is how the software behaves. Not what a design doc says or an architectural diagram or what some senior engineer remembers about how it was originally built and what was the intent. What does the code say right now? That's what matters.
+
+Get comfortable reading the code and following where it leads. Try not to make assumptions. Just read the code.
+
+## Find a hook
+
+After you give up your need for control and understanding and learn to just trust the code, the next trick I learned is to find a hook.
+
+This is something I picked up way back in my phpBB modding days. Early 2000's? Back when forums were big and a high school kid like me could have a mod with 10,000+ downloads.
+
+phpBB was a large monolithic mess of PHP. Mods were like plugins that would use a script to modify your installed code with new features.
+
+I had no idea how most of it worked and you'd need a lifetime to read and grok all the code. So here's what I did:
+
+1. Find a feature _next to_ what you want to change
+2. Search for a string, component, anything recognizable
+3. Follow the code to see how it's implemented
+4. Make your changes in all the same places
+
+Yes this makes the code worse. Awful [separation of concerns](https://swizec.com/blog/dry-vs-soc-a-difficult-choice/), terrible for [architectural complexity](https://swizec.com/blog/why-taming-architectural-complexity-is-paramount/). But it gets the job done, the ticket closed, and you learn more about the codebase.
+
+## Bad code is okay
+
+But I suspect B already knows all that. I think secretly they're asking _"How do people live like this!? All this code is bad and outdated I can't stand to look at it how can the manager ask me for one small change when the whole thing needs to be thrown out and rewritten from scratch!!??"_.
+
+The code is bad and that's okay. It works doesn't it? Business processes are running, company's making money, ...
+
+![](./img/giphygif-eb88fb.gif)
+
+Best you can do is clean up what you can while you're there. Add a comment or small improvement where the code surprised you. Move something to where it's easier to find. Extract a messy blob of code into a function. Wrap a few things that always work together into a module. Move a few files to make a better grouping.
+
+[Garden and guide your codebase](https://blog.codinghorror.com/tending-your-software-garden/) with love and it will grow into a beautiful garden. But you can't control these things. They have a mind of their own.
+
+Cheers,<br />
+\~Swizec
