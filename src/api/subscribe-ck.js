@@ -23,7 +23,7 @@ async function createSubscriber({ email, name, source }) {
   return await response.json()
 }
 
-async function createSubscriber({ email, formId }) {
+async function signupSubscriber({ email, formId }) {
   const url = `https://api.kit.com/v4/forms/${formId}/subscribers`
   const headers = {
     "Content-Type": 'application/json; charset="utf-8"',
