@@ -1,0 +1,22 @@
+---
+title: "Common abstraction traps"
+description: "Here's a few common abstraction traps that suck you in, look like they improve your code, then turn into bad ideas as your system grows."
+published: 2025-05-22
+categories: "Scaling Fast Book, Software Engineering"
+hero: ./img/screenshot-1747925197749.png
+---
+
+Here's a few common abstraction traps that suck you in, look like they improve your code, then turn into bad ideas as your system grows.
+
+1. [**DRY** – do not repeat yourself](https://swizec.com/blog/dry-a-common-source-of-bad-abstractions/) is an important skill the industry encourages in beginners. It becomes a trap when you avoid repeating code that just happens to look similar. You want to _avoid repeating semantic meaning_, but don't worry about the code itself. If it's going to evolve in different directions, it's fine to repeat.
+2. **Horizontal separation** into layers based on technology looks great at first: You have a layer that cares about data, a layer for presentation, and so on. At first your code feels organized. But as the system grows into multiple business domains, horizontal separation leads to [lasagna code](https://swizec.com/blog/the-italian-foods-theory-of-bad-software-design/) where every update requires touching dozens of files and muddles your semantics. Why does invoicing code live next to content sharing?
+3. [**Hammer factory factory**](https://swizec.com/blog/solve-the-problem-not-a-different-more-difficult-problem/) is a subset of aggressive DRY – you notice a pattern of repeated operations and create a factory. But the business semantics are different and now your factory is hard to use. Easiest to spot when a bunch of boolean arguments show up to configure your function, class, or component.
+4. **Util files** feel like the natural place to put small utilities that everyone needs. Want reusable code? You know where to find it! But this leads to code that reaches across business contexts, ties disparate domains at the hip, and has little to no indication of purpose. Utils are a breeding ground for spooky bugs where changing one part of the system breaks code you've never heard of.
+5. **Lots of small functions** is a common pattern for engineers who swing towards the Do One Thing and Do It Well principle. You get lots of small functions, classes, or components that can't do anything meaningful on their own. Every business operation assembles a bunch of these into a chain, which leads to fragile code that's hard to work with.
+
+Aim to **write abstractions based on intent** instead of implementation. The implementation will change but the "invoice customer for service" goal will not.
+
+One way to measure this is [architectural complexity](https://swizec.com/blog/why-taming-architectural-complexity-is-paramount/).
+
+Cheers,<br/>
+~Swizec
