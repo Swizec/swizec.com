@@ -1,0 +1,67 @@
+---
+title: "Software architecture IS Conway's Law"
+description: "Can you even have architecture before there's a team?"
+published: 2025-05-31
+categories: "Architecture, Software Engineering, Teamwork, Scaling Fast Book"
+hero: ./img/screenshot-1748704932527.png
+---
+
+Can you even have architecture before there's a team?
+
+I've been thinking about this lately. Reflecting on how writing code goes when you [work as a team of soloists](https://swizec.com/blog/5-soloists-in-a-trench-coat/) vs [a team that works together](https://swizec.com/blog/the-answer-to-5-soloists-in-a-trench-coat/). Code is cleaner when you work together. But why?
+
+## Conway's Law
+
+Conway's law says that companies ship their org structure. If 3 people build a compiler, you will have a 3-pass compiler.
+
+> [O]rganizations which design systems (in the broad sense used here) are constrained to produce designs which are copies of the communication structures of these organizations.
+
+That's why you want [vertical teams](https://swizec.com/blog/scaling-teams-is-a-technical-challenge/#:~:text=Vertical%20teams,From%20start%20to%20finish.) aligned with business goals and product areas. Anywhere you split the teams, you'll get a rift in the product.
+
+## Architecture when you're soloing
+
+When you solo a new feature or project, you can try to keep your code clean. But it's hard. You have to think about it. Consciously decide to maintain arbitrary boundaries between components. It feels silly.
+
+After all why not, why shouldn't you smoosh the state management logic together with the UI rendering? Who cares if interfaces leak between components?
+
+You're building all parts of the feature. Do what feels easiest!
+
+Want to prop-drill a value through 5 layers of components? Sure why not, nobody's reusing those components anywhere else. Why even build 5 layers of components in the first place. Make a big fat 500 line component instead.
+
+You get a [muddy architecture](https://swizec.com/blog/big-ball-of-mud-the-worlds-most-popular-software-architecture/) with high [architectural complexity](https://swizec.com/blog/why-taming-architectural-complexity-is-paramount/) and code that's hard to re-use. Maybe that's okay. At least it works.
+
+You come back 3 months later to add new functionality and oh no what is this code??
+
+## Architecture when you work as a team
+
+Compare that to working as [a collaborative team](https://swizec.com/blog/reader-question-what-do-collaborative-teams-look-like/).
+
+You have 3 to 5 people who need to work together on a new feature. You work together on 1 thing at a time because that makes the work go faster.
+
+How do you do that without stepping on each other's toes?
+
+You have to [talk _before_ the work starts](https://swizec.com/blog/coordinating-at-the-end-is-too-late/). Get together and:
+
+- identify all the moving pieces
+- split those into components
+- define clear interfaces
+- agree on the contracts
+
+Then you each go build the individual pieces. Good code structure and clean architecture happen automatically as a function of splitting up the work.
+
+The code becomes more maintainable and easier to work with. You get the work done faster too. Code review is easier, you have fewer whack-a-mole bugs, fixing a bug in 1 component doesn't break 3 other components. It's great.
+
+## Break down the work
+
+I think the trick is to break down the work. With or without a team.
+
+You have a goal, how do you get there in a series of steps?
+
+After each step the code should work, be shippable, do something valuable, and get you closer to the goal. The smaller the steps, the cleaner your architecture will be.
+
+You can Conway's Law with yourself.
+
+Cheers,<br/>
+~Swizec
+
+PS: small steps are also easier to test and make you more resilient to disruption
