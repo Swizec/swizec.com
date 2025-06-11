@@ -1,0 +1,42 @@
+---
+title: "Thanks for voting"
+---
+
+import {
+  ArticleListing,
+} from "@swizec/gatsby-theme-course-platform"
+import { graphql } from "gatsby"
+
+export const pageQuery = graphql`
+  query {
+    allMdx(
+      filter: {
+        internal: { contentFilePath: { regex: "/blog/.+/" } }
+        frontmatter: { categories: { regex: "/Scaling Fast Book/gi" } }
+      }
+      sort: { frontmatter: { published: DESC } }
+    ) {
+      nodes {
+        fields {
+          slug
+        }
+        frontmatter {
+          title
+          description
+          published
+        }
+      }
+    }
+  }
+
+`
+
+Thanks for voting! I'll let you know as soon as Scaling Fast is ready for pre-orders.
+
+In the mean time, here's a bunch of articles in the course of creating the book. I like to publish early drafts of these insights.
+
+<>
+  {props.data.allMdx.nodes.map((props, i) => (
+    <ArticleListing {...props} key={i} />
+  ))}
+</>
