@@ -1,0 +1,48 @@
+---
+title: "Why utils are bad, an example"
+description: "Last week we ran into the perfect example of how utils-based code will smack you over the face at the worst moment. So much time wasted"
+published: 2025-06-17
+category: "Architecture, Software Engineering"
+hero: ./img/screenshot-1750172639725.png
+---
+
+Last week we ran into the perfect example of how utils-based code will smack you over the face at the worst moment. So much time wasted. But a nice refactor in the end.
+
+We have a lot of utils code, you see. There's payment utils, email utils, user utils, all sorts of utils.
+
+## Utils on utils
+
+This doesn't sound so bad. Code is grouped together based on what it does. When you need payments, you go to payments utils. When you need emails, to emails. Makes sense right?
+
+Now, where do you find the payment confirmation email?
+
+🤔
+
+In the email utils! Bit weird but okay, it _is_ an email.
+
+And here I've set a trap: Payment and email utils now depend on each other. Creating a payment sends an email and that email needs payment utils to figure out its content.
+
+This is circular but it works. Python can figure it out.
+
+## Circular imports go boom
+
+Then one day you want to send an email from a new place. You add a function to email utils, add an import, and boom 💥. Everything breaks.
+
+Your code imports user utils which imports payment utils which imports email utils but your code also imports email utils which is not yet initialized and python gives up.
+
+Python is an interpreted language (with caveats) and needs to read files start to finish to know what's in there. When it encounters an import of the same file while interpreting said file, it cannot know if the function you want exists.
+
+## The solution: Vertical modules
+
+The problem with utils is that they agglomerate code. You see a horizontal slice across your codebase and go _"Ah yes an email, email utils!"_
+
+But ask yourself: What is the email _about_? Yes it's an email. But what does it say? Why does it exist? Who is it for? What makes it go?
+
+This is the actor-event-comand triplet from domain modeling. Who, what, why?
+
+Put everything about payments in the same module. Including the email! Put your new things in their own module. Including the email!
+
+Then keep a [library full of atoms](https://swizec.com/blog/atoms-molecules-organisms/) for self-contained low level operations like "send email to these addresses with this content".
+
+Cheers,<br/>
+~Swizec
