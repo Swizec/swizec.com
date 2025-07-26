@@ -1,0 +1,28 @@
+---
+title: "These 3 alerts catch the most issues"
+description: "Here's a few alerts I've found unreasonably effective over time"
+published: 2025-07-26
+categories: "Software Engineering, Observability"
+hero: ./img/screenshot-1753545198243.png
+---
+
+Good observability is like a safety net. You get to move fast, [write fewer tests](https://swizec.com/blog/why-you-need-observability-more-than-tests/), and know that if production blows up you'll find out quick.
+
+But in practice I've noticed that most alerts we set up are kinda useless. They sit there, trigger once in a while, and we go _"Eh we should fix that one day"_.
+
+Yes it's great to know when a background process with automatic retries and error handling hits a hiccup. Fixing those makes your system run smoother.
+
+And it's hard to know in advance what will make an effective alert. You have to deeply understand your system and usage patterns. It comes with experience and getting it wrong a lot?
+
+That's why engineers should own their own systems. None of that separate SRE nonsense. If you get paged a bunch of times for useless errors, you'll fix it quick.
+
+Here's a few alerts I've found unreasonably effective over time:
+
+1. **SQL Errors** – a few errors are a warning, a spike pages someone. This has caught _so many_ production bugs it's embarrassing.
+2. **High latency** – when your p95 suddenly goes 3x above baseline, something is struggling. Great way to find a database that's about to keel over, for example.
+3. **High error rate** – lots of errors (404 and 400 count) between services means you shipped a bug. On public-facing it means you shipped a bug or there's a bot that needs to get blocked.
+
+Honestly for inter-service communication you should treat any 400 error as a definite bug and send a warning (but not a page). You control both sides of the system. If they can't talk to each other, fix it. Great way to find issues that only happen in production. You could even use those payloads to then write an integration test.
+
+Cheers,<br/>
+~Swizec
