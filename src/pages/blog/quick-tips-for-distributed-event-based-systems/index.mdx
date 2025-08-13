@@ -1,0 +1,153 @@
+---
+title: "Quick tips for distributed event-based systems"
+description: "Hidden lessons painfully learned over the years."
+published: 2025-08-13
+hero: ./img/screenshot-1755098705637.png
+---
+
+There comes a time in every startup's growth when you think _"Wow we do be stuffing a lot of side-effects in that endpoint"_. Usually placing an order.
+
+You want an email to go out, things saved to the database, a few 3rd party systems to get notified, kick off any processing, the list keeps growing. At Tia we got up to ~20 promises called after you make an appointment, it was our most brittle endpoint. At Plasmidsaurus we're juuuust starting to go _"Where do we put this? Oh yeah, right after you place an order"_ 😅
+
+## Stuffing makes you brittle
+
+Stuffing a bunch of side-effects into an endpoint makes your code slow and brittle.
+
+Each new side-effect has, let's say, a 0.5% chance of erroring out. Hopefully less. But lots can go wrong when calling a 3rd party or internal API. Most of it transient in nature.
+
+Plus it's slow. Say a great API has a 30ms response time. We're seeing more like 150ms for our own things. Flask and Python can get pretty slow for IO-bound server workloads. But they're great for compute.
+
+That means stuffing 10 side-effects into an endpoint gives you a 5% error rate with a 300ms lower bound response time. You can improve the time by parallelizing those calls, but the error rate stays. Assuming you need all effects always to run.
+
+## Events to the rescue
+
+You don't want 5% of your Place Order calls to fail do you [name|]? That hits you right in the revenue. How many users retry after a failure? Depends what you're selling.
+
+The typical solution is to move to an events-based system.
+
+1. An order was placed,
+2. an event flies into the aether,
+3. systems react and do their thing
+
+Your first implementation of this can be simple:
+
+```javascript
+async function placeOrder() {
+	// stuff
+	await Promise.allSettled([
+		schedule(effect1),
+		schedule(effect2),
+		schedule(effect3),
+		...
+	])
+}
+```
+
+Loop through your side-effects and schedule a background task on the queue for each thing that needs to happen. Can be 1 queue or many. Each effect would have its own consumer.
+
+## Queue processing
+
+Putting work on the queue has 1 major benefit [name|]: Your tasks are stored.
+
+The queue acts as persistent storage. Your queue machinery ensures tasks don't get lost. Don't build your own – use Celery, Kafka, or any of the popular queueing systems.
+
+Stored tasks let you retry on error. API down? Responding with issues? That's okay. Let your task wait on the queue and try again later.
+
+_Eventually_ your task will succeed and all will be well.
+
+Have a system in place to detect poison pills – tasks that never succeed because there's a bug. Add alerting to notify engineers if a task failed more than X number of times. Having it on the queue makes this easy to investigate.
+
+Whole system went down for a few hours?
+
+That's okay. Your queues will restart processing when everything's back. Careful of the stampede! All your queues starting back all at once is a common cause of a 2nd outage :)
+
+## Thin tasks, smart task functions
+
+Put as little code as possible in your scheduling. Keep your task packets small. Make your task function do all the work.
+
+### Anemic scheduler
+
+An ideal scheduler looks like this:
+
+```javascript
+function scheduleTask(task) {
+  logger.log("Scheduling task", task)
+  queue.push(task)
+}
+```
+
+No logic, just add to the queue. A log that you attempted to do this will save you lots of stress later.
+
+### Small task
+
+An ideal task looks like an event:
+
+```javascript
+const task = {
+  event: "order_placed",
+  order_id: 123,
+}
+```
+
+Put as little info as possible in your task. Mainly a pointer to some database object with all the details. This saves memory, makes your code easier to debug, and your queues easier to rebuild in case of catastrophic failure.
+
+### Smart task function
+
+An ideal task function looks like this:
+
+```javascript
+// called by queue system
+function doTheTask(task) {
+  logger.log("Checking task", task)
+  const order = db.query(`select * from orders where id=${task.order_id}`)
+  if (order.task_not_done_yet) {
+    logger.log("Doing task", task)
+    // do the work
+    // THROW on error
+
+    logger.log("Finished task", task)
+  } else {
+    logger.log("Skipping task", task)
+  }
+}
+```
+
+Pull data from the database, check that the work needs doing. Your tasks may execute more than once. Do the work and make sure you throw on error, that's how the queue system knows to retry.
+
+Silly logs will save you stress in the future. Always log when attempting, doing, finishing, or skipping a task.
+
+## Backup scheduling
+
+Keep track of tasks that completed successfully.
+
+I should be able to run a query like `select * from orders where not task_not_done_yet`. Obviously the real query would be more complicated.
+
+This helps you 3-fold:
+
+1. Guaranteeing exactly-once delivery is impossible. Most queue systems go for at-least-once delivery. This means _you_ have to make sure tasks are idempotent (running 2x is okay)
+2. You can rebuild the queue in case it gets lost
+3. You can re-schedule tasks that failed to schedule
+
+Things happen. Maybe there was a bug scheduling a task. Or you kicked the wrong server at the wrong time and all queues got wiped. Or you had a 3 day outage, fixed a bug, and need to re-drive all those queues.
+
+With thin tasks and keeping track this is easy:
+
+```javascript
+function rebuildQueue() {
+	const orders = db.query(
+		`select id from orders where task_not_done_yet`
+	)
+	for (const order in orders) {
+		await scheduleTask(order)
+	}
+}
+```
+
+Run that every hour or so. You can make this a task on the queue! This is called the fan-out pattern – a task that schedules other tasks reliably.
+
+Now you'll never miss a side-effect and they won't slow down your endpoints 😊
+
+Cheers,
+~Swizec
+
+[sparkjoy|quick-tips-for-distributed-event-based-systems]
