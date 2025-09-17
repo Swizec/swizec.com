@@ -25,6 +25,8 @@ import IndieHackingLeftCopy from "./IndieHackingLeftCopy"
 import ServerlessBeforeCopy from "./ServerlessBeforeCopy"
 import ServerlessLeftCopy from "./ServerlessLeftCopy"
 
+import ScalingFastLeftCopyLanding from "./ScalingFastLeftCopyLanding.mdx"
+
 import { FormCK } from "@swizec/gatsby-theme-course-platform"
 
 export const ServerlessHandbook = ({ footer }) => {
@@ -170,6 +172,18 @@ export const Serverless = ({ footer }) => {
       submitText="Get curated essays 💌"
     >
       <ServerlessLeftCopy />
+    </FormCK>
+  )
+}
+
+export const ScalingFastLanding = ({ footer }) => {
+  return (
+    <FormCK
+      copyBefore={<></>}
+      formName="scalingFast"
+      submitText="Get my free chapter 💌"
+    >
+      <ScalingFastLeftCopyLanding />
     </FormCK>
   )
 }

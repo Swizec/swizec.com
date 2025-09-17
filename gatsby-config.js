@@ -25,6 +25,7 @@ module.exports = {
       ReactCUFormId: "2753675",
       IndieHackingFormId: "2753667",
       ServerlessFormId: "2849380",
+      scalingFastFormId: "8571155",
     },
     articles: {
       title: `Swizec - A geek with a hat`,
