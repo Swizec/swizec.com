@@ -13,7 +13,8 @@ function trackClick() {
 export const RightBanner = (props) => {
   if (
     props.path.startsWith("/senior-mindset/") ||
-    props.path.startsWith("/render-social-card/")
+    props.path.startsWith("/render-social-card/") ||
+    props.path.startsWith("/sf")
   ) {
     return null
   }
