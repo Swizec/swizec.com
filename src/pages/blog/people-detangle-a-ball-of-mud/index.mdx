@@ -1,0 +1,51 @@
+---
+title: "*People* detangle a ball of mud"
+description: "Ball of mud is the world's most popular software architecture. The one we all use at work. But it sucks to work with. So what do you do?"
+published: 2025-11-15
+categories: "Teamwork, Software Architecture, Mindset, Scaling Fast Book"
+hero: ./img/screenshot-1763224773930.png
+---
+
+Ball of mud is [the world's most popular software architecture](https://swizec.com/blog/big-ball-of-mud-the-worlds-most-popular-software-architecture/). The one we all use at work while we debate gang of four and fancy patterns on the internet.
+
+But a ball of mud is [awful to work with](https://swizec.com/blog/why-taming-architectural-complexity-is-paramount/). Sneeze in one part of the codebase, break features you didn't even know existed. Slows you down, causes bugs, makes you want to rage quit the industry.
+
+So what do you do? How do you fix a rapidly deteriorating codebase?
+
+People. The answer is people. I've spent [years of digging into architectural complexity](https://swizec.com/blog/forget-bad-code-focus-on-the-system-react-summit-talk/) and best I can tell there are two solutions:
+
+1. Stressed burnt out architect(s) running around fixing things, being annoying, and slowing you down
+2. Teams and processes structured in a way that self-corrects
+
+## How people fix a ball of mud
+
+Here's what you do: Give people or teams ownership of parts of the system. Over time the system will naturally break into decoupled sub-systems where sneezing in one area doesn't break the other areas.
+
+Decoupling happens on its own. Your job is to give folks ownership, step the heck back, and let them shine. Be patient and give people space to fix things when they're annoyed. Let annoyance fuel their refactors 😈
+
+Pay close attention to the abstractions that arise. What patterns are people repeating?
+
+Make those The Official Way We Do Things. Build tools to make those patterns easy and others hard. [Architecture is like a path in the woods](https://swizec.com/blog/architecture-is-like-a-path-in-the-woods/). Desire paths rule.
+
+## Encourage contract-driven-development
+
+When people or teams work together, get them to sit down for 15 minutes [_before writing any code_](https://swizec.com/blog/coordinating-at-the-end-is-too-late/) and discuss their approach. Identify moving pieces and how they talk to each other. This naturally leads to decoupled systems with clear interfaces.
+
+Type-driven-development also works. The goal is to define your architecture _before_ you have long frustrating debates in pull requests.
+
+If your engineers don't wanna play ball, wait until they feel frustrated about all those async discussions then suggest _"Hey this would've been easier if you talked about it before writing code"_ :)
+
+I like [the swarm doc](https://swizec.com/blog/the-swarm-doc/) format.
+
+## There is no perfect
+
+You may think you're brilliant, but it's almost impossible to build good architecture as a soloist programmer working on a feature or large program that fits in your head. You _will_ make all the code entangled into one big blob. Even if you think you're not.
+
+The architecture will never be perfect. Small balls of mud is the best we can do. The size depends on how many people work together.
+
+Cheers,<br/>
+~Swizec
+
+PS: this is sometimes called the inverse conway manuever
+
+PPS: in a changing business today's perfect architecture is tomorrow's pile of mud
