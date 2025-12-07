@@ -6,11 +6,11 @@ categories: "React, JavaScript, Frontend Web"
 hero: ./img/screenshot-1758641419587.png
 ---
 
-[name|Friend], when you see a `useEffect` that updates a `useState` and returns a value, you might be looking for a `useSyncExternalStore`. This is my current vendetta.
+\[name|Friend], when you see a `useEffect` that updates a `useState` and returns a value, you might be looking for a `useSyncExternalStore`. This is my current vendetta.
 
 Makes it easier to fix jank like this:
 
-![Flash of no visualization](https://i.imgur.com/lK1Ik5f.gif)
+![Flash of no visualization](./img/Flash-of-no-visualization-f7jb6c.gif)
 
 _PS: you can [read and share this online](https://swizec.com/blog/you-may-be-looking-for-a-useSyncExternalStore/)_
 
@@ -20,18 +20,18 @@ A pattern I see a lot in our React code combines a state, an effect, and a subsc
 
 ```javascript
 function useSomeValue() {
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
-    const eventSource = getEventSource()
-    eventSource.subscribe((val) => setValue(val))
+    const eventSource = getEventSource();
+    eventSource.subscribe((val) => setValue(val));
 
     return () => {
-      eventSource.unsubscribe()
-    }
-  }, [])
+      eventSource.unsubscribe();
+    };
+  }, []);
 
-  return value
+  return value;
 }
 ```
 
@@ -56,7 +56,7 @@ What you saw in the gif above is a slow hydration process.
 7. Updated state
 8. And rendered the component
 
-![Hydration can be slow](https://i.imgur.com/qasBh2l.gif)
+![Hydration can be slow](./img/Hydration-can-be-slow-j952ee.gif)
 
 Look at all that JavaScript compute chugging away :D It's not a data issue, notice there's no network calls on that graph. We preload data with a shared query cache during server rendering.
 
@@ -67,23 +67,23 @@ The right way to do this effect+subscribe+state pattern is a [useSyncExternalSto
 Like this
 
 ```javascript
-const eventSource = getEventSource()
+const eventSource = getEventSource();
 
 function subscribe(callback) {
-  eventSource.onChange(callback)
+  eventSource.onChange(callback);
   return () => {
-    eventSource.unsubscribe(callback)
-  }
+    eventSource.unsubscribe(callback);
+  };
 }
 
 function useSomeValue() {
   const value = useSyncExternalStore(
     subscribe,
     () => eventSource.currentValue(),
-    () => defaultValue
-  )
+    () => defaultValue,
+  );
 
-  return value
+  return value;
 }
 ```
 
@@ -93,9 +93,9 @@ You could, for example, initiate a ResizeObserver in your subscribe function, th
 
 The result is a less janky app.
 
-![Less jank, visualizations show up](https://i.imgur.com/uFVVyIC.gif)
+![Less jank, visualizations show up](./img/Less-jank-visualizations-show-up-ci33f1.gif)
 
 Now you just gotta figure out how to set the right default values to minimize jank.
 
-Cheers,<br/>
-~Swizec
+Cheers,<br />
+\~Swizec
