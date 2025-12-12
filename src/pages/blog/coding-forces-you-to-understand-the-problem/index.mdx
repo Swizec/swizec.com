@@ -2,7 +2,8 @@
 title: "Coding forces you to understand the problem"
 description: "Programming translates fuzzy understanding into exacting specifications. That’s why it’s hard. The Illusion of Explanatory Depth reigns supreme"
 published: 2022-06-22
-categories: "Mindset, Lessons, Refactoring"
+categories: "Mindset, Lessons, Refactoring, Scaling Fast Book"
+content_upgrade: ScalingFast
 hero: ./img/E6C0823C-DBD7-4392-A0A0-A2D7BD1C00B4.png
 ---
 
@@ -18,13 +19,13 @@ Say you're writing a loop that calculates times in 7 day intervals. You might wr
 
 ```javascript
 function getTimes(startAt, N) {
-  let times = [];
+  let times = []
 
   for (let i = 0; i < N; i++) {
-    times.push(addDays(startAt, 7 * i));
+    times.push(addDays(startAt, 7 * i))
   }
 
-  return times;
+  return times
 }
 ```
 
@@ -44,15 +45,15 @@ To support human time, your code needs to become timezone aware. Like this:
 
 ```javascript
 function getTimes(startAt, N, timezone) {
-  let times = [];
+  let times = []
 
-  const zonedStartAt = utcToZonedTime(startAt, timezone);
+  const zonedStartAt = utcToZonedTime(startAt, timezone)
 
   for (let i = 0; i < N; i++) {
-    times.push(zonedTimeToUtc(addDays(zonedStartAt, 7 * i), timezone));
+    times.push(zonedTimeToUtc(addDays(zonedStartAt, 7 * i), timezone))
   }
 
-  return times;
+  return times
 }
 ```
 

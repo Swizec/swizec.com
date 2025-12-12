@@ -2,7 +2,8 @@
 title: "DRY – a common source of bad abstractions"
 description: "The worst and hardest to maintain code that I've seen or written has been in pursuit of DRY"
 published: 2025-05-19
-categories: "Software Engineering, Architecture, Scaling Fast Book"
+categories: "Software Engineering, Software Architecture, Scaling Fast Book"
+content_upgrade: ScalingFast
 hero: ./img/screenshot-1747664624013.png
 ---
 
@@ -13,10 +14,10 @@ The worst and hardest to maintain code that I've seen or written has been in pur
 DRY is a good muscle to develop when you're learning the basics. You should always turn code like this:
 
 ```javascript
-console.log(1);
-console.log(2);
-console.log(3);
-console.log(4);
+console.log(1)
+console.log(2)
+console.log(3)
+console.log(4)
 // ...
 ```
 
@@ -24,7 +25,7 @@ Into DRY'd up code that uses a loop:
 
 ```javascript
 for (let i = 1; i < 5; i++) {
-  console.log(i);
+  console.log(i)
 }
 ```
 
@@ -56,8 +57,8 @@ const NavigationMenu = () => {
       </li>
       // ...
     </ul>
-  );
-};
+  )
+}
 ```
 
 Every new item is a copypasta of previous items with a small change to the label, url, and icon. Super repetitive.
@@ -95,7 +96,7 @@ const NavigationMenu = () => {
       label: "Buy",
     },
     // ...
-  ];
+  ]
 
   return (
     <ul>
@@ -108,8 +109,8 @@ const NavigationMenu = () => {
         </li>
       ))}
     </ul>
-  );
-};
+  )
+}
 ```
 
 The team went from 10 lines of code to 28. But it's less repetitive and error prone! A single line of code defines the markup for every element, which means you only need to make changes once.
@@ -129,7 +130,7 @@ She decides to pull out ye olde hammer factory factory and write a function that
 
 ```javascript
 function makeNavItem(url, icon, label) {
-  return { url, icon, label };
+  return { url, icon, label }
 }
 
 const NavigationMenu = () => {
@@ -138,7 +139,7 @@ const NavigationMenu = () => {
     makeNavItem("/contact", "person-icon.png", "Contact"),
     makeNavItem("/buy", "cash-icon.png", "Buy"),
     // ...
-  ];
+  ]
 
   return (
     <ul>
@@ -151,8 +152,8 @@ const NavigationMenu = () => {
         </li>
       ))}
     </ul>
-  );
-};
+  )
+}
 ```
 
 The team is back to 20 lines of code thanks to JavaScript's convenient object creation syntax. That's double the original 10 lines, but very DRY.
