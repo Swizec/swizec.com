@@ -1,0 +1,108 @@
+---
+title: "A better way to end-to-end test your webapp"
+description: "End-to-end tests are the best way to test your webapp, but they're flaky and annoying to write. I'm trying a new agentic approach that fixes the issue."
+published: 2026-01-06
+categories: "Testing, TypeScript, Artificial Intelligence, Frontend Engineering"
+hero: ./img/e2e-testing-agent-thumbnail.png
+---
+
+What's the problem with end-to-end tests? They're flaky to run and annoying to write. But the best way to test your application.
+
+Unit tests miss the crucial part where most bugs happen – the interfaces. Integration tests work great on the server, but they're clunky on the client. Too many API calls.
+
+A good end-to-end test sees everything. You don't need many to cover large swathes of your ecosystem. But let me guess: You're not using these. Too flaky to run, too annoying to write.
+
+I may have a solution: **An agentic approach**. Check this out. I've been thinking about it for 3 years.
+
+https://twitter.com/Swizec/status/2006748633425985776
+
+## e2e-testing-agent
+
+You can try this out yourself. It's open-source: https://github.com/Swizec/e2e-testing-agent
+
+Should work with any TypeScript test runner. I've tried with `bun test`. The idea is simple: You write tests as a goal description and the agent figures out the rest.
+
+```typescript
+const passed = e2e_test(
+  "https://scalingfastbook.com",
+  "Sign up for the mailing list"
+)
+```
+
+On first run, the test executes in agentic mode – looks at screenshots of your page, tries to achieve the goal, and stores its actions. This conveniently tests your UX design as well as your code. Agent can't figure it out? Users might struggle too.
+
+Yes the first execution is slow and burns tokens. It cost me almost $7, the price of 1 matcha latte, to develop this.
+
+On subsequent runs, the test replays steps from before and verifies that it worked. This catches regressions. It's pretty fast (80% faster than first run) and does not burn tokens.
+
+## Why I'm excited
+
+In [Scaling Fast](https://scalingfastbook.com) I wrote that end-to-end tests are the most effective way to test your app. They catch the most user-facing bugs for the least overhead.
+
+But we don't write them because they have a flaky reputation. And when we do write these tests, it's common to bake-in the current implementation instead of user outcomes. You have to rewrite your tests after almost every change.
+
+That's annoying.
+
+But there's an idea I like from the server world for testing against 3rd party APIs – [Ruby VCR](https://github.com/vcr/vcr). Instead of carefully mocking an API, just record what it does!
+
+What if you treated your entire application as that 3rd party API? Record the interaction on first run, then keep using the stored replay.
+
+App changed? No problem! Delete the replay and record it again. No need to re-implement your tests, users have the same goals don't they? It's the UI that changed.
+
+## How it works
+
+[e2e-testing-agent](https://github.com/Swizec/e2e-testing-agent) uses OpenAI's new computer use model. [Currently in preview](https://platform.openai.com/docs/guides/tools-computer-use).
+
+![](https://cdn.openai.com/API/docs/images/cua_diagram.png)
+
+You put the agent in a browser with Playwright then keep iterating on this loop until the agent can't think of anything more to do.
+
+1. Take screenshot
+2. Send to model and ask "what's next?"
+3. Model responds with tool calls or browser actions
+4. Execute tool calls
+5. Perform browser actions
+6. Repeat
+
+Here's what that looks like in agentic mode and on replay:
+
+https://twitter.com/Swizec/status/2008569352531173737
+
+### Tool calls
+
+e2e-testing-agent can use tool calls to get any custom inputs or info from your system. It comes built-in with a few basic [faker-js](https://fakerjs.dev) calls to generate names, emails, etc.
+
+You can pass custom tools to any test. To get a password from your environment variables, for example.
+
+```typescript
+const passed = await e2e_test(
+  "https://...",
+  `Login as ${process.env.TEST_USER_EMAIL}. You'll see a welcome message upon successful login.`,
+  [
+    {
+      name: "get_password",
+      description: "Returns the password for the test user.",
+      handleCall: () => process.env.TEST_USER_PASSWORD || "",
+    },
+  ]
+)
+```
+
+`handleCall` has access to your full test environment so you can imagine passing any sort of fixtures here. Maybe even read your test database or prepare data that needs to exist for your tests to work.
+
+### Verifying the test passed
+
+As a final step after the agentic loop or replay finishes executing browser actions, e2e-testing-agent takes one last screenshot then asks a cheap and fast model _"Hey did this work? Does it look like we achieved the goal?"_
+
+Right now that's `gpt-5-nano`. Seems fast enough for running lots of tests and accurate enough to be useful.
+
+## What's next
+
+Early experiments look promising. I think we can use this to build a suite of automated smoke tests to run before or after deploys.
+
+Might need to wait a few more months for computer use models to get reliable enough to use this in anger. Right now it takes some baby sitting to record a good replayable test. Agent does dumb things sometimes 😅
+
+If this sounds promising, [please try it out](https://github.com/Swizec/e2e-testing-agent) and let me know how it goes. Contributions welcome.
+
+Cheers,<br/>
+~Swizec
