@@ -25,8 +25,8 @@ Should work with any TypeScript test runner. I've tried with `bun test`. The ide
 ```typescript
 const passed = e2e_test(
   "https://scalingfastbook.com",
-  "Sign up for the mailing list"
-)
+  "Sign up for the mailing list",
+);
 ```
 
 On first run, the test executes in agentic mode – looks at screenshots of your page, tries to achieve the goal, and stores its actions. This conveniently tests your UX design as well as your code. Agent can't figure it out? Users might struggle too.
@@ -53,7 +53,7 @@ App changed? No problem! Delete the replay and record it again. No need to re-im
 
 [e2e-testing-agent](https://github.com/Swizec/e2e-testing-agent) uses OpenAI's new computer use model. [Currently in preview](https://platform.openai.com/docs/guides/tools-computer-use).
 
-![](https://cdn.openai.com/API/docs/images/cua_diagram.png)
+![](./img/iagrampng-472j4d.png)
 
 You put the agent in a browser with Playwright then keep iterating on this loop until the agent can't think of anything more to do.
 
@@ -84,8 +84,8 @@ const passed = await e2e_test(
       description: "Returns the password for the test user.",
       handleCall: () => process.env.TEST_USER_PASSWORD || "",
     },
-  ]
-)
+  ],
+);
 ```
 
 `handleCall` has access to your full test environment so you can imagine passing any sort of fixtures here. Maybe even read your test database or prepare data that needs to exist for your tests to work.
@@ -104,5 +104,5 @@ Might need to wait a few more months for computer use models to get reliable eno
 
 If this sounds promising, [please try it out](https://github.com/Swizec/e2e-testing-agent) and let me know how it goes. Contributions welcome.
 
-Cheers,<br/>
-~Swizec
+Cheers,<br />
+\~Swizec
