@@ -40,7 +40,7 @@ export const RightBanner = (props) => {
       <Paragraph sx={{ fontSize: 3 }}>
         What happens when your startup hits hypergrowth?
       </Paragraph>
-      <Box sx={{ textAlign: "center" }}>
+      <Box sx={{ textAlign: "center", mb: 2 }}>
         <Link
           to="https://scalingfastbook.com"
           onClick={() => trackClick("scaling-fast")}
