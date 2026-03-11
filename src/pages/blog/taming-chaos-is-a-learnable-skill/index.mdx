@@ -1,0 +1,69 @@
+---
+title: "Taming chaos is a learnable skill"
+description: "How you approach software engineering makes it harder or easier to handle interruptions and other chaos. Writing a behavioral interview made me realize this is a learnable skill!"
+published: 2026-03-11
+content_upgrade: ScalingFast
+categories: "Mindset, Software Engineering, Scaling Fast Book"
+hero: ./img/screenshot-1773241032914.png
+---
+
+How you approach software engineering makes it harder or easier to handle interruptions and other chaos. Writing a behavioral interview made me realize this is a learnable skill!
+
+Our team builds a lot of internal tools these days, which means we're exposed to daily operations. Reality is a mess. We find all the weirdest business rules, strange exceptions, and weird fires that we didn't even cause. Like that time we had to quickly build a feature to reroute logistics around ... a [UPS airplane crash](https://en.wikipedia.org/wiki/UPS_Airlines_Flight_2976) shutting down an airport 🙃
+
+Success means dealing with all this _while also_ building towards long-term solutions. You can add a one-off exception today, but when there's 40 one-off exceptions maybe you need a system?
+
+I wrote this as one of the questions and its rubric
+
+https://twitter.com/Swizec/status/2030832696788918531
+
+Notice none of the rubric is about who you are as a person, it's all behaviors and practices. That means we can teach people!
+
+## Start with the attitude
+
+First step is to realize that if there's lots of chaos and issues in your systems, _you_ have to fix that. Your job as engineer is to own the system, my job as manager is to give you agency.
+
+If you think it needs fixing and you can explain what'll get it fixed, we can talk about costs, tradeoffs, and milestones. But if you complain management's pushing you to ship fast and sloppy, there's not much I can do with that.
+
+Speed is about opportunity cost and appetite. Management sets the budget, engineering figures out the solution. **Cut scope not corners**. And mind the [buxton index](https://swizec.com/blog/the-buxton-index-why-some-are-hard-to-work-with/) – a quick experiment to validate an idea doesn't need as much quality as the invoicing system you plan to run the whole company.
+
+https://twitter.com/Swizec/status/1547254274303877120
+
+Without constraints how would you even know what's a nice-to-have vs a need-to-have?
+
+And when you're exposed to operations, weird things happen all the time. Customers do something dumb, large orders break the code, world events impact shipping. We can take stuff out of sprint but we can't not deal with the emergency.
+
+## Add the habits
+
+Next step is to change your approach. If you know your work could be interrupted, reprioritized, or budgets might change ... what do you do?
+
+In a startup, I can't guarantee you'll have the same focused priority for months or even years. Best we can do is _"Here's a stakeholder or workstream, improve their lives for the next few months"_. Even that may change as parts of the company develop at different rates. [It's like spinning plates](https://swizec.com/blog/yes-its-like-spinning-plates/).
+
+Best you can do is **develop a vision**. What are we trying to achieve here long-term? _Write it down_. Vision is where I spend my time as manager / product owner. The more senior you are, the more that's your job.
+
+Then _focus ruthlessly on the key benefit_. Build that. Forget all the nice-to-haves and features that would be neat in a few months or things that would make life a little easier. **Build the top priority highest impact thing you can**.
+
+What would make everything else easier or unnecessary? Build that.
+
+While you focus on the top priority high ROI work, break. it. down. _Small_ iterations. _Valuable_ additions. Ship the smallest thing that adds value. Make every PR do something useful. Have **tangible results** to show.
+
+And no markdown design and plan docs from your AI do not count. At least write your docs yourself. The value isn't in the doc, it's in the work you put into thinking through the problem. I don't wanna read the doc, tell me how writing it changed your understanding of the problem.
+
+[Kick the can](https://swizec.com/blog/writing-software-is-like-kicking-a-can/). Make small shippable steps towards the vision every day. If you have to put the work down, that's okay. The code works and delivers value.
+
+## Avoid the panic
+
+Production incidents are always ... well it depends. Juniors go "aaaaaaa 🔥", seniors go "sigh, not again".
+
+You get used to it :)
+
+Main thing is to relax and triage. Observe, Orient, Decide, Act. How big of a problem is this _really_? Did you get more of a warning alert that something _might_ be a big problem, or is production down and thousands of people can't do their thing?
+
+Most incidents are somewhere in the middle. Super important to the 2 or 3 people it affects but nobody else even knows it's there. Try to give them a workaround then add a ticket to fix the system.
+
+Unless it's [quick and easy](https://swizec.com/blog/how-do-you-prioritize/), we might not even prioritize the fix for next sprint. Shipping that million dollar feature is more important than fixing the thousand dollar bug I promise.
+
+Cheers,<br/>
+~Swizec
+
+PS: ideally you fix bugs first. That leads to stable software. But focus on the high impact high visibility bugs more than the rare bugs. Best is to fix business workflows and user features to make whole classes of bugs impossible.
