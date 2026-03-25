@@ -1,0 +1,86 @@
+---
+title: "Software engineer interviews for the age of AI"
+description: "Maybe AI will replace engineers, I don't know. Self-driving cars were just around the corner for 50 years. Until then we've got shit to do and engineers to hire."
+published: 2026-03-25
+categories: "Interviewing, Career, Artificial Intelligence, Mindset"
+content_upgrade: ScalingFast
+hero: ./img/screenshot-1774450051634.png
+---
+
+Yesterday I told a candidate _"Using AI in our coding interview is encouraged"_ and his eyes sparkled. This was an experienced dude tired of leetcode bullshit.
+
+Maybe AI will replace engineers, I don't know. Self-driving cars were just around the corner for 50 years. Now they exist in small pockets. Self-driving software engineers started ~2 years ago and my bet says AI will replace us some time in 2075. Until then we've got shit to do and engineers to hire.
+
+## Why you need great engineers
+
+You need great engineers because [knowledge expands fractally](https://paulgraham.com/greatwork.html). Demos are easy, production is hard. AI generates lots of _plausible_ code, but a person, **you**, has to sign their phone number and pager duty on the system. Do you trust what your AI wrote? Enough to own the system? 😉
+
+https://twitter.com/Swizec/status/2018750989445263600
+
+People pay for a reliable service, not a pile of code and some homework. [The future is SRE](https://swizec.com/blog/the-future-of-software-engineering-is-sre/) – great software engineers _own_ the systems they build. Accountability and all.
+
+So, how do you hire engineers that [get shit done, sometimes with AI](https://swizec.com/blog/the-best-engineers-just-get-shit-done-sometimes-with-ai/)? Here's what I've found.
+
+## Interviews aren't perfect
+
+With good interview design, you can get a [~70% correlation with on-the-job performance](https://swizec.com/blog/insights-for-interviews-from-kahneman-s-noise/). And you'll never find out about the false negatives.
+
+Best you can do is a repeatable process with low noise. Prepare criteria ahead of time and evaluate by multiple interviewers to reduce day-to-day variation.
+
+The whole process is probabilistic.
+
+## Look for knowledge expanding fractally
+
+My favorite **screening** question is _"Tell me about a past project – what was it, what did you build, how did it go and then we'll take it from there"_. Then I keep asking followup questions.
+
+The more you worked on something, the more detail you'll know. You find fractal knowledge when you dig in. Ok the foobinator talked to the bazingulation, but _how_? What happened?
+
+Oh you released to customers and it didn't work. But how did you know? What did you learn? How did you fix it? How did you even know this was something to work on in the first place?
+
+My favorite candidates could keep going for hours. Every answer uncovers 5 more details we could talk about.
+
+You quickly notice what they didn't work on. Candidates talk _around_ those details. Never quite diving in. The more you ask, the more pussyfooting you get.
+
+### System design interviews
+
+The next opportunity to look for fractal details is a **system design interview**. This is where you design a toy system, draw boxes and arrows on a whiteboard, see how candidates think through a problem, and what questions they ask.
+
+Candidate questions are important.
+
+We need you to [get us over the water, not build us a bridge](https://swizec.com/blog/get-us-over-the-water-not-build-us-a-bridge/). If we could think of everything, we'd ask AI to write the code. How you push back, question assumptions, clarify details, and think of operational concerns is important.
+
+System design interviews are great for leveling. They tell you where the candidate has hands-on experience and what they've only read about. Reading (and managing or vibe coding) gives broad high level understanding. Doing the work gives you fractal details.
+
+You're looking for [the illusion of explanatory depth](https://swizec.com/blog/coding-forces-you-to-understand-the-problem/) – we think we understand things because they're familiar. But when you try to explain, you find the edges of your understanding.
+
+Like Phil Knight said in Shoe Dog – *"I asked every sales leader how they teach sales. They gave vague answers. But the guy I hired said holy shit dude we don't have the time and pulled out a 300 page binder"*.
+
+## Give them all the tools and see how they do
+
+The **coding interview** is where you answer _"Can the candidate take all this understanding and ship?"_.
+
+Leetcode in my opinion does not answer this. The problems are too chewed up and clean. We don't have a PM to chew the steak for you. You'll need to understand the business domain, talk to people, and figure it out.
+
+If we could write a clear enough spec, we'd just ask AI to code it up. We hire engineers [for their brains not their typing skills](https://swizec.com/blog/theres-two-types-of-engineers/).
+
+So here's the setup:
+
+1. Stubbed out codebase. Models, database, bit of code, a few tests.
+2. Clear business problem
+3. API documentation
+4. Auth credentials for the API
+
+You get to use AI, Google, talk to the interviewer, pair on the problem and figure shit out. By the end you'll have a working script that talks to a database, reads and writes a 3rd party API, maybe even a test or two. It's a backend script so tests are important.
+
+While we work on the script, we can talk about operational concerns. How do you keep it reliable? What do errors look like? Can you build a self-healing system? What needs to change in 18 months when we're [a completely different company](https://swizec.com/blog/leadership-lessons-from-growing-3x-in-1-year/) with more scale and 3 people now working on this script?
+
+It's a fun interview. Even more high signal than I thought when designing the question. My favorite is that you read the question and go _"Oh that's it?"_ and then the details come out as you build.
+
+You learn a lot about how a candidate navigates unknown codebases, asks business questions, reads documentation, iterates towards a solution, structures code, and yes leverages AI to ship fast but not slop.
+
+That is to say: Using AI raises the bar. We can build more interesting things in 1 hour.
+
+Cheers,<br/>
+~Swizec
+
+PS: it's early days. I don't know yet how this interview performs over time. One point of friction are subtle differences between AI systems. Looks like how you speak to Claude vs Cursor vs Copilot may matter and throw off some candidates.
