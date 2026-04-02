@@ -1,0 +1,69 @@
+---
+title: "Frustration Driven Development"
+description: "Frustration is your greatest engineering asset. What do you do the 5th time someone asks for the same damn thing yet again?"
+published: 2026-04-02
+content_upgrade: ScalingFast
+categories: "Mindset, Software Engineering, Productivity"
+hero: ./img/screenshot-1775145709701.png
+---
+
+Frustration is your greatest engineering asset. What do you do the 5th time someone asks for the same damn thing yet again?
+
+Good engineers do the thing and move on. _Great_ engineers get annoyed, say a few curse words, and make the problem go away forever. Your job is not [doing the work](https://swizec.com/blog/why-engineers-are-worth-so-much/), your job is removing work.
+
+Remove unnecessary steps, smooth out workflows, give people tools to self-serve. The best engineering task is no task.
+
+If you keep changing copy, make the CMS. If you keep tweaking database data, make the UI. If you keep answering questions, build the dashboard. If you keep repeating steps, write the damn script. If something's slow, swipe the credit card. If you keep testing, write the test.
+
+Here's a few examples. I've been very grumpy lately.
+
+_PS: you can [read and share this online](https://swizec.com/blog/frustration-driven-development/)_
+
+## Swipe the damn card
+
+Our CI/CD was slow and a bunch of engineers started talking about what to do. Discussions erupted every few days and wasted hours across different Slack threads. Nothing but a full rewrite and rethink of our testing structure would do.
+
+I got annoyed, swiped the company card, and rented the big fat GitHub workers. CI/CD went from 10min to 2min.
+
+Costs a few hundred dollars per year. We were spending more money than that in salaries just talking about it.
+
+## Remove the work
+
+Our company is growing and I somehow became the guardian of website permissions. Inherited the role as the guy who built the system. Every few days someone would ask _"Hey I'm new can I get superuser"_ ... no you need to sign up first, ok I'm signed up now, ok good let me ... 😑
+
+I got annoyed one day and 5 minutes later anyone who signs up with the company email automatically gets superuser.
+
+Then the question changed. Every few days someone would ask _"Hey I'm new on this team, my coworker can see this button but I can't"_ ... oh right you're missing a role, try now. Yay it worked ... a few days later we'd repeat and repeat and repeat until New Person had every role for their job.
+
+I got annoyed one Saturday when someone asked _"Hey the 20 people in my org can't do this thing"_. Fuck this.
+
+20 minutes later, Cursor had built a UI so managers can grant groups of roles to their employees. It wasn't perfect, we had to make some tweaks. Took longer than I'd like.
+
+But nobody has asked me to do grant permissions in weeks.
+
+## Write the test
+
+I'm not a fan of test driven development. There's a whole chapter [in my book Scaling Fast](https://www.scalingfastbook.com) about how tests you see in the wild are bad. Poorly doing the job of types, hardening code that should be flexible, and hiding bugs that should be obvious.
+
+But they're fantastic when you work with background code that's got lots of edge cases.
+
+I rewrote half our invoicing code recently and the easy case was simple: Loop through data, create invoices, done. Who needs a test for that don't be silly I can write a for loop.
+
+Then the edge cases started.
+
+Hey the invoice looks wrong when this customer has messed up data. What obviously garbage in garbage out!? No no this is because 3 years ago they signed a special deal and ... ugh fine. Add exception.
+
+Hey now it looks weird for this other customer who signed a deal 6 months ago that supersedes their deal from 2 years ago and a new person joined their team last week who ... what the fuck!? Okay then.
+
+Hey if I stand on one leg while holding my nose and the customer howls at the moon while they forget to apply a discount ... oh for fuck's sake!
+
+I couldn't even produce some of these cases by hand [name|]. But I could describe the situation to AI, ask it to put the database in juuuust the right state, then verify my code creates the right invoice. Lovely.
+
+Now we can poke at the code, rip through the whole suite of tests and edge cases in 20 seconds, and life is good. You can't afford 1% of invoices to look wrong.
+
+## Get annoyed
+
+Your job is to get annoyed by tedium. Build the thing that's not on your roadmap and kill the friction. This is what I mean by [code yourself out of the job](https://swizec.com/blog/code-yourself-out-of-the-job-2/) – create more durable value. Outcomes, not work.
+
+Cheers,<br/>
+~Swizec
