@@ -1,0 +1,50 @@
+---
+title: "Watch people work"
+description: "We talk a lot about outcomes over outputs and how engineers are supposed to get us over the water, not blindly build a bridge because someone asked for a bridge. But how do you do that in practice?"
+published: 2026-04-14
+content_upgrade: ScalingFast
+categories: "Mindset, Software Engineering, Product Management, Productivity"
+hero: ./img/screenshot-1776178863672.png
+---
+
+[name|Friend], we talk a lot about outcomes over outputs and how engineers are supposed to get us over the water, not blindly build a bridge because someone asked for a bridge. But how do you do that in practice?
+
+Watch people work!
+
+We tried this on my team and it has been wonderful.
+
+1. Grab the person whose work you plan to improve
+2. Sit in a room (or a call) with them
+3. Just watch them work. As close to normal as possible. Ask them to narrate what they're doing
+
+Does it feel annoying? I bet it does. Are they using a bunch of weird workarounds you didn't think of? Bet they are. Dealing with broken shit you long forgot was there? I can almost promise. Get every engineer nice and annoyed. Make them feel the customer's pain (user empathy). [Frustration Driven Development](https://swizec.com/blog/frustration-driven-development/) is the goal.
+
+Your job's not done until engineers could do this work without throwing their laptop out the window. 😈
+
+https://twitter.com/Swizec/status/2041175004570857881
+
+We ran 3 of these sessions last week and found all sorts of things:
+
+- users couldn't place a certain type of high value low frequency order. Fresh bug, first customer support request. We got lucky
+- a button went missing and for months support has been performing a workaround for users because they thought we removed it on purpose
+- support answers a lot of brain-dead easy questions because our site doesn't feed users the right info at the right time
+- having more info on support tickets is _not_ the bottleneck we thought it was (our plan was to instrument this)
+- our support spends a lot of time doing expert work that users should be able to do themselves, but don't have the tools
+- support spends a lot of time writing very similar emails (templates exist but nobody likes or maintains them)
+- we found a miscommunication between support and product – we changed how something was supposed to work but forgot to change how support handles it, oops
+- our finance team deals with a lot of bad software and has built up a bunch of cargo culty beliefs – 4 clicks to run invoicing even though 1 click does everything
+- the finance team has a process that spans 6 different pages across 3 different tools. They do this multiple times per day. It takes hours. They're not sure how it all connects but if you do things just right, the company stays running
+- during this multi-hour process, if you scroll to the 2nd page of some tables, dropdowns stop working. You can work around this by opening yet another page and editing there ...
+
+I wish we could fix everything [name|], but [it's like spinning plates](https://swizec.com/blog/yes-its-like-spinning-plates/). One top priority at a time.
+
+The trick is to find your biggest levers and focus on those.
+
+We could fix the UI our finance team uses, sure, but that doesn't remove the problem. Why are we making them do this work at all? Automate.
+
+We can give support more info on tickets and they'll be marginally faster at resolving. You know what really helps? Helping our users ask fewer questions.
+
+Cheers,<br/>
+~Swizec
+
+PS: once you've got the frustration, find a way to measure. This lets you track progress over time.
