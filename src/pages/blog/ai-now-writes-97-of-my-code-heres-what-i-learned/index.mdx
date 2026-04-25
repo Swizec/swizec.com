@@ -1,0 +1,99 @@
+---
+title: "AI now writes 97% of my code. Here's what I learned"
+description: "Forget the bullshit tips and tricks, just talk to it."
+published: 2026-04-25
+categories: "Artificial Intelligence, Software Engineering, Productivity"
+content_upgrade: ScalingFast
+hero: ./img/screenshot-1777132950651.png
+---
+
+This week I was shocked to learn that AI now writes 97% of my production code. The stats come from Cursor and they're not incentivized to lowball, but honestly looking at recent weeks ... yeah that's about right.
+
+![Cursor stats for Swizec](https://i.imgur.com/qVYl788.jpeg)
+
+## This is not a toy project
+
+Now, I'm more of a manager these days than a heads down code grinding IC, but I own production features with big stakes and real money attached. We're an almost billion dollar company and some users pay 6-figures in a single order.
+
+This is not a toy indie hacking project with a few dozen users.
+
+To give you a sense of scale: my most recent big project was rebuilding our invoicing system. If the code doesn't work, we don't get paid. 8-figures of stakes. A few decades per month in salary terms. No pressure :)
+
+## Just Talk To It
+
+![](https://i.imgur.com/D9dCmFm.png)
+
+I first [tried vibe coding in January 2025](https://swizec.com/blog/coaching-ai-to-write-your-code/). It was okay. Good for throwaway scripts, writing migrations, and scaffolding tests.
+
+My workflow deeply changed in [July 2025 with Cursor background agents](https://swizec.com/blog/cursor-background-agents-in-slack-changed-my-workflow/). I could ship whole features that we never would've prioritized otherwise. Hold your nose, change the goal posts (as long as internal pages work, styling doesnt matter), and ask people not to review the code too deeply. These features don't matter, it's a bandaid, ship now think later.
+
+The unlock for me was _not watching the agent work_. `@cursor` on slack, move on with your life, wait to hear back. Some days I'll putter away at a feature between meetings for a whole day before it's ready.
+
+No IDE. No local computer. Just Talk To It.
+
+### Recent feature that demonstrates this
+
+Here's a feature I built – quick search to navigate internal pages. Folks have called it the biggest quality-of-life improvement since they joined the company.
+
+![](https://i.imgur.com/yMumcXt.gif)
+
+You can access anything in the admin menus, search for orders, and look for users. I've been using it a lot.
+
+Would I put this on our roadmap? No way. Got more important things to do. Have Cursor build it for us? Hell yeah.
+
+We started with a prompt in Slack:
+
+```
+@Cursor our superuser navigation is getting crazy. Build a simple hotkey access for everything that a superuser can open. When I press Cmd+K on the api_server /home, it should pop open a menu that lets me start typing to fuzzy search through all entries in the various header dropdowns available to superuseruser.
+
+I should also be able to search by item code. Opening one of these goes directly to /view-order/<code>
+If I search an email, it should let me jump directly to the admin page for that user.
+
+Use a standard UI for this – search ahead dropdown with fuzzy string matching. Use existing API calls to search users and item codes, if possible. Build this feature using React. Try tanstack/hotkeys for the hotkey integration, if that doesn’t work or you can’t figure it out, just add a global hotkey listener to the window object
+```
+
+Notice I start with context and a desired outcome then give a high level implementation plan. I'm giving hints for where to find the code, look for existing code, and guidelines on tech stack so the agent doesn't get confused with the state of our codebase.
+
+Those are important details. Small mistakes early on compound fast.
+
+### Iterate
+
+First implementation worked. But it didn't look great and felt clunky. Someone suggested using the [popular cmdk library](https://github.com/dip/cmdk#readme).
+
+In the Slack thread, I asked Cursor to rewrite using that library and make the menu globally accessible from all pages using a [React island approach](https://swizec.com/blog/the-anatomy-of-a-react-island/). Now the menu looked great and felt solid. Yay!
+
+We went through a few more iterations. Please focus on the input when you open the menu, add a search bar with Cmd+K hint to navigation so people know it's there. Little things.
+
+I had to open my IDE to fix a small CSS bug. Cursor couldn't see a conflict between its styling and our global CSS.
+
+### Don't be afraid to code review
+
+When functionality looked good, we went into code review. Just like a human.
+
+Open GitHub and read the code. See something weird, leave a comment. Tag `@cursor` and it launches a new agent to fix that code.
+
+Classic comments like I've made a bunch of times: `@cursor` please use tanstack/query and use Zod to parse the response. `@cursor` replace useEffect with useSyncExternalStore.
+
+Just like working with humans. Ask for the thing, give good feedback, let them work.
+
+## Forget the bullshit
+
+Forget all the bullshit people talk about online. The Agents.md and Skills.md and grill-me and plan mode and all that stuff. It doesn't matter. It's like IDE skins and vim shortcuts.
+
+Yeah it's nice to customize things and it might even help. Everyone knows light mode with [Tomorrow theme](https://github.com/chriskempson/tomorrow-theme) codes the fastest.
+
+The models keep getting better. Today's hacks are tomorrow's distraction. Focus on what doesn't change:
+
+- speak clearly
+- know what you want
+- get to the point
+- give all necessary context
+- write good feedback
+- iterate
+
+Just talk to it.
+
+Cheers,<br/>
+~Swizec
+
+PS: the biggest danger with long-running agents following an elaborate plan is the same as always: When it works, magic. When it makes a small mistake early on, you now have 6000 lines of code that needs a rewrite. Waterfall didn't work for humans, why would it work for agents?
