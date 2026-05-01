@@ -1,0 +1,34 @@
+---
+title: "Quick note on evals and putting AI in your resume"
+description: "When candidates put AI on their resume, the key thing I try to find out is whether they used evals. How did you measure making improvements?"
+published: 2026-05-01
+categories: "Artificial Intelligence, Resume, Career, Software Engineering"
+hero: ./img/screenshot-1777647386399.png
+---
+
+Funfact: When candidates put AI on their resume, the key thing I try to find out is whether they used evals. How did you measure making improvements?
+
+This filters out 80% of engineers.
+
+When you work with AI and try to make something useful, you'll quickly find it's a bit ~~random~~ stochastic. You make a change and it works. Then you try again and it doesn't.
+
+You're building a stochastic system that works 80% of the time. How do you know the next version works 85% of the time?
+
+Evals.
+
+What you need depends on what you're building. I'm a product engineer so I'd measure user behavior directly. Do users reach success? How many users? How often? When does it fail?
+
+Build a dataset of what users are doing. Use that to create a test suite you can run quickly against different models, prompts, and tools.
+
+This is the moat.
+
+We all have access to the same models. The models keep improving. Your moat is that dataset and organizational expert knowledge of your problem. You need experts with unique insights and intuitions to build a differentiated AI product.
+
+Make sure you don't overfit the test data. Build feedback loops with reality.
+
+Have a human-in-the-loop fallback for failures. Measure how often humans have to intervene. You want this number to go down. When something fails spectacularly, add it to the dataset.
+
+Make sure you know what a bad answer even looks like.
+
+Cheers,<br/>
+~Swizec
