@@ -1,0 +1,92 @@
+---
+title: "What you need to make an agent"
+description: "I've been digging into agents for internal tooling and processes. Looking for how to scale without drowning in manual work. Here's what I found"
+published: 2026-05-05
+categories: "Artificial Intelligence, Software Engineering, Productivity"
+content_upgrade: ScalingFast
+hero: ./img/screenshot-1777994349232.png
+---
+
+I've been digging into agents for internal tooling and processes. Looking for [how to scale without drowning in manual work](https://swizec.com/blog/the-3-curves-that-make-a-scalable-business/). Here's what I found.
+
+The best paper you should read is [From Language to Action: A Review of Large Language Models as Autonomous Agents and Tool Users](/pdfs/language-to-action.pdf), here linked with my notes. As always I recommend you [Just Read The Paper](https://swizec.com/blog/just-read-the-paper/), but it's 38 pages and most of you won't.
+
+## Agent tl;dr
+
+Here's what you need:
+
+- RAG
+- tool calling
+- memory
+- feedback loop
+
+And that's an agent. The big labs have made these easy to build. Anthropic's Python SDK packs it all into 1 function call:
+
+```python
+runner = client.beta.messages.tool_runner(
+    model="claude-sonnet-4-6",
+    max_tokens=4096,
+    system=SYSTEM_PROMPT,
+    tools=AGENT_TOOLS,
+    messages=[{"role": "user", "content": query}],
+)
+```
+
+I've seen this run for 3 minutes and call a bunch of tools in a loop before returning the answer. It's pretty neat.
+
+Haven't tried streaming the thought process yet so it makes for a boring user experience. You sit there and look at the loading spinner, wonder if something broke, then BOOM – the answer.
+
+![](https://pbs.twimg.com/media/HHa9FiwbcAEl_L2?format=jpg&name=large)
+
+Great for background work though.
+
+### RAG
+
+Retrieval Augmented Generation is at the core of all this. Every useful thing you've seen built with AI in the last ~3 years has been based on RAG.
+
+You take an LLM with knowledge embedded in its neural network (training, post-training, fine-tuning) and you ask it a question. It will mostly hallucinate or give outdated answers from its training set.
+
+But if you include relevant _new_ information in your prompt, the LLM will ground its answer in your data. This works very well.
+
+Now the hard part is retrieval. How do you find relevant info to inject into your prompt?
+
+### Tool calling
+
+Tool calling is the best retrieval method. It lets you give the LLM a list of tools (via RAG) with access to hard external data. Real-time current APIs, facts and figures, web search, ...
+
+Tool-calling LLMs can reflect on their thinking process and go _"Oh I'm finding orders stuck in customs for 2 days. That sounds like a database query, do we have relevant models?"_.
+
+Then it calls the `list_all_models` tool, injects that back into the prompt (RAG), and asks itself if there's anything useful. It finds tracking labels with UPS data and how orders are connected. Great.
+
+From there it can write a SQL query, call another tool to execute that query, and inject the results back into its context. From there it can summarize into the answer.
+
+It's RAG all the way down.
+
+### Memory
+
+With RAG and tool calling, your prompt can get way too big. LLMs have trouble with paying attention in long meetings. (me too)
+
+You now need memory management techniques.
+
+A popular method is to summarize sessions into highlights. Think of it as taking notes during a meeting. You don't transcribe everything that was said, you write down the highlights.
+
+Later you can read those highlights and understand the gist. You'd never get anything done if you had to re-read every meeting transcript from the dawn of eternity before making a decision.
+
+LLMs can do something similar. During a long session, you can compact your prompt by writing summaries of key decisions and findings.
+
+To build agents with memory-over-time, you could then store those summaries somewhere retrievable. Like your company knowledge database. Now other agents can read it too! Wow
+
+The frontier right now is building these memory systems personalized to individual users. Wouldn't it be cool if Bob The User could reference yesterday's conversation?
+
+### Feedback loop
+
+We mentioned agents run in a loop. You're doing plan, tool, RAG in a loop. At each step the agent asks _"Did I write the answer yet?"_. If not, keep going.
+
+The magic is to give these agents _feedback_ loops. Potentially with human-in-the-loop. How do you best give the agent feedback on what it's doing?
+
+You could have it run tests, simulate a browser and pretend it's a user. You can even use other LLMs to give feedback. Those tool calls could be another LLM 💡
+
+I think the human operator using the [Just Talk To It](https://swizec.com/blog/ai-now-writes-97-of-my-code-heres-what-i-learned/) method is a great option. My dream is an agent that can learn from feedback and get better over time.
+
+Cheers,<br/>
+~Swizec
