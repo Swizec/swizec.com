@@ -1,0 +1,68 @@
+---
+title: "Just fix their PR"
+description: "You know what's better than a code review comment? A fix."
+published: 2026-05-13
+content_upgrade: ScalingFast
+categories: "Teamwork, Software Engineering, Mindset"
+hero: ./img/screenshot-1778685054930.png
+---
+
+You know what's better than a code review comment? A fix.
+
+Lately we've been dealing with an absolute onslaught of pull requests. Feels like half my days go to reviewing code, half to management, and half to writing code. Yes that's too many halfs.
+
+![](https://i.imgur.com/8W5pebB.jpeg)
+
+See I wasn't even exaggerating (thought I was). 53% of my contributions are code review 🫠
+
+Part of this is because [AI now writes 97% of my code](https://swizec.com/blog/ai-now-writes-97-of-my-code-heres-what-i-learned/). I review that and like to leave the bot comments for things to fix. Feels natural and I don't have to learn a new workflow. Oh a human wrote this code? Here's a comment, please fix. Oh a bot wrote this code? Here's a comment, please fix.
+
+And that gave me an idea: Can I ask the bot to fix _other people_'s code? Yes!
+
+It is wonderful. Here's how it works.
+
+## Why code review comments
+
+There are 2 reasons you'd leave a code review comment:
+
+1. You found a bug or an old sin the engineer doesn't know about
+2. You spot a learning opportunity
+
+Never nitpick about superficial code styles or variable names (unless you are legitimately confused). Leave that to the linters and auto-formatters.
+
+Try to always [approve with comment](https://swizec.com/blog/approve-with-comment/). Don't block unless it's critical.
+
+## When you find a bug
+
+Code reviews are one way to use more brains from your team. All bugs are shallow with many eyes looking or whatever Torvalds said. He was right.
+
+The more people look, the more they'll find. You write some code and think it's great. You look at the code with fresh eyes and go _"Oh wait didn't Beth from accounting say something about this that one time in a meeting?"_.
+
+Yes she did. Bob remembers and leaves you a comment. Your code breaks an entire workflow and now Beth can't do her job! Bad.
+
+You're annoyed by the comment, a little upset you didn't remember, and spend a few hours fixing the bug. Code will ship the day after tomorrow.
+
+But what if Bob left the same comment and started with `@cursor ...`?
+
+You'd still see the comment, think _"Ah fuck I didn't even think about that"_, **except now it's already fixed** 😍. While you were off helping others with your code reviews, the bot implemented Bob's feedback and now all you have to do is to say LGTM and merge. Code ships today.
+
+Works for small fixes you'd trust a clanker to do. May require the code owner to re-verify their code works.
+
+## When you spot a learning opportunity
+
+The other reason we have code reviews is for knowledge sharing.
+
+You want to encourage good system design practices and [didn't talk enough beforehand](https://swizec.com/blog/coordinating-at-the-end-is-too-late/). Code review lets you talk about good abstractions and API design.
+
+I like to do this in people's pull requests because it makes the lessons less abstract. System design is a tacit skill you can only learn by doing. We can talk for hours in the abstract and it won't do squat compared to _"Hey this function you wrote would be clearer if you X, Y, Z because of principles A, B, C"_.
+
+Try first, get feedback, try again. Best way to learn.
+
+It's the **only way to train your expert intuition**. Reps and feedback. One might argue this is the core job of a software engineering organization – building the next generation of experts.
+
+Here keeping it slow is a feature. You _want_ engineers to struggle through fixing the issue and you take the hit to shipping velocity on purpose.
+
+Cheers,<br/>
+~Swizec
+
+PS: best way to make code review faster is to shift left and talk architecture _before you write code_. Do the system design together as a group. Another is to make it quicker to verify the code after changes.
