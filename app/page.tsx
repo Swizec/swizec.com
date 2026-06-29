@@ -15,7 +15,7 @@ export default function Home() {
       <ul>
         {recentPosts.map((p) => (
           <li key={p._meta.path}>
-            <a href={`/blog/${p._meta.path.replace(/\/index$/, '')}`}>{p.title}</a>
+            <a href={`/${p._meta.path.replace(/\/index$/, '')}`}>{p.title}</a>
           </li>
         ))}
       </ul>

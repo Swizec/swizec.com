@@ -18,13 +18,13 @@ const MIME: Record<string, string> = {
   '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 };
 
-// Serves non-MDX files co-located in src/pages/blog/ as static assets in dev mode.
+// Serves non-MDX files co-located in pages/ as static assets in dev mode.
 const pagesColocatedAssets = {
   name: 'pages-colocated-assets',
   configureServer(server: { middlewares: { use: Function } }) {
     server.middlewares.use((req: { url?: string }, res: { writeHead: Function; end: Function }, next: Function) => {
       const url = req.url?.split('?')[0] ?? '';
-      if (!/^\/src\/pages\/blog\/.+\.[^./]+$/.test(url) || /\.mdx?$/.test(url)) return next();
+      if (!/^\/pages\/.+\.[^./]+$/.test(url) || /\.mdx?$/.test(url)) return next();
       const filePath = path.join(process.cwd(), url);
       let stat: fs.Stats;
       try { stat = fs.statSync(filePath); } catch { return next(); }

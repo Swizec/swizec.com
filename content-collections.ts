@@ -6,8 +6,8 @@ import { z } from 'zod';
 // import.meta.glob in the catch-all route — RSC-compatible.
 const pages = defineCollection({
   name: 'pages',
-  directory: 'src/pages/blog',
-  include: '**/index.{mdx,md}',
+  directory: 'pages',
+  include: '**/*.{mdx,md}',
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
