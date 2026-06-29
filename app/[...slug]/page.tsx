@@ -3,6 +3,7 @@ import { deny, getSegmentParams } from "@timber-js/app/server";
 import type { Metadata } from "@timber-js/app/server";
 import type React from "react";
 import { metadataFromFrontmatter } from "../mdx-metadata";
+import { RelatedArticles } from "../../components/related-articles";
 
 // Vite glob: all MDX in pages/, compiled as ES modules via @mdx-js/rollup (RSC-compatible)
 const mdxModules = import.meta.glob("/pages/**/*.{mdx,md}");
@@ -52,6 +53,9 @@ export default async function Page() {
 
     const { default: MDXContent } = (await loadModule()) as MDXModule;
 
+    // URL format matches what index-articles.ts stores: /blog/slug/
+    const articleUrl = `/${page._meta.path.replace(/\/index$/, '')}/`;
+
     return (
         <article>
             <h1>{page.title}</h1>
@@ -65,6 +69,7 @@ export default async function Page() {
                 </time>
             )}
             <MDXContent />
+            <RelatedArticles url={articleUrl} />
         </article>
     );
 }
