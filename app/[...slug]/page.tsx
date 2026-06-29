@@ -3,6 +3,8 @@ import { deny, getSegmentParams } from "@timber-js/app/server";
 import type { Metadata } from "@timber-js/app/server";
 import type React from "react";
 import { metadataFromFrontmatter } from "../mdx-metadata";
+import { NewsletterForm } from "../../components/newsletter-form";
+import { getContentUpgrade } from "../../lib/content-upgrades";
 
 // Vite glob: all MDX in pages/, compiled as ES modules via @mdx-js/rollup (RSC-compatible)
 const mdxModules = import.meta.glob("/pages/**/*.{mdx,md}");
@@ -51,6 +53,7 @@ export default async function Page() {
     }
 
     const { default: MDXContent } = (await loadModule()) as MDXModule;
+    const upgrade = getContentUpgrade(page.content_upgrade);
 
     return (
         <article>
@@ -65,6 +68,7 @@ export default async function Page() {
                 </time>
             )}
             <MDXContent />
+            <NewsletterForm upgrade={upgrade} upgradeKey={page.content_upgrade ?? undefined} />
         </article>
     );
 }

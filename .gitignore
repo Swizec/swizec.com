@@ -88,3 +88,6 @@ src/blog_vault_2
 
 # content-collections
 .content-collections/
+
+# Claude Code agent worktrees
+.claude/
