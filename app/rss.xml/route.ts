@@ -14,16 +14,30 @@ function escapeXml(str: string): string {
         .replace(/'/g, '&apos;');
 }
 
+function escapeCdata(str: string): string {
+    // ]]> ends a CDATA section — split across two sections to neutralize it
+    return str.replace(/]]>/g, ']]]]><![CDATA[>');
+}
+
 function extractTextParagraphs(content: string, count = 3): string {
-    const paragraphs = content.split(/\n\n+/);
+    // Strip fenced code blocks before splitting into paragraphs so code
+    // fence delimiters and body lines don't bleed into the excerpt
+    const withoutCode = content.replace(/```[\s\S]*?```/g, '');
+    const paragraphs = withoutCode.split(/\n\n+/);
     const result: string[] = [];
 
     for (const raw of paragraphs) {
         const trimmed = raw.trim();
         if (!trimmed) continue;
 
-        // Skip headings, images, HTML blocks
-        if (trimmed.startsWith('#') || trimmed.startsWith('!') || trimmed.startsWith('<')) {
+        // Skip headings, images, HTML blocks, blockquotes, remaining fence lines
+        if (
+            trimmed.startsWith('#') ||
+            trimmed.startsWith('!') ||
+            trimmed.startsWith('<') ||
+            trimmed.startsWith('>') ||
+            trimmed.startsWith('```')
+        ) {
             continue;
         }
 
@@ -39,14 +53,15 @@ function extractTextParagraphs(content: string, count = 3): string {
             // Bold: **text** or __text__
             .replace(/\*{2}([^*]+)\*{2}/g, '$1')
             .replace(/_{2}([^_]+)_{2}/g, '$1')
-            // Italic: *text* or _text_
-            .replace(/\*([^*]+)\*/g, '$1')
-            .replace(/_([^_]+)_/g, '$1')
+            // Italic: *text* or _text_ — only when not surrounded by word chars
+            // to avoid mangling snake_case identifiers
+            .replace(/\*([^*\n]+)\*/g, '$1')
+            .replace(/(?<![a-zA-Z0-9])_([^_\n]+)_(?![a-zA-Z0-9])/g, '$1')
             // Inline code: `text`
             .replace(/`([^`]+)`/g, '$1')
             // Strikethrough: ~~text~~
             .replace(/~~([^~]+)~~/g, '$1')
-            // Remove remaining markdown punctuation artifacts
+            // Remove list markers
             .replace(/^\s*[-*+]\s+/gm, '')
             .replace(/^\s*\d+\.\s+/gm, '')
             .trim();
@@ -66,14 +81,24 @@ function pageUrl(path: string): string {
 }
 
 export async function GET(): Promise<Response> {
+    const now = new Date();
     const publishedPages = allPages
-        .filter((page) => Boolean(page.published))
+        .filter((page) => {
+            if (!page.published) return false;
+            return new Date(page.published) <= now;
+        })
         .sort((a, b) => {
             const dateA = new Date(a.published!).getTime();
             const dateB = new Date(b.published!).getTime();
             return dateB - dateA;
         })
         .slice(0, 50);
+
+    // Use the most recent article's date so the feed is stable between deploys
+    const lastBuildDate =
+        publishedPages.length > 0
+            ? new Date(publishedPages[0].published!).toUTCString()
+            : now.toUTCString();
 
     const items = publishedPages.map((page) => {
         const url = pageUrl(page._meta.path);
@@ -85,7 +110,7 @@ export async function GET(): Promise<Response> {
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
       <pubDate>${pubDate}</pubDate>${page.description ? `\n      <description>${escapeXml(page.description)}</description>` : ''}
-      <content:encoded><![CDATA[${description}]]></content:encoded>
+      <content:encoded><![CDATA[${escapeCdata(description)}]]></content:encoded>
     </item>`;
     });
 
@@ -99,7 +124,7 @@ export async function GET(): Promise<Response> {
     <link>${SITE_URL}</link>
     <atom:link href="${FEED_URL}" rel="self" type="application/rss+xml" />
     <language>en-us</language>
-    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <lastBuildDate>${lastBuildDate}</lastBuildDate>
 ${items.join('\n')}
   </channel>
 </rss>`;
