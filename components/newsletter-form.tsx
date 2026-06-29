@@ -12,7 +12,7 @@ interface NewsletterFormProps {
 export function NewsletterForm({ upgrade, upgradeKey }: NewsletterFormProps) {
     const [state, action, pending, errors] = useActionState(subscribe, null);
 
-    if (state?.success) {
+    if (state?.data?.success) {
         return (
             <div>
                 <p>

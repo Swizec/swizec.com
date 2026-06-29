@@ -10,14 +10,21 @@ const CK_API = 'https://api.kit.com/v4';
 
 async function ckPost(path: string, body: Record<string, unknown>) {
     const apiKey = process.env.CONVERTKIT_APIKEY_V4;
-    return fetch(`${CK_API}${path}`, {
+    if (!apiKey) {
+        throw new Error('CONVERTKIT_APIKEY_V4 is not set');
+    }
+    const res = await fetch(`${CK_API}${path}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
-            'X-Kit-Api-Key': apiKey ?? '',
+            'X-Kit-Api-Key': apiKey,
         },
         body: JSON.stringify(body),
     });
+    if (!res.ok) {
+        throw new Error(`ConvertKit API error: ${res.status} ${res.statusText}`);
+    }
+    return res;
 }
 
 export const subscribe = action
