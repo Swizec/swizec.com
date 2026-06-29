@@ -3,5 +3,5 @@
   "framework": null,
   "buildCommand": "pnpm run build",
   "devCommand": "pnpm run dev",
-  "installCommand": "pnpm install --frozen-lockfile"
+  "installCommand": "pnpm install"
 }
