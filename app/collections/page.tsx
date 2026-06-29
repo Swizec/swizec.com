@@ -1,17 +1,11 @@
 import { allPages } from 'content-collections';
 import type { Metadata } from '@timber-js/app/server';
+import { slugify } from '../../lib/categories';
 
 export const metadata: Metadata = {
     title: 'Collections',
     description: 'Articles by Swizec Teller, organized by topic',
 };
-
-function slugify(category: string): string {
-    return category
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '');
-}
 
 function buildCategoryIndex() {
     const counts = new Map<string, { name: string; count: number }>();

@@ -1,17 +1,11 @@
 import { allPages } from 'content-collections';
 import { deny, getSegmentParams } from '@timber-js/app/server';
 import type { Metadata } from '@timber-js/app/server';
-
-function slugify(category: string): string {
-    return category
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '');
-}
+import { slugify } from '../../../lib/categories';
 
 function getCategoryName(slug: string): string | undefined {
     for (const page of allPages) {
-        if (!page.categories) continue;
+        if (!page.published || !page.categories) continue;
         for (const cat of page.categories.split(',')) {
             const trimmed = cat.trim();
             if (slugify(trimmed) === slug) return trimmed;
@@ -31,8 +25,13 @@ function getArticlesForSlug(slug: string) {
         .sort((a, b) => (b.published ?? '').localeCompare(a.published ?? ''));
 }
 
+function resolvedSlug(): string {
+    const params = getSegmentParams();
+    return Array.isArray(params.slug) ? params.slug.join('/') : (params.slug ?? '');
+}
+
 export async function metadata(): Promise<Metadata> {
-    const { slug } = getSegmentParams() as { slug: string };
+    const slug = resolvedSlug();
     const categoryName = getCategoryName(slug);
     if (!categoryName) return {};
     return {
@@ -42,7 +41,7 @@ export async function metadata(): Promise<Metadata> {
 }
 
 export default function CollectionPage() {
-    const { slug } = getSegmentParams() as { slug: string };
+    const slug = resolvedSlug();
     const articles = getArticlesForSlug(slug);
 
     if (!articles.length) {
