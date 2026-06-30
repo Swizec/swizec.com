@@ -3,6 +3,7 @@ import { deny, getSegmentParams } from "@timber-js/app/server";
 import type { Metadata } from "@timber-js/app/server";
 import type React from "react";
 import { metadataFromFrontmatter } from "../mdx-metadata";
+import { slugify } from "../../lib/categories";
 
 // Vite glob: all MDX in pages/, compiled as ES modules via @mdx-js/rollup (RSC-compatible)
 const mdxModules = import.meta.glob("/pages/**/*.{mdx,md}");
@@ -52,6 +53,13 @@ export default async function Page() {
 
     const { default: MDXContent } = (await loadModule()) as MDXModule;
 
+    const categories = page.categories
+        ? page.categories
+              .split(",")
+              .map((cat) => cat.trim())
+              .filter(Boolean)
+        : [];
+
     return (
         <article>
             <h1>{page.title}</h1>
@@ -65,6 +73,17 @@ export default async function Page() {
                 </time>
             )}
             <MDXContent />
+            {categories.length > 0 && (
+                <p className="article-categories">
+                    Filed under:{" "}
+                    {categories.map((cat, i) => (
+                        <span key={cat}>
+                            <a href={`/collections/${slugify(cat)}`}>{cat}</a>
+                            {i < categories.length - 1 && ", "}
+                        </span>
+                    ))}
+                </p>
+            )}
         </article>
     );
 }
