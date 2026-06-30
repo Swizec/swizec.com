@@ -27,7 +27,7 @@ function getArticlesForSlug(slug: string) {
 
 function resolvedSlug(): string {
     const params = getSegmentParams();
-    return Array.isArray(params.slug) ? params.slug.join('/') : (params.slug ?? '');
+    return Array.isArray(params.categorySlug) ? params.categorySlug.join('/') : (params.categorySlug ?? '');
 }
 
 export async function metadata(): Promise<Metadata> {
