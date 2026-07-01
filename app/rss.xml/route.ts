@@ -1,4 +1,8 @@
 import { allPages } from 'content-collections';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeStringify from 'rehype-stringify';
 
 const SITE_URL = 'https://swizec.com';
 const FEED_TITLE = 'Swizec Teller';
@@ -19,36 +23,23 @@ function escapeCdata(str: string): string {
     return str.replace(/]]>/g, ']]]]><![CDATA[>');
 }
 
-function mdToHtmlInline(text: string): string {
-    return text
-        // Join soft-wrapped lines into a single line
-        .replace(/\n/g, ' ')
-        // Escape bare ampersands
-        .replace(/&(?![a-zA-Z#\d]+;)/g, '&amp;')
-        // Remove images
-        .replace(/!\[([^\]]*)\]\([^)]*\)/g, '')
-        // Inline code (before other patterns to avoid false positives)
-        .replace(/`([^`\n]+)`/g, '<code>$1</code>')
-        // Links
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
-        // Bold+italic
-        .replace(/\*{3}([^*\n]+)\*{3}/g, '<strong><em>$1</em></strong>')
-        .replace(/_{3}([^_\n]+)_{3}/g, '<strong><em>$1</em></strong>')
-        // Bold
-        .replace(/\*{2}([^*\n]+)\*{2}/g, '<strong>$1</strong>')
-        .replace(/_{2}([^_\n]+)_{2}/g, '<strong>$1</strong>')
-        // Italic (avoid mangling snake_case)
-        .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
-        .replace(/(?<![a-zA-Z0-9])_([^_\n]+)_(?![a-zA-Z0-9])/g, '<em>$1</em>')
-        // Strikethrough
-        .replace(/~~([^~\n]+)~~/g, '<del>$1</del>');
-}
+// markdown → HTML via the same remark/rehype stack the site uses for MDX.
+// allowDangerousHtml passes through any raw HTML already in the prose.
+const markdownToHtml = unified()
+    .use(remarkParse)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeStringify, { allowDangerousHtml: true });
 
-function extractHtmlParagraphs(content: string, articleUrl: string, count = 3): string {
+/**
+ * Select the first `count` prose paragraphs of an article as a markdown
+ * excerpt. Skips headings, images, raw-HTML/embed blocks, blockquotes,
+ * code fences, and lists so the excerpt reads as plain prose.
+ */
+function extractExcerptMarkdown(content: string, count = 3): string {
     // Strip fenced code blocks so fence delimiters don't bleed into the excerpt
     const withoutCode = content.replace(/```[\s\S]*?```/g, '');
     const paragraphs = withoutCode.split(/\n\n+/);
-    const result: string[] = [];
+    const selected: string[] = [];
 
     for (const raw of paragraphs) {
         const trimmed = raw.trim();
@@ -66,12 +57,17 @@ function extractHtmlParagraphs(content: string, articleUrl: string, count = 3): 
             continue;
         }
 
-        result.push(`<p>${mdToHtmlInline(trimmed)}</p>`);
-        if (result.length >= count) break;
+        selected.push(trimmed);
+        if (selected.length >= count) break;
     }
 
-    result.push(`<p><a href="${articleUrl}">Continue reading →</a></p>`);
-    return result.join('\n');
+    return selected.join('\n\n');
+}
+
+async function renderExcerptHtml(content: string, articleUrl: string): Promise<string> {
+    const excerpt = extractExcerptMarkdown(content);
+    const html = String(await markdownToHtml.process(excerpt));
+    return `${html}\n<p><a href="${articleUrl}">Continue reading →</a></p>`;
 }
 
 function pageUrl(path: string): string {
@@ -98,19 +94,21 @@ export async function GET(): Promise<Response> {
             ? new Date(publishedPages[0].published!).toUTCString()
             : now.toUTCString();
 
-    const items = publishedPages.map((page) => {
-        const url = pageUrl(page._meta.path);
-        const pubDate = new Date(page.published!).toUTCString();
-        const description = extractHtmlParagraphs(page.content, url);
+    const items = await Promise.all(
+        publishedPages.map(async (page) => {
+            const url = pageUrl(page._meta.path);
+            const pubDate = new Date(page.published!).toUTCString();
+            const description = await renderExcerptHtml(page.content, url);
 
-        return `    <item>
+            return `    <item>
       <title>${escapeXml(page.title)}</title>
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
       <pubDate>${pubDate}</pubDate>${page.description ? `\n      <description>${escapeXml(page.description)}</description>` : ''}
       <content:encoded><![CDATA[${escapeCdata(description)}]]></content:encoded>
     </item>`;
-    });
+        }),
+    );
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"
