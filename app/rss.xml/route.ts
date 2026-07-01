@@ -19,9 +19,33 @@ function escapeCdata(str: string): string {
     return str.replace(/]]>/g, ']]]]><![CDATA[>');
 }
 
-function extractTextParagraphs(content: string, count = 3): string {
-    // Strip fenced code blocks before splitting into paragraphs so code
-    // fence delimiters and body lines don't bleed into the excerpt
+function mdToHtmlInline(text: string): string {
+    return text
+        // Join soft-wrapped lines into a single line
+        .replace(/\n/g, ' ')
+        // Escape bare ampersands
+        .replace(/&(?![a-zA-Z#\d]+;)/g, '&amp;')
+        // Remove images
+        .replace(/!\[([^\]]*)\]\([^)]*\)/g, '')
+        // Inline code (before other patterns to avoid false positives)
+        .replace(/`([^`\n]+)`/g, '<code>$1</code>')
+        // Links
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+        // Bold+italic
+        .replace(/\*{3}([^*\n]+)\*{3}/g, '<strong><em>$1</em></strong>')
+        .replace(/_{3}([^_\n]+)_{3}/g, '<strong><em>$1</em></strong>')
+        // Bold
+        .replace(/\*{2}([^*\n]+)\*{2}/g, '<strong>$1</strong>')
+        .replace(/_{2}([^_\n]+)_{2}/g, '<strong>$1</strong>')
+        // Italic (avoid mangling snake_case)
+        .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
+        .replace(/(?<![a-zA-Z0-9])_([^_\n]+)_(?![a-zA-Z0-9])/g, '<em>$1</em>')
+        // Strikethrough
+        .replace(/~~([^~\n]+)~~/g, '<del>$1</del>');
+}
+
+function extractHtmlParagraphs(content: string, articleUrl: string, count = 3): string {
+    // Strip fenced code blocks so fence delimiters don't bleed into the excerpt
     const withoutCode = content.replace(/```[\s\S]*?```/g, '');
     const paragraphs = withoutCode.split(/\n\n+/);
     const result: string[] = [];
@@ -30,50 +54,24 @@ function extractTextParagraphs(content: string, count = 3): string {
         const trimmed = raw.trim();
         if (!trimmed) continue;
 
-        // Skip headings, images, HTML blocks, blockquotes, remaining fence lines
+        // Skip headings, images, HTML blocks, blockquotes, fence lines, and lists
         if (
             trimmed.startsWith('#') ||
             trimmed.startsWith('!') ||
             trimmed.startsWith('<') ||
             trimmed.startsWith('>') ||
-            trimmed.startsWith('```')
+            trimmed.startsWith('```') ||
+            /^\s*[-*+\d]/.test(trimmed)
         ) {
             continue;
         }
 
-        // Strip markdown syntax
-        const stripped = trimmed
-            // Remove images: ![alt](url)
-            .replace(/!\[([^\]]*)\]\([^)]*\)/g, '')
-            // Links: [label](url) → label
-            .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
-            // Bold+italic: ***text*** or ___text___
-            .replace(/\*{3}([^*]+)\*{3}/g, '$1')
-            .replace(/_{3}([^_]+)_{3}/g, '$1')
-            // Bold: **text** or __text__
-            .replace(/\*{2}([^*]+)\*{2}/g, '$1')
-            .replace(/_{2}([^_]+)_{2}/g, '$1')
-            // Italic: *text* or _text_ — only when not surrounded by word chars
-            // to avoid mangling snake_case identifiers
-            .replace(/\*([^*\n]+)\*/g, '$1')
-            .replace(/(?<![a-zA-Z0-9])_([^_\n]+)_(?![a-zA-Z0-9])/g, '$1')
-            // Inline code: `text`
-            .replace(/`([^`]+)`/g, '$1')
-            // Strikethrough: ~~text~~
-            .replace(/~~([^~]+)~~/g, '$1')
-            // Remove list markers
-            .replace(/^\s*[-*+]\s+/gm, '')
-            .replace(/^\s*\d+\.\s+/gm, '')
-            .trim();
-
-        if (stripped.length > 0) {
-            result.push(stripped);
-        }
-
+        result.push(`<p>${mdToHtmlInline(trimmed)}</p>`);
         if (result.length >= count) break;
     }
 
-    return result.join('\n\n');
+    result.push(`<p><a href="${articleUrl}">Continue reading →</a></p>`);
+    return result.join('\n');
 }
 
 function pageUrl(path: string): string {
@@ -103,7 +101,7 @@ export async function GET(): Promise<Response> {
     const items = publishedPages.map((page) => {
         const url = pageUrl(page._meta.path);
         const pubDate = new Date(page.published!).toUTCString();
-        const description = extractTextParagraphs(page.content);
+        const description = extractHtmlParagraphs(page.content, url);
 
         return `    <item>
       <title>${escapeXml(page.title)}</title>
