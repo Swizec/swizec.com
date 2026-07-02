@@ -81,3 +81,10 @@ src/blog_vault_2
 .env.development
 .env.production
 .vercel
+
+# timber.js
+.timber/
+*.local
+
+# content-collections
+.content-collections/
