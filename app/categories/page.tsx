@@ -16,7 +16,7 @@ export default async function CategoriesIndex() {
             <ul>
                 {categories.map(({ slug, name, count }) => (
                     <li key={slug}>
-                        <a href={`/category/${slug}`}>{name}</a>
+                        <a href={`/categories/${slug}`}>{name}</a>
                         {' '}({count})
                     </li>
                 ))}
