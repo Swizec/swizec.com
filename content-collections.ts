@@ -17,7 +17,8 @@ const pages = defineCollection({
     redirect_from: z.array(z.string()).optional(),
     hero: z.string().optional(),
     image: z.string().optional(),
-    content_upgrade: z.string().optional(),
+    // Empty YAML frontmatter (`content_upgrade:`) parses to null — accept it and normalize to undefined
+    content_upgrade: z.string().nullish().transform((v) => v ?? undefined),
     content: z.string(),
   }),
 });
