@@ -39,4 +39,11 @@ const pagesColocatedAssets = {
 
 export default defineConfig({
   plugins: [pagesColocatedAssets, timber()],
+  resolve: {
+    // Lets MDX pages import components without counting ../ hops:
+    // import { NewsletterSignup } from '@/components/newsletter-signup'
+    alias: {
+      '@': new URL('.', import.meta.url).pathname,
+    },
+  },
 });

@@ -1,37 +1,13 @@
-import { allPages } from 'content-collections';
 import type { Metadata } from '@timber-js/app/server';
-import { slugify } from '../../lib/categories';
+import { listCategories } from '../../lib/categories';
 
 export const metadata: Metadata = {
     title: 'Collections',
     description: 'Articles by Swizec Teller, organized by topic',
 };
 
-function buildCategoryIndex() {
-    const counts = new Map<string, { name: string; count: number }>();
-
-    for (const page of allPages) {
-        if (!page.published || !page.categories) continue;
-        for (const cat of page.categories.split(',')) {
-            const name = cat.trim();
-            if (!name) continue;
-            const slug = slugify(name);
-            const existing = counts.get(slug);
-            if (existing) {
-                existing.count++;
-            } else {
-                counts.set(slug, { name, count: 1 });
-            }
-        }
-    }
-
-    return [...counts.entries()]
-        .map(([slug, { name, count }]) => ({ slug, name, count }))
-        .sort((a, b) => b.count - a.count);
-}
-
-export default function CollectionsIndex() {
-    const categories = buildCategoryIndex();
+export default async function CollectionsIndex() {
+    const categories = await listCategories();
 
     return (
         <main>
