@@ -10,6 +10,7 @@ const pages = defineCollection({
   include: '**/*.{mdx,md}',
   schema: z.object({
     title: z.string(),
+    subtitle: z.string().optional(),
     description: z.string().optional(),
     published: z.coerce.date().transform((d) => d.toISOString()).optional(),
     publishedAt: z.string().optional(),
