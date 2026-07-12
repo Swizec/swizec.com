@@ -3,6 +3,7 @@ import { deny, getSegmentParams } from "@timber-js/app/server";
 import type { Metadata } from "@timber-js/app/server";
 import type React from "react";
 import { metadataFromFrontmatter } from "../mdx-metadata";
+import { parseCategories } from "../../lib/categories";
 import { NewsletterSignup } from "../../components/newsletter-signup";
 import { RelatedArticles } from "../../components/related-articles";
 
@@ -54,6 +55,8 @@ export default async function Page() {
 
     const { default: MDXContent } = (await loadModule()) as MDXModule;
 
+    const categories = parseCategories(page.categories);
+
     // URL format matches what index-articles.ts stores: /blog/slug/
     const articleUrl = `/${page._meta.path.replace(/\/index$/, '')}/`;
 
@@ -70,6 +73,17 @@ export default async function Page() {
                 </time>
             )}
             <MDXContent />
+            {categories.length > 0 && (
+                <p className="article-categories">
+                    Filed under:{" "}
+                    {categories.map(({ name, slug }, i) => (
+                        <span key={slug}>
+                            <a href={`/categories/${slug}`}>{name}</a>
+                            {i < categories.length - 1 && ", "}
+                        </span>
+                    ))}
+                </p>
+            )}
             <NewsletterSignup formKey={page.content_upgrade ?? undefined} />
             <RelatedArticles url={articleUrl} />
         </article>

@@ -1,4 +1,5 @@
 import { allPages } from 'content-collections';
+import { slugify } from '../lib/categories';
 // Single source of truth for static redirects: the legacy Netlify `_redirects`
 // file, inlined as a string at build time by Vite. Format is "<from>  <to>" per
 // line (extra whitespace and blank lines are ignored).
@@ -43,6 +44,18 @@ export default async function proxy(req: Request, next: () => Promise<Response>)
     if (target) {
         const dest = target.startsWith('http') ? target : new URL(target, url.origin).href;
         return Response.redirect(dest, 301);
+    }
+
+    // Legacy category URLs used the lowercased name with literal spaces
+    // (/categories/front%20end/); canonical form is the dash slug. Redirect
+    // anything under /categories/ that isn't already in slug form.
+    const categoryMatch = normalize(path).match(/^\/categories\/(.+)$/);
+    if (categoryMatch) {
+        const slug = slugify(categoryMatch[1]);
+        if (slug && slug !== categoryMatch[1]) {
+            const dest = new URL(`/categories/${slug}${url.search}`, url.origin).href;
+            return Response.redirect(dest, 301);
+        }
     }
 
     return next();
