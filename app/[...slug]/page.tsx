@@ -3,6 +3,7 @@ import { deny, getSegmentParams } from "@timber-js/app/server";
 import type { Metadata } from "@timber-js/app/server";
 import type React from "react";
 import { metadataFromFrontmatter } from "../mdx-metadata";
+import { NewsletterSignup } from "../../components/newsletter-signup";
 import { RelatedArticles } from "../../components/related-articles";
 
 // Vite glob: all MDX in pages/, compiled as ES modules via @mdx-js/rollup (RSC-compatible)
@@ -69,6 +70,7 @@ export default async function Page() {
                 </time>
             )}
             <MDXContent />
+            <NewsletterSignup formKey={page.content_upgrade ?? undefined} />
             <RelatedArticles url={articleUrl} />
         </article>
     );

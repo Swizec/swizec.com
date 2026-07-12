@@ -109,3 +109,80 @@ code.shiki {
   max-width: 100%;
   height: auto;
 }
+
+/* Newsletter signup */
+.newsletter-signup {
+  border: 2px solid #f0a500;
+  border-radius: 10px;
+  margin: 2.5rem 0;
+  padding: 1.5rem;
+}
+
+.newsletter-signup h3 {
+  margin-top: 0;
+}
+
+.newsletter-signup form {
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.newsletter-signup input[type='text'],
+.newsletter-signup input[type='email'] {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1 1 180px;
+  font-size: 1rem;
+  padding: 0.6rem 0.8rem;
+}
+
+.newsletter-signup button {
+  background: #f0a500;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  flex: 0 1 auto;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+}
+
+.newsletter-signup button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+/* Honeypot: moved off-screen, not display:none, so naive bots still fill it */
+.newsletter-signup-honeypot {
+  height: 1px;
+  left: -9999px;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+}
+
+.newsletter-signup-error {
+  color: #b00020;
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.newsletter-signup-spinner {
+  animation: newsletter-spin 0.6s linear infinite;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  border-right-color: transparent;
+  display: inline-block;
+  height: 0.9em;
+  margin-right: 0.4em;
+  vertical-align: -0.1em;
+  width: 0.9em;
+}
+
+@keyframes newsletter-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
