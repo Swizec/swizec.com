@@ -187,6 +187,12 @@ code.shiki {
   }
 }
 
+.article-subtitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: -0.5rem;
+}
+
 /* Senior Mindset buy widget */
 .purchase-button {
   background-color: rgb(112, 71, 235);

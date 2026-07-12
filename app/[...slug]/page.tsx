@@ -60,6 +60,7 @@ export default async function Page() {
     return (
         <article>
             <h1>{page.title}</h1>
+            {page.subtitle && <p className="article-subtitle">{page.subtitle}</p>}
             {page.published && (
                 <time dateTime={page.published}>
                     {new Date(page.published).toLocaleDateString("en-US", {
