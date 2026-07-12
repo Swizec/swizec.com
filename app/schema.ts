@@ -5,7 +5,7 @@ export default defineSchema({
     segmentParams: {
         // Catch-all article route: /pages content at any depth
         '[...slug]': codec.stringArray,
-        // Category listing pages: /collections/[categorySlug]
+        // Category listing pages: /category/[categorySlug]
         '[categorySlug]': codec.slug,
     },
 });

@@ -16,7 +16,7 @@ export async function metadata(): Promise<Metadata> {
     };
 }
 
-export default async function CollectionPage() {
+export default async function CategoryPage() {
     const category = await getCategory(resolvedSlug());
 
     if (!category) {

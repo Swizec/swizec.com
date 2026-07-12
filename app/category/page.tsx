@@ -2,21 +2,21 @@ import type { Metadata } from '@timber-js/app/server';
 import { listCategories } from '../../lib/categories';
 
 export const metadata: Metadata = {
-    title: 'Collections',
+    title: 'Categories',
     description: 'Articles by Swizec Teller, organized by topic',
 };
 
-export default async function CollectionsIndex() {
+export default async function CategoriesIndex() {
     const categories = await listCategories();
 
     return (
         <main>
-            <h1>Collections</h1>
+            <h1>Categories</h1>
             <p>Articles organized by topic</p>
             <ul>
                 {categories.map(({ slug, name, count }) => (
                     <li key={slug}>
-                        <a href={`/collections/${slug}`}>{name}</a>
+                        <a href={`/category/${slug}`}>{name}</a>
                         {' '}({count})
                     </li>
                 ))}

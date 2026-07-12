@@ -65,7 +65,7 @@ export async function getCategory(slug: string): Promise<Category | undefined> {
     return index[slug];
 }
 
-// Categories sorted by article count for the /collections index page.
+// Categories sorted by article count for the /category index page.
 export async function listCategories(): Promise<{ name: string; slug: string; count: number }[]> {
     const index = await getCategoryIndex();
     return Object.values(index)

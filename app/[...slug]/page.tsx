@@ -78,7 +78,7 @@ export default async function Page() {
                     Filed under:{" "}
                     {categories.map(({ name, slug }, i) => (
                         <span key={slug}>
-                            <a href={`/collections/${slug}`}>{name}</a>
+                            <a href={`/category/${slug}`}>{name}</a>
                             {i < categories.length - 1 && ", "}
                         </span>
                     ))}
