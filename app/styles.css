@@ -186,3 +186,68 @@ code.shiki {
     transform: rotate(360deg);
   }
 }
+
+/* Senior Mindset buy widget */
+.purchase-button {
+  background-color: rgb(112, 71, 235);
+  border-radius: 8px;
+  color: #fff;
+  display: inline-flex;
+  font-size: 20px;
+  font-weight: 500;
+  justify-content: center;
+  line-height: 35px;
+  max-width: 100%;
+  min-width: 300px;
+  padding: 10px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.purchase-button:hover {
+  background-color: rgba(112, 71, 235, 0.8);
+}
+
+.buy-widget {
+  border: 2px solid rgb(112, 71, 235);
+  border-radius: 10px;
+  margin: 2rem 0;
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.buy-widget-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 640px) {
+  .buy-widget-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.buy-widget-package {
+  text-align: center;
+}
+
+.buy-widget-package h4,
+.buy-widget-package h5 {
+  margin: 0 0 0.75rem;
+}
+
+.buy-widget-package ul {
+  line-height: 1.2;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.buy-widget-package li {
+  margin-bottom: 0.6rem;
+}
+
+.buy-widget-cta {
+  margin: 1.5rem 0 1rem;
+  text-align: center;
+}
