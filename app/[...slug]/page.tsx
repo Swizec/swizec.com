@@ -5,6 +5,7 @@ import type React from "react";
 import { metadataFromFrontmatter } from "../mdx-metadata";
 import { NewsletterForm } from "../../components/newsletter-form";
 import { getContentUpgrade } from "../../lib/content-upgrades";
+import { RelatedArticles } from "../../components/related-articles";
 
 // Vite glob: all MDX in pages/, compiled as ES modules via @mdx-js/rollup (RSC-compatible)
 const mdxModules = import.meta.glob("/pages/**/*.{mdx,md}");
@@ -55,6 +56,9 @@ export default async function Page() {
     const { default: MDXContent } = (await loadModule()) as MDXModule;
     const upgrade = getContentUpgrade(page.content_upgrade);
 
+    // URL format matches what index-articles.ts stores: /blog/slug/
+    const articleUrl = `/${page._meta.path.replace(/\/index$/, '')}/`;
+
     return (
         <article>
             <h1>{page.title}</h1>
@@ -69,6 +73,7 @@ export default async function Page() {
             )}
             <MDXContent />
             <NewsletterForm upgrade={upgrade} upgradeKey={page.content_upgrade ?? undefined} />
+            <RelatedArticles url={articleUrl} />
         </article>
     );
 }
