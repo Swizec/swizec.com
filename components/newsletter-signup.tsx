@@ -22,9 +22,9 @@ export function NewsletterSignup({ formKey }: NewsletterSignupProps) {
             <aside className="newsletter-signup newsletter-signup-success">
                 <h3>One more step — confirm your email 💌</h3>
                 <p>
-                    I just sent a confirmation link to your inbox. Click it and you're in! Nothing
-                    arriving? Check your spam or promotions folder — or email{' '}
-                    <a href="mailto:swizec@swizec.com">swizec@swizec.com</a> and I'll sort you out.
+                    I just sent a confirmation link to your inbox. Click that and you're in! Don't
+                    see an email? Check your spam or promotions folder – or email{' '}
+                    <a href="mailto:hi@swizec.com">hi@swizec.com</a> and I'll sort you out.
                 </p>
             </aside>
         );
@@ -91,7 +91,7 @@ export function NewsletterSignup({ formKey }: NewsletterSignupProps) {
                     <p role="alert" className="newsletter-signup-error">
                         Ouch — the subscription didn't go through. That's my email service
                         hiccuping, not you. Give it another try in a few seconds, or email{' '}
-                        <a href="mailto:swizec@swizec.com">swizec@swizec.com</a> and I'll add you by
+                        <a href="mailto:hi@swizec.com">hi@swizec.com</a> and I'll add you by
                         hand.
                     </p>
                 )}
