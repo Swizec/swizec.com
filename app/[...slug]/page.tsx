@@ -57,6 +57,11 @@ export default async function Page() {
 
     const categories = parseCategories(page.categories);
 
+    // Blog posts get article chrome (categories, newsletter footer, related
+    // articles); standalone content pages render just their content — they
+    // embed their own forms and listings where needed.
+    const isBlogPost = path.startsWith("blog/");
+
     // URL format matches what index-articles.ts stores: /blog/slug/
     const articleUrl = `/${page._meta.path.replace(/\/index$/, '')}/`;
 
@@ -74,7 +79,7 @@ export default async function Page() {
                 </time>
             )}
             <MDXContent />
-            {categories.length > 0 && (
+            {isBlogPost && categories.length > 0 && (
                 <p className="article-categories">
                     Filed under:{" "}
                     {categories.map(({ name, slug }, i) => (
@@ -85,8 +90,8 @@ export default async function Page() {
                     ))}
                 </p>
             )}
-            <NewsletterSignup formKey={page.content_upgrade ?? undefined} />
-            <RelatedArticles url={articleUrl} />
+            {isBlogPost && <NewsletterSignup formKey={page.content_upgrade ?? undefined} />}
+            {isBlogPost && <RelatedArticles url={articleUrl} />}
         </article>
     );
 }

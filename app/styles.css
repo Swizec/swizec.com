@@ -193,6 +193,60 @@ code.shiki {
   margin-top: -0.5rem;
 }
 
+/* Generic CTA button (theme-ui Button replacement) */
+a.button {
+  background: #f0a500;
+  border-radius: 6px;
+  color: #000;
+  display: inline-block;
+  font-weight: 600;
+  margin: 0.5rem 0 1.5rem;
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
+}
+
+a.button:hover {
+  background: #d99500;
+}
+
+/* Testimonial quote grid (letters, home) */
+.testimonial-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Article listings (home, collections, interviews) */
+.article-listing {
+  margin: 1.25rem 0;
+}
+
+.article-listing h3 {
+  margin: 0 0 0.15rem;
+}
+
+.article-listing time {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.article-listing p {
+  margin: 0.25rem 0 0;
+}
+
+/* Typeform survey embed */
+.typeform-embed {
+  border: 0;
+  height: 500px;
+  width: 100%;
+}
+
 /* Senior Mindset buy widget */
 .purchase-button {
   background-color: rgb(112, 71, 235);

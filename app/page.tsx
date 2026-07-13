@@ -1,24 +1,16 @@
-import { allPages } from 'content-collections';
+import type { Metadata } from '@timber-js/app/server';
+import HomeContent from '../pages/index.mdx';
 
-export const metadata = { title: 'Home' };
+export const metadata: Metadata = {
+    title: 'Swizec Teller - a geek with a hat',
+    description:
+        'I write emails with real insight into the career and skills of a modern software engineer. Raw and honest from the heart, fueled by lessons learned over 20 years of building production code.',
+};
 
 export default function Home() {
-  const recentPosts = allPages
-    .filter((p) => p.published)
-    .sort((a, b) => (b.published ?? '').localeCompare(a.published ?? ''))
-    .slice(0, 10);
-
-  return (
-    <main>
-      <h1>Swizec Teller</h1>
-      <p>A geek with a hat</p>
-      <ul>
-        {recentPosts.map((p) => (
-          <li key={p._meta.path}>
-            <a href={`/${p._meta.path.replace(/\/index$/, '')}`}>{p.title}</a>
-          </li>
-        ))}
-      </ul>
-    </main>
-  );
+    return (
+        <main>
+            <HomeContent />
+        </main>
+    );
 }
