@@ -3,7 +3,7 @@ import HomeContent from '../pages/index.mdx';
 import { requestOrigin } from './mdx-metadata';
 
 export async function metadata(): Promise<Metadata> {
-    const ogImage = `${requestOrigin()}/opengraph-image`;
+    const ogImage = `${requestOrigin()}/opengraph-image.png`;
     return {
         title: 'Swizec Teller - a geek with a hat',
         description:

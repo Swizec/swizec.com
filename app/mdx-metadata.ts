@@ -47,9 +47,9 @@ export function metadataFromFrontmatter(page: Page, routePath: string): Metadata
   const { title, description, publishedAt, published } = page;
   const pageUrl = absoluteUrl(routePath);
   // Every page gets a generated Y2K card (title + description + photo).
-  // Request-origin host so previews self-serve; no .png suffix so scrapers
-  // that refuse to follow the 302 redirect get the image directly.
-  const ogImage = `${requestOrigin()}${routePath.endsWith('/') ? routePath.slice(0, -1) : routePath}/opengraph-image`;
+  // Request-origin host so previews self-serve. The .png suffix is required
+  // by Slack's unfurler and served directly by a real route — no redirect.
+  const ogImage = `${requestOrigin()}${routePath.endsWith('/') ? routePath.slice(0, -1) : routePath}/opengraph-image.png`;
   const publishedTime = dateValue(publishedAt ?? published);
 
   return {
