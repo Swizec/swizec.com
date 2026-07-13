@@ -21,8 +21,8 @@ const configPath = '.vercel/output/config.json';
 const config = JSON.parse(readFileSync(configPath, 'utf8'));
 
 const redirect = {
-  src: '/(.+)/opengraph-image\\.png',
-  dest: '/$1/opengraph-image',
+  src: '/(.*/)?opengraph-image\\.png',
+  dest: '/$1opengraph-image',
   status: 302,
 };
 

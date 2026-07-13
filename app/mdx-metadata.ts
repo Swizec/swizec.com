@@ -26,29 +26,11 @@ function absoluteUrl(path: string, routePath = '/'): string {
   return new URL(path.startsWith('/') ? path : `/${path}`, base).toString();
 }
 
-function slugifyTitle(title: string): string {
-  return title
-    .toLowerCase()
-    .replace(/[*+~.()[\]{}'"!?/:@,]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-function socialCardUrl(title: string, imagePath: string): string {
-  if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
-    return imagePath;
-  }
-  const extension = imagePath.split(/[?#]/)[0]?.split('.').pop() ?? 'png';
-  return absoluteUrl(`/social-cards/${slugifyTitle(title)}.${extension}`);
-}
-
 export function metadataFromFrontmatter(page: Page, routePath: string): Metadata {
-  const { title, description, hero, image, publishedAt, published } = page;
+  const { title, description, publishedAt, published } = page;
   const pageUrl = absoluteUrl(routePath);
-  const heroImage = hero ?? image;
-  const ogImage = heroImage
-    ? socialCardUrl(title, heroImage)
-    : absoluteUrl(`${routePath}/opengraph-image.png`);
+  // Every page gets a generated Y2K card (title + description + photo)
+  const ogImage = absoluteUrl(`${routePath}/opengraph-image.png`);
   const publishedTime = dateValue(publishedAt ?? published);
 
   return {
@@ -68,7 +50,7 @@ export function metadataFromFrontmatter(page: Page, routePath: string): Metadata
       type: 'article',
       publishedTime,
       authors: [authorName],
-      images: ogImage ? { url: ogImage, alt: title } : undefined,
+      images: { url: ogImage, alt: title },
     },
     twitter: {
       card: 'summary_large_image',
@@ -76,7 +58,7 @@ export function metadataFromFrontmatter(page: Page, routePath: string): Metadata
       creator: twitterHandle,
       title,
       description,
-      images: ogImage ? { url: ogImage, alt: title } : undefined,
+      images: { url: ogImage, alt: title },
     },
   };
 }

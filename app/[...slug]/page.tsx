@@ -6,6 +6,8 @@ import { metadataFromFrontmatter } from "../mdx-metadata";
 import { parseCategories } from "../../lib/categories";
 import { NewsletterSignup } from "../../components/newsletter-signup";
 import { RelatedArticles } from "../../components/related-articles";
+import { Byline } from "../../components/byline";
+import { BookPromo } from "../../components/book-promo";
 
 // Vite glob: all MDX in pages/, compiled as ES modules via @mdx-js/rollup (RSC-compatible)
 const mdxModules = import.meta.glob("/pages/**/*.{mdx,md}");
@@ -69,15 +71,7 @@ export default async function Page() {
         <article>
             <h1>{page.title}</h1>
             {page.subtitle && <p className="article-subtitle">{page.subtitle}</p>}
-            {page.published && (
-                <time dateTime={page.published}>
-                    {new Date(page.published).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                    })}
-                </time>
-            )}
+            <Byline published={page.published} />
             <MDXContent />
             {isBlogPost && categories.length > 0 && (
                 <p className="article-categories">
@@ -91,6 +85,7 @@ export default async function Page() {
                 </p>
             )}
             {isBlogPost && <NewsletterSignup formKey={page.content_upgrade ?? undefined} />}
+            {isBlogPost && <BookPromo upgradeKey={page.content_upgrade ?? undefined} />}
             {isBlogPost && <RelatedArticles url={articleUrl} />}
         </article>
     );
