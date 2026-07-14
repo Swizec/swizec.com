@@ -20,6 +20,9 @@ const pages = defineCollection({
     image: z.string().optional(),
     // Empty YAML frontmatter (`content_upgrade:`) parses to null — accept it and normalize to undefined
     content_upgrade: z.string().nullish().transform((v) => v ?? undefined),
+    // Marks a listing page: category-regex, "prefix:interviews/", or "all".
+    // The catch-all appends a paginated archive and swaps in the time sidebar.
+    archive: z.string().optional(),
     content: z.string(),
   }),
 });

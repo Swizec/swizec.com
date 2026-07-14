@@ -8,6 +8,10 @@ import { NewsletterSignup } from "../../components/newsletter-signup";
 import { RelatedArticles } from "../../components/related-articles";
 import { Byline } from "../../components/byline";
 import { BookPromo } from "../../components/book-promo";
+import { PageShell } from "../../components/page-shell";
+import { ArticleArchive } from "../../components/article-archive";
+import { ArchiveSidebar } from "../../components/archive-sidebar";
+import { parseArchiveFrontmatter } from "../../lib/article-archive";
 
 // Vite glob: all MDX in pages/, compiled as ES modules via @mdx-js/rollup (RSC-compatible)
 const mdxModules = import.meta.glob("/pages/**/*.{mdx,md}");
@@ -67,12 +71,25 @@ export default async function Page() {
     // URL format matches what index-articles.ts stores: /blog/slug/
     const articleUrl = `/${page._meta.path.replace(/\/index$/, '')}/`;
 
+    // Listing pages (archive frontmatter): MDX body is the intro copy, the
+    // paginated listing is appended, and the time-jump rail replaces books.
+    const archiveQuery = page.archive ? parseArchiveFrontmatter(page.archive) : undefined;
+    const basePath = `/${path}`;
+
     return (
+        <PageShell
+            sidebar={
+                archiveQuery ? (
+                    <ArchiveSidebar query={archiveQuery} basePath={basePath} />
+                ) : undefined
+            }
+        >
         <article>
             <h1>{page.title}</h1>
             {page.subtitle && <p className="article-subtitle">{page.subtitle}</p>}
             <Byline published={page.published} />
             <MDXContent />
+            {archiveQuery && <ArticleArchive query={archiveQuery} basePath={basePath} />}
             {isBlogPost && categories.length > 0 && (
                 <p className="article-categories">
                     Filed under:{" "}
@@ -88,5 +105,6 @@ export default async function Page() {
             {isBlogPost && <BookPromo upgradeKey={page.content_upgrade ?? undefined} />}
             {isBlogPost && <RelatedArticles url={articleUrl} />}
         </article>
+        </PageShell>
     );
 }

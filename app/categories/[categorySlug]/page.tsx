@@ -1,6 +1,9 @@
 import { deny, getSegmentParams } from '@timber-js/app/server';
 import type { Metadata } from '@timber-js/app/server';
 import { getCategory } from '../../../lib/categories';
+import { PageShell } from '../../../components/page-shell';
+import { ArticleArchive } from '../../../components/article-archive';
+import { ArchiveSidebar } from '../../../components/archive-sidebar';
 
 function resolvedSlug(): string {
     const { categorySlug } = getSegmentParams();
@@ -17,33 +20,26 @@ export async function metadata(): Promise<Metadata> {
 }
 
 export default async function CategoryPage() {
-    const category = await getCategory(resolvedSlug());
+    const slug = resolvedSlug();
+    const category = await getCategory(slug);
 
     if (!category) {
         deny(404);
         return null;
     }
 
+    const query = { categorySlug: slug };
+    const basePath = `/categories/${slug}`;
+
     return (
-        <main>
-            <h1>{category.name}</h1>
-            <p>{category.articles.length} articles</p>
-            <ul>
-                {category.articles.map(({ path, title, published }) => (
-                    <li key={path}>
-                        <a href={path}>{title}</a>
-                        <time dateTime={published}>
-                            {' '}
-                            —{' '}
-                            {new Date(published).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric',
-                            })}
-                        </time>
-                    </li>
-                ))}
-            </ul>
-        </main>
+        <PageShell sidebar={<ArchiveSidebar query={query} basePath={basePath} />}>
+            <main>
+                <h1>{category.name}</h1>
+                <p>
+                    {category.articles.length} articles · <a href="/categories">all categories</a>
+                </p>
+                <ArticleArchive query={query} basePath={basePath} />
+            </main>
+        </PageShell>
     );
 }

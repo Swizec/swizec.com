@@ -10,7 +10,6 @@ import '@fontsource/jetbrains-mono/400.css';
 import './styles.css';
 import { SiteHeader } from '../components/site-header';
 import { SiteFooter } from '../components/site-footer';
-import { BookSidebar } from '../components/book-sidebar';
 
 export const metadata = {
   metadataBase: new URL('https://swizec.com'),
@@ -28,10 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <SiteHeader />
-        <div className="page-grid">
-          <div className="page-content">{children}</div>
-          <BookSidebar />
-        </div>
+        {children}
         <SiteFooter />
       </body>
     </html>

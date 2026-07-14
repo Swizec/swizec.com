@@ -14,7 +14,9 @@ export default function ErrorPage({
 }) {
     if (status === 404) {
         return (
-            <main>
+            <div className="page-grid page-grid-solo">
+        <div className="page-content">
+        <main>
                 <h1>404 Not Found</h1>
                 <p>Ooops! Looks like that page doesn't exist.</p>
                 <p>
@@ -23,12 +25,16 @@ export default function ErrorPage({
                     fix it.
                 </p>
             </main>
+        </div>
+        </div>
         );
     }
 
     if (status) {
         return (
-            <main>
+            <div className="page-grid page-grid-solo">
+        <div className="page-content">
+        <main>
                 <h1>Well this is embarrassing 😅</h1>
                 <p>Something went wrong handling your request (error {status}).</p>
                 <p>
@@ -36,10 +42,14 @@ export default function ErrorPage({
                     <a href="mailto:hi@swizec.com">hi@swizec.com</a> if it keeps happening.
                 </p>
             </main>
+        </div>
+        </div>
         );
     }
 
     return (
+        <div className="page-grid page-grid-solo">
+        <div className="page-content">
         <main>
             <h1>Well this is embarrassing 😅</h1>
             <p>Something broke while rendering this page: {error.message}</p>
@@ -51,5 +61,7 @@ export default function ErrorPage({
                 I'll fix it.
             </p>
         </main>
+        </div>
+        </div>
     );
 }
