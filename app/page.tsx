@@ -1,5 +1,6 @@
 import type { Metadata } from '@timber-js/app/server';
 import HomeContent from '../pages/index.mdx';
+import { PageShell } from '../components/page-shell';
 import { requestOrigin } from './mdx-metadata';
 
 export async function metadata(): Promise<Metadata> {
@@ -23,8 +24,10 @@ export async function metadata(): Promise<Metadata> {
 
 export default function Home() {
     return (
-        <main>
-            <HomeContent />
-        </main>
+        <PageShell>
+            <main>
+                <HomeContent />
+            </main>
+        </PageShell>
     );
 }

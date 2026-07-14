@@ -886,6 +886,165 @@ a.button:hover {
   display: inline-block;
 }
 
+/* ---------- Archive: time-jump sidebar ---------- */
+
+.archive-sidebar {
+  align-self: start;
+  background: var(--color-background-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard);
+  max-height: calc(100vh - 7rem);
+  overflow-y: auto;
+  padding: 1.25rem;
+  position: sticky;
+  top: 5.5rem;
+}
+
+.archive-sidebar h2 {
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.06em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.archive-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.archive-sidebar a {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  padding: 0.1rem 0.4rem;
+  text-decoration: none;
+}
+
+.archive-sidebar a:hover {
+  color: var(--color-text-primary);
+  text-decoration: underline;
+}
+
+.archive-sidebar a.archive-active {
+  background: var(--color-background-yellow);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.archive-year {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.archive-months {
+  border-left: 2px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0.15rem 0 0.35rem 0.6rem;
+  padding-left: 0.5rem;
+}
+
+@media (max-width: 960px) {
+  .archive-sidebar {
+    max-height: none;
+    position: static;
+  }
+
+  .archive-sidebar nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.75rem;
+  }
+
+  .archive-year {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .archive-months {
+    border-left: 0;
+    border-top: 2px solid var(--color-border);
+    flex-basis: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.6rem;
+    margin: 0.2rem 0;
+    padding: 0.3rem 0 0;
+  }
+}
+
+/* ---------- Archive: listing, filter note, pagination ---------- */
+
+.archive-filter-note {
+  background: var(--color-background-cyan);
+  border: 1px solid var(--color-border);
+  display: inline-block;
+  padding: 0.35rem 0.8rem;
+}
+
+/* Sticky month/year markers orient readers as they scroll a long archive.
+   Sits just below the sticky header; a pastel sticker in the Y2K style. */
+.archive-time-marker {
+  background: var(--color-background-purple);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard-sm);
+  font-size: var(--font-size-base);
+  margin: 2rem 0 1rem;
+  padding: 0.3rem 0.9rem;
+  position: sticky;
+  top: 4.75rem;
+  width: fit-content;
+  z-index: 5;
+}
+
+.archive-time-marker:first-child {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 960px) {
+  /* Header un-sticks on mobile, so markers stick to the top of the viewport */
+  .archive-time-marker {
+    top: 0.5rem;
+  }
+}
+
+.archive-pagination {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.archive-pagination .button {
+  margin: 0;
+}
+
+.archive-pagination-status {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.archive-pagination-disabled {
+  background: var(--color-background-muted);
+  border: 1px solid var(--color-border);
+  box-shadow: none;
+  color: var(--color-text-secondary);
+  display: inline-block;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  opacity: 0.55;
+}
+
+/* Solo layout: full-width content well, no sidebar (404, error pages) */
+.page-grid-solo {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 /* ---------- Typeform ---------- */
 
 .typeform-embed {
