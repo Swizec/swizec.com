@@ -52,22 +52,23 @@ function Pagination({
 
     return (
         <nav className="archive-pagination" aria-label="Pagination">
-            {page > 1 ? (
-                <a className="button" href={archiveHref(basePath, { year, month, page: page - 1 })}>
-                    ← Newer
+            {/* Time flows left → right: older (further back) on the left, newer on the right */}
+            {page < totalPages ? (
+                <a className="button" href={archiveHref(basePath, { year, month, page: page + 1 })}>
+                    ← Older
                 </a>
             ) : (
-                <span className="button archive-pagination-disabled">← Newer</span>
+                <span className="button archive-pagination-disabled">← Older</span>
             )}
             <span className="archive-pagination-status">
                 Page {page} of {totalPages}
             </span>
-            {page < totalPages ? (
-                <a className="button" href={archiveHref(basePath, { year, month, page: page + 1 })}>
-                    Older →
+            {page > 1 ? (
+                <a className="button" href={archiveHref(basePath, { year, month, page: page - 1 })}>
+                    Newer →
                 </a>
             ) : (
-                <span className="button archive-pagination-disabled">Older →</span>
+                <span className="button archive-pagination-disabled">Newer →</span>
             )}
         </nav>
     );
