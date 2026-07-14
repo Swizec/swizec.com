@@ -27,6 +27,7 @@ export async function queryArchive(query: ArchiveQuery): Promise<ListedArticle[]
         return (category?.articles ?? []).map((a) => ({
             path: a.path,
             title: a.title,
+            description: a.description,
             published: a.published,
         }));
     }
