@@ -8,6 +8,32 @@ import {
     type ArchiveQuery,
 } from '../lib/article-archive';
 import { ArticleListing } from './article-listing';
+import type { ListedArticle } from '../lib/article-listings';
+
+// Interleaves "Month Year" markers before the first article of each month, so
+// readers stay oriented in time as they scroll. Skipped when the view is
+// already narrowed to a single month (every marker would be identical).
+function withTimeMarkers(
+    articles: ListedArticle[],
+    activeMonth?: number
+): { marker?: string; article?: ListedArticle }[] {
+    if (activeMonth) return articles.map((article) => ({ article }));
+
+    const out: { marker?: string; article?: ListedArticle }[] = [];
+    let lastKey = '';
+    for (const article of articles) {
+        const date = new Date(article.published);
+        if (!Number.isNaN(date.valueOf())) {
+            const key = `${date.getUTCFullYear()}-${date.getUTCMonth()}`;
+            if (key !== lastKey) {
+                out.push({ marker: `${MONTH_NAMES[date.getUTCMonth()]} ${date.getUTCFullYear()}` });
+                lastKey = key;
+            }
+        }
+        out.push({ article });
+    }
+    return out;
+}
 
 function Pagination({
     basePath,
@@ -76,7 +102,15 @@ export async function ArticleArchive({
             {items.length === 0 ? (
                 <p>Nothing here — try another year or clear the filter.</p>
             ) : (
-                items.map((article) => <ArticleListing key={article.path} article={article} />)
+                withTimeMarkers(items, month).map((entry) =>
+                    entry.marker ? (
+                        <h2 className="archive-time-marker" key={entry.marker}>
+                            {entry.marker}
+                        </h2>
+                    ) : (
+                        <ArticleListing key={entry.article!.path} article={entry.article!} />
+                    )
+                )
             )}
             <Pagination
                 basePath={basePath}
