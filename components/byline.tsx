@@ -1,4 +1,5 @@
 import avatar from '../app/assets/swizec-byline.jpg';
+import { SmartLink } from './link';
 
 export function Byline({ published }: { published?: string }) {
     return (
@@ -6,9 +7,9 @@ export function Byline({ published }: { published?: string }) {
             <img src={avatar} alt="Swizec Teller" width={44} height={44} />
             <div>
                 <span className="byline-name">
-                    <a href="/about" rel="author">
+                    <SmartLink href="/about" rel="author">
                         Swizec Teller
-                    </a>
+                    </SmartLink>
                 </span>
                 <span className="byline-meta">
                     {published ? (

@@ -11,6 +11,7 @@ import { BookPromo } from "../../components/book-promo";
 import { PageShell } from "../../components/page-shell";
 import { ArticleArchive } from "../../components/article-archive";
 import { ArchiveSidebar } from "../../components/archive-sidebar";
+import { SmartLink } from "../../components/link";
 import { parseArchiveFrontmatter } from "../../lib/article-archive";
 
 // Vite glob: all MDX in pages/, compiled as ES modules via @mdx-js/rollup (RSC-compatible)
@@ -95,7 +96,7 @@ export default async function Page() {
                     Filed under:{" "}
                     {categories.map(({ name, slug }, i) => (
                         <span key={slug}>
-                            <a href={`/categories/${slug}`}>{name}</a>
+                            <SmartLink href={`/categories/${slug}`}>{name}</SmartLink>
                             {i < categories.length - 1 && ", "}
                         </span>
                     ))}

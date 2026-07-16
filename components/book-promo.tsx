@@ -1,16 +1,17 @@
 import { LATEST_BOOKS, bookForUpgrade, type Book } from '../lib/books';
 import { BOOK_COVERS } from './book-covers';
+import { SmartLink } from './link';
 
 function PromoCard({ book }: { book: Book }) {
     return (
-        <a className="book-promo-card" href={book.href}>
+        <SmartLink className="book-promo-card" href={book.href}>
             <img src={BOOK_COVERS[book.cover]} alt={`${book.title} book cover`} loading="lazy" />
             <div>
                 <strong>{book.title}</strong>
                 <p>{book.tagline}</p>
                 <span className="book-promo-cta">Check it out 👉</span>
             </div>
-        </a>
+        </SmartLink>
     );
 }
 
