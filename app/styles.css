@@ -189,8 +189,12 @@ main h3 {
   margin: 2rem auto 0.5rem;
 }
 
-article a,
-main a {
+/* Prose links are underlined so they're obviously links. Scoped to text
+   blocks so it doesn't touch chrome links (byline, listing titles, chips,
+   buttons, book cards) that live in divs/headings and style themselves. */
+article :is(p, li, blockquote, td, dd) a,
+main :is(p, li, blockquote, td, dd) a {
+  text-decoration: underline;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
 }
