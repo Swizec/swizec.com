@@ -120,16 +120,3 @@ export const MONTH_NAMES = [
     'November',
     'December',
 ];
-
-// Builds hrefs that preserve the active time filter + page.
-export function archiveHref(
-    basePath: string,
-    params: { year?: number; month?: number; page?: number }
-): string {
-    const search = new URLSearchParams();
-    if (params.year) search.set('year', String(params.year));
-    if (params.month) search.set('month', String(params.month));
-    if (params.page && params.page > 1) search.set('page', String(params.page));
-    const qs = search.toString();
-    return qs ? `${basePath}?${qs}` : basePath;
-}

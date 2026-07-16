@@ -1,7 +1,6 @@
 import { archiveParams } from '../lib/archive-params';
 import {
     MONTH_NAMES,
-    archiveHref,
     buildTimeIndex,
     queryArchive,
     type ArchiveQuery,
@@ -32,7 +31,7 @@ export async function ArchiveSidebar({
                 {years.map(({ year, count, months }) => (
                     <div key={year} className="archive-year">
                         <a
-                            href={archiveHref(basePath, { year })}
+                            href={archiveParams.href(basePath, { year })}
                             className={activeYear === year && !activeMonth ? 'archive-active' : ''}
                         >
                             {year} ({count})
@@ -42,7 +41,7 @@ export async function ArchiveSidebar({
                                 {months.map(({ month, count: monthCount }) => (
                                     <a
                                         key={month}
-                                        href={archiveHref(basePath, { year, month })}
+                                        href={archiveParams.href(basePath, { year, month })}
                                         className={activeMonth === month ? 'archive-active' : ''}
                                     >
                                         {MONTH_NAMES[month - 1]} ({monthCount})

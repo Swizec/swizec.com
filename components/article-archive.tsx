@@ -1,7 +1,6 @@
 import { archiveParams } from '../lib/archive-params';
 import {
     MONTH_NAMES,
-    archiveHref,
     filterByTime,
     paginate,
     queryArchive,
@@ -54,7 +53,7 @@ function Pagination({
         <nav className="archive-pagination" aria-label="Pagination">
             {/* Time flows left → right: older (further back) on the left, newer on the right */}
             {page < totalPages ? (
-                <a className="button" href={archiveHref(basePath, { year, month, page: page + 1 })}>
+                <a className="button" href={archiveParams.href(basePath, { year, month, page: page + 1 })}>
                     ← Older
                 </a>
             ) : (
@@ -64,7 +63,7 @@ function Pagination({
                 Page {page} of {totalPages}
             </span>
             {page > 1 ? (
-                <a className="button" href={archiveHref(basePath, { year, month, page: page - 1 })}>
+                <a className="button" href={archiveParams.href(basePath, { year, month, page: page - 1 })}>
                     Newer →
                 </a>
             ) : (
