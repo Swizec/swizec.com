@@ -2,6 +2,7 @@ import { allPages } from 'content-collections';
 import { getSegmentParams } from '@timber-js/app/server';
 import { LATEST_BOOKS, bookForUpgrade, type Book } from '../lib/books';
 import { BOOK_COVERS } from './book-covers';
+import { SmartLink } from './link';
 
 function currentPageUpgrade(): string | undefined {
     const { slug } = getSegmentParams();
@@ -13,11 +14,11 @@ function currentPageUpgrade(): string | undefined {
 
 function SidebarBook({ book }: { book: Book }) {
     return (
-        <a className="book-sidebar-book" href={book.href}>
+        <SmartLink className="book-sidebar-book" href={book.href}>
             <img src={BOOK_COVERS[book.cover]} alt={`${book.title} book cover`} loading="lazy" />
             <strong>{book.title}</strong>
             <span>{book.tagline}</span>
-        </a>
+        </SmartLink>
     );
 }
 

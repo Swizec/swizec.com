@@ -1,6 +1,7 @@
 import type { Metadata } from '@timber-js/app/server';
 import { listCategories } from '../../lib/categories';
 import { PageShell } from '../../components/page-shell';
+import { SmartLink } from '../../components/link';
 
 export const metadata: Metadata = {
     title: 'Categories',
@@ -18,7 +19,7 @@ export default async function CategoriesIndex() {
             <ul>
                 {categories.map(({ slug, name, count }) => (
                     <li key={slug}>
-                        <a href={`/categories/${slug}`}>{name}</a>
+                        <SmartLink href={`/categories/${slug}`}>{name}</SmartLink>
                         {' '}({count})
                     </li>
                 ))}
