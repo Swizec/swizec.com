@@ -1,6 +1,6 @@
 import type { Metadata } from '@timber-js/app/server';
 import { listCategories } from '../../lib/categories';
-import { PageShell } from '../../components/page-shell';
+import { BookSidebar } from '../../components/book-sidebar';
 
 export const metadata: Metadata = {
     title: 'Categories',
@@ -11,7 +11,7 @@ export default async function CategoriesIndex() {
     const categories = await listCategories();
 
     return (
-        <PageShell>
+        <>
         <main>
             <h1>Categories</h1>
             <p>Articles organized by topic</p>
@@ -24,6 +24,7 @@ export default async function CategoriesIndex() {
                 ))}
             </ul>
         </main>
-        </PageShell>
+        <BookSidebar />
+        </>
     );
 }

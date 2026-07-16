@@ -104,12 +104,17 @@ a {
   padding: 2.5rem 1.5rem 4rem;
 }
 
-.page-content > main,
-.page-content > article {
+.page-grid > main,
+.page-grid > article {
   background: var(--color-background-card);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-hard);
   padding: 2.5rem clamp(1.25rem, 5vw, 4rem) 3rem;
+}
+
+/* Pages that render no sidebar (404, error) collapse to a single column. */
+.page-grid:not(:has(> aside)) {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 @media (max-width: 960px) {
@@ -1038,11 +1043,6 @@ a.button:hover {
   font-weight: 600;
   padding: 0.6rem 1.2rem;
   opacity: 0.55;
-}
-
-/* Solo layout: full-width content well, no sidebar (404, error pages) */
-.page-grid-solo {
-  grid-template-columns: minmax(0, 1fr);
 }
 
 /* ---------- Typeform ---------- */
