@@ -21,6 +21,17 @@ a {
   color: var(--color-text-primary);
 }
 
+/* Astryx headings land on 600 — go full bold everywhere. Poppins 700 is
+   loaded in the layout, so this uses a real face, not a synthesized one. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+
 /* ---------- Header ---------- */
 
 .site-header {
