@@ -1,5 +1,4 @@
 import type { Metadata } from '@timber-js/app/server';
-import { PageShell } from '../../components/page-shell';
 import { ArticleArchive } from '../../components/article-archive';
 import { ArchiveSidebar } from '../../components/archive-sidebar';
 import { SmartLink } from '../../components/link';
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function BlogIndex() {
     return (
-        <PageShell sidebar={<ArchiveSidebar query={{}} basePath="/blog" />}>
+        <>
             <main>
                 <h1>Articles</h1>
                 <p>
@@ -23,6 +22,7 @@ export default function BlogIndex() {
                 </p>
                 <ArticleArchive query={{}} basePath="/blog" />
             </main>
-        </PageShell>
+            <ArchiveSidebar query={{}} basePath="/blog" />
+        </>
     );
 }

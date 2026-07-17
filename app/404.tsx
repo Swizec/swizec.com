@@ -5,8 +5,6 @@
 // from pages/404.mdx (whose giphy embed is a server component).
 export default function NotFound() {
     return (
-        <div className="page-grid page-grid-solo">
-        <div className="page-content">
         <main>
             <h1>404 Not Found</h1>
             <p>Ooops! Looks like that page doesn't exist.</p>
@@ -19,7 +17,5 @@ export default function NotFound() {
                 and deploying. Keep this tab open and come back in a few minutes.
             </p>
         </main>
-        </div>
-        </div>
     );
 }

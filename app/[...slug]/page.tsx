@@ -8,7 +8,7 @@ import { NewsletterSignup } from "../../components/newsletter-signup";
 import { RelatedArticles } from "../../components/related-articles";
 import { Byline } from "../../components/byline";
 import { BookPromo } from "../../components/book-promo";
-import { PageShell } from "../../components/page-shell";
+import { BookSidebar } from "../../components/book-sidebar";
 import { ArticleArchive } from "../../components/article-archive";
 import { ArchiveSidebar } from "../../components/archive-sidebar";
 import { SmartLink } from "../../components/link";
@@ -78,13 +78,7 @@ export default async function Page() {
     const basePath = `/${path}`;
 
     return (
-        <PageShell
-            sidebar={
-                archiveQuery ? (
-                    <ArchiveSidebar query={archiveQuery} basePath={basePath} />
-                ) : undefined
-            }
-        >
+        <>
         <article>
             <h1>{page.title}</h1>
             {page.subtitle && <p className="article-subtitle">{page.subtitle}</p>}
@@ -106,6 +100,12 @@ export default async function Page() {
             {isBlogPost && <BookPromo upgradeKey={page.content_upgrade ?? undefined} />}
             {isBlogPost && <RelatedArticles url={articleUrl} />}
         </article>
-        </PageShell>
+        {/* Listing pages get the time-jump rail; everything else gets books. */}
+        {archiveQuery ? (
+            <ArchiveSidebar query={archiveQuery} basePath={basePath} />
+        ) : (
+            <BookSidebar />
+        )}
+        </>
     );
 }

@@ -27,7 +27,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <SiteHeader />
-        {children}
+        {/* Content-well + sidebar grid. Each page renders its own <main>/<article>
+            plus (optionally) a sidebar <aside> as the two grid children. */}
+        <div className="page-grid">{children}</div>
         <SiteFooter />
       </body>
     </html>

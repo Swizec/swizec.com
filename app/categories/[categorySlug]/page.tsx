@@ -1,7 +1,6 @@
 import { deny, getSegmentParams } from '@timber-js/app/server';
 import type { Metadata } from '@timber-js/app/server';
 import { getCategory } from '../../../lib/categories';
-import { PageShell } from '../../../components/page-shell';
 import { ArticleArchive } from '../../../components/article-archive';
 import { ArchiveSidebar } from '../../../components/archive-sidebar';
 import { SmartLink } from '../../../components/link';
@@ -33,7 +32,7 @@ export default async function CategoryPage() {
     const basePath = `/categories/${slug}`;
 
     return (
-        <PageShell sidebar={<ArchiveSidebar query={query} basePath={basePath} />}>
+        <>
             <main>
                 <h1>{category.name}</h1>
                 <p>
@@ -42,6 +41,7 @@ export default async function CategoryPage() {
                 </p>
                 <ArticleArchive query={query} basePath={basePath} />
             </main>
-        </PageShell>
+            <ArchiveSidebar query={query} basePath={basePath} />
+        </>
     );
 }
