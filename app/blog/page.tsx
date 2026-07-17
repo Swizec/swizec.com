@@ -1,6 +1,7 @@
 import type { Metadata } from '@timber-js/app/server';
 import { ArticleArchive } from '../../components/article-archive';
 import { ArchiveSidebar } from '../../components/archive-sidebar';
+import { SmartLink } from '../../components/link';
 
 export const metadata: Metadata = {
     title: 'Latest articles',
@@ -16,8 +17,8 @@ export default function BlogIndex() {
                 <p>
                     Software engineering lessons from production, raw and honest from the heart —
                     almost 20 years of them. Jump to a year in the sidebar, or browse{' '}
-                    <a href="/categories">categories</a> and{' '}
-                    <a href="/collections">curated collections</a>.
+                    <SmartLink href="/categories">categories</SmartLink> and{' '}
+                    <SmartLink href="/collections">curated collections</SmartLink>.
                 </p>
                 <ArticleArchive query={{}} basePath="/blog" />
             </main>

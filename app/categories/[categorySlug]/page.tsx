@@ -3,6 +3,7 @@ import type { Metadata } from '@timber-js/app/server';
 import { getCategory } from '../../../lib/categories';
 import { ArticleArchive } from '../../../components/article-archive';
 import { ArchiveSidebar } from '../../../components/archive-sidebar';
+import { SmartLink } from '../../../components/link';
 
 function resolvedSlug(): string {
     const { categorySlug } = getSegmentParams();
@@ -35,7 +36,8 @@ export default async function CategoryPage() {
             <main>
                 <h1>{category.name}</h1>
                 <p>
-                    {category.articles.length} articles · <a href="/categories">all categories</a>
+                    {category.articles.length} articles ·{' '}
+                    <SmartLink href="/categories">all categories</SmartLink>
                 </p>
                 <ArticleArchive query={query} basePath={basePath} />
             </main>
