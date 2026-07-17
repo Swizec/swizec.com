@@ -1,11 +1,11 @@
 import { archiveParams } from '../lib/archive-params';
 import {
     MONTH_NAMES,
-    archiveHref,
     buildTimeIndex,
     queryArchive,
     type ArchiveQuery,
 } from '../lib/article-archive';
+import { SmartLink } from './link';
 
 // Time-jump rail for listing pages: almost 20 years of archive, browsable by
 // year, then by month within the active year. Replaces the book sidebar.
@@ -26,27 +26,27 @@ export async function ArchiveSidebar({
         <aside className="archive-sidebar" aria-label="Browse the archive by date">
             <h2>Jump in time</h2>
             <nav>
-                <a href={basePath} className={activeYear ? '' : 'archive-active'}>
+                <SmartLink href={basePath} className={activeYear ? '' : 'archive-active'}>
                     All time ({articles.length})
-                </a>
+                </SmartLink>
                 {years.map(({ year, count, months }) => (
                     <div key={year} className="archive-year">
-                        <a
-                            href={archiveHref(basePath, { year })}
+                        <SmartLink
+                            href={archiveParams.href(basePath, { year })}
                             className={activeYear === year && !activeMonth ? 'archive-active' : ''}
                         >
                             {year} ({count})
-                        </a>
+                        </SmartLink>
                         {activeYear === year && (
                             <div className="archive-months">
                                 {months.map(({ month, count: monthCount }) => (
-                                    <a
+                                    <SmartLink
                                         key={month}
-                                        href={archiveHref(basePath, { year, month })}
+                                        href={archiveParams.href(basePath, { year, month })}
                                         className={activeMonth === month ? 'archive-active' : ''}
                                     >
                                         {MONTH_NAMES[month - 1]} ({monthCount})
-                                    </a>
+                                    </SmartLink>
                                 ))}
                             </div>
                         )}
