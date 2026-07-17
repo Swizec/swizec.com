@@ -1,3 +1,5 @@
+import { SmartLink } from './link';
+
 export function SiteFooter() {
     return (
         <footer className="site-footer">
@@ -6,52 +8,54 @@ export function SiteFooter() {
                     <div>
                         <h2>Read</h2>
                         <nav aria-label="Content">
-                            <a href="/blog">Latest articles</a>
-                            <a href="/categories">Categories</a>
-                            <a href="/collections">Curated collections</a>
-                            <a href="/interviews">Interviews</a>
-                            <a href="/talks">Talks</a>
+                            <SmartLink href="/blog">Latest articles</SmartLink>
+                            <SmartLink href="/categories">Categories</SmartLink>
+                            <SmartLink href="/collections">Curated collections</SmartLink>
+                            <SmartLink href="/interviews">Interviews</SmartLink>
+                            <SmartLink href="/talks">Talks</SmartLink>
+                            {/* RSS is an XML endpoint, not an RSC route — keep a full load */}
                             <a href="/rss.xml">RSS feed</a>
                         </nav>
                     </div>
                     <div>
                         <h2>Books & courses</h2>
                         <nav aria-label="Books and courses">
-                            <a href="https://scalingfastbook.com">Scaling Fast</a>
-                            <a href="/senior-mindset">Senior Engineer Mindset</a>
-                            <a href="https://serverlesshandbook.dev">Serverless Handbook</a>
-                            <a href="/books">All books</a>
-                            <a href="/courses">Courses</a>
-                            <a href="/workshops">Workshops</a>
+                            <SmartLink href="https://scalingfastbook.com">Scaling Fast</SmartLink>
+                            <SmartLink href="/senior-mindset">Senior Engineer Mindset</SmartLink>
+                            <SmartLink href="https://serverlesshandbook.dev">Serverless Handbook</SmartLink>
+                            <SmartLink href="/books">All books</SmartLink>
+                            <SmartLink href="/courses">Courses</SmartLink>
+                            <SmartLink href="/workshops">Workshops</SmartLink>
                         </nav>
                     </div>
                     <div>
                         <h2>Collections</h2>
                         <nav aria-label="Collections">
-                            <a href="/collections/seniormindset">Senior Mindset</a>
-                            <a href="/collections/react">React</a>
-                            <a href="/collections/javascript">JavaScript</a>
-                            <a href="/collections/serverless">Serverless & Backend</a>
-                            <a href="/collections/indie-hacking">Indie Hacking</a>
-                            <a href="/collections/fullstack-web">Fullstack Web</a>
+                            <SmartLink href="/collections/seniormindset">Senior Mindset</SmartLink>
+                            <SmartLink href="/collections/react">React</SmartLink>
+                            <SmartLink href="/collections/javascript">JavaScript</SmartLink>
+                            <SmartLink href="/collections/serverless">Serverless & Backend</SmartLink>
+                            <SmartLink href="/collections/indie-hacking">Indie Hacking</SmartLink>
+                            <SmartLink href="/collections/fullstack-web">Fullstack Web</SmartLink>
                         </nav>
                     </div>
                     <div>
                         <h2>About</h2>
                         <nav aria-label="Meta">
-                            <a href="/about">About Swizec</a>
-                            <a href="/testimonials">Testimonials</a>
-                            <a href="/letters">Newsletter</a>
-                            <a href="https://twitter.com/swizec">Twitter</a>
-                            <a href="https://github.com/swizec">GitHub</a>
-                            <a href="https://youtube.com/swizecteller">YouTube</a>
-                            <a href="/privacy">Privacy policy</a>
+                            <SmartLink href="/about">About Swizec</SmartLink>
+                            <SmartLink href="/testimonials">Testimonials</SmartLink>
+                            <SmartLink href="/letters">Newsletter</SmartLink>
+                            <SmartLink href="https://twitter.com/swizec">Twitter</SmartLink>
+                            <SmartLink href="https://github.com/swizec">GitHub</SmartLink>
+                            <SmartLink href="https://youtube.com/swizecteller">YouTube</SmartLink>
+                            <SmartLink href="/privacy">Privacy policy</SmartLink>
                         </nav>
                     </div>
                 </div>
                 <p className="site-footer-note">
-                    Made with ❤️ by <a href="/about">Swizec Teller</a> · © {new Date().getFullYear()}{' '}
-                    Swizec LLC · <a href="mailto:hi@swizec.com">hi@swizec.com</a>
+                    Made with ❤️ by <SmartLink href="/about">Swizec Teller</SmartLink> · ©{' '}
+                    {new Date().getFullYear()} Swizec LLC ·{' '}
+                    <SmartLink href="mailto:hi@swizec.com">hi@swizec.com</SmartLink>
                 </p>
             </div>
         </footer>

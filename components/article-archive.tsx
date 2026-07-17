@@ -1,13 +1,13 @@
 import { archiveParams } from '../lib/archive-params';
 import {
     MONTH_NAMES,
-    archiveHref,
     filterByTime,
     paginate,
     queryArchive,
     type ArchiveQuery,
 } from '../lib/article-archive';
 import { ArticleListing } from './article-listing';
+import { SmartLink } from './link';
 import type { ListedArticle } from '../lib/article-listings';
 
 // Interleaves "Month Year" markers before the first article of each month, so
@@ -54,9 +54,9 @@ function Pagination({
         <nav className="archive-pagination" aria-label="Pagination">
             {/* Time flows left → right: older (further back) on the left, newer on the right */}
             {page < totalPages ? (
-                <a className="button" href={archiveHref(basePath, { year, month, page: page + 1 })}>
+                <SmartLink className="button" href={archiveParams.href(basePath, { year, month, page: page + 1 })}>
                     ← Older
-                </a>
+                </SmartLink>
             ) : (
                 <span className="button archive-pagination-disabled">← Older</span>
             )}
@@ -64,9 +64,9 @@ function Pagination({
                 Page {page} of {totalPages}
             </span>
             {page > 1 ? (
-                <a className="button" href={archiveHref(basePath, { year, month, page: page - 1 })}>
+                <SmartLink className="button" href={archiveParams.href(basePath, { year, month, page: page - 1 })}>
                     Newer →
-                </a>
+                </SmartLink>
             ) : (
                 <span className="button archive-pagination-disabled">Newer →</span>
             )}
@@ -97,7 +97,7 @@ export async function ArticleArchive({
                         {month ? `${MONTH_NAMES[month - 1]} ` : ''}
                         {year}
                     </strong>{' '}
-                    · <a href={basePath}>show all</a>
+                    · <SmartLink href={basePath}>show all</SmartLink>
                 </p>
             )}
             {items.length === 0 ? (

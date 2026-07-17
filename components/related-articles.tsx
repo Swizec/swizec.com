@@ -1,5 +1,6 @@
 import { sql } from '@vercel/postgres';
 import { Suspense } from 'react';
+import { SmartLink } from './link';
 
 interface RelatedArticle {
     url: string;
@@ -33,7 +34,7 @@ async function RelatedArticlesList({ url }: { url: string }) {
             <ul>
                 {articles.map((article) => (
                     <li key={article.url}>
-                        <a href={article.url}>{article.title}</a>
+                        <SmartLink href={article.url}>{article.title}</SmartLink>
                     </li>
                 ))}
             </ul>
