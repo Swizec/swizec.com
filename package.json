@@ -5,7 +5,7 @@
   "packageManager": "pnpm@10.24.0",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build && node scripts/copy-og-assets.mjs",
+    "build": "vite build && node scripts/copy-og-assets.mjs && node scripts/patch-vercel-images.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -34,6 +34,7 @@
     "remark-mdx-frontmatter": "^5.2.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
+    "sharp": "^0.35.3",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0",
     "zod": "^4.4.3"

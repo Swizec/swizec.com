@@ -268,8 +268,8 @@ main time {
 
 article > :is(pre, figure, iframe, .swizec-embed, .buy-widget, .newsletter-signup, .book-promo),
 main > :is(pre, figure, iframe, .swizec-embed, .buy-widget, .newsletter-signup, .book-promo),
-article > p:has(> img),
-main > p:has(> img) {
+article > p:has(img),
+main > p:has(img) {
   max-width: min(calc(var(--measure) + 2 * var(--bleed)), 100%);
   width: 100%;
 }
@@ -286,9 +286,16 @@ main img {
   object-fit: contain;
 }
 
-article p > img,
-main p > img {
+/* Content images sit inside a link to their full-size original */
+article p > :is(img, a > img),
+main p > :is(img, a > img) {
   margin: 0.5rem auto;
+}
+
+article a:has(> img),
+main a:has(> img) {
+  display: block;
+  text-decoration: none;
 }
 
 /* Iframes (podcast players, sandboxes) */

@@ -1,8 +1,10 @@
 // Transforms relative image src and file href values into Vite asset imports.
-// Images become ES default imports; other files (PDFs, etc.) use the ?url suffix
-// so Vite copies them as static assets and returns the hashed URL.
+// Images become ES default imports rendered through <ContentImage> (responsive
+// srcset + full-size link); other files (PDFs, etc.) use the ?url suffix so
+// Vite copies them as static assets and returns the hashed URL.
 //
 // Must run AFTER remark-swizec-embeds so giphy:/youtube/etc. are already gone.
+import { injectComponentImports } from './helpers.mjs';
 
 const IMAGE_EXTS = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.avif', '.ico', '.bmp']);
 
@@ -64,10 +66,35 @@ function attr(name, value) {
   return { type: 'mdxJsxAttribute', name, value };
 }
 
-export function remarkMdxStaticFiles() {
-  return (tree) => {
+// {false} attribute value, for <ContentImage linked={false} />
+function jsxFalse() {
+  return {
+    type: 'mdxJsxAttributeValueExpression',
+    value: 'false',
+    data: {
+      estree: {
+        type: 'Program',
+        sourceType: 'module',
+        body: [
+          { type: 'ExpressionStatement', expression: { type: 'Literal', value: false, raw: 'false' } },
+        ],
+      },
+    },
+  };
+}
+
+function isLinkNode(node) {
+  if (node.type === 'link' || node.type === 'linkReference') return true;
+  return (
+    (node.type === 'mdxJsxTextElement' || node.type === 'mdxJsxFlowElement') && node.name === 'a'
+  );
+}
+
+export function remarkMdxStaticFiles(options) {
+  return (tree, file) => {
     const urlToName = new Map();
     const newImports = [];
+    let usesContentImage = false;
     let counter = 0;
 
     function ensureImport(url) {
@@ -79,18 +106,23 @@ export function remarkMdxStaticFiles() {
       return name;
     }
 
-    function walk(node) {
+    // insideLink: images already wrapped in a markdown/JSX link keep that
+    // link — ContentImage only self-links to the full-size original when
+    // it's not inside one.
+    function walk(node, insideLink) {
       if (!node || typeof node !== 'object') return node;
 
       if (node.type === 'image' && isRelative(node.url) && IMAGE_EXTS.has(getExt(node.url))) {
         const name = ensureImport(node.url);
+        usesContentImage = true;
         return {
           type: 'mdxJsxTextElement',
-          name: 'img',
+          name: 'ContentImage',
           attributes: [
             attr('src', jsxExpr(name)),
-            ...(node.alt ? [attr('alt', node.alt)] : []),
+            attr('alt', node.alt ?? ''),
             ...(node.title ? [attr('title', node.title)] : []),
+            ...(insideLink ? [attr('linked', jsxFalse())] : []),
           ],
           children: [],
         };
@@ -102,19 +134,23 @@ export function remarkMdxStaticFiles() {
           type: 'mdxJsxTextElement',
           name: 'a',
           attributes: [attr('href', jsxExpr(name))],
-          children: (node.children ?? []).map(walk),
+          children: (node.children ?? []).map((child) => walk(child, true)),
         };
       }
 
       if (Array.isArray(node.children)) {
-        node.children = node.children.map(walk);
+        const childInsideLink = insideLink || isLinkNode(node);
+        node.children = node.children.map((child) => walk(child, childInsideLink));
       }
 
       return node;
     }
 
-    walk(tree);
+    walk(tree, false);
 
+    if (usesContentImage) {
+      injectComponentImports(tree, file, new Set(['ContentImage']), options);
+    }
     if (newImports.length > 0) {
       tree.children.unshift(...newImports);
     }
