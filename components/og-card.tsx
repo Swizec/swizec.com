@@ -86,7 +86,12 @@ export function OgCard({
     const v = pickVariant(seed || title);
     const P = v.panelRGB;
     const textSide = v.photoSide === 'left' ? 'right' : 'left';
-    const titleSize = title.length > 68 ? 54 : title.length > 44 ? 64 : 74;
+    // One title size across both variants so every card reads consistently;
+    // long titles wrap and clamp instead of shrinking.
+    const titleSize = 64;
+    // The photo-left layout's blend zone reaches further into the card, so its
+    // text column is narrower — content starts clear of the photo fade.
+    const contentWidth = v.photoSide === 'left' ? 650 : 720;
     // bottom vignette across the full card, for depth under the badge row
     const vignette = `linear-gradient(to top, rgba(${P},0.5) 0%, rgba(${P},0) 30%)`;
 
@@ -139,7 +144,7 @@ export function OgCard({
                     top: 0,
                     [textSide]: 0,
                     bottom: 0,
-                    width: 720,
+                    width: contentWidth,
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
