@@ -23,4 +23,12 @@ export const ogImageOptions = {
     height: 630,
     module: bytes(wasmInline),
     fonts: ogFonts,
+    // Cards only change on redeploy, and Vercel's edge cache resets per
+    // deployment — so let the CDN hold them for a week (s-maxage) and skip
+    // the ~1-4s wasm render on repeat scrapes. Browsers get an hour since
+    // they don't purge on deploy.
+    headers: {
+        'Content-Type': 'image/png',
+        'Cache-Control': 'public, max-age=3600, s-maxage=604800, stale-while-revalidate=86400',
+    },
 };
