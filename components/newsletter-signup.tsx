@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionState } from '@timber-js/app/client';
-import { subscribe } from '../app/actions/subscribe';
+import { subscribe } from '../app/_actions/subscribe';
 import { getNewsletterForm } from '../lib/newsletter-forms';
 
 interface NewsletterSignupProps {
