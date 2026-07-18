@@ -148,6 +148,14 @@ h6 {
 
 /* ---------- Content typography & measure ---------- */
 
+/* Nicer line breaking across all content — avoids orphans and ragged last
+   lines. text-wrap is inherited, so this reaches every text block; code
+   blocks keep their own white-space and are unaffected. */
+article,
+main {
+  text-wrap: pretty;
+}
+
 article > *,
 main > * {
   margin-inline: auto;
