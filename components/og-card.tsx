@@ -19,9 +19,10 @@ type Variant = {
     objectPosition: string;
     // panel base as "r, g, b" so gradients can vary alpha
     panelRGB: string;
-    // gradient that fades the photo's inner edge into the panel; direction and
-    // stops tuned per shot (c3 keeps a soft bleed of the stage text,
-    // react-summit hides the bright podium so the copy stays crisp)
+    // full-card gradient that fades the photo's inner edge into the panel and
+    // reaches solid panel color before the text region; stops tuned per shot
+    // (c3 keeps a soft bleed of the stage text, react-summit hides the bright
+    // podium so the copy stays crisp)
     scrim: string;
     accent: string;
     // badge text ink and badge border/hard-shadow color
@@ -40,7 +41,7 @@ const VARIANTS: Variant[] = [
         photoSide: 'left',
         objectPosition: '46% 22%',
         panelRGB: '8, 15, 10',
-        scrim: 'linear-gradient(to right, rgba(8,15,10,0) 32%, rgba(8,15,10,0.5) 54%, rgba(8,15,10,0.9) 74%, rgb(8,15,10) 88%)',
+        scrim: 'linear-gradient(to right, rgba(8,15,10,0) 17%, rgba(8,15,10,0.55) 33%, rgba(8,15,10,0.92) 43%, rgb(8,15,10) 48%)',
         accent: '#A6E86A',
         accentInk: '#122009',
         accentEdge: '#122009',
@@ -57,7 +58,7 @@ const VARIANTS: Variant[] = [
         photoSide: 'right',
         objectPosition: '52% 12%',
         panelRGB: '23, 12, 20',
-        scrim: 'linear-gradient(to left, rgba(23,12,20,0) 30%, rgba(23,12,20,0.62) 55%, rgba(23,12,20,0.95) 74%, rgb(23,12,20) 88%)',
+        scrim: 'linear-gradient(to left, rgba(23,12,20,0) 16%, rgba(23,12,20,0.62) 29%, rgba(23,12,20,0.95) 40%, rgb(23,12,20) 47%)',
         accent: '#FFE08A',
         accentInk: '#2d241b',
         accentEdge: '#2F292E',
@@ -86,8 +87,8 @@ export function OgCard({
     const P = v.panelRGB;
     const textSide = v.photoSide === 'left' ? 'right' : 'left';
     const titleSize = title.length > 68 ? 54 : title.length > 44 ? 64 : 74;
-    // bottom vignette + scrim + photo, all in one stacked background
-    const vignette = `linear-gradient(to top, rgba(${P},0.55) 0%, rgba(${P},0) 32%)`;
+    // bottom vignette across the full card, for depth under the badge row
+    const vignette = `linear-gradient(to top, rgba(${P},0.5) 0%, rgba(${P},0) 30%)`;
 
     return (
         <div
@@ -100,7 +101,7 @@ export function OgCard({
                 fontFamily: 'Poppins',
             }}
         >
-            {/* Photo panel: gradient scrim + vignette layered over the photo */}
+            {/* Photo panel — plain single-layer background */}
             <div
                 style={{
                     position: 'absolute',
@@ -109,10 +110,26 @@ export function OgCard({
                     width: 640,
                     height: 630,
                     display: 'flex',
-                    backgroundImage: `${v.scrim}, ${vignette}, url(${v.photo})`,
-                    backgroundSize: 'cover, cover, cover',
-                    backgroundRepeat: 'no-repeat, no-repeat, no-repeat',
-                    backgroundPosition: `center, center, ${v.objectPosition}`,
+                    backgroundImage: `url(${v.photo})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: v.objectPosition,
+                }}
+            />
+            {/* Full-card scrim: fades the photo into the panel and is fully
+                opaque over the text region, so the copy stays legible no
+                matter what the photo underneath does */}
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: 1200,
+                    height: 630,
+                    display: 'flex',
+                    backgroundImage: `${v.scrim}, ${vignette}`,
+                    backgroundSize: 'cover, cover',
+                    backgroundRepeat: 'no-repeat, no-repeat',
                 }}
             />
             {/* Content — on the side opposite the photo */}
