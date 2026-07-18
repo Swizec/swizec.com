@@ -1,10 +1,11 @@
 import { getArticlesByPattern, getPagesUnder, type ListedArticle } from '../lib/article-listings';
+import { SmartLink } from './link';
 
 export function ArticleListing({ article }: { article: ListedArticle }) {
     return (
         <div className="article-listing">
             <h3>
-                <a href={article.path}>{article.title}</a>
+                <SmartLink href={article.path}>{article.title}</SmartLink>
             </h3>
             {article.published && (
                 <time dateTime={article.published}>

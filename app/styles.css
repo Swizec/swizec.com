@@ -1,4 +1,312 @@
-/* Inline code follows system light/dark preference via CSS variables */
+/* swizec.com — Astryx Y2K theme
+ * Layout + content styling built on @astryxdesign/theme-y2k design tokens.
+ * Y2K signatures: sharp corners, hard offset shadows, pastel sticker accents.
+ */
+
+:root {
+  --measure: 68ch;
+  --bleed: 56px;
+  --shadow-hard: 4px 4px 0 var(--color-border);
+  --shadow-hard-sm: 3px 3px 0 var(--color-border);
+}
+
+body {
+  background: var(--color-background-body);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-body);
+  margin: 0;
+}
+
+a {
+  color: var(--color-text-primary);
+}
+
+/* Astryx headings land on 600. Bold (700) is the chrome baseline — sidebar
+   and footer labels, listing titles. Content headings go heavier below.
+   Poppins 700/900 are loaded in the layout, so these use real faces. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  background: var(--color-background-surface);
+  border-bottom: 2px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-header-inner {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1240px;
+  padding: 0.75rem 1.5rem;
+}
+
+.site-logo {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.site-logo-sub {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.site-header nav {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+}
+
+.site-header nav a {
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.site-header nav a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.site-header-cta {
+  background: var(--color-background-yellow);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard-sm);
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  transition: translate 0.1s ease, box-shadow 0.1s ease;
+}
+
+.site-header-cta:hover {
+  box-shadow: 1px 1px 0 var(--color-border);
+  text-decoration: none !important;
+  translate: 2px 2px;
+}
+
+/* ---------- Page grid + wells ---------- */
+
+.page-grid {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  margin: 0 auto;
+  max-width: 1240px;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.page-grid > main,
+.page-grid > article {
+  background: var(--color-background-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard);
+  padding: 2.5rem clamp(1.25rem, 5vw, 4rem) 3rem;
+}
+
+/* Pages that render no sidebar (404, error) collapse to a single column. */
+.page-grid:not(:has(> aside)) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (max-width: 960px) {
+  .page-grid {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 1.25rem 0.75rem 3rem;
+  }
+
+  /* Stacked header is tall — let it scroll away on small screens */
+  .site-header {
+    position: static;
+  }
+
+  article h1,
+  main h1 {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+/* ---------- Content typography & measure ---------- */
+
+/* Nicer line breaking across all content — avoids orphans and ragged last
+   lines. text-wrap is inherited, so this reaches every text block; code
+   blocks keep their own white-space and are unaffected. */
+article,
+main {
+  text-wrap: pretty;
+}
+
+article > *,
+main > * {
+  margin-inline: auto;
+  max-width: var(--measure);
+}
+
+article p,
+main p,
+article li,
+main li {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+/* Astryx reset strips block margins — restore prose rhythm */
+article p,
+main p {
+  margin-block: 1.1rem;
+}
+
+article :is(ul, ol),
+main :is(ul, ol) {
+  margin-block: 1.1rem;
+  padding-inline-start: 1.5rem;
+}
+
+article li,
+main li {
+  margin-block: 0.3rem;
+}
+
+article ul,
+main ul {
+  list-style: disc;
+}
+
+article ol,
+main ol {
+  list-style: decimal;
+}
+
+/* Prose headings go all the way to black (900) so they anchor the article.
+   Direct children only — the nested listing titles and time markers inside
+   .article-archive stay at the 700 chrome baseline. */
+article > :is(h1, h2, h3, h4, h5, h6),
+main > :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 900;
+}
+
+article h1,
+main h1 {
+  font-size: var(--font-size-3xl);
+  line-height: 1.15;
+  margin: 0 auto 0.5rem;
+}
+
+article h2,
+main h2 {
+  margin: 2.5rem auto 0.75rem;
+}
+
+article h3,
+main h3 {
+  margin: 2rem auto 0.5rem;
+}
+
+/* Prose links are underlined so they're obviously links. Scoped to text
+   blocks so it doesn't touch chrome links (byline, listing titles, chips,
+   buttons, book cards) that live in divs/headings and style themselves. */
+article :is(p, li, blockquote, td, dd) a,
+main :is(p, li, blockquote, td, dd) a {
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+/* heading anchor links from rehype-autolink shouldn't look like links */
+article :is(h1, h2, h3, h4) a,
+main :is(h1, h2, h3, h4) a {
+  color: inherit;
+  text-decoration: none;
+}
+
+article :is(h2, h3, h4) a:hover::after,
+main :is(h2, h3, h4) a:hover::after {
+  color: var(--color-text-secondary);
+  content: ' #';
+}
+
+article blockquote,
+main blockquote {
+  background: var(--color-background-muted);
+  border-left: 4px solid var(--color-border);
+  margin: 1.5rem auto;
+  padding: 0.75rem 1.25rem;
+}
+
+article blockquote p,
+main blockquote p {
+  margin: 0.35rem 0;
+}
+
+article time,
+main time {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* ---------- Bleeds: images, embeds, code break out of the measure ---------- */
+
+article > :is(pre, figure, iframe, .swizec-embed, .buy-widget, .newsletter-signup, .book-promo),
+main > :is(pre, figure, iframe, .swizec-embed, .buy-widget, .newsletter-signup, .book-promo),
+article > p:has(> img),
+main > p:has(> img) {
+  max-width: min(calc(var(--measure) + 2 * var(--bleed)), 100%);
+  width: 100%;
+}
+
+/* Images: never too wide or too tall — always signal there's more to read */
+article img,
+main img {
+  border: 1px solid var(--color-border);
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  max-height: 62vh;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+article p > img,
+main p > img {
+  margin: 0.5rem auto;
+}
+
+/* Iframes (podcast players, sandboxes) */
+article > iframe,
+main > iframe {
+  border: 1px solid var(--color-border);
+  display: block;
+  margin: 1.5rem auto;
+}
+
+/* ---------- Code ---------- */
+
+code {
+  font-family: var(--font-family-code);
+  font-size: 0.9em;
+}
+
+/* Inline code — follows light/dark via shiki CSS variables */
 code.shiki,
 code.shiki span {
   color: var(--shiki-light);
@@ -13,7 +321,12 @@ code.shiki span {
   }
 }
 
-/* Block code is always dark — override the CSS variables */
+code.shiki {
+  border: 1px solid var(--color-border);
+  padding: 0.1em 0.35em;
+}
+
+/* Block code is always dark, bleeds, hard shadow, mac titlebar chrome */
 pre.shiki,
 pre.shiki span {
   color: var(--shiki-dark) !important;
@@ -21,16 +334,15 @@ pre.shiki span {
 }
 
 pre.shiki {
-  border-radius: 10px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
-  margin: 2rem 0;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard);
+  margin: 2rem auto;
   overflow-x: auto;
   padding: 1.25rem 1.5rem;
-  padding-top: calc(36px + 1.25rem);
+  padding-top: calc(34px + 1.25rem);
   position: relative;
 }
 
-/* Titlebar with traffic-light dots via pseudo-element — block code only */
 pre.shiki::before {
   background-color: #3a3a3a;
   background-image:
@@ -40,81 +352,306 @@ pre.shiki::before {
   background-position: 14px center, 34px center, 54px center;
   background-repeat: no-repeat;
   background-size: 12px 12px, 12px 12px, 12px 12px;
-  border-radius: 10px 10px 0 0;
   content: '';
-  height: 36px;
+  height: 34px;
   left: 0;
   position: absolute;
   right: 0;
   top: 0;
 }
 
-code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.9em;
+/* ---------- Byline ---------- */
+
+.byline {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  margin: 1rem auto 2rem;
 }
 
-/* Inline code highlighted by Shiki — pill shape, no window chrome */
-code.shiki {
-  border-radius: 4px;
-  padding: 0.15em 0.4em;
+.byline img {
+  border: 1px solid var(--color-border);
+  box-shadow: 2px 2px 0 var(--color-border);
+  height: 44px;
+  margin: 0;
+  width: 44px;
 }
 
-.swizec-embed {
-  margin: 1.5rem 0;
+.byline div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
 }
 
-.swizec-embed iframe {
+.byline-name a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.byline-name a:hover {
+  text-decoration: underline;
+}
+
+.byline-meta {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* ---------- Article subtitle + category chips ---------- */
+
+.article-subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  line-height: 1.4;
+  margin-top: 0;
+}
+
+.article-categories {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+}
+
+.article-categories a {
+  background: var(--color-background-cyan);
+  border: 1px solid var(--color-border);
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  padding: 0.1rem 0.6rem;
+  text-decoration: none;
+}
+
+.article-categories a:hover {
+  box-shadow: 2px 2px 0 var(--color-border);
+}
+
+.article-categories span {
+  display: contents;
+}
+
+/* ---------- Book sidebar ---------- */
+
+.book-sidebar {
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: sticky;
+  top: 5.5rem;
+}
+
+.book-sidebar h2 {
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.06em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.book-sidebar-book {
+  background: var(--color-background-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.25rem;
+  text-align: center;
+  text-decoration: none;
+  transition: translate 0.1s ease, box-shadow 0.1s ease;
+}
+
+.book-sidebar-book:hover {
+  box-shadow: 1px 1px 0 var(--color-border);
+  translate: 3px 3px;
+}
+
+.book-sidebar-book img {
   border: 0;
+  margin: 0 auto 0.5rem;
+  max-height: 220px;
+  object-fit: contain;
+  width: auto;
 }
 
-.swizec-embed-codesandbox {
-  aspect-ratio: 16 / 9;
-  position: relative;
-  width: 100%;
+.book-sidebar-book strong {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-base);
 }
 
-.swizec-embed-codesandbox iframe {
-  height: 100%;
-  inset: 0;
-  position: absolute;
-  width: 100%;
+.book-sidebar-book span {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
 }
 
-.swizec-embed-youtube lite-youtube {
-  max-width: none;
-  width: 100%;
+@media (max-width: 960px) {
+  .book-sidebar {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    position: static;
+  }
+
+  .book-sidebar h2 {
+    grid-column: 1 / -1;
+  }
+
+  .book-sidebar-book:only-of-type {
+    grid-column: 1 / -1;
+  }
 }
 
-.swizec-embed-codesandbox iframe {
-  border-radius: 4px;
-  overflow: hidden;
+@media (max-width: 560px) {
+  .book-sidebar {
+    grid-template-columns: 1fr;
+  }
 }
 
-.swizec-embed-tweet blockquote.twitter-tweet {
-  background: #f7f9f9;
-  border-left: 4px solid #1d9bf0;
-  margin-left: 0;
-  margin-right: 0;
-  padding: 0.75rem 1rem;
+/* ---------- Book promo (end of article) ---------- */
+
+.book-promo {
+  border-top: 2px solid var(--color-border);
+  margin-top: 3rem;
+  padding-top: 1.5rem;
 }
 
-.swizec-embed-giphy {
-  margin-left: 0;
-  margin-right: 0;
+.book-promo h2 {
+  font-size: var(--font-size-lg);
+  margin: 0 0 1rem;
 }
 
-.swizec-embed-giphy img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+.book-promo-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-/* Newsletter signup */
+.book-promo-card {
+  align-items: center;
+  background: var(--color-background-purple);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard-sm);
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  text-decoration: none;
+  transition: translate 0.1s ease, box-shadow 0.1s ease;
+}
+
+.book-promo-card:hover {
+  box-shadow: 1px 1px 0 var(--color-border);
+  translate: 2px 2px;
+}
+
+.book-promo-card img {
+  border: 0;
+  flex-shrink: 0;
+  margin: 0;
+  max-height: 130px;
+  width: auto;
+}
+
+.book-promo-card strong {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-base);
+}
+
+.book-promo-card p {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.45;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.book-promo-cta {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  background: var(--color-background-surface);
+  border-top: 2px solid var(--color-border);
+}
+
+.site-footer-inner {
+  margin: 0 auto;
+  max-width: 1240px;
+  padding: 2.5rem 1.5rem;
+}
+
+.site-footer-cols {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.site-footer h2 {
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.06em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.site-footer nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.site-footer nav a {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+}
+
+.site-footer nav a:hover {
+  color: var(--color-text-primary);
+  text-decoration: underline;
+}
+
+.site-footer-note {
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin: 2rem 0 0;
+  padding-top: 1.25rem;
+}
+
+/* ---------- Buttons ---------- */
+
+a.button {
+  background: var(--color-background-yellow);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard-sm);
+  color: var(--color-text-primary);
+  display: inline-block;
+  font-weight: 600;
+  margin: 0.5rem 0 1.5rem;
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
+  transition: translate 0.1s ease, box-shadow 0.1s ease;
+}
+
+a.button:hover {
+  box-shadow: 1px 1px 0 var(--color-border);
+  translate: 2px 2px;
+}
+
+/* ---------- Newsletter signup ---------- */
+
 .newsletter-signup {
-  border: 2px solid #f0a500;
-  border-radius: 10px;
-  margin: 2.5rem 0;
+  background: var(--color-background-pink);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard);
+  margin: 2.5rem auto;
   padding: 1.5rem;
 }
 
@@ -131,22 +668,31 @@ code.shiki {
 
 .newsletter-signup input[type='text'],
 .newsletter-signup input[type='email'] {
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  background: var(--color-background-card);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
   flex: 1 1 180px;
+  font-family: var(--font-family-body);
   font-size: 1rem;
   padding: 0.6rem 0.8rem;
 }
 
 .newsletter-signup button {
-  background: #f0a500;
-  border: 0;
-  border-radius: 6px;
+  background: var(--color-background-yellow);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard-sm);
   cursor: pointer;
   flex: 0 1 auto;
+  font-family: var(--font-family-body);
   font-size: 1rem;
   font-weight: 600;
   padding: 0.6rem 1.2rem;
+  transition: translate 0.1s ease, box-shadow 0.1s ease;
+}
+
+.newsletter-signup button:hover {
+  box-shadow: 1px 1px 0 var(--color-border);
+  translate: 2px 2px;
 }
 
 .newsletter-signup button:disabled {
@@ -154,7 +700,6 @@ code.shiki {
   opacity: 0.7;
 }
 
-/* Honeypot: moved off-screen, not display:none, so naive bots still fill it */
 .newsletter-signup-honeypot {
   height: 1px;
   left: -9999px;
@@ -164,7 +709,7 @@ code.shiki {
 }
 
 .newsletter-signup-error {
-  color: #b00020;
+  color: var(--color-text-red, #8b1d24);
   flex-basis: 100%;
   margin: 0;
 }
@@ -187,91 +732,36 @@ code.shiki {
   }
 }
 
-.article-subtitle {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-top: -0.5rem;
-}
+/* ---------- Senior Mindset buy widget ---------- */
 
-/* Generic CTA button (theme-ui Button replacement) */
-a.button {
-  background: #f0a500;
-  border-radius: 6px;
-  color: #000;
-  display: inline-block;
-  font-weight: 600;
-  margin: 0.5rem 0 1.5rem;
-  padding: 0.6rem 1.2rem;
-  text-decoration: none;
-}
-
-a.button:hover {
-  background: #d99500;
-}
-
-/* Testimonial quote grid (letters, home) */
-.testimonial-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 640px) {
-  .testimonial-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* Article listings (home, collections, interviews) */
-.article-listing {
-  margin: 1.25rem 0;
-}
-
-.article-listing h3 {
-  margin: 0 0 0.15rem;
-}
-
-.article-listing time {
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.article-listing p {
-  margin: 0.25rem 0 0;
-}
-
-/* Typeform survey embed */
-.typeform-embed {
-  border: 0;
-  height: 500px;
-  width: 100%;
-}
-
-/* Senior Mindset buy widget */
 .purchase-button {
-  background-color: rgb(112, 71, 235);
-  border-radius: 8px;
-  color: #fff;
+  background: var(--color-background-purple);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard-sm);
+  color: var(--color-text-primary);
   display: inline-flex;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
   justify-content: center;
-  line-height: 35px;
+  line-height: 1.5;
   max-width: 100%;
-  min-width: 300px;
-  padding: 10px 16px;
+  min-width: 280px;
+  padding: 0.6rem 1rem;
   text-align: center;
   text-decoration: none;
+  transition: translate 0.1s ease, box-shadow 0.1s ease;
 }
 
 .purchase-button:hover {
-  background-color: rgba(112, 71, 235, 0.8);
+  box-shadow: 1px 1px 0 var(--color-border);
+  translate: 2px 2px;
 }
 
 .buy-widget {
-  border: 2px solid rgb(112, 71, 235);
-  border-radius: 10px;
-  margin: 2rem 0;
+  background: var(--color-background-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard);
+  margin: 2rem auto;
   padding: 1.5rem 1.5rem 0.5rem;
 }
 
@@ -304,10 +794,320 @@ a.button:hover {
 }
 
 .buy-widget-package li {
+  font-size: var(--font-size-sm);
   margin-bottom: 0.6rem;
 }
 
 .buy-widget-cta {
   margin: 1.5rem 0 1rem;
   text-align: center;
+}
+
+/* ---------- Article listings ---------- */
+
+.article-listing {
+  border-bottom: 1px solid var(--color-border);
+  margin: 0 auto 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.article-listing h3 {
+  font-size: var(--font-size-lg);
+  margin: 0 0 0.15rem;
+}
+
+.article-listing h3 a {
+  text-decoration: none;
+}
+
+.article-listing h3 a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.article-listing time {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.article-listing p {
+  font-size: var(--font-size-base);
+  line-height: 1.55;
+  margin: 0.25rem 0 0;
+}
+
+/* ---------- Testimonial grid: pastel sticky notes ---------- */
+
+.testimonial-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.testimonial-grid blockquote {
+  border: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard-sm);
+  margin: 0;
+  padding: 1rem 1.25rem;
+}
+
+.testimonial-grid blockquote:nth-child(4n + 1) {
+  background: var(--color-background-yellow);
+}
+
+.testimonial-grid blockquote:nth-child(4n + 2) {
+  background: var(--color-background-cyan);
+}
+
+.testimonial-grid blockquote:nth-child(4n + 3) {
+  background: var(--color-background-pink);
+}
+
+.testimonial-grid blockquote:nth-child(4n) {
+  background: var(--color-background-green);
+}
+
+/* ---------- Embeds ---------- */
+
+.swizec-embed {
+  margin: 1.5rem auto;
+}
+
+.swizec-embed iframe {
+  border: 1px solid var(--color-border);
+}
+
+.swizec-embed-codesandbox {
+  aspect-ratio: 16 / 9;
+  position: relative;
+  width: 100%;
+}
+
+.swizec-embed-codesandbox iframe {
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.swizec-embed-youtube lite-youtube {
+  border: 1px solid var(--color-border);
+  max-width: none;
+  width: 100%;
+}
+
+.swizec-embed-tweet blockquote.twitter-tweet {
+  background: var(--color-background-blue);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-border);
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0.75rem 1rem;
+}
+
+.swizec-embed-giphy {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.swizec-embed-giphy img {
+  display: inline-block;
+}
+
+/* ---------- Archive: time-jump sidebar ---------- */
+
+.archive-sidebar {
+  align-self: start;
+  background: var(--color-background-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard);
+  max-height: calc(100vh - 7rem);
+  overflow-y: auto;
+  padding: 1.25rem;
+  position: sticky;
+  top: 5.5rem;
+}
+
+.archive-sidebar h2 {
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.06em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.archive-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.archive-sidebar a {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  padding: 0.1rem 0.4rem;
+  text-decoration: none;
+}
+
+.archive-sidebar a:hover {
+  color: var(--color-text-primary);
+  text-decoration: underline;
+}
+
+.archive-sidebar a.archive-active {
+  background: var(--color-background-yellow);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.archive-year {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.archive-months {
+  border-left: 2px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0.15rem 0 0.35rem 0.6rem;
+  padding-left: 0.5rem;
+}
+
+@media (max-width: 960px) {
+  .archive-sidebar {
+    max-height: none;
+    position: static;
+  }
+
+  .archive-sidebar nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.75rem;
+  }
+
+  .archive-year {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .archive-months {
+    border-left: 0;
+    border-top: 2px solid var(--color-border);
+    flex-basis: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.6rem;
+    margin: 0.2rem 0;
+    padding: 0.3rem 0 0;
+  }
+}
+
+/* ---------- Archive: listing, filter note, pagination ---------- */
+
+.archive-filter-note {
+  background: var(--color-background-cyan);
+  border: 1px solid var(--color-border);
+  display: inline-block;
+  padding: 0.35rem 0.8rem;
+}
+
+/* Sticky month/year markers orient readers as they scroll a long archive.
+   Sits just below the sticky header; a pastel sticker in the Y2K style. */
+.archive-time-marker {
+  background: var(--color-background-purple);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard-sm);
+  font-size: var(--font-size-base);
+  margin: 2rem 0 1rem;
+  padding: 0.3rem 0.9rem;
+  position: sticky;
+  top: 4.75rem;
+  width: fit-content;
+  z-index: 5;
+}
+
+.archive-time-marker:first-child {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 960px) {
+  /* Header un-sticks on mobile, so markers stick to the top of the viewport */
+  .archive-time-marker {
+    top: 0.5rem;
+  }
+}
+
+.archive-pagination {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.archive-pagination .button {
+  margin: 0;
+}
+
+.archive-pagination-status {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.archive-pagination-disabled {
+  background: var(--color-background-muted);
+  border: 1px solid var(--color-border);
+  box-shadow: none;
+  color: var(--color-text-secondary);
+  display: inline-block;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  opacity: 0.55;
+}
+
+/* ---------- Typeform ---------- */
+
+.typeform-embed {
+  border: 1px solid var(--color-border);
+  height: 500px;
+  width: 100%;
+}
+
+/* ---------- Dark-mode ink on always-light surfaces ---------- */
+
+/* The pastel + yellow surfaces are fixed light colors in BOTH themes
+   (--color-background-pink/yellow/green/cyan don't flip). Their text has to
+   stay dark or it turns light-on-light in dark mode. --color-on-light is a
+   constant dark ink equal to the light-mode text color, so this is a no-op in
+   light mode and only fixes readability in dark.
+
+   Astryx (StyleX) colors p/headings element-by-element via @layer, so text
+   descendants are targeted directly rather than inheriting from the surface.
+   Excluded: form inputs (they sit on the dark card background and keep the
+   theme's light text) and .newsletter-signup-error (stays red). Kept last so
+   it wins the ties with rules that set color: var(--color-text-primary). */
+.site-header-cta,
+a.button,
+.article-categories a,
+.archive-sidebar a.archive-active,
+.newsletter-signup,
+.newsletter-signup
+  :is(h1, h2, h3, h4, h5, h6, p, li, strong, em, a, button):not(.newsletter-signup-error),
+.testimonial-grid blockquote,
+.testimonial-grid blockquote :is(p, cite, strong, em, a),
+.archive-filter-note,
+.archive-filter-note :is(strong, a) {
+  color: var(--color-on-light);
 }

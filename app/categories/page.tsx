@@ -1,5 +1,7 @@
 import type { Metadata } from '@timber-js/app/server';
 import { listCategories } from '../../lib/categories';
+import { BookSidebar } from '../../components/book-sidebar';
+import { SmartLink } from '../../components/link';
 
 export const metadata: Metadata = {
     title: 'Categories',
@@ -10,17 +12,20 @@ export default async function CategoriesIndex() {
     const categories = await listCategories();
 
     return (
+        <>
         <main>
             <h1>Categories</h1>
             <p>Articles organized by topic</p>
             <ul>
                 {categories.map(({ slug, name, count }) => (
                     <li key={slug}>
-                        <a href={`/categories/${slug}`}>{name}</a>
+                        <SmartLink href={`/categories/${slug}`}>{name}</SmartLink>
                         {' '}({count})
                     </li>
                 ))}
             </ul>
         </main>
+        <BookSidebar />
+        </>
     );
 }

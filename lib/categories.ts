@@ -22,6 +22,7 @@ export function parseCategories(categories: string | undefined): { name: string;
 export interface CategoryArticle {
     path: string;
     title: string;
+    description?: string;
     published: string;
 }
 
@@ -47,7 +48,12 @@ export const getCategoryIndex = cache(
             const path = `/${page._meta.path.replace(/\/index$/, '')}`;
             for (const { name, slug } of parseCategories(page.categories)) {
                 index[slug] ??= { name, slug, articles: [] };
-                index[slug].articles.push({ path, title: page.title, published: page.published });
+                index[slug].articles.push({
+                    path,
+                    title: page.title,
+                    description: page.description,
+                    published: page.published,
+                });
             }
         }
 

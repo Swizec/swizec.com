@@ -7,6 +7,14 @@ import { remarkInlineCodeLang } from './mdx-plugins/remark-inline-code-lang.mjs'
 
 const vercelOutputDirectory = new URL('./.vercel/output', import.meta.url).pathname;
 
+// Some headings are markdown links themselves (## [Book](https://...)) —
+// wrapping those in an anchor nests <a> inside <a>: invalid HTML that breaks
+// React hydration. Skip autolinking for any heading that contains a link.
+function containsLink(node) {
+  if (node.tagName === 'a') return true;
+  return (node.children ?? []).some(containsLink);
+}
+
 export default {
   adapter: nitro({
     preset: 'vercel',
@@ -21,7 +29,7 @@ export default {
     remarkPlugins: [remarkSwizecEmbeds, remarkMdxStaticFiles, remarkInlineCodeLang],
     rehypePlugins: [
       rehypeSlug,
-      [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+      [rehypeAutolinkHeadings, { behavior: 'wrap', test: (el) => !containsLink(el) }],
       [rehypeShiki, { themes: { light: 'github-light', dark: 'github-dark' }, inline: 'tailing-curly-colon' }],
     ],
   },
