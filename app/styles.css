@@ -21,8 +21,9 @@ a {
   color: var(--color-text-primary);
 }
 
-/* Astryx headings land on 600 — go full bold everywhere. Poppins 700 is
-   loaded in the layout, so this uses a real face, not a synthesized one. */
+/* Astryx headings land on 600. Bold (700) is the chrome baseline — sidebar
+   and footer labels, listing titles. Content headings go heavier below.
+   Poppins 700/900 are loaded in the layout, so these use real faces. */
 h1,
 h2,
 h3,
@@ -186,6 +187,14 @@ main ul {
 article ol,
 main ol {
   list-style: decimal;
+}
+
+/* Prose headings go all the way to black (900) so they anchor the article.
+   Direct children only — the nested listing titles and time markers inside
+   .article-archive stay at the 700 chrome baseline. */
+article > :is(h1, h2, h3, h4, h5, h6),
+main > :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 900;
 }
 
 article h1,
