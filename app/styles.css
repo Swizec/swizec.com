@@ -1084,3 +1084,30 @@ a.button:hover {
   height: 500px;
   width: 100%;
 }
+
+/* ---------- Dark-mode ink on always-light surfaces ---------- */
+
+/* The pastel + yellow surfaces are fixed light colors in BOTH themes
+   (--color-background-pink/yellow/green/cyan don't flip). Their text has to
+   stay dark or it turns light-on-light in dark mode. --color-on-light is a
+   constant dark ink equal to the light-mode text color, so this is a no-op in
+   light mode and only fixes readability in dark.
+
+   Astryx (StyleX) colors p/headings element-by-element via @layer, so text
+   descendants are targeted directly rather than inheriting from the surface.
+   Excluded: form inputs (they sit on the dark card background and keep the
+   theme's light text) and .newsletter-signup-error (stays red). Kept last so
+   it wins the ties with rules that set color: var(--color-text-primary). */
+.site-header-cta,
+a.button,
+.article-categories a,
+.archive-sidebar a.archive-active,
+.newsletter-signup,
+.newsletter-signup
+  :is(h1, h2, h3, h4, h5, h6, p, li, strong, em, a, button):not(.newsletter-signup-error),
+.testimonial-grid blockquote,
+.testimonial-grid blockquote :is(p, cite, strong, em, a),
+.archive-filter-note,
+.archive-filter-note :is(strong, a) {
+  color: var(--color-on-light);
+}
