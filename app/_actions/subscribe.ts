@@ -38,15 +38,21 @@ async function kitPost(path: string, body: Record<string, unknown>) {
 // rejects them first, so nothing gets subscribed on those either.
 function isBot(input: { email: string; first_name: string; website?: string }) {
     if (input.website) return true;
-    if (input.email.trim().toLowerCase() === 'null') return true;
-    if (input.first_name.trim().toLowerCase() === 'null') return true;
+    // email/first_name arrive trimmed from the schema below
+    if (input.email.toLowerCase() === 'null') return true;
+    if (input.first_name.toLowerCase() === 'null') return true;
     return false;
 }
 
 export const subscribe = action
     .schema(
         z.object({
-            email: z.email("That doesn't look like an email address"),
+            // Trim before validating so padded input (mobile keyboards) still
+            // passes and reaches Kit clean — no manual .trim() downstream.
+            email: z
+                .string()
+                .trim()
+                .pipe(z.email("That doesn't look like an email address")),
             first_name: z.string().trim().min(1, 'What should I call you?'),
             // Honeypot — hidden from humans, bots fill it
             website: z.string().optional(),

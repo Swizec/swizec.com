@@ -1,4 +1,5 @@
 import { allPages } from 'content-collections';
+import { Feed } from 'feed';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -7,21 +8,7 @@ import rehypeStringify from 'rehype-stringify';
 const SITE_URL = 'https://swizec.com';
 const FEED_TITLE = 'Swizec Teller';
 const FEED_DESCRIPTION = 'A geek with a hat';
-const FEED_URL = `${SITE_URL}/rss.xml`;
-
-function escapeXml(str: string): string {
-    return str
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&apos;');
-}
-
-function escapeCdata(str: string): string {
-    // ]]> ends a CDATA section — split across two sections to neutralize it
-    return str.replace(/]]>/g, ']]]]><![CDATA[>');
-}
+const AUTHOR = { name: 'Swizec Teller', email: 'hi@swizec.com', link: SITE_URL };
 
 // markdown → HTML via the same remark/rehype stack the site uses for MDX.
 // allowDangerousHtml passes through any raw HTML already in the prose.
@@ -89,43 +76,50 @@ export async function GET(): Promise<Response> {
         .slice(0, 50);
 
     // Use the most recent article's date so the feed is stable between deploys
-    const lastBuildDate =
-        publishedPages.length > 0
-            ? new Date(publishedPages[0].published!).toUTCString()
-            : now.toUTCString();
+    const updated =
+        publishedPages.length > 0 ? new Date(publishedPages[0].published!) : now;
 
+    const feed = new Feed({
+        title: FEED_TITLE,
+        description: FEED_DESCRIPTION,
+        id: SITE_URL,
+        link: SITE_URL,
+        language: 'en-us',
+        copyright: `© ${now.getFullYear()} Swizec Teller`,
+        updated,
+        feedLinks: { rss: `${SITE_URL}/rss.xml` },
+        author: AUTHOR,
+    });
+
+    // Render excerpts in parallel but keep the sorted order (Promise.all
+    // preserves array order); addItem in a plain loop so the feed stays
+    // newest-first regardless of which excerpt resolves first.
     const items = await Promise.all(
         publishedPages.map(async (page) => {
             const url = pageUrl(page._meta.path);
-            const pubDate = new Date(page.published!).toUTCString();
-            const description = await renderExcerptHtml(page.content, url);
-
-            return `    <item>
-      <title>${escapeXml(page.title)}</title>
-      <link>${url}</link>
-      <guid isPermaLink="true">${url}</guid>
-      <pubDate>${pubDate}</pubDate>${page.description ? `\n      <description>${escapeXml(page.description)}</description>` : ''}
-      <content:encoded><![CDATA[${escapeCdata(description)}]]></content:encoded>
-    </item>`;
+            return {
+                title: page.title,
+                url,
+                date: new Date(page.published!),
+                description: page.description || undefined,
+                content: await renderExcerptHtml(page.content, url),
+            };
         }),
     );
 
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"
-  xmlns:content="http://purl.org/rss/1.0/modules/content/"
-  xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>${escapeXml(FEED_TITLE)}</title>
-    <description>${escapeXml(FEED_DESCRIPTION)}</description>
-    <link>${SITE_URL}</link>
-    <atom:link href="${FEED_URL}" rel="self" type="application/rss+xml" />
-    <language>en-us</language>
-    <lastBuildDate>${lastBuildDate}</lastBuildDate>
-${items.join('\n')}
-  </channel>
-</rss>`;
+    for (const item of items) {
+        feed.addItem({
+            title: item.title,
+            id: item.url,
+            link: item.url,
+            date: item.date,
+            description: item.description,
+            content: item.content,
+            author: [AUTHOR],
+        });
+    }
 
-    return new Response(xml, {
+    return new Response(feed.rss2(), {
         headers: {
             'Content-Type': 'application/rss+xml; charset=utf-8',
             'Cache-Control': 'public, max-age=3600',
