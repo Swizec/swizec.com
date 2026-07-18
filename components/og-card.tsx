@@ -8,11 +8,14 @@ import photoC3 from '../app/assets/og-photo-c3-speaking.jpg?inline';
 
 type Variant = {
     photo: string;
-    // object-position for the right-hand photo crop
+    // which side the photo sits on; copy goes on the opposite side, chosen so
+    // the subject's gaze leads into the text
+    photoSide: 'left' | 'right';
+    // object-position for the photo crop
     objectPosition: string;
     // panel/scrim base as "r, g, b" so gradients can vary alpha
     panelRGB: string;
-    // horizontal scrim that fades the photo's left edge into the panel; tuned
+    // horizontal scrim that fades the photo's inner edge into the panel; tuned
     // per shot (c3 keeps a soft bleed of the stage text, react-summit hides the
     // bright podium so the copy stays crisp)
     scrim: string;
@@ -24,19 +27,23 @@ type Variant = {
 
 const VARIANTS: Variant[] = [
     {
-        // C3 software festival — vivid green stage light on black
+        // C3 software festival — vivid green stage light on black. He faces
+        // right, so the photo sits left and the copy runs to its right.
         photo: photoC3,
+        photoSide: 'left',
         objectPosition: '46% 22%',
         panelRGB: '8, 15, 10',
-        scrim: 'linear-gradient(to left, rgba(8,15,10,0) 30%, rgba(8,15,10,0.5) 46%, rgba(8,15,10,0.92) 60%, rgb(8,15,10) 68%)',
+        scrim: 'linear-gradient(to right, rgba(8,15,10,0) 30%, rgba(8,15,10,0.5) 46%, rgba(8,15,10,0.92) 60%, rgb(8,15,10) 68%)',
         accent: '#A6E86A',
         accentInk: '#122009',
         title: '#ECF8E6',
         meta: '#A4C79C',
     },
     {
-        // React Summit — warm plum/blue house lights
+        // React Summit — warm plum/blue house lights. He faces down-left, so
+        // the photo sits right and the copy runs to its left.
         photo: photoReactSummit,
+        photoSide: 'right',
         objectPosition: '52% 12%',
         panelRGB: '23, 12, 20',
         scrim: 'linear-gradient(to left, rgba(23,12,20,0) 19%, rgba(23,12,20,0.7) 37%, rgba(23,12,20,0.98) 52%, rgb(23,12,20) 60%)',
@@ -65,6 +72,7 @@ export function OgCard({
 }) {
     const v = pickVariant(seed || title);
     const P = v.panelRGB;
+    const textSide = v.photoSide === 'left' ? 'right' : 'left';
     const titleSize = title.length > 68 ? 54 : title.length > 44 ? 64 : 74;
 
     return (
@@ -78,7 +86,7 @@ export function OgCard({
                 fontFamily: 'Poppins',
             }}
         >
-            {/* Full-height photo on the right */}
+            {/* Full-height photo on the variant's photo side */}
             <img
                 src={v.photo}
                 width={640}
@@ -86,7 +94,7 @@ export function OgCard({
                 style={{
                     position: 'absolute',
                     top: 0,
-                    right: 0,
+                    [v.photoSide]: 0,
                     width: 640,
                     height: 630,
                     objectFit: 'cover',
@@ -111,12 +119,12 @@ export function OgCard({
                     background: `linear-gradient(to top, rgba(${P},0.7) 0%, rgba(${P},0) 30%)`,
                 }}
             />
-            {/* Content */}
+            {/* Content — on the side opposite the photo */}
             <div
                 style={{
                     position: 'absolute',
                     top: 0,
-                    left: 0,
+                    [textSide]: 0,
                     bottom: 0,
                     width: 720,
                     display: 'flex',
