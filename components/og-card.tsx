@@ -24,7 +24,9 @@ type Variant = {
     // react-summit hides the bright podium so the copy stays crisp)
     scrim: string;
     accent: string;
+    // badge text ink and badge border/hard-shadow color
     accentInk: string;
+    accentEdge: string;
     title: string;
     meta: string;
 };
@@ -33,6 +35,7 @@ const VARIANTS: Variant[] = [
     {
         // C3 software festival — vivid green stage light on black. He faces
         // right, so the photo sits left and the copy runs to its right.
+        // Palette tuned to the shot's green.
         photo: photoC3,
         photoSide: 'left',
         objectPosition: '46% 22%',
@@ -40,21 +43,26 @@ const VARIANTS: Variant[] = [
         scrim: 'linear-gradient(to right, rgba(8,15,10,0) 32%, rgba(8,15,10,0.5) 54%, rgba(8,15,10,0.9) 74%, rgb(8,15,10) 88%)',
         accent: '#A6E86A',
         accentInk: '#122009',
+        accentEdge: '#122009',
         title: '#ECF8E6',
         meta: '#A4C79C',
     },
     {
         // React Summit — warm plum/blue house lights. He faces down-left, so
-        // the photo sits right and the copy runs to its left.
+        // the photo sits right and the copy runs to its left. Text and badge
+        // use the stock Astryx Y2K tokens: dark-mode text-primary/-secondary,
+        // and the yellow chrome badge (background-yellow on color-border with
+        // on-light ink) like the site's buttons.
         photo: photoReactSummit,
         photoSide: 'right',
         objectPosition: '52% 12%',
         panelRGB: '23, 12, 20',
         scrim: 'linear-gradient(to left, rgba(23,12,20,0) 30%, rgba(23,12,20,0.62) 55%, rgba(23,12,20,0.95) 74%, rgb(23,12,20) 88%)',
-        accent: '#FFDE86',
-        accentInk: '#2B1305',
-        title: '#FBEEF2',
-        meta: '#CBA6B6',
+        accent: '#FFE08A',
+        accentInk: '#2d241b',
+        accentEdge: '#2F292E',
+        title: '#EDEFFC',
+        meta: '#a6acd6',
     },
 ];
 
@@ -182,8 +190,8 @@ export function OgCard({
                             display: 'flex',
                             backgroundColor: v.accent,
                             color: v.accentInk,
-                            border: `2px solid ${v.accentInk}`,
-                            boxShadow: `4px 4px 0 ${v.accentInk}`,
+                            border: `2px solid ${v.accentEdge}`,
+                            boxShadow: `4px 4px 0 ${v.accentEdge}`,
                             padding: '7px 16px',
                             fontSize: 22,
                             fontWeight: 700,
