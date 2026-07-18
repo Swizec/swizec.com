@@ -188,6 +188,11 @@ export function OgCard({
                     <div
                         style={{
                             display: 'flex',
+                            // don't let the flex row squeeze the badge into wrapping
+                            // or stretch it to the tagline's two-line height
+                            flexShrink: 0,
+                            alignSelf: 'center',
+                            alignItems: 'center',
                             backgroundColor: v.accent,
                             color: v.accentInk,
                             border: `2px solid ${v.accentEdge}`,
