@@ -2,6 +2,7 @@ import { ImageResponse } from '@vercel/og';
 import { allPages } from 'content-collections';
 import { getSegmentParams } from '@timber-js/app/server';
 import { OgCard } from '../../components/og-card';
+import { ogFonts } from '../../components/og-fonts';
 
 function resolvedPath(): string {
     const { slug } = getSegmentParams();
@@ -20,8 +21,12 @@ export default async function OGImage() {
         return new Response(null, { status: 404 });
     }
 
-    return new ImageResponse(<OgCard title={page.title} description={page.description} />, {
-        width: 1200,
-        height: 630,
-    });
+    return new ImageResponse(
+        <OgCard title={page.title} description={page.description} seed={page._meta.path} />,
+        {
+            width: 1200,
+            height: 630,
+            fonts: ogFonts,
+        },
+    );
 }
