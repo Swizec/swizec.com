@@ -1,8 +1,8 @@
-import { ImageResponse } from '@vercel/og';
+import { ImageResponse } from 'takumi-js/response';
 import { allPages } from 'content-collections';
 import { getSegmentParams } from '@timber-js/app/server';
 import { OgCard } from '../../components/og-card';
-import { ogFonts } from '../../components/og-fonts';
+import { ogImageOptions } from '../../components/og-image';
 
 function resolvedPath(): string {
     const { slug } = getSegmentParams();
@@ -23,10 +23,6 @@ export default async function OGImage() {
 
     return new ImageResponse(
         <OgCard title={page.title} description={page.description} seed={page._meta.path} />,
-        {
-            width: 1200,
-            height: 630,
-            fonts: ogFonts,
-        },
+        ogImageOptions,
     );
 }

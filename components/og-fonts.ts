@@ -1,21 +1,21 @@
-// Poppins (the site heading font) loaded into @vercel/og so OG cards match
-// the Astryx type on the blog. @fontsource ships WOFF1, which Satori supports
-// (WOFF2 it does not). `?inline` embeds each file as a data URI at build time,
-// so the serverless function needs no asset fetching.
+// Poppins (the blog heading font) for the OG card, passed to takumi as raw
+// bytes so nothing is fetched at render time. @fontsource ships WOFF1; `?inline`
+// embeds each file as a data URI at build time, decoded to bytes here. Weights
+// match the card: 400 body, 700 kicker/badge, 900 title.
 import poppins400 from '@fontsource/poppins/files/poppins-latin-400-normal.woff?inline';
 import poppins700 from '@fontsource/poppins/files/poppins-latin-700-normal.woff?inline';
 import poppins900 from '@fontsource/poppins/files/poppins-latin-900-normal.woff?inline';
 
-function bytes(dataUri: string): ArrayBuffer {
+function bytes(dataUri: string): Uint8Array {
     const base64 = dataUri.slice(dataUri.indexOf(',') + 1);
     const binary = atob(base64);
     const out = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i++) out[i] = binary.charCodeAt(i);
-    return out.buffer;
+    return out;
 }
 
 export const ogFonts = [
-    { name: 'Poppins', data: bytes(poppins400), weight: 400 as const, style: 'normal' as const },
-    { name: 'Poppins', data: bytes(poppins700), weight: 700 as const, style: 'normal' as const },
-    { name: 'Poppins', data: bytes(poppins900), weight: 900 as const, style: 'normal' as const },
+    { name: 'Poppins', weight: 400, style: 'normal' as const, data: bytes(poppins400) },
+    { name: 'Poppins', weight: 700, style: 'normal' as const, data: bytes(poppins700) },
+    { name: 'Poppins', weight: 900, style: 'normal' as const, data: bytes(poppins900) },
 ];

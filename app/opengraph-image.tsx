@@ -1,6 +1,6 @@
-import { ImageResponse } from '@vercel/og';
+import { ImageResponse } from 'takumi-js/response';
 import { OgCard } from '../components/og-card';
-import { ogFonts } from '../components/og-fonts';
+import { ogImageOptions } from '../components/og-image';
 
 export default async function OGImage() {
     return new ImageResponse(
@@ -9,6 +9,6 @@ export default async function OGImage() {
             description="Software engineering lessons from production. Raw and honest from the heart, fueled by 20+ years of building real code."
             seed="home"
         />,
-        { width: 1200, height: 630, fonts: ogFonts }
+        ogImageOptions
     );
 }

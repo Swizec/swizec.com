@@ -3,6 +3,10 @@
 // into a dark panel. Two photos, each with its own palette tuned to the shot;
 // the choice is stable per page (hashed from a seed) so a given URL always
 // renders the same card. Photos are inlined as data URIs at build time.
+//
+// Rendered by takumi-js. The photo + fade live in one element's stacked
+// background (gradient layer over the image layer) because an overlay div
+// doesn't composite over a sibling image the way it does in a browser.
 import photoReactSummit from '../app/assets/og-photo-react-summit.jpeg?inline';
 import photoC3 from '../app/assets/og-photo-c3-speaking.jpg?inline';
 
@@ -11,13 +15,13 @@ type Variant = {
     // which side the photo sits on; copy goes on the opposite side, chosen so
     // the subject's gaze leads into the text
     photoSide: 'left' | 'right';
-    // object-position for the photo crop
+    // background-position for the photo crop
     objectPosition: string;
-    // panel/scrim base as "r, g, b" so gradients can vary alpha
+    // panel base as "r, g, b" so gradients can vary alpha
     panelRGB: string;
-    // horizontal scrim that fades the photo's inner edge into the panel; tuned
-    // per shot (c3 keeps a soft bleed of the stage text, react-summit hides the
-    // bright podium so the copy stays crisp)
+    // gradient that fades the photo's inner edge into the panel; direction and
+    // stops tuned per shot (c3 keeps a soft bleed of the stage text,
+    // react-summit hides the bright podium so the copy stays crisp)
     scrim: string;
     accent: string;
     accentInk: string;
@@ -33,7 +37,7 @@ const VARIANTS: Variant[] = [
         photoSide: 'left',
         objectPosition: '46% 22%',
         panelRGB: '8, 15, 10',
-        scrim: 'linear-gradient(to right, rgba(8,15,10,0) 30%, rgba(8,15,10,0.5) 46%, rgba(8,15,10,0.92) 60%, rgb(8,15,10) 68%)',
+        scrim: 'linear-gradient(to right, rgba(8,15,10,0) 32%, rgba(8,15,10,0.5) 54%, rgba(8,15,10,0.9) 74%, rgb(8,15,10) 88%)',
         accent: '#A6E86A',
         accentInk: '#122009',
         title: '#ECF8E6',
@@ -46,7 +50,7 @@ const VARIANTS: Variant[] = [
         photoSide: 'right',
         objectPosition: '52% 12%',
         panelRGB: '23, 12, 20',
-        scrim: 'linear-gradient(to left, rgba(23,12,20,0) 19%, rgba(23,12,20,0.7) 37%, rgba(23,12,20,0.98) 52%, rgb(23,12,20) 60%)',
+        scrim: 'linear-gradient(to left, rgba(23,12,20,0) 30%, rgba(23,12,20,0.62) 55%, rgba(23,12,20,0.95) 74%, rgb(23,12,20) 88%)',
         accent: '#FFDE86',
         accentInk: '#2B1305',
         title: '#FBEEF2',
@@ -74,6 +78,8 @@ export function OgCard({
     const P = v.panelRGB;
     const textSide = v.photoSide === 'left' ? 'right' : 'left';
     const titleSize = title.length > 68 ? 54 : title.length > 44 ? 64 : 74;
+    // bottom vignette + scrim + photo, all in one stacked background
+    const vignette = `linear-gradient(to top, rgba(${P},0.55) 0%, rgba(${P},0) 32%)`;
 
     return (
         <div
@@ -86,37 +92,19 @@ export function OgCard({
                 fontFamily: 'Poppins',
             }}
         >
-            {/* Full-height photo on the variant's photo side */}
-            <img
-                src={v.photo}
-                width={640}
-                height={630}
+            {/* Photo panel: gradient scrim + vignette layered over the photo */}
+            <div
                 style={{
                     position: 'absolute',
                     top: 0,
                     [v.photoSide]: 0,
                     width: 640,
                     height: 630,
-                    objectFit: 'cover',
-                    objectPosition: v.objectPosition,
-                }}
-            />
-            {/* Blend the photo's left edge into the panel + darken under the text */}
-            <div
-                style={{
-                    position: 'absolute',
-                    inset: 0,
                     display: 'flex',
-                    background: v.scrim,
-                }}
-            />
-            {/* Bottom vignette for depth */}
-            <div
-                style={{
-                    position: 'absolute',
-                    inset: 0,
-                    display: 'flex',
-                    background: `linear-gradient(to top, rgba(${P},0.7) 0%, rgba(${P},0) 30%)`,
+                    backgroundImage: `${v.scrim}, ${vignette}, url(${v.photo})`,
+                    backgroundSize: 'cover, cover, cover',
+                    backgroundRepeat: 'no-repeat, no-repeat, no-repeat',
+                    backgroundPosition: `center, center, ${v.objectPosition}`,
                 }}
             />
             {/* Content — on the side opposite the photo */}
@@ -155,6 +143,7 @@ export function OgCard({
                             lineHeight: 1.06,
                             letterSpacing: -1,
                             color: v.title,
+                            textWrap: 'pretty',
                             lineClamp: 3,
                         }}
                     >
@@ -179,6 +168,7 @@ export function OgCard({
                                 lineHeight: 1.34,
                                 fontWeight: 400,
                                 color: v.meta,
+                                textWrap: 'pretty',
                                 lineClamp: 2,
                             }}
                         >

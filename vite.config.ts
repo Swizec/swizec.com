@@ -62,6 +62,10 @@ const pagesColocatedAssets = {
 
 export default defineConfig({
   plugins: [pagesColocatedAssets, timber()],
+  // Vite doesn't treat .wasm as a generic asset by default (it reserves the
+  // `?init` handling), so takumi's wasm must be opted in for the ?inline
+  // import in components/og-image.ts to work.
+  assetsInclude: ['**/*.wasm'],
   resolve: {
     // Lets MDX pages import components without counting ../ hops:
     // import { NewsletterSignup } from '@/components/newsletter-signup'
