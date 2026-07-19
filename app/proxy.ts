@@ -1,7 +1,8 @@
 import { allPages } from 'content-collections';
-import { ImageResponse } from '@vercel/og';
+import { ImageResponse } from 'takumi-js/response';
 import { slugify } from '../lib/categories';
 import { OgCard } from '../components/og-card';
+import { ogImageOptions } from '../components/og-image';
 // Single source of truth for static redirects: the legacy Netlify `_redirects`
 // file, inlined as a string at build time by Vite. Format is "<from>  <to>" per
 // line (extra whitespace and blank lines are ignored).
@@ -59,10 +60,10 @@ export default async function proxy(req: Request, next: () => Promise<Response>)
             (p) => p._meta.path === pagePath || p._meta.path === `${pagePath}/index`
         );
         if (!page) return next();
-        return new ImageResponse(OgCard({ title: page.title, description: page.description }), {
-            width: 1200,
-            height: 630,
-        });
+        return new ImageResponse(
+            OgCard({ title: page.title, description: page.description, seed: page._meta.path }),
+            ogImageOptions
+        );
     }
 
     // Legacy category URLs used the lowercased name with literal spaces

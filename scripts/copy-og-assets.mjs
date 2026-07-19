@@ -1,18 +1,77 @@
-// @vercel/og reads resvg.wasm, yoga.wasm, and Geist-Regular.ttf via
-// fs.readFileSync(new URL("./file", import.meta.url)) at runtime.
-// After Rolldown bundles @vercel/og into _chunks/, import.meta.url points
-// to the chunk file, so these assets must live in _chunks/ too.
+// Copies build assets the bundler doesn't handle on its own.
 //
-// (The old config.json 302 patch for /opengraph-image.png is gone: the .png
-// URLs are now served directly by app/**/opengraph-image.png/route.ts —
-// Slack requires the extension and won't follow redirects.)
-import { copyFileSync, mkdirSync } from 'node:fs';
+// OG cards render via takumi-js with its wasm inlined into the server chunk
+// (components/og-image.ts), so nothing needs copying for image generation.
+// The .png OG URLs are served directly by app/**/opengraph-image.png routes —
+// Slack requires the extension and won't follow redirects.
+import { copyFileSync, mkdirSync, statSync } from 'node:fs';
+import path from 'node:path';
+import sharp from 'sharp';
+import { allPages } from '../.content-collections/generated/index.js';
+import { heroRelPath } from '../lib/hero-asset.mjs';
 
-const src = 'node_modules/@vercel/og/dist';
-const dst = '.vercel/output/functions/__server.func/_chunks';
+// Hero images (frontmatter, not imported by MDX so Vite never bundles them) are
+// served as og:image at /page-assets/<path>. Copy each page's hero into the
+// static output, downscaling big ones to OG size (≤1200px) so the deploy stays
+// lean — full-res thumbnails would add ~400MB.
+const heroDst = '.vercel/output/static/page-assets';
+const MAX_EDGE = 1200;
+const RESIZE_OVER = 150 * 1024; // leave already-small files untouched
+let copied = 0;
+let resized = 0;
+let missing = 0;
+let bytes = 0;
+const seen = new Set();
 
-mkdirSync(dst, { recursive: true });
-for (const file of ['resvg.wasm', 'yoga.wasm', 'Geist-Regular.ttf']) {
-  copyFileSync(`${src}/${file}`, `${dst}/${file}`);
-  console.log(`  copied ${file} → ${dst}/`);
-}
+await Promise.all(
+  allPages.map(async (page) => {
+    const rel = heroRelPath(page._meta.directory, page.hero);
+    if (!rel || seen.has(rel)) return;
+    seen.add(rel);
+    const from = path.join('pages', rel);
+    const to = path.join(heroDst, rel);
+    let size;
+    try {
+      size = statSync(from).size;
+    } catch {
+      missing++;
+      return;
+    }
+    const ext = path.extname(rel).toLowerCase();
+    const raster = ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.webp';
+    mkdirSync(path.dirname(to), { recursive: true });
+    try {
+      if (size > RESIZE_OVER && raster) {
+        let pipeline = sharp(from).resize(MAX_EDGE, MAX_EDGE, {
+          fit: 'inside',
+          withoutEnlargement: true,
+        });
+        // Re-encode with format-specific compression — the real size win.
+        // PNG palette quantization shrinks screenshots dramatically; mozjpeg
+        // squeezes photos. (gif/svg fall through to a plain copy.)
+        if (ext === '.png') pipeline = pipeline.png({ compressionLevel: 9, palette: true });
+        else if (ext === '.webp') pipeline = pipeline.webp({ quality: 80 });
+        else pipeline = pipeline.jpeg({ quality: 80, mozjpeg: true });
+        await pipeline.toFile(to);
+        resized++;
+      } else {
+        copyFileSync(from, to);
+        copied++;
+      }
+      bytes += statSync(to).size;
+    } catch {
+      // Corrupt/unsupported source — fall back to a plain copy so the URL still resolves
+      try {
+        copyFileSync(from, to);
+        copied++;
+        bytes += size;
+      } catch {
+        missing++;
+      }
+    }
+  }),
+);
+
+console.log(
+  `  hero images → ${heroDst}/ : ${resized} resized, ${copied} copied, ${missing} missing (${(bytes / 1e6).toFixed(1)} MB)`,
+);
