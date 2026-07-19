@@ -1,14 +1,13 @@
-import { IMAGE_WIDTHS, IMAGE_QUALITY, IMAGE_SIZES_ATTR } from '../lib/image-sizes.mjs';
+import {
+    IMAGE_WIDTHS,
+    IMAGE_SIZES_ATTR,
+    optimizedUrl,
+    optimizedSrcSet,
+} from '../lib/image-sizes.mjs';
 
 // Formats Vercel's optimizer can resize. GIFs (animation) and SVGs (vector,
 // disallowed by default for security) pass through untouched.
 const RESIZABLE = /\.(png|jpe?g|webp|avif)$/i;
-
-// Vercel Image Optimization URL — resized on first request, edge-cached after.
-// In dev a vite middleware serves the same path via sharp.
-function optimizedUrl(src: string, width: number): string {
-    return `/_vercel/image?url=${encodeURIComponent(src)}&w=${width}&q=${IMAGE_QUALITY}`;
-}
 
 // Responsive image for MDX content. The remark pipeline routes every local
 // image embed here: devices pick a size via srcset, and the image links to
@@ -45,7 +44,7 @@ export function ContentImage({
     const img = resizable ? (
         <img
             src={optimizedUrl(src, 960)}
-            srcSet={IMAGE_WIDTHS.map((w) => `${optimizedUrl(src, w)} ${w}w`).join(', ')}
+            srcSet={optimizedSrcSet(src, IMAGE_WIDTHS)}
             sizes={IMAGE_SIZES_ATTR}
             alt={alt}
             title={title}

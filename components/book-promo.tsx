@@ -1,11 +1,20 @@
 import { LATEST_BOOKS, bookForUpgrade, type Book } from '../lib/books';
+import { COVER_WIDTHS, optimizedUrl, optimizedSrcSet } from '../lib/image-sizes.mjs';
 import { BOOK_COVERS } from './book-covers';
 import { SmartLink } from './link';
 
 function PromoCard({ book }: { book: Book }) {
     return (
         <SmartLink className="book-promo-card" href={book.href}>
-            <img src={BOOK_COVERS[book.cover]} alt={`${book.title} book cover`} loading="lazy" />
+            {/* Cover sources are multi-MB originals; renders ≤130px tall */}
+            <img
+                src={optimizedUrl(BOOK_COVERS[book.cover], 320)}
+                srcSet={optimizedSrcSet(BOOK_COVERS[book.cover], COVER_WIDTHS)}
+                sizes="130px"
+                alt={`${book.title} book cover`}
+                loading="lazy"
+                decoding="async"
+            />
             <div>
                 <strong>{book.title}</strong>
                 <p>{book.tagline}</p>
