@@ -7,6 +7,18 @@
 // Deliberately absent: sitelinks search box (retired by Google), FAQ
 // (restricted to gov/health sites), Product on book pages (sales happen on
 // external sites, so offer markup here would be ignored or flagged).
+//
+// Typed with schema-dts (Google's schema.org typings) and rendered with
+// react-schemaorg's <JsonLd item={...}> at call sites, which owns the
+// XSS-safe serialization. Undefined fields drop out in JSON.stringify.
+import type {
+    BlogPosting,
+    BreadcrumbList,
+    Person,
+    ProfilePage,
+    WebSite,
+    WithContext,
+} from 'schema-dts';
 
 export const SITE_URL = 'https://swizec.com';
 
@@ -15,19 +27,21 @@ const PERSON = {
     name: 'Swizec Teller',
     url: `${SITE_URL}/about`,
     sameAs: ['https://twitter.com/swizec', 'https://github.com/swizec'],
-};
+} satisfies Person;
 
-export function personJsonLd(image?: string) {
+const AUTHOR_BLURB =
+    'Swizec shares software engineering lessons from production in his books, articles, talks, and workshops';
+
+export function personJsonLd(image?: string): WithContext<Person> {
     return {
         '@context': 'https://schema.org',
         ...PERSON,
-        ...(image && { image }),
-        description:
-            'Swizec shares software engineering lessons from production in his books, articles, talks, and workshops',
+        image,
+        description: AUTHOR_BLURB,
     };
 }
 
-export function webSiteJsonLd() {
+export function webSiteJsonLd(): WithContext<WebSite> {
     return {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
@@ -37,15 +51,14 @@ export function webSiteJsonLd() {
     };
 }
 
-export function profilePageJsonLd(image?: string) {
+export function profilePageJsonLd(image?: string): WithContext<ProfilePage> {
     return {
         '@context': 'https://schema.org',
         '@type': 'ProfilePage',
         mainEntity: {
             ...PERSON,
-            ...(image && { image }),
-            description:
-                'Swizec shares software engineering lessons from production in his books, articles, talks, and workshops',
+            image,
+            description: AUTHOR_BLURB,
         },
     };
 }
@@ -62,14 +75,14 @@ export function blogPostingJsonLd({
     url: string;
     image?: string;
     datePublished?: string;
-}) {
+}): WithContext<BlogPosting> {
     return {
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',
         headline: title,
-        ...(description && { description }),
-        ...(image && { image: [image] }),
-        ...(datePublished && { datePublished }),
+        description: description || undefined,
+        image: image ? [image] : undefined,
+        datePublished,
         url,
         mainEntityOfPage: url,
         author: PERSON,
@@ -78,15 +91,17 @@ export function blogPostingJsonLd({
 }
 
 // Last crumb (the current page) carries no URL, per Google's examples.
-export function breadcrumbsJsonLd(items: Array<{ name: string; url?: string }>) {
+export function breadcrumbsJsonLd(
+    items: Array<{ name: string; url?: string }>,
+): WithContext<BreadcrumbList> {
     return {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: items.map((item, position) => ({
-            '@type': 'ListItem',
+            '@type': 'ListItem' as const,
             position: position + 1,
             name: item.name,
-            ...(item.url && { item: item.url }),
+            item: item.url,
         })),
     };
 }

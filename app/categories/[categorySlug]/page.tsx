@@ -4,7 +4,7 @@ import { getCategory } from '../../../lib/categories';
 import { ArticleArchive } from '../../../components/article-archive';
 import { ArchiveSidebar } from '../../../components/archive-sidebar';
 import { SmartLink } from '../../../components/link';
-import { JsonLd } from '../../../components/json-ld';
+import { JsonLd } from 'react-schemaorg';
 import { SITE_URL, breadcrumbsJsonLd } from '../../../lib/structured-data';
 
 function resolvedSlug(): string {
@@ -36,7 +36,7 @@ export default async function CategoryPage() {
     return (
         <>
             <JsonLd
-                data={breadcrumbsJsonLd([
+                item={breadcrumbsJsonLd([
                     { name: 'Home', url: SITE_URL },
                     { name: 'Categories', url: `${SITE_URL}/categories` },
                     { name: category.name },

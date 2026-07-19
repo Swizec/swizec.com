@@ -11,7 +11,7 @@ import {
   breadcrumbsJsonLd,
   profilePageJsonLd,
 } from "../../lib/structured-data"
-import { JsonLd } from "../../components/json-ld"
+import { JsonLd } from "react-schemaorg"
 import { NewsletterSignup } from "../../components/newsletter-signup"
 import { RelatedArticles } from "../../components/related-articles"
 import { Byline } from "../../components/byline"
@@ -103,7 +103,7 @@ export default async function Page() {
     <>
       {isBlogPost && (
         <JsonLd
-          data={blogPostingJsonLd({
+          item={blogPostingJsonLd({
             title: page.title,
             description: page.description,
             url: pageUrl,
@@ -114,7 +114,7 @@ export default async function Page() {
       )}
       {isBlogPost && categories.length > 0 && (
         <JsonLd
-          data={breadcrumbsJsonLd([
+          item={breadcrumbsJsonLd([
             { name: "Home", url: SITE_URL },
             {
               name: categories[0].name,
@@ -124,7 +124,7 @@ export default async function Page() {
           ])}
         />
       )}
-      {path === "about" && <JsonLd data={profilePageJsonLd()} />}
+      {path === "about" && <JsonLd item={profilePageJsonLd()} />}
       <article>
         <h1>{page.title}</h1>
         {page.subtitle && <p className="article-subtitle">{page.subtitle}</p>}
