@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, type ReactNode } from 'react';
+import { trackEvent } from '../lib/track';
 
 const SENIOR_MINDSET_PRODUCT_ID = 'c2b0c3ce-6d23-4d01-b4f2-bb01f600e72f';
 
@@ -18,14 +19,8 @@ function loadCheckoutScripts() {
     }
 }
 
-type PlausibleWindow = Window & {
-    plausible?: (event: string, opts?: { props: Record<string, string> }) => void;
-};
-
 export function trackClick(productId: string) {
-    (window as PlausibleWindow).plausible?.('Purchase Button Clicked', {
-        props: { productId },
-    });
+    trackEvent('Purchase Button Clicked', { productId });
 }
 
 // Checkout link that opens the Lemon Squeezy overlay. Used for both the buy

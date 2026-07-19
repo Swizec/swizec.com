@@ -4,6 +4,8 @@ import { getCategory } from '../../../lib/categories';
 import { ArticleArchive } from '../../../components/article-archive';
 import { ArchiveSidebar } from '../../../components/archive-sidebar';
 import { SmartLink } from '../../../components/link';
+import { JsonLd } from '../../../components/json-ld';
+import { SITE_URL, breadcrumbsJsonLd } from '../../../lib/structured-data';
 
 function resolvedSlug(): string {
     const { categorySlug } = getSegmentParams();
@@ -33,6 +35,13 @@ export default async function CategoryPage() {
 
     return (
         <>
+            <JsonLd
+                data={breadcrumbsJsonLd([
+                    { name: 'Home', url: SITE_URL },
+                    { name: 'Categories', url: `${SITE_URL}/categories` },
+                    { name: category.name },
+                ])}
+            />
             <main>
                 <h1>{category.name}</h1>
                 <p>
