@@ -5,7 +5,7 @@
   "packageManager": "pnpm@10.24.0",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build && node scripts/copy-hero-images.mjs && node scripts/patch-vercel-images.mjs",
+    "build": "vite build && node scripts/copy-hero-images.mjs && node scripts/copy-wp-content.mjs && node scripts/patch-vercel-images.mjs",
     "preview": "vite preview",
     "images": "node scripts/build-image-manifest.mjs",
     "article": "node scripts/new-article.mjs"

@@ -18,6 +18,7 @@ import { existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { injectComponentImports } from './helpers.mjs';
+import { wpContentUrlPath, wpContentDiskPath } from '../lib/wp-content.mjs';
 
 const manifest = createRequire(import.meta.url)('../lib/image-manifest.json');
 const repoRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
@@ -173,6 +174,49 @@ export function remarkMdxStaticFiles(options) {
     // it's not inside one.
     function walk(node, insideLink) {
       if (!node || typeof node !== 'object') return node;
+
+      // Legacy https://swizec.com/wp-content/ images whose file exists in
+      // static/wp-content: rewrite to the root-relative path (same public
+      // URL, served from this deployment) and give them the full ContentImage
+      // treatment. Refs whose files are gone stay external, as today.
+      if (node.type === 'image') {
+        const wpPath = wpContentUrlPath(node.url);
+        const diskPath = wpPath && wpContentDiskPath(wpPath, repoRoot);
+        if (diskPath) {
+          usesContentImage = true;
+          const element = {
+            type: 'mdxJsxTextElement',
+            name: 'ContentImage',
+            attributes: [
+              attr('src', wpPath),
+              attr('alt', node.alt ?? ''),
+              ...(node.title ? [attr('title', node.title)] : []),
+              ...(insideLink ? [attr('linked', jsxFalse())] : []),
+            ],
+            children: [],
+          };
+          metaJobs.push(
+            Promise.resolve(imageMeta(diskPath, getExt(wpPath))).then((meta) => {
+              if (!meta) return;
+              element.attributes.push(
+                attr('width', String(meta.width)),
+                attr('height', String(meta.height)),
+              );
+              if (meta.placeholder) element.attributes.push(attr('placeholder', meta.placeholder));
+            }),
+          );
+          return element;
+        }
+      }
+
+      // Links to wp-content files (e.g. a linked full-size image) become
+      // root-relative too, so they resolve on this deployment.
+      if (node.type === 'link') {
+        const wpPath = wpContentUrlPath(node.url);
+        if (wpPath && wpContentDiskPath(wpPath, repoRoot)) {
+          node.url = wpPath;
+        }
+      }
 
       if (node.type === 'image' && isRelative(node.url) && IMAGE_EXTS.has(getExt(node.url))) {
         const name = ensureImport(node.url);

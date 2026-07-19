@@ -10,6 +10,7 @@
 import { readdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
+import { listReferencedWpContent, wpContentDiskPath } from '../lib/wp-content.mjs';
 
 const RASTER_EXTS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.avif', '.gif']);
 const LQIP_EXTS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.avif']);
@@ -27,7 +28,15 @@ const t0 = performance.now();
 const manifest = {};
 let failed = 0;
 
+// pages/ rasters + the legacy wp-content images articles actually reference
+// (static/wp-content holds 1.3GB, mostly unreferenced — only referenced files
+// are indexed, deployed, and rendered through ContentImage)
 const files = [...rasters('pages')];
+for (const urlPath of listReferencedWpContent('pages')) {
+  if (!RASTER_EXTS.has(path.extname(urlPath).toLowerCase())) continue;
+  const disk = wpContentDiskPath(urlPath);
+  if (disk) files.push(path.relative(process.cwd(), disk));
+}
 await Promise.all(
   files.map(async (file) => {
     const ext = path.extname(file).toLowerCase();
