@@ -74,9 +74,40 @@ function pickVariant(seed: string): Variant {
     return VARIANTS[Math.abs(h) % VARIANTS.length];
 }
 
+// The title must never clip: 64px is the standard size, and long titles step
+// down until the estimated line count fits the vertical budget. Estimates use
+// the narrower (photo-left) column width for both variants so a given title
+// renders the same size everywhere, and a conservative average glyph width so
+// estimation errors land on "slightly smaller", never on "clipped".
+const TITLE_SIZES = [64, 58, 52, 46, 40];
+const TITLE_WIDTH = 542; // photo-left content column minus padding
+const TITLE_GLYPH_EM = 0.55; // Poppins 900 average advance, conservative
+
+function fitTitleSize(title: string, hasDescription: boolean): number {
+    // 630 card height minus paddings, kicker, underline, and badge row — and
+    // the (pre-truncated, ≤2-line) description block when present.
+    const budget = hasDescription ? 310 : 404;
+    for (const size of TITLE_SIZES) {
+        const charsPerLine = Math.floor(TITLE_WIDTH / (TITLE_GLYPH_EM * size));
+        const lines = Math.ceil(title.length / charsPerLine);
+        if (lines * size * 1.06 <= budget) return size;
+    }
+    return TITLE_SIZES[TITLE_SIZES.length - 1];
+}
+
+// Descriptions get the ellipsis baked into the string — the renderer's
+// lineClamp cuts silently mid-word, so the text is pre-trimmed at a word
+// boundary to what two lines fit.
+function truncate(text: string, max: number): string {
+    if (text.length <= max) return text;
+    const cut = text.slice(0, max - 1);
+    const space = cut.lastIndexOf(' ');
+    return cut.slice(0, space > max * 0.6 ? space : max - 1).trimEnd() + '…';
+}
+
 export function OgCard({
     title,
-    description,
+    description: rawDescription,
     seed = '',
 }: {
     title: string;
@@ -86,12 +117,14 @@ export function OgCard({
     const v = pickVariant(seed || title);
     const P = v.panelRGB;
     const textSide = v.photoSide === 'left' ? 'right' : 'left';
-    // One title size across both variants so every card reads consistently;
-    // long titles wrap and clamp instead of shrinking.
-    const titleSize = 64;
     // The photo-left layout's blend zone reaches further into the card, so its
     // text column is narrower — content starts clear of the photo fade.
     const contentWidth = v.photoSide === 'left' ? 650 : 720;
+    // Two lines of 27px text at ~0.52em average advance, minus a safety margin
+    // so the ellipsis always lands inside the visible region.
+    const descMax = 2 * Math.floor((contentWidth - 108) / 14) - 6;
+    const description = rawDescription ? truncate(rawDescription, descMax) : undefined;
+    const titleSize = fitTitleSize(title, Boolean(description));
     // bottom vignette across the full card, for depth under the badge row
     const vignette = `linear-gradient(to top, rgba(${P},0.5) 0%, rgba(${P},0) 30%)`;
 
@@ -174,7 +207,6 @@ export function OgCard({
                             letterSpacing: -1,
                             color: v.title,
                             textWrap: 'pretty',
-                            lineClamp: 3,
                         }}
                     >
                         {title}
