@@ -37,9 +37,20 @@ export function ContentImage({
     const cleanPath = src.split(/[?#]/)[0];
     const resizable = src.startsWith('/') && RESIZABLE.test(cleanPath);
 
-    const style = placeholder
-        ? { backgroundImage: `url(${placeholder})`, backgroundSize: 'cover' }
-        : undefined;
+    // Cap the element's width at the height-cap-scaled aspect ratio so the box
+    // always hugs the image: tall images render narrower than the text column,
+    // and the LQIP background sits exactly under the pixels instead of showing
+    // in letterbox bars after load.
+    const ratio = width && height ? Number(width) / Number(height) : undefined;
+    const style = {
+        ...(placeholder ? { backgroundImage: `url(${placeholder})`, backgroundSize: 'cover' } : {}),
+        ...(ratio
+            ? {
+                  maxWidth: `min(100%, calc(var(--content-image-max-height, 62vh) * ${ratio.toFixed(4)}))`,
+              }
+            : {}),
+    };
+    const imgStyle = Object.keys(style).length > 0 ? style : undefined;
 
     const img = resizable ? (
         <img
@@ -50,7 +61,7 @@ export function ContentImage({
             title={title}
             width={width}
             height={height}
-            style={style}
+            style={imgStyle}
             loading="lazy"
             decoding="async"
         />
@@ -61,6 +72,7 @@ export function ContentImage({
             title={title}
             width={width}
             height={height}
+            style={imgStyle}
             loading="lazy"
             decoding="async"
         />
