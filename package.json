@@ -7,7 +7,8 @@
     "dev": "vite dev",
     "build": "vite build && node scripts/copy-hero-images.mjs && node scripts/patch-vercel-images.mjs",
     "preview": "vite preview",
-    "images": "node scripts/build-image-manifest.mjs"
+    "images": "node scripts/build-image-manifest.mjs",
+    "article": "node scripts/new-article.mjs"
   },
   "dependencies": {
     "@astryxdesign/core": "^0.1.4",

@@ -82,7 +82,9 @@ async function indexArticle(path: string, lastIndexed: Date) {
   }
 }
 
-const articles = findIndexMDXFiles(`${import.meta.dir}/../src/pages/blog`)
+// timber structure: articles live in pages/blog (was src/pages/blog on Gatsby).
+// The url derivation (path.split("/pages/")) yields the same /blog/slug/ form.
+const articles = findIndexMDXFiles(`${import.meta.dir}/../pages/blog`)
 
 const lastIndexed = await getLastIndexedDate()
 
