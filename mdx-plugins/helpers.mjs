@@ -81,6 +81,7 @@ const DEFAULT_COMPONENTS = {
   BlueskyEmbed: '../components/bluesky-embed.tsx',
   BlueskyEmbedScript: '../components/bluesky-embed-script.tsx',
   CodeSandboxEmbed: '../components/codesandbox-embed.tsx',
+  ContentImage: '../components/content-image.tsx',
   GiphyEmbed: '../components/giphy-embed.tsx',
   TweetEmbed: '../components/tweet-embed.tsx',
   TwitterWidgetsScript: '../components/twitter-widgets-script.tsx',

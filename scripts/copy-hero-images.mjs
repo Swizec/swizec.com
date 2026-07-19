@@ -1,9 +1,8 @@
-// Copies build assets the bundler doesn't handle on its own.
-//
-// OG cards render via takumi-js with its wasm inlined into the server chunk
-// (components/og-image.ts), so nothing needs copying for image generation.
-// The .png OG URLs are served directly by app/**/opengraph-image.png routes —
-// Slack requires the extension and won't follow redirects.
+// Deploys hero images into the static output. Heroes are frontmatter strings —
+// nothing imports them, so Vite never bundles them and the serverless function
+// has no access to them; this copy step is what makes /page-assets/<path> URLs
+// (used as og:image) exist on the deployment, served straight from the CDN
+// with no function in the loop.
 import { copyFileSync, mkdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';

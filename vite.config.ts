@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import { timber } from '@timber-js/app';
 import fs from 'node:fs';
 import path from 'node:path';
+import { IMAGE_WIDTHS } from './lib/image-sizes.mjs';
 
 const MIME: Record<string, string> = {
   '.png':  'image/png',
@@ -32,7 +33,7 @@ const MIME: Record<string, string> = {
 //                          and other files link through here)
 //   /page-assets/<path>  — hero images (frontmatter strings, resolved relative
 //                          to the MDX file). In prod these are copied to the
-//                          static output by scripts/copy-og-assets.mjs.
+//                          static output by scripts/copy-hero-images.mjs.
 const pagesColocatedAssets = {
   name: 'pages-colocated-assets',
   configureServer(server: { middlewares: { use: Function } }) {
@@ -60,8 +61,49 @@ const pagesColocatedAssets = {
   },
 };
 
+const IMAGE_MIME: Record<string, string> = {
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.avif': 'image/avif',
+};
+
+// Dev implementation of Vercel's Image Optimization endpoint, so ContentImage
+// srcsets work locally the same way they do deployed. Same contract:
+// /_vercel/image?url=<local path>&w=<width>&q=<quality>, w validated against
+// the shared size list. Resizes with sharp on each request — no cache, dev
+// only.
+const vercelImageDev = {
+  name: 'vercel-image-dev',
+  configureServer(server: { middlewares: { use: Function } }) {
+    server.middlewares.use(async (req: { url?: string }, res: { writeHead: Function; end: Function }, next: Function) => {
+      if (!req.url?.startsWith('/_vercel/image')) return next();
+      const params = new URL(req.url, 'http://localhost').searchParams;
+      const src = decodeURIComponent(params.get('url') ?? '').split(/[?#]/)[0];
+      const width = Number(params.get('w'));
+      if (!src.startsWith('/') || !IMAGE_WIDTHS.includes(width)) return next();
+
+      const filePath = path.join(process.cwd(), src);
+      if (!filePath.startsWith(process.cwd() + path.sep)) return next(); // traversal guard
+      const ext = path.extname(filePath).toLowerCase();
+      if (!IMAGE_MIME[ext]) return next();
+      let stat: fs.Stats;
+      try { stat = fs.statSync(filePath); } catch { return next(); }
+      if (!stat.isFile()) return next();
+
+      const { default: sharp } = await import('sharp');
+      const buf = await sharp(filePath)
+        .resize({ width, withoutEnlargement: true })
+        .toBuffer();
+      res.writeHead(200, { 'Content-Type': IMAGE_MIME[ext], 'Cache-Control': 'no-store' });
+      res.end(buf);
+    });
+  },
+};
+
 export default defineConfig({
-  plugins: [pagesColocatedAssets, timber()],
+  plugins: [pagesColocatedAssets, vercelImageDev, timber()],
   // Vite doesn't treat .wasm as a generic asset by default (it reserves the
   // `?init` handling), so takumi's wasm must be opted in for the ?inline
   // import in components/og-image.ts to work.

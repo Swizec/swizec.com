@@ -268,27 +268,42 @@ main time {
 
 article > :is(pre, figure, iframe, .swizec-embed, .buy-widget, .newsletter-signup, .book-promo),
 main > :is(pre, figure, iframe, .swizec-embed, .buy-widget, .newsletter-signup, .book-promo),
-article > p:has(> img),
-main > p:has(> img) {
+article > p:has(img),
+main > p:has(img) {
   max-width: min(calc(var(--measure) + 2 * var(--bleed)), 100%);
   width: 100%;
 }
 
-/* Images: never too wide or too tall — always signal there's more to read */
+/* Images: never too wide or too tall — always signal there's more to read.
+   The max height is a var so ContentImage can cap the element's width at the
+   height-scaled ratio: with explicit width/height attrs the browser would
+   otherwise keep the box wide and letterbox tall images inside it (leaving
+   the LQIP background visible at the sides). */
+:root {
+  --content-image-max-height: 62vh;
+}
+
 article img,
 main img {
   border: 1px solid var(--color-border);
   display: block;
   height: auto;
   margin: 0 auto;
-  max-height: 62vh;
+  max-height: var(--content-image-max-height);
   max-width: 100%;
   object-fit: contain;
 }
 
-article p > img,
-main p > img {
+/* Content images sit inside a link to their full-size original */
+article p > :is(img, a > img),
+main p > :is(img, a > img) {
   margin: 0.5rem auto;
+}
+
+article a:has(> img),
+main a:has(> img) {
+  display: block;
+  text-decoration: none;
 }
 
 /* Iframes (podcast players, sandboxes) */
