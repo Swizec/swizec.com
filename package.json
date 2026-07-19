@@ -35,6 +35,7 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
     "sharp": "^0.35.3",
+    "sitemap": "^9.0.1",
     "takumi-js": "^2.3.0",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0",
