@@ -34,22 +34,30 @@ const MIME: Record<string, string> = {
 //   /page-assets/<path>  — hero images (frontmatter strings, resolved relative
 //                          to the MDX file). In prod these are copied to the
 //                          static output by scripts/copy-hero-images.mjs.
+//   /wp-content/<path>   — legacy WordPress uploads from static/wp-content;
+//                          referenced ones are copied to the static output by
+//                          scripts/copy-wp-content.mjs.
 const pagesColocatedAssets = {
   name: 'pages-colocated-assets',
   configureServer(server: { middlewares: { use: Function } }) {
     const pagesDir = path.join(process.cwd(), 'pages');
+    const staticDir = path.join(process.cwd(), 'static');
     server.middlewares.use((req: { url?: string }, res: { writeHead: Function; end: Function }, next: Function) => {
-      const url = req.url?.split('?')[0] ?? '';
+      const url = decodeURIComponent(req.url?.split('?')[0] ?? '');
+      let baseDir = pagesDir;
       let rel: string;
       if (url.startsWith('/page-assets/')) {
         rel = url.slice('/page-assets/'.length);
+      } else if (url.startsWith('/wp-content/')) {
+        baseDir = staticDir;
+        rel = url; // static/wp-content mirrors the public path
       } else if (/^\/pages\/.+\.[^./]+$/.test(url) && !/\.mdx?$/.test(url)) {
         rel = url.slice('/pages/'.length);
       } else {
         return next();
       }
-      const filePath = path.join(pagesDir, rel);
-      if (filePath !== pagesDir && !filePath.startsWith(pagesDir + path.sep)) return next(); // traversal guard
+      const filePath = path.join(baseDir, rel);
+      if (filePath !== baseDir && !filePath.startsWith(baseDir + path.sep)) return next(); // traversal guard
       let stat: fs.Stats;
       try { stat = fs.statSync(filePath); } catch { return next(); }
       if (!stat.isFile()) return next();
@@ -84,7 +92,11 @@ const vercelImageDev = {
       const width = Number(params.get('w'));
       if (!src.startsWith('/') || !IMAGE_WIDTHS.includes(width)) return next();
 
-      const filePath = path.join(process.cwd(), src);
+      // /wp-content/ lives under static/; everything else resolves from the
+      // repo root (pages/, app/assets, …)
+      const filePath = src.startsWith('/wp-content/')
+        ? path.join(process.cwd(), 'static', src)
+        : path.join(process.cwd(), src);
       if (!filePath.startsWith(process.cwd() + path.sep)) return next(); // traversal guard
       const ext = path.extname(filePath).toLowerCase();
       if (!IMAGE_MIME[ext]) return next();
