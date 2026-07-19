@@ -1,6 +1,7 @@
 import { getHeaders } from '@timber-js/app/server';
 import type { Metadata } from '@timber-js/app/server';
 import type { Page } from 'content-collections';
+import { heroUrl } from '../lib/hero-asset.mjs';
 
 const siteUrl = 'https://swizec.com';
 
@@ -46,10 +47,16 @@ function absoluteUrl(path: string, routePath = '/'): string {
 export function metadataFromFrontmatter(page: Page, routePath: string): Metadata {
   const { title, description, publishedAt, published } = page;
   const pageUrl = absoluteUrl(routePath);
-  // Every page gets a generated Y2K card (title + description + photo).
-  // Request-origin host so previews self-serve. The .png suffix is required
-  // by Slack's unfurler and served directly by a real route — no redirect.
-  const ogImage = `${requestOrigin()}${routePath.endsWith('/') ? routePath.slice(0, -1) : routePath}/opengraph-image.png`;
+  // A page with a curated `hero` uses that image; everything else falls back to
+  // the generated Y2K card (title + description + stage photo). Request-origin
+  // host so previews self-serve. The .png suffix is required by Slack's
+  // unfurler and served directly by a real route — no redirect.
+  const heroLink = heroUrl(page._meta.directory, page.hero);
+  const ogImage = heroLink
+    ? /^https?:\/\//.test(heroLink)
+      ? heroLink
+      : `${requestOrigin()}${heroLink}`
+    : `${requestOrigin()}${routePath.endsWith('/') ? routePath.slice(0, -1) : routePath}/opengraph-image.png`;
   const publishedTime = dateValue(publishedAt ?? published);
 
   return {
