@@ -26,7 +26,12 @@ const PERSON = {
     '@type': 'Person',
     name: 'Swizec Teller',
     url: `${SITE_URL}/about`,
-    sameAs: ['https://twitter.com/swizec', 'https://github.com/swizec'],
+    sameAs: [
+        'https://twitter.com/swizec',
+        'https://github.com/swizec',
+        'https://www.youtube.com/@SwizecTeller',
+        'https://bsky.app/profile/swizec.com',
+    ],
 } satisfies Person;
 
 const AUTHOR_BLURB =
