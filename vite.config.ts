@@ -33,7 +33,7 @@ const MIME: Record<string, string> = {
 //                          and other files link through here)
 //   /page-assets/<path>  — hero images (frontmatter strings, resolved relative
 //                          to the MDX file). In prod these are copied to the
-//                          static output by scripts/copy-og-assets.mjs.
+//                          static output by scripts/copy-hero-images.mjs.
 const pagesColocatedAssets = {
   name: 'pages-colocated-assets',
   configureServer(server: { middlewares: { use: Function } }) {
