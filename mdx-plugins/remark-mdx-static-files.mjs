@@ -6,49 +6,64 @@
 // Each image also gets its intrinsic width/height (the browser reserves the
 // aspect-ratio box before loading — no layout shift) and, for opaque rasters,
 // a ~20px LQIP inlined as a data URI that ContentImage stretches under the
-// real image while it loads.
+// real image while it loads. Both come from the committed manifest
+// (lib/image-manifest.json, regenerated with `pnpm images`) — a sync lookup,
+// so the Vite build does no image decoding. Running 3k+ sharp decodes inside
+// the build OOM'd Vercel's builder; images missing from the manifest fall
+// back to on-the-fly sharp with a warning, so a forgotten regen degrades to a
+// slightly slower build, not broken pages.
 //
 // Must run AFTER remark-swizec-embeds so giphy:/youtube/etc. are already gone.
+import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
-import sharp from 'sharp';
 import { injectComponentImports } from './helpers.mjs';
 
-// Formats that get an LQIP; gif/svg/etc. still get dimensions when readable.
+const manifest = createRequire(import.meta.url)('../lib/image-manifest.json');
+const repoRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+
 const LQIP_EXTS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.avif']);
 
-// One entry per source file per process — MDX compiles each file once per
-// build, and dev recompiles share the cache across pages.
-const metaCache = new Map();
+// Fallback results for images not in the manifest, one entry per process.
+const fallbackCache = new Map();
 
 function imageMeta(absPath, ext) {
-  const cached = metaCache.get(absPath);
+  // SVGs are never in the manifest: no LQIP (vector), and they pass through
+  // ContentImage untouched.
+  if (ext === '.svg') return null;
+  // NFC-normalize: macOS stores some filenames NFD, markdown URLs arrive NFC —
+  // APFS opens either, but a JSON key lookup is normalization-sensitive.
+  const key = path.relative(repoRoot, absPath).split(path.sep).join('/').normalize('NFC');
+  const entry = manifest[key];
+  if (entry) {
+    return { width: entry.w, height: entry.h, placeholder: entry.lqip };
+  }
+
+  const cached = fallbackCache.get(absPath);
   if (cached) return cached;
 
+  console.warn(`[images] ${key} missing from lib/image-manifest.json — run \`pnpm images\``);
   const promise = (async () => {
     try {
+      const { default: sharp } = await import('sharp');
       const image = sharp(absPath);
       const meta = await image.metadata();
       if (!meta.width || !meta.height) return null;
-      // EXIF-rotated photos report pre-rotation dimensions — swap so the
-      // reserved box matches what actually renders.
       const rotated = (meta.orientation ?? 1) >= 5;
       const result = {
         width: rotated ? meta.height : meta.width,
         height: rotated ? meta.width : meta.height,
       };
-      // Transparent images skip the LQIP: it would shine through the alpha
-      // regions after the real image loads.
       if (LQIP_EXTS.has(ext) && !meta.hasAlpha) {
         const buf = await image.rotate().resize(20).webp({ quality: 20 }).toBuffer();
         result.placeholder = `data:image/webp;base64,${buf.toString('base64')}`;
       }
       return result;
     } catch {
-      return null; // corrupt/unreadable — render without dimensions, as before
+      return null; // corrupt/unreadable — render without dimensions
     }
   })();
-
-  metaCache.set(absPath, promise);
+  fallbackCache.set(absPath, promise);
   return promise;
 }
 
@@ -174,10 +189,23 @@ export function remarkMdxStaticFiles(options) {
           children: [],
         };
         if (file.path) {
-          const clean = decodeURIComponent(node.url.split(/[?#]/)[0]);
-          const absPath = path.resolve(path.dirname(file.path), clean);
+          // Prefer the URL as written — some scraped files literally contain
+          // %3F/%20 in their on-disk names (Vite resolves them raw too);
+          // decode only when the raw path doesn't exist.
+          const dir = path.dirname(file.path);
+          const rawPath = path.resolve(dir, node.url.split('#')[0]);
+          let absPath = rawPath;
+          if (!existsSync(rawPath)) {
+            try {
+              const decoded = path.resolve(dir, decodeURIComponent(node.url.split(/[?#]/)[0]));
+              if (existsSync(decoded)) absPath = decoded;
+            } catch {
+              /* malformed escapes — keep the raw path */
+            }
+          }
+          // manifest hits return plain objects; only fallbacks are promises
           metaJobs.push(
-            imageMeta(absPath, getExt(node.url)).then((meta) => {
+            Promise.resolve(imageMeta(absPath, getExt(node.url))).then((meta) => {
               if (!meta) return;
               element.attributes.push(
                 attr('width', String(meta.width)),
