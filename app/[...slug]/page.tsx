@@ -20,6 +20,7 @@ import { BookSidebar } from "../../components/book-sidebar"
 import { ArticleArchive } from "../../components/article-archive"
 import { ArchiveSidebar } from "../../components/archive-sidebar"
 import { SmartLink } from "../../components/link"
+import { SparkJoy } from "../../components/sparkjoy"
 import { parseArchiveFrontmatter } from "../../lib/article-archive"
 
 // Vite glob: all MDX in pages/, compiled as ES modules via @mdx-js/rollup (RSC-compatible)
@@ -143,6 +144,7 @@ export default async function Page() {
             ))}
           </p>
         )}
+        {isBlogPost && <SparkJoy articleUrl={articleUrl} title={page.title} />}
         {isBlogPost && (
           <NewsletterSignup formKey={page.content_upgrade ?? undefined} />
         )}
