@@ -46,8 +46,9 @@ export function SiteFooter() {
                             <SmartLink href="/testimonials">Testimonials</SmartLink>
                             <SmartLink href="/letters">Newsletter</SmartLink>
                             <SmartLink href="https://twitter.com/swizec">Twitter</SmartLink>
+                            <SmartLink href="https://bsky.app/profile/swizec.com">Bluesky</SmartLink>
                             <SmartLink href="https://github.com/swizec">GitHub</SmartLink>
-                            <SmartLink href="https://youtube.com/swizecteller">YouTube</SmartLink>
+                            <SmartLink href="https://www.youtube.com/@SwizecTeller">YouTube</SmartLink>
                             <SmartLink href="/privacy">Privacy policy</SmartLink>
                         </nav>
                     </div>

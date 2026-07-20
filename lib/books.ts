@@ -5,6 +5,9 @@ export interface Book {
     href: string;
     /** import path handled by components; key ties content_upgrade values to a book */
     cover: 'scaling-fast' | 'senior-mindset' | 'serverless-handbook';
+    /** Plausible event fired when a banner linking to this book is clicked.
+     * Names match the goals the Gatsby site reported for years. */
+    bannerEvent: string;
 }
 
 export const BOOKS: Record<string, Book> = {
@@ -14,6 +17,7 @@ export const BOOKS: Record<string, Book> = {
         tagline: "The engineer's playbook for hypergrowth startups",
         href: 'https://scalingfastbook.com',
         cover: 'scaling-fast',
+        bannerEvent: 'Scaling Fast Banner Clicked',
     },
     'senior-mindset': {
         slug: 'senior-mindset',
@@ -21,6 +25,7 @@ export const BOOKS: Record<string, Book> = {
         tagline: 'Get promoted, earn a bigger salary, work for top companies',
         href: '/senior-mindset',
         cover: 'senior-mindset',
+        bannerEvent: 'Senior Mindset Banner Clicked',
     },
     'serverless-handbook': {
         slug: 'serverless-handbook',
@@ -28,6 +33,7 @@ export const BOOKS: Record<string, Book> = {
         tagline: 'Modern backend for frontend engineers',
         href: 'https://serverlesshandbook.dev',
         cover: 'serverless-handbook',
+        bannerEvent: 'Serverless Handbook Banner Clicked',
     },
 };
 

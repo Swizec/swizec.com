@@ -24,7 +24,7 @@ const siteName = 'Swizec Teller';
 const twitterHandle = '@swizec';
 const authorName = 'Swizec Teller';
 
-function dateValue(value: string | undefined): string | undefined {
+export function dateValue(value: string | undefined): string | undefined {
   if (!value) return undefined;
   const normalized = value.match(/[zZ]|[+-]\d{2}:?\d{2}$|\d{4}-\d{2}-\d{2}$/)
     ? value

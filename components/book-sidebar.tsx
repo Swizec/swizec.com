@@ -15,7 +15,7 @@ function currentPageUpgrade(): string | undefined {
 
 function SidebarBook({ book }: { book: Book }) {
     return (
-        <SmartLink className="book-sidebar-book" href={book.href}>
+        <SmartLink className="book-sidebar-book" href={book.href} plausibleEvent={book.bannerEvent}>
             {/* Cover sources are multi-MB originals; serve small optimized
                 variants — renders ≤220px tall, so 320w/640w cover 1x/2x */}
             <img

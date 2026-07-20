@@ -2,8 +2,16 @@ import { allPages } from "content-collections"
 import { deny, getSegmentParams } from "@timber-js/app/server"
 import type { Metadata } from "@timber-js/app/server"
 import type React from "react"
-import { metadataFromFrontmatter } from "../mdx-metadata"
+import { metadataFromFrontmatter, dateValue } from "../mdx-metadata"
 import { parseCategories } from "../../lib/categories"
+import { heroUrl } from "../../lib/hero-asset.mjs"
+import {
+  SITE_URL,
+  blogPostingJsonLd,
+  breadcrumbsJsonLd,
+  profilePageJsonLd,
+} from "../../lib/structured-data"
+import { JsonLd } from "react-schemaorg"
 import { NewsletterSignup } from "../../components/newsletter-signup"
 import { RelatedArticles } from "../../components/related-articles"
 import { Byline } from "../../components/byline"
@@ -81,8 +89,42 @@ export default async function Page() {
     : undefined
   const basePath = `/${path}`
 
+  // JSON-LD uses canonical production URLs — Google only indexes swizec.com,
+  // so unlike og:image there's no request-origin dance for previews.
+  const pageUrl = `${SITE_URL}/${path}`
+  const heroLink = heroUrl(page._meta.directory, page.hero)
+  const jsonLdImage = heroLink
+    ? /^https?:\/\//.test(heroLink)
+      ? heroLink
+      : `${SITE_URL}${heroLink}`
+    : `${pageUrl}/opengraph-image.png`
+
   return (
     <>
+      {isBlogPost && (
+        <JsonLd
+          item={blogPostingJsonLd({
+            title: page.title,
+            description: page.description,
+            url: pageUrl,
+            image: jsonLdImage,
+            datePublished: dateValue(page.publishedAt ?? page.published),
+          })}
+        />
+      )}
+      {isBlogPost && categories.length > 0 && (
+        <JsonLd
+          item={breadcrumbsJsonLd([
+            { name: "Home", url: SITE_URL },
+            {
+              name: categories[0].name,
+              url: `${SITE_URL}/categories/${categories[0].slug}`,
+            },
+            { name: page.title },
+          ])}
+        />
+      )}
+      {path === "about" && <JsonLd item={profilePageJsonLd()} />}
       <article>
         <h1>{page.title}</h1>
         {page.subtitle && <p className="article-subtitle">{page.subtitle}</p>}
