@@ -18,7 +18,8 @@ import { write } from "bun"
 import * as datefns from "date-fns"
 
 const streamPipeline = util.promisify(stream.pipeline)
-const articlesPath = path.join(__dirname, "../src/pages/blog")
+// timber structure: articles live in pages/blog (was src/pages/blog on Gatsby)
+const articlesPath = path.join(__dirname, "../pages/blog")
 const ACCEPTED_FILES = ["jpg", "jpeg", "png", "gif", "svg"]
 
 glob(path.join(articlesPath, "/*/*.mdx"), {}, async (err, files) => {
