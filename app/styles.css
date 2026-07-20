@@ -1218,6 +1218,10 @@ a.button:hover {
 .sparkjoy-form textarea {
   background: var(--color-background-surface);
   border: 1px solid var(--color-border);
+  /* Explicit theme ink: the textarea sits inside a <label> that gets
+     --color-on-light (dark) for the pastel card, but the textarea's own
+     surface flips dark in dark mode — inherited label ink would vanish. */
+  color: var(--color-text-primary);
   font-family: var(--font-family-body);
   /* 16px+ prevents iOS zoom-on-focus */
   font-size: 1rem;
