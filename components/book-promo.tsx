@@ -5,7 +5,7 @@ import { SmartLink } from './link';
 
 function PromoCard({ book }: { book: Book }) {
     return (
-        <SmartLink className="book-promo-card" href={book.href}>
+        <SmartLink className="book-promo-card" href={book.href} plausibleEvent={book.bannerEvent}>
             {/* Cover sources are multi-MB originals; renders ≤130px tall */}
             <img
                 src={optimizedUrl(BOOK_COVERS[book.cover], 320)}

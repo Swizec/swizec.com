@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import { timber } from '@timber-js/app';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -116,7 +116,16 @@ const vercelImageDev = {
   },
 };
 
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+  // Server code (actions, RSC) reads secrets from process.env —
+  // SPARKJOY_GRAPHQL_ENDPOINT, CONVERTKIT_APIKEY_V4, TYPEFORM_TOKEN, … Vercel
+  // injects them in production, but locally they live in .env/.env.development
+  // and Vite only exposes VITE_-prefixed vars. Load them all into the dev
+  // process; the empty prefix stays server-side (import.meta.env keeps its
+  // prefix filter, so nothing leaks to the client bundle).
+  Object.assign(process.env, loadEnv(mode, process.cwd(), ''));
+
+  return {
   plugins: [pagesColocatedAssets, vercelImageDev, timber()],
   // public/ is gitignored Gatsby build output that still exists on dev
   // machines. Without this, local builds copy those stale files into
@@ -134,4 +143,5 @@ export default defineConfig({
       '@': new URL('.', import.meta.url).pathname,
     },
   },
+  };
 });
