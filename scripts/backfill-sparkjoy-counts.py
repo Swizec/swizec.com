@@ -3,46 +3,48 @@
 Merges votes from the blog widget (on-site 👍👎, instanceOfJoy =
 /blog/<slug>/) and the newsletter widget (email 👍👎, instanceOfJoy =
 bare slug, often scrambled with a buggy rot13 — see scramble()), with a
-bot filter for email-scanner clicks (see the newsletter section).
-Recomputes the counter widgets the timber site reads (Key: userId +
-widgetId = article URL, see lib/sparkjoy.ts) from scratch, so re-runs
-are idempotent. Run again if counters ever drift — new newsletter votes
-only land in the votes table, they don't bump these counters.
+bot filter for email-scanner clicks; votes with written followup
+answers always count (see the newsletter section). Recomputes the
+counter widgets the timber site reads (Key: userId + widgetId = article
+URL, see lib/sparkjoy.ts) from scratch, so re-runs are idempotent. Run
+again if counters ever drift — new newsletter votes only land in the
+votes table, they don't bump these counters.
 
 Full procedure (both tables run at 1 RCU/WCU — bump capacity first or
 everything throttles for an hour; remember to bump back down):
 
-  aws dynamodb update-table --table-name spark-joy-votes-prod --region us-east-1 \
+  aws dynamodb update-table --table-name spark-joy-votes-prod --region us-east-1 \\
     --provisioned-throughput ReadCapacityUnits=50,WriteCapacityUnits=1
-  aws dynamodb update-table --table-name spark-joy-widgets2-prod --region us-east-1 \
+  aws dynamodb update-table --table-name spark-joy-widgets2-prod --region us-east-1 \\
     --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=25
   # wait for both tables to be ACTIVE, then pull votes for both widgets:
   #   blog widget:       aab01040-bb89-40d9-8a2e-92ede0f8d82b  -> blog-votes.json
   #                      projection "instanceOfJoy, voteType"
   #   newsletter widget: 1b23e2b6-1c2a-49a2-b3ee-69bb26c125e9  -> newsletter-votes.json
-  #                      projection "instanceOfJoy, voteType, #c" with
+  #                      projection "instanceOfJoy, voteType, #c, answers" with
   #                      --expression-attribute-names '{"#c":"createdAt"}'
-  #                      (timestamps drive the bot filter)
-  AWS_RETRY_MODE=adaptive AWS_MAX_ATTEMPTS=20 aws dynamodb query \
-    --table-name spark-joy-votes-prod --region us-east-1 \
-    --key-condition-expression "widgetId = :w" \
-    --expression-attribute-values '{":w":{"S":"<widgetId>"}}' \
-    --projection-expression <see above> --page-size 400 \
+  #                      (timestamps drive the bot filter, answers the exemption)
+  AWS_RETRY_MODE=adaptive AWS_MAX_ATTEMPTS=20 aws dynamodb query \\
+    --table-name spark-joy-votes-prod --region us-east-1 \\
+    --key-condition-expression "widgetId = :w" \\
+    --expression-attribute-values '{":w":{"S":"<widgetId>"}}' \\
+    --projection-expression <see above> --page-size 400 \\
     --output json > <file>.json
   python3 backfill-sparkjoy-counts.py   # aggregates, prints stats, writes batch files
   # write the batches, paced to ~1/s (25 items x ~1 WCU each per batch):
   for f in backfill-batches/batch-*.json; do
-    aws dynamodb batch-write-item --region us-east-1 --request-items file://$f \
+    aws dynamodb batch-write-item --region us-east-1 --request-items file://$f \\
       --query "length(UnprocessedItems)" --output text
     sleep 1.1
   done   # any non-zero output = unprocessed items, re-run that batch
   # restore both tables to ReadCapacityUnits=1,WriteCapacityUnits=1
 
-Last run July 19 2026: 54,232 on-site + 16,101 newsletter votes
-attributed across 2,236 URLs. Newsletter bot filter dropped 28,150
-burst-window votes (email scanners hammering links within seconds of a
-send) and 8,714 same-second up+down scanner pairs; ~18k newsletter-only
-edition votes correctly left unattributed."""
+Last run July 19 2026: 54,232 on-site + 16,103 newsletter votes
+attributed across 2,236 URLs. Bot filter dropped 28,150 burst-window
+votes and 8,712 scanner pairs; 2,813 votes kept via written answers
+(none fell in burst windows — commenters read before clicking); ~18k
+newsletter-only edition votes correctly left unattributed.
+"""
 import json
 import math
 import os
@@ -165,13 +167,30 @@ for item in load("blog-votes.json"):
 #     delivery blast — drop everything inside
 #  2. scanner pairs: a same-(slug, second) group with both vote types is
 #     one scanner clicking both links — cancel one up+down pair per group
+# Exception: a vote with written followup answers is provably human (bots
+# never submit the form) and always counts — also covers the person who
+# clicks the wrong thumb first, then re-votes and comments: the mis-click
+# cancels as a pair, the commented vote survives.
+
+
+def has_comments(item):
+    answers = item.get("answers", {}).get("S")
+    if not answers:
+        return False  # absent or the empty map widgetVote writes by default
+    try:
+        parsed = json.loads(answers)
+    except ValueError:
+        return True  # unparseable but user-submitted — keep it
+    return any(isinstance(v, str) and v.strip() for v in (parsed or {}).values())
+
+
 newsletter_votes = []
 for item in load("newsletter-votes.json"):
     vote_type = item.get("voteType", {}).get("S")
     raw_slug = (item.get("instanceOfJoy", {}).get("S") or "").strip()
     created = item.get("createdAt", {}).get("S") or ""
     if vote_type in ("thumbsup", "thumbsdown"):
-        newsletter_votes.append((raw_slug, vote_type, created))
+        newsletter_votes.append((raw_slug, vote_type, created, has_comments(item)))
     else:
         stats["newsletter: no vote type"] += 1
 
@@ -181,7 +200,7 @@ BURST_MIN = 5
 BURST_PAD = 3
 epoch = lambda ts: int(datetime.fromisoformat(ts.replace("Z", "+00:00")).timestamp()) if ts else None
 by_slug_seconds = defaultdict(lambda: defaultdict(int))
-for raw_slug, vote_type, created in newsletter_votes:
+for raw_slug, vote_type, created, _commented in newsletter_votes:
     sec = epoch(created)
     if sec is not None:
         by_slug_seconds[raw_slug][sec] += 1
@@ -193,9 +212,18 @@ for raw_slug, seconds in by_slug_seconds.items():
             hot.update(range(sec - BURST_PAD, sec + BURST_PAD + 1))
     burst_seconds[raw_slug] = hot
 
-survivors = defaultdict(lambda: {"thumbsup": 0, "thumbsdown": 0})  # (slug, second) -> type counts
-for raw_slug, vote_type, created in newsletter_votes:
+# (slug, second) -> per-type counts, commented votes tracked separately so
+# pair cancellation never eats them
+survivors = defaultdict(lambda: {"thumbsup": 0, "thumbsdown": 0})
+for index, (raw_slug, vote_type, created, commented) in enumerate(newsletter_votes):
     sec = epoch(created)
+    if commented:
+        stats["newsletter: kept via comments"] += 1
+        if sec is not None and sec in burst_seconds.get(raw_slug, ()):
+            stats["newsletter: kept via comments (was in burst)"] += 1
+        # unique key per commented vote — never grouped, never pair-cancelled
+        survivors[(raw_slug, f"commented-{index}")][vote_type] += 1
+        continue
     if sec is None:
         stats["newsletter: no timestamp (kept)"] += 1
         survivors[(raw_slug, -1)][vote_type] += 1
@@ -205,7 +233,7 @@ for raw_slug, vote_type, created in newsletter_votes:
         continue
     survivors[(raw_slug, sec)][vote_type] += 1
 
-# stage 2: cancel scanner pairs, then attribute what's left
+# stage 2: cancel scanner pairs among uncommented votes, then attribute
 for (raw_slug, _sec), group in survivors.items():
     pairs = min(group["thumbsup"], group["thumbsdown"])
     if pairs:
