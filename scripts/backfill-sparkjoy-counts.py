@@ -2,7 +2,8 @@
 
 Merges votes from the blog widget (on-site 👍👎, instanceOfJoy =
 /blog/<slug>/) and the newsletter widget (email 👍👎, instanceOfJoy =
-bare slug, often scrambled with a buggy rot13 — see scramble()).
+bare slug, often scrambled with a buggy rot13 — see scramble()), with a
+bot filter for email-scanner clicks (see the newsletter section).
 Recomputes the counter widgets the timber site reads (Key: userId +
 widgetId = article URL, see lib/sparkjoy.ts) from scratch, so re-runs
 are idempotent. Run again if counters ever drift — new newsletter votes
@@ -11,32 +12,37 @@ only land in the votes table, they don't bump these counters.
 Full procedure (both tables run at 1 RCU/WCU — bump capacity first or
 everything throttles for an hour; remember to bump back down):
 
-  aws dynamodb update-table --table-name spark-joy-votes-prod --region us-east-1 \\
+  aws dynamodb update-table --table-name spark-joy-votes-prod --region us-east-1 \
     --provisioned-throughput ReadCapacityUnits=50,WriteCapacityUnits=1
-  aws dynamodb update-table --table-name spark-joy-widgets2-prod --region us-east-1 \\
+  aws dynamodb update-table --table-name spark-joy-widgets2-prod --region us-east-1 \
     --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=25
   # wait for both tables to be ACTIVE, then pull votes for both widgets:
   #   blog widget:       aab01040-bb89-40d9-8a2e-92ede0f8d82b  -> blog-votes.json
+  #                      projection "instanceOfJoy, voteType"
   #   newsletter widget: 1b23e2b6-1c2a-49a2-b3ee-69bb26c125e9  -> newsletter-votes.json
-  AWS_RETRY_MODE=adaptive AWS_MAX_ATTEMPTS=20 aws dynamodb query \\
-    --table-name spark-joy-votes-prod --region us-east-1 \\
-    --key-condition-expression "widgetId = :w" \\
-    --expression-attribute-values '{":w":{"S":"<widgetId>"}}' \\
-    --projection-expression "instanceOfJoy, voteType" --page-size 400 \\
+  #                      projection "instanceOfJoy, voteType, #c" with
+  #                      --expression-attribute-names '{"#c":"createdAt"}'
+  #                      (timestamps drive the bot filter)
+  AWS_RETRY_MODE=adaptive AWS_MAX_ATTEMPTS=20 aws dynamodb query \
+    --table-name spark-joy-votes-prod --region us-east-1 \
+    --key-condition-expression "widgetId = :w" \
+    --expression-attribute-values '{":w":{"S":"<widgetId>"}}' \
+    --projection-expression <see above> --page-size 400 \
     --output json > <file>.json
   python3 backfill-sparkjoy-counts.py   # aggregates, prints stats, writes batch files
   # write the batches, paced to ~1/s (25 items x ~1 WCU each per batch):
   for f in backfill-batches/batch-*.json; do
-    aws dynamodb batch-write-item --region us-east-1 --request-items file://$f \\
+    aws dynamodb batch-write-item --region us-east-1 --request-items file://$f \
       --query "length(UnprocessedItems)" --output text
     sleep 1.1
   done   # any non-zero output = unprocessed items, re-run that batch
   # restore both tables to ReadCapacityUnits=1,WriteCapacityUnits=1
 
-Last run July 19 2026: 54,232 on-site + 45,005 newsletter votes
-attributed across 2,236 URLs (22,043 recovered via descramble/fuzzy;
-~26k newsletter-only edition votes correctly left unattributed).
-"""
+Last run July 19 2026: 54,232 on-site + 16,101 newsletter votes
+attributed across 2,236 URLs. Newsletter bot filter dropped 28,150
+burst-window votes (email scanners hammering links within seconds of a
+send) and 8,714 same-second up+down scanner pairs; ~18k newsletter-only
+edition votes correctly left unattributed."""
 import json
 import math
 import os
@@ -151,26 +157,79 @@ for item in load("blog-votes.json"):
     counts[url][vote_type] += 1
     stats["blog: attributed"] += 1
 
-# Newsletter votes: instanceOfJoy is a bare slug, possibly scrambled
+# Newsletter votes: instanceOfJoy is a bare slug, possibly scrambled.
+# Email scanners (Outlook SafeLinks etc.) click every link at delivery,
+# producing dozens-to-hundreds of votes per slug within seconds of a send —
+# and they click BOTH thumbs. Two-stage bot filter before attribution:
+#  1. burst windows: seconds with >=5 same-slug votes, padded ±3s, are a
+#     delivery blast — drop everything inside
+#  2. scanner pairs: a same-(slug, second) group with both vote types is
+#     one scanner clicking both links — cancel one up+down pair per group
+newsletter_votes = []
 for item in load("newsletter-votes.json"):
     vote_type = item.get("voteType", {}).get("S")
-    slug = (item.get("instanceOfJoy", {}).get("S") or "").strip().strip("/")
-    slug = slug.split("?")[0].split("#")[0]
-    slug = re.sub(r"^https?://(www\.)?swizec\.com/blog/", "", slug).strip("/")
-    if not slug:
-        stats["newsletter: no slug"] += 1
-        continue
-    if vote_type not in ("thumbsup", "thumbsdown"):
+    raw_slug = (item.get("instanceOfJoy", {}).get("S") or "").strip()
+    created = item.get("createdAt", {}).get("S") or ""
+    if vote_type in ("thumbsup", "thumbsdown"):
+        newsletter_votes.append((raw_slug, vote_type, created))
+    else:
         stats["newsletter: no vote type"] += 1
+
+# stage 1: burst windows per raw slug (bursts happen per email send, before
+# any slug decoding)
+BURST_MIN = 5
+BURST_PAD = 3
+epoch = lambda ts: int(datetime.fromisoformat(ts.replace("Z", "+00:00")).timestamp()) if ts else None
+by_slug_seconds = defaultdict(lambda: defaultdict(int))
+for raw_slug, vote_type, created in newsletter_votes:
+    sec = epoch(created)
+    if sec is not None:
+        by_slug_seconds[raw_slug][sec] += 1
+burst_seconds = {}
+for raw_slug, seconds in by_slug_seconds.items():
+    hot = set()
+    for sec, n in seconds.items():
+        if n >= BURST_MIN:
+            hot.update(range(sec - BURST_PAD, sec + BURST_PAD + 1))
+    burst_seconds[raw_slug] = hot
+
+survivors = defaultdict(lambda: {"thumbsup": 0, "thumbsdown": 0})  # (slug, second) -> type counts
+for raw_slug, vote_type, created in newsletter_votes:
+    sec = epoch(created)
+    if sec is None:
+        stats["newsletter: no timestamp (kept)"] += 1
+        survivors[(raw_slug, -1)][vote_type] += 1
         continue
-    matched = match_slug(slug)
-    if not matched:
-        stats["newsletter: unmatched"] += 1
+    if sec in burst_seconds[raw_slug]:
+        stats["newsletter: dropped in burst window"] += 1
         continue
-    if matched != slug:
-        stats["newsletter: recovered (descramble/fuzzy)"] += 1
-    counts[f"/blog/{matched}/"][vote_type] += 1
-    stats["newsletter: attributed"] += 1
+    survivors[(raw_slug, sec)][vote_type] += 1
+
+# stage 2: cancel scanner pairs, then attribute what's left
+for (raw_slug, _sec), group in survivors.items():
+    pairs = min(group["thumbsup"], group["thumbsdown"])
+    if pairs:
+        stats["newsletter: dropped as scanner pairs"] += 2 * pairs
+        group["thumbsup"] -= pairs
+        group["thumbsdown"] -= pairs
+
+    for vote_type in ("thumbsup", "thumbsdown"):
+        n = group[vote_type]
+        if not n:
+            continue
+        slug = raw_slug.strip("/").split("?")[0].split("#")[0]
+        slug = re.sub(r"^https?://(www\.)?swizec\.com/blog/", "", slug).strip("/")
+        if not slug:
+            stats["newsletter: no slug"] += n
+            continue
+        matched = match_slug(slug)
+        if not matched:
+            stats["newsletter: unmatched"] += n
+            continue
+        if matched != slug:
+            stats["newsletter: recovered (descramble/fuzzy)"] += n
+        counts[f"/blog/{matched}/"][vote_type] += n
+        stats["newsletter: attributed"] += n
 
 for key in sorted(stats):
     print(f"{key}: {stats[key]}")
