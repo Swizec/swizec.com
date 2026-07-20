@@ -37,6 +37,8 @@ const MIME: Record<string, string> = {
 //   /wp-content/<path>   — legacy WordPress uploads from static/wp-content;
 //                          referenced ones are copied to the static output by
 //                          scripts/copy-wp-content.mjs.
+//   /pdfs/<path>         — talk slides etc. from static/pdfs, copied to the
+//                          static output by the same script.
 const pagesColocatedAssets = {
   name: 'pages-colocated-assets',
   configureServer(server: { middlewares: { use: Function } }) {
@@ -48,9 +50,9 @@ const pagesColocatedAssets = {
       let rel: string;
       if (url.startsWith('/page-assets/')) {
         rel = url.slice('/page-assets/'.length);
-      } else if (url.startsWith('/wp-content/')) {
+      } else if (url.startsWith('/wp-content/') || url.startsWith('/pdfs/')) {
         baseDir = staticDir;
-        rel = url; // static/wp-content mirrors the public path
+        rel = url; // static/wp-content and static/pdfs mirror the public paths
       } else if (/^\/pages\/.+\.[^./]+$/.test(url) && !/\.mdx?$/.test(url)) {
         rel = url.slice('/pages/'.length);
       } else {
@@ -125,6 +127,11 @@ export default defineConfig(({ mode }) => {
 
   return {
   plugins: [pagesColocatedAssets, vercelImageDev, timber()],
+  // public/ is gitignored Gatsby build output that still exists on dev
+  // machines. Without this, local builds copy those stale files into
+  // .vercel/output (and dev serves them, shadowing routes) while Vercel CI —
+  // where public/ is empty — does neither. False makes both match CI.
+  publicDir: false,
   // Vite doesn't treat .wasm as a generic asset by default (it reserves the
   // `?init` handling), so takumi's wasm must be opted in for the ?inline
   // import in components/og-image.ts to work.
