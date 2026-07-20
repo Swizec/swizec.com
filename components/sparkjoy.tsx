@@ -22,10 +22,11 @@ async function VoteCount({ articleUrl, type }: { articleUrl: string; type: VoteT
     }
 }
 
-export function SparkJoy({ articleUrl }: { articleUrl: string }) {
+export function SparkJoy({ articleUrl, title }: { articleUrl: string; title: string }) {
     return (
         <SparkJoyWidget
             articleUrl={articleUrl}
+            title={title}
             upCount={
                 <Suspense fallback={null}>
                     <VoteCount articleUrl={articleUrl} type="thumbsup" />

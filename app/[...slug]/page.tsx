@@ -102,7 +102,7 @@ export default async function Page() {
             ))}
           </p>
         )}
-        {isBlogPost && <SparkJoy articleUrl={articleUrl} />}
+        {isBlogPost && <SparkJoy articleUrl={articleUrl} title={page.title} />}
         {isBlogPost && (
           <NewsletterSignup formKey={page.content_upgrade ?? undefined} />
         )}

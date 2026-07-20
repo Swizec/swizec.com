@@ -10,10 +10,12 @@ type VoteType = 'thumbsup' | 'thumbsdown';
 // thanks. Count slots stream in from the server as RSC fragments.
 export function SparkJoyWidget({
     articleUrl,
+    title,
     upCount,
     downCount,
 }: {
     articleUrl: string;
+    title: string;
     upCount: ReactNode;
     downCount: ReactNode;
 }) {
@@ -81,25 +83,9 @@ export function SparkJoyWidget({
     return (
         <aside className="sparkjoy" aria-label="Article feedback">
             <form action={voteAction} className="sparkjoy-vote">
-                <p className="sparkjoy-prompt">Did you enjoy this article?</p>
+                <p className="sparkjoy-prompt">Did you enjoy {title}?</p>
                 <input type="hidden" name="articleUrl" value={articleUrl} />
                 <div className="sparkjoy-buttons">
-                    <button
-                        type="submit"
-                        name="voteType"
-                        value="thumbsup"
-                        disabled={votePending}
-                        aria-label="Yes, I enjoyed this article"
-                        onClick={() => setBurst({ type: 'thumbsup', key: Date.now() })}
-                    >
-                        <span aria-hidden="true">👍</span>
-                        {upCount}
-                        {burst?.type === 'thumbsup' && (
-                            <span key={burst.key} className="sparkjoy-plusone" aria-hidden="true">
-                                +1
-                            </span>
-                        )}
-                    </button>
                     <button
                         type="submit"
                         name="voteType"
@@ -111,6 +97,22 @@ export function SparkJoyWidget({
                         <span aria-hidden="true">👎</span>
                         {downCount}
                         {burst?.type === 'thumbsdown' && (
+                            <span key={burst.key} className="sparkjoy-plusone" aria-hidden="true">
+                                +1
+                            </span>
+                        )}
+                    </button>
+                    <button
+                        type="submit"
+                        name="voteType"
+                        value="thumbsup"
+                        disabled={votePending}
+                        aria-label="Yes, I enjoyed this article"
+                        onClick={() => setBurst({ type: 'thumbsup', key: Date.now() })}
+                    >
+                        <span aria-hidden="true">👍</span>
+                        {upCount}
+                        {burst?.type === 'thumbsup' && (
                             <span key={burst.key} className="sparkjoy-plusone" aria-hidden="true">
                                 +1
                             </span>
