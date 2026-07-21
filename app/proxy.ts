@@ -1,8 +1,5 @@
 import { allPages } from 'content-collections';
-import { ImageResponse } from 'takumi-js/response';
 import { slugify } from '../lib/categories';
-import { OgCard } from '../components/og-card';
-import { ogImageOptions } from '../components/og-image';
 // Single source of truth for static redirects: the legacy Netlify `_redirects`
 // file, inlined as a string at build time by Vite. Format is "<from>  <to>" per
 // line (extra whitespace and blank lines are ignored).
@@ -47,23 +44,6 @@ export default async function proxy(req: Request, next: () => Promise<Response>)
     if (target) {
         const dest = target.startsWith('http') ? target : new URL(target, url.origin).href;
         return Response.redirect(dest, 301);
-    }
-
-    // Slack only unfurls og:image URLs ending in an image extension, and some
-    // scrapers won't follow redirects — so serve the card directly at the .png
-    // URL. Handled here because no static route can live under the [...slug]
-    // catch-all. (The home card has a real route: app/opengraph-image.png/.)
-    const ogMatch = normalize(path).match(/^\/(.+)\/opengraph-image\.png$/);
-    if (ogMatch) {
-        const pagePath = ogMatch[1];
-        const page = allPages.find(
-            (p) => p._meta.path === pagePath || p._meta.path === `${pagePath}/index`
-        );
-        if (!page) return next();
-        return new ImageResponse(
-            OgCard({ title: page.title, description: page.description, seed: page._meta.path }),
-            ogImageOptions
-        );
     }
 
     // Legacy category URLs used the lowercased name with literal spaces

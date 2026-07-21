@@ -26,7 +26,7 @@ function toListed(page: {
 // case-insensitive substring semantics, same as the old Gatsby regex
 // filters (e.g. "React|Reactjs|React.js|gatsby|nextjs"). Null pattern
 // means all blog articles. Compact rows only, cached cross-request.
-export const getArticlesByPattern = cache(
+export const getArticlesByPattern = cache.data(
     async (pattern: string | null, limit?: number): Promise<ListedArticle[]> => {
         const regex = pattern ? new RegExp(pattern, 'i') : null;
 
@@ -42,7 +42,7 @@ export const getArticlesByPattern = cache(
 );
 
 // Non-blog pages under a prefix (e.g. "interviews/"), newest first.
-export const getPagesUnder = cache(
+export const getPagesUnder = cache.data(
     async (prefix: string): Promise<ListedArticle[]> => {
         return allPages
             .filter(

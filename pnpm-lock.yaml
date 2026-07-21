@@ -36,8 +36,8 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0(csstype@3.2.3)(react@19.2.7)
       '@timber-js/app':
-        specifier: 0.2.0-alpha.165
-        version: 0.2.0-alpha.165(@content-collections/core@0.15.2(typescript@5.9.3))(@content-collections/mdx@0.2.2(@content-collections/core@0.15.2(typescript@5.9.3))(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@content-collections/vite@0.3.0(@content-collections/core@0.15.2(typescript@5.9.3))(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@mdx-js/rollup@3.1.1(rollup@4.62.2))(@vitejs/plugin-react@6.0.3(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@vitejs/plugin-rsc@0.5.27(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(chokidar@5.0.0)(nuqs@2.8.9(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(rollup@4.62.2)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0))(zod@4.4.3)
+        specifier: 0.2.0-alpha.181
+        version: 0.2.0-alpha.181(@content-collections/core@0.15.2(typescript@5.9.3))(@content-collections/mdx@0.2.2(@content-collections/core@0.15.2(typescript@5.9.3))(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@content-collections/vite@0.3.0(@content-collections/core@0.15.2(typescript@5.9.3))(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@mdx-js/rollup@3.1.1(rollup@4.62.2))(@vitejs/plugin-react@6.0.3(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@vitejs/plugin-rsc@0.5.27(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(chokidar@5.0.0)(nuqs@2.8.9(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(rollup@4.62.2)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0))(zod@4.4.3)
       '@vercel/postgres':
         specifier: ^0.10.0
         version: 0.10.0
@@ -514,26 +514,32 @@ packages:
     resolution: {integrity: sha512-gLyJlPHPZYdAk1JENA9LeHejZe1Ti77/pTeFm/nMXmQH/HFZlcS/O2XJB+L8fkbrNSqhdtlvjBVjxwUYanNH5Q==, tarball: https://registry.npmjs.org/@opentelemetry/api/-/api-1.9.1.tgz}
     engines: {node: '>=8.0.0'}
 
-  '@opentelemetry/context-async-hooks@2.8.0':
-    resolution: {integrity: sha512-/3FIraneMcng67SUJCxvyInk/oxzwsxyadufk0wwfOBLf5wqtAGX4MoQASwSbndBPeARzBryUM9Azr5kHIdWLw==, tarball: https://registry.npmjs.org/@opentelemetry/context-async-hooks/-/context-async-hooks-2.8.0.tgz}
+  '@opentelemetry/context-async-hooks@2.9.0':
+    resolution: {integrity: sha512-OQ0vzvbZBiUhjqLnUaoNfYmP8553Crr3aggB4y0ZUi815mZ7idpdJXQmoKdeBKJelYttoBlLSSHubmyw3wvX4w==, tarball: https://registry.npmjs.org/@opentelemetry/context-async-hooks/-/context-async-hooks-2.9.0.tgz}
     engines: {node: ^18.19.0 || >=20.6.0}
     peerDependencies:
       '@opentelemetry/api': '>=1.0.0 <1.10.0'
 
-  '@opentelemetry/core@2.8.0':
-    resolution: {integrity: sha512-hd1Lfh8p545nNz+jq1Ejfz+Mn1hyLuxYn1YzTfFNrxr8urEWMNQLPf1Th8kjOH+HxwawCrtgBp8JpBUR4ZSgww==, tarball: https://registry.npmjs.org/@opentelemetry/core/-/core-2.8.0.tgz}
+  '@opentelemetry/core@2.9.0':
+    resolution: {integrity: sha512-m2nckMT80NnmjTYSPjJQObBJ+8dgkoajEOUbznL8AHZ3T3yHRk2P7gI1PhEBc1+lOnrYE9UWrWHqJDsmqjmNbw==, tarball: https://registry.npmjs.org/@opentelemetry/core/-/core-2.9.0.tgz}
     engines: {node: ^18.19.0 || >=20.6.0}
     peerDependencies:
       '@opentelemetry/api': '>=1.0.0 <1.10.0'
 
-  '@opentelemetry/resources@2.8.0':
-    resolution: {integrity: sha512-qmXQ27ilDbUK/vGMqwL8D4/rhn76C+sherM4wTbjlfknR8Nvfc/hCxjRJPhkzZzUsPiNg16SA31NxMabwttRjg==, tarball: https://registry.npmjs.org/@opentelemetry/resources/-/resources-2.8.0.tgz}
+  '@opentelemetry/resources@2.9.0':
+    resolution: {integrity: sha512-jyA5MBLQ+Dkl3+JsZkUoUvL7yHvU64kLsvpXKarWm6347Sl1t1bXFTFykUePNpT5WH5pm9a2Qtt03iIYQhZ1Fg==, tarball: https://registry.npmjs.org/@opentelemetry/resources/-/resources-2.9.0.tgz}
     engines: {node: ^18.19.0 || >=20.6.0}
     peerDependencies:
       '@opentelemetry/api': '>=1.3.0 <1.10.0'
 
-  '@opentelemetry/sdk-trace-base@2.8.0':
-    resolution: {integrity: sha512-mhU4jp+vW0mGbFRd+GeXHvmfA4aDqWjBjLC3pE5XMpLs0IE2ryYb019Ts2AQrOq67gaTF25D91+fgvEHDZEnuQ==, tarball: https://registry.npmjs.org/@opentelemetry/sdk-trace-base/-/sdk-trace-base-2.8.0.tgz}
+  '@opentelemetry/sdk-trace-base@2.9.0':
+    resolution: {integrity: sha512-cp9zmTl62R8PJrpvFcmc8N2JQU/xfa0S+61q511Nji+QxCfZ8Ifvg7H27G8cANe4crg4RTrWsVvanHiXjSp6ag==, tarball: https://registry.npmjs.org/@opentelemetry/sdk-trace-base/-/sdk-trace-base-2.9.0.tgz}
+    engines: {node: ^18.19.0 || >=20.6.0}
+    peerDependencies:
+      '@opentelemetry/api': '>=1.3.0 <1.10.0'
+
+  '@opentelemetry/sdk-trace@2.9.0':
+    resolution: {integrity: sha512-sGA19HvtrrSKYsseHphluH6j3p6Xa3fqc7c7y8f/7mYWejc1lyDFcpSdD1kYa50HCLUeEo4zA5bW0pniaPszuw==, tarball: https://registry.npmjs.org/@opentelemetry/sdk-trace/-/sdk-trace-2.9.0.tgz}
     engines: {node: ^18.19.0 || >=20.6.0}
     peerDependencies:
       '@opentelemetry/api': '>=1.3.0 <1.10.0'
@@ -893,8 +899,8 @@ packages:
       csstype:
         optional: true
 
-  '@timber-js/app@0.2.0-alpha.165':
-    resolution: {integrity: sha512-6+UFtF5pL+nia65H6r1dgYZ4IjmjMn0YuuT9KmTzLlj+FV0yxwJbb56IWyFGM9waCQ1hk1kBpcf+HY5Hiyv2Tw==, tarball: https://registry.npmjs.org/@timber-js/app/-/app-0.2.0-alpha.165.tgz}
+  '@timber-js/app@0.2.0-alpha.181':
+    resolution: {integrity: sha512-7VfyMWBDDZNdQM3d+mbi+NICRJF300WUigBoebvYHenM6FGVSBRKnSm6bwar2o7wbDef5zVGyj7Mo9M1Cj/qQw==, tarball: https://registry.npmjs.org/@timber-js/app/-/app-0.2.0-alpha.181.tgz}
     engines: {node: '>=22.18.0'}
     hasBin: true
     peerDependencies:
@@ -1341,6 +1347,9 @@ packages:
   js-yaml@3.15.0:
     resolution: {integrity: sha512-ttBQIIQPDeLjpPOohtUdXuXUVoA2uIB6fEH9HyJ7234s5mBJ5wTx20njxplLZQgLaOfpmPQA7X2t5AX6tIPbog==}
     hasBin: true
+
+  jsonc-parser@3.3.1:
+    resolution: {integrity: sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==, tarball: https://registry.npmjs.org/jsonc-parser/-/jsonc-parser-3.3.1.tgz}
 
   kind-of@6.0.3:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
@@ -1863,6 +1872,11 @@ packages:
 
   srvx@0.11.17:
     resolution: {integrity: sha512-43yM4luKfCJamyCMhrUeHUPOrf8TdZe7kN8s5zayZCH5OeprYqi49Aso5ZvHXR4aB+DHaRNO/diNFgZSMNG8Xw==}
+    engines: {node: '>=20.16.0'}
+    hasBin: true
+
+  srvx@0.11.22:
+    resolution: {integrity: sha512-LqZxxBDMKuMAZzFzJnDCkFOrs9MZQZr0LvHiO/SuSZVdQaXD7xQ5UWTUxheJrQPve1qk9MG2B/yttUvJxw8egQ==, tarball: https://registry.npmjs.org/srvx/-/srvx-0.11.22.tgz}
     engines: {node: '>=20.16.0'}
     hasBin: true
 
@@ -2448,26 +2462,34 @@ snapshots:
 
   '@opentelemetry/api@1.9.1': {}
 
-  '@opentelemetry/context-async-hooks@2.8.0(@opentelemetry/api@1.9.1)':
+  '@opentelemetry/context-async-hooks@2.9.0(@opentelemetry/api@1.9.1)':
     dependencies:
       '@opentelemetry/api': 1.9.1
 
-  '@opentelemetry/core@2.8.0(@opentelemetry/api@1.9.1)':
+  '@opentelemetry/core@2.9.0(@opentelemetry/api@1.9.1)':
     dependencies:
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/semantic-conventions': 1.41.1
 
-  '@opentelemetry/resources@2.8.0(@opentelemetry/api@1.9.1)':
+  '@opentelemetry/resources@2.9.0(@opentelemetry/api@1.9.1)':
     dependencies:
       '@opentelemetry/api': 1.9.1
-      '@opentelemetry/core': 2.8.0(@opentelemetry/api@1.9.1)
+      '@opentelemetry/core': 2.9.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/semantic-conventions': 1.41.1
 
-  '@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1)':
+  '@opentelemetry/sdk-trace-base@2.9.0(@opentelemetry/api@1.9.1)':
     dependencies:
       '@opentelemetry/api': 1.9.1
-      '@opentelemetry/core': 2.8.0(@opentelemetry/api@1.9.1)
-      '@opentelemetry/resources': 2.8.0(@opentelemetry/api@1.9.1)
+      '@opentelemetry/core': 2.9.0(@opentelemetry/api@1.9.1)
+      '@opentelemetry/resources': 2.9.0(@opentelemetry/api@1.9.1)
+      '@opentelemetry/sdk-trace': 2.9.0(@opentelemetry/api@1.9.1)
+      '@opentelemetry/semantic-conventions': 1.41.1
+
+  '@opentelemetry/sdk-trace@2.9.0(@opentelemetry/api@1.9.1)':
+    dependencies:
+      '@opentelemetry/api': 1.9.1
+      '@opentelemetry/core': 2.9.0(@opentelemetry/api@1.9.1)
+      '@opentelemetry/resources': 2.9.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/semantic-conventions': 1.41.1
 
   '@opentelemetry/semantic-conventions@1.41.1': {}
@@ -2721,20 +2743,21 @@ snapshots:
       - preact
       - react
 
-  '@timber-js/app@0.2.0-alpha.165(@content-collections/core@0.15.2(typescript@5.9.3))(@content-collections/mdx@0.2.2(@content-collections/core@0.15.2(typescript@5.9.3))(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@content-collections/vite@0.3.0(@content-collections/core@0.15.2(typescript@5.9.3))(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@mdx-js/rollup@3.1.1(rollup@4.62.2))(@vitejs/plugin-react@6.0.3(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@vitejs/plugin-rsc@0.5.27(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(chokidar@5.0.0)(nuqs@2.8.9(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(rollup@4.62.2)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0))(zod@4.4.3)':
+  '@timber-js/app@0.2.0-alpha.181(@content-collections/core@0.15.2(typescript@5.9.3))(@content-collections/mdx@0.2.2(@content-collections/core@0.15.2(typescript@5.9.3))(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@content-collections/vite@0.3.0(@content-collections/core@0.15.2(typescript@5.9.3))(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@mdx-js/rollup@3.1.1(rollup@4.62.2))(@vitejs/plugin-react@6.0.3(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@vitejs/plugin-rsc@0.5.27(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(chokidar@5.0.0)(nuqs@2.8.9(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(rollup@4.62.2)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0))(zod@4.4.3)':
     dependencies:
       '@opentelemetry/api': 1.9.1
-      '@opentelemetry/context-async-hooks': 2.8.0(@opentelemetry/api@1.9.1)
-      '@opentelemetry/sdk-trace-base': 2.8.0(@opentelemetry/api@1.9.1)
+      '@opentelemetry/context-async-hooks': 2.9.0(@opentelemetry/api@1.9.1)
+      '@opentelemetry/sdk-trace-base': 2.9.0(@opentelemetry/api@1.9.1)
       '@vitejs/plugin-react': 6.0.3(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0))
       '@vitejs/plugin-rsc': 0.5.27(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0))
       cookie: 1.1.1
+      jsonc-parser: 3.3.1
       magic-string: 0.30.21
       nitro: 3.0.260610-beta(chokidar@5.0.0)(rollup@4.62.2)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0))
       nuqs: 2.8.9(react@19.2.7)
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
-      srvx: 0.11.17
+      srvx: 0.11.22
       vite: 8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)
     optionalDependencies:
       '@content-collections/core': 0.15.2(typescript@5.9.3)
@@ -2912,9 +2935,9 @@ snapshots:
 
   cookie@1.1.1: {}
 
-  crossws@0.4.6(srvx@0.11.17):
+  crossws@0.4.6(srvx@0.11.22):
     optionalDependencies:
-      srvx: 0.11.17
+      srvx: 0.11.22
 
   css-mediaquery@0.1.2: {}
 
@@ -2940,10 +2963,10 @@ snapshots:
 
   env-runner@0.1.14:
     dependencies:
-      crossws: 0.4.6(srvx@0.11.17)
+      crossws: 0.4.6(srvx@0.11.22)
       exsolve: 1.1.0
       httpxy: 0.5.3
-      srvx: 0.11.17
+      srvx: 0.11.22
 
   es-errors@1.3.0: {}
 
@@ -3073,12 +3096,12 @@ snapshots:
       section-matter: 1.0.0
       strip-bom-string: 1.0.0
 
-  h3@2.0.1-rc.22(crossws@0.4.6(srvx@0.11.17)):
+  h3@2.0.1-rc.22(crossws@0.4.6(srvx@0.11.22)):
     dependencies:
       rou3: 0.8.1
-      srvx: 0.11.17
+      srvx: 0.11.22
     optionalDependencies:
-      crossws: 0.4.6(srvx@0.11.17)
+      crossws: 0.4.6(srvx@0.11.22)
 
   hasown@2.0.4:
     dependencies:
@@ -3196,6 +3219,8 @@ snapshots:
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
+
+  jsonc-parser@3.3.1: {}
 
   kind-of@6.0.3: {}
 
@@ -3613,17 +3638,17 @@ snapshots:
   nitro@3.0.260610-beta(chokidar@5.0.0)(rollup@4.62.2)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)):
     dependencies:
       consola: 3.4.2
-      crossws: 0.4.6(srvx@0.11.17)
+      crossws: 0.4.6(srvx@0.11.22)
       db0: 0.3.4
       env-runner: 0.1.14
-      h3: 2.0.1-rc.22(crossws@0.4.6(srvx@0.11.17))
+      h3: 2.0.1-rc.22(crossws@0.4.6(srvx@0.11.22))
       hookable: 6.1.1
       nf3: 0.3.17
       ocache: 0.1.5
       ofetch: 2.0.0-alpha.3
       ohash: 2.0.11
       rolldown: 1.1.3
-      srvx: 0.11.17
+      srvx: 0.11.22
       unenv: 2.0.0-rc.24
       unstorage: 2.0.0-alpha.7(chokidar@5.0.0)(db0@0.3.4)(ofetch@2.0.0-alpha.3)
     optionalDependencies:
@@ -4017,6 +4042,8 @@ snapshots:
   sprintf-js@1.0.3: {}
 
   srvx@0.11.17: {}
+
+  srvx@0.11.22: {}
 
   stringify-entities@4.0.4:
     dependencies:

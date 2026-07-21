@@ -34,12 +34,12 @@ export interface Category {
 
 // One pass over the collection builds a compact slug → category index holding
 // only the fields the listing pages render (path/title/published) — never the
-// full documents with article bodies. cache() shares it across requests with
+// full documents with article bodies. cache.data() shares it across requests with
 // singleflight, so each server instance computes it once per TTL window
 // instead of re-scanning ~2k documents on every request. Content only changes
 // at deploy time and the cache identity is content-derived, so a code change
 // invalidates the entry automatically.
-export const getCategoryIndex = cache(
+export const getCategoryIndex = cache.data(
     async (): Promise<Record<string, Category>> => {
         const index: Record<string, Category> = {};
 
