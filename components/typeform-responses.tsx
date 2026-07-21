@@ -25,7 +25,7 @@ async function typeformGet(path: string, token: string) {
     return response.json();
 }
 
-const getResponses = cache(
+const getResponses = cache.data(
     async (): Promise<Answer[][] | null> => {
         const token = process.env.TYPEFORM_TOKEN;
         if (!token) return null;

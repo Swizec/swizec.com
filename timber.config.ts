@@ -16,6 +16,9 @@ function containsLink(node) {
 }
 
 export default {
+  // Dedupe refetching of matching layouts across client navigations
+  // (disabled by default as of alpha.181).
+  clientSegmentCache: true,
   adapter: nitro({
     preset: 'vercel',
     compress: false,
