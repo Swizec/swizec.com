@@ -17,13 +17,25 @@ function embedForUrl(url, context) {
   );
 }
 
+// Only bare autolinks embed — a link whose visible text is the URL itself.
+// [some words](https://x.com/...) stays a regular link.
+function getAutolinkUrl(link) {
+  if (!Array.isArray(link.children) || link.children.length !== 1) return null;
+
+  const [child] = link.children;
+  if (child.type !== 'text') return null;
+
+  const url = link.url.trim();
+  return child.value.trim() === url ? url : null;
+}
+
 function getStandaloneUrl(node) {
   if (!node || node.type !== 'paragraph' || !Array.isArray(node.children)) return null;
   if (node.children.length !== 1) return null;
 
   const [child] = node.children;
   if (child.type === 'text') return child.value.trim();
-  if (child.type === 'link') return child.url.trim();
+  if (child.type === 'link') return getAutolinkUrl(child);
   if (child.type === 'image') return child.url.trim();
 
   return null;
