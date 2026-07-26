@@ -36,8 +36,8 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0(csstype@3.2.3)(react@19.2.7)
       '@timber-js/app':
-        specifier: 0.2.0-alpha.181
-        version: 0.2.0-alpha.181(@content-collections/core@0.15.2(typescript@5.9.3))(@content-collections/mdx@0.2.2(@content-collections/core@0.15.2(typescript@5.9.3))(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@content-collections/vite@0.3.0(@content-collections/core@0.15.2(typescript@5.9.3))(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@mdx-js/rollup@3.1.1(rollup@4.62.2))(@vitejs/plugin-react@6.0.3(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@vitejs/plugin-rsc@0.5.27(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(chokidar@5.0.0)(nuqs@2.8.9(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(rollup@4.62.2)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0))(zod@4.4.3)
+        specifier: 0.2.0-alpha.185
+        version: 0.2.0-alpha.185(@content-collections/core@0.15.2(typescript@5.9.3))(@content-collections/mdx@0.2.2(@content-collections/core@0.15.2(typescript@5.9.3))(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@content-collections/vite@0.3.0(@content-collections/core@0.15.2(typescript@5.9.3))(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@mdx-js/rollup@3.1.1(rollup@4.62.2))(@vitejs/plugin-react@6.0.3(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@vitejs/plugin-rsc@0.5.27(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(chokidar@5.0.0)(nuqs@2.8.9(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(rollup@4.62.2)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0))(zod@4.4.3)
       '@vercel/postgres':
         specifier: ^0.10.0
         version: 0.10.0
@@ -899,8 +899,8 @@ packages:
       csstype:
         optional: true
 
-  '@timber-js/app@0.2.0-alpha.181':
-    resolution: {integrity: sha512-7VfyMWBDDZNdQM3d+mbi+NICRJF300WUigBoebvYHenM6FGVSBRKnSm6bwar2o7wbDef5zVGyj7Mo9M1Cj/qQw==, tarball: https://registry.npmjs.org/@timber-js/app/-/app-0.2.0-alpha.181.tgz}
+  '@timber-js/app@0.2.0-alpha.185':
+    resolution: {integrity: sha512-XjvuFma+ZOSZHEeSDdh2XPefNaMaAvdLEZ7SUG1etAry+pT/I0idy/NhZEU+qSI/LQKo2ZKz5m2i0jbWcz2EMg==, tarball: https://registry.npmjs.org/@timber-js/app/-/app-0.2.0-alpha.185.tgz}
     engines: {node: '>=22.18.0'}
     hasBin: true
     peerDependencies:
@@ -909,7 +909,7 @@ packages:
       '@content-collections/vite': ^0.2.0 || ^0.3.0
       '@mdx-js/rollup': ^3.0.0
       '@vitejs/plugin-react': ^6.0.0
-      '@vitejs/plugin-rsc': '>=0.5.27'
+      '@vitejs/plugin-rsc': '>=0.5.28'
       nuqs: ^2.0.0
       react: 19.2.7
       react-dom: 19.2.7
@@ -1880,6 +1880,11 @@ packages:
     engines: {node: '>=20.16.0'}
     hasBin: true
 
+  srvx@0.12.4:
+    resolution: {integrity: sha512-RixzFlMn3dvzDTpKIAXhXrqL4cy6vScNCP0VVwgVbUBU94o+DiXLsFnAZetbyKAEnK6Ox3hzHXWGsyv/Iibv7g==, tarball: https://registry.npmjs.org/srvx/-/srvx-0.12.4.tgz}
+    engines: {node: '>=20.16.0'}
+    hasBin: true
+
   stringify-entities@4.0.4:
     resolution: {integrity: sha512-IwfBptatlO+QCJUo19AqvrPNqlVMpW9YEL2LIVY+Rpv2qsjCGxaDLNRgeGsQWJhfItebuJhsGSLjaBbNSQ+ieg==}
 
@@ -2743,7 +2748,7 @@ snapshots:
       - preact
       - react
 
-  '@timber-js/app@0.2.0-alpha.181(@content-collections/core@0.15.2(typescript@5.9.3))(@content-collections/mdx@0.2.2(@content-collections/core@0.15.2(typescript@5.9.3))(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@content-collections/vite@0.3.0(@content-collections/core@0.15.2(typescript@5.9.3))(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@mdx-js/rollup@3.1.1(rollup@4.62.2))(@vitejs/plugin-react@6.0.3(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@vitejs/plugin-rsc@0.5.27(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(chokidar@5.0.0)(nuqs@2.8.9(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(rollup@4.62.2)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0))(zod@4.4.3)':
+  '@timber-js/app@0.2.0-alpha.185(@content-collections/core@0.15.2(typescript@5.9.3))(@content-collections/mdx@0.2.2(@content-collections/core@0.15.2(typescript@5.9.3))(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@content-collections/vite@0.3.0(@content-collections/core@0.15.2(typescript@5.9.3))(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@mdx-js/rollup@3.1.1(rollup@4.62.2))(@vitejs/plugin-react@6.0.3(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(@vitejs/plugin-rsc@0.5.27(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)))(chokidar@5.0.0)(nuqs@2.8.9(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(rollup@4.62.2)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0))(zod@4.4.3)':
     dependencies:
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/context-async-hooks': 2.9.0(@opentelemetry/api@1.9.1)
@@ -2757,7 +2762,7 @@ snapshots:
       nuqs: 2.8.9(react@19.2.7)
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
-      srvx: 0.11.22
+      srvx: 0.12.4
       vite: 8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0)
     optionalDependencies:
       '@content-collections/core': 0.15.2(typescript@5.9.3)
@@ -4044,6 +4049,8 @@ snapshots:
   srvx@0.11.17: {}
 
   srvx@0.11.22: {}
+
+  srvx@0.12.4: {}
 
   stringify-entities@4.0.4:
     dependencies:
