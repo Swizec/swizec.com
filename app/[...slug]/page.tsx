@@ -21,6 +21,7 @@ import { ArticleArchive } from "../../components/article-archive"
 import { ArchiveSidebar } from "../../components/archive-sidebar"
 import { SmartLink } from "../../components/link"
 import { SparkJoy } from "../../components/sparkjoy"
+import { OldPostNote } from "../../components/old-post-note"
 import { parseArchiveFrontmatter } from "../../lib/article-archive"
 
 // Vite glob: all MDX in pages/, compiled as ES modules via @mdx-js/rollup (RSC-compatible)
@@ -130,6 +131,7 @@ export default async function Page() {
         <h1>{page.title}</h1>
         {page.subtitle && <p className="article-subtitle">{page.subtitle}</p>}
         <Byline published={page.published} />
+        {isBlogPost && <OldPostNote published={page.published} />}
         <MDXContent />
         {archiveQuery && (
           <ArticleArchive query={archiveQuery} basePath={basePath} />
