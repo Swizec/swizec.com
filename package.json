@@ -24,6 +24,7 @@
     "@vercel/postgres": "^0.10.0",
     "@vitejs/plugin-react": "^6.0.0",
     "@vitejs/plugin-rsc": "^0.5.27",
+    "date-fns": "^4.4.0",
     "feed": "^6.0.0",
     "highlight.js": "^11.11.1",
     "lite-youtube-embed": "^0.3.4",

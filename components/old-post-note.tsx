@@ -1,12 +1,12 @@
+import { isValid, parseISO, subYears } from 'date-fns';
+
 // Posts older than 10 years get a heads-up that the content may be stale.
 // Age is computed at render (build) time from the publish date.
 export function OldPostNote({ published }: { published?: string }) {
     if (!published) return null;
 
-    const cutoff = new Date();
-    cutoff.setFullYear(cutoff.getFullYear() - 10);
-    const publishedDate = new Date(published);
-    if (Number.isNaN(publishedDate.valueOf()) || publishedDate > cutoff) {
+    const publishedDate = parseISO(published);
+    if (!isValid(publishedDate) || publishedDate > subYears(new Date(), 10)) {
         return null;
     }
 
