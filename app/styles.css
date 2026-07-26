@@ -1029,6 +1029,16 @@ a.button:hover {
   }
 }
 
+/* ---------- Old post note: stale-content heads-up on 10+ year old posts ---------- */
+
+.old-post-note {
+  background: var(--color-background-yellow);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-hard-sm);
+  margin: 1.5rem 0;
+  padding: 0.8rem 1rem;
+}
+
 /* ---------- Archive: listing, filter note, pagination ---------- */
 
 .archive-filter-note {
@@ -1330,6 +1340,7 @@ a.button,
 .testimonial-grid blockquote :is(p, cite, strong, em, a),
 .archive-filter-note,
 .archive-filter-note :is(strong, a),
+.old-post-note,
 .sparkjoy,
 .sparkjoy :is(p, label, legend):not(.sparkjoy-error) {
   color: var(--color-on-light);

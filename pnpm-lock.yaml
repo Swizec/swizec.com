@@ -47,6 +47,9 @@ importers:
       '@vitejs/plugin-rsc':
         specifier: ^0.5.27
         version: 0.5.27(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.1.0(@types/node@26.0.1)(esbuild@0.25.12)(yaml@2.9.0))
+      date-fns:
+        specifier: ^4.4.0
+        version: 4.4.0
       feed:
         specifier: ^6.0.0
         version: 6.0.0
@@ -1092,6 +1095,9 @@ packages:
 
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
+
+  date-fns@4.4.0:
+    resolution: {integrity: sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w==, tarball: https://registry.npmjs.org/date-fns/-/date-fns-4.4.0.tgz}
 
   db0@0.3.4:
     resolution: {integrity: sha512-RiXXi4WaNzPTHEOu8UPQKMooIbqOEyqA1t7Z6MsdxSCeb8iUC9ko3LcmsLmeUt2SM5bctfArZKkRQggKZz7JNw==, tarball: https://registry.npmjs.org/db0/-/db0-0.3.4.tgz}
@@ -2947,6 +2953,8 @@ snapshots:
   css-mediaquery@0.1.2: {}
 
   csstype@3.2.3: {}
+
+  date-fns@4.4.0: {}
 
   db0@0.3.4: {}
 
