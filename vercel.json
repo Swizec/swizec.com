@@ -3,5 +3,322 @@
   "framework": null,
   "buildCommand": "pnpm run build",
   "devCommand": "pnpm run dev",
-  "installCommand": "pnpm install"
+  "installCommand": "pnpm install",
+  "redirects": [
+    {
+      "source": "/categories/750-words",
+      "destination": "/categories/750words",
+      "permanent": true
+    },
+    {
+      "source": "/categories/ai",
+      "destination": "/categories/artificial-intelligence",
+      "permanent": true
+    },
+    {
+      "source": "/categories/algorithms",
+      "destination": "/categories/algorithm",
+      "permanent": true
+    },
+    {
+      "source": "/categories/animations",
+      "destination": "/categories/animation",
+      "permanent": true
+    },
+    {
+      "source": "/categories/application-programming-interface",
+      "destination": "/categories/api",
+      "permanent": true
+    },
+    {
+      "source": "/categories/appstore",
+      "destination": "/categories/app-store",
+      "permanent": true
+    },
+    {
+      "source": "/categories/back-end",
+      "destination": "/categories/backend",
+      "permanent": true
+    },
+    {
+      "source": "/categories/backbonejs",
+      "destination": "/categories/backbone",
+      "permanent": true
+    },
+    {
+      "source": "/categories/backend-web",
+      "destination": "/categories/backend",
+      "permanent": true
+    },
+    {
+      "source": "/categories/book",
+      "destination": "/categories/books",
+      "permanent": true
+    },
+    {
+      "source": "/categories/cascading-style-sheet",
+      "destination": "/categories/css",
+      "permanent": true
+    },
+    {
+      "source": "/categories/cascading-style-sheets",
+      "destination": "/categories/css",
+      "permanent": true
+    },
+    {
+      "source": "/categories/clients",
+      "destination": "/categories/client",
+      "permanent": true
+    },
+    {
+      "source": "/categories/coding",
+      "destination": "/categories/programming",
+      "permanent": true
+    },
+    {
+      "source": "/categories/compilers",
+      "destination": "/categories/compiler",
+      "permanent": true
+    },
+    {
+      "source": "/categories/computer-programming",
+      "destination": "/categories/programming",
+      "permanent": true
+    },
+    {
+      "source": "/categories/d3",
+      "destination": "/categories/d3js",
+      "permanent": true
+    },
+    {
+      "source": "/categories/d3-js",
+      "destination": "/categories/d3js",
+      "permanent": true
+    },
+    {
+      "source": "/categories/databases",
+      "destination": "/categories/database",
+      "permanent": true
+    },
+    {
+      "source": "/categories/e-book",
+      "destination": "/categories/books",
+      "permanent": true
+    },
+    {
+      "source": "/categories/ecmascript",
+      "destination": "/categories/javascript",
+      "permanent": true
+    },
+    {
+      "source": "/categories/editors",
+      "destination": "/categories/editor",
+      "permanent": true
+    },
+    {
+      "source": "/categories/engineering",
+      "destination": "/categories/software-engineering",
+      "permanent": true
+    },
+    {
+      "source": "/categories/experiments",
+      "destination": "/categories/experiment",
+      "permanent": true
+    },
+    {
+      "source": "/categories/freelancer",
+      "destination": "/categories/freelancing",
+      "permanent": true
+    },
+    {
+      "source": "/categories/front-end",
+      "destination": "/categories/frontend",
+      "permanent": true
+    },
+    {
+      "source": "/categories/frontend-web",
+      "destination": "/categories/frontend",
+      "permanent": true
+    },
+    {
+      "source": "/categories/fullstack-web",
+      "destination": "/categories/fullstack",
+      "permanent": true
+    },
+    {
+      "source": "/categories/functions",
+      "destination": "/categories/function",
+      "permanent": true
+    },
+    {
+      "source": "/categories/html-element",
+      "destination": "/categories/html",
+      "permanent": true
+    },
+    {
+      "source": "/categories/humor",
+      "destination": "/categories/funny",
+      "permanent": true
+    },
+    {
+      "source": "/categories/interview",
+      "destination": "/categories/interviewing",
+      "permanent": true
+    },
+    {
+      "source": "/categories/interviews",
+      "destination": "/categories/interviewing",
+      "permanent": true
+    },
+    {
+      "source": "/categories/languages",
+      "destination": "/categories/language",
+      "permanent": true
+    },
+    {
+      "source": "/categories/learnings",
+      "destination": "/categories/learning",
+      "permanent": true
+    },
+    {
+      "source": "/categories/lessons",
+      "destination": "/categories/lesson",
+      "permanent": true
+    },
+    {
+      "source": "/categories/llm",
+      "destination": "/categories/artificial-intelligence",
+      "permanent": true
+    },
+    {
+      "source": "/categories/macos",
+      "destination": "/categories/mac-os",
+      "permanent": true
+    },
+    {
+      "source": "/categories/mathematics",
+      "destination": "/categories/math",
+      "permanent": true
+    },
+    {
+      "source": "/categories/neural-networks",
+      "destination": "/categories/neural-network",
+      "permanent": true
+    },
+    {
+      "source": "/categories/node-js",
+      "destination": "/categories/nodejs",
+      "permanent": true
+    },
+    {
+      "source": "/categories/open-source",
+      "destination": "/categories/opensource",
+      "permanent": true
+    },
+    {
+      "source": "/categories/operating-systems",
+      "destination": "/categories/operating-system",
+      "permanent": true
+    },
+    {
+      "source": "/categories/opinions",
+      "destination": "/categories/opinion",
+      "permanent": true
+    },
+    {
+      "source": "/categories/palo-alto-california",
+      "destination": "/categories/palo-alto",
+      "permanent": true
+    },
+    {
+      "source": "/categories/podcasts",
+      "destination": "/categories/podcast",
+      "permanent": true
+    },
+    {
+      "source": "/categories/reactjs",
+      "destination": "/categories/react",
+      "permanent": true
+    },
+    {
+      "source": "/categories/reacts",
+      "destination": "/categories/react",
+      "permanent": true
+    },
+    {
+      "source": "/categories/reader-questions",
+      "destination": "/categories/reader-question",
+      "permanent": true
+    },
+    {
+      "source": "/categories/roadtrip",
+      "destination": "/categories/travel-events",
+      "permanent": true
+    },
+    {
+      "source": "/categories/seniormindset",
+      "destination": "/categories/senior-mindset",
+      "permanent": true
+    },
+    {
+      "source": "/categories/servers",
+      "destination": "/categories/server",
+      "permanent": true
+    },
+    {
+      "source": "/categories/side-projects",
+      "destination": "/categories/side-project",
+      "permanent": true
+    },
+    {
+      "source": "/categories/skateboards",
+      "destination": "/categories/skateboard",
+      "permanent": true
+    },
+    {
+      "source": "/categories/social-networking",
+      "destination": "/categories/social-network",
+      "permanent": true
+    },
+    {
+      "source": "/categories/sports",
+      "destination": "/categories/sport",
+      "permanent": true
+    },
+    {
+      "source": "/categories/start-up",
+      "destination": "/categories/startup",
+      "permanent": true
+    },
+    {
+      "source": "/categories/startup-company",
+      "destination": "/categories/startup",
+      "permanent": true
+    },
+    {
+      "source": "/categories/startups",
+      "destination": "/categories/startup",
+      "permanent": true
+    },
+    {
+      "source": "/categories/steve-job",
+      "destination": "/categories/steve-jobs",
+      "permanent": true
+    },
+    {
+      "source": "/categories/travel",
+      "destination": "/categories/travel-events",
+      "permanent": true
+    },
+    {
+      "source": "/categories/tutorials",
+      "destination": "/categories/tutorial",
+      "permanent": true
+    },
+    {
+      "source": "/categories/video-games",
+      "destination": "/categories/video-game",
+      "permanent": true
+    }
+  ]
 }
