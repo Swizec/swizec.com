@@ -211,6 +211,11 @@
       "permanent": true
     },
     {
+      "source": "/categories/mindset",
+      "destination": "/categories/senior-mindset",
+      "permanent": true
+    },
+    {
       "source": "/categories/neural-networks",
       "destination": "/categories/neural-network",
       "permanent": true
