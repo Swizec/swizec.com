@@ -36,6 +36,7 @@ export function SiteFooter() {
                             <SmartLink href="/categories/ai">AI</SmartLink>
                             <SmartLink href="/categories/leadership">Leadership</SmartLink>
                             <SmartLink href="/categories/career">Career</SmartLink>
+                            <SmartLink href="/papers-and-books">Papers & Books</SmartLink>
                         </nav>
                     </div>
                     <div>
