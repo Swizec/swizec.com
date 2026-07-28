@@ -33,5 +33,6 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
     },
     'side-project': {
         blurb: 'Side projects are how I learn new things, and sometimes how I earn. Essays on building things on the side — and occasionally getting paid for it.',
+        formKey: 'ScalingFast',
     },
 };
