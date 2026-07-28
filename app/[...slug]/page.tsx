@@ -134,7 +134,11 @@ export default async function Page() {
         {isBlogPost && <OldPostNote published={page.published} />}
         <MDXContent />
         {archiveQuery && (
-          <ArticleArchive query={archiveQuery} basePath={basePath} />
+          <ArticleArchive
+            query={archiveQuery}
+            basePath={basePath}
+            heading={page.archive_heading}
+          />
         )}
         {isBlogPost && categories.length > 0 && (
           <p className="article-categories">
