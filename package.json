@@ -8,7 +8,8 @@
     "build": "vite build && node scripts/copy-hero-images.mjs && node scripts/copy-wp-content.mjs && node scripts/patch-vercel-images.mjs",
     "preview": "vite preview",
     "images": "node scripts/build-image-manifest.mjs",
-    "article": "node scripts/new-article.mjs"
+    "article": "node scripts/new-article.mjs",
+    "backfill-sparkjoy": "node scripts/backfill-sparkjoy-counts.mjs"
   },
   "dependencies": {
     "@astryxdesign/core": "^0.1.4",
@@ -45,6 +46,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1095.0",
     "@content-collections/vite": "^0.3.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
