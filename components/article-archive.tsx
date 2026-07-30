@@ -79,17 +79,29 @@ function Pagination({
 export async function ArticleArchive({
     query,
     basePath,
+    heading,
 }: {
     query: ArchiveQuery;
     basePath: string;
+    heading?: string;
 }) {
     const { page: requestedPage, year, month } = archiveParams.get();
     const all = await queryArchive(query);
     const filtered = filterByTime(all, year, month);
     const { items, page, totalPages, total } = paginate(filtered, requestedPage);
 
+    // "Latest career essays" only fits the fresh view — deeper pages and
+    // year-filtered views get the plain noun phrase.
+    const isLatestView = page === 1 && !year;
+    const headingText = heading
+        ? isLatestView
+            ? `Latest ${heading}`
+            : heading.charAt(0).toUpperCase() + heading.slice(1)
+        : undefined;
+
     return (
         <section className="article-archive">
+            {headingText && <h2>{headingText}</h2>}
             {year && (
                 <p className="archive-filter-note">
                     {total} article{total === 1 ? '' : 's'} from{' '}

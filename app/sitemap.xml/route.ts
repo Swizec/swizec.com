@@ -46,10 +46,10 @@ async function buildSitemap(): Promise<Buffer> {
         { url: '/blog', lastmod: newest },
         { url: '/categories', lastmod: newest },
     );
-    // Most categories are frontmatter one-offs (1,035 of ~1,520 hold a single
-    // article) — thin near-duplicate listings that waste crawl budget. Only
-    // categories with a real collection of articles go in the sitemap; the
-    // pages themselves stay routable either way.
+    // Thin category listings waste crawl budget — only categories with a
+    // real collection of articles go in the sitemap; the pages themselves
+    // stay routable either way. (Post-2026-cleanup the taxonomy is ~285
+    // curated categories, so this now trims only the smallest few dozen.)
     for (const category of Object.values(await getCategoryIndex())) {
         if (category.articles.length < 3) continue;
         links.push({

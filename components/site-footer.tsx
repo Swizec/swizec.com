@@ -10,7 +10,6 @@ export function SiteFooter() {
                         <nav aria-label="Content">
                             <SmartLink href="/blog">Latest articles</SmartLink>
                             <SmartLink href="/categories">Categories</SmartLink>
-                            <SmartLink href="/collections">Curated collections</SmartLink>
                             <SmartLink href="/interviews">Interviews</SmartLink>
                             <SmartLink href="/talks">Talks</SmartLink>
                             {/* RSS is an XML endpoint, not an RSC route — keep a full load */}
@@ -29,14 +28,16 @@ export function SiteFooter() {
                         </nav>
                     </div>
                     <div>
-                        <h2>Collections</h2>
-                        <nav aria-label="Collections">
-                            <SmartLink href="/collections/seniormindset">Senior Mindset</SmartLink>
-                            <SmartLink href="/collections/react">React</SmartLink>
-                            <SmartLink href="/collections/javascript">JavaScript</SmartLink>
-                            <SmartLink href="/collections/serverless">Serverless & Backend</SmartLink>
-                            <SmartLink href="/collections/indie-hacking">Indie Hacking</SmartLink>
-                            <SmartLink href="/collections/fullstack-web">Fullstack Web</SmartLink>
+                        <h2>Top categories</h2>
+                        <nav aria-label="Top categories">
+                            <SmartLink href="/categories/senior-mindset">Senior Mindset</SmartLink>
+                            <SmartLink href="/categories/frontend">Frontend</SmartLink>
+                            <SmartLink href="/categories/backend">Backend</SmartLink>
+                            <SmartLink href="/categories/ai">AI</SmartLink>
+                            <SmartLink href="/categories/leadership">Leadership</SmartLink>
+                            <SmartLink href="/scaling-fast">Scaling Fast</SmartLink>
+                            <SmartLink href="/career-growth">Career growth</SmartLink>
+                            <SmartLink href="/papers-and-books">Papers & Books</SmartLink>
                         </nav>
                     </div>
                     <div>

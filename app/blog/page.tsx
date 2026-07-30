@@ -17,8 +17,7 @@ export default function BlogIndex() {
                 <p>
                     Software engineering lessons from production, raw and honest from the heart —
                     almost 20 years of them. Jump to a year in the sidebar, or browse{' '}
-                    <SmartLink href="/categories">categories</SmartLink> and{' '}
-                    <SmartLink href="/collections">curated collections</SmartLink>.
+                    <SmartLink href="/categories">categories</SmartLink>.
                 </p>
                 <ArticleArchive query={{}} basePath="/blog" />
             </main>

@@ -48,8 +48,9 @@ export default async function proxy(req: Request, next: () => Promise<Response>)
 
     // Legacy category URLs used the lowercased name with literal spaces
     // (/categories/front%20end/); canonical form is the dash slug. Redirect
-    // anything under /categories/ that isn't already in slug form.
-    const categoryMatch = normalize(path).match(/^\/categories\/(.+)$/);
+    // any single-segment /categories/ path that isn't already in slug form —
+    // deeper paths (opengraph-image.png) belong to the route, not a name.
+    const categoryMatch = normalize(path).match(/^\/categories\/([^/]+)$/);
     if (categoryMatch) {
         const slug = slugify(categoryMatch[1]);
         if (slug && slug !== categoryMatch[1]) {
