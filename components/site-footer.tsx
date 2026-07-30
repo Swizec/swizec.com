@@ -33,9 +33,9 @@ export function SiteFooter() {
                             <SmartLink href="/scaling-fast">Scaling Fast</SmartLink>
                             <SmartLink href="/categories/senior-mindset">Senior Mindset</SmartLink>
                             <SmartLink href="/categories/leadership">Leadership</SmartLink>
+                            <SmartLink href="/categories/ai">AI</SmartLink>
                             <SmartLink href="/categories/frontend">Frontend</SmartLink>
                             <SmartLink href="/categories/backend">Backend</SmartLink>
-                            <SmartLink href="/categories/ai">AI</SmartLink>
                             <SmartLink href="/career-growth">Career Growth</SmartLink>
                             <SmartLink href="/papers-and-books">Papers & Books</SmartLink>
                         </nav>
