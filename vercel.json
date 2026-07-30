@@ -31,6 +31,11 @@
       "permanent": true
     },
     {
+      "source": "/categories/architecture",
+      "destination": "/categories/software-architecture",
+      "permanent": true
+    },
+    {
       "source": "/categories/artificial-intelligence",
       "destination": "/categories/ai",
       "permanent": true
@@ -186,6 +191,11 @@
       "permanent": true
     },
     {
+      "source": "/categories/life",
+      "destination": "/categories/personal",
+      "permanent": true
+    },
+    {
       "source": "/categories/llm",
       "destination": "/categories/ai",
       "permanent": true
@@ -198,6 +208,11 @@
     {
       "source": "/categories/mathematics",
       "destination": "/categories/math",
+      "permanent": true
+    },
+    {
+      "source": "/categories/mindset",
+      "destination": "/categories/senior-mindset",
       "permanent": true
     },
     {
@@ -306,6 +321,11 @@
       "permanent": true
     },
     {
+      "source": "/categories/teams",
+      "destination": "/categories/teamwork",
+      "permanent": true
+    },
+    {
       "source": "/categories/travel",
       "destination": "/categories/travel-events",
       "permanent": true
@@ -318,6 +338,41 @@
     {
       "source": "/categories/video-games",
       "destination": "/categories/video-game",
+      "permanent": true
+    },
+    {
+      "source": "/collections",
+      "destination": "/categories",
+      "permanent": true
+    },
+    {
+      "source": "/collections/fullstack-web",
+      "destination": "/categories/fullstack",
+      "permanent": true
+    },
+    {
+      "source": "/collections/indie-hacking",
+      "destination": "/categories/indie-hacking",
+      "permanent": true
+    },
+    {
+      "source": "/collections/javascript",
+      "destination": "/categories/javascript",
+      "permanent": true
+    },
+    {
+      "source": "/collections/react",
+      "destination": "/categories/react",
+      "permanent": true
+    },
+    {
+      "source": "/collections/seniormindset",
+      "destination": "/categories/senior-mindset",
+      "permanent": true
+    },
+    {
+      "source": "/collections/serverless",
+      "destination": "/categories/backend",
       "permanent": true
     }
   ]

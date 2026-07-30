@@ -23,6 +23,10 @@ const pages = defineCollection({
     // Marks a listing page: category-regex, "prefix:interviews/", or "all".
     // The catch-all appends a paginated archive and swaps in the time sidebar.
     archive: z.string().optional(),
+    // Noun phrase for the archive's listing heading ("career essays" renders
+    // as "Latest career essays" on the fresh view, "Career essays" when
+    // paginated or filtered to a year).
+    archive_heading: z.string().optional(),
     content: z.string(),
   }),
 });
