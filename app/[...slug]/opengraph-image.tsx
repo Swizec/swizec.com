@@ -1,6 +1,8 @@
 import { ImageResponse } from 'takumi-js/response';
 import { allPages } from 'content-collections';
 import { getSegmentParams } from '@timber-js/app/server';
+import { archiveParams } from '../../lib/archive-params';
+import { archiveTimeLabel } from '../../lib/archive-metadata';
 import { OgCard } from '../../components/og-card';
 import { ogImageOptions } from '../../components/og-image';
 
@@ -21,8 +23,18 @@ export default async function OGImage() {
         return new Response(null, { status: 404 });
     }
 
+    // Listing pages carry the active ?year/?month filter in the card title so
+    // shared archive links unfurl distinctly. Regular pages ignore the params.
+    const { year, month } = archiveParams.get();
+    const label = page.archive ? archiveTimeLabel(year, month) : undefined;
+    const title = label ? `${page.title} — ${label}` : page.title;
+
     return new ImageResponse(
-        <OgCard title={page.title} description={page.description} seed={page._meta.path} />,
+        <OgCard
+            title={title}
+            description={page.description}
+            seed={label ? `${page._meta.path}/${label}` : page._meta.path}
+        />,
         ogImageOptions,
     );
 }
