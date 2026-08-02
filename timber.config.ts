@@ -33,7 +33,18 @@ export default {
     rehypePlugins: [
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: 'wrap', test: (el) => !containsLink(el) }],
-      [rehypeShiki, { themes: { light: 'github-light', dark: 'github-dark' }, inline: 'tailing-curly-colon' }],
+      [
+        rehypeShiki,
+        {
+          themes: { light: 'github-light', dark: 'github-dark' },
+          inline: 'tailing-curly-colon',
+          // Fences with no language (and unknown languages) still get the
+          // pre.shiki treatment — styles.css only styles pre.shiki, so
+          // unhighlighted blocks would otherwise render as bare <pre>.
+          defaultLanguage: 'text',
+          fallbackLanguage: 'text',
+        },
+      ],
     ],
   },
   pageExtensions: ['tsx', 'ts', 'jsx', 'js', 'mdx'],
