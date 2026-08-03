@@ -1,6 +1,8 @@
 import { deny, getSegmentParams } from '@timber-js/app/server';
 import type { Metadata } from '@timber-js/app/server';
 import { getCategory } from '../../../lib/categories';
+import { archiveParams } from '../../../lib/archive-params';
+import { archiveOgQuery, archiveTimeLabel } from '../../../lib/archive-metadata';
 import { requestOrigin } from '../../mdx-metadata';
 import { ArticleArchive } from '../../../components/article-archive';
 import { ArchiveSidebar } from '../../../components/archive-sidebar';
@@ -19,12 +21,24 @@ export async function metadata(): Promise<Metadata> {
     const slug = resolvedSlug();
     const category = await getCategory(slug);
     if (!category) return {};
-    const title = category.name;
-    const description = `Articles about ${category.name} by Swizec Teller`;
-    const ogImage = `${requestOrigin()}/categories/${slug}/opengraph-image.png`;
+    // Title, description, and og-image reflect the active ?year/?month filter
+    // (and deep page number) so filtered views don't all share one title.
+    const { year, month: rawMonth, page } = archiveParams.get();
+    // A month without a year doesn't filter anything — keep it out of the
+    // title and canonical.
+    const month = year ? rawMonth : undefined;
+    const label = archiveTimeLabel(year, month);
+    const baseTitle = label ? `${category.name} — ${label}` : category.name;
+    const title = page > 1 ? `${baseTitle} · page ${page}` : baseTitle;
+    const description = label
+        ? `Articles about ${category.name} from ${label} by Swizec Teller`
+        : `Articles about ${category.name} by Swizec Teller`;
+    const ogImage = `${requestOrigin()}/categories/${slug}/opengraph-image.png${archiveOgQuery(year, month)}`;
+    const query = archiveParams.serialize({ year, month, page });
     return {
         title,
         description,
+        alternates: { canonical: `${SITE_URL}/categories/${slug}${query ? `?${query}` : ''}` },
         openGraph: {
             title,
             description,

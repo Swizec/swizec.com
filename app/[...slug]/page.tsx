@@ -23,6 +23,7 @@ import { SmartLink } from "../../components/link"
 import { SparkJoy } from "../../components/sparkjoy"
 import { OldPostNote } from "../../components/old-post-note"
 import { parseArchiveFrontmatter } from "../../lib/article-archive"
+import { withArchiveTime } from "../../lib/archive-metadata"
 
 // Vite glob: all MDX in pages/, compiled as ES modules via @mdx-js/rollup (RSC-compatible)
 const mdxModules = import.meta.glob("/pages/**/*.{mdx,md}")
@@ -54,7 +55,9 @@ export async function metadata(): Promise<Metadata> {
   const path = resolvedPath()
   const page = findPage(path)
   if (!page) return {}
-  return metadataFromFrontmatter(page, `/${path}`)
+  const meta = metadataFromFrontmatter(page, `/${path}`)
+  // Listing pages: title/og-image reflect the active ?year/?month filter.
+  return page.archive ? withArchiveTime(meta) : meta
 }
 
 export default async function Page() {
