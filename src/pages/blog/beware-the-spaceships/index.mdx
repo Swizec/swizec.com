@@ -1,0 +1,72 @@
+---
+title: "Beware the spaceships"
+description: "Spaceship first, cleanup second. Start with the ending then work your way back to something useful."
+published: 2026-08-08
+content_upgrade: ScalingFast
+categories: "AI, Software Engineering, Frontend"
+---
+
+I'm in the middle of migrating our design system and it's fun to see how much AI can do. Just last night I stayed up until 1am to ship another big portion.
+
+Wait why am I coding at 1am if AI's doing all the work? 🤨
+
+It's the spaceship problem. You start with the ending then work your way back to something useful. This kinda sucks.
+
+https://twitter.com/jxnlco/status/1931003015051518077
+
+## Spaceship first
+
+Here's what happened.
+
+After [the success of my 22,000 line Bootstrap -> Tailwind rewrite](https://swizec.com/blog/agents-change-the-math-on-big-bang-migrations) last week, I got cocky. If we can merge that monster and very little breaks, what else can we do?
+
+The next thing I tried was a 12,000 line lint+fix run on all our HTML and JavaScript. That was annoying but it worked, we now have a clean linter pass for basically the first time in my career.
+
+Then I got super cocky. Can an LLM transfer a whole section of our app to the new design system? Bootstrap -> Talwind is just styles, but rewriting functional code to a new paradigm?
+
+It worked!
+
+## Cleanup second
+
+Tokens go brrr and a few hours later we had a stack of 11 pull requests going page by page. Yes you can make your AI write [reviewable stacked pull requests](https://swizec.com/blog/in-praise-of-the-stacked-pull-request) and page-by-page is a good strategy for rewrites.
+
+![Github stack PR](https://i.imgur.com/5nnu6m6.jpeg)
+
+That's the new github stacked PRs feature btw. I like it a lot.
+
+The rewrite looked good enough to merge, which meant we now had to go through all this code and UI and clean up the details. Crap.
+
+![](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWxlNHFkajV6cnZ0M3hkOXRyMXZ0ZjU2YWxvMnE2cTcwY3g4ZGRjcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26gscNQHswYio5RBu/giphy.gif)
+
+Generating the code took 2 hours. Cleaning it up took 2 engineers 2 days. One to feedback with a good eye for design, another to fix the implementation.
+
+## It's always the details
+
+The problem with spaceships is that everything looks great until you pay attention. The little details are off.
+
+Claude loved to look at a ShadCN or BaseUI component as loose inspiration to implement its own. We found a bunch of jank where the bot got confused between The World As It Is and The World As It _Ought_ To Be.
+
+Compare these toasts:
+
+![](https://i.imgur.com/qXoriis.jpeg)
+
+vs the toasts we wanted:
+
+![](https://i.imgur.com/4RdCmQW.gif)
+
+Our toasts come default with the library. The bot's approach was a custom high-effort rebuild of the old design system using the new library 🤦‍♂️
+
+This was a common issue. LLMs are fantastic at mechanical translation but they struggle with conceptual leaps. I think they're heavily post-trained to ground every approach in existing code otherwise they'd cause too much churn.
+
+## Are spaceships the right approach?
+
+That depends. Are you an editor or a creator?
+
+Sometimes it's nice to take an almost-Michelangelo and remove everything that's not a Michelangelo. Other times you don't even know where to begin giving feedback.
+
+But it sure is a fast way to get _something_ working, [kick the can](https://swizec.com/blog/writing-software-is-like-kicking-a-can/), and gather feedback.
+
+Just don't be afraid to hit delete if you got the wrong spaceship.
+
+Cheers,<br/>
+~Swizec
