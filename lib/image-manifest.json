@@ -1763,6 +1763,24 @@
   "w": 2048,
   "h": 1024
  },
+ "pages/blog/beware-the-spaceships/img/giphygif-461733.gif": {
+  "w": 480,
+  "h": 480
+ },
+ "pages/blog/beware-the-spaceships/img/Github-stack-PR-bhe2dd.jpeg": {
+  "w": 1616,
+  "h": 1104,
+  "lqip": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAgCdASoUAA4APzmGuVOvKSWisAgB4CcJaQAAeyAA/u394WOjIPJXHnCsAAAA"
+ },
+ "pages/blog/beware-the-spaceships/img/oriisjpeg-fi8c45.jpeg": {
+  "w": 965,
+  "h": 655,
+  "lqip": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAACwAgCdASoUAA4APzmGuVOvKSWkMAgB4CcJZwAAeyAA/u3xoWFxApQ0+zaoV4x1LbUagUAA"
+ },
+ "pages/blog/beware-the-spaceships/img/RdCmQWgif-de5d4c.gif": {
+  "w": 800,
+  "h": 447
+ },
  "pages/blog/big-ball-of-mud-the-worlds-most-popular-software-architecture/img/Adapted-from-XKCD-a41371.jpeg": {
   "w": 770,
   "h": 978,
