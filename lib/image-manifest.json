@@ -9144,6 +9144,11 @@
   "h": 378,
   "lqip": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADwAwCdASoUAA0APzmEuVOvKKWisAgB4CcJagCdABxLQVnVT6fIhfw4APzLSvoXCo3bK3qt945oP4ceCWoFzHcLFlIPKLcvCUKZYbGIsIDyJCq7AfO07IvKL9dVwExNRsm+ogc6l30CcCWvc2PPouhs1kFjUjJp+sBYlH2xK0rD8QUv8qAAAA=="
  },
+ "pages/blog/stop-burning-tokens-on-code-review/img/dNDQXLpng-cbbj32.png": {
+  "w": 2385,
+  "h": 696,
+  "lqip": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAABwAwCdASoUAAYAPzmGulQvKSWjMAgB4CcJaQAAUrnQo3nksAAA/sRUO4I8imPZ7FhgAA=="
+ },
  "pages/blog/stop-making-cars-into-living-rooms-and-speeding-wont-be-a-problem/img/Steering-wheel-of-a-Graham-Paige-Model-6133b7736.jpeg": {
   "w": 300,
   "h": 201,
@@ -13699,6 +13704,16 @@
   "w": 336,
   "h": 474
  },
+ "pages/interviews/bas-fm-thumbnail.jpg": {
+  "w": 1280,
+  "h": 720,
+  "lqip": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAQBACdASoUAAsAPzmGuVOvKSWisAgB4CcJYwAAYf6zfeZpU/HmyNZ3cAD+wcpG37FvgTPdJ8h5Jgjn0f6sEOBJabZvHWGgsLqI2FgLtjVnNZjnpRHn2OtkF7AML9Vl9zd53KzptaNgAA=="
+ },
+ "pages/interviews/dear-cc-thumbnail.jpg": {
+  "w": 1280,
+  "h": 720,
+  "lqip": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAACwAwCdASoUAAsAPzmGuVOvKSWisAgB4CcJQBYdglbBUSHDCLKYoADiXMRIgaam7YP8sYGWKYBZir+WJvmXAzHQ4fA/Xe5uQn9qeuRh6BZVO3oH1RA9Yym/ghX6fYhtC6kNc9toVcjOITZmABDGIsvSgAA="
+ },
  "pages/interviews/devjourney-thumbnail.png": {
   "w": 1320,
   "h": 418
@@ -13706,6 +13721,26 @@
  "pages/interviews/educative-thubmnail.png": {
   "w": 2556,
   "h": 1436
+ },
+ "pages/interviews/js-craft-thumbnail.jpg": {
+  "w": 1280,
+  "h": 720,
+  "lqip": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAADwAwCdASoUAAsAPzmEuVOvKKWisAgB4CcJQBjehDwAW2Znen/7qTngAP6tMkeEv3HjdB61tQzJE0XqwpqJ9r1L2GV28YGgTJtPqG5EQvDEu1+3Lsovql8ae8a4eNslhcJ4AA=="
+ },
+ "pages/interviews/podcast-ruined-thumbnail.jpg": {
+  "w": 1280,
+  "h": 720,
+  "lqip": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAABQAwCdASoUAAsAPzmGuVOvKSWisAgB4CcJaQAAUWHZrDQPUAD+6/yPSBADmSbqDDi8iz/A54ePX+1+pSN5KgAA"
+ },
+ "pages/interviews/react-wednesdays-thumbnail.jpg": {
+  "w": 640,
+  "h": 480,
+  "lqip": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAADwAwCdASoUAA8APzmGuVOvKSWisAgB4CcJbAC7ACHXqDgk/3HJVt0AAP7axb7b/Z2H87OuVZhLRn1C5dTLQKDGKC58WolwFr2aW1rscS4ta+MawmzRFqdpuF1lVjAK8w/7guzZ8F5S70AA"
+ },
+ "pages/interviews/rockin-code-world-thumbnail.jpg": {
+  "w": 1280,
+  "h": 720,
+  "lqip": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAACwAwCdASoUAAsAPzmGuVOvKSWisAgB4CcJbACw7A/vBaDlSRuOIAD+qTAFL05A+EHwDEaprf81m+ToXtctgpoX/ZCFfrotA3qecDQqhZpZZsez0SmyclBLMJYJxsT1ZPDl45GIw3diK+nkxXi4pJGP8G68AAAA"
  },
  "pages/senior-mindset/img/senior-mindset-message-from-a-fan.jpg": {
   "w": 1125,
