@@ -681,6 +681,11 @@ a.button:hover {
   gap: 0.75rem;
 }
 
+/* min-width: 0 is load bearing. Flex items default to min-width: auto, and
+   WebKit's min-content width for a text input comes from the `size` attribute
+   (20 characters), so on Mobile Safari the fields refuse to shrink below ~20ch
+   and burst out of the pink box. Chromium shrinks them, which is why this only
+   showed up on iOS. max-width keeps the box-sizing honest at any text scale. */
 .newsletter-signup input[type='text'],
 .newsletter-signup input[type='email'] {
   background: var(--color-background-card);
@@ -689,6 +694,8 @@ a.button:hover {
   flex: 1 1 180px;
   font-family: var(--font-family-body);
   font-size: 1rem;
+  max-width: 100%;
+  min-width: 0;
   padding: 0.6rem 0.8rem;
 }
 
@@ -701,6 +708,7 @@ a.button:hover {
   font-family: var(--font-family-body);
   font-size: 1rem;
   font-weight: 600;
+  max-width: 100%;
   padding: 0.6rem 1.2rem;
   transition: translate 0.1s ease, box-shadow 0.1s ease;
 }
