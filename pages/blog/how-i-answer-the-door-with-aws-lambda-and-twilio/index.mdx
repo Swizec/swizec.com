@@ -36,7 +36,7 @@ You can read [the code on GitHub](https://github.com/Swizec/doorbell-app)
 
 Code contains my old Twilio Auth Token because lazy. Someone racked up $300 in fraudulent calls within minutes. That was dumb.
 
-[![Click through for source](./img/techletter.app-screenshot-1575873910342.png)](https://twitter.com/Swizec/status/1201374225224757248)
+https://twitter.com/Swizec/status/1201374225224757248
 
 ## How you can answer the door with AWS Lambda and Twilio
 
@@ -81,7 +81,38 @@ You can see this in action [during the livestream](https://www.youtube.com/watch
 
 This is the first Lambda in our system. It answers the phone when Twilio converts it to an API POST request.
 
-[![Click through for source](./img/techletter.app-screenshot-1575873614420.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2Fanswercall.ts%0A%0Aexport%20const%20handler%20%3D%20async%20(event%3A%20APIGatewayEvent)%20%3D%3E%20%7B%0A%20%20%20%20if%20(event.httpMethod.toLowerCase()%20%3D%3D%3D%20%22post%22)%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20Twilio%20sent%20us%20a%20phone%20call%2C%20assumed%20to%20be%20gate%20buzzer%20box%0A%20%20%20%20%20%20%20%20return%20handleBuzzerCall()%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20Someone%20got%20here%20with%20a%20browser%0A%20%20%20%20%20%20%20%20return%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20statusCode%3A%20200%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20body%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22Hello%20%F0%9F%91%8B%2C%20this%20URL%20is%20meant%20to%20be%20used%20via%20a%20buzzer%20box%20phone%20call.%20You%20probably%20don't%20want%20to%20be%20here%22%0A%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%7D%0A%7D%3B%0A%0Aasync%20function%20handleBuzzerCall()%20%7B%0A%20%20%20%20const%20response%20%3D%20new%20twiml.VoiceResponse()%3B%0A%20%20%20%20response.say(%0A%20%20%20%20%20%20%20%20%22Welcome!%20What%20do%20you%20want%3F%20Answer%20after%20the%20beep%2C%20then%20press%20any%20key%22%0A%20%20%20%20)%3B%0A%20%20%20%20response.record(%7B%0A%20%20%20%20%20%20%20%20action%3A%20%22acceptRecording%22%2C%0A%20%20%20%20%20%20%20%20timeout%3A%2060%2C%0A%20%20%20%20%20%20%20%20transcribe%3A%20true%2C%0A%20%20%20%20%20%20%20%20transcribeCallback%3A%20%22acceptTranscript%22%0A%20%20%20%20%7D)%3B%0A%0A%20%20%20%20return%20sendTwiml(response)%3B%0A%7D>)
+```typescript
+// src/answercall.ts
+
+export const handler = async (event: APIGatewayEvent) => {
+    if (event.httpMethod.toLowerCase() === "post") {
+        // Twilio sent us a phone call, assumed to be gate buzzer box
+        return handleBuzzerCall();
+    } else {
+        // Someone got here with a browser
+        return {
+            statusCode: 200,
+            body:
+                "Hello 👋, this URL is meant to be used via a buzzer box phone call. You probably don't want to be here"
+        };
+    }
+};
+
+async function handleBuzzerCall() {
+    const response = new twiml.VoiceResponse();
+    response.say(
+        "Welcome! What do you want? Answer after the beep, then press any key"
+    );
+    response.record({
+        action: "acceptRecording",
+        timeout: 60,
+        transcribe: true,
+        transcribeCallback: "acceptTranscript"
+    });
+
+    return sendTwiml(response);
+}
+```
 
 Twilio sends a POST request with various params, which we ignore since our response is always the same: A TwiML message constructed via [Twilio's node library](https://www.twilio.com/docs/libraries/node).
 
@@ -99,13 +130,39 @@ We use Twilio's dashboard to map a phone number to an API endpoint.
 
 After the person says what they want, they press a button. This tells Twilio to stop recording and talk to our next lambda: `acceptRecording`.
 
-[![Click through for source](./img/techletter.app-screenshot-1575873614255.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2FacceptRecording.ts%0A%0Aexport%20const%20handler%20%3D%20async%20(event%3A%20APIGatewayEvent)%20%3D%3E%20%7B%0A%20%20%20%20const%20response%20%3D%20new%20twiml.VoiceResponse()%3B%0A%0A%20%20%20%20response.say(%22Thank%20you.%20Someone%20will%20let%20you%20in%20right%20away.%22)%3B%0A%20%20%20%20response.pause(%7B%0A%20%20%20%20%20%20%20%20length%3A%2060%0A%20%20%20%20%7D)%3B%0A%20%20%20%20response.say(%22Looks%20like%20nobody%20answered%2C%20try%20calling%20a%20real%20human.%22)%3B%0A%0A%20%20%20%20return%20sendTwiml(response)%3B%0A%7D%3B>)
+```typescript
+// src/acceptRecording.ts
+
+export const handler = async (event: APIGatewayEvent) => {
+    const response = new twiml.VoiceResponse();
+
+    response.say("Thank you. Someone will let you in right away.");
+    response.pause({
+        length: 60
+    });
+    response.say("Looks like nobody answered, try calling a real human.");
+
+    return sendTwiml(response);
+};
+```
 
 Same spiel as before 👉 we get a POST request and respond with some TwiML constructed with Twilio's node library. Let the person know someone's about to answer the door, wait 60 seconds, and if nothing happens deliver the bad news.
 
 Btw, the `sendTwiml` function is a helper to avoid code duplication:
 
-[![Click through for source](./img/techletter.app-screenshot-1575873614283.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2Futils.ts%0A%0Aexport%20const%20sendTwiml%20%3D%20(twiml%3A%20any)%20%3D%3E%20%7B%0A%20%20%20%20return%20%7B%0A%20%20%20%20%20%20%20%20statusCode%3A%20200%2C%0A%20%20%20%20%20%20%20%20headers%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22Content-Type%22%3A%20%22application%2Fxml%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20body%3A%20twiml.toString()%0A%20%20%20%20%7D%3B%0A%7D%3B>)
+```typescript
+// src/utils.ts
+
+export const sendTwiml = (twiml: any) => {
+    return {
+        statusCode: 200,
+        headers: {
+            "Content-Type": "application/xml"
+        },
+        body: twiml.toString()
+    };
+};
+```
 
 Status Code 200 means request succeeded, content type `application/xml` so Twilio API doesn't get confused, and `twiml` converted to a string as the body.
 
@@ -113,7 +170,45 @@ Status Code 200 means request succeeded, content type `application/xml` so Twili
 
 Twilio's transcript API doesn't let you send TwiML into a phone call. That's why this is separate from the recording lambda, which just replies.
 
-[![Click through for source](./img/techletter.app-screenshot-1575873614247.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2FacceptTranscript.ts%0A%0Aexport%20const%20handler%20%3D%20async%20(event%3A%20APIGatewayEvent)%20%3D%3E%20%7B%0A%20%20%20%20const%20%7B%20RecordingUrl%2C%20TranscriptionText%2C%20CallSid%2C%20Called%20%7D%20%3D%20qs.parse(%0A%20%20%20%20%20%20%20%20event.body!%0A%20%20%20%20)%3B%0A%0A%20%20%20%20%2F%2F%20Save%20(CallSid%2C%20Called)%20pair%20for%20lookup%20in%20SMS%20handler%0A%20%20%20%20await%20updateItem(%7B%0A%20%20%20%20%20%20%20%20Key%3A%20%7B%20phone_number%3A%20Called%20as%20string%20%7D%2C%0A%20%20%20%20%20%20%20%20UpdateExpression%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%22SET%20callSid%20%3D%20%3AcallSid%2C%20createdAt%20%3D%20%3AcreatedAt%2C%20handledAt%20%3D%20%3AhandledAt%22%2C%0A%20%20%20%20%20%20%20%20ExpressionAttributeValues%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%3AcallSid%22%3A%20CallSid%20as%20string%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%3AcreatedAt%22%3A%20new%20Date().toISOString()%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%3AhandledAt%22%3A%20null%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D)%3B%0A%0A%20%20%20%20const%20client%20%3D%20twilio(accountSid%2C%20authToken)%3B%0A%20%20%20%20for%20(let%20recipient%20of%20recipients)%20%7B%0A%20%20%20%20%20%20%20%20await%20client.messages.create(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20body%3A%20%60There's%20someone%20at%20the%20door!%5Cn%5Cn%0A%20%20%20%20%20%20%20%20transcript%3A%20%22%24%7BTranscriptionText%7D%22%5Cn%5Cn%0A%20%20%20%20%20%20%20%20recording%3A%20%24%7BRecordingUrl%7D%5Cn%0A%20%20%20%20%20%20%20%20Reply%20YES%20to%20let%20them%20in!%0A%20%20%20%20%20%20%20%20%60%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20to%3A%20recipient%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20from%3A%20Called%20as%20string%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20return%20%7B%0A%20%20%20%20%20%20%20%20statusCode%3A%20200%2C%0A%20%20%20%20%20%20%20%20body%3A%20%22success%22%0A%20%20%20%20%7D%3B%0A%7D%3B>)
+```typescript
+// src/acceptTranscript.ts
+
+export const handler = async (event: APIGatewayEvent) => {
+    const { RecordingUrl, TranscriptionText, CallSid, Called } = qs.parse(
+        event.body!
+    );
+
+    // Save (CallSid, Called) pair for lookup in SMS handler
+    await updateItem({
+        Key: { phone_number: Called as string },
+        UpdateExpression:
+            "SET callSid = :callSid, createdAt = :createdAt, handledAt = :handledAt",
+        ExpressionAttributeValues: {
+            ":callSid": CallSid as string,
+            ":createdAt": new Date().toISOString(),
+            ":handledAt": null
+        }
+    });
+
+    const client = twilio(accountSid, authToken);
+    for (let recipient of recipients) {
+        await client.messages.create({
+            body: `There's someone at the door!\n\n
+        transcript: "${TranscriptionText}"\n\n
+        recording: ${RecordingUrl}\n
+        Reply YES to let them in!
+        `,
+            to: recipient,
+            from: Called as string
+        });
+    }
+
+    return {
+        statusCode: 200,
+        body: "success"
+    };
+};
+```
 
 This time we do care about params Twilio sends with their request:
 
@@ -132,7 +227,39 @@ Handling the `YES` reply to that SMS gets tricky. A bunch of situations to consi
 
 So we build the main `handler` method with a big conditional and call helper methods.
 
-[![Click through for source](./img/techletter.app-screenshot-1575873614384.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2FhandleSMSReply.ts%0A%0Aexport%20const%20handler%20%3D%20async%20(event%3A%20APIGatewayEvent)%20%3D%3E%20%7B%0A%20%20%20%20const%20%7B%20Body%2C%20To%20%7D%20%3D%20qs.parse(event.body!)%3B%0A%20%20%20%20const%20%7B%20Item%20%7D%20%3D%20await%20getItem(%7B%20Key%3A%20%7B%20phone_number%3A%20To%20as%20string%20%7D%20%7D)%3B%0A%0A%20%20%20%20if%20(Item%20%26%26%20!Item.handledAt%20%26%26%20!outdated(Item))%20%7B%0A%20%20%20%20%20%20%20%20if%20((Body%20as%20string).toLowerCase().includes(%22yes%22))%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%20open%20the%20door%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20openDoor(Item.callSid%2C%20To%20as%20string)%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%20don't%20open%20the%20door%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20closeDoor(Item.callSid%2C%20To%20as%20string)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20const%20response%20%3D%20new%20twiml.MessagingResponse()%3B%0A%20%20%20%20%20%20%20%20let%20text%20%3D%0A%20%20%20%20%20%20%20%20%20%20%20%20%22No%20ongoing%20call.%20Only%20text%20this%20number%20in%20response%20to%20a%20message%20%E2%9C%8C%EF%B8%8F%22%3B%0A%0A%20%20%20%20%20%20%20%20if%20(Item)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%2F%20call%20was%20found%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(Item.handledAt)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%20%3D%20%22Someone%20else%20already%20answered%20the%20door%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20if%20(outdated(Item))%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20text%20%3D%20%22You%20missed%20the%2060second%20timeout%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20return%20sendTwiml(response.message(text))%3B%0A%20%20%20%20%7D%0A%7D%3B>)
+```typescript
+// src/handleSMSReply.ts
+
+export const handler = async (event: APIGatewayEvent) => {
+    const { Body, To } = qs.parse(event.body!);
+    const { Item } = await getItem({ Key: { phone_number: To as string } });
+
+    if (Item && !Item.handledAt && !outdated(Item)) {
+        if ((Body as string).toLowerCase().includes("yes")) {
+            // open the door
+            return openDoor(Item.callSid, To as string);
+        } else {
+            // don't open the door
+            return closeDoor(Item.callSid, To as string);
+        }
+    } else {
+        const response = new twiml.MessagingResponse();
+        let text =
+            "No ongoing call. Only text this number in response to a message ✌️";
+
+        if (Item) {
+            // call was found
+            if (Item.handledAt) {
+                text = "Someone else already answered the door";
+            } else if (outdated(Item)) {
+                text = "You missed the 60second timeout";
+            }
+        }
+
+        return sendTwiml(response.message(text));
+    }
+};
+```
 
 Takes the sms `Body` and `To` phone number from Twilio's POST request and checks the DynamoDB database.
 
@@ -140,13 +267,64 @@ If there's a call and it hasn't been handled and it's not too late, we call `clo
 
 The `openDoor` and `closeDoor` functions are similar. They both call `continueCall` to talk to the callbox and send a text to let me know the deed is done.
 
-[![Click through for source](./img/techletter.app-screenshot-1575873614309.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2FhandleSMSReply.ts%0A%0A%2F%2F%20Texts%20user%20that%20door%20is%20openinng%0A%2F%2F%20Hooks%20into%20ongoing%20phone%20call%0A%2F%2F%20Sends%20dial%20tone%0Aasync%20function%20openDoor(callSid%3A%20string%2C%20phone_number%3A%20string)%20%7B%0A%20%20%20%20const%20success%20%3D%20await%20continueCall(callSid%2C%20true)%3B%0A%0A%20%20%20%20const%20response%20%3D%20new%20twiml.MessagingResponse()%3B%0A%20%20%20%20let%20message%3B%0A%0A%20%20%20%20if%20(success)%20%7B%0A%20%20%20%20%20%20%20%20message%20%3D%20response.message(%22Opened%20the%20door%22)%3B%0A%0A%20%20%20%20%20%20%20%20%2F%2F%20flag%20call%20as%20handled%0A%20%20%20%20%20%20%20%20await%20updateItem(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20Key%3A%20%7B%20phone_number%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20UpdateExpression%3A%20%22SET%20handledAt%20%3D%20%3AhandledAt%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20ExpressionAttributeValues%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22%3AhandledAt%22%3A%20new%20Date().toISOString()%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20message%20%3D%20response.message(%22Something%20went%20wrong%22)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20return%20sendTwiml(message)%3B%0A%7D>)
+```typescript
+// src/handleSMSReply.ts
+
+// Texts user that door is openinng
+// Hooks into ongoing phone call
+// Sends dial tone
+async function openDoor(callSid: string, phone_number: string) {
+    const success = await continueCall(callSid, true);
+
+    const response = new twiml.MessagingResponse();
+    let message;
+
+    if (success) {
+        message = response.message("Opened the door");
+
+        // flag call as handled
+        await updateItem({
+            Key: { phone_number },
+            UpdateExpression: "SET handledAt = :handledAt",
+            ExpressionAttributeValues: {
+                ":handledAt": new Date().toISOString()
+            }
+        });
+    } else {
+        message = response.message("Something went wrong");
+    }
+
+    return sendTwiml(message);
+}
+```
 
 Oh and they update the database to say `call handled`. Same `updateItem` method as before :)
 
 Hooking into the waiting call to open the door looks like this:
 
-[![Click through for source](./img/techletter.app-screenshot-1575873614280.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=typescript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2FhandleSMSReply.ts%0A%0Aasync%20function%20continueCall(callSid%3A%20string%2C%20openDoor%3A%20boolean)%20%7B%0A%20%20%20%20const%20client%20%3D%20twilio(accountSid%2C%20authToken)%3B%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20const%20response%20%3D%20new%20twiml.VoiceResponse()%3B%0A%20%20%20%20%20%20%20%20if%20(openDoor)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20response.say(%22Buzzing%20you%20in%22)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20response.play(%7B%20digits%3A%20%22ww9wwww%22%20%7D)%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20response.say(%22Sorry%2C%20residents%20said%20you%20can't%20come%20in%22)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20await%20client.calls(callSid).update(%7B%20twiml%3A%20response.toString()%20%7D)%3B%0A%20%20%20%20%20%20%20%20return%20true%3B%0A%20%20%20%20%7D%20catch%20(e)%20%7B%0A%20%20%20%20%20%20%20%20console.log(%22Error%20continuing%20call%22)%3B%0A%20%20%20%20%20%20%20%20console.log(e)%3B%0A%20%20%20%20%20%20%20%20return%20false%3B%0A%20%20%20%20%7D%0A%7D>)
+```typescript
+// src/handleSMSReply.ts
+
+async function continueCall(callSid: string, openDoor: boolean) {
+    const client = twilio(accountSid, authToken);
+    try {
+        const response = new twiml.VoiceResponse();
+        if (openDoor) {
+            response.say("Buzzing you in");
+            response.play({ digits: "ww9wwww" });
+        } else {
+            response.say("Sorry, residents said you can't come in");
+        }
+
+        await client.calls(callSid).update({ twiml: response.toString() });
+        return true;
+    } catch (e) {
+        console.log("Error continuing call");
+        console.log(e);
+        return false;
+    }
+}
+```
 
 Here's where storing that `callSid` becomes useful. We can update an ongoing call without being part of the original API loop 💪
 

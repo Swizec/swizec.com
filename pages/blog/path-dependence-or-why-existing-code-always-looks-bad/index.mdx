@@ -51,11 +51,18 @@ Quite a design flaw.
 
 And this all stems from the fact that every complex system is a function of today's requirements and yesterday's design.
 
-[![Click through for source](./img/techletter.app-screenshot-1594052250405.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=null&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=system%20%3D%20f(old_system%2C%20requirements)>)
+```
+system = f(old_system, requirements)
+```
 
 Apply that recursively ...
 
-[![Click through for source](./img/techletter.app-screenshot-1594052250156.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=null&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=s%20%3D%20f(os%2C%20r)%20%2F%2F%20system%20f%20of%20old%20system%2C%20requirements%0Aos%20%3D%20f(oos%2C%20or)%20%2F%2F%20old%20system%20f%20of%20old%20old%20system%2C%20old%20reqs%20...%0A%2F%2F%20...%0As%20%3D%20f(f(f(ooos%2C%20oor)%2C%20or)%2C%20r)>)
+```
+s = f(os, r) // system f of old system, requirements
+os = f(oos, or) // old system f of old old system, old reqs ...
+// ...
+s = f(f(f(ooos, oor), or), r)
+```
 
 Keep going all the way back to the very first decision ever made on your project. That's what you're dealing with.
 

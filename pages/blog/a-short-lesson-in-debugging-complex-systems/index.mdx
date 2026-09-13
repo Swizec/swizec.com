@@ -45,13 +45,33 @@ That shows `email` and `video` widgets which is a fine list, but check this out:
 
 Best way to fix that is changing our `allWidget` query so it accepts a `userId` and returns a list of widgets just for that user. It's important this filtering happens on the backend so data the user shouldn't see never reaches their browser.
 
-[![Click through for source](./img/techletter.app-screenshot-1564157796906.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20backend%2Fsrc%2Fgraphql.ts%0A%0Atype%20Query%20%7B%0A%20%20%20%20widget(widgetId%3A%20String!)%3A%20Widget%0A%20%20%20%20allWidget(userId%3A%20String)%3A%20%5BWidget%5D%0A%7D>)
+```javascript
+// backend/src/graphql.ts
+
+type Query {
+    widget(widgetId: String!): Widget
+    allWidget(userId: String): [Widget]
+}
+```
 
 The query now accepts a `userId` parameter.
 
 Passing a few extra arguments into the `scanItems` query in our resolver makes the magic work.
 
-[![Click through for source](./img/techletter.app-screenshot-1564157796857.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20backend%2Fsrc%2Fqueries.ts%0A%0Aexport%20const%20allWidget%20%3D%20async%20(_%3A%20any%2C%20%7B%20userId%20%7D%3A%20%7B%20userId%3A%20string%20%7D)%20%3D%3E%20%7B%0A%20%20%20%20const%20result%20%3D%20await%20scanItems(%7B%0A%20%20%20%20%20%20%20%20FilterExpression%3A%20%22%23user%20%3D%20%3AuserId%22%2C%0A%20%20%20%20%20%20%20%20ExpressionAttributeNames%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%23user%22%3A%20%22userId%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20ExpressionAttributeValues%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%3AuserId%22%3A%20userId%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D)%3B>)
+```javascript
+// backend/src/queries.ts
+
+export const allWidget = async (_: any, { userId }: { userId: string }) => {
+    const result = await scanItems({
+        FilterExpression: "#user = :userId",
+        ExpressionAttributeNames: {
+            "#user": "userId"
+        },
+        ExpressionAttributeValues: {
+            ":userId": userId
+        }
+    });
+```
 
 DynamoDB scan queries can be cumbersome. Getting a list of everything is easy – no arguments – a specific list takes 3 arguments. That's a lot 🤨
 
@@ -105,7 +125,32 @@ Nope. Still broken.
 
 Okay **fifth step** reduce our server to the absolute smallest possible setup. Make sure _nothing_ about our code could be causing this.
 
-[![Click through for source](./img/techletter.app-screenshot-1564157796979.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20backend%2Fsrc%2Fgraphql.ts%0A%2F%2F%20PS%3A%20this%20is%20pseudocode%2C%20refer%20to%20the%20video%20for%20actual%20code%0A%0Aconst%20types%20%3D%20gql%60%0A%09Query%20%7B%0A%09%09hello%3A%20%7B%20hello%3A%20String%20%7D%0A%09%7D%0A%60%0A%0Aexport%20const%20server%20%3D%20new%20ApolloServer(%7B%0A%20%20%20%20types%2C%0A%20%20%20%7B%0A%09%20%20%20Query%3A%20%7B%0A%09%09%20%20%20hello%3A%20()%20%3D%3E%20%7B%20hello%3A%20%22hello%22%20%7D%0A%09%20%20%20%7D%0A%20%20%20%7D%0A%7D)%3B%0A%0Aexport%20const%20handler%20%3D%20server.createHandler(%7B%0A%20%20%20%20cors%3A%20%7B%0A%20%20%20%20%20%20%20%20origin%3A%20%22*%22%2C%0A%20%20%20%20%20%20%20%20credentials%3A%20true%0A%20%20%20%20%7D%0A%7D)%3B>)
+```javascript
+// backend/src/graphql.ts
+// PS: this is pseudocode, refer to the video for actual code
+
+const types = gql`
+	Query {
+		hello: { hello: String }
+	}
+`
+
+export const server = new ApolloServer({
+    types,
+   {
+	   Query: {
+		   hello: () => { hello: "hello" }
+	   }
+   }
+});
+
+export const handler = server.createHandler({
+    cors: {
+        origin: "*",
+        credentials: true
+    }
+});
+```
 
 If that works, we know the problem is somewhere in how we configured GraphQL.
 
@@ -135,7 +180,25 @@ Gatsby crashed not because our server was broken but because it queries `allWidg
 
 We have to make the query work with _and_ without `userId`.
 
-[![Click through for source](./img/techletter.app-screenshot-1564157797079.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20backend%2Fsrc%2Fqueries.ts%0A%0Aexport%20const%20allWidget%20%3D%20async%20(_%3A%20any%2C%20%7B%20userId%20%7D%3A%20%7B%20userId%3F%3A%20string%20%7D)%20%3D%3E%20%7B%0A%20%20%20%20%2F%2F%20Query%20by%20userId%20if%20passed-in%2C%20otherwise%20return%20all%20widgets%0A%20%20%20%20const%20result%20%3D%20await%20scanItems(%0A%20%20%20%20%20%20%20%20userId%0A%20%20%20%20%20%20%20%20%20%20%20%20%3F%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20FilterExpression%3A%20%22%23user%20%3D%20%3AuserId%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ExpressionAttributeNames%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22%23user%22%3A%20%22userId%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ExpressionAttributeValues%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22%3AuserId%22%3A%20userId%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%3A%20%7B%7D%0A%20%20%20%20)%3B>)
+```javascript
+// backend/src/queries.ts
+
+export const allWidget = async (_: any, { userId }: { userId?: string }) => {
+    // Query by userId if passed-in, otherwise return all widgets
+    const result = await scanItems(
+        userId
+            ? {
+                  FilterExpression: "#user = :userId",
+                  ExpressionAttributeNames: {
+                      "#user": "userId"
+                  },
+                  ExpressionAttributeValues: {
+                      ":userId": userId
+                  }
+              }
+            : {}
+    );
+```
 
 Make the `userId` optional, pass arguments into `scanItems` based on whether it's available.
 

@@ -36,11 +36,33 @@ You can add Apollo Client for GraphQL support or use `fetch()`. It's just a Java
 
 I like to wrap the root node in ApolloProvider and use [react-apollo-hooks](https://github.com/trojanowski/react-apollo-hooks) for the rest.
 
-[![Click through for source](./img/techletter.app-screenshot-1573495144942.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20gatsby-browser.js%0A%2F%2F%20gatsby-ssr.js%0A%0Aimport%20%7B%20client%20%7D%20from%20%22.%2Fsrc%2Fapollo%22%0A%0Aexport%20const%20wrapRootElement%20%3D%20(%7B%20element%20%7D)%20%3D%3E%20(%0A%20%20%3CApolloProvider%20client%3D%7Bclient%7D%3E%7Belement%7D%3C%2FApolloProvider%3E%0A)>)
+```javascript
+// gatsby-browser.js
+// gatsby-ssr.js
+
+import { client } from "./src/apollo"
+
+export const wrapRootElement = ({ element }) => (
+  <ApolloProvider client={client}>{element}</ApolloProvider>
+)
+```
 
 That gives my entire app access to GraphQL for a specific server. Using [Star Wars API](https://swapi.co/) for this example.
 
-[![Click through for source](./img/techletter.app-screenshot-1573495144760.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2Fapollo.js%0A%0Aimport%20ApolloClient%20from%20%22apollo-boost%22%0Aimport%20fetch%20from%20%22isomorphic-fetch%22%0A%0Aconst%20SERVER_URI%20%3D%0A%20%20%20%20%22https%3A%2F%2Fapi.graphcms.com%2Fsimple%2Fv1%2Fswapi%22%0A%0Aexport%20const%20client%20%3D%20new%20ApolloClient(%7B%0A%20%20%20%20uri%3A%20SERVER_URI%2C%0A%20%20%20%20fetch%2C%0A%7D)>)
+```javascript
+// src/apollo.js
+
+import ApolloClient from "apollo-boost"
+import fetch from "isomorphic-fetch"
+
+const SERVER_URI =
+    "https://api.graphcms.com/simple/v1/swapi"
+
+export const client = new ApolloClient({
+    uri: SERVER_URI,
+    fetch,
+})
+```
 
 ## Loading additional data on render
 
@@ -52,7 +74,30 @@ Those are tough problems. Traditionally, you'd render a component, show a spinne
 
 Something like this (this is pseudocode):
 
-[![Click through for source](./img/techletter.app-screenshot-1573495144730.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20STARSHIP_QUERY%20%3D%20gql%60%0A%20%20query%20starships(%24count%3A%20Int)%20%7B%0A%20%20%20%20allStarships(last%3A%20%24count)%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%60%0A%0Afunction%20StarshipList(%7B%20data%20%7D)%20%7B%0A%09const%20%7B%20loading%2C%20data%20%7D%20%3D%20useQuery(STARSHIP_QUERY%2C%20%7B%0A%09%09variables%3A%20%7B%0A%09%09%09count%3A%2015%0A%09%09%7D%0A%09%7D)%0A%09%0A%09return%20%3Cdiv%3E%0A%09%09%7Bloading%20%3F%20%22Loading%20more%22%20%3A%20null%7D%0A%09%09%3Cul%3E%0A%09%09%09%7Bdata.list.map(ship%20%3D%3E%20%3Cli%3E%7Bship.name%7D%3C%2Fli%3E)%7D%0A%09%09%3C%2Ful%3E%0A%09%3C%2Fdiv%3E%0A%7D>)
+```javascript
+const STARSHIP_QUERY = gql`
+  query starships($count: Int) {
+    allStarships(last: $count) {
+      name
+    }
+  }
+`
+
+function StarshipList({ data }) {
+	const { loading, data } = useQuery(STARSHIP_QUERY, {
+		variables: {
+			count: 15
+		}
+	})
+	
+	return <div>
+		{loading ? "Loading more" : null}
+		<ul>
+			{data.list.map(ship => <li>{ship.name}</li>)}
+		</ul>
+	</div>
+}
+```
 
 `STARSHIP_QUERY` is a GraphQL query that returns a list of `$count` starships from StarWarsApi, `swapi` for short.
 
@@ -70,7 +115,44 @@ Some background on how that works in last week's [Experimenting with the new Rea
 
 Here's how you might set it up for Gatsby. Or at least how I did.
 
-[![Click through for source](./img/techletter.app-screenshot-1573495144991.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20pages%2Findex.js%0A%0Aimport%20%7B%20starshipQuery%2C%20ErrorBoundary%20%7D%20from%20%22..%2Futil%22%0A%0A%2F%2F%20Export%20static%20query%20for%20Gatsby%0Aexport%20const%20query%20%3D%20graphql%60%0A%20%20query%20%7B%0A%20%20%20%20swapi%20%7B%0A%20%20%20%20%20%20allStarships(last%3A%205)%20%7B%0A%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%60%0A%0A%2F%2F%20Run%20query%20on%20browser%20hydration%0Aconst%20starshipQuerySuspender%20%3D%20starshipQuery(10)%0A%0A%2F%2F%20The%20component%20that%20suspends%20with%20a%20data%20load%0Aconst%20Starships%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20starships%20%3D%20starshipQuerySuspender.read()%0A%0A%20%20return%20%3CStarshipsList%20list%3D%7Bstarships%7D%20title%3D%2210%20Dynamically%20loaded%20ships%22%20%2F%3E%0A%7D%0A%0A%2F%2F%20Wrapper%20component%20with%20a%20title%20and%20a%20list%0Aconst%20StarshipsList%20%3D%20(%7B%20list%2C%20title%20%7D)%20%3D%3E%20(%0A%20%20%3C%3E%0A%20%20%20%20%3Ch2%3E%7Btitle%7D%3C%2Fh2%3E%0A%20%20%20%20%3Cul%3E%0A%20%20%20%20%20%20%7Blist.allStarships.map((ship%2C%20i)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3Cli%20key%3D%7Bi%7D%3E%7Bship.name%7D%3C%2Fli%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2Ful%3E%0A%20%20%3C%2F%3E%0A)>)
+```javascript
+// pages/index.js
+
+import { starshipQuery, ErrorBoundary } from "../util"
+
+// Export static query for Gatsby
+export const query = graphql`
+  query {
+    swapi {
+      allStarships(last: 5) {
+        name
+      }
+    }
+  }
+`
+
+// Run query on browser hydration
+const starshipQuerySuspender = starshipQuery(10)
+
+// The component that suspends with a data load
+const Starships = () => {
+  const starships = starshipQuerySuspender.read()
+
+  return <StarshipsList list={starships} title="10 Dynamically loaded ships" />
+}
+
+// Wrapper component with a title and a list
+const StarshipsList = ({ list, title }) => (
+  <>
+    <h2>{title}</h2>
+    <ul>
+      {list.allStarships.map((ship, i) => (
+        <li key={i}>{ship.name}</li>
+      ))}
+    </ul>
+  </>
+)
+```
 
 All this goes in the `index.js` page. The first page you see in a Gatsby app.
 
@@ -84,7 +166,32 @@ The `<Starships>` component suspends with a data load and renders `<StarshipsLis
 
 In the `IndexPage` component we can then use `<Suspense>` to coordinate loading and error states.
 
-[![Click through for source](./img/techletter.app-screenshot-1573495144911.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20pages%2Findex.js%0A%0Aconst%20IndexPage%20%3D%20(%7B%20data%20%7D)%20%3D%3E%20(%0A%09%2F%2F%20...%0A%09%3CSuspense%0A%20%20%20%20%20%20fallback%3D%7B%0A%20%20%20%20%20%20%20%20%3CStarshipsList%0A%20%20%20%20%20%20%20%20%20%20list%3D%7Bdata.swapi%7D%0A%20%20%20%20%20%20%20%20%20%20title%3D%22Statically%20compiled%20starships%22%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%3E%0A%20%20%20%20%20%20%3CErrorBoundary%0A%20%20%20%20%20%20%20%20fallback%3D%7B%0A%20%20%20%20%20%20%20%20%20%20%3CStarshipsList%0A%20%20%20%20%20%20%20%20%20%20%20%20list%3D%7Bdata.swapi%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20title%3D%22Failed%20to%20fetch%2C%20these%20are%20static%22%0A%20%20%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%3CStarships%20%2F%3E%0A%20%20%20%20%20%20%3C%2FErrorBoundary%3E%0A%20%20%20%20%3C%2FSuspense%3E%0A)>)
+```javascript
+// pages/index.js
+
+const IndexPage = ({ data }) => (
+	// ...
+	<Suspense
+      fallback={
+        <StarshipsList
+          list={data.swapi}
+          title="Statically compiled starships"
+        />
+      }
+    >
+      <ErrorBoundary
+        fallback={
+          <StarshipsList
+            list={data.swapi}
+            title="Failed to fetch, these are static"
+          />
+        }
+      >
+        <Starships />
+      </ErrorBoundary>
+    </Suspense>
+)
+```
 
 Our Gatsby page gets static data via the `data` prop. This works offline too, [you can try, here](https://gatsby-suspense-poc.now.sh/) 👌
 
@@ -124,7 +231,10 @@ And that's where I'm stuck. Tried a few things, none worked.
 
 Loading on render was slow as heck:
 
-[![Click through for source](./img/techletter.app-screenshot-1573495144848.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=dataSuspender%20%3D%20()%20%3D%3E%20starshipQuerySuspender(15)%0A%3CStarships%20data%3D%7BdataSuspender()%7D%20%2F%3E>)
+```javascript
+dataSuspender = () => starshipQuerySuspender(15)
+<Starships data={dataSuspender()} />
+```
 
 Worked but just as slow as running a query without Suspense.
 
@@ -134,7 +244,14 @@ Reach Router lets you pass state to pages with a `state` prop in your `<Link>` c
 
 Works great for static values, but did not work with this approach:
 
-[![Click through for source](./img/techletter.app-screenshot-1573495144824.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%3CLink%0A%20%20to%3D%22%2Fpage-2%22%0A%20%20state%3D%7B%7B%0A%20%20%20%20starshipQuerySuspender%3A%20()%20%3D%3E%20starshipQuery(15)%2C%20%2F%2F%20didnt%20work%0A%20%20%7D%7D%0A%3E>)
+```javascript
+<Link
+  to="/page-2"
+  state={{
+    starshipQuerySuspender: () => starshipQuery(15), // didnt work
+  }}
+>
+```
 
 Not sure why, but trying to pass a function made the whole state value `null`.
 
@@ -142,7 +259,15 @@ Not sure why, but trying to pass a function made the whole state value `null`.
 
 Another approach I tried was using Gatsby's browser APIs. You can hook into various parts of the page lifecycle with special methods in `gatsby-browser.js`.
 
-[![Click through for source](./img/techletter.app-screenshot-1573495144669.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=export%20const%20onRouteUpdate%20%3D%20(%7B%20location%20%7D)%20%3D%3E%20%7B%0A%20%20%2F%2F%20this%20feels%20brittle%0A%20%20if%20(location.pathname%20%3D%3D%3D%20%22%2Fpage-2%22)%20%7B%0A%20%20%20%20%2F%2F%20this%20works%20but%20data%20shows%20up%20in%20location%20prop%20_after_%20the%20page%20is%20rendered%0A%20%20%20%20location.dataSuspender%20%3D%20starshipQuery(15)%0A%20%20%7D%0A%7D>)
+```javascript
+export const onRouteUpdate = ({ location }) => {
+  // this feels brittle
+  if (location.pathname === "/page-2") {
+    // this works but data shows up in location prop _after_ the page is rendered
+    location.dataSuspender = starshipQuery(15)
+  }
+}
+```
 
 Thought I could manipulate the `location` prop passed into a page and I can, sort of.
 

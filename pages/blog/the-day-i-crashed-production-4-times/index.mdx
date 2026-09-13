@@ -48,7 +48,9 @@ But _those_ backend metrics do not. There's too many of them and the metadataing
 
 While refactoring I moved a piece of code from the normal flow to the metadata flow.
 
-[![Click through for source](./img/techletter.app-screenshot-1563553812054.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=ruby&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=log%5B%22created_day%22%5D%20%3D%20Date.today>)
+```ruby
+log["created_day"] = Date.today
+```
 
 Moved it a few lines down.
 

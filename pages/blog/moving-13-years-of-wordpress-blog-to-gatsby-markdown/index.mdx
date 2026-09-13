@@ -25,7 +25,7 @@ Done that before, didn't even notice. On Wordpress it breaks your site. Tried th
 
 But what if you already have a blog? That's where it gets tricky.
 
-[![Click through for source](./img/techletter.app-screenshot-1569254610612.png)](https://twitter.com/Swizec/status/1163833379395006464)
+https://twitter.com/Swizec/status/1163833379395006464
 
 ## How to move an existing Wordpress blog to Gatsby
 
@@ -87,7 +87,24 @@ You can see the [full code on GitHub](https://github.com/Swizec/wordpress-to-mar
 
 Here's the fun part that takes HTML and spits out Markdown 😛
 
-[![Click through for source](./img/techletter.app-screenshot-1569254611375.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20markdown%20%3D%20await%20new%20Promise((resolve%2C%20reject)%20%3D%3E%20%7B%0A%20%20%20%20unified()%0A%20%20%20%20%20%20%20%20.use(parseHTML%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20emitParseErrors%3A%20true%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20duplicateAttribute%3A%20false%0A%20%20%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20%20%20.use(rehype2remark)%0A%20%20%20%20%20%20%20%20.use(stringify)%0A%20%20%20%20%20%20%20%20.process(postData%2C%20(err%2C%20markdown)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(err)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20reject(err)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20resolve(markdown.contents)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%7D)%3B>)
+```javascript
+const markdown = await new Promise((resolve, reject) => {
+    unified()
+        .use(parseHTML, {
+            emitParseErrors: true,
+            duplicateAttribute: false
+        })
+        .use(rehype2remark)
+        .use(stringify)
+        .process(postData, (err, markdown) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(markdown.contents);
+            }
+        });
+});
+```
 
 I forked from a version with [a complex homegrown Markdown generator](https://github.com/Swizec/wordpress-to-markdown/commit/5214b4e0f8836dbb1bf40d872ee2993f66fab7a0) and many bugs. Mixing rehype, remark, unified, and plugins makes the process more reliable and easier to maintain.
 
@@ -110,7 +127,26 @@ But you need to download them first.
 
 I created this `processImage` method and tried a few different ways to download images one by one. The original crashed my computer. Too much parallelism.
 
-[![Click through for source](./img/techletter.app-screenshot-1569254611336.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=async%20function%20processImage(%7B%20url%2C%20postData%2C%20images%2C%20directory%20%7D)%20%7B%0A%20%20%20%20var%20urlParts%20%3D%20url.split(%22%2F%22)%3B%0A%20%20%20%20var%20imageName%20%3D%20urlParts%5BurlParts.length%20-%201%5D%3B%0A%0A%20%20%20%20var%20filePath%20%3D%20%60out%2F%24%7Bdirectory%7D%2Fimg%2F%24%7BimageName%7D%60%3B%0A%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20await%20downloadFile(url%2C%20filePath)%3B%0A%20%20%20%20%20%20%20%20%2F%2FMake%20the%20image%20name%20local%20relative%20in%20the%20markdown%0A%20%20%20%20%20%20%20%20postData%20%3D%20postData.replace(url%2C%20%60.%2Fimg%2F%24%7BimageName%7D%60)%3B%0A%20%20%20%20%20%20%20%20images%20%3D%20%5B...images%2C%20%60.%2Fimg%2F%24%7BimageName%7D%60%5D%3B%0A%20%20%20%20%7D%20catch%20(e)%20%7B%0A%20%20%20%20%20%20%20%20console.log(%60Keeping%20ref%20to%20%24%7Burl%7D%60)%3B%0A%20%20%20%20%20%20%20%20console.log(e)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20return%20%5BpostData%2C%20images%5D%3B%0A%7D>)
+```javascript
+async function processImage({ url, postData, images, directory }) {
+    var urlParts = url.split("/");
+    var imageName = urlParts[urlParts.length - 1];
+
+    var filePath = `out/${directory}/img/${imageName}`;
+
+    try {
+        await downloadFile(url, filePath);
+        //Make the image name local relative in the markdown
+        postData = postData.replace(url, `./img/${imageName}`);
+        images = [...images, `./img/${imageName}`];
+    } catch (e) {
+        console.log(`Keeping ref to ${url}`);
+        console.log(e);
+    }
+
+    return [postData, images];
+}
+```
 
 Ignore the ancient `var` syntax, I didn't want to rewrite everything 😇
 
@@ -120,7 +156,34 @@ Updating the `images` array is important so we can collect candidates for our he
 
 Tried a bunch of ways to download files, this is the one that worked best in the end.
 
-[![Click through for source](./img/techletter.app-screenshot-1569254611427.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=async%20function%20downloadFile(url%2C%20path)%20%7B%0A%20%20%20%20if%20(%0A%20%20%20%20%20%20%20%20url.indexOf(%22.jpg%22)%20%3E%3D%200%20%7C%7C%0A%20%20%20%20%20%20%20%20url.indexOf(%22.jpeg%22)%20%3E%3D%200%20%7C%7C%0A%20%20%20%20%20%20%20%20url.indexOf(%22.png%22)%20%3E%3D%200%20%7C%7C%0A%20%20%20%20%20%20%20%20url.indexOf(%22.gif%22)%20%3E%3D%200%20%7C%7C%0A%20%20%20%20%20%20%20%20url.indexOf(%22.svg%22)%20%3E%3D%200%0A%20%20%20%20)%20%7B%0A%20%20%20%20%20%20%20%20const%20response%20%3D%20await%20fetch(url)%3B%0A%20%20%20%20%20%20%20%20if%20(response.status%20%3E%3D%20400)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20throw%20new%20Error(%22Bad%20response%20from%20server%22)%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20const%20type%20%3D%20response.headers.get(%22Content-Type%22)%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(type.includes(%22image%22)%20%7C%7C%20type.includes(%22octet-stream%22))%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20const%20buffer%20%3D%20await%20response.arrayBuffer()%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20fs.writeFileSync(path%2C%20new%20Buffer(buffer))%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20throw%20new%20Error(%22Not%20an%20image%22%2C%20url)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20console.log(%22passing%202%22)%3B%0A%20%20%20%20%20%20%20%20console.log(%22passing%20on%3A%20%22%20%2B%20url%20%2B%20%22%20%22%20%2B%20url.indexOf(%22https%3A%22))%3B%0A%20%20%20%20%7D%0A%7D>)
+```javascript
+async function downloadFile(url, path) {
+    if (
+        url.indexOf(".jpg") >= 0 ||
+        url.indexOf(".jpeg") >= 0 ||
+        url.indexOf(".png") >= 0 ||
+        url.indexOf(".gif") >= 0 ||
+        url.indexOf(".svg") >= 0
+    ) {
+        const response = await fetch(url);
+        if (response.status >= 400) {
+            throw new Error("Bad response from server");
+        } else {
+            const type = response.headers.get("Content-Type");
+
+            if (type.includes("image") || type.includes("octet-stream")) {
+                const buffer = await response.arrayBuffer();
+                fs.writeFileSync(path, new Buffer(buffer));
+            } else {
+                throw new Error("Not an image", url);
+            }
+        }
+    } else {
+        console.log("passing 2");
+        console.log("passing on: " + url + " " + url.indexOf("https:"));
+    }
+}
+```
 
 Check the URL is an image, use `fetch()`, make sure the response is an image (some server errors return a success with a bunch of HTML, that was fun to learn), and write the file.
 
@@ -144,7 +207,7 @@ That's next on my list to fix. What do we do with missing images? Do I create a 
 
 Until then this will continue to be the main comment I get
 
-[![Click through for source](./img/techletter.app-screenshot-1569254610676.png)](https://twitter.com/megatomche/status/1172063550401130496)
+https://twitter.com/megatomche/status/1172063550401130496
 
 Cheers,  
 ~Swizec

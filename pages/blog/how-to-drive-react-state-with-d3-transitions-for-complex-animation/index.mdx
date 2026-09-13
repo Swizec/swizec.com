@@ -50,7 +50,38 @@ We're working off of the [drilldown piechart from last week](https://swizec.com/
 
 We cleaned up state management and added the drill-up feature.
 
-[![Click through for source](./img/techletter.app-screenshot-1561996984642.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=function%20useDrillableData(data)%20%7B%0A%20%20const%20initialState%20%3D%20%7B%0A%20%20%20%20renderData%3A%20data%2C%0A%20%20%20%20stack%3A%20%5B%5D%2C%0A%20%20%20%20startAngle%3A%200%0A%20%20%7D%3B%0A%0A%20%20return%20useReducer((state%2C%20action)%20%3D%3E%20%7B%0A%20%20%20%20switch%20(action.type)%20%7B%0A%20%20%20%20%20%20case%20%22drilldown%22%3A%0A%20%20%20%20%20%20%20%20return%20%7B%0A%20%20%20%20%20%20%20%20%20%20renderData%3A%20state.renderData%5Baction.index%5D.children%2C%0A%20%20%20%20%20%20%20%20%20%20stack%3A%20%5B...state.stack%2C%20state.renderData%5D%2C%0A%20%20%20%20%20%20%20%20%20%20startAngle%3A%20action.startAngle%0A%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%20%20case%20%22drillup%22%3A%0A%20%20%20%20%20%20%20%20if%20(state.stack.length%20%3E%200)%20%7B%0A%20%20%20%20%20%20%20%20%20%20return%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20renderData%3A%20state.stack.slice(-1)%5B0%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20stack%3A%20state.stack.slice(0%2C%20-1)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20startAngle%3A%20state.startAngle%0A%20%20%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20return%20state%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20default%3A%0A%20%20%20%20%20%20%20%20return%20state%3B%0A%20%20%20%20%7D%0A%20%20%7D%2C%20initialState)%3B%0A%7D>)
+```javascript
+function useDrillableData(data) {
+  const initialState = {
+    renderData: data,
+    stack: [],
+    startAngle: 0
+  };
+
+  return useReducer((state, action) => {
+    switch (action.type) {
+      case "drilldown":
+        return {
+          renderData: state.renderData[action.index].children,
+          stack: [...state.stack, state.renderData],
+          startAngle: action.startAngle
+        };
+      case "drillup":
+        if (state.stack.length > 0) {
+          return {
+            renderData: state.stack.slice(-1)[0],
+            stack: state.stack.slice(0, -1),
+            startAngle: state.startAngle
+          };
+        } else {
+          return state;
+        }
+      default:
+        return state;
+    }
+  }, initialState);
+}
+```
 
 `useDrillableData` is a custom hook that takes our data and sets up a reducer so we can tie different state changes together.
 
@@ -70,7 +101,20 @@ If you're at the highest level already, we do nothing.
 
 To use this new state management mechanism we replaced the previous `useState` code with `useDrillableData` and called `dispatch` on click events instead of `setState`.
 
-[![Click through for source](./img/techletter.app-screenshot-1561996964164.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20DrilldownPie%20%3D%20(%7B%20data%2C%20x%2C%20y%20%7D)%20%3D%3E%20%7B%0A%20%20const%20%5B%7B%20renderData%2C%20startAngle%20%7D%2C%20dispatch%5D%20%3D%20useDrillableData(data)%3B%0A%20%20%0A%20%20%2F%2F%20...%0A%20%20%0A%20%20function%20drilldown(%7B%20startAngle%2C%20index%20%7D)%20%7B%0A%20%20%20%20dispatch(%7B%20type%3A%20%22drilldown%22%2C%20index%2C%20startAngle%20%7D)%3B%0A%20%20%7D%0A%0A%20%20function%20drillup()%20%7B%0A%20%20%20%20dispatch(%7B%20type%3A%20%22drillup%22%20%7D)%3B%0A%20%20%7D>)
+```javascript
+const DrilldownPie = ({ data, x, y }) => {
+  const [{ renderData, startAngle }, dispatch] = useDrillableData(data);
+  
+  // ...
+  
+  function drilldown({ startAngle, index }) {
+    dispatch({ type: "drilldown", index, startAngle });
+  }
+
+  function drillup() {
+    dispatch({ type: "drillup" });
+  }
+```
 
 Now `<DrilldownPie>` can go in both directions. That was a problem before 😅
 
@@ -85,13 +129,29 @@ Here's the recipe:
 - create a custom tween
 - use the tween to drive state
 
-[![Click through for source](./img/techletter.app-screenshot-1561996963872.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%20%20useEffect(()%20%3D%3E%20%7B%0A%20%20%20%20d3.selection()%0A%20%20%20%20%20%20.transition(%22pie-reveal%22)%0A%20%20%20%20%20%20.duration(3000)%0A%20%20%20%20%20%20.ease(d3.easeSinInOut)%0A%20%20%20%20%20%20.tween(%22percentVisible%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20const%20percentInterpolate%20%3D%20d3.interpolate(0%2C%20100)%3B%0A%20%20%20%20%20%20%20%20return%20t%20%3D%3E%20setPercentVisible(percentInterpolate(t))%3B%0A%20%20%20%20%20%20%7D)%3B%0A%20%20%7D%2C%20%5BrenderData%5D)%3B>)
+```javascript
+  useEffect(() => {
+    d3.selection()
+      .transition("pie-reveal")
+      .duration(3000)
+      .ease(d3.easeSinInOut)
+      .tween("percentVisible", () => {
+        const percentInterpolate = d3.interpolate(0, 100);
+        return t => setPercentVisible(percentInterpolate(t));
+      });
+  }, [renderData]);
+```
 
 `useEffect` runs its method when `renderData` changes. That's every time you drilldown or drillup.
 
 The effect runs a D3 transition on an empty selection. Sets duration to 3 seconds, an easing function to look pretty, and fires off a custom tween.
 
-[![Click through for source](./img/techletter.app-screenshot-1561996963200.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=()%20%3D%3E%20%7B%0A%09const%20percentInterpolate%20%3D%20d3.interpolate(0%2C%20100)%3B%0A%09return%20t%20%3D%3E%20setPercentVisible(percentInterpolate(t))%3B%0A%7D>)
+```javascript
+() => {
+	const percentInterpolate = d3.interpolate(0, 100);
+	return t => setPercentVisible(percentInterpolate(t));
+}
+```
 
 Tweens are meant to manipulate DOM attributes, but when you think about it, they're just functions that run on every step of the transition. They can do whatever you want to do on every keyframe. 🤔
 
@@ -103,7 +163,15 @@ Interpolator in hand, we return a parametrized function that updates state with 
 
 Using that state change to animate our piechart looks like this:
 
-[![Click through for source](./img/techletter.app-screenshot-1561996980269.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%20%20const%20%5BpercentVisible%2C%20setPercentVisible%5D%20%3D%20useState(0)%3B%0A%0A%20%20const%20pie%20%3D%20d3%0A%20%20%20%20.pie()%0A%20%20%20%20.startAngle(startAngle)%0A%20%20%20%20.endAngle(startAngle%20%2B%20percentVisible%20*%20Math.PI%20*%202)%0A%20%20%20%20.value(d%20%3D%3E%20d.value)%3B>)
+```javascript
+  const [percentVisible, setPercentVisible] = useState(0);
+
+  const pie = d3
+    .pie()
+    .startAngle(startAngle)
+    .endAngle(startAngle + percentVisible * Math.PI * 2)
+    .value(d => d.value);
+```
 
 `percentVisible` and `setPercentVisible` come from a `useState` hook. Getter and setter :)
 

@@ -26,13 +26,29 @@ You can think of monkey patching as a magic trick. Run a function and it changes
 
 Let's take `.flat` for example. It recursively flattens an array.
 
-[![Click through for source](./img/techletter.app-screenshot-1571068942459.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%3E%20%5B1%2C%20%5B2%2C%203%2C%20%5B4%2C%205%5D%5D%5D.flat()%0A%2F%2F%20(4)%C2%A0%5B1%2C%202%2C%203%2C%20Array(2)%5D%0A%0A%3E%20%5B1%2C%20%5B2%2C%203%2C%20%5B4%2C%205%5D%5D%5D.flat(2)%0A%2F%2F%20(5)%C2%A0%5B1%2C%202%2C%203%2C%204%2C%205%5D>)
+```javascript
+> [1, [2, 3, [4, 5]]].flat()
+// (4) [1, 2, 3, Array(2)]
+
+> [1, [2, 3, [4, 5]]].flat(2)
+// (5) [1, 2, 3, 4, 5]
+```
 
 Now let's say you disagree with the levels of recursion argument. You want `.flat` to always completely flatten an array.
 
 You can overwrite JavaScript's native `.flat` implementation. Run this somewhere, anywhere, in your codebase.
 
-[![Click through for source](./img/techletter.app-screenshot-1571068942189.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=Array.prototype.flat%20%3D%20function()%20%7B%0A%20%20return%20this.reduce((arr%2C%20cur)%20%3D%3E%20%7B%0A%20%20%20%20if%20(Array.isArray(cur))%20%7B%0A%20%20%20%20%20%20return%20%5B...arr%2C%20...cur.flat()%5D%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20return%20%5B...arr%2C%20cur%5D%3B%0A%20%20%20%20%7D%0A%20%20%7D%2C%20%5B%5D)%3B%0A%7D%3B>)
+```javascript
+Array.prototype.flat = function() {
+  return this.reduce((arr, cur) => {
+    if (Array.isArray(cur)) {
+      return [...arr, ...cur.flat()];
+    } else {
+      return [...arr, cur];
+    }
+  }, []);
+};
+```
 
 Overwrite `Array.prototype.flat` and replace it with a function of your own.
 
@@ -52,7 +68,16 @@ Monkey patching on its own ain't bad at all. It's a great tool when used respons
 
 But we can take that `.flat` example from before and make it sinister.
 
-[![Click through for source](./img/techletter.app-screenshot-1571068942441.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=console.log(%5B1%2C%20%5B2%2C%203%5D%5D.flat())%3B%0A%2F%2F%20%5B1%2C%202%2C%203%5D%0A%0Aconsole.log(%5B1%2C%20%5B2%2C%203%2C%20%5B4%2C%205%5D%5D%5D.flat())%3B%0A%2F%2F%20%5B1%2C%202%2C%203%2C%204%2C%205%5D%0A%0Aconsole.log(%5B1%2C%20%5B2%2C%203%2C%20%5B4%2C%205%5D%2C%20%5B6%2C%207%2C%20%5B8%2C%209%2C%20%5B10%2C%2011%5D%5D%5D%5D%5D.flat())%3B%0A%2F%2F%20%5B1%2C%202%2C%203%2C%204%2C%205%2C%20%22%F0%9F%A7%99%E2%80%8D%E2%99%82%EF%B8%8F%22%2C%206%2C%207%2C%208%2C%209%2C%20%22%F0%9F%A7%99%E2%80%8D%E2%99%82%EF%B8%8F%22%2C%2010%2C%2011%5D>)
+```javascript
+console.log([1, [2, 3]].flat());
+// [1, 2, 3]
+
+console.log([1, [2, 3, [4, 5]]].flat());
+// [1, 2, 3, 4, 5]
+
+console.log([1, [2, 3, [4, 5], [6, 7, [8, 9, [10, 11]]]]].flat());
+// [1, 2, 3, 4, 5, "🧙‍♂️", 6, 7, 8, 9, "🧙‍♂️", 10, 11]
+```
 
 Whoa where'd that wizard come from?
 
@@ -68,7 +93,7 @@ boom 💥
 
 I mean the feature worked but ...
 
-[![Click through for source](./img/techletter.app-screenshot-1571068941374.png)](https://twitter.com/Swizec/status/1181279294535790600)
+https://twitter.com/Swizec/status/1181279294535790600
 
 Trouble started on Friday as soon as we deployed. Yes we deployed on Friday.
 
@@ -116,11 +141,19 @@ It worked. We lost a feature and gained a working system.
 
 Digging through the gem's codebase we found this in a dependency.
 
-[![Click through for source](./img/techletter.app-screenshot-1571068942366.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=ruby&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=ActiveSupport.on_load(%3Aactive_record)%20do%0A%20%20require%20%22activerecord-import%2Fbase%22%0Aend>)
+```ruby
+ActiveSupport.on_load(:active_record) do
+  require "activerecord-import/base"
+end
+```
 
 and this ...
 
-[![Click through for source](./img/techletter.app-screenshot-1571068942460.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=ruby&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=class%20ActiveRecord%3A%3AConnectionAdapters%3A%3APostgreSQLAdapter%0A%20%20include%20ActiveRecord%3A%3AImport%3A%3APostgreSQLAdapter%0Aend>)
+```ruby
+class ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
+  include ActiveRecord::Import::PostgreSQLAdapter
+end
+```
 
 You know what that means? It means this gem _messes with every single Postgres operation in your codebase_.
 
