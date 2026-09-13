@@ -308,18 +308,6 @@
   "w": 446,
   "h": 200
  },
- "pages/blog/5-apps-with-the-modern-web-stack/img/techletter.app-screenshot-1580316666651.png": {
-  "w": 640,
-  "h": 360
- },
- "pages/blog/5-apps-with-the-modern-web-stack/img/techletter.app-screenshot-1580316667107.png": {
-  "w": 640,
-  "h": 360
- },
- "pages/blog/5-apps-with-the-modern-web-stack/img/techletter.app-screenshot-1580316667326.png": {
-  "w": 640,
-  "h": 360
- },
  "pages/blog/5-apps-with-the-modern-web-stack/img/zrt3fMG.gif": {
   "w": 1209,
   "h": 753
@@ -569,34 +557,6 @@
   "w": 496,
   "h": 439
  },
- "pages/blog/a-drilldown-piechart-with-react-and-d3/img/techletter.app-screenshot-1561739426130.png": {
-  "w": 726,
-  "h": 313
- },
- "pages/blog/a-drilldown-piechart-with-react-and-d3/img/techletter.app-screenshot-1561739426193.png": {
-  "w": 486,
-  "h": 223
- },
- "pages/blog/a-drilldown-piechart-with-react-and-d3/img/techletter.app-screenshot-1561739426232.png": {
-  "w": 486,
-  "h": 673
- },
- "pages/blog/a-drilldown-piechart-with-react-and-d3/img/techletter.app-screenshot-1561739426244.png": {
-  "w": 686,
-  "h": 475
- },
- "pages/blog/a-drilldown-piechart-with-react-and-d3/img/techletter.app-screenshot-1561739442421.png": {
-  "w": 558,
-  "h": 385
- },
- "pages/blog/a-drilldown-piechart-with-react-and-d3/img/techletter.app-screenshot-1561739464930.png": {
-  "w": 640,
-  "h": 347
- },
- "pages/blog/a-drilldown-piechart-with-react-and-d3/img/techletter.app-screenshot-1561739491897.png": {
-  "w": 640,
-  "h": 347
- },
  "pages/blog/a-few-more-thoughts-on-mentoring/img/I46qCggif-5icg3h.gif": {
   "w": 840,
   "h": 436
@@ -665,10 +625,6 @@
   "w": 600,
   "h": 346,
   "lqip": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACQAwCdASoUAAwAPzmGulOvKSWisAgB4CcJaQAAWkRB71lfNTyAAPqRjtb6kLDXEsxAkFgxo05XoJBON286WJAQAAA="
- },
- "pages/blog/a-holiday-compsci-reading-list-for-you/img/techletter.app-screenshot-1576863911117.png": {
-  "w": 640,
-  "h": 879
  },
  "pages/blog/a-javascript-function-that-makes-dollar40000+year/img/screenshot-1600702224141.png": {
   "w": 2048,
@@ -813,34 +769,6 @@
   "w": 320,
   "h": 240
  },
- "pages/blog/a-promises-gotcha-that-will-catch-you-out/img/techletter.app-screenshot-1576516608665.png": {
-  "w": 446,
-  "h": 223
- },
- "pages/blog/a-promises-gotcha-that-will-catch-you-out/img/techletter.app-screenshot-1576516608792.png": {
-  "w": 542,
-  "h": 349
- },
- "pages/blog/a-promises-gotcha-that-will-catch-you-out/img/techletter.app-screenshot-1576516610299.png": {
-  "w": 574,
-  "h": 259
- },
- "pages/blog/a-promises-gotcha-that-will-catch-you-out/img/techletter.app-screenshot-1576516610370.png": {
-  "w": 542,
-  "h": 331
- },
- "pages/blog/a-promises-gotcha-that-will-catch-you-out/img/techletter.app-screenshot-1576516610434.png": {
-  "w": 462,
-  "h": 259
- },
- "pages/blog/a-promises-gotcha-that-will-catch-you-out/img/techletter.app-screenshot-1576516613487.png": {
-  "w": 574,
-  "h": 259
- },
- "pages/blog/a-promises-gotcha-that-will-catch-you-out/img/techletter.app-screenshot-1576516629907.png": {
-  "w": 640,
-  "h": 360
- },
  "pages/blog/a-puzzle-in-javascript-objects/img/601683jpgg8a46i.jpeg": {
   "w": 900,
   "h": 506,
@@ -882,26 +810,6 @@
  "pages/blog/a-short-lesson-in-debugging-complex-systems/img/sT9HUBd.png": {
   "w": 2024,
   "h": 444
- },
- "pages/blog/a-short-lesson-in-debugging-complex-systems/img/techletter.app-screenshot-1564157796857.png": {
-  "w": 710,
-  "h": 385
- },
- "pages/blog/a-short-lesson-in-debugging-complex-systems/img/techletter.app-screenshot-1564157796906.png": {
-  "w": 414,
-  "h": 277
- },
- "pages/blog/a-short-lesson-in-debugging-complex-systems/img/techletter.app-screenshot-1564157796979.png": {
-  "w": 590,
-  "h": 601
- },
- "pages/blog/a-short-lesson-in-debugging-complex-systems/img/techletter.app-screenshot-1564157797079.png": {
-  "w": 718,
-  "h": 475
- },
- "pages/blog/a-short-lesson-in-debugging-complex-systems/img/techletter.app-screenshot-1564157906257.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/a-short-lesson-in-debugging-complex-systems/img/UilWIZl.png": {
   "w": 1222,
@@ -1025,14 +933,6 @@
   "w": 267,
   "h": 200
  },
- "pages/blog/a-whole-new-level-of-technical-decision/img/techletter.app-screenshot-1562603962613.png": {
-  "w": 640,
-  "h": 450
- },
- "pages/blog/a-whole-new-level-of-technical-decision/img/techletter.app-screenshot-1562603963238.png": {
-  "w": 640,
-  "h": 787
- },
  "pages/blog/a-work-ritual-that-keeps-me-sane/img/5U2xTYpng5gbd9f.png": {
   "w": 604,
   "h": 453,
@@ -1053,38 +953,6 @@
  "pages/blog/add-granular-rolebased-access-to-your-jamstack-app/img/HREDYcq.gif": {
   "w": 724,
   "h": 591
- },
- "pages/blog/add-granular-rolebased-access-to-your-jamstack-app/img/techletter.app-screenshot-1589818029535.png": {
-  "w": 654,
-  "h": 403
- },
- "pages/blog/add-granular-rolebased-access-to-your-jamstack-app/img/techletter.app-screenshot-1589818029816.png": {
-  "w": 606,
-  "h": 493
- },
- "pages/blog/add-granular-rolebased-access-to-your-jamstack-app/img/techletter.app-screenshot-1589818029955.png": {
-  "w": 638,
-  "h": 673
- },
- "pages/blog/add-granular-rolebased-access-to-your-jamstack-app/img/techletter.app-screenshot-1589818029965.png": {
-  "w": 550,
-  "h": 313
- },
- "pages/blog/add-granular-rolebased-access-to-your-jamstack-app/img/techletter.app-screenshot-1589818030521.png": {
-  "w": 640,
-  "h": 828
- },
- "pages/blog/add-granular-rolebased-access-to-your-jamstack-app/img/techletter.app-screenshot-1589818031419.png": {
-  "w": 640,
-  "h": 360
- },
- "pages/blog/add-granular-rolebased-access-to-your-jamstack-app/img/techletter.app-screenshot-1589818031718.png": {
-  "w": 406,
-  "h": 331
- },
- "pages/blog/add-granular-rolebased-access-to-your-jamstack-app/img/techletter.app-screenshot-1589818032252.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/adding-categories-to-a-gatsby-blog-for-better-seo/img/A-nice-category-page1a9g1d.gif": {
   "w": 800,
@@ -1147,18 +1015,6 @@
  "pages/blog/after-9-months-of-freedom-today-i-start-a-new-job/img/s067u18.png": {
   "w": 1690,
   "h": 1018
- },
- "pages/blog/after-9-months-of-freedom-today-i-start-a-new-job/img/techletter.app-screenshot-1563813139370.png": {
-  "w": 640,
-  "h": 565
- },
- "pages/blog/after-9-months-of-freedom-today-i-start-a-new-job/img/techletter.app-screenshot-1563813139908.png": {
-  "w": 640,
-  "h": 1034
- },
- "pages/blog/after-9-months-of-freedom-today-i-start-a-new-job/img/techletter.app-screenshot-1563813140111.png": {
-  "w": 640,
-  "h": 1033
  },
  "pages/blog/after-a-year-my-first-business-diary-retires/img/i6gmKrF.jpg": {
   "w": 720,
@@ -1365,10 +1221,6 @@
  "pages/blog/announcing-serverlessreactdev-my-new-course-on-building-apps-from-scratch/img/media-6y038xO1p06He-giphy.gif": {
   "w": 245,
   "h": 150
- },
- "pages/blog/announcing-serverlessreactdev-my-new-course-on-building-apps-from-scratch/img/techletter.app-screenshot-1580143626727.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/anythings-a-sorting-problem-if-you-squint-hard-enough/img/Checkered-mess-of-triangles8c6293.png": {
   "w": 382,
@@ -1743,10 +1595,6 @@
   "h": 1492,
   "lqip": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAACQAwCdASoUABAAPzmEuVOvKKWisAgB4CcJQBOgAph4dycjJBWAANSzMAVw6264+YlVsXmP7UB2mboSUlD6spwhJHSllGDP4J18CmFYXdLcNkkwg6hdzicPPw9wdVApgAA="
  },
- "pages/blog/better-engineer-or-more-effective-engineer/img/techletter.app-screenshot-1564416546196.png": {
-  "w": 640,
-  "h": 360
- },
  "pages/blog/better-is-good/img/screenshot-1726328251587.png": {
   "w": 2048,
   "h": 1024
@@ -1873,46 +1721,6 @@
   "w": 800,
   "h": 605
  },
- "pages/blog/build-a-new-design-system-in-a-couple-afternoons/img/techletter.app-screenshot-1593798385578.png": {
-  "w": 454,
-  "h": 834
- },
- "pages/blog/build-a-new-design-system-in-a-couple-afternoons/img/techletter.app-screenshot-1593798385719.png": {
-  "w": 550,
-  "h": 294
- },
- "pages/blog/build-a-new-design-system-in-a-couple-afternoons/img/techletter.app-screenshot-1593798385841.png": {
-  "w": 334,
-  "h": 348
- },
- "pages/blog/build-a-new-design-system-in-a-couple-afternoons/img/techletter.app-screenshot-1593798386174.png": {
-  "w": 446,
-  "h": 654
- },
- "pages/blog/build-a-new-design-system-in-a-couple-afternoons/img/techletter.app-screenshot-1593798386272.png": {
-  "w": 430,
-  "h": 330
- },
- "pages/blog/build-a-new-design-system-in-a-couple-afternoons/img/techletter.app-screenshot-1593798386275.png": {
-  "w": 566,
-  "h": 636
- },
- "pages/blog/build-a-new-design-system-in-a-couple-afternoons/img/techletter.app-screenshot-1593798386297.png": {
-  "w": 726,
-  "h": 816
- },
- "pages/blog/build-a-new-design-system-in-a-couple-afternoons/img/techletter.app-screenshot-1593798387781.png": {
-  "w": 454,
-  "h": 276
- },
- "pages/blog/build-a-new-design-system-in-a-couple-afternoons/img/techletter.app-screenshot-1593798387860.png": {
-  "w": 518,
-  "h": 222
- },
- "pages/blog/build-a-new-design-system-in-a-couple-afternoons/img/techletter.app-screenshot-1593798388118.png": {
-  "w": 646,
-  "h": 690
- },
  "pages/blog/build-better-apps-faster-with-the-jamstack/img/00W2p7png2e9503.png": {
   "w": 1444,
   "h": 1466
@@ -1920,42 +1728,6 @@
  "pages/blog/build-better-apps-faster-with-the-jamstack/img/screenshot-1604075201868.png": {
   "w": 2048,
   "h": 1024
- },
- "pages/blog/build-better-software-with-the-theory-of-constraints/img/techletter.app-screenshot-1556559132819.png": {
-  "w": 640,
-  "h": 802
- },
- "pages/blog/build-better-software-with-the-theory-of-constraints/img/techletter.app-screenshot-1556559132996.png": {
-  "w": 640,
-  "h": 354
- },
- "pages/blog/build-better-software-with-the-theory-of-constraints/img/techletter.app-screenshot-1556559133005.png": {
-  "w": 640,
-  "h": 751
- },
- "pages/blog/build-better-software-with-the-theory-of-constraints/img/techletter.app-screenshot-1556559133055.png": {
-  "w": 640,
-  "h": 837
- },
- "pages/blog/build-better-software-with-the-theory-of-constraints/img/techletter.app-screenshot-1556559133132.png": {
-  "w": 640,
-  "h": 1084
- },
- "pages/blog/build-better-software-with-the-theory-of-constraints/img/techletter.app-screenshot-1556559133182.png": {
-  "w": 640,
-  "h": 924
- },
- "pages/blog/build-better-software-with-the-theory-of-constraints/img/techletter.app-screenshot-1556559133208.png": {
-  "w": 640,
-  "h": 1055
- },
- "pages/blog/build-better-software-with-the-theory-of-constraints/img/techletter.app-screenshot-1556559133322.png": {
-  "w": 640,
-  "h": 879
- },
- "pages/blog/build-better-software-with-the-theory-of-constraints/img/techletter.app-screenshot-1556559133531.png": {
-  "w": 640,
-  "h": 898
  },
  "pages/blog/build-one-to-throw-away/img/Ch6vzYo.png": {
   "w": 590,
@@ -2428,14 +2200,6 @@
   "w": 275,
   "h": 252
  },
- "pages/blog/come-hang-out-in-barcelona-and-learn-graphql-serverless-gatsby/img/techletter.app-screenshot-1565194943871.png": {
-  "w": 640,
-  "h": 515
- },
- "pages/blog/come-hang-out-in-barcelona-and-learn-graphql-serverless-gatsby/img/techletter.app-screenshot-1565194943963.png": {
-  "w": 640,
-  "h": 994
- },
  "pages/blog/come-hang-out-in-barcelona-and-learn-graphql-serverless-gatsby/img/wkiVpBm.png": {
   "w": 742,
   "h": 520
@@ -2555,70 +2319,6 @@
   "w": 436,
   "h": 200
  },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252300.png": {
-  "w": 470,
-  "h": 313
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252432.png": {
-  "w": 526,
-  "h": 475
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252506.png": {
-  "w": 630,
-  "h": 835
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252554.png": {
-  "w": 438,
-  "h": 295
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252559.png": {
-  "w": 454,
-  "h": 241
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252577.png": {
-  "w": 510,
-  "h": 187
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252625.png": {
-  "w": 446,
-  "h": 241
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252651.png": {
-  "w": 414,
-  "h": 403
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252659.png": {
-  "w": 606,
-  "h": 529
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252667.png": {
-  "w": 438,
-  "h": 205
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252676.png": {
-  "w": 358,
-  "h": 223
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252694.png": {
-  "w": 430,
-  "h": 259
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252713.png": {
-  "w": 446,
-  "h": 205
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240252762.png": {
-  "w": 286,
-  "h": 205
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240253005.png": {
-  "w": 454,
-  "h": 493
- },
- "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/techletter.app-screenshot-1585240253445.png": {
-  "w": 640,
-  "h": 387
- },
  "pages/blog/configuring-your-jamstack-app-for-prod-vs-dev/img/ujVZMF7.png": {
   "w": 626,
   "h": 235
@@ -2642,46 +2342,6 @@
  "pages/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/img/RtkfTmy.gif": {
   "w": 800,
   "h": 475
- },
- "pages/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/img/techletter.app-screenshot-1582560335184.png": {
-  "w": 542,
-  "h": 637
- },
- "pages/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/img/techletter.app-screenshot-1582560335200.png": {
-  "w": 502,
-  "h": 403
- },
- "pages/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/img/techletter.app-screenshot-1582560335267.png": {
-  "w": 574,
-  "h": 511
- },
- "pages/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/img/techletter.app-screenshot-1582560335270.png": {
-  "w": 670,
-  "h": 187
- },
- "pages/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/img/techletter.app-screenshot-1582560335286.png": {
-  "w": 654,
-  "h": 385
- },
- "pages/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/img/techletter.app-screenshot-1582560335311.png": {
-  "w": 430,
-  "h": 619
- },
- "pages/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/img/techletter.app-screenshot-1582560335327.png": {
-  "w": 550,
-  "h": 799
- },
- "pages/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/img/techletter.app-screenshot-1582560335371.png": {
-  "w": 606,
-  "h": 583
- },
- "pages/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/img/techletter.app-screenshot-1582560335386.png": {
-  "w": 694,
-  "h": 457
- },
- "pages/blog/connecting-gumroad-to-auth0-for-paywalled-jamstack-apps/img/techletter.app-screenshot-1582560337594.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/conways-game-of-life-in-google-docs/img/glidergif56df35.gif": {
   "w": 84,
@@ -3585,14 +3245,6 @@
   "w": 640,
   "h": 410
  },
- "pages/blog/do-more-_work_-less/img/techletter.app-screenshot-1570812778432.png": {
-  "w": 640,
-  "h": 777
- },
- "pages/blog/do-more-_work_-less/img/techletter.app-screenshot-1570812778815.png": {
-  "w": 640,
-  "h": 935
- },
  "pages/blog/do-more-_work_-less/img/techletter.app-screenshot-1570812780373.png": {
   "w": 640,
   "h": 410
@@ -3676,10 +3328,6 @@
   "w": 300,
   "h": 198,
   "lqip": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAADwAwCdASoUAA0APzmGuVOvKSWisAgB4CcJZACdISADAxOhjeehpk94ANzQGsj7uqUcMH19jgRzR/Yj8E7JZ3JWpziKDguwohc4c+tK1879mkAq0m6G2gEgUb+jq+bRBUNC6YvpmkSStnYn4AAAAA=="
- },
- "pages/blog/dont-be-weird/img/techletter.app-screenshot-1588990757609.png": {
-  "w": 640,
-  "h": 878
  },
  "pages/blog/dont-just-wait-around/img/HQpmAbo.png": {
   "w": 984,
@@ -3881,66 +3529,6 @@
   "w": 800,
   "h": 778
  },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060437461.png": {
-  "w": 640,
-  "h": 354
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060438531.png": {
-  "w": 502,
-  "h": 403
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060439084.png": {
-  "w": 510,
-  "h": 565
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060439160.png": {
-  "w": 406,
-  "h": 223
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060439225.png": {
-  "w": 502,
-  "h": 259
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060439294.png": {
-  "w": 566,
-  "h": 907
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060439371.png": {
-  "w": 518,
-  "h": 313
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060439443.png": {
-  "w": 606,
-  "h": 691
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060439503.png": {
-  "w": 606,
-  "h": 511
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060439786.png": {
-  "w": 630,
-  "h": 385
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060439854.png": {
-  "w": 654,
-  "h": 1069
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060441033.png": {
-  "w": 640,
-  "h": 672
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060452637.png": {
-  "w": 640,
-  "h": 360
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060457596.png": {
-  "w": 640,
-  "h": 360
- },
- "pages/blog/experimenting-with-the-new-react-concurrent-mode/img/techletter.app-screenshot-1573060471320.png": {
-  "w": 640,
-  "h": 347
- },
  "pages/blog/exploring-nextjs-with-a-custom-cms-pt3-codewithswiz/img/NextJS-shows-a-cryptic-error4deg87.png": {
   "w": 2028,
   "h": 780
@@ -3980,18 +3568,6 @@
  "pages/blog/famous-last-words-pfft-thats-easy/img/nGYgiuF.gif": {
   "w": 500,
   "h": 205
- },
- "pages/blog/famous-last-words-pfft-thats-easy/img/techletter.app-screenshot-1578676638673.png": {
-  "w": 640,
-  "h": 455
- },
- "pages/blog/famous-last-words-pfft-thats-easy/img/techletter.app-screenshot-1578676638774.png": {
-  "w": 640,
-  "h": 713
- },
- "pages/blog/famous-last-words-pfft-thats-easy/img/techletter.app-screenshot-1578676638985.png": {
-  "w": 640,
-  "h": 550
  },
  "pages/blog/fast-searchable-dropdown-inputs-with-react/img/wp-content-uploads-2016-02-cute-winning-gif-333.gif": {
   "w": 374,
@@ -4305,10 +3881,6 @@
   "w": 300,
   "h": 169
  },
- "pages/blog/getting-the-css-out-of-rendered-react-components/img/techletter.app-screenshot-1559573006863.png": {
-  "w": 758,
-  "h": 781
- },
  "pages/blog/give-me-your-guestpost-and-i-will-give-you-my-love/img/NeGxI.png": {
   "w": 480,
   "h": 800,
@@ -4364,10 +3936,6 @@
  "pages/blog/hackers/img/media-uY0zZnQqZD8Jy-giphy.gif": {
   "w": 500,
   "h": 233
- },
- "pages/blog/hackers/img/techletter.app-screenshot-1592841395919.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/hacking-the-react-ast-for-fun-and-profit-codewithswiz-ep34/img/GxSe68gif99i1jh.gif": {
   "w": 800,
@@ -4554,10 +4122,6 @@
  "pages/blog/how-can-you-make-an-extra-dollar1000/img/media-3iDvcw853wUbAeD6tQ-giphy.gif": {
   "w": 480,
   "h": 270
- },
- "pages/blog/how-can-you-make-an-extra-dollar1000/img/techletter.app-screenshot-1579108668109.png": {
-  "w": 640,
-  "h": 851
  },
  "pages/blog/how-can-you-make-an-extra-dollar1000/img/zaYUNtQ.png": {
   "w": 800,
@@ -4764,42 +4328,6 @@
   "h": 808,
   "lqip": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAACwAwCdASoUAAsAPzmGulQvKSWjMAgB4CcJQBdgBA2DmuILhXhbAAD+6PA/0oYG/WyIkoLwVgk48YEuE0OUPQAJ6i9cOt2SXX9m6ifMRZr0yKiAAAA="
  },
- "pages/blog/how-i-answer-the-door-with-aws-lambda-and-twilio/img/techletter.app-screenshot-1575873614247.png": {
-  "w": 782,
-  "h": 835
- },
- "pages/blog/how-i-answer-the-door-with-aws-lambda-and-twilio/img/techletter.app-screenshot-1575873614255.png": {
-  "w": 694,
-  "h": 403
- },
- "pages/blog/how-i-answer-the-door-with-aws-lambda-and-twilio/img/techletter.app-screenshot-1575873614280.png": {
-  "w": 702,
-  "h": 547
- },
- "pages/blog/how-i-answer-the-door-with-aws-lambda-and-twilio/img/techletter.app-screenshot-1575873614283.png": {
-  "w": 462,
-  "h": 367
- },
- "pages/blog/how-i-answer-the-door-with-aws-lambda-and-twilio/img/techletter.app-screenshot-1575873614309.png": {
-  "w": 614,
-  "h": 673
- },
- "pages/blog/how-i-answer-the-door-with-aws-lambda-and-twilio/img/techletter.app-screenshot-1575873614384.png": {
-  "w": 746,
-  "h": 727
- },
- "pages/blog/how-i-answer-the-door-with-aws-lambda-and-twilio/img/techletter.app-screenshot-1575873614420.png": {
-  "w": 1024,
-  "h": 727
- },
- "pages/blog/how-i-answer-the-door-with-aws-lambda-and-twilio/img/techletter.app-screenshot-1575873627646.png": {
-  "w": 640,
-  "h": 360
- },
- "pages/blog/how-i-answer-the-door-with-aws-lambda-and-twilio/img/techletter.app-screenshot-1575873910342.png": {
-  "w": 640,
-  "h": 859
- },
  "pages/blog/how-i-got-boned-by-taxes-two-years-in-a-row/img/media-116a8zosxwA0SI-giphy.gif": {
   "w": 160,
   "h": 160
@@ -4991,65 +4519,9 @@
   "w": 2082,
   "h": 1066
  },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070509552.png": {
-  "w": 640,
-  "h": 530
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070509617.png": {
-  "w": 640,
-  "h": 871
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070509761.png": {
-  "w": 640,
-  "h": 1034
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070509774.png": {
-  "w": 640,
-  "h": 1034
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070509805.png": {
-  "w": 640,
-  "h": 935
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070509811.png": {
-  "w": 640,
-  "h": 794
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070509955.png": {
-  "w": 640,
-  "h": 565
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070509971.png": {
-  "w": 640,
-  "h": 889
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070510037.png": {
-  "w": 640,
-  "h": 927
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070510083.png": {
-  "w": 640,
-  "h": 861
- },
  "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070510183.png": {
   "w": 640,
   "h": 470
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070511078.png": {
-  "w": 640,
-  "h": 408
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070512174.png": {
-  "w": 640,
-  "h": 360
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070512343.png": {
-  "w": 640,
-  "h": 360
- },
- "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/techletter.app-screenshot-1578070513239.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/how-my-bank-account-went-from-dollar909-to-dollar50000-in-2019/img/UrQvlkc.png": {
   "w": 1440,
@@ -5103,26 +4575,6 @@
  "pages/blog/how-serverless-beats-servers/img/media-jSxK33dwEMbkY-giphy.gif": {
   "w": 271,
   "h": 169
- },
- "pages/blog/how-serverless-beats-servers/img/techletter.app-screenshot-1580225197780.png": {
-  "w": 154,
-  "h": 187
- },
- "pages/blog/how-serverless-beats-servers/img/techletter.app-screenshot-1580225198140.png": {
-  "w": 566,
-  "h": 277
- },
- "pages/blog/how-serverless-beats-servers/img/techletter.app-screenshot-1580225198153.png": {
-  "w": 518,
-  "h": 241
- },
- "pages/blog/how-serverless-beats-servers/img/techletter.app-screenshot-1580225198202.png": {
-  "w": 1024,
-  "h": 1123
- },
- "pages/blog/how-serverless-beats-servers/img/techletter.app-screenshot-1580225198266.png": {
-  "w": 742,
-  "h": 1213
  },
  "pages/blog/how-tests-uncover-hidden-complexity-in-simple-code/img/Ei311cv.png": {
   "w": 1408,
@@ -5257,47 +4709,7 @@
   "w": 500,
   "h": 280
  },
- "pages/blog/how-to-debug-unified-rehype-or-remark-and-fix-bugs-in-markdown-processing-2/img/techletter.app-screenshot-1597679790389.png": {
-  "w": 1132,
-  "h": 948
- },
- "pages/blog/how-to-debug-unified-rehype-or-remark-and-fix-bugs-in-markdown-processing-2/img/techletter.app-screenshot-1597679790476.png": {
-  "w": 1340,
-  "h": 948
- },
- "pages/blog/how-to-debug-unified-rehype-or-remark-and-fix-bugs-in-markdown-processing-2/img/techletter.app-screenshot-1597679790529.png": {
-  "w": 1324,
-  "h": 948
- },
- "pages/blog/how-to-debug-unified-rehype-or-remark-and-fix-bugs-in-markdown-processing-2/img/techletter.app-screenshot-1597679790566.png": {
-  "w": 1388,
-  "h": 660
- },
- "pages/blog/how-to-debug-unified-rehype-or-remark-and-fix-bugs-in-markdown-processing-2/img/techletter.app-screenshot-1597679790629.png": {
-  "w": 1756,
-  "h": 948
- },
- "pages/blog/how-to-debug-unified-rehype-or-remark-and-fix-bugs-in-markdown-processing-2/img/techletter.app-screenshot-1597679790671.png": {
-  "w": 1180,
-  "h": 732
- },
- "pages/blog/how-to-debug-unified-rehype-or-remark-and-fix-bugs-in-markdown-processing-2/img/techletter.app-screenshot-1597679790704.png": {
-  "w": 1436,
-  "h": 1344
- },
- "pages/blog/how-to-debug-unified-rehype-or-remark-and-fix-bugs-in-markdown-processing-2/img/techletter.app-screenshot-1597679790714.png": {
-  "w": 1404,
-  "h": 1308
- },
- "pages/blog/how-to-debug-unified-rehype-or-remark-and-fix-bugs-in-markdown-processing-2/img/techletter.app-screenshot-1597679790968.png": {
-  "w": 1324,
-  "h": 1236
- },
  "pages/blog/how-to-debug-unified-rehype-or-remark-and-fix-bugs-in-markdown-processing-2/img/techletter.app-screenshot-1597679792741.png": {
-  "w": 2556,
-  "h": 1436
- },
- "pages/blog/how-to-debug-unified-rehype-or-remark-and-fix-bugs-in-markdown-processing-2/img/techletter.app-screenshot-1597679797967.png": {
   "w": 2556,
   "h": 1436
  },
@@ -5365,34 +4777,6 @@
   "w": 480,
   "h": 321
  },
- "pages/blog/how-to-drive-react-state-with-d3-transitions-for-complex-animation/img/techletter.app-screenshot-1561996963200.png": {
-  "w": 558,
-  "h": 241
- },
- "pages/blog/how-to-drive-react-state-with-d3-transitions-for-complex-animation/img/techletter.app-screenshot-1561996963872.png": {
-  "w": 590,
-  "h": 349
- },
- "pages/blog/how-to-drive-react-state-with-d3-transitions-for-complex-animation/img/techletter.app-screenshot-1561996964164.png": {
-  "w": 678,
-  "h": 385
- },
- "pages/blog/how-to-drive-react-state-with-d3-transitions-for-complex-animation/img/techletter.app-screenshot-1561996966775.png": {
-  "w": 640,
-  "h": 360
- },
- "pages/blog/how-to-drive-react-state-with-d3-transitions-for-complex-animation/img/techletter.app-screenshot-1561996980269.png": {
-  "w": 566,
-  "h": 295
- },
- "pages/blog/how-to-drive-react-state-with-d3-transitions-for-complex-animation/img/techletter.app-screenshot-1561996982609.png": {
-  "w": 640,
-  "h": 347
- },
- "pages/blog/how-to-drive-react-state-with-d3-transitions-for-complex-animation/img/techletter.app-screenshot-1561996984642.png": {
-  "w": 598,
-  "h": 709
- },
  "pages/blog/how-to-drive-react-state-with-d3-transitions-for-complex-animation/img/ygw2Esu.gif": {
   "w": 680,
   "h": 426
@@ -5429,14 +4813,6 @@
  "pages/blog/how-to-grow-as-a-senior-engineer-or-why-i-got-a-new-job/img/media-y3QOvy7xxMwKI-giphy.gif": {
   "w": 500,
   "h": 399
- },
- "pages/blog/how-to-grow-as-a-senior-engineer-or-why-i-got-a-new-job/img/techletter.app-screenshot-1593188913381.png": {
-  "w": 640,
-  "h": 383
- },
- "pages/blog/how-to-grow-as-a-senior-engineer-or-why-i-got-a-new-job/img/techletter.app-screenshot-1593188915380.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/how-to-lead-a-project/img/screenshot-1763568376277.png": {
   "w": 2048,
@@ -5570,14 +4946,6 @@
   "w": 245,
   "h": 265
  },
- "pages/blog/how-to-recession-proof-your-career/img/techletter.app-screenshot-1572626937994.png": {
-  "w": 640,
-  "h": 344
- },
- "pages/blog/how-to-recession-proof-your-career/img/techletter.app-screenshot-1572626939771.png": {
-  "w": 640,
-  "h": 819
- },
  "pages/blog/how-to-rewrite-your-app-while-growing-to-a-dollar100000000-series-b/img/BMW-design-evolution2a51db.jpeg": {
   "w": 1600,
   "h": 900,
@@ -5635,30 +5003,6 @@
  "pages/blog/how-to-succeed-as-a-lead-engineer-tactics-and-mindsets-from-practice/img/MPQs9B0.png": {
   "w": 696,
   "h": 218
- },
- "pages/blog/how-to-succeed-as-a-lead-engineer-tactics-and-mindsets-from-practice/img/techletter.app-screenshot-1572027737093.png": {
-  "w": 640,
-  "h": 322
- },
- "pages/blog/how-to-succeed-as-a-lead-engineer-tactics-and-mindsets-from-practice/img/techletter.app-screenshot-1572027737150.png": {
-  "w": 640,
-  "h": 483
- },
- "pages/blog/how-to-succeed-as-a-lead-engineer-tactics-and-mindsets-from-practice/img/techletter.app-screenshot-1572027737202.png": {
-  "w": 640,
-  "h": 648
- },
- "pages/blog/how-to-succeed-as-a-lead-engineer-tactics-and-mindsets-from-practice/img/techletter.app-screenshot-1572027737266.png": {
-  "w": 640,
-  "h": 547
- },
- "pages/blog/how-to-succeed-as-a-lead-engineer-tactics-and-mindsets-from-practice/img/techletter.app-screenshot-1572027737410.png": {
-  "w": 640,
-  "h": 293
- },
- "pages/blog/how-to-succeed-as-a-lead-engineer-tactics-and-mindsets-from-practice/img/techletter.app-screenshot-1572027740130.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/how-to-take-ownership-and-make-progress-without-explicit-direction/img/screenshot-1635433840211.png": {
   "w": 2048,
@@ -6193,62 +5537,6 @@
   "w": 2048,
   "h": 1024
  },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355062786.png": {
-  "w": 640,
-  "h": 322
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355062828.png": {
-  "w": 640,
-  "h": 290
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355062882.png": {
-  "w": 640,
-  "h": 290
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355062906.png": {
-  "w": 640,
-  "h": 529
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355062911.png": {
-  "w": 640,
-  "h": 386
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355062913.png": {
-  "w": 640,
-  "h": 357
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355062927.png": {
-  "w": 640,
-  "h": 483
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355063011.png": {
-  "w": 640,
-  "h": 418
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355063097.png": {
-  "w": 640,
-  "h": 418
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355063106.png": {
-  "w": 640,
-  "h": 290
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355063175.png": {
-  "w": 640,
-  "h": 309
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355063177.png": {
-  "w": 640,
-  "h": 489
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355063642.png": {
-  "w": 640,
-  "h": 354
- },
- "pages/blog/im-a-ocean-of-failure-so-i-swim/img/techletter.app-screenshot-1574355078936.png": {
-  "w": 640,
-  "h": 360
- },
  "pages/blog/imagine-you-could-chat-with-the-core-of-your-industry-for-5min/img/2020-reactathon-twitter-card.png": {
   "w": 1200,
   "h": 675
@@ -6568,10 +5856,6 @@
  "pages/blog/its-never-been-this-easy-to-build-a-webapp/img/parrots-hd-parrot.gif": {
   "w": 128,
   "h": 128
- },
- "pages/blog/its-never-been-this-easy-to-build-a-webapp/img/techletter.app-screenshot-1579623605886.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/its-never-been-this-easy-to-build-a-webapp/img/ummZg7C.jpg": {
   "w": 2048,
@@ -7353,14 +6637,6 @@
   "w": 1024,
   "h": 768
  },
- "pages/blog/looking-for-the-perfect-light-work-device/img/techletter.app-screenshot-1589559930901.png": {
-  "w": 640,
-  "h": 758
- },
- "pages/blog/looking-for-the-perfect-light-work-device/img/techletter.app-screenshot-1589559932446.png": {
-  "w": 640,
-  "h": 360
- },
  "pages/blog/macos-filesystems-annoying-little-quirk/img/iQpaLXA.gif": {
   "w": 959,
   "h": 443
@@ -7499,38 +6775,6 @@
   "w": 280,
   "h": 191
  },
- "pages/blog/mocking-and-testing-fetch-requests-with-jest/img/techletter.app-screenshot-1582908304324.png": {
-  "w": 640,
-  "h": 218
- },
- "pages/blog/mocking-and-testing-fetch-requests-with-jest/img/techletter.app-screenshot-1582908305188.png": {
-  "w": 302,
-  "h": 187
- },
- "pages/blog/mocking-and-testing-fetch-requests-with-jest/img/techletter.app-screenshot-1582908305216.png": {
-  "w": 654,
-  "h": 349
- },
- "pages/blog/mocking-and-testing-fetch-requests-with-jest/img/techletter.app-screenshot-1582908305230.png": {
-  "w": 422,
-  "h": 277
- },
- "pages/blog/mocking-and-testing-fetch-requests-with-jest/img/techletter.app-screenshot-1582908305261.png": {
-  "w": 630,
-  "h": 277
- },
- "pages/blog/mocking-and-testing-fetch-requests-with-jest/img/techletter.app-screenshot-1582908305311.png": {
-  "w": 646,
-  "h": 655
- },
- "pages/blog/mocking-and-testing-fetch-requests-with-jest/img/techletter.app-screenshot-1582908305341.png": {
-  "w": 574,
-  "h": 403
- },
- "pages/blog/mocking-and-testing-fetch-requests-with-jest/img/techletter.app-screenshot-1582908305371.png": {
-  "w": 390,
-  "h": 187
- },
  "pages/blog/modern-backend-is-a-javascript-function/img/screenshot-1600788569261.png": {
   "w": 2048,
   "h": 1024
@@ -7600,30 +6844,6 @@
  "pages/blog/moving-13-years-of-wordpress-blog-to-gatsby-markdown/img/rkFOnrE.png": {
   "w": 1484,
   "h": 716
- },
- "pages/blog/moving-13-years-of-wordpress-blog-to-gatsby-markdown/img/techletter.app-screenshot-1569254610612.png": {
-  "w": 640,
-  "h": 637
- },
- "pages/blog/moving-13-years-of-wordpress-blog-to-gatsby-markdown/img/techletter.app-screenshot-1569254610676.png": {
-  "w": 640,
-  "h": 838
- },
- "pages/blog/moving-13-years-of-wordpress-blog-to-gatsby-markdown/img/techletter.app-screenshot-1569254611336.png": {
-  "w": 638,
-  "h": 493
- },
- "pages/blog/moving-13-years-of-wordpress-blog-to-gatsby-markdown/img/techletter.app-screenshot-1569254611375.png": {
-  "w": 558,
-  "h": 457
- },
- "pages/blog/moving-13-years-of-wordpress-blog-to-gatsby-markdown/img/techletter.app-screenshot-1569254611427.png": {
-  "w": 694,
-  "h": 637
- },
- "pages/blog/moving-13-years-of-wordpress-blog-to-gatsby-markdown/img/techletter.app-screenshot-1569254657692.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/music-and-the-zone/img/Deutsch-Portrait-Beethovens-mit-der-Partitur-ce5h86.jpeg": {
   "w": 300,
@@ -7975,14 +7195,6 @@
  "pages/blog/path-dependence-or-why-existing-code-always-looks-bad/img/media-3o84sq21TxDH6PyYms-giphy.gif": {
   "w": 480,
   "h": 208
- },
- "pages/blog/path-dependence-or-why-existing-code-always-looks-bad/img/techletter.app-screenshot-1594052250156.png": {
-  "w": 606,
-  "h": 240
- },
- "pages/blog/path-dependence-or-why-existing-code-always-looks-bad/img/techletter.app-screenshot-1594052250405.png": {
-  "w": 390,
-  "h": 186
  },
  "pages/blog/path-dependence-or-why-existing-code-always-looks-bad/img/vesvgpng8g114e.png": {
   "w": 1920,
@@ -8548,10 +7760,6 @@
   "h": 496,
   "lqip": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAACQAwCdASoUAA0APzmIulQvKSWjMAgB4CcJZgAANoh5jXvpJ4SwAPzf6OdOQReuMMXxkX23DYCbQcmlHDLyjP/LeZwRSOYDgwwSmnUa9mZrXK7YFZi7291G+mrbk+nNHxDvvSozaGBOBlusRJmjD/CVGWTmmv8tIEG4ECiAAAA="
  },
- "pages/blog/san-francisco-v-europe-part-2/img/techletter.app-screenshot-1568650127080.png": {
-  "w": 640,
-  "h": 718
- },
  "pages/blog/saving-time-in-utc-doesnt-work-and-offsets-arent-enough/img/screenshot-1648224567775.png": {
   "w": 2048,
   "h": 1024
@@ -8605,14 +7813,6 @@
  "pages/blog/screw-web-performance-just-wait-a-little/img/media-9u1J84ZtCSl9K-giphy.gif": {
   "w": 500,
   "h": 343
- },
- "pages/blog/screw-web-performance-just-wait-a-little/img/techletter.app-screenshot-1590163368556.png": {
-  "w": 638,
-  "h": 583
- },
- "pages/blog/screw-web-performance-just-wait-a-little/img/techletter.app-screenshot-1590163368621.png": {
-  "w": 630,
-  "h": 1447
  },
  "pages/blog/screw-web-performance-just-wait-a-little/img/W3OVpFL.gif": {
   "w": 640,
@@ -8673,50 +7873,6 @@
  "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/kAJYl73.gif": {
   "w": 1103,
   "h": 586
- },
- "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/techletter.app-screenshot-1555000347282.png": {
-  "w": 862,
-  "h": 187
- },
- "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/techletter.app-screenshot-1555000348960.png": {
-  "w": 640,
-  "h": 458
- },
- "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/techletter.app-screenshot-1555000349407.png": {
-  "w": 782,
-  "h": 187
- },
- "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/techletter.app-screenshot-1555000349449.png": {
-  "w": 526,
-  "h": 781
- },
- "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/techletter.app-screenshot-1555000349452.png": {
-  "w": 302,
-  "h": 223
- },
- "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/techletter.app-screenshot-1555000349464.png": {
-  "w": 718,
-  "h": 205
- },
- "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/techletter.app-screenshot-1555000349538.png": {
-  "w": 750,
-  "h": 1393
- },
- "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/techletter.app-screenshot-1555000349572.png": {
-  "w": 566,
-  "h": 511
- },
- "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/techletter.app-screenshot-1555000349713.png": {
-  "w": 694,
-  "h": 1213
- },
- "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/techletter.app-screenshot-1555000349732.png": {
-  "w": 198,
-  "h": 187
- },
- "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/techletter.app-screenshot-1555000349902.png": {
-  "w": 886,
-  "h": 1213
  },
  "pages/blog/serverless-chrome-on-aws-lambda-the-guide-that-works-in-2019-and-beyond/img/zvF6SZ3.png": {
   "w": 1924,
@@ -9004,18 +8160,6 @@
   "w": 800,
   "h": 406
  },
- "pages/blog/sometimes-your-worst-code-is-your-best-code/img/techletter.app-screenshot-1573233518980.png": {
-  "w": 640,
-  "h": 534
- },
- "pages/blog/sometimes-your-worst-code-is-your-best-code/img/techletter.app-screenshot-1573233519017.png": {
-  "w": 640,
-  "h": 1064
- },
- "pages/blog/sometimes-your-worst-code-is-your-best-code/img/techletter.app-screenshot-1573233520142.png": {
-  "w": 640,
-  "h": 717
- },
  "pages/blog/sprint-vs-shape-up-vs-kanban/img/s-codegif-72hj9e.gif": {
   "w": 503,
   "h": 200
@@ -9203,10 +8347,6 @@
   "w": 500,
   "h": 281
  },
- "pages/blog/stuck-at-home-advance-your-career/img/techletter.app-screenshot-1584634985715.png": {
-  "w": 640,
-  "h": 416
- },
  "pages/blog/stuck-at-home-advance-your-career/img/xPpeBMV.png": {
   "w": 720,
   "h": 720
@@ -9379,10 +8519,6 @@
   "w": 1024,
   "h": 768
  },
- "pages/blog/tech-in-2021-according-to-a-vc/img/techletter.app-screenshot-1597423974103.png": {
-  "w": 1096,
-  "h": 486
- },
  "pages/blog/tech-interview-best-practice-that-fails-in-life/img/screenshot-1611336874052.png": {
   "w": 2048,
   "h": 1024
@@ -9438,21 +8574,9 @@
   "w": 640,
   "h": 410
  },
- "pages/blog/thank-you-friend/img/techletter.app-screenshot-1574878910775.png": {
-  "w": 640,
-  "h": 484
- },
  "pages/blog/thank-you-friend/img/techletter.app-screenshot-1574878910988.png": {
   "w": 640,
   "h": 410
- },
- "pages/blog/thank-you-friend/img/techletter.app-screenshot-1574878910994.png": {
-  "w": 640,
-  "h": 373
- },
- "pages/blog/thank-you-friend/img/techletter.app-screenshot-1574878911012.png": {
-  "w": 640,
-  "h": 742
  },
  "pages/blog/thank-you-friend/img/techletter.app-screenshot-1574878911110.png": {
   "w": 640,
@@ -9469,18 +8593,6 @@
  "pages/blog/thank-you-friend/img/techletter.app-screenshot-1574878911382.png": {
   "w": 640,
   "h": 410
- },
- "pages/blog/thank-you-friend/img/techletter.app-screenshot-1574878912007.png": {
-  "w": 640,
-  "h": 710
- },
- "pages/blog/thank-you-friend/img/techletter.app-screenshot-1574878912434.png": {
-  "w": 640,
-  "h": 742
- },
- "pages/blog/thank-you-friend/img/techletter.app-screenshot-1574878912651.png": {
-  "w": 640,
-  "h": 560
  },
  "pages/blog/that-one-time-a-simple-forloop-increased-conversions-by-19percent/img/media-Mp4hQy51LjY6A-giphy.gif": {
   "w": 400,
@@ -9515,38 +8627,6 @@
   "w": 500,
   "h": 275
  },
- "pages/blog/that-time-monkey-patching-took-2-days-off-my-life/img/techletter.app-screenshot-1571068941374.png": {
-  "w": 640,
-  "h": 492
- },
- "pages/blog/that-time-monkey-patching-took-2-days-off-my-life/img/techletter.app-screenshot-1571068942189.png": {
-  "w": 398,
-  "h": 331
- },
- "pages/blog/that-time-monkey-patching-took-2-days-off-my-life/img/techletter.app-screenshot-1571068942366.png": {
-  "w": 422,
-  "h": 223
- },
- "pages/blog/that-time-monkey-patching-took-2-days-off-my-life/img/techletter.app-screenshot-1571068942441.png": {
-  "w": 630,
-  "h": 313
- },
- "pages/blog/that-time-monkey-patching-took-2-days-off-my-life/img/techletter.app-screenshot-1571068942459.png": {
-  "w": 334,
-  "h": 259
- },
- "pages/blog/that-time-monkey-patching-took-2-days-off-my-life/img/techletter.app-screenshot-1571068942460.png": {
-  "w": 558,
-  "h": 223
- },
- "pages/blog/that-time-monkey-patching-took-2-days-off-my-life/img/techletter.app-screenshot-1571068952841.png": {
-  "w": 640,
-  "h": 347
- },
- "pages/blog/that-time-monkey-patching-took-2-days-off-my-life/img/techletter.app-screenshot-1571068952960.png": {
-  "w": 640,
-  "h": 347
- },
  "pages/blog/that-time-serverless-melted-my-credit-card/img/How-I-remember-the-architecturegc92aj.png": {
   "w": 2227,
   "h": 1394
@@ -9579,10 +8659,6 @@
  "pages/blog/the-3-types-of-scalability/img/media-BfiL8ZJWqfw7C-giphy-downsized-medium.gif": {
   "w": 381,
   "h": 212
- },
- "pages/blog/the-3-types-of-scalability/img/techletter.app-screenshot-1588351340303.png": {
-  "w": 640,
-  "h": 501
  },
  "pages/blog/the-anatomy-of-a-react-island/img/e5kbOjpeg-42f424.jpeg": {
   "w": 1274,
@@ -9744,10 +8820,6 @@
  "pages/blog/the-day-i-crashed-production-4-times/img/media-M2AmFHxMydFok-giphy.gif": {
   "w": 268,
   "h": 176
- },
- "pages/blog/the-day-i-crashed-production-4-times/img/techletter.app-screenshot-1563553812054.png": {
-  "w": 350,
-  "h": 187
  },
  "pages/blog/the-difference-between-a-product-and-a-project/img/screenshot-1743691310966.png": {
   "w": 2048,
@@ -10080,10 +9152,6 @@
   "w": 400,
   "h": 280
  },
- "pages/blog/the-surprising-performance-boost-from-changing-gif-embeds/img/5W1qqqc.png": {
-  "w": 2048,
-  "h": 954
- },
  "pages/blog/the-surprising-performance-boost-from-changing-gif-embeds/img/8719b20c378309194a227a90f89c1788112c1a16-68747470733a2f2f692e696d6775722e636f6d2f514935426152702e706e67.png": {
   "w": 685,
   "h": 257
@@ -10115,22 +9183,6 @@
  "pages/blog/the-surprising-performance-boost-from-changing-gif-embeds/img/media-JRhS6WoswF8FxE0g2R-giphy.gif": {
   "w": 480,
   "h": 400
- },
- "pages/blog/the-surprising-performance-boost-from-changing-gif-embeds/img/techletter.app-screenshot-1586186176114.png": {
-  "w": 550,
-  "h": 331
- },
- "pages/blog/the-surprising-performance-boost-from-changing-gif-embeds/img/techletter.app-screenshot-1586186176604.png": {
-  "w": 742,
-  "h": 187
- },
- "pages/blog/the-surprising-performance-boost-from-changing-gif-embeds/img/techletter.app-screenshot-1586186299871.png": {
-  "w": 640,
-  "h": 599
- },
- "pages/blog/the-surprising-performance-boost-from-changing-gif-embeds/img/YNQOHBz.png": {
-  "w": 2048,
-  "h": 774
  },
  "pages/blog/the-swarm-doc/img/screenshot-1731340404550.png": {
   "w": 2048,
@@ -10193,62 +9245,6 @@
  "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/svidZbN.png": {
   "w": 868,
   "h": 470
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209611708.png": {
-  "w": 640,
-  "h": 706
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209611797.png": {
-  "w": 640,
-  "h": 633
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209612502.png": {
-  "w": 438,
-  "h": 223
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209612510.png": {
-  "w": 638,
-  "h": 781
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209612754.png": {
-  "w": 430,
-  "h": 259
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209612765.png": {
-  "w": 670,
-  "h": 187
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209612788.png": {
-  "w": 606,
-  "h": 313
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209612899.png": {
-  "w": 670,
-  "h": 223
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209612998.png": {
-  "w": 446,
-  "h": 187
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209613009.png": {
-  "w": 302,
-  "h": 259
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209613024.png": {
-  "w": 430,
-  "h": 241
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209613720.png": {
-  "w": 640,
-  "h": 360
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209614108.png": {
-  "w": 640,
-  "h": 360
- },
- "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/techletter.app-screenshot-1563209614123.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/the-unreasonable-difficulty-of-adding-a-feature-to-a-textarea/img/ueM8veJ.gif": {
   "w": 702,
@@ -10330,10 +9326,6 @@
  "pages/blog/theres-a-youtube-video-for-everything/img/media-pPhyAv5t9V8djyRFJH-giphy-downsized-medium.gif": {
   "w": 480,
   "h": 350
- },
- "pages/blog/theres-a-youtube-video-for-everything/img/techletter.app-screenshot-1569427778894.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/theres-two-types-of-engineers/img/screenshot-1632758239465.png": {
   "w": 2048,
@@ -10498,38 +9490,6 @@
  "pages/blog/towards-a-gatsbysuspense-proofofconcept/img/media-bqXMrwkWhAbrV0Z0dG-giphy.gif": {
   "w": 480,
   "h": 270
- },
- "pages/blog/towards-a-gatsbysuspense-proofofconcept/img/techletter.app-screenshot-1573495144669.png": {
-  "w": 750,
-  "h": 295
- },
- "pages/blog/towards-a-gatsbysuspense-proofofconcept/img/techletter.app-screenshot-1573495144730.png": {
-  "w": 558,
-  "h": 565
- },
- "pages/blog/towards-a-gatsbysuspense-proofofconcept/img/techletter.app-screenshot-1573495144760.png": {
-  "w": 470,
-  "h": 385
- },
- "pages/blog/towards-a-gatsbysuspense-proofofconcept/img/techletter.app-screenshot-1573495144824.png": {
-  "w": 630,
-  "h": 277
- },
- "pages/blog/towards-a-gatsbysuspense-proofofconcept/img/techletter.app-screenshot-1573495144848.png": {
-  "w": 486,
-  "h": 205
- },
- "pages/blog/towards-a-gatsbysuspense-proofofconcept/img/techletter.app-screenshot-1573495144911.png": {
-  "w": 526,
-  "h": 601
- },
- "pages/blog/towards-a-gatsbysuspense-proofofconcept/img/techletter.app-screenshot-1573495144942.png": {
-  "w": 582,
-  "h": 313
- },
- "pages/blog/towards-a-gatsbysuspense-proofofconcept/img/techletter.app-screenshot-1573495144991.png": {
-  "w": 734,
-  "h": 817
  },
  "pages/blog/towards-a-gatsbysuspense-proofofconcept/img/vKX8As1.png": {
   "w": 1452,
@@ -10742,26 +9702,6 @@
   "w": 500,
   "h": 278
  },
- "pages/blog/typescripts-biggest-flaw-and-how-you-can-use-ducks-to-fix-it/img/techletter.app-screenshot-1560790608727.png": {
-  "w": 606,
-  "h": 295
- },
- "pages/blog/typescripts-biggest-flaw-and-how-you-can-use-ducks-to-fix-it/img/techletter.app-screenshot-1560790608889.png": {
-  "w": 566,
-  "h": 547
- },
- "pages/blog/typescripts-biggest-flaw-and-how-you-can-use-ducks-to-fix-it/img/techletter.app-screenshot-1560797140706.png": {
-  "w": 510,
-  "h": 223
- },
- "pages/blog/typescripts-biggest-flaw-and-how-you-can-use-ducks-to-fix-it/img/techletter.app-screenshot-1560797141465.png": {
-  "w": 486,
-  "h": 295
- },
- "pages/blog/typescripts-biggest-flaw-and-how-you-can-use-ducks-to-fix-it/img/techletter.app-screenshot-1560797142337.png": {
-  "w": 454,
-  "h": 313
- },
  "pages/blog/typescripts-biggest-flaw-and-how-you-can-use-ducks-to-fix-it/img/ulnjYvE.png": {
   "w": 2000,
   "h": 710
@@ -10874,34 +9814,6 @@
   "w": 640,
   "h": 425
  },
- "pages/blog/useauth-the-simplest-way-to-add-authentication-to-your-react-app/img/techletter.app-screenshot-1565368070812.png": {
-  "w": 640,
-  "h": 806
- },
- "pages/blog/useauth-the-simplest-way-to-add-authentication-to-your-react-app/img/techletter.app-screenshot-1565368071495.png": {
-  "w": 526,
-  "h": 313
- },
- "pages/blog/useauth-the-simplest-way-to-add-authentication-to-your-react-app/img/techletter.app-screenshot-1565368071557.png": {
-  "w": 550,
-  "h": 457
- },
- "pages/blog/useauth-the-simplest-way-to-add-authentication-to-your-react-app/img/techletter.app-screenshot-1565368071620.png": {
-  "w": 582,
-  "h": 331
- },
- "pages/blog/useauth-the-simplest-way-to-add-authentication-to-your-react-app/img/techletter.app-screenshot-1565368071687.png": {
-  "w": 534,
-  "h": 367
- },
- "pages/blog/useauth-the-simplest-way-to-add-authentication-to-your-react-app/img/techletter.app-screenshot-1565368071694.png": {
-  "w": 718,
-  "h": 583
- },
- "pages/blog/useauth-the-simplest-way-to-add-authentication-to-your-react-app/img/techletter.app-screenshot-1565368072267.png": {
-  "w": 302,
-  "h": 187
- },
  "pages/blog/usecallback-is-a-code-smell/img/6tmch3jpgc6dc4j.jpeg": {
   "w": 667,
   "h": 500,
@@ -10918,34 +9830,6 @@
  "pages/blog/usereducer-usecontext-for-easy-global-state-without-libraries/img/ChfELcI.gif": {
   "w": 480,
   "h": 287
- },
- "pages/blog/usereducer-usecontext-for-easy-global-state-without-libraries/img/techletter.app-screenshot-1565626955164.png": {
-  "w": 640,
-  "h": 799
- },
- "pages/blog/usereducer-usecontext-for-easy-global-state-without-libraries/img/techletter.app-screenshot-1565626955924.png": {
-  "w": 494,
-  "h": 277
- },
- "pages/blog/usereducer-usecontext-for-easy-global-state-without-libraries/img/techletter.app-screenshot-1565626956122.png": {
-  "w": 574,
-  "h": 511
- },
- "pages/blog/usereducer-usecontext-for-easy-global-state-without-libraries/img/techletter.app-screenshot-1565626956228.png": {
-  "w": 430,
-  "h": 259
- },
- "pages/blog/usereducer-usecontext-for-easy-global-state-without-libraries/img/techletter.app-screenshot-1565626956251.png": {
-  "w": 694,
-  "h": 547
- },
- "pages/blog/usereducer-usecontext-for-easy-global-state-without-libraries/img/techletter.app-screenshot-1565626956395.png": {
-  "w": 686,
-  "h": 871
- },
- "pages/blog/usereducer-usecontext-for-easy-global-state-without-libraries/img/techletter.app-screenshot-1565626956742.png": {
-  "w": 526,
-  "h": 295
  },
  "pages/blog/users-buy-your-service-not-your-code/img/screenshot-1771428809380.png": {
   "w": 2048,
@@ -11057,42 +9941,6 @@
  "pages/blog/using-scopes-for-elegant-jamstack-permissions/img/media-y7kvOYLzas6Ag-giphy-downsized-medium.gif": {
   "w": 480,
   "h": 270
- },
- "pages/blog/using-scopes-for-elegant-jamstack-permissions/img/techletter.app-screenshot-1592236046783.png": {
-  "w": 702,
-  "h": 456
- },
- "pages/blog/using-scopes-for-elegant-jamstack-permissions/img/techletter.app-screenshot-1592236046808.png": {
-  "w": 606,
-  "h": 582
- },
- "pages/blog/using-scopes-for-elegant-jamstack-permissions/img/techletter.app-screenshot-1592236046978.png": {
-  "w": 734,
-  "h": 258
- },
- "pages/blog/using-scopes-for-elegant-jamstack-permissions/img/techletter.app-screenshot-1592236046982.png": {
-  "w": 638,
-  "h": 312
- },
- "pages/blog/using-scopes-for-elegant-jamstack-permissions/img/techletter.app-screenshot-1592236047097.png": {
-  "w": 598,
-  "h": 402
- },
- "pages/blog/using-scopes-for-elegant-jamstack-permissions/img/techletter.app-screenshot-1592236047596.png": {
-  "w": 640,
-  "h": 274
- },
- "pages/blog/using-scopes-for-elegant-jamstack-permissions/img/techletter.app-screenshot-1592236047613.png": {
-  "w": 640,
-  "h": 353
- },
- "pages/blog/using-scopes-for-elegant-jamstack-permissions/img/techletter.app-screenshot-1592236049300.png": {
-  "w": 640,
-  "h": 360
- },
- "pages/blog/using-scopes-for-elegant-jamstack-permissions/img/techletter.app-screenshot-1592236049540.png": {
-  "w": 638,
-  "h": 672
  },
  "pages/blog/using-vibes-to-rewrite-my-blog/img/6t4Z8Sgif-a1d6fe.gif": {
   "w": 768,
@@ -11686,54 +10534,6 @@
   "w": 230,
   "h": 230
  },
- "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/techletter.app-screenshot-1568391389369.png": {
-  "w": 640,
-  "h": 283
- },
- "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/techletter.app-screenshot-1568391389482.png": {
-  "w": 640,
-  "h": 455
- },
- "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/techletter.app-screenshot-1568391389646.png": {
-  "w": 640,
-  "h": 341
- },
- "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/techletter.app-screenshot-1568391389816.png": {
-  "w": 640,
-  "h": 886
- },
- "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/techletter.app-screenshot-1568391389847.png": {
-  "w": 640,
-  "h": 748
- },
- "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/techletter.app-screenshot-1568391389892.png": {
-  "w": 640,
-  "h": 399
- },
- "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/techletter.app-screenshot-1568391390144.png": {
-  "w": 640,
-  "h": 637
- },
- "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/techletter.app-screenshot-1568391390288.png": {
-  "w": 374,
-  "h": 259
- },
- "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/techletter.app-screenshot-1568391390444.png": {
-  "w": 750,
-  "h": 637
- },
- "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/techletter.app-screenshot-1568391390574.png": {
-  "w": 374,
-  "h": 205
- },
- "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/techletter.app-screenshot-1568391390879.png": {
-  "w": 534,
-  "h": 241
- },
- "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/techletter.app-screenshot-1568391391006.png": {
-  "w": 726,
-  "h": 529
- },
  "pages/blog/what-happens-when-you-push-aws-credentials-to-github/img/xQFcArr.png": {
   "w": 1646,
   "h": 662
@@ -12037,14 +10837,6 @@
   "h": 296,
   "lqip": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAgCdASoUAAcAPzmGuVOvKSWisAgB4CcJaQAAeyAA/u2vGsHMr4vfLfKB1rrYAAA="
  },
- "pages/blog/what-makes-you-a-true-master/img/techletter.app-screenshot-1574702330108.png": {
-  "w": 640,
-  "h": 457
- },
- "pages/blog/what-makes-you-a-true-master/img/techletter.app-screenshot-1574702332064.png": {
-  "w": 640,
-  "h": 851
- },
  "pages/blog/what-makes-your-resume-stand-out/img/screenshot-1763830869838.png": {
   "w": 2048,
   "h": 1024
@@ -12148,14 +10940,6 @@
  "pages/blog/what-you-do-while-waiting/img/media-Y4zsCSRItSruK52kGX-giphy.gif": {
   "w": 480,
   "h": 270
- },
- "pages/blog/what-you-do-while-waiting/img/techletter.app-screenshot-1588607363132.png": {
-  "w": 640,
-  "h": 676
- },
- "pages/blog/what-you-do-while-waiting/img/techletter.app-screenshot-1588607363398.png": {
-  "w": 640,
-  "h": 706
  },
  "pages/blog/what-you-need-to-make-an-agent/img/name=large-gb9g2b.jpeg": {
   "w": 1732,
@@ -12513,10 +11297,6 @@
  "pages/blog/why-great-engineers-hack-the-process/img/media-YQitE4YNQNahy-giphy-downsized-medium.gif": {
   "w": 480,
   "h": 270
- },
- "pages/blog/why-great-engineers-hack-the-process/img/techletter.app-screenshot-1583251183664.png": {
-  "w": 640,
-  "h": 332
  },
  "pages/blog/why-i-hate-working-from-home/img/3096-3256973820_04ac5495a9_m.jpg": {
   "w": 180,
@@ -13401,42 +12181,6 @@
   "w": 1600,
   "h": 1200
  },
- "pages/blog/you-though-computer-science-has-no-place-in-webdev-heres-a-fun-coding-challenge/img/techletter.app-screenshot-1598025292011.png": {
-  "w": 2048,
-  "h": 480
- },
- "pages/blog/you-though-computer-science-has-no-place-in-webdev-heres-a-fun-coding-challenge/img/techletter.app-screenshot-1598025292053.png": {
-  "w": 2048,
-  "h": 516
- },
- "pages/blog/you-though-computer-science-has-no-place-in-webdev-heres-a-fun-coding-challenge/img/techletter.app-screenshot-1598025292105.png": {
-  "w": 1516,
-  "h": 1344
- },
- "pages/blog/you-though-computer-science-has-no-place-in-webdev-heres-a-fun-coding-challenge/img/techletter.app-screenshot-1598025319641.png": {
-  "w": 3722,
-  "h": 2016
- },
- "pages/blog/you-though-computer-science-has-no-place-in-webdev-heres-a-fun-coding-challenge/img/techletter.app-screenshot-1598035503830.png": {
-  "w": 1308,
-  "h": 444
- },
- "pages/blog/you-though-computer-science-has-no-place-in-webdev-heres-a-fun-coding-challenge/img/techletter.app-screenshot-1598035504022.png": {
-  "w": 844,
-  "h": 372
- },
- "pages/blog/you-though-computer-science-has-no-place-in-webdev-heres-a-fun-coding-challenge/img/techletter.app-screenshot-1598035504297.png": {
-  "w": 1116,
-  "h": 1380
- },
- "pages/blog/you-though-computer-science-has-no-place-in-webdev-heres-a-fun-coding-challenge/img/techletter.app-screenshot-1598035504431.png": {
-  "w": 1372,
-  "h": 948
- },
- "pages/blog/you-though-computer-science-has-no-place-in-webdev-heres-a-fun-coding-challenge/img/techletter.app-screenshot-1598035520936.png": {
-  "w": 3722,
-  "h": 2016
- },
  "pages/blog/your-background-won-t-get-you-the-job/img/9F93EF28-A40E-40C8-BD5E-EB2178194566.png": {
   "w": 2048,
   "h": 1024
@@ -13502,10 +12246,6 @@
  "pages/blog/your-dumb-ideas-often-work-best/img/media-ZgQ9qJDUHHsvPICQuX-giphy.gif": {
   "w": 480,
   "h": 203
- },
- "pages/blog/your-dumb-ideas-often-work-best/img/techletter.app-screenshot-1587655795471.png": {
-  "w": 640,
-  "h": 360
  },
  "pages/blog/your-first-nextjs-app-codewithswiz/img/The-end-resulthiibjh.png": {
   "w": 1836,
