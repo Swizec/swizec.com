@@ -27,7 +27,45 @@ Separating development and production on your backend is easy as pie. Change the
 
 Using the demo app from [ServerlessReact.Dev](https://serverlessreact.dev) for example:
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252506.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=yaml&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=service%3A%20markdownlandingpage%0A%0Aprovider%3A%0A%20%20%20%20name%3A%20aws%0A%20%20%20%20runtime%3A%20nodejs12.x%0A%20%20%20%20stage%3A%20dev%20%23%20this%20is%20the%20important%20bit%0A%20%20%20%20environment%3A%0A%20%20%20%20%20%20%20%20USER_TABLE%3A%20%24%7Bself%3Aservice%7D-users-%24%7Bself%3Aprovider.stage%7D%0A%0Afunctions%3A%0A%20%20%20%20graphql%3A%0A%20%20%20%20%20%20%20%20handler%3A%20dist%2Fgraphql.handler%0A%20%20%20%20%20%20%20%20events%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20path%3A%20graphql%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20GET%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cors%3A%20true%0A%20%20%20%20%20%20%20%20%20%20%20%20-%20http%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20path%3A%20graphql%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20POST%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cors%3A%20true%0A%0Aresources%3A%0A%20%20%20%20Resources%3A%0A%20%20%20%20%20%20%20%20UsersTable%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20Type%3A%20%22AWS%3A%3ADynamoDB%3A%3ATable%22%0A%20%20%20%20%20%20%20%20%20%20%20%20Properties%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20AttributeDefinitions%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20AttributeName%3A%20userId%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20AttributeType%3A%20S%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20KeySchema%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20AttributeName%3A%20userId%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20KeyType%3A%20HASH%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ProvisionedThroughput%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ReadCapacityUnits%3A%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20WriteCapacityUnits%3A%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20TableName%3A%20%24%7Bself%3Aprovider.environment.USER_TABLE%7D>)
+```yaml
+service: markdownlandingpage
+
+provider:
+    name: aws
+    runtime: nodejs12.x
+    stage: dev # this is the important bit
+    environment:
+        USER_TABLE: ${self:service}-users-${self:provider.stage}
+
+functions:
+    graphql:
+        handler: dist/graphql.handler
+        events:
+            - http:
+                  path: graphql
+                  method: GET
+                  cors: true
+            - http:
+                  path: graphql
+                  method: POST
+                  cors: true
+
+resources:
+    Resources:
+        UsersTable:
+            Type: "AWS::DynamoDB::Table"
+            Properties:
+                AttributeDefinitions:
+                    - AttributeName: userId
+                      AttributeType: S
+                KeySchema:
+                    - AttributeName: userId
+                      KeyType: HASH
+                ProvisionedThroughput:
+                    ReadCapacityUnits: 1
+                    WriteCapacityUnits: 1
+                TableName: ${self:provider.environment.USER_TABLE}
+```
 
 This configures a `/graphql` endpoint served by an AWS Lambda and a DynamoDB table to store your data. Both the DynamoDB table and the GraphQL endpoint use stage as part of their name.
 
@@ -43,15 +81,28 @@ Define your stage with command line arguments instead!
 
 Like this:
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252762.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=yaml&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=provider%3A%0A%20%20%20%20stage%3A%20%24%7Bopt%3Astage%7D>)
+```yaml
+provider:
+    stage: ${opt:stage}
+```
 
 Now you can add a helpful little bash script – because I couldn't figure out how to do this with Node and Bash is just fine. 😇
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252694.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=bash&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%23%20deploy.sh%0A%0ASTAGE%3D%24%7B1%3A-dev%7D%0Ayarn%20build%0ANODE_ENV%3D%24STAGE%20sls%20deploy%20--stage%20%24STAGE>)
+```bash
+# deploy.sh
+
+STAGE=${1:-dev}
+yarn build
+NODE_ENV=$STAGE sls deploy --stage $STAGE
+```
 
 Add to your `package.json` ...
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252676.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=json&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%20%20%20%20%22scripts%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%22deploy%22%3A%20%22sh%20deploy.sh%22%0A%20%20%20%20%7D%2C>)
+```json
+    "scripts": {
+        "deploy": "sh deploy.sh"
+    },
+```
 
 And you can run `yarn deploy prod` to deploy to production, or `yarn deploy` to get development by default.
 
@@ -81,19 +132,53 @@ Say you want to tell Gatsby which GraphQL endpoint to use when building your JAM
 
 Go in `gatsby-config.js` and add your server as a source
 
-[![Click through for source](./img/techletter.app-screenshot-1585240253005.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20gatsby-config.js%0A%0A%2F%2F%20load%20the%20appropriate%20.env.X%20file%0Arequire(%22dotenv%22).config(%7B%0A%20%20path%3A%20%60.env.%24%7Bprocess.env.NODE_ENV%7D%60%2C%0A%7D)%0A%0A%2F%2F%20your%20config%0A%2F%2F%20..%0A%20%20plugins%3A%20%5B%0A%20%20%20%20%7B%0A%20%20%20%20%20%20resolve%3A%20%22gatsby-source-graphql%22%2C%0A%20%20%20%20%20%20options%3A%20%7B%0A%20%20%20%20%20%20%20%20typeName%3A%20%22MDLAPI%22%2C%0A%20%20%20%20%20%20%20%20fieldName%3A%20%22mdlapi%22%2C%0A%20%20%20%20%20%20%20%20url%3A%20process.env.GATSBY_GRAPHQL_URL%2C%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%7D%2C>)
+```javascript
+// gatsby-config.js
+
+// load the appropriate .env.X file
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
+// your config
+// ..
+  plugins: [
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "MDLAPI",
+        fieldName: "mdlapi",
+        url: process.env.GATSBY_GRAPHQL_URL,
+      },
+    },
+```
 
 You can now configure the `GATSBY_GRAPHQL_URL` environment variable in 2 files to differentiate production and development.
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252667.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=null&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20.env.development%0AGATSBY_GRAPHQL_URL%3Dhttps%3A%2F%2F...%2Fdev%2Fgraphql>)
+```
+// .env.development
+GATSBY_GRAPHQL_URL=https://.../dev/graphql
+```
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252713.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=null&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20.env.production%0AGATSBY_GRAPHQL_URL%3Dhttps%3A%2F%2F...%2Fprod%2Fgraphql>)
+```
+// .env.production
+GATSBY_GRAPHQL_URL=https://.../prod/graphql
+```
 
 Gatsby will choose production when you run `gatsby build` and development when you run `gatsby development`.
 
 You can even use these in the browser!
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252300.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20IndexPage%20%3D%20()%20%3D%3E%20%7B%0A%20%20%2F%2F%20this%20works%20and%20is%20available%20at%20runtime%20%F0%9F%98%B1%0A%20%20console.log(process.env.GATSBY_GRAPHQL_URL)%0A%20%20%0A%20%20return%20(%0A%20%20%20%20%3CLayout%3E%0A%20%20%20%20%20%20%3CSEO%20title%3D%22Home%22%20%2F%3E%0A%20%20%20%20%20%20%3Ch1%3EHi%20people%3C%2Fh1%3E>)
+```javascript
+const IndexPage = () => {
+  // this works and is available at runtime 😱
+  console.log(process.env.GATSBY_GRAPHQL_URL)
+  
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <h1>Hi people</h1>
+```
 
 ![](./img/OAwReM3.png)
 
@@ -119,15 +204,39 @@ Now you gotta jump a couple more hoops.
 
 First you add your secret to Zeit
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252577.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=shell&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=now%20secrets%20add%20graphql_url%20https%3A%2F%2F...%2Fdev%2Fgraphql>)
+```bash
+now secrets add graphql_url https://.../dev/graphql
+```
 
 Then you create a `now.json` file
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252554.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=json&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%7B%0A%20%20%20%20%22build%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%22env%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22GRAPHQL_URL%22%3A%20%22%40graphql_url%22%2C%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%7D>)
+```json
+{
+    "build": {
+        "env": {
+            "GRAPHQL_URL": "@graphql_url",
+        }
+    }
+}
+```
 
 And _then_, you use it in `gatsby-config`
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252651.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20gatsby-config.js%0A%0A%2F%2F%20your%20config%0A%2F%2F%20..%0A%20%20plugins%3A%20%5B%0A%20%20%20%20%7B%0A%20%20%20%20%20%20resolve%3A%20%22gatsby-source-graphql%22%2C%0A%20%20%20%20%20%20options%3A%20%7B%0A%20%20%20%20%20%20%20%20typeName%3A%20%22MDLAPI%22%2C%0A%20%20%20%20%20%20%20%20fieldName%3A%20%22mdlapi%22%2C%0A%20%20%20%20%20%20%20%20url%3A%20process.env.GRAPHQL_URL%2C%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%7D%2C>)
+```javascript
+// gatsby-config.js
+
+// your config
+// ..
+  plugins: [
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "MDLAPI",
+        fieldName: "mdlapi",
+        url: process.env.GRAPHQL_URL,
+      },
+    },
+```
 
 When you deploy to Zeit, the build process takes your `now.json`, replaces `@variable` with values from storage, loads the configs into `process.env`, and Gatsby can use them while building.
 
@@ -141,7 +250,7 @@ But it works. Sort of
 
 Notice there's no prod vs. dev. You get _a_ config and that's it. Zeit says they'll have native support for environments soon.
 
-[![Click through for source](./img/techletter.app-screenshot-1585240253445.png)](https://twitter.com/zeit_support/status/1242094643002642432)
+https://twitter.com/zeit_support/status/1242094643002642432
 
 The other tradeoff is that these configs aren't available at runtime. You get them when compiling and can't use them in the browser.
 
@@ -160,13 +269,44 @@ Kinda bonkers but it works.
 
 You start with 2 JSON files similar to the original `.env` approach.
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252625.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=json&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20config.development.json%0A%7B%0A%09%22GRAPHQL_URL%22%3A%20%22https%3A%2F%2F...%2Fdev%2Fgraphql%0A%7D>)
+```json
+// config.development.json
+{
+	"GRAPHQL_URL": "https://.../dev/graphql
+}
+```
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252559.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=json&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20config.development.json%0A%7B%0A%09%22GRAPHQL_URL%22%3A%20%22https%3A%2F%2F...%2Fprod%2Fgraphql%0A%7D>)
+```json
+// config.development.json
+{
+	"GRAPHQL_URL": "https://.../prod/graphql
+}
+```
 
 Import in `gatsby-config.js`
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252659.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20gatsby-config.js%0Aconst%20config%20%3D%20require(%60.%2Fconfig.%24%7Bprocess.env.NODE_ENV%7D.json%60)%0A%0Amodule.exports%20%3D%20%7B%0A%20%20siteMetadata%3A%20%7B%0A%20%20%20%20%2F%2F%20...%0A%20%20%20%20%2F%2F%20this%20makes%20configs%20available%20in%20static%20queries%0A%20%20%20%20myConfig%3A%20%7B%0A%20%20%20%20%20%20graphql_url%3A%20config.GRAPHQL_URL%2C%0A%20%20%20%20%7D%2C%0A%20%20%7D%2C%0A%20%20plugins%3A%20%5B%0A%20%20%20%20%7B%0A%20%20%20%20%20%20resolve%3A%20%22gatsby-source-graphql%22%2C%0A%20%20%20%20%20%20options%3A%20%7B%0A%20%20%20%20%20%20%20%20typeName%3A%20%22MDLAPI%22%2C%0A%20%20%20%20%20%20%20%20fieldName%3A%20%22mdlapi%22%2C%0A%20%20%20%20%20%20%20%20url%3A%20config.GRAPHQL_URL%2C%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%7D%2C>)
+```javascript
+// gatsby-config.js
+const config = require(`./config.${process.env.NODE_ENV}.json`)
+
+module.exports = {
+  siteMetadata: {
+    // ...
+    // this makes configs available in static queries
+    myConfig: {
+      graphql_url: config.GRAPHQL_URL,
+    },
+  },
+  plugins: [
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "MDLAPI",
+        fieldName: "mdlapi",
+        url: config.GRAPHQL_URL,
+      },
+    },
+```
 
 Use the configs directly in your build-time code via `config.X`. Works just fine.
 
@@ -174,7 +314,25 @@ You can import JSON files in the browser, sure, but you won't know which environ
 
 Like this
 
-[![Click through for source](./img/techletter.app-screenshot-1585240252432.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20IndexPage%20%3D%20(%7B%20%7D)%20%3D%3E%20%7B%0A%0A%20%20const%20%7B%20site%20%7D%20%3D%20useStaticQuery(%0A%20%20%20%20graphql%60%0A%20%20%20%20%20%20query%20%7B%0A%20%20%20%20%20%20%20%20site%20%7B%0A%20%20%20%20%20%20%20%20%20%20siteMetadata%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20myConfig%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20graphql_url%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%60%0A%20%20)%0A%20%20%0A%20%20console.log(site.siteMetadata.myConfig.graphql_url)>)
+```javascript
+const IndexPage = ({ }) => {
+
+  const { site } = useStaticQuery(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            myConfig {
+              graphql_url
+            }
+          }
+        }
+      }
+    `
+  )
+  
+  console.log(site.siteMetadata.myConfig.graphql_url)
+```
 
 And you get ...
 

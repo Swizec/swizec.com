@@ -9,7 +9,7 @@ categories: "Backend, Technical"
 
 A couple weeks ago I was preparing for a workshop. Making life easy for students on their fun day of hacking, GraphQL, Serverless, React, and Gatsby.
 
-[![Click through for source](./img/techletter.app-screenshot-1568391389847.png)](https://twitter.com/Swizec/status/1168797303253024768)
+https://twitter.com/Swizec/status/1168797303253024768
 
 The workshop was great and then my AWS account got suspended 😅
 
@@ -17,7 +17,7 @@ You see, a brilliant idea I had was to do file uploads. How hard can it be? A bi
 
 Not so.
 
-[![Click through for source](./img/techletter.app-screenshot-1568391389646.png)](https://twitter.com/Swizec/status/1167342901564780544)
+https://twitter.com/Swizec/status/1167342901564780544
 
 Uploading files to S3 from the browser is _really hard_. You need an S3 bucket, that's easy, then you need a server that accepts a file from your submitted form and uploads it to S3 with the SDK and gets back the URL and ...
 
@@ -35,13 +35,39 @@ Were this not the case, anyone could upload a bunch of nefarious things to your 
 
 Uploading a file with the S3 SDK looks something like this:
 
-[![Click through for source](./img/techletter.app-screenshot-1568391391006.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20AWS%20%3D%20require('aws-sdk')%3B%0A%0Aconst%20s3%20%3D%20new%20AWS.S3(%7B%0A%20%20%20%20accessKeyId%3A%20process.env.AWS_ACCESS_KEY%2C%0A%20%20%20%20secretAccessKey%3A%20process.env.AWS_SECRET_ACCESS_KEY%0A%7D)%3B%0A%0Aconst%20fileName%20%3D%20'contacts.csv'%3B%0A%0Aconst%20uploadFile%20%3D%20(data)%20%3D%3E%20%7B%0A%20%20%20%20%20const%20params%20%3D%20%7B%0A%20%20%20%20%20%20%20%20%20Bucket%3A%20'testBucket'%2C%20%2F%2F%20pass%20your%20bucket%20name%0A%20%20%20%20%20%20%20%20%20Key%3A%20'contacts.csv'%2C%20%2F%2F%20file%20will%20be%20saved%20as%20testBucket%2Fcontacts.csv%0A%20%20%20%20%20%20%20%20%20Body%3A%20JSON.stringify(data%2C%20null%2C%202)%0A%20%20%20%20%20%7D%3B%0A%20%20%20%20%20s3.upload(params%2C%20function(s3Err%2C%20data)%20%7B%0A%20%20%20%20%20%20%20%20%20if%20(s3Err)%20throw%20s3Err%0A%20%20%20%20%20%20%20%20%20console.log(%60File%20uploaded%20successfully%20at%20%24%7Bdata.Location%7D%60)%0A%20%20%20%20%20%7D)%3B%0A%7D%3B>)
+```javascript
+const AWS = require('aws-sdk');
+
+const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
+
+const fileName = 'contacts.csv';
+
+const uploadFile = (data) => {
+     const params = {
+         Bucket: 'testBucket', // pass your bucket name
+         Key: 'contacts.csv', // file will be saved as testBucket/contacts.csv
+         Body: JSON.stringify(data, null, 2)
+     };
+     s3.upload(params, function(s3Err, data) {
+         if (s3Err) throw s3Err
+         console.log(`File uploaded successfully at ${data.Location}`)
+     });
+};
+```
 
 Looks fine, right?
 
 Notice this part:
 
-[![Click through for source](./img/techletter.app-screenshot-1568391390879.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=const%20s3%20%3D%20new%20AWS.S3(%7B%0A%20%20%20%20accessKeyId%3A%20process.env.AWS_ACCESS_KEY%2C%0A%20%20%20%20secretAccessKey%3A%20process.env.AWS_SECRET_ACCESS_KEY%0A%7D)%3B>)
+```javascript
+const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
+```
 
 If you send that to the browser, anyone can see your credentials and upload nefarious things.
 
@@ -61,7 +87,7 @@ The whole point of my workshop is that there's no servers and everything runs on
 
 You don't want to transfer each file twice. First to your lambda, then to your S3.
 
-[![Click through for source](./img/techletter.app-screenshot-1568391390144.png)](https://twitter.com/QuinnyPig/status/1172239124251709449)
+https://twitter.com/QuinnyPig/status/1172239124251709449
 
 ## Presigned URLs – a secure way to upload
 
@@ -73,7 +99,34 @@ You request a new pre-signed URL for the next file.
 
 I'll write more about secure S3 file uploads from the browser soon, but here's the server code in a nutshell:
 
-[![Click through for source](./img/techletter.app-screenshot-1568391390444.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=AWS.config.update(%7B%0A%20%20accessKeyId%3A%20%22%3Caccess%20key%3E%22%2C%0A%20%20secretAccessKey%3A%20%22%3Csecret%20key%3E%22%2C%0A%20%20region%3A%20process.env.S3_REGION%2C%0A%7D)%0A%0Afunction%20presignedUrl()%20%7B%0A%20%20const%20imageId%20%3D%20uuidv4()%0A%20%20const%20filename%20%3D%20%60%24%7BalbumId%7D%2F%24%7BimageId%7D%60%0A%20%20const%20expireSeconds%20%3D%2060%20*%205%0A%20%20const%20readUrl%20%3D%20%60https%3A%2F%2F%24%7Bprocess.env.S3_BUCKET%7D.s3.amazonaws.com%2F%24%7Bfilename%7D%60%0A%0A%20%20const%20uploadUrl%20%3D%20S3.getSignedUrl(%22putObject%22%2C%20%7B%0A%20%20%20%20Bucket%3A%20process.env.S3_BUCKET%2C%0A%20%20%20%20Key%3A%20filename%2C%0A%20%20%20%20ContentType%3A%20%22image%2F*%22%2C%0A%20%20%20%20Expires%3A%20expireSeconds%2C%0A%20%20%7D)%0A%0A%20%20return%20%7B%0A%20%20%20%20uploadUrl%2C%0A%20%20%20%20readUrl%2C%0A%20%20%20%20imageId%2C%0A%20%20%20%20expiresAt%3A%20addSeconds(new%20Date()%2C%20expireSeconds)%2C%0A%20%20%7D%0A%7D>)
+```javascript
+AWS.config.update({
+  accessKeyId: "<access key>",
+  secretAccessKey: "<secret key>",
+  region: process.env.S3_REGION,
+})
+
+function presignedUrl() {
+  const imageId = uuidv4()
+  const filename = `${albumId}/${imageId}`
+  const expireSeconds = 60 * 5
+  const readUrl = `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${filename}`
+
+  const uploadUrl = S3.getSignedUrl("putObject", {
+    Bucket: process.env.S3_BUCKET,
+    Key: filename,
+    ContentType: "image/*",
+    Expires: expireSeconds,
+  })
+
+  return {
+    uploadUrl,
+    readUrl,
+    imageId,
+    expiresAt: addSeconds(new Date(), expireSeconds),
+  }
+}
+```
 
 You still need a server, but you can run this on a Lambda. It's a small request that's quick to calculate. A perfect fit ☺️
 
@@ -83,7 +136,13 @@ Returns an upload URL that expires in 5 minutes with a pre-baked filename and re
 
 See this part of my code:
 
-[![Click through for source](./img/techletter.app-screenshot-1568391390288.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=AWS.config.update(%7B%0A%20%20accessKeyId%3A%20%22%3Caccess%20key%3E%22%2C%0A%20%20secretAccessKey%3A%20%22%3Csecret%20key%3E%22%2C%0A%20%20region%3A%20process.env.S3_REGION%2C%0A%7D)>)
+```javascript
+AWS.config.update({
+  accessKeyId: "<access key>",
+  secretAccessKey: "<secret key>",
+  region: process.env.S3_REGION,
+})
+```
 
 Before I cleaned my GitHub that contained actual access keys. I knew it was bad, I knew I shouldn't, I did it anyway. Correct secrets management just felt too complicated in this case.
 
@@ -99,7 +158,7 @@ We built the whole UI before students had to even _think_ about AWS. It was fire
 
 ## AWS saw what I did 😅
 
-[![Click through for source](./img/techletter.app-screenshot-1568391389816.png)](https://twitter.com/Swizec/status/1168069016251854848)
+https://twitter.com/Swizec/status/1168069016251854848
 
 A few days before the workshop, almost as soon as I "leaked" my credentials, Amazon sent me an email.
 
@@ -126,7 +185,10 @@ First 3 are easy. Go into your AWS console and click the things.
 
 The 4th ... how the hell do you scrub your entire GitHub history of a specific string? [BFG](https://rtyley.github.io/bfg-repo-cleaner/)
 
-[![Click through for source](./img/techletter.app-screenshot-1568391390574.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=bash&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=bfg%20--replace-text%20passwords.txt%20.%0Agit%20push%20origin%20master%20-f%20>)
+```bash
+bfg --replace-text passwords.txt .
+git push origin master -f
+```
 
 Put the strings you want to replace in `passwords.txt` and BFG rewrites your entire history. Each password becomes a `accessKeyId: "***REMOVED***",` ... but you can still see the diff. Lol
 
@@ -140,7 +202,7 @@ Once you've finished all the steps _tell Amazon_. They might be omniscient in de
 
 I forgot to tell them and my account got suspended.
 
-[![Click through for source](./img/techletter.app-screenshot-1568391389369.png)](https://twitter.com/brihobbs/status/1169941279981146113)
+https://twitter.com/brihobbs/status/1169941279981146113
 
 swizec.com looked like a brutalist website, techletter.app didn't work so I couldn't write newsletters, everything died. You don't know how much of your life relies on AWS until it dies.
 
@@ -148,9 +210,9 @@ swizec.com looked like a brutalist website, techletter.app didn't work so I coul
 
 **Amazon support was wonderful** however. A little aloof when scolding me for leaking the credentials, but absolutely wonderful once I got suspended and started crying about it on Twitter.
 
-[![Click through for source](./img/techletter.app-screenshot-1568391389482.png)](https://twitter.com/Swizec/status/1170626595163430912)
+https://twitter.com/Swizec/status/1170626595163430912
 
-[![Click through for source](./img/techletter.app-screenshot-1568391389892.png)](https://twitter.com/AWSSupport/status/1171101468679708673)
+https://twitter.com/AWSSupport/status/1171101468679708673
 
 What surprised me most was that _I could use Support with a suspended account_. Can't log into AWS, can't see any of the services, but you can see support and get help.
 

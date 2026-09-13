@@ -32,19 +32,39 @@ It does! Except when it doesn't.
 
 Look at this code:
 
-[![Click through for source](./img/techletter.app-screenshot-1576516610434.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=function%20makeRequest()%20%7B%0A%09return%20new%20Promise((resolve%2C%20reject)%20%3D%3E%20%7B%0A%09%09reject(%22Something%20went%20wrong%22)%0A%09%7D)%0A%7D>)
+```javascript
+function makeRequest() {
+	return new Promise((resolve, reject) => {
+		reject("Something went wrong")
+	})
+}
+```
 
 A mock `makeRequest` method that always rejects its promise. An async/await version would throw instead.
 
 Like this
 
-[![Click through for source](./img/techletter.app-screenshot-1576516608665.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=async%20function%20makeRequest()%20%7B%0A%09throw%20new%20Error(%22Something%20went%20wrong%22)%0A%7D>)
+```javascript
+async function makeRequest() {
+	throw new Error("Something went wrong")
+}
+```
 
 Same effect. Promises make the mistake I'm talking about more apparent. You'll see why.
 
 Okay so you've got this function that sometimes returns an error. You try to be a good citizen, which means handling errors instead of blowing up your app.
 
-[![Click through for source](./img/techletter.app-screenshot-1576516610370.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=function%20getFirstItem()%20%7B%0A%09return%20makeRequest()%0A%09%09.then(response%20%3D%3E%20%7B%0A%09%09%09return%20response.data%5B0%5D%0A%09%09%7D)%0A%09%09.catch(error%20%3D%3E%20%7B%0A%09%09%09console.error(%22There%20was%20an%20error!%22%2C%20error)%0A%09%09%7D)%0A%7D>)
+```javascript
+function getFirstItem() {
+	return makeRequest()
+		.then(response => {
+			return response.data[0]
+		})
+		.catch(error => {
+			console.error("There was an error!", error)
+		})
+}
+```
 
 You have a `getFirstItem` method that calls the API and returns an item from its response. If there's an error, it says there was an error.
 
@@ -52,17 +72,29 @@ All good, right? Job well done! You're doing error handling and everything. So g
 
 Now look at this code, what does it print?
 
-[![Click through for source](./img/techletter.app-screenshot-1576516610299.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=function%20printFirstItem()%20%7B%0A%09getFirstItem()%0A%09%09.then(item%20%3D%3E%20console.log(item))%0A%09%09.catch(error%20%3D%3E%20console.error(%22There%20was%20no%20item%22))%0A%7D>)
+```javascript
+function printFirstItem() {
+	getFirstItem()
+		.then(item => console.log(item))
+		.catch(error => console.error("There was no item"))
+}
+```
 
 Think about it, I'll send you the answer in 30 minutes 😛
 
 PS: if you're not that familiar with promises, here's an old video I made in 2017 – a 2min explanation.
 
-[![Click through for source](./img/techletter.app-screenshot-1576516629907.png)](https://www.youtube.com/watch?v=KVYm0qC4b1Y)
+https://www.youtube.com/watch?v=KVYm0qC4b1Y
 
 ---
 
-[![Click through for source](./img/techletter.app-screenshot-1576516613487.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=function%20printFirstItem()%20%7B%0A%09getFirstItem()%0A%09%09.then(item%20%3D%3E%20console.log(item))%0A%09%09.catch(error%20%3D%3E%20console.error(%22There%20was%20no%20item%22))%0A%7D>)
+```javascript
+function printFirstItem() {
+	getFirstItem()
+		.then(item => console.log(item))
+		.catch(error => console.error("There was no item"))
+}
+```
 
 Did you figure it out? My team got it wrong. Even folks with decades of JavaScript experience.
 
@@ -78,7 +110,18 @@ And that's how you build a leaky bucket without realizing it. Multiply that acro
 
 The fix is to _always re-throw errors_. Unless you have a damn good reason why it needs to be eated.
 
-[![Click through for source](./img/techletter.app-screenshot-1576516608792.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=function%20getFirstItem()%20%7B%0A%09return%20makeRequest()%0A%09%09.then(response%20%3D%3E%20%7B%0A%09%09%09return%20response.data%5B0%5D%0A%09%09%7D)%0A%09%09.catch(error%20%3D%3E%20%7B%0A%09%09%09console.error(%22There%20was%20an%20error!%22%2C%20error)%0A%09%09%09throw%20error%0A%09%09%7D)%0A%7D>)
+```javascript
+function getFirstItem() {
+	return makeRequest()
+		.then(response => {
+			return response.data[0]
+		})
+		.catch(error => {
+			console.error("There was an error!", error)
+			throw error
+		})
+}
+```
 
 With that tiny modification the code works as expected.
 

@@ -11,7 +11,7 @@ Since [useAuth](https://github.com/Swizec/useAuth) is taking off, I wanted to ta
 
 And when I say useAuth is taking off ...
 
-[![Click through for source](./img/techletter.app-screenshot-1565626955164.png)](https://twitter.com/Swizec/status/1160070774448726016)
+https://twitter.com/Swizec/status/1160070774448726016
 
 Yep 🔥
 
@@ -51,7 +51,27 @@ It's pretty great.
 
 [file link](https://github.com/Swizec/useAuth/blob/master/src/AuthProvider.js)
 
-[![Click through for source](./img/techletter.app-screenshot-1565626956122.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2FAuthProvider.js%0A%0Aconst%20AuthContext%20%3D%20React.createContext(null)%0A%0Aexport%20const%20AuthProvider%20%3D%20(%7B%20children%20%7D)%20%3D%3E%20%7B%0A%20%20const%20auth0%20%3D%20new%20Auth0.WebAuth(%7B%0A%20%20%20%20%2F%2F%20initialization%20stuff%0A%20%20%7D)%0A%0A%20%20const%20%5Bstate%2C%20dispatch%5D%20%3D%20useReducer(authReducer%2C%20%7B%0A%20%20%20%20%2F%2F%20initial%20state%0A%20%20%7D)%0A%0A%20%20return%20(%0A%20%20%20%20%3CAuthContext.Provider%20value%3D%7B%5Bstate%2C%20dispatch%2C%20auth0%5D%7D%3E%0A%20%20%20%20%20%20%7Bchildren%7D%0A%20%20%20%20%3C%2FAuthContext.Provider%3E%0A%20%20)%0A%7D>)
+```javascript
+// src/AuthProvider.js
+
+const AuthContext = React.createContext(null)
+
+export const AuthProvider = ({ children }) => {
+  const auth0 = new Auth0.WebAuth({
+    // initialization stuff
+  })
+
+  const [state, dispatch] = useReducer(authReducer, {
+    // initial state
+  })
+
+  return (
+    <AuthContext.Provider value={[state, dispatch, auth0]}>
+      {children}
+    </AuthContext.Provider>
+  )
+}
+```
 
 That's our context provider.
 
@@ -71,13 +91,42 @@ In Gatsby you use the auth provider in `gatsby-ssr` and `gatsby-browser` to wrap
 
 The higher up it renders, the more parts of your app share state.
 
-[![Click through for source](./img/techletter.app-screenshot-1565626955924.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20frontend%2Fgatsby-ssr%0A%2F%2F%20frontend%2Fgatsby-browser%0A%0Aexport%20const%20wrapRootElement%20%3D%20(%7B%20element%20%7D)%20%3D%3E%20(%0A%20%20%3CAuthProvider%3E%7Belement%7D%3C%2FAuthProvider%3E%0A)>)
+```javascript
+// frontend/gatsby-ssr
+// frontend/gatsby-browser
+
+export const wrapRootElement = ({ element }) => (
+  <AuthProvider>{element}</AuthProvider>
+)
+```
 
 ## Auth reducer
 
 The auth reducer takes care of state transitions. [full file](https://github.com/Swizec/useAuth/blob/master/src/authReducer.js)
 
-[![Click through for source](./img/techletter.app-screenshot-1565626956251.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20frontend%2Fsrc%2Fauth.js%0A%0Afunction%20authReducer(state%2C%20action)%20%7B%0A%20%20switch%20(action.type)%20%7B%0A%20%20%20%20case%20%22login%22%3A%0A%20%20%20%20%20%20const%20%7B%20authResult%2C%20user%20%7D%20%3D%20action%0A%20%20%20%20%20%20const%20expiresAt%20%3D%20authResult.expiresIn%20*%201000%20%2B%20new%20Date().getTime()%0A%0A%20%20%20%20%20%20localStorage.setItem(%22expires_at%22%2C%20JSON.stringify(expiresAt))%0A%20%20%20%20%20%20localStorage.setItem(%22user%22%2C%20JSON.stringify(user))%0A%0A%20%20%20%20%20%20return%20%7B%20user%2C%20expiresAt%20%7D%0A%20%20%20%20case%20%22logout%22%3A%0A%20%20%20%20%20%20localStorage.removeItem(%22expires_at%22)%0A%20%20%20%20%20%20localStorage.removeItem(%22user%22)%0A%0A%20%20%20%20%20%20return%20%7B%20user%3A%20%7B%7D%2C%20expiresAt%3A%20null%20%7D%0A%20%20%20%20default%3A%0A%20%20%20%20%20%20return%20state%0A%20%20%7D%0A%7D>)
+```javascript
+// frontend/src/auth.js
+
+function authReducer(state, action) {
+  switch (action.type) {
+    case "login":
+      const { authResult, user } = action
+      const expiresAt = authResult.expiresIn * 1000 + new Date().getTime()
+
+      localStorage.setItem("expires_at", JSON.stringify(expiresAt))
+      localStorage.setItem("user", JSON.stringify(user))
+
+      return { user, expiresAt }
+    case "logout":
+      localStorage.removeItem("expires_at")
+      localStorage.removeItem("user")
+
+      return { user: {}, expiresAt: null }
+    default:
+      return state
+  }
+}
+```
 
 If you're not familiar with reducers: it's a function that takes the current state and an action, and calculates the next state. Always returning a fresh object.
 
@@ -87,7 +136,47 @@ In our case the `login` and `logout` actions handle the user model and cookie ex
 
 With heavy lifting moved to the context provider and auth reducer, our `useAuth` hook becomes a sort of thin wrapper and API provider. [full file](https://github.com/Swizec/useAuth/blob/master/src/useAuth.js)
 
-[![Click through for source](./img/techletter.app-screenshot-1565626956395.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20src%2FuseAuth.js%0A%0Aexport%20const%20useAuth%20%3D%20()%20%3D%3E%20%7B%0A%20%20%20%20%2F%2F%20this%20is%20the%20state%20stuff%0A%20%20%20%20const%20%7B%20state%2C%20dispatch%2C%20auth0%20%7D%20%3D%20useContext(%0A%20%20%20%20%20%20%20%20AuthContext%0A%20%20%20%20)%3B%0A%0A%20%20%20%20const%20login%20%3D%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20auth0.authorize()%3B%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20const%20logout%20%3D%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20auth0.logout(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20returnTo%3A%20callback_domain%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%20%20%20%20dispatch(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20type%3A%20%22logout%22%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%0A%20%20%20%20%20%20%20%20%2F%2F%20Return%20to%20the%20homepage%20after%20logout.%0A%20%20%20%20%20%20%20%20navigate(%22%2F%22)%3B%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%2F%2F%20...%0A%0A%20%20%20%20const%20isAuthenticated%20%3D%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20return%20state.expiresAt%20%26%26%20new%20Date().getTime()%20%3C%20state.expiresAt%3B%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20return%20%7B%0A%20%20%20%20%20%20%20%20isAuthenticated%2C%0A%20%20%20%20%20%20%20%20user%3A%20state.user%2C%0A%20%20%20%20%20%20%20%20userId%3A%20state.user%20%3F%20state.user.sub%20%3A%20null%2C%0A%20%20%20%20%20%20%20%20login%2C%0A%20%20%20%20%20%20%20%20logout%2C%0A%20%20%20%20%20%20%20%20handleAuthentication%0A%20%20%20%20%7D%3B%0A%7D%3B>)
+```javascript
+// src/useAuth.js
+
+export const useAuth = () => {
+    // this is the state stuff
+    const { state, dispatch, auth0 } = useContext(
+        AuthContext
+    );
+
+    const login = () => {
+        auth0.authorize();
+    };
+
+    const logout = () => {
+        auth0.logout({
+            returnTo: callback_domain
+        });
+        dispatch({
+            type: "logout"
+        });
+
+        // Return to the homepage after logout.
+        navigate("/");
+    };
+
+   // ...
+
+    const isAuthenticated = () => {
+        return state.expiresAt && new Date().getTime() < state.expiresAt;
+    };
+
+    return {
+        isAuthenticated,
+        user: state.user,
+        userId: state.user ? state.user.sub : null,
+        login,
+        logout,
+        handleAuthentication
+    };
+};
+```
 
 The state management part of `useAuth` is that `useContext` call. It hooks into the context shared by `AuthProvider` and gets access to the `state` object and `dispatch` method.
 
@@ -97,11 +186,25 @@ You could use `useContext` directly. I prefer using a custom hook because it mak
 
 What's better, doing this everywhere you want to access some shared state:
 
-[![Click through for source](./img/techletter.app-screenshot-1565626956742.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20SomeContext%20from%20'...'%0A%0Aconst%20MyThing%20%3D%20()%20%3D%3E%20%7B%0A%09const%20%5Bstate%2C%20dispatch%5D%20%3D%20useContext(SomeContext)%0A%0A%09%2F%2F%20...%0A%7D>)
+```javascript
+import SomeContext from '...'
+
+const MyThing = () => {
+	const [state, dispatch] = useContext(SomeContext)
+
+	// ...
+}
+```
 
 Or this
 
-[![Click through for source](./img/techletter.app-screenshot-1565626956228.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20useMyContext%0A%0Aconst%20MyThing%20%3D%20()%20%3D%3E%20%7B%0A%09const%20%7B%20doTheThing%20%7D%20%3D%20useMyContext()%0A%7D>)
+```javascript
+import useMyContext
+
+const MyThing = () => {
+	const { doTheThing } = useMyContext()
+}
+```
 
 I know what I prefer :)
 

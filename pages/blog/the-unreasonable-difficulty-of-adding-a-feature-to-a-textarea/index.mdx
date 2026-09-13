@@ -21,7 +21,7 @@ Piece of cake.
 
 So on Monday I gave it a shot ...
 
-[![Click through for source](./img/techletter.app-screenshot-1563209614123.png)](https://www.youtube.com/watch?v=JtgVsrW7WkI)
+https://www.youtube.com/watch?v=JtgVsrW7WkI
 
 ... and failed miserably.
 
@@ -37,7 +37,7 @@ React problem resolve, surely this is gonna be a piece of cake now. Let's do thi
 
 Friday I tried again
 
-[![Click through for source](./img/techletter.app-screenshot-1563209614108.png)](https://www.youtube.com/watch?v=5XRyY6YQzjA)
+https://www.youtube.com/watch?v=5XRyY6YQzjA
 
 We wasted time drinking beer and shooting the shit about San Francisco, Silicon Valley, and some recent career news on my end (more on that later). Would you say SF is fancy? It's covered in poop, but also seeing a Porsche is so common you don't even notice anymore 🤔
 
@@ -51,7 +51,42 @@ Well ... the operation was a success but the patient died. Oops.
 
 Finding a giph was easy. Giphy's API is great and React Hooks make building small forms a breeze.
 
-[![Click through for source](./img/techletter.app-screenshot-1563209612510.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0Aimport%20giphyAPI%20from%20%22giphy-api%22%3B%0A%0Aconst%20Giphys%20%3D%20(%7B%20target%20%7D)%20%3D%3E%20%7B%0A%20%20%20%20const%20%5Bsearch%2C%20setSearch%5D%20%3D%20useState(%22%22)%3B%0A%0A%20%20%20%20async%20function%20findGiphy()%20%7B%0A%20%20%20%20%20%20%20%20const%20results%20%3D%20await%20giphyAPI(%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20apiKey%3A%20GIPHY_KEY%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20https%3A%20true%0A%20%20%20%20%20%20%20%20%7D).search(search)%3B%0A%0A%20%20%20%20%20%20%20%20const%20giph%20%3D%20results.data.filter(d%20%3D%3E%20d.type%20%3D%3D%3D%20%22gif%22)%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%2F%2F%20insert%20into%20target%0A%0A%20%20%20%20%20%20%20%20setSearch(%22%22)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20function%20onSubmit(event)%20%7B%0A%20%20%20%20%20%20%20%20event.preventDefault()%3B%0A%20%20%20%20%20%20%20%20findGiphy()%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%20%20%3Cform%20onSubmit%3D%7BonSubmit%7D%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20Add%20a%20Giph%20%F0%9F%91%89%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20value%3D%7Bsearch%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20onChange%3D%7Bevent%20%3D%3E%20setSearch(event.target.value)%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2Fform%3E%0A%20%20%20%20)%3B%0A%7D%3B>)
+```javascript
+import React, { useState } from "react";
+import giphyAPI from "giphy-api";
+
+const Giphys = ({ target }) => {
+    const [search, setSearch] = useState("");
+
+    async function findGiphy() {
+        const results = await giphyAPI({
+            apiKey: GIPHY_KEY,
+            https: true
+        }).search(search);
+
+        const giph = results.data.filter(d => d.type === "gif")[0];
+        
+        // insert into target
+
+        setSearch("");
+    }
+
+    function onSubmit(event) {
+        event.preventDefault();
+        findGiphy();
+    }
+
+    return (
+        <form onSubmit={onSubmit}>
+            Add a Giph 👉
+            <input
+                value={search}
+                onChange={event => setSearch(event.target.value)}
+            />
+        </form>
+    );
+};
+```
 
 A single `<Giphys>` component.
 
@@ -65,7 +100,16 @@ A single `<Giphys>` component.
 
 Rendering this next to every textarea is a matter of some classic DOM manipulation. Find all textareas, inject an element in their parent.
 
-[![Click through for source](./img/techletter.app-screenshot-1563209612788.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=import%20ReactDOM%20from%20%22react-dom%22%3B%0A%0Afor%20(const%20node%20of%20document.getElementsByTagName(%22textarea%22))%20%7B%0A%20%20%20%20const%20div%20%3D%20document.createElement(%22div%22)%3B%0A%20%20%20%20node.parentNode.insertBefore(div%2C%20node)%3B%0A%0A%20%20%20%20ReactDOM.render(%3CGiphys%20target%3D%7Bnode%7D%20%2F%3E%2C%20div)%3B%0A%7D>)
+```javascript
+import ReactDOM from "react-dom";
+
+for (const node of document.getElementsByTagName("textarea")) {
+    const div = document.createElement("div");
+    node.parentNode.insertBefore(div, node);
+
+    ReactDOM.render(<Giphys target={node} />, div);
+}
+```
 
 Works great 👌
 
@@ -75,7 +119,9 @@ So why does it break the textarea?
 
 The most obvious way to add content to a textarea using JavaScript looks like this.
 
-[![Click through for source](./img/techletter.app-screenshot-1563209612765.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=target.value%20%2B%3D%20%60!%5B%24%7Bgiph.slug%7D%5D(%24%7Bgiph.images.downsized_medium.url%7D)%60%3B>)
+```javascript
+target.value += `![${giph.slug}](${giph.images.downsized_medium.url})`;
+```
 
 `target` is our textarea node. Its value resides in the `.value` property and the DOM spec allows us to change it.
 
@@ -85,7 +131,7 @@ But GitHub's JavaScript framework freaks out. The Comment button doesn't become 
 
 Which brings us to Sunday when I tried to figure this out once and for all.
 
-[![Click through for source](./img/techletter.app-screenshot-1563209613720.png)](https://www.youtube.com/watch?v=7vM1hJCVUKg)
+https://www.youtube.com/watch?v=7vM1hJCVUKg
 
 That was ... fun? Confusing? I learned more than I ever wanted to know about keyboard events? 🤨
 
@@ -100,7 +146,11 @@ I don't know what they use, but you can imagine why it wouldn't like outsiders m
 
 Nothing a little change event can't fix.
 
-[![Click through for source](./img/techletter.app-screenshot-1563209612899.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=target.value%20%2B%3D%20%60!%5B%24%7Bgiph.slug%7D%5D(%24%7Bgiph.images.downsized_medium.url%7D)%60%3B%0A%0Atarget.dispatchEvent(new%20Event(%22change%22))%3B>)
+```javascript
+target.value += `![${giph.slug}](${giph.images.downsized_medium.url})`;
+
+target.dispatchEvent(new Event("change"));
+```
 
 ![](./img/ueM8veJ.gif)
 
@@ -140,15 +190,20 @@ There's no way to get them in real code.
 
 Out of options, out of ideas, I asked the internet for help.
 
-[![Click through for source](./img/techletter.app-screenshot-1563209611797.png)](https://twitter.com/Swizec/status/1150534623954210817)
+https://twitter.com/Swizec/status/1150534623954210817
 
 And the internet delivered! Thanks [@\_tarekdj](https://twitter.com/_tarekdj)
 
 Firing the `change` event was the right idea. I was just doing it wrong.
 
-[![Click through for source](./img/techletter.app-screenshot-1563209611708.png)](https://twitter.com/_tarekdj/status/1150540911866187779)
+https://twitter.com/_tarekdj/status/1150540911866187779
 
-[![Click through for source](./img/techletter.app-screenshot-1563209613024.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20Make%20this%20damn%20textarea%20works!%0Alet%20evt%20%3D%20document.createEvent(%22Events%22)%3B%0Aevt.initEvent(%22change%22%2C%20true%2C%20true)%3B%0Atarget.dispatchEvent(evt)%3B>)
+```javascript
+// Make this damn textarea works!
+let evt = document.createEvent("Events");
+evt.initEvent("change", true, true);
+target.dispatchEvent(evt);
+```
 
 ![](./img/ackL13M.gif)
 
@@ -164,7 +219,11 @@ What's more curious is why [@\_tarekdj](https://twitter.com/_tarekdj)'s change e
 
 Let's see, we've got two change events. One works, one doesn't
 
-[![Click through for source](./img/techletter.app-screenshot-1563209612502.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20this%20doesn't%20work%0A%0Atarget.dispatchEvent(new%20Event(%22change%22))%3B>)
+```javascript
+// this doesn't work
+
+target.dispatchEvent(new Event("change"));
+```
 
 We're creating a new Event as per [MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/Event). It's the most basic of event objects that all the others build off of.
 
@@ -178,7 +237,13 @@ That feels important 🤔
 
 Event bubbling is how events propagate up the hierarchy of DOM elements by the way. That's how a form knows to submit when you press Enter inside an input field 5 levels down.
 
-[![Click through for source](./img/techletter.app-screenshot-1563209612754.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=%2F%2F%20this%20works%0A%0Alet%20evt%20%3D%20document.createEvent(%22Events%22)%3B%0Aevt.initEvent(%22change%22%2C%20true%2C%20true)%3B%0Atarget.dispatchEvent(evt)%3B>)
+```javascript
+// this works
+
+let evt = document.createEvent("Events");
+evt.initEvent("change", true, true);
+target.dispatchEvent(evt);
+```
 
 The working version _also_ creates an event and dispatches it. Except it's using a more old school approach.
 
@@ -194,13 +259,21 @@ That's not a good sign 😅
 
 What do those booleans we're passing in do? Here's the function signature
 
-[![Click through for source](./img/techletter.app-screenshot-1563209612998.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=event.initEvent(type%2C%20bubbles%2C%20cancelable)%3B>)
+```javascript
+event.initEvent(type, bubbles, cancelable);
+```
 
 🤔
 
 So it _was_ all about bubbling! Let's try
 
-[![Click through for source](./img/techletter.app-screenshot-1563209613009.png)](<https://carbon.now.sh/?bg=rgba(255,255,255,1)&t=seti&l=javascript&ds=true&wc=true&wa=true&pv=48px&ph=32px&ln=false&code=target.dispatchEvent(%0A%20%20%20%20new%20Event(%22change%22%2C%20%7B%0A%20%20%20%20%20%20%20%20bubbles%3A%20true%0A%20%20%20%20%7D)%0A)%3B>)
+```javascript
+target.dispatchEvent(
+    new Event("change", {
+        bubbles: true
+    })
+);
+```
 
 It works! 😱
 
