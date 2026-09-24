@@ -1,4 +1,3 @@
-// @ts-expect-error - Vite resolves the .wasm asset; no type decl for the query
 import wasmInline from '@takumi-rs/wasm/takumi_wasm_bg.wasm?inline';
 import { ogFonts } from './og-fonts';
 

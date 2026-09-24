@@ -11,10 +11,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     }
   },
-  "include": ["app", "*.config.ts", ".content-collections/generated"]
+  "include": ["app", "*.config.ts", "timber-env.d.ts", ".content-collections/generated"]
 }
