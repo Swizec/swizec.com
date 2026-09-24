@@ -12,8 +12,8 @@
     "backfill-sparkjoy": "node scripts/backfill-sparkjoy-counts.mjs"
   },
   "dependencies": {
-    "@astryxdesign/core": "^0.1.4",
-    "@astryxdesign/theme-y2k": "^0.1.4",
+    "@astryxdesign/core": "^0.6.3",
+    "@astryxdesign/theme-y2k": "^0.6.3",
     "@content-collections/core": "^0.15.2",
     "@content-collections/mdx": "^0.2.2",
     "@fontsource/jetbrains-mono": "^5.2.8",
