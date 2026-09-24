@@ -23,7 +23,7 @@ export function metadata(): Metadata {
         ? `Software engineering lessons from production — articles from ${label} by Swizec Teller`
         : 'Software engineering lessons from production — almost 20 years of articles by Swizec Teller';
     const ogImage = `${requestOrigin()}/blog/opengraph-image.png${archiveOgQuery(year, month)}`;
-    const query = archiveParams.serialize({ year, month, page });
+    const query = archiveParams.buildSearchParams({ year, month, page });
 
     return {
         title,

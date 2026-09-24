@@ -13,7 +13,7 @@ export function archiveTimeLabel(year?: number, month?: number): string | undefi
 // unfiltered.
 export function archiveOgQuery(year?: number, month?: number): string {
     if (!year) return '';
-    return `?${archiveParams.serialize({ year, month })}`;
+    return `?${archiveParams.buildSearchParams({ year, month })}`;
 }
 
 function suffixImages<
@@ -61,7 +61,7 @@ export function withArchiveTime(meta: Metadata): Metadata {
         ...(canonical && {
             alternates: {
                 ...meta.alternates,
-                canonical: `${canonical}?${archiveParams.serialize({ year, month, page })}`,
+                canonical: `${canonical}?${archiveParams.buildSearchParams({ year, month, page })}`,
             },
         }),
         openGraph: suffixImages(meta.openGraph, ogQuery, title),
