@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 export function toPosix(filePath) {
   return filePath.split(path.sep).join(path.posix.sep);
@@ -19,9 +20,9 @@ export function mdxAttribute(name, value = null) {
   return { type: 'mdxJsxAttribute', name, value };
 }
 
-export function mdxElement(name, attributes = {}, children = []) {
+export function mdxElement(name, attributes = {}, children = [], { inline = false } = {}) {
   return {
-    type: 'mdxJsxFlowElement',
+    type: inline ? 'mdxJsxTextElement' : 'mdxJsxFlowElement',
     name,
     attributes: Object.entries(attributes)
       .filter(([, value]) => value !== undefined)
@@ -50,32 +51,6 @@ export function parseUrl(value) {
   }
 }
 
-export function importDeclaration(names, source) {
-  const specifiers = names.map((name) => ({
-    type: 'ImportSpecifier',
-    imported: { type: 'Identifier', name },
-    local: { type: 'Identifier', name },
-  }));
-
-  return {
-    type: 'mdxjsEsm',
-    value: `import { ${names.join(', ')} } from '${source}';`,
-    data: {
-      estree: {
-        type: 'Program',
-        sourceType: 'module',
-        body: [
-          {
-            type: 'ImportDeclaration',
-            specifiers,
-            source: { type: 'Literal', value: source, raw: JSON.stringify(source) },
-          },
-        ],
-      },
-    },
-  };
-}
-
 // Paths are relative to this file (mdx-plugins/helpers.mjs), so ../components/...
 const DEFAULT_COMPONENTS = {
   BlueskyEmbed: '../components/bluesky-embed.tsx',
@@ -93,21 +68,35 @@ export function componentPath(componentName, options = {}) {
   return new URL(componentFile, import.meta.url).pathname;
 }
 
-export function injectComponentImports(tree, file, componentNames, options) {
-  if (!file.path || componentNames.size === 0) return;
+// Satteri MDAST node for a bare ESM statement. Satteri parses the value
+// itself, so no estree needs to be attached.
+export function esm(value) {
+  return { type: 'mdxjsEsm', value };
+}
+
+// One `import { A, B } from '../components/...'` node per source file, for
+// every component name the plugins used in this document. Returns [] when
+// there is nothing to import or the document has no file path to resolve
+// against (component paths are relative to the MDX file).
+export function componentImportNodes(filePath, componentNames, options) {
+  if (!filePath || componentNames.size === 0) return [];
 
   const importsBySource = new Map();
 
   for (const componentName of componentNames) {
-    const source = importSource(file.path, componentPath(componentName, options));
+    const source = importSource(filePath, componentPath(componentName, options));
     const names = importsBySource.get(source) ?? [];
     names.push(componentName);
     importsBySource.set(source, names);
   }
 
-  const imports = [...importsBySource.entries()].map(([source, names]) =>
-    importDeclaration(names.sort(), source)
+  return [...importsBySource.entries()].map(([source, names]) =>
+    esm(`import { ${names.sort().join(', ')} } from ${JSON.stringify(source)};`)
   );
+}
 
-  tree.children.unshift(...imports);
+// Absolute filesystem path of the document a plugin is running on, from
+// Satteri's ctx.fileURL (undefined for in-memory compiles).
+export function filePathOf(ctx) {
+  return ctx.fileURL ? fileURLToPath(ctx.fileURL) : undefined;
 }

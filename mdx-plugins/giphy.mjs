@@ -1,6 +1,6 @@
 import { mdxElement } from './helpers.mjs';
 
-export function giphyEmbed(url, context) {
+export function giphyEmbed(url, context, opts) {
   const query = url.replace(/^giphy:/, '').trim();
   if (!query) return null;
 
@@ -8,5 +8,5 @@ export function giphyEmbed(url, context) {
 
   return mdxElement('GiphyEmbed', {
     query: query.replaceAll('_', ' '),
-  });
+  }, [], opts);
 }
