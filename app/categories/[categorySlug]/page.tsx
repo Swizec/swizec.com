@@ -34,7 +34,7 @@ export async function metadata(): Promise<Metadata> {
         ? `Articles about ${category.name} from ${label} by Swizec Teller`
         : `Articles about ${category.name} by Swizec Teller`;
     const ogImage = `${requestOrigin()}/categories/${slug}/opengraph-image.png${archiveOgQuery(year, month)}`;
-    const query = archiveParams.serialize({ year, month, page });
+    const query = archiveParams.buildSearchParams({ year, month, page });
     return {
         title,
         description,
