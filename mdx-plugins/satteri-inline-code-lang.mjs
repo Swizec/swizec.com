@@ -1,4 +1,9 @@
-import { visit } from 'unist-util-visit';
+// Auto-detects the language of inline code (`const x = 1`) with highlight.js
+// and tags it with shiki's tailing-curly-colon convention (`...{:js}`), so
+// satteri-shiki highlights it. Explicit tags are left alone.
+//
+// Satteri MDAST plugin (stateless definition).
+import { defineMdastPlugin } from 'satteri';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import typescript from 'highlight.js/lib/languages/typescript';
@@ -25,15 +30,14 @@ function detectLang(code) {
   return LANG_MAP[result.language] ?? result.language;
 }
 
-export function remarkInlineCodeLang() {
-  return (tree) => {
-    visit(tree, 'inlineCode', (node) => {
-      if (/\{:\w+\}$/.test(node.value)) return;
+export const satteriInlineCodeLang = defineMdastPlugin({
+  name: 'swizec-inline-code-lang',
+  inlineCode(node, ctx) {
+    if (/\{:\w+\}$/.test(node.value)) return;
 
-      const lang = detectLang(node.value);
-      if (lang) {
-        node.value = `${node.value}{:${lang}}`;
-      }
-    });
-  };
-}
+    const lang = detectLang(node.value);
+    if (lang) {
+      ctx.setProperty(node, 'value', `${node.value}{:${lang}}`);
+    }
+  },
+});

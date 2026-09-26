@@ -14,7 +14,7 @@ function getBskyPostUrl(url) {
   return `https://bsky.app/profile/${parts[postIndex - 1]}/post/${parts[postIndex + 1]}`;
 }
 
-export function blueskyEmbed(url, context) {
+export function blueskyEmbed(url, context, opts) {
   const postUrl = getBskyPostUrl(url);
   if (!postUrl) return null;
 
@@ -22,5 +22,5 @@ export function blueskyEmbed(url, context) {
   context.components.add('BlueskyEmbedScript');
   context.hasBsky = true;
 
-  return mdxElement('BlueskyEmbed', { url: postUrl });
+  return mdxElement('BlueskyEmbed', { url: postUrl }, [], opts);
 }
