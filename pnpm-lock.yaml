@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@astryxdesign/core':
-        specifier: ^0.1.4
-        version: 0.1.4(@stylexjs/stylex@0.18.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: ^0.6.3
+        version: 0.6.3(@stylexjs/stylex@0.18.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@astryxdesign/theme-y2k':
-        specifier: ^0.1.4
-        version: 0.1.4(@astryxdesign/core@0.1.4(@stylexjs/stylex@0.18.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
+        specifier: ^0.6.3
+        version: 0.6.3(@astryxdesign/core@0.6.3(@stylexjs/stylex@0.18.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
       '@content-collections/core':
         specifier: ^0.15.2
         version: 0.15.2(typescript@5.9.3)
@@ -132,17 +132,17 @@ importers:
 
 packages:
 
-  '@astryxdesign/core@0.1.4':
-    resolution: {integrity: sha512-pLwdh8Pu4ifgQ3thiaFjzitWzVpGJmyaSgNe2AZnGwGO1E876HY4k7s6m2wDnxbt5kxdSSeu0O6axq1LxUbwEQ==, tarball: https://registry.npmjs.org/@astryxdesign/core/-/core-0.1.4.tgz}
+  '@astryxdesign/core@0.6.3':
+    resolution: {integrity: sha512-ieaZZn0wjP8saWkfSXFgzvrA0UfXWeOBsvuvsbtJ0789LdYacTJS83UXsROcvPLONUIOO/Iy1Ar5+70xvcVpgg==, tarball: https://registry.npmjs.org/@astryxdesign/core/-/core-0.6.3.tgz}
     peerDependencies:
-      '@stylexjs/stylex': ^0.18.3
+      '@stylexjs/stylex': ^0.19.0
       react: '>=19.0.0'
       react-dom: '>=19.0.0'
 
-  '@astryxdesign/theme-y2k@0.1.4':
-    resolution: {integrity: sha512-l5VNWDOTp7Bz2qYfDWLPXPA319AQifjPffvSL0h1FU9qxUkIBmNjTevH0JLiCGYdGwdECxzNH2WjT2+GDI7+rg==, tarball: https://registry.npmjs.org/@astryxdesign/theme-y2k/-/theme-y2k-0.1.4.tgz}
+  '@astryxdesign/theme-y2k@0.6.3':
+    resolution: {integrity: sha512-C7e2paKxgRwWo+UcVcBCR8Cx5Ang4xvyLOOSHtD74cAlAx6qHmNONJxFsFWLXyjEM2Piocilq27neLtlgvksrg==, tarball: https://registry.npmjs.org/@astryxdesign/theme-y2k/-/theme-y2k-0.6.3.tgz}
     peerDependencies:
-      '@astryxdesign/core': 0.1.4
+      '@astryxdesign/core': 0.6.3
       react: '>=19'
 
   '@aws-sdk/client-dynamodb@3.1095.0':
@@ -420,6 +420,15 @@ packages:
 
   '@fontsource/poppins@5.2.7':
     resolution: {integrity: sha512-6uQyPmseo4FgI97WIhA4yWRlNaoLk4vSDK/PyRwdqqZb5zAEuc+Kunt8JTMcsHYUEGYBtN15SNkMajMdqUSUmg==, tarball: https://registry.npmjs.org/@fontsource/poppins/-/poppins-5.2.7.tgz}
+
+  '@formatjs/fast-memoize@3.1.7':
+    resolution: {integrity: sha512-zXfhLpvA6T7+efdt9JLbBwZ00tT7NsBMDVnDu8rpHeNNv8KfRZAMo2gkG0k9lK/Nzc//3kJ9pImsfuJxk3KhUA==, tarball: https://registry.npmjs.org/@formatjs/fast-memoize/-/fast-memoize-3.1.7.tgz}
+
+  '@formatjs/icu-messageformat-parser@3.5.18':
+    resolution: {integrity: sha512-wX1efcL8d7K5QapOTRsP/OLTA/kpwe4LwqWyNxDNg5iRs8i9jJbCyxB5P8jc4KOW5oiLzz2DJr+BRY5xMV9+bA==, tarball: https://registry.npmjs.org/@formatjs/icu-messageformat-parser/-/icu-messageformat-parser-3.5.18.tgz}
+
+  '@formatjs/icu-skeleton-parser@2.1.11':
+    resolution: {integrity: sha512-j8cUmOJzVgkHuS0QiQ6ga76UIoLOFSAMWhs7aZJztH3aAdCOAE6vpC8KVvFB4cU10ON0y2/5oOVmPJ43s2lTwA==, tarball: https://registry.npmjs.org/@formatjs/icu-skeleton-parser/-/icu-skeleton-parser-2.1.11.tgz}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==, tarball: https://registry.npmjs.org/@img/colour/-/colour-1.1.0.tgz}
@@ -1507,6 +1516,9 @@ packages:
   inline-style-parser@0.2.7:
     resolution: {integrity: sha512-Nb2ctOyNR8DqQoR0OwRG95uNWIC0C1lCgf5Naz5H6Ji72KZ8OcFZLz2P5sNgwlyoJ8Yif11oMuYs5pBQa86csA==}
 
+  intl-messageformat@11.2.15:
+    resolution: {integrity: sha512-W4VNytsXyWgW5lvVchmsb9xgA5rSKqoflu3/IQ9UCtB0z4R+Bx9MoEkwFT/+30RCl/KzUoH0QGGe9lppF5SuvQ==, tarball: https://registry.npmjs.org/intl-messageformat/-/intl-messageformat-11.2.15.tgz}
+
   invariant@2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==, tarball: https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz}
 
@@ -2251,15 +2263,16 @@ packages:
 
 snapshots:
 
-  '@astryxdesign/core@0.1.4(@stylexjs/stylex@0.18.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@astryxdesign/core@0.6.3(@stylexjs/stylex@0.18.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@stylexjs/stylex': 0.18.3
+      intl-messageformat: 11.2.15
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
 
-  '@astryxdesign/theme-y2k@0.1.4(@astryxdesign/core@0.1.4(@stylexjs/stylex@0.18.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)':
+  '@astryxdesign/theme-y2k@0.6.3(@astryxdesign/core@0.6.3(@stylexjs/stylex@0.18.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)':
     dependencies:
-      '@astryxdesign/core': 0.1.4(@stylexjs/stylex@0.18.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@astryxdesign/core': 0.6.3(@stylexjs/stylex@0.18.3)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       lucide-react: 1.24.0(react@19.3.0)
       react: 19.3.0
 
@@ -2566,6 +2579,14 @@ snapshots:
   '@fontsource/jetbrains-mono@5.2.8': {}
 
   '@fontsource/poppins@5.2.7': {}
+
+  '@formatjs/fast-memoize@3.1.7': {}
+
+  '@formatjs/icu-messageformat-parser@3.5.18':
+    dependencies:
+      '@formatjs/icu-skeleton-parser': 2.1.11
+
+  '@formatjs/icu-skeleton-parser@2.1.11': {}
 
   '@img/colour@1.1.0': {}
 
@@ -3507,6 +3528,11 @@ snapshots:
   httpxy@0.5.5: {}
 
   inline-style-parser@0.2.7: {}
+
+  intl-messageformat@11.2.15:
+    dependencies:
+      '@formatjs/fast-memoize': 3.1.7
+      '@formatjs/icu-messageformat-parser': 3.5.18
 
   invariant@2.2.4:
     dependencies:
