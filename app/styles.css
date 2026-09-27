@@ -34,6 +34,17 @@ h6 {
 }
 
 /* ---------- Header ---------- */
+:root {
+  /* Rendered height of the sticky header (logo + tagline + padding +
+     border). Anchor scrolls offset by this so a #heading target isn't
+     hidden under it. Zeroed on small screens where the header is static. */
+  --site-header-height: 64px;
+}
+
+html {
+  scroll-padding-top: calc(var(--site-header-height) + 1rem);
+}
+
 
 .site-header {
   background: var(--color-background-surface);
@@ -136,6 +147,10 @@ h6 {
   }
 
   /* Stacked header is tall — let it scroll away on small screens */
+  :root {
+    --site-header-height: 0px;
+  }
+
   .site-header {
     position: static;
   }
