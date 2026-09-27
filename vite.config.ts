@@ -1,62 +1,8 @@
 import { defineConfig, loadEnv } from 'vite';
 import { timber } from '@timber-js/app';
-import mdx from '@mdx-js/rollup';
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeShiki from '@shikijs/rehype';
-import rehypeSlug from 'rehype-slug';
 import fs from 'node:fs';
 import path from 'node:path';
 import { IMAGE_WIDTHS } from './lib/image-sizes.mjs';
-import { remarkSwizecEmbeds, remarkMdxStaticFiles } from './mdx-plugins/index.mjs';
-import { remarkInlineCodeLang } from './mdx-plugins/remark-inline-code-lang.mjs';
-
-// Some headings are markdown links themselves (## [Book](https://...)) —
-// wrapping those in an anchor nests <a> inside <a>: invalid HTML that breaks
-// React hydration. Skip autolinking for any heading that contains a link.
-function containsLink(node: { tagName?: string; children?: unknown[] }): boolean {
-  if (node.tagName === 'a') return true;
-  return (node.children ?? []).some((child) => containsLink(child as typeof node));
-}
-
-// MDX pipeline. timber's built-in MDX support (Satteri) is disabled in
-// timber.config.ts because its visitor plugins can't run unified plugins, so
-// this is the unified pipeline timber used to wire for us: frontmatter first
-// (so YAML isn't parsed as JSX expressions), then our remark plugins, then
-// rehype. providerImportSource points at mdx-components.tsx so every MDX
-// module still picks up the SmartLink `a` override. enforce: 'pre' so MDX
-// compiles before the RSC plugin scans for 'use client' boundaries.
-const mdxPipeline = {
-  ...mdx({
-    providerImportSource: new URL('./mdx-components.tsx', import.meta.url).pathname,
-    remarkPlugins: [
-      remarkFrontmatter,
-      remarkMdxFrontmatter,
-      remarkSwizecEmbeds,
-      remarkMdxStaticFiles,
-      remarkInlineCodeLang,
-    ],
-    rehypePlugins: [
-      rehypeSlug,
-      [rehypeAutolinkHeadings, { behavior: 'wrap', test: (el: Parameters<typeof containsLink>[0]) => !containsLink(el) }],
-      [
-        rehypeShiki,
-        {
-          themes: { light: 'github-light', dark: 'github-dark' },
-          inline: 'tailing-curly-colon',
-          // Fences with no language (and unknown languages) still get the
-          // pre.shiki treatment — styles.css only styles pre.shiki, so
-          // unhighlighted blocks would otherwise render as bare <pre>.
-          defaultLanguage: 'text',
-          fallbackLanguage: 'text',
-        },
-      ],
-    ],
-  }),
-  enforce: 'pre' as const,
-};
-
 const MIME: Record<string, string> = {
   '.png':  'image/png',
   '.jpg':  'image/jpeg',
@@ -179,7 +125,7 @@ export default defineConfig(({ mode }) => {
   Object.assign(process.env, loadEnv(mode, process.cwd(), ''));
 
   return {
-  plugins: [mdxPipeline, pagesColocatedAssets, vercelImageDev, timber()],
+  plugins: [pagesColocatedAssets, vercelImageDev, timber()],
   // public/ is gitignored Gatsby build output that still exists on dev
   // machines. Without this, local builds copy those stale files into
   // .vercel/output (and dev serves them, shadowing routes) while Vercel CI —

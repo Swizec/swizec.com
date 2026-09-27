@@ -52,7 +52,7 @@ function getYouTubeIdAndParams(url) {
   };
 }
 
-export function youtubeEmbed(url, context) {
+export function youtubeEmbed(url, context, opts) {
   const youtube = getYouTubeIdAndParams(url);
   if (!youtube) return null;
 
@@ -61,5 +61,5 @@ export function youtubeEmbed(url, context) {
   return mdxElement('YouTubeEmbed', {
     videoId: youtube.videoId,
     params: youtube.params,
-  });
+  }, [], opts);
 }

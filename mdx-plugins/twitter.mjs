@@ -15,7 +15,7 @@ function getTweetUrl(url) {
   return `https://twitter.com/${parts[0]}/status/${statusId}`;
 }
 
-export function twitterEmbed(url, context) {
+export function twitterEmbed(url, context, opts) {
   const tweetUrl = getTweetUrl(url);
   if (!tweetUrl) return null;
 
@@ -23,5 +23,5 @@ export function twitterEmbed(url, context) {
   context.components.add('TwitterWidgetsScript');
   context.hasTweet = true;
 
-  return mdxElement('TweetEmbed', { url: tweetUrl });
+  return mdxElement('TweetEmbed', { url: tweetUrl }, [], opts);
 }
