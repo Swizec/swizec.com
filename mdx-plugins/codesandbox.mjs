@@ -12,11 +12,11 @@ function getCodeSandboxId(url) {
   return sandboxId;
 }
 
-export function codeSandboxEmbed(url, context) {
+export function codeSandboxEmbed(url, context, opts) {
   const sandboxId = getCodeSandboxId(url);
   if (!sandboxId) return null;
 
   context.components.add('CodeSandboxEmbed');
 
-  return mdxElement('CodeSandboxEmbed', { sandboxId });
+  return mdxElement('CodeSandboxEmbed', { sandboxId }, [], opts);
 }
