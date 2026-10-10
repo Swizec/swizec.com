@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionState } from '@timber-js/app/client';
-import { useState, type ReactNode } from 'react';
+import { startTransition, useEffect, useRef, useState, type ReactNode } from 'react';
 import { sparkjoyVote, sparkjoyFeedback } from '../app/_actions/sparkjoy';
 
 type VoteType = 'thumbsup' | 'thumbsdown';
@@ -28,13 +28,44 @@ export function SparkJoyWidget({
     // delight shouldn't wait on DynamoDB. Key restarts the CSS animation.
     const [burst, setBurst] = useState<{ type: VoteType; key: number } | null>(null);
 
+    const widgetRef = useRef<HTMLElement>(null);
+    const whyRef = useRef<HTMLTextAreaElement>(null);
+    const linkedVote = useRef(false);
+
     // Successful action results nest under .data ({ data } | { serverError } | …)
     const voted = vote && 'data' in vote ? vote.data : null;
     const feedbackDone = feedback && 'data' in feedback ? (feedback.data?.done ?? false) : false;
 
+    useEffect(() => {
+        const url = new URL(window.location.href);
+        const voteType = url.searchParams.get('vote');
+        if (voteType !== 'thumbsup' && voteType !== 'thumbsdown') return;
+
+        // Consume the email link before dispatching: refreshes and effect
+        // replays must not submit it again. Keep campaign params and Timber's
+        // history state, and leave a shareable anchor to the feedback widget.
+        url.searchParams.delete('vote');
+        url.hash = 'feedback';
+        window.history.replaceState(window.history.state, '', url);
+        linkedVote.current = true;
+        widgetRef.current?.scrollIntoView();
+
+        const data = new FormData();
+        data.set('articleUrl', articleUrl);
+        data.set('voteType', voteType);
+        startTransition(() => voteAction(data));
+    }, [articleUrl, voteAction]);
+
+    useEffect(() => {
+        if (linkedVote.current && voted?.voteId) {
+            widgetRef.current?.scrollIntoView();
+            whyRef.current?.focus({ preventScroll: true });
+        }
+    }, [voted?.voteId]);
+
     if (feedbackDone) {
         return (
-            <aside className="sparkjoy" aria-label="Article feedback">
+            <aside id="feedback" ref={widgetRef} className="sparkjoy" aria-label="Article feedback">
                 <p className="sparkjoy-thanks">Thanks! You're the best ❤️</p>
             </aside>
         );
@@ -42,7 +73,7 @@ export function SparkJoyWidget({
 
     if (voted?.voteId) {
         return (
-            <aside className="sparkjoy" aria-label="Article feedback">
+            <aside id="feedback" ref={widgetRef} className="sparkjoy" aria-label="Article feedback">
                 <form action={feedbackAction} className="sparkjoy-form">
                     <p className="sparkjoy-prompt">
                         {voted.voteType === 'thumbsup' ? 'Yay, glad you liked it! 🎉' : 'Ouch, sorry to hear that 😞'}{' '}
@@ -52,7 +83,7 @@ export function SparkJoyWidget({
                     <input type="hidden" name="voteType" value={voted.voteType} />
                     <label>
                         Why?
-                        <textarea name="field_1" rows={3} autoComplete="off" />
+                        <textarea ref={whyRef} name="field_1" rows={3} autoComplete="off" />
                     </label>
                     <label>
                         Have a burning question?
@@ -81,7 +112,7 @@ export function SparkJoyWidget({
     }
 
     return (
-        <aside className="sparkjoy" aria-label="Article feedback">
+        <aside id="feedback" ref={widgetRef} className="sparkjoy" aria-label="Article feedback">
             <form action={voteAction} className="sparkjoy-vote">
                 <p className="sparkjoy-prompt">Did you enjoy {title}?</p>
                 <input type="hidden" name="articleUrl" value={articleUrl} />
@@ -119,8 +150,9 @@ export function SparkJoyWidget({
                         )}
                     </button>
                 </div>
+                {votePending && <p role="status">Saving your vote…</p>}
                 {voteErrors.hasErrors && (
-                    <p className="sparkjoy-error">Vote didn't stick — mind trying again?</p>
+                    <p className="sparkjoy-error" role="alert">Vote didn't stick — mind trying again?</p>
                 )}
             </form>
         </aside>

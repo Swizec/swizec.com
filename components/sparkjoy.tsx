@@ -25,6 +25,7 @@ async function VoteCount({ articleUrl, type }: { articleUrl: string; type: VoteT
 export function SparkJoy({ articleUrl, title }: { articleUrl: string; title: string }) {
     return (
         <SparkJoyWidget
+            key={articleUrl}
             articleUrl={articleUrl}
             title={title}
             upCount={

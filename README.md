@@ -21,3 +21,18 @@ pnpm images     # regenerate lib/image-manifest.json after adding/changing image
 - `scripts/` — build steps (asset copying, image manifest) and ops runbooks
 - `bin/` — bun scripts used by `pnpm article`
 - `static/` — legacy assets served at their original URLs (`/wp-content/`, `/pdfs/`)
+
+## Article feedback links
+
+Email buttons can link to an article and submit the reader's vote:
+
+- Thumbs up: `https://swizec.com/blog/<slug>/?vote=thumbsup#feedback`
+- Thumbs down: `https://swizec.com/blog/<slug>/?vote=thumbsdown#feedback`
+- Feedback widget without voting: `https://swizec.com/blog/<slug>/#feedback`
+
+With JavaScript enabled, a vote link submits through the same action as the
+article buttons, scrolls to the widget, and opens and focuses the follow-up form
+when the vote succeeds. The `vote` parameter is removed before submission so
+refreshing the page doesn't repeat it; other query parameters (such as UTM tags)
+are preserved. Invalid vote values are ignored. If saving fails, the reader can
+retry with the usual vote buttons.
