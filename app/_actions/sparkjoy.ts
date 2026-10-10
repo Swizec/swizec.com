@@ -1,10 +1,31 @@
 'use server';
 
-import { createActionClient, ActionError } from '@timber-js/app/server';
+import { createActionClient, ActionError, getHeaders } from '@timber-js/app/server';
 import { z } from 'zod';
 import { recordVote, recordFeedback } from '../../lib/sparkjoy';
 
+import {
+    consumeSparkjoyRateLimit,
+    sparkjoyClientKey,
+    type SparkjoyOperation,
+} from '../../lib/sparkjoy-rate-limit';
+
 const action = createActionClient();
+
+async function enforceRateLimit(operation: SparkjoyOperation) {
+    let result;
+    try {
+        result = await consumeSparkjoyRateLimit(sparkjoyClientKey(getHeaders()), operation);
+    } catch {
+        // Fail closed: database or proxy configuration failures must not
+        // silently enable unlimited writes to the feedback backend.
+        console.error('sparkjoy rate limiter unavailable');
+        throw new ActionError('RATE_LIMIT_UNAVAILABLE');
+    }
+    if (!result.allowed) {
+        throw new ActionError('RATE_LIMITED', { retryAfter: result.retryAfter });
+    }
+}
 
 // Matches the articleUrl the catch-all route builds: /blog/<slug>/
 const articleUrl = z
@@ -19,6 +40,7 @@ export const sparkjoyVote = action
         }),
     )
     .action(async ({ input }) => {
+        await enforceRateLimit('vote');
         try {
             const voteId = await recordVote(input.articleUrl, input.voteType);
             return { voteId, voteType: input.voteType };
@@ -49,6 +71,7 @@ export const sparkjoyFeedback = action
 
         // Nothing filled in — still a valid "skip", don't bother the API
         if (Object.keys(answers).length > 0) {
+            await enforceRateLimit('feedback');
             try {
                 await recordFeedback({
                     voteId: input.voteId,

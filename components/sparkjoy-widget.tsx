@@ -6,6 +6,12 @@ import { sparkjoyVote, sparkjoyFeedback } from '../app/_actions/sparkjoy';
 
 type VoteType = 'thumbsup' | 'thumbsdown';
 
+function saveError(code: string | undefined, fallback: string): string {
+    if (code === 'RATE_LIMITED') return 'Too many attempts. Please wait a few minutes and try again.';
+    if (code === 'RATE_LIMIT_UNAVAILABLE') return 'Feedback is temporarily unavailable. Please try again shortly.';
+    return fallback;
+}
+
 // The three-stage flow, all in place: vote buttons → followup questions →
 // thanks. Count slots stream in from the server as RSC fragments.
 export function SparkJoyWidget({
@@ -74,7 +80,11 @@ export function SparkJoyWidget({
     if (voted?.voteId) {
         return (
             <aside id="feedback" ref={widgetRef} className="sparkjoy" aria-label="Article feedback">
-                <form action={feedbackAction} className="sparkjoy-form">
+                <form
+                    action={feedbackAction}
+                    className="sparkjoy-form"
+                    onReset={(event) => event.preventDefault()}
+                >
                     <p className="sparkjoy-prompt">
                         {voted.voteType === 'thumbsup' ? 'Yay, glad you liked it! 🎉' : 'Ouch, sorry to hear that 😞'}{' '}
                         Got a minute for 3 quick questions? All optional.
@@ -101,7 +111,9 @@ export function SparkJoyWidget({
                         </div>
                     </fieldset>
                     {feedbackErrors.hasErrors && (
-                        <p className="sparkjoy-error">That didn't save — mind trying again?</p>
+                        <p className="sparkjoy-error" role="alert">
+                            {saveError(feedbackErrors.serverError?.code, "That didn't save — mind trying again?")}
+                        </p>
                     )}
                     <button type="submit" disabled={feedbackPending}>
                         {feedbackPending ? 'Sending…' : 'Send feedback'}
@@ -152,7 +164,9 @@ export function SparkJoyWidget({
                 </div>
                 {votePending && <p role="status">Saving your vote…</p>}
                 {voteErrors.hasErrors && (
-                    <p className="sparkjoy-error" role="alert">Vote didn't stick — mind trying again?</p>
+                    <p className="sparkjoy-error" role="alert">
+                        {saveError(voteErrors.serverError?.code, "Vote didn't stick — mind trying again?")}
+                    </p>
                 )}
             </form>
         </aside>
