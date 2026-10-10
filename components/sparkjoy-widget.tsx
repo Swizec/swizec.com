@@ -1,10 +1,16 @@
 'use client';
 
 import { useActionState } from '@timber-js/app/client';
-import { useState, type ReactNode } from 'react';
+import { startTransition, useEffect, useRef, useState, type ReactNode } from 'react';
 import { sparkjoyVote, sparkjoyFeedback } from '../app/_actions/sparkjoy';
 
 type VoteType = 'thumbsup' | 'thumbsdown';
+
+function saveError(code: string | undefined, fallback: string): string {
+    if (code === 'RATE_LIMITED') return 'Too many attempts. Please wait a few minutes and try again.';
+    if (code === 'RATE_LIMIT_UNAVAILABLE') return 'Feedback is temporarily unavailable. Please try again shortly.';
+    return fallback;
+}
 
 // The three-stage flow, all in place: vote buttons → followup questions →
 // thanks. Count slots stream in from the server as RSC fragments.
@@ -28,13 +34,53 @@ export function SparkJoyWidget({
     // delight shouldn't wait on DynamoDB. Key restarts the CSS animation.
     const [burst, setBurst] = useState<{ type: VoteType; key: number } | null>(null);
 
+    const widgetRef = useRef<HTMLElement>(null);
+    const whyRef = useRef<HTMLTextAreaElement>(null);
+    const linkedVote = useRef(false);
+    const [voterEmail, setVoterEmail] = useState('');
+
     // Successful action results nest under .data ({ data } | { serverError } | …)
     const voted = vote && 'data' in vote ? vote.data : null;
     const feedbackDone = feedback && 'data' in feedback ? (feedback.data?.done ?? false) : false;
 
+    useEffect(() => {
+        const url = new URL(window.location.href);
+        const voteType = url.searchParams.get('vote');
+        if (voteType !== 'thumbsup' && voteType !== 'thumbsdown') return;
+
+        // Existing email templates use `voter`. Keep it in state for retries
+        // after removing the address from the URL.
+        const email = (url.searchParams.get('email') ?? url.searchParams.get('voter') ?? '').trim();
+        setVoterEmail(email);
+        url.searchParams.delete('email');
+        url.searchParams.delete('voter');
+
+        // Consume the email link before dispatching: refreshes and effect
+        // replays must not submit it again. Keep campaign params and Timber's
+        // history state, and leave a shareable anchor to the feedback widget.
+        url.searchParams.delete('vote');
+        url.hash = 'feedback';
+        window.history.replaceState(window.history.state, '', url);
+        linkedVote.current = true;
+        widgetRef.current?.scrollIntoView();
+
+        const data = new FormData();
+        data.set('articleUrl', articleUrl);
+        data.set('voteType', voteType);
+        if (email) data.set('email', email);
+        startTransition(() => voteAction(data));
+    }, [articleUrl, voteAction]);
+
+    useEffect(() => {
+        if (linkedVote.current && voted?.voteId) {
+            widgetRef.current?.scrollIntoView();
+            whyRef.current?.focus({ preventScroll: true });
+        }
+    }, [voted?.voteId]);
+
     if (feedbackDone) {
         return (
-            <aside className="sparkjoy" aria-label="Article feedback">
+            <aside id="feedback" ref={widgetRef} className="sparkjoy" aria-label="Article feedback">
                 <p className="sparkjoy-thanks">Thanks! You're the best ❤️</p>
             </aside>
         );
@@ -42,8 +88,12 @@ export function SparkJoyWidget({
 
     if (voted?.voteId) {
         return (
-            <aside className="sparkjoy" aria-label="Article feedback">
-                <form action={feedbackAction} className="sparkjoy-form">
+            <aside id="feedback" ref={widgetRef} className="sparkjoy" aria-label="Article feedback">
+                <form
+                    action={feedbackAction}
+                    className="sparkjoy-form"
+                    onReset={(event) => event.preventDefault()}
+                >
                     <p className="sparkjoy-prompt">
                         {voted.voteType === 'thumbsup' ? 'Yay, glad you liked it! 🎉' : 'Ouch, sorry to hear that 😞'}{' '}
                         Got a minute for 3 quick questions? All optional.
@@ -52,7 +102,7 @@ export function SparkJoyWidget({
                     <input type="hidden" name="voteType" value={voted.voteType} />
                     <label>
                         Why?
-                        <textarea name="field_1" rows={3} autoComplete="off" />
+                        <textarea ref={whyRef} name="field_1" rows={3} autoComplete="off" />
                     </label>
                     <label>
                         Have a burning question?
@@ -70,7 +120,9 @@ export function SparkJoyWidget({
                         </div>
                     </fieldset>
                     {feedbackErrors.hasErrors && (
-                        <p className="sparkjoy-error">That didn't save — mind trying again?</p>
+                        <p className="sparkjoy-error" role="alert">
+                            {saveError(feedbackErrors.serverError?.code, "That didn't save — mind trying again?")}
+                        </p>
                     )}
                     <button type="submit" disabled={feedbackPending}>
                         {feedbackPending ? 'Sending…' : 'Send feedback'}
@@ -81,10 +133,11 @@ export function SparkJoyWidget({
     }
 
     return (
-        <aside className="sparkjoy" aria-label="Article feedback">
+        <aside id="feedback" ref={widgetRef} className="sparkjoy" aria-label="Article feedback">
             <form action={voteAction} className="sparkjoy-vote">
                 <p className="sparkjoy-prompt">Did you enjoy {title}?</p>
                 <input type="hidden" name="articleUrl" value={articleUrl} />
+                {voterEmail && <input type="hidden" name="email" value={voterEmail} />}
                 <div className="sparkjoy-buttons">
                     <button
                         type="submit"
@@ -119,8 +172,11 @@ export function SparkJoyWidget({
                         )}
                     </button>
                 </div>
+                {votePending && <p role="status">Saving your vote…</p>}
                 {voteErrors.hasErrors && (
-                    <p className="sparkjoy-error">Vote didn't stick — mind trying again?</p>
+                    <p className="sparkjoy-error" role="alert">
+                        {saveError(voteErrors.serverError?.code, "Vote didn't stick — mind trying again?")}
+                    </p>
                 )}
             </form>
         </aside>

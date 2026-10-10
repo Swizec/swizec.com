@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "images": "node scripts/build-image-manifest.mjs",
     "article": "node scripts/new-article.mjs",
-    "backfill-sparkjoy": "node scripts/backfill-sparkjoy-counts.mjs"
+    "backfill-sparkjoy": "node scripts/backfill-sparkjoy-counts.mjs",
+    "test:sparkjoy": "node --experimental-strip-types --test tests/sparkjoy-rate-limit.test.mjs"
   },
   "dependencies": {
     "@astryxdesign/core": "^0.6.3",

@@ -46,6 +46,7 @@ const voteMutation = `
         $thumbsup: Boolean
         $thumbsdown: Boolean
         $instanceOfJoy: String
+        $voter: String
     ) {
         widgetVote(
             userId: $userId
@@ -53,6 +54,7 @@ const voteMutation = `
             thumbsup: $thumbsup
             thumbsdown: $thumbsdown
             instanceOfJoy: $instanceOfJoy
+            voter: $voter
         ) {
             voteId
         }
@@ -124,7 +126,11 @@ async function bumpArticleCounter(articleUrl: string, voteType: VoteType): Promi
 // Records the vote and returns the voteId that followup answers attach to.
 // The counter bump is best-effort — counts are decoration, the Slack-visible
 // vote must not fail because of them.
-export async function recordVote(articleUrl: string, voteType: VoteType): Promise<string> {
+export async function recordVote(
+    articleUrl: string,
+    voteType: VoteType,
+    email?: string,
+): Promise<string> {
     const [data] = await Promise.all([
         graphql<{ widgetVote: { voteId: string } }>(voteMutation, {
             userId: USER_ID,
@@ -132,6 +138,9 @@ export async function recordVote(articleUrl: string, voteType: VoteType): Promis
             thumbsup: voteType === 'thumbsup',
             thumbsdown: voteType === 'thumbsdown',
             instanceOfJoy: articleUrl,
+            // The saved vote retains this when follow-up answers are attached.
+            // Counter-only writes do not need a reader identity.
+            voter: email,
         }),
         bumpArticleCounter(articleUrl, voteType).catch((error) => {
             console.error('sparkjoy counter bump failed', error);
