@@ -36,13 +36,15 @@ export const sparkjoyVote = action
     .schema(
         z.object({
             articleUrl,
+            // Optional attribution: malformed metadata must not prevent a vote.
+            email: z.string().trim().max(254).email().optional().catch(undefined),
             voteType: z.enum(['thumbsup', 'thumbsdown']),
         }),
     )
     .action(async ({ input }) => {
         await enforceRateLimit('vote');
         try {
-            const voteId = await recordVote(input.articleUrl, input.voteType);
+            const voteId = await recordVote(input.articleUrl, input.voteType, input.email);
             return { voteId, voteType: input.voteType };
         } catch (error) {
             console.error('sparkjoy vote failed', error);

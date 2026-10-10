@@ -37,6 +37,7 @@ export function SparkJoyWidget({
     const widgetRef = useRef<HTMLElement>(null);
     const whyRef = useRef<HTMLTextAreaElement>(null);
     const linkedVote = useRef(false);
+    const [voterEmail, setVoterEmail] = useState('');
 
     // Successful action results nest under .data ({ data } | { serverError } | …)
     const voted = vote && 'data' in vote ? vote.data : null;
@@ -46,6 +47,13 @@ export function SparkJoyWidget({
         const url = new URL(window.location.href);
         const voteType = url.searchParams.get('vote');
         if (voteType !== 'thumbsup' && voteType !== 'thumbsdown') return;
+
+        // Existing email templates use `voter`. Keep it in state for retries
+        // after removing the address from the URL.
+        const email = (url.searchParams.get('email') ?? url.searchParams.get('voter') ?? '').trim();
+        setVoterEmail(email);
+        url.searchParams.delete('email');
+        url.searchParams.delete('voter');
 
         // Consume the email link before dispatching: refreshes and effect
         // replays must not submit it again. Keep campaign params and Timber's
@@ -59,6 +67,7 @@ export function SparkJoyWidget({
         const data = new FormData();
         data.set('articleUrl', articleUrl);
         data.set('voteType', voteType);
+        if (email) data.set('email', email);
         startTransition(() => voteAction(data));
     }, [articleUrl, voteAction]);
 
@@ -128,6 +137,7 @@ export function SparkJoyWidget({
             <form action={voteAction} className="sparkjoy-vote">
                 <p className="sparkjoy-prompt">Did you enjoy {title}?</p>
                 <input type="hidden" name="articleUrl" value={articleUrl} />
+                {voterEmail && <input type="hidden" name="email" value={voterEmail} />}
                 <div className="sparkjoy-buttons">
                     <button
                         type="submit"
