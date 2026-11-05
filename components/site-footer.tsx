@@ -44,6 +44,7 @@ export function SiteFooter() {
                         <h2>About</h2>
                         <nav aria-label="Meta">
                             <SmartLink href="/about">About Swizec</SmartLink>
+                            <SmartLink href="/press">Press & media</SmartLink>
                             <SmartLink href="/testimonials">Testimonials</SmartLink>
                             <SmartLink href="/letters">Newsletter</SmartLink>
                             <SmartLink href="https://twitter.com/swizec">Twitter</SmartLink>
