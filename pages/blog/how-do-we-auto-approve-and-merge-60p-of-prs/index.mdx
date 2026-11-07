@@ -1,12 +1,10 @@
 ---
-title: "We now auto-approve and merge 15% of PRs"
+title: "We now auto-approve and merge 15% of PRs?"
 description: "I'm still drowning in code review. Getting to ~16% auto-approved and merged PRs helped but it's not enough. How can we do 60%?"
 published: 2026-11-07
 content_upgrade: ScalingFast
 categories: "Software Engineering, Teamwork, AI"
 ---
-
-# How do we auto-approve and merge 60% of PRs
 
 I'm still drowning in code review. Getting to [~16% auto-approved and merged PRs](https://swizec.com/blog/we-now-auto-approve-and-merge-15p-of-prs) helped but it's not enough. How can we do 60%? 🤔
 
@@ -78,7 +76,15 @@ A rough roadmap, I'm thinking out loud:
 
 https://x.com/Swizec/status/2118427011463233629
 
-There's more to think through on the multi-phase testing approach. We don't need every change to be perfect and pass all tests if we can followup quickly with a fix 🤔
+## You get a 3 stage review process
+
+You end up with a 3 stage review process:
+
+1. **Before implementation** Engineers + Stakeholders review architecture, constraints, and product direction
+2. **During implementation** Agents + automated checks review correctness, contracts, conventions, and safety
+3. **After implementation** Engineers + users review actual behavior, UX, and usefulness
+
+And there's an opportunity here to leave non-critical checks for later (swarm of testing agents maybe?) with a multi-phase testing approach. You don't need every change to be perfect and pass all tests if you can followup quickly with a fix 🤔
 
 Thanks for listening, I'll report back when we try these things. Are you on this path? Hit reply
 
