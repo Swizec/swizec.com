@@ -1,0 +1,86 @@
+---
+title: "We now auto-approve and merge 15% of PRs"
+description: "I'm still drowning in code review. Getting to ~16% auto-approved and merged PRs helped but it's not enough. How can we do 60%?"
+published: 2026-11-07
+content_upgrade: ScalingFast
+categories: "Software Engineering, Teamwork, AI"
+---
+
+# How do we auto-approve and merge 60% of PRs
+
+I'm still drowning in code review. Getting to [~16% auto-approved and merged PRs](https://swizec.com/blog/we-now-auto-approve-and-merge-15p-of-prs) helped but it's not enough. How can we do 60%? 🤔
+
+I don't think 100% is feasible.
+
+Some things are high risk, need coordinated deploys, or just more feedback before they're ready. And you wouldn't want to miss the mentoring opportunity with more junior team members.
+
+But a lot of code is ... just not that important.
+
+## Not everything needs review
+
+Small UI changes don't need review. Trust your engineers to have taste, ship fast, and the UI will stabilize soon. Think evolution instead of careful upfront design. Nothing beats **using your software and talking to users** for the final 10% polish.
+
+The caveat is you have to give people the ownership and space to keep iterating on that final 10% of polish. When they say _"This sucks I wanna fix it"_, say yes.
+
+Big bets on self-contained features also don't need code review. You don't even know if this is a good feature yet! Why spend hours reviewing code you might delete tomorrow?
+
+Create a working prototype, **see how it feels to use**, then decide from there. Nobody wants to read the 2000 lines of slop it takes to build the first experimental prototype.
+
+The caveat is that you have to give people the ownership and space to go back and fix the slop as features prove themselves. Don't refactor code for the lulz but do spend time making it better as you work.
+
+Ideally you can [watch people work](https://swizec.com/blog/watch-people-work) and have **quick followup with tight feedback loops**. Ship the feature, see what people think, make it better.
+
+## These days I care about code last
+
+The main feedback you want is **feature review** from your users. It doesn't matter if Ms Grumpy Principal Engineer likes your module structure. You can fix the code later iff the feature works for your users.
+
+I regularly find myself prompting agents (and humans) to build a feature, then we test and verify the outcome – yes manual testing – **and look at the code when everything works right**. Not worth looking at code until you like the outcome.
+
+Then I look at the code, fix anything that needs fixing, and add reviewers. By now code review is often a rubber stamp. If you review your agents' code, understand what it's doing, and prove the feature works as intended, what value does bothering a person provide? 🤔
+
+## Hoist review up a level
+
+On my team, I'm trying to hoist review up a level. How do we rubber stamp more PRs then automate the process?
+
+Here's what I care about:
+
+- the bones of your **architecture**, we should [talk about your solution before writing code](https://swizec.com/blog/coordinating-at-the-end-is-too-late) and roughly agree on the approach
+- how your feature **fits the product vision**, which we should discuss ahead of time with stakeholders in the room
+- how the **outcome feels to use**, which can be hard to keep track of across individual PRs so we've started doing _UX roasting sessions_ where we look at demos and give each other feedback this has been a huge success
+- that **you tested** and can stand behind your work. If something goes wrong I know where to find you 😈
+
+You can't infer any of this from reading the code. You have to hold working software in your hands and talk to users and each other.
+
+Code review then mostly becomes about [finding desire paths in our architecture](https://swizec.com/blog/architecture-is-like-a-path-in-the-woods) so we can build tools for common problems and looking for common mistakes so we can [build custom linters and automate review](https://swizec.com/blog/stop-burning-tokens-on-code-review). I like linters because they're fast and because **agents run linters while working and never commit the bad code**. It's great.
+
+## So what would it take to auto-approve almost everything
+
+When humans review the input (design docs, architecture, definition of done) and output (how it feels to use), agents are now pretty reliable at writing the code. When I have a bad time it's usually because I'm asking for something based on faulty assumptions and the clanker tries to bend over backwards to accommodate instead of pushing back.
+
+For example, I find that asking for code improvements or simple fixes _after_ I've tested a feature no longer requires re-testing. I can trust that behavior stayed the same.
+
+This is huge.
+
+Right now our [auto-approve + merge bot](https://swizec.com/blog/we-now-auto-approve-and-merge-15p-of-prs) is conservative. It won't merge anything that touches migrations, public interfaces, or finance. And it avoids merging mid and high risk changes (as tagged by bugbot or a human).
+
+After human approval it merges mid-risk changes unless there are comments. This has worked well but we need to shift left and make more PRs feel low risk.
+
+A rough roadmap, I'm thinking out loud:
+
+- **need to classify risk better**, tweaking a UI is not the same as changing the core business logic of a module. We block auto-approve on all finance code and it's been endlessly annoying, it won't even auto-merge a copy change
+- ⁣**risky** means that you're updating core business logic, destructively changing a database structure, or changing an API contract that spans repositories
+- if all our APIs had **declared contracts**, we could detect when those change and merge otherwise. Could even auto-generate clients so everything stays in sync
+- an LLM should be able to classify database migrations as destructive or not. Adding new columns and indexes doesn't matter. Renaming and deleting columns does
+- we roughly follow [hexagonal architecture principles](https://swizec.com/blog/smart-core-thin-interfaces/), but not every change in a core service means you're updating important business logic. Maybe we can teach a Jev classifier with a good rubric?
+- **⁣auto-fix simple changes** then merge when checks pass. We shouldn't need humans just to fix linters and merge conflicts. I've been meat proxying these for weeks (literally giving Claude a PR link and saying "fixt his"). This week I fixed a bad import on 43 PRs with one prompt and it was fine
+- ⁣**end-to-end testing** for critical flows. Ideally an [agent testing approach](https://swizec.com/blog/a-better-way-to-end-to-end-test-your-webapp) that uses the browser like a user and doesn't trip on small copy changes
+- ⁣**quick CI for blockers** followed by **testing swarm for fix-later** issues. We're getting to a point where we need a merge queue to coordinate PRs and be able to deploy. But then it's going to take 30min for your changes to get in. I think many of our tests and checks aren't critical but we should fix soon if they break.
+
+https://x.com/Swizec/status/2118427011463233629
+
+There's more to think through on the multi-phase testing approach. We don't need every change to be perfect and pass all tests if we can followup quickly with a fix 🤔
+
+Thanks for listening, I'll report back when we try these things. Are you on this path? Hit reply
+
+Cheers,<br/>
+~Swizec
