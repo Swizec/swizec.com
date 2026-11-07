@@ -42,8 +42,13 @@ export default async function proxy(req: Request, next: () => Promise<Response>)
 
     const target = redirectMap.get(normalize(path));
     if (target) {
-        const dest = target.startsWith('http') ? target : new URL(target, url.origin).href;
-        return Response.redirect(dest, 301);
+        const dest = new URL(target, url.origin);
+        // Preserve incoming tracking parameters; explicit destination values win.
+        const targetKeys = new Set(dest.searchParams.keys());
+        for (const [key, value] of url.searchParams) {
+            if (!targetKeys.has(key)) dest.searchParams.append(key, value);
+        }
+        return Response.redirect(dest.href, 301);
     }
 
     // Legacy category URLs used the lowercased name with literal spaces
