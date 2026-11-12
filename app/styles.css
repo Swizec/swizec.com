@@ -321,6 +321,34 @@ main a:has(> img) {
   text-decoration: none;
 }
 
+/* Press kit: compact original-photo downloads, stacked on narrow screens. */
+.press-photos {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+}
+
+.press-photos figure {
+  margin: 0;
+  min-width: 0;
+}
+
+.press-photos img {
+  --content-image-max-height: 260px;
+}
+
+.press-photos figcaption {
+  display: grid;
+  font-size: var(--font-size-sm);
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+}
+
+.press-photos figcaption a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* Iframes (podcast players, sandboxes) */
 article > iframe,
 main > iframe {
