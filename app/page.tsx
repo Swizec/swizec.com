@@ -9,12 +9,12 @@ import bylinePhoto from './assets/swizec-byline.jpg';
 export async function metadata(): Promise<Metadata> {
     const ogImage = `${requestOrigin()}/opengraph-image.png`;
     return {
-        title: 'Swizec Teller - a geek with a hat',
+        title: 'Software engineering lessons from production',
         description:
-            'I write emails with real insight into the career and skills of a modern software engineer. Raw and honest from the heart, fueled by lessons learned over 20 years of building production code.',
+            'Practical lessons on shipping software, leading teams, and using AI in production, from Swizec Teller, author of Scaling Fast and Senior Engineer Mindset.',
         openGraph: {
-            title: 'Swizec Teller - a geek with a hat',
-            description: 'Software engineering lessons from production',
+            title: 'Software engineering lessons from production',
+            description: 'Practical lessons on shipping software, leading teams, and using AI in production, from Swizec Teller, author of Scaling Fast and Senior Engineer Mindset.',
             images: { url: ogImage, alt: 'swizec.com' },
         },
         twitter: {

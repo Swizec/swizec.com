@@ -1,48 +1,45 @@
 ---
-title: "Swizec Teller - a geek with a hat"
-description: "I write emails with real insight into the career and skills of a modern software engineer. Raw and honest from the heart, fueled by lessons learned over 20 years of building production code."
+title: "Software engineering lessons from production"
+description: "Practical lessons on shipping software, leading teams, and using AI in production, from Swizec Teller, author of Scaling Fast and Senior Engineer Mindset."
 ---
 
 import { NewsletterSignup } from "@/components/newsletter-signup"
 import { LatestArticles } from "@/components/article-listing"
-import Workshops from "./workshops.mdx"
-import Courses from "./courses.mdx"
-import Talks from "./talks.mdx"
-import Books from "./books.mdx"
-import About from "./about.mdx"
 import { SmartLink } from "@/components/link"
 
-# Read Software Engineering Lessons from Production
+# Software engineering lessons from production
 
-Hi I'm Swizec 👋
+Hi, I'm Swizec 👋 I build software at Plasmidsaurus and write about shipping in hypergrowth startups: technical leadership, growing teams, and making systems useful.
+
+I'm the author of [Scaling Fast](https://scalingfastbook.com), [Senior Engineer Mindset](/senior-mindset), and [Serverless Handbook](https://serverlesshandbook.dev). Here I share what I'm learning from the work, after two decades of building for the web. Without the fluff.
 
 ![Swizec speaking at React Summit in Amsterdam](./img/react-summit-close-2.jpeg)
 
-I write emails with real insight into the career and skills of a modern software engineer. **_"Raw and honest from the heart!"_** as one reader described them. Fueled by **lessons learned over 20 years** of building **production code** for side-projects, small businesses, and hyper growth startups. Both successful and not.
+Want to ship better software, take on bigger problems, and lead a team through the messy parts? That's what I write about. The code, the tradeoffs, and the times I got it wrong.
 
-> your emails are one of the few resources I've found that go much farther than, like, all the resources I'm accessing on a regular basis. I find the emails help guide my self-teaching approach to make choices that produce meaningful engagement
->
-> ~ A Reader
-
-Subscribe below 👇
-
-<NewsletterSignup />
+<NewsletterSignup headline="Get the next lesson in your inbox" description="Practical lessons on engineering, leadership, and AI from someone doing the work. Written by me, when I have something useful to share." />
 
 ## Latest articles
 
 <LatestArticles limit={5} />
 
-<SmartLink className="button" href="/blog/">Read more latest articles 👉 /blog</SmartLink>
+<SmartLink className="button" href="/blog/">Read all articles 👉</SmartLink>
 
-## Or explore by category
+## Go deeper with a book
 
-Learning from tutorials is great! You follow some steps, learn a smol lesson, and feel like you got this. Then you go into an interview, get a question from the boss, or encounter a new situation and o-oh.
+- **[Scaling Fast: Software Engineering Through the Hockeystick](https://scalingfastbook.com)** — lessons on growing the business, the team, and the technology while customers keep showing up.
+- **[Senior Engineer Mindset](/senior-mindset)** — ownership, judgment, and the trust that lets you take on bigger responsibilities.
+- **[Serverless Handbook](https://serverlesshandbook.dev)** — backend development for frontend engineers using JavaScript, TypeScript, and serverless systems.
 
-I aim to bring you the good stuff you only learn by doing. To expose the seedy underbelly of production code. The good bits that take months and years to find.
+[Explore all books](/books) · [Browse courses](/courses)
 
-### Learn the mindset of a true senior engineer
+## Explore by topic
 
-Getting that senior title is easy. Just stick around. Being a true senior takes a new way of thinking. Do you know it?
+Pick the problem you're working on. These collections bring together lessons from systems I've built, teams I've worked with, and ideas I've tried in production.
+
+### Grow into the senior engineer mindset
+
+Earning trust, taking ownership, and helping the people around you get better. These essays explore the judgment that makes others comfortable handing you the hard stuff.
 
 <LatestArticles pattern="Senior Mindset" limit={3} />
 
@@ -50,7 +47,7 @@ Getting that senior title is easy. Just stick around. Being a true senior takes 
 
 ### Ship fast without breaking things
 
-Every team slows down as it grows. More people, more code, more meetings, less shipping. But you don’t have to slow down. These essays are the thinking behind my book [Scaling Fast: Software Engineering Through the Hockeystick](https://scalingfastbook.com).
+More people, more code, more coordination. How do you keep shipping as the business grows? These essays explore technical debt, team structure, and the tradeoffs behind [Scaling Fast](https://scalingfastbook.com).
 
 <LatestArticles pattern="Scaling Fast Book|Velocity|Teamwork|Complexity" limit={3} />
 
@@ -58,7 +55,7 @@ Every team slows down as it grows. More people, more code, more meetings, less s
 
 ### Use AI without losing the plot
 
-Coding got easy with AI but the engineering remains. You have to know what to build, recognize when the machine is wrong, and design systems that work at scale. Here I share lessons from using AI in production.
+AI changed how we write code. Deciding what to build, reviewing what ships, and owning the result matter more than ever. Here I share what we're learning with coding agents in production.
 
 <LatestArticles pattern="\bAI\b" limit={3} />
 
@@ -66,7 +63,7 @@ Coding got easy with AI but the engineering remains. You have to know what to bu
 
 ### Read JavaScript and TypeScript lessons from production
 
-JavaScript has been my programming language of choice since 2005 when it was called DHTML. Since 2019, I'm full into TypeScript — the perfect balance between flexibility and correctness.
+I've been building with JavaScript since the DHTML days and using TypeScript since 2019. These are the patterns, debugging tricks, and sharp edges I've found along the way.
 
 <LatestArticles pattern="JavaScript|TypeScript" limit={3} />
 
@@ -74,23 +71,23 @@ JavaScript has been my programming language of choice since 2005 when it was cal
 
 ### Take your React beyond the tutorial
 
-React is here to stay. It solves problems you may not even know existed. These essays are the good stuff I learned over the years.
+Components, state, performance, and rewrites of apps people already use. Lessons from keeping React systems useful as the product grows.
 
 <LatestArticles pattern="React|Frontend" limit={3} />
 
 <SmartLink className="button" href="/categories/react/">Read more React lessons from production 👉</SmartLink>
 
-### Find insights into Serverless and modern backends
+### Build backends you can rely on
 
-I've been building web backends since ~2004 when they were just called websites. With these essays I want to share the hard lessons learned about serverless, databases, APIs, and the ops that keep them alive.
+I've been building web backends since around 2004, when we just called them websites. These essays cover serverless, databases, APIs, and the work of keeping them running.
 
 <LatestArticles pattern="Serverless|Backend" limit={3} />
 
 <SmartLink className="button" href="/categories/backend/">Read more serverless and backend articles 👉</SmartLink>
 
-### Lead without becoming a manager
+### Lead a growing team
 
-Teams, mentoring, feedback, hiring — the people skills that turn a strong engineer into a force multiplier. No MBA required.
+Mentoring, feedback, hiring, and making decisions together. Lessons from technical leadership and management, including how to help a team succeed when you can't do everything yourself.
 
 <LatestArticles pattern="Leadership" limit={3} />
 
@@ -98,7 +95,7 @@ Teams, mentoring, feedback, hiring — the people skills that turn a strong engi
 
 ### Grow your engineering career
 
-Your code gets you to senior. To go further you need more than code — interviews, negotiation, picking the right problems, and knowing what the business actually pays you for. These essays cover the career side of software engineering.
+Interviews, negotiation, choosing your next role, and figuring out which problems are worth your time. These essays explore how to build a career that gives you room to grow.
 
 <LatestArticles pattern="Career|Interviewing|Salary|Compensation|Hiring" limit={3} />
 
@@ -153,26 +150,20 @@ Blogs and hot takes are fun but the good stuff hides in primary sources. I like 
 
 </div>
 
-<NewsletterSignup />
+<NewsletterSignup headline="Get the next lesson in your inbox" description="Practical lessons on engineering, leadership, and AI from someone doing the work. Written by me, when I have something useful to share." />
 
-## About
+## The engineer behind the writing
 
-<About />
+I started out building websites for $7/hour in Slovenia. My work since then has taken me through Silicon Valley startups in education, healthcare, and biotech. Today I build software and help a growing team at Plasmidsaurus.
 
-Here's how I help beyond the newsletter 👇
+The work comes first. I write down what I learn so you can use it in your own work.
 
-## Workshops
+[More about me →](/about)
 
-<Workshops />
+## Talks, workshops, and conversations
 
-## Books
+I speak at conferences, teach workshops, and join podcasts to talk about the practical side of engineering. Bring a question from your team or a problem you've been wrestling with. I like those conversations.
 
-<Books />
+[Watch a talk](/talks) · [Explore workshops](/workshops) · [Listen to an interview](/interviews)
 
-## Courses
-
-<Courses />
-
-## Talks
-
-<Talks />
+For an invitation, email [hi@swizec.com](mailto:hi@swizec.com) with your topic, audience, format, and date. My policy is to say Yes as much as possible. Need a bio or photos? Visit the [press & media page](/press).
