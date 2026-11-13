@@ -11,10 +11,10 @@ export async function metadata(): Promise<Metadata> {
     return {
         title: 'Software engineering lessons from production',
         description:
-            'Practical lessons on shipping software, leading teams, and using AI in production, from Swizec Teller, author of Scaling Fast and Senior Engineer Mindset.',
+            'Build the judgment to ship software, lead teams, and take on bigger problems. Lessons from two decades of building, rewriting, and teaching software.',
         openGraph: {
             title: 'Software engineering lessons from production',
-            description: 'Practical lessons on shipping software, leading teams, and using AI in production, from Swizec Teller, author of Scaling Fast and Senior Engineer Mindset.',
+            description: 'Build the judgment to ship software, lead teams, and take on bigger problems. Lessons from two decades of building, rewriting, and teaching software.',
             images: { url: ogImage, alt: 'swizec.com' },
         },
         twitter: {

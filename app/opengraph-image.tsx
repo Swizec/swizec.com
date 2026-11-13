@@ -6,7 +6,7 @@ export default async function OGImage() {
     return new ImageResponse(
         <OgCard
             title="Software engineering lessons from production"
-            description="Shipping software, leading teams, and using AI in production. Lessons from two decades of doing the work, without the fluff."
+            description="Make better engineering decisions when the code, team, and business get messy."
             seed="home"
         />,
         ogImageOptions
