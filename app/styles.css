@@ -321,6 +321,16 @@ main a:has(> img) {
   text-decoration: none;
 }
 
+.home-intro {
+  display: flow-root;
+}
+
+.home-intro-portrait {
+  float: right;
+  width: clamp(6rem, 24vw, 12rem);
+  margin: 1.1rem 0 0.5rem 1rem;
+}
+
 /* Press kit: compact original-photo downloads, stacked on narrow screens. */
 .press-photos {
   display: grid;
