@@ -5,8 +5,8 @@ import { ogImageOptions } from '../components/og-image';
 export default async function OGImage() {
     return new ImageResponse(
         <OgCard
-            title="Swizec Teller - a geek with a hat"
-            description="Software engineering lessons from production. Raw and honest from the heart, fueled by 20+ years of building real code."
+            title="Software Engineering Lessons from Production"
+            description="How do you rewrite an app while people are still using it?"
             seed="home"
         />,
         ogImageOptions

@@ -1,118 +1,109 @@
 ---
-title: "Swizec Teller - a geek with a hat"
-description: "I write emails with real insight into the career and skills of a modern software engineer. Raw and honest from the heart, fueled by lessons learned over 20 years of building production code."
+title: "Software Engineering Lessons from Production"
+description: "How to ship a rewrite, lead a growing team, and build tools people need."
 ---
 
 import { NewsletterSignup } from "@/components/newsletter-signup"
 import { LatestArticles } from "@/components/article-listing"
-import Workshops from "./workshops.mdx"
-import Courses from "./courses.mdx"
-import Talks from "./talks.mdx"
-import Books from "./books.mdx"
-import About from "./about.mdx"
 import { SmartLink } from "@/components/link"
 
-# Read Software Engineering Lessons from Production
+# Software Engineering Lessons from Production
 
-Hi I'm Swizec 👋
+Your team wants to rewrite the app. Your customers want the feature you promised. What do you ship first?
 
-![Swizec speaking at React Summit in Amsterdam](./img/react-summit-close-2.jpeg)
+At Tia, we built new features in React. A patient could follow a link from the old jQuery app to a new screen and stay logged in. That gave us room to teach the team React as we went. [Here's how we rewrote the app a page at a time.](/blog/how-to-rewrite-your-app-while-growing-to-a-dollar100000000-series-b/)
 
-I write emails with real insight into the career and skills of a modern software engineer. **_"Raw and honest from the heart!"_** as one reader described them. Fueled by **lessons learned over 20 years** of building **production code** for side-projects, small businesses, and hyper growth startups. Both successful and not.
+Hi, [I'm Swizec](/about) 👋 I write about shipping in hypergrowth startups: technical leadership, growing teams, and making systems useful.
 
-> your emails are one of the few resources I've found that go much farther than, like, all the resources I'm accessing on a regular basis. I find the emails help guide my self-teaching approach to make choices that produce meaningful engagement
->
-> ~ A Reader
+<NewsletterSignup headline="Get the next story by email" description="I'll send you what we tried and how it turned out. Hit reply and tell me what you would have done." />
 
-Subscribe below 👇
+## What's on your desk?
 
-<NewsletterSignup />
+- **You're leaving the same comment on every pull request.** Here's [how we turned our code review comments into lint rules](/blog/stop-burning-tokens-on-code-review/).
+- **You spent all day helping people and wrote zero lines of code.** A reader asked me [how to shake that guilty feeling as a tech lead](/blog/reader-question-feeling-guilt-as-a-tech-lead/).
+- **You think you know what support needs.** We did too, until they showed us the workaround they'd been doing for months. [Watch people work.](/blog/watch-people-work/)
 
 ## Latest articles
 
 <LatestArticles limit={5} />
 
-<SmartLink className="button" href="/blog/">Read more latest articles 👉 /blog</SmartLink>
+<SmartLink className="button" href="/blog/">Browse all articles →</SmartLink>
 
-## Or explore by category
+## Explore by topic
 
-Learning from tutorials is great! You follow some steps, learn a smol lesson, and feel like you got this. Then you go into an interview, get a question from the boss, or encounter a new situation and o-oh.
+### Grow into a senior engineering role
 
-I aim to bring you the good stuff you only learn by doing. To expose the seedy underbelly of production code. The good bits that take months and years to find.
-
-### Learn the mindset of a true senior engineer
-
-Getting that senior title is easy. Just stick around. Being a true senior takes a new way of thinking. Do you know it?
+What changes when someone hands you a problem and lets you decide what “done” looks like?
 
 <LatestArticles pattern="Senior Mindset" limit={3} />
 
-<SmartLink className="button" href="/categories/senior-mindset/">Read more Senior Mindset essays 👉</SmartLink>
+<SmartLink className="button" href="/categories/senior-mindset/">More senior mindset essays →</SmartLink>
 
 ### Ship fast without breaking things
 
-Every team slows down as it grows. More people, more code, more meetings, less shipping. But you don’t have to slow down. These essays are the thinking behind my book [Scaling Fast: Software Engineering Through the Hockeystick](https://scalingfastbook.com).
+When adding a feature means coordinating three teams, it pays to look at how you split the work. These essays grew into my book [Scaling Fast](https://scalingfastbook.com).
 
 <LatestArticles pattern="Scaling Fast Book|Velocity|Teamwork|Complexity" limit={3} />
 
-<SmartLink className="button" href="/scaling-fast/">Read more essays on shipping fast 👉</SmartLink>
+<SmartLink className="button" href="/scaling-fast/">More on shipping fast →</SmartLink>
 
 ### Use AI without losing the plot
 
-Coding got easy with AI but the engineering remains. You have to know what to build, recognize when the machine is wrong, and design systems that work at scale. Here I share lessons from using AI in production.
+An agent can open pull requests faster than you can read them. Here's how we're figuring out which checks to automate and where you still want a second pair of eyes.
 
 <LatestArticles pattern="\bAI\b" limit={3} />
 
-<SmartLink className="button" href="/categories/ai/">Read more AI essays 👉</SmartLink>
+<SmartLink className="button" href="/categories/ai/">More AI essays →</SmartLink>
 
-### Read JavaScript and TypeScript lessons from production
+### Write JavaScript and TypeScript you can maintain
 
-JavaScript has been my programming language of choice since 2005 when it was called DHTML. Since 2019, I'm full into TypeScript — the perfect balance between flexibility and correctness.
+Small fixes for puzzling types, awkward APIs, and JavaScript that does exactly what you told it to do. Oops.
 
 <LatestArticles pattern="JavaScript|TypeScript" limit={3} />
 
-<SmartLink className="button" href="/categories/javascript/">Read more JavaScript and TypeScript lessons from production 👉</SmartLink>
+<SmartLink className="button" href="/categories/javascript/">More JavaScript and TypeScript essays →</SmartLink>
 
 ### Take your React beyond the tutorial
 
-React is here to stay. It solves problems you may not even know existed. These essays are the good stuff I learned over the years.
+Where should that bit of state live? What happens to rendering when the list goes from ten rows to ten thousand?
 
 <LatestArticles pattern="React|Frontend" limit={3} />
 
-<SmartLink className="button" href="/categories/react/">Read more React lessons from production 👉</SmartLink>
+<SmartLink className="button" href="/categories/react/">More React essays →</SmartLink>
 
-### Find insights into Serverless and modern backends
+### Keep your backend running
 
-I've been building web backends since ~2004 when they were just called websites. With these essays I want to share the hard lessons learned about serverless, databases, APIs, and the ops that keep them alive.
+Follow a request from the browser through an API to the database, including what happens when one of them takes too long.
 
 <LatestArticles pattern="Serverless|Backend" limit={3} />
 
-<SmartLink className="button" href="/categories/backend/">Read more serverless and backend articles 👉</SmartLink>
+<SmartLink className="button" href="/categories/backend/">More backend essays →</SmartLink>
 
 ### Lead without becoming a manager
 
-Teams, mentoring, feedback, hiring — the people skills that turn a strong engineer into a force multiplier. No MBA required.
+Leave feedback someone can act on. Give a teammate enough context to make the next decision while you're at lunch.
 
 <LatestArticles pattern="Leadership" limit={3} />
 
-<SmartLink className="button" href="/categories/leadership/">Read more Leadership essays 👉</SmartLink>
+<SmartLink className="button" href="/categories/leadership/">More leadership essays →</SmartLink>
 
 ### Grow your engineering career
 
-Your code gets you to senior. To go further you need more than code — interviews, negotiation, picking the right problems, and knowing what the business actually pays you for. These essays cover the career side of software engineering.
+Figure out which job gives you room to grow, what to ask in the interview, and how to negotiate the offer.
 
 <LatestArticles pattern="Career|Interviewing|Salary|Compensation|Hiring" limit={3} />
 
-<SmartLink className="button" href="/career-growth/">Read more career essays 👉</SmartLink>
+<SmartLink className="button" href="/career-growth/">More career essays →</SmartLink>
 
 ### Go straight to the source
 
-Blogs and hot takes are fun but the good stuff hides in primary sources. I like to read computer science papers and books cover to cover and write about what holds up in production and what doesn't.
+I read computer science papers and books cover to cover. Here's what I've borrowed from them and where it held up in production.
 
 <LatestArticles pattern="Papers|Books" limit={3} />
 
-<SmartLink className="button" href="/papers-and-books/">Read more papers and books analysis 👉</SmartLink>
+<SmartLink className="button" href="/papers-and-books/">More papers and books →</SmartLink>
 
-## What others are saying
+## What readers say
 
 [Read the full list of testimonials](/testimonials/)
 
@@ -153,26 +144,12 @@ Blogs and hot takes are fun but the good stuff hides in primary sources. I like 
 
 </div>
 
-<NewsletterSignup />
+<NewsletterSignup headline="Read along by email" description="Get new essays in your inbox. If there's a decision your team is stuck on, I'd love to hear about it." />
 
-## About
+## Bring a lesson to your team
 
-<About />
+![Swizec speaking at React Summit in Amsterdam](./img/react-summit-close-2.jpeg)
 
-Here's how I help beyond the newsletter 👇
+I wrote [Senior Engineer Mindset](/senior-mindset) for engineers taking on more responsibility, and [Scaling Fast](https://scalingfastbook.com) for the point where hiring more people starts to slow you down.
 
-## Workshops
-
-<Workshops />
-
-## Books
-
-<Books />
-
-## Courses
-
-<Courses />
-
-## Talks
-
-<Talks />
+If you'd like to work through a problem together, take a look at my [talks](/talks) and [workshops](/workshops). If you prefer to go at your own pace, browse the [books](/books) and [courses](/courses).
