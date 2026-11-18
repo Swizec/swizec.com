@@ -5,15 +5,31 @@ description: "How to ship a rewrite, lead a growing team, and build tools people
 
 import { NewsletterSignup } from "@/components/newsletter-signup"
 import { LatestArticles } from "@/components/article-listing"
+import { ContentImage } from "@/components/content-image"
 import { SmartLink } from "@/components/link"
+import summitPhoto from "./img/react-summit-close-2.jpeg"
 
 # Software Engineering Lessons from Production
+
+<div className="home-intro">
+  <figure className="home-intro-portrait">
+    <ContentImage
+      src={summitPhoto}
+      alt="Swizec Teller speaking at React Summit in Amsterdam"
+      width="2601"
+      height="2608"
+      sizes="clamp(6rem, 24vw, 12rem)"
+      loading="eager"
+    />
+  </figure>
 
 Your team wants to rewrite the app. Your customers want the feature you promised. What do you ship first?
 
 At Tia, we built new features in React. A patient could follow a link from the old jQuery app to a new screen and stay logged in. That gave us room to teach the team React as we went. [Here's how we rewrote the app a page at a time.](/blog/how-to-rewrite-your-app-while-growing-to-a-dollar100000000-series-b/)
 
 Hi, [I'm Swizec](/about) 👋 I write about shipping in hypergrowth startups: technical leadership, growing teams, and making systems useful.
+
+</div>
 
 <NewsletterSignup headline="Get the next story by email" description="I'll send you what we tried and how it turned out. Hit reply and tell me what you would have done." />
 
@@ -147,8 +163,6 @@ I read computer science papers and books cover to cover. Here's what I've borrow
 <NewsletterSignup headline="Read along by email" description="Get new essays in your inbox. If there's a decision your team is stuck on, I'd love to hear about it." />
 
 ## Bring a lesson to your team
-
-![Swizec speaking at React Summit in Amsterdam](./img/react-summit-close-2.jpeg)
 
 I wrote [Senior Engineer Mindset](/senior-mindset) for engineers taking on more responsibility, and [Scaling Fast](https://scalingfastbook.com) for the point where hiring more people starts to slow you down.
 

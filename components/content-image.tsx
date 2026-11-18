@@ -25,6 +25,8 @@ export function ContentImage({
     width,
     height,
     placeholder,
+    sizes = IMAGE_SIZES_ATTR,
+    loading = 'lazy',
 }: {
     src: string;
     alt?: string;
@@ -33,6 +35,8 @@ export function ContentImage({
     width?: string;
     height?: string;
     placeholder?: string;
+    sizes?: string;
+    loading?: 'eager' | 'lazy';
 }) {
     const cleanPath = src.split(/[?#]/)[0];
     const resizable = src.startsWith('/') && RESIZABLE.test(cleanPath);
@@ -56,13 +60,13 @@ export function ContentImage({
         <img
             src={optimizedUrl(src, 960)}
             srcSet={optimizedSrcSet(src, IMAGE_WIDTHS)}
-            sizes={IMAGE_SIZES_ATTR}
+            sizes={sizes}
             alt={alt}
             title={title}
             width={width}
             height={height}
             style={imgStyle}
-            loading="lazy"
+            loading={loading}
             decoding="async"
         />
     ) : (
@@ -73,7 +77,7 @@ export function ContentImage({
             width={width}
             height={height}
             style={imgStyle}
-            loading="lazy"
+            loading={loading}
             decoding="async"
         />
     );
