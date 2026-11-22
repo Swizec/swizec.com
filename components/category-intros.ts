@@ -28,8 +28,11 @@ export const CATEGORY_INTROS: Record<string, CategoryIntro> = {
         blurb: 'React is here to stay. It solves problems you may not even know existed. These essays are the good stuff I learned over the years.',
     },
     leadership: {
-        blurb: 'Teams, mentoring, feedback, hiring — the people skills that turn a strong engineer into a force multiplier. No MBA required.',
+        blurb: "Leading people means setting direction, delegating decisions, and helping others grow. Lessons on guiding and managing engineering teams, whether or not you have a manager title.",
         formKey: 'SeniorMindset',
+    },
+    teamwork: {
+        blurb: 'How engineers work together: sharing context, coordinating work, reviewing code, and solving problems across roles. Lessons on making collaboration work in the day to day.',
     },
     'side-project': {
         blurb: 'Side projects are how I learn and sometimes how I earn. Essays on building on the side — and occasionally getting paid for it.',
