@@ -10,7 +10,8 @@
     "images": "node scripts/build-image-manifest.mjs",
     "article": "node scripts/new-article.mjs",
     "backfill-sparkjoy": "node scripts/backfill-sparkjoy-counts.mjs",
-    "test:sparkjoy": "node --experimental-strip-types --test tests/sparkjoy-rate-limit.test.mjs"
+    "test:sparkjoy": "node --experimental-strip-types --test tests/sparkjoy-rate-limit.test.mjs",
+    "test:markdown": "node --test tests/newsletter-cleanup.test.mjs"
   },
   "dependencies": {
     "@astryxdesign/core": "^0.6.3",

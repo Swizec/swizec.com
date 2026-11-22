@@ -4,16 +4,18 @@ import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
+import { remarkNewsletterCleanup } from '../../mdx-plugins/newsletter-cleanup.mjs';
 
 const SITE_URL = 'https://swizec.com';
 const FEED_TITLE = 'Swizec Teller';
 const FEED_DESCRIPTION = 'A geek with a hat';
 const AUTHOR = { name: 'Swizec Teller', email: 'hi@swizec.com', link: SITE_URL };
 
-// markdown → HTML via the same remark/rehype stack the site uses for MDX.
+// RSS uses remark/rehype, sharing the newsletter cleanup with the MDX pipeline.
 // allowDangerousHtml passes through any raw HTML already in the prose.
 const markdownToHtml = unified()
     .use(remarkParse)
+    .use(remarkNewsletterCleanup)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeStringify, { allowDangerousHtml: true });
 

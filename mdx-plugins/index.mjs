@@ -1,3 +1,4 @@
+export { satteriNewsletterCleanup } from './satteri-newsletter-cleanup.mjs';
 export { satteriEmbeds } from './satteri-embeds.mjs';
 export { satteriStaticFiles } from './satteri-static-files.mjs';
 export { satteriInlineCodeLang } from './satteri-inline-code-lang.mjs';
