@@ -1,5 +1,6 @@
 import { nitro } from '@timber-js/app/adapters/nitro';
 import {
+  satteriNewsletterCleanup,
   satteriEmbeds,
   satteriStaticFiles,
   satteriInlineCodeLang,
@@ -26,7 +27,7 @@ export default {
   // embeds must run before static files so giphy:/youtube image URLs are
   // gone by the time it looks for local files.
   mdx: {
-    mdastPlugins: [satteriEmbeds(), satteriStaticFiles(), satteriInlineCodeLang],
+    mdastPlugins: [satteriNewsletterCleanup, satteriEmbeds(), satteriStaticFiles(), satteriInlineCodeLang],
     hastPlugins: [satteriHeadings(), satteriShiki],
     // The old @mdx-js pipeline had no remark-gfm, and ~700 articles contain
     // GFM-looking syntax (~tildes~, [^footnotes], tables) that renders
