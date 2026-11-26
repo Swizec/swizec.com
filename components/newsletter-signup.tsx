@@ -7,9 +7,11 @@ import { getNewsletterForm } from '../lib/newsletter-forms';
 interface NewsletterSignupProps {
     /** content_upgrade frontmatter value; omit for the default newsletter */
     formKey?: string;
+    headline?: string;
+    description?: string;
 }
 
-export function NewsletterSignup({ formKey }: NewsletterSignupProps) {
+export function NewsletterSignup({ formKey, headline, description }: NewsletterSignupProps) {
     const form = getNewsletterForm(formKey);
     const [state, action, pending, errors] = useActionState(subscribe, null);
 
@@ -35,8 +37,8 @@ export function NewsletterSignup({ formKey }: NewsletterSignupProps) {
 
     return (
         <aside className="newsletter-signup">
-            <h3>{form.headline}</h3>
-            <p>{form.description}</p>
+            <h3>{headline ?? form.headline}</h3>
+            <p>{description ?? form.description}</p>
             <form action={action}>
                 {formKey ? <input type="hidden" name="form_key" value={formKey} /> : null}
 
